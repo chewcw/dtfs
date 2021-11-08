@@ -12,6 +12,8 @@ Plug 'junegunn/fzf.vim'
 Plug 'gelguy/wilder.nvim', {'do': ':UpdateRemotePlugins'}
 Plug 'sindrets/winshift.nvim' 
 Plug 'arcticicestudio/nord-vim'
+Plug 'yamatsum/nvim-cursorline'
+" Omnisharp
 Plug 'OmniSharp/omnisharp-vim'
 Plug 'dense-analysis/ale'
 call plug#end()
@@ -46,6 +48,7 @@ nnoremap <A-]> :vertical resize +5<CR>
 nnoremap <A-[> :vertical resize -5<CR>
 nnoremap <C-\> :vsplit<CR>
 nnoremap <C-_> :split<CR>
+nnoremap <silent> <leader>m :History<CR>
 
 " Conquer of Completion
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
