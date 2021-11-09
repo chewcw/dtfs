@@ -77,6 +77,7 @@ let NERDTreeShowHidden=1
 
 " FZF
 nnoremap <C-p> :FZF
+nnoremap <C-A-p> :GFiles
 
 " highlight color
 " https://vi.stackexchange.com/questions/9249/how-do-i-restore-visual-mode-selection-highlighting
