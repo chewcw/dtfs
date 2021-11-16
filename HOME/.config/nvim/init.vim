@@ -13,6 +13,7 @@ Plug 'gelguy/wilder.nvim', {'do': ':UpdateRemotePlugins'}
 Plug 'sindrets/winshift.nvim' 
 Plug 'arcticicestudio/nord-vim'
 Plug 'yamatsum/nvim-cursorline'
+Plug 'dylanaraps/fff.vim'
 " Omnisharp
 Plug 'OmniSharp/omnisharp-vim'
 Plug 'dense-analysis/ale'
@@ -140,3 +141,6 @@ augroup omnisharp_commands
   autocmd FileType cs nmap <silent> <buffer> <Leader>osst <Plug>(omnisharp_start_server)
   autocmd FileType cs nmap <silent> <buffer> <Leader>ossp <Plug>(omnisharp_stop_server)
 augroup END
+
+" fff.vim
+let g:fff#split = "40new"

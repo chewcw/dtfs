@@ -190,3 +190,6 @@ export TERM=xterm-256color
 
 # watch
 alias watch="watch "
+
+# fff
+alias f="fff"

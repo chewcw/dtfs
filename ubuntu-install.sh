@@ -35,6 +35,10 @@ sudo apt install -y vim-gtk3
 git clone --depth 1 https://github.com/junegunn/fzf.git $HOME/.fzf || true
 $HOME/.fzf/install --no-update-rc --completion --key-bindings
 
+# Install fff
+git clone https://github.com/dylanaraps/fff $HOME/.fff || true
+sudo make -M $HOME/.fff install
+
 # Setup vim
 # Install symlink for .vimrc
 ln -sf $pwd/HOME/.vimrc $HOME/.vimrc
