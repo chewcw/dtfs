@@ -36,6 +36,11 @@ install_dependency() {
 	# Ag
 	apt update
 	apt install -y silversearcher-ag || true
+
+	# Install fff
+	git clone https://github.com/dylanaraps/fff $HOME/.fff || true
+	sudo make -M $HOME/.fff install
+
 }
 
 install_nodejs() {

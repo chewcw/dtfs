@@ -172,8 +172,8 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 # border color
-client.focused #555555 #555555 #ffffff #FF1744 #039BE5
-# client.unfocused #555555 #555555 #ffffff #212121 #212121
+client.focused #ffd700 #2a2a2a #ffffff #8be503 #ffd700
+# client.unfocused #2a2a2a #2a2a2a #ffffff #2a2a2a #2a2a2a
   
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
@@ -182,7 +182,7 @@ bar {
 }
 
 # i3-gap
-for_window [class=".*"] border pixel 6 
+for_window [class=".*"] border pixel 3
 set $mode_gaps Gaps: (o)uter, (i)nner, (h)orizontal, (v)ertical, (t)op, (r)ight, (b)ottom, (l)eft
 set $mode_gaps_outer Outer Gaps: +|-|0 (local), Shift + +|-|0 (global)
 set $mode_gaps_inner Inner Gaps: +|-|0 (local), Shift + +|-|0 (global)

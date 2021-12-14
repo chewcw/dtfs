@@ -113,8 +113,8 @@ source $ZSH/oh-my-zsh.sh
 # export PATH=$HOME/go/bin:$PATH
 # export PATH=$PATH:$HOME/.cargo/bin
 
-export EDITOR=vim
-export VISUAL=vim
+export EDITOR=nvim
+export VISUAL=nvim
 
 alias c="code -r"
 alias dc="docker-compose"
@@ -145,7 +145,7 @@ bindkey -M menuselect 'j' vi-down-line-or-history
 source $DOTFILES/HOME/zsh/plugins/bd.zsh
 
 # keyboard repeat delay
-xset r rate 300 50
+xset r rate 300 70 
 
 # open control panel in i3
 alias gnome-control-center="env XDB_CURRENT_DESKOP=GNOME gnome-control-center"
