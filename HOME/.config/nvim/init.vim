@@ -47,7 +47,7 @@ nnoremap <A-]> :vertical resize +5<CR>
 nnoremap <A-[> :vertical resize -5<CR>
 nnoremap <C-\> :vsplit<CR>
 nnoremap <C-_> :split<CR>
-nnoremap <silent> <leader>m :History<CR>
+nnoremap <silent> <leader>h :History<CR>
 
 " Conquer of Completion
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"

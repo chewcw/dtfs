@@ -192,4 +192,8 @@ export TERM=xterm-256color
 alias watch="watch "
 
 # fff
+export FFF_FAV1=/media/d/ubuntu/
+export FFF_HIDDEN=1
+export FFF_COL2=0
+export FFF_COL5=2
 alias f="fff"
