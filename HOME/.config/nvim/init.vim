@@ -1,7 +1,7 @@
 call plug#begin('~/AppData/Local/nvim/plugged')
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'neoclide/coc.nvim', { 'branch': 'release' }
+" Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 Plug 'sheerun/vim-polyglot'
 Plug 'machakann/vim-sandwich'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
@@ -14,9 +14,11 @@ Plug 'sindrets/winshift.nvim'
 Plug 'joshdick/onedark.vim'
 Plug 'yamatsum/nvim-cursorline'
 Plug 'dylanaraps/fff.vim'
+Plug 'tpope/vim-fugitive'
 " Omnisharp
 Plug 'OmniSharp/omnisharp-vim'
 Plug 'dense-analysis/ale'
+" Omnisharp end
 call plug#end()
 
 " some rules not related to plugins
@@ -47,27 +49,27 @@ nnoremap <A-]> :vertical resize +5<CR>
 nnoremap <A-[> :vertical resize -5<CR>
 nnoremap <C-\> :vsplit<CR>
 nnoremap <C-_> :split<CR>
-nnoremap <silent> <leader>h :History<CR>
+nnoremap <C-f> :Ag<CR>
 
 " Conquer of Completion
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-inoremap <silent><expr> <C-space> coc#refresh()
-nmap <leader>g <C-o>
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gD :call CocAction('jumpDefinition', 'vsplit')<CR>
-nmap <silent> gh <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-nmap <silent> gn <Plug>(coc-rename)
-nnoremap <silent> <space>d :<C-u>CocList diagnostics<cr>
-nnoremap <silent> <space>e :<C-u>CocList extensions<cr>
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
-nmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>a  <Plug>(coc-codeaction-selected)
-nmap <leader>qf  <Plug>(coc-fix-current)
-autocmd CursorHold * silent call CocActionAsync('highlight')
+" inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+" inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+" inoremap <silent><expr> <C-space> coc#refresh()
+" nmap <leader>g <C-o>
+" nmap <silent> gd <Plug>(coc-definition)
+" nmap <silent> gD :call CocAction('jumpDefinition', 'vsplit')<CR>
+" nmap <silent> gh <Plug>(coc-type-definition)
+" nmap <silent> gi <Plug>(coc-implementation)
+" nmap <silent> gr <Plug>(coc-references)
+" nmap <silent> gn <Plug>(coc-rename)
+" nnoremap <silent> <space>d :<C-u>CocList diagnostics<cr>
+" nnoremap <silent> <space>e :<C-u>CocList extensions<cr>
+" nmap <silent> [g <Plug>(coc-diagnostic-prev)
+" nmap <silent> ]g <Plug>(coc-diagnostic-next)
+" nmap <leader>f  <Plug>(coc-format-selected)
+" nmap <leader>a  <Plug>(coc-codeaction-selected)
+" nmap <leader>qf  <Plug>(coc-fix-current)
+" autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " NERDTree
 nnoremap <C-n> :NERDTreeToggle<CR>
@@ -75,8 +77,8 @@ let NERDTreeMapActivateNode='<space>'
 let NERDTreeShowHidden=1
 
 " FZF
-nnoremap <C-p> :FZF
-nnoremap <C-A-p> :GFiles
+nnoremap <C-p> :FZF 
+nnoremap <C-A-p> :GFiles 
 
 " highlight color
 " https://vi.stackexchange.com/questions/9249/how-do-i-restore-visual-mode-selection-highlighting
@@ -95,7 +97,7 @@ call wilder#set_option('renderer', wilder#wildmenu_renderer(
 	\ wilder#wildmenu_airline_theme({
 	\ 'highlights': {},
 	\ 'highlighter': wilder#basic_highlighter(),
-	\ 'separator': ' . ',
+	\ 'separator': '  ',
 	\ })))
 
 " sindrets/winshift.nvim
@@ -141,7 +143,7 @@ augroup omnisharp_commands
 augroup END
 
 " fff.vim
-let g:fff#split = "10new"
+let g:fff#split = "20new"
 
 " onedark theme
 " onedark.vim override: Don't set a background color when running in a terminal;
@@ -161,9 +163,26 @@ let g:onedark_termcolors=256
 syntax on
 colorscheme onedark
 
-
 " checks if your terminal has 24-bit color support
 if (has("termguicolors"))
     set termguicolors
     hi LineNr ctermbg=NONE guibg=NONE
 endif
+
+" https://caleb89taylor.medium.com/customizing-individual-neovim-windows-4a08f2d02b4e
+" Background colors for active vs inactive windows
+hi activeWindow guibg=#0D1B22
+hi InactiveWindow guibg=#444444
+" Call method on window enter
+augroup WindowManagement
+  autocmd!
+  autocmd WinEnter * call Handle_Win_Enter()
+augroup END
+" Change highlight group of active/inactive windows
+function! Handle_Win_Enter()
+  setlocal winhighlight=Normal:ActiveWindow,NormalNC:InactiveWindow
+endfunction
+
+" :Ag in FZF
+" https://github.com/junegunn/fzf.vim/issues/346#issuecomment-288483704
+command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, {'options': '--delimiter : --nth 4..'}, <bang>0)
