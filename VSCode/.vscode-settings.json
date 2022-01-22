@@ -442,16 +442,521 @@
   "razor.disabled": true,
   "editor.detectIndentation": false,
   "omnisharp.disableMSBuildDiagnosticWarning": true,
-  "window.menuBarVisibility": "compact",
+// Place your settings in this file to overwrite default and user settings.
+{
+  "editor.formatOnType": false,
+  "editor.formatOnSave": false,
+  "editor.formatOnPaste": false,
+  "editor.mouseWheelZoom": true,
+  "explorer.openEditors.visible": 0,
+  "files.autoSave": "off",
+  "files.hotExit": "off",
+  "files.exclude": {
+    "**/.git": false,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true
+  },
+  "editor.minimap.enabled": false,
+  "editor.dragAndDrop": true,
+  "scss.lint.important": "warning",
+  "editor.cursorWidth": 2,
+  "[c]": {
+    "editor.quickSuggestions": false
+  },
+  "terminal.integrated.defaultProfile.windows": "Git Bash",
+  "terminal.integrated.profiles.windows": {
+    "Git Bash": {
+      "source": "Git Bash",
+    }
+  },
+  "window.openFilesInNewWindow": "off",
+  "window.openFoldersInNewWindow": "on",
+  "files.associations": {
+    "*.vue": "vue",
+    "Dockerfile.*.arm32v7": "dockerfile",
+    "Dockerfile*.amd64": "dockerfile"
+  },
+  "sync.gist": "d7f82e2c6b35c4900834bf053d5e0e07",
+  "sync.autoDownload": false,
+  "sync.autoUpload": false,
+  "sync.forceDownload": false,
+  "sync.quietSync": false,
+  "editor.renderLineHighlight": "all",
+  "workbench.startupEditor": "none",
+  "breadcrumbs.enabled": true,
+  "breadcrumbs.filePath": "on",
+  "terminal.integrated.cursorStyle": "block",
+  "terminal.integrated.showExitAlert": false,
+  "git.enableSmartCommit": true,
+  "explorer.decorations.colors": false,
+  "explorer.incrementalNaming": "smart",
+  "explorer.decorations.badges": true,
+  "explorer.confirmDelete": true,
+  "explorer.confirmDragAndDrop": false,
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "editor.suggestSelection": "first",
+  "workbench.activityBar.iconClickBehavior": "toggle",
+  "editor.renderControlCharacters": true,
+  "editor.hover.sticky": true,
+  "terminal.external.windowsExec": "C:\\Program Files\\Git\\git-bash.exe",
+  "editor.cursorSmoothCaretAnimation": false,
+  "editor.smoothScrolling": false,
+  "editor.cursorBlinking": "solid",
+  "csharp.suppressDotnetRestoreNotification": true,
+  "csharp.suppressDotnetInstallWarning": true,
+  "csharp.suppressProjectJsonWarning": true,
+  "debug.onTaskErrors": "debugAnyway",
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "remote.extensionKind": {
+    "ms-azuretools.vscode-docker": "workspace"
+  },
+  "remote.SSH.remotePlatform": {
+    "test-poc2": "linux",
+  },
+  "editor.multiCursorModifier": "alt",
+  "extensions.ignoreRecommendations": true,
+  "go.useLanguageServer": true,
+  "dart.debugExternalLibraries": false,
+  "dart.debugSdkLibraries": false,
+  "dart.flutterGutterIcons": false,
+  "explorer.compactFolders": false,
+  "zenMode.hideTabs": false,
+  "zenMode.hideLineNumbers": false,
+  "zenMode.hideStatusBar": false,
+  "workbench.editor.labelFormat": "short",
+  "editor.trimAutoWhitespace": true,
+  /* vim */
+  "vim.leader": "space",
+  "vim.useSystemClipboard": true,
+  "vim.autoindent": false,
+  "vim.useCtrlKeys": false,
+  "vim.debug.silent": true,
+  "vim.surround": true,
+  "vim.ignorecase": false,
+  "vim.easymotion": false,
+  "vim.cursorStylePerMode.insert": "line",
+  "vim.cursorStylePerMode.normal": "block",
+  "vim.camelCaseMotion.enable": false,
+  "vim.replaceWithRegister": false,
+  "vim.sneak": false,
+  "vim.scroll": 30,
+  "vim.visualstar": true,
+  "vim.startofline": true,
+  "vim.foldfix": false,
+  "vim.hlsearch": true,
+  "vim.smartRelativeLine": false,
+  "vim.handleKeys": {
+    "<C-d>": true, // to be used in shortcut key to map ctrl+shift+j when expression
+    "<C-c>": false,
+    "<C-x>": false,
+    "<C-v>": true,
+    "<C-f>": false,
+    "<C-a>": false,
+    "<C-r>": true,
+    "<C-u>": true, // to be used in shortcut key to map ctrl+shift+k when expression
+    "<C-h>": true,
+  },
+  "vim.statusBarColorControl": false,
+  "vim.showmodename": true,
+  "vim.incsearch": false,
+  "vim.enableNeovim": false,
+  "vim.changeWordIncludesWhitespace": true,
+  "vim.normalModeKeyBindingsNonRecursive": [
+    {
+      "before": [
+        "g",
+        "D"
+      ],
+      "commands": [
+        "editor.action.revealDefinitionAside"
+      ]
+    }
+  ],
+  "vim.normalModeKeyBindings": [
+    {
+      "before": [
+        "<leader>",
+        "b",
+        "t"
+      ],
+      "commands": [
+        "bookmarks.toggle"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "b",
+        "p"
+      ],
+      "commands": [
+        "bookmarks.jumpToPrevious"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "b",
+        "n"
+      ],
+      "commands": [
+        "bookmarks.jumpToNext"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "b",
+        "c"
+      ],
+      "commands": [
+        "bookmarks.clear"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "b",
+        "C"
+      ],
+      "commands": [
+        "bookmarks.clearFromAllFiles"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "b",
+        "l"
+      ],
+      "commands": [
+        "bookmarks.list"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "b",
+        "L"
+      ],
+      "commands": [
+        "bookmarks.listFromAllFiles"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "b",
+        "e"
+      ],
+      "commands": [
+        "bookmarks.toggleLabeled"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "n"
+      ],
+      "commands": [
+        ":nohl"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "H"
+      ],
+      "commands": [
+        "comment-divider.makeMainHeader"
+      ],
+    },
+    {
+      "before": [
+        "<leader>",
+        "h"
+      ],
+      "commands": [
+        "comment-divider.makeSubHeader"
+      ],
+    },
+    {
+      "before": [
+        "<leader>",
+        "s"
+      ],
+      "commands": [
+        "comment-divider.insertSolidLine"
+      ],
+    },
+    // {
+    //     "before": ["Enter"],
+    //     "after": ["o", "Esc"],
+    // },
+    {
+      "before": [
+        "-"
+      ],
+      "after": [
+        "@",
+        "@"
+      ]
+    },
+    // {
+    //   "before": [
+    //     "space"
+    //   ],
+    //   "after": [
+    //     "i",
+    //     "space",
+    //     "Esc"
+    //   ],
+    // },
+    {
+      "before": [
+        "g",
+        "n"
+      ],
+      "commands": [
+        "editor.action.rename"
+      ]
+    },
+    {
+      "before": [
+        "g",
+        "a",
+        "i"
+      ],
+      "commands": [
+        "merge-conflict.accept.incoming"
+      ]
+    },
+    {
+      "before": [
+        "g",
+        "a",
+        "c"
+      ],
+      "commands": [
+        "merge-conflict.accept.current"
+      ]
+    },
+    {
+      "before": [
+        "g",
+        "a",
+        "b"
+      ],
+      "commands": [
+        "merge-conflict.accept.both"
+      ]
+    },
+    {
+      "before": [
+        "g",
+        "a",
+        "a",
+        "i"
+      ],
+      "commands": [
+        "merge-conflict.accept.all-incoming"
+      ]
+    },
+    {
+      "before": [
+        "g",
+        "a",
+        "a",
+        "c"
+      ],
+      "commands": [
+        "merge-conflict.accept.all-current"
+      ]
+    },
+    {
+      "before": [
+        "g",
+        "a",
+        "a",
+        "b"
+      ],
+      "commands": [
+        "merge-conflict.accept.all-both"
+      ]
+    },
+  ],
+  "vim.visualModeKeyBindings": [
+    // {
+    //     "before": [ ">" ],
+    //     "commands": ["editor.action.indentLines"]
+    // },
+    // {
+    //     "before": [ "<" ],
+    //     "commands": ["editor.action.outdentLines"]
+    // },
+    {
+      "before": [
+        "g",
+        "r"
+      ],
+      "commands": [
+        "git.revertSelectedRanges"
+      ]
+    },
+    {
+      "before": [
+        "g",
+        "s"
+      ],
+      "commands": [
+        "git.stageSelectedRanges"
+      ]
+    },
+    {
+      "before": [
+        "g",
+        "u"
+      ],
+      "commands": [
+        "git.unstageSelectedRanges"
+      ]
+    },
+  ],
+  /* end of vim */
+  "editor.fontFamily": "Iosevka Fixed SS03",
+  "editor.fontWeight": "400",
+  "editor.fontSize": 21,
+  "editor.fontLigatures": true,
+  "editor.autoIndent": "advanced",
+  "terminal.integrated.fontFamily": "Iosevka Fixed SS03",
+  "terminal.integrated.fontSize": 19,
+  "terminal.integrated.fontWeight": "400",
+  "editor.foldingStrategy": "auto",
+  "[dart]": {
+    "editor.formatOnSave": true,
+    "editor.formatOnType": true,
+    "editor.rulers": [
+      85
+    ],
+    "editor.selectionHighlight": false,
+    "editor.suggest.snippetsPreventQuickSuggestions": false,
+    "editor.suggestSelection": "first",
+    "editor.tabCompletion": "onlySnippets",
+    "editor.wordBasedSuggestions": false,
+  },
+  "scm.alwaysShowActions": true,
+  "editor.unfoldOnClickAfterEndOfLine": false,
+  "search.showLineNumbers": true,
+  "extensions.autoUpdate": true,
+  "editor.rulers": [
+    {
+      "column": 100,
+      "color": "#995679"
+    }
+  ],
+  "editor.overviewRulerBorder": false,
+  "todohighlight.keywords": [
+    {
+      "text": "//INFO:",
+      "backgroundColor": "lightgreen",
+      "color": "black"
+    },
+    {
+      "text": "//TODO:",
+      "backgroundColor": "yellow",
+      "color": "black"
+    },
+    {
+      "text": "//NOTE:",
+      "backgroundColor": "lightblue",
+      "color": "black"
+    },
+    {
+      "text": "//REVIEW:",
+      "backgroundColor": "pink",
+      "color": "black"
+    },
+    {
+      "text": "/*INFO:",
+      "backgroundColor": "lightgreen",
+      "color": "black"
+    },
+    {
+      "text": "/*TODO:",
+      "backgroundColor": "yellow",
+      "color": "black"
+    },
+    {
+      "text": "/*NOTE:",
+      "backgroundColor": "lightblue",
+      "color": "black"
+    },
+    {
+      "text": "/*REVIEW:",
+      "backgroundColor": "pink",
+      "color": "black"
+    },
+    {
+      "text": "#INFO:",
+      "backgroundColor": "lightgreen",
+      "color": "black"
+    },
+    {
+      "text": "#TODO:",
+      "backgroundColor": "yellow",
+      "color": "black"
+    },
+    {
+      "text": "#NOTE:",
+      "backgroundColor": "lightblue",
+      "color": "black"
+    },
+    {
+      "text": "#REVIEW:",
+      "backgroundColor": "pink",
+      "color": "black"
+    },
+  ],
+  "bookmarks.sideBar.expanded": true,
+  "vsicons.dontShowNewVersionMessage": true,
+  "editor.foldingHighlight": false,
+  "editor.showFoldingControls": "always",
+  "editor.minimap.maxColumn": 60,
+  "editor.minimap.showSlider": "always",
+  "editor.renderWhitespace": "trailing",
+  "editor.renderIndentGuides": true,
+  "editor.comments.insertSpace": true,
+  "editor.hover.delay": 500,
+  "files.trimTrailingWhitespace": true,
+  "go.autocompleteUnimportedPackages": true,
+  "go.languageServerExperimentalFeatures": {
+    "diagnostics": true,
+  },
+  "liveServer.settings.donotShowInfoMsg": true,
+  "markdown.preview.fontSize": 17,
+  "markdown.preview.breaks": true,
+  "editor.codeLens": true,
+  "gitlens.hovers.currentLine.enabled": false,
+  "gitlens.hovers.currentLine.changes": false,
+  "jupyter.askForKernelRestart": false,
+  "typescript.autoClosingTags": false,
+  "editor.autoClosingBrackets": "never",
+  "editor.autoClosingQuotes": "never",
+  "editor.autoSurround": "never",
+  "editor.autoClosingOvertype": "never",
+  "javascript.format.insertSpaceAfterOpeningAndBeforeClosingEmptyBraces": false,
+  "razor.disabled": true,
+  "editor.detectIndentation": false,
+  "omnisharp.disableMSBuildDiagnosticWarning": true,
   "window.enableMenuBarMnemonics": false,
-  "window.customMenuBarAltFocus": false,
   "git.ignoreLegacyWarning": true,
   "git.ignoreLimitWarning": true,
   "rust-client.engine": "rls",
   "remote.autoForwardPorts": false,
   "svg.preview.mode": "svg",
   "editor.wordWrap": "off",
-  "omnisharp.enableRoslynAnalyzers": true,
   "editor.acceptSuggestionOnEnter": "off",
   "editor.acceptSuggestionOnCommitCharacter": false,
   "python.showStartPage": false,
@@ -462,13 +967,12 @@
   "color-highlight.markerType": "dot-before",
   "color-highlight.markRuler": false,
   "search.collapseResults": "alwaysCollapse",
-  "search.useReplacePreview": true,
   "search.searchEditor.doubleClickBehaviour": "openLocationToSide",
   "angular.experimental-ivy": true,
-  "liveServer.settings.root": "src/",
+  "liveServer.settings.root": "./dist/zh-CN",
   "liveServer.settings.donotVerifyTags": true,
   "workbench.editorAssociations": {
-    "*.ipynb": "jupyter.notebook.ipynb"
+    "*.ipynb": "jupyter-notebook"
   },
   "scm.diffDecorations": "gutter",
   "dart.warnWhenEditingFilesInPubCache": false,
@@ -476,8 +980,6 @@
   "gitlens.advanced.messages": {
     "suppressLineUncommittedWarning": true
   },
-  "search.quickOpen.includeHistory": false,
-  "diffEditor.ignoreTrimWhitespace": false,
   "[html]": {
     "editor.formatOnType": false,
     "editor.formatOnSave": false,
@@ -496,15 +998,108 @@
   "editor.insertSpaces": true,
   "editor.wordSeparators": "/\\()\"':,.;<>~!@#$%^&*|+=[]{}`?-",
   "editor.lineNumbers": "relative",
-  "editor.tabSize": 4,
   "security.workspace.trust.startupPrompt": "never",
   "security.workspace.trust.enabled": false,
-  "workbench.editor.wrapTabs": true,
-  "workbench.editor.tabSizing": "shrink",
-  "diffEditor.renderSideBySide": false,
-  "terminal.integrated.commandsToSkipShell": [
-    "workbench.action.toggleSidebarVisibility"
+  "omnisharp.enableEditorConfigSupport": true,
+  "omnisharp.enableRoslynAnalyzers": true,
+  "editor.tabSize": 4,
+  "notebook.cellToolbarLocation": {
+    "default": "right",
+    "jupyter-notebook": "left"
+  },
+  "gitlens.views.commits.avatars": false,
+  "gitlens.views.remotes.branches.layout": "list",
+  "terminal.integrated.rightClickBehavior": "default",
+  "terminal.integrated.tabs.focusMode": "singleClick",
+  "terminal.integrated.tabs.location": "left",
+  "terminal.integrated.tabs.showActions": "always",
+  "terminal.integrated.tabs.showActiveTerminal": "always",
+  "terminal.integrated.localEchoExcludePrograms": [
+    "vim",
+    "vi",
+    "nano",
+    "tmux",
+    "nvim"
   ],
-  "window.customMenuBarAltFocus": false
+  "workbench.tips.enabled": false,
+  "terminal.integrated.commandsToSkipShell": [
+    "workbench.action.toggleSidebarVisibility",
+    "workbench.action.increaseViewSize",
+    "workbench.action.decreaseViewSize"
+  ],
+  "workbench.colorCustomizations": {
+    // "bookmarks.lineBackground": "#2e0a70",
+    "bookmarks.lineBorder": "#bd7b18",
+    // "editor.lineHighlightBackground": "#ff000000",
+    // "editor.lineHighlightBorder": "#ff000000",
+    // "tab.unfocusedInactiveModifiedBorder": "#1d020200",
+    // "tab.unfocusedActiveModifiedBorder": "#1d020200",
+    //  "tab.activeModifiedBorder": "#000C6600",
+    // "tab.inactiveModifiedBorder": "#1d020200",
+    // "tab.unfocusedActiveBackground": "#2e0a7000",
+    // "tab.activeBackground": "#605C6666",
+    // "tab.unfocusedActiveBorderTop": "#e11C6600",
+    // "tab.activeBorderTop": "#e11C6600",
+    // "tab.activeModifiedBorder": "#e11C6600",
+    // "window.activeBorder": "#6B69D6",
+    // "window.inactiveBorder": "#605C6666",
+  },
+  "diffEditor.ignoreTrimWhitespace": false,
+  "window.customMenuBarAltFocus": false,
   "window.titleBarStyle": "custom",
+  "gitlens.views.commits.files.layout": "list",
+  "azure-event-hub-explorer.eventHubConnectionString": "Endpoint=sb://ehns-weu-ito-mom-lgree-prd.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=jc9kTRX8O+i13w3o9yiTLLAuterKu0TBjxp+Lr4vl1E=",
+  "azure-event-hub-explorer.eventHubEntityName": "mom-in",
+  "workbench.editor.enablePreview": false,
+  "workbench.list.smoothScrolling": false,
+  "workbench.editor.revealIfOpen": false,
+  "explorer.autoReveal": false,
+  "workbench.view.alwaysShowHeaderActions": false,
+  "workbench.editor.tabSizing": "shrink",
+  "terminal.integrated.defaultProfile.linux": "zsh",
+  "terminal.integrated.profiles.linux": {
+    "bash": {
+      "path": "bash",
+      "icon": "terminal-bash"
+    },
+    "zsh": {
+      "path": "zsh"
+    },
+    "fish": {
+      "path": "fish"
+    },
+    "tmux": {
+      "path": "tmux",
+      "icon": "terminal-tmux"
+    },
+    "pwsh": {
+      "path": "pwsh",
+      "icon": "terminal-powershell"
+    },
+  },
+  "window.menuBarVisibility": "compact",
+  "workbench.activityBar.visible": false,
+  "workbench.quickOpen.closeOnFocusLost": false,
+  "workbench.quickOpen.preserveInput": true,
+  "material-icon-theme.folders.theme": "classic",
+  "python.defaultInterpreterPath": "/usr/local/bin/python",
+  "azure-event-hub-explorer.showVerboseMessage": true,
+  "azure-event-hub-explorer.eventHubConsumerGroup": "test",
+  "gitlens.advanced.externalDiffTool": "diff-so-fancy",
+  "task.quickOpen.history": 10,
+  "vscode-neovim.neovimExecutablePaths.linux": "/usr/bin/nvim",
+  "search.quickOpen.includeHistory": false,
+  "search.quickOpen.history.filterSortOrder": "recency",
+  "search.useIgnoreFiles": false,
+  "remote.restoreForwardedPorts": false,
+  "settingsSync.keybindingsPerPlatform": false,
+  "gitlens.views.stashes.files.layout": "list",
+  "terminal.integrated.gpuAcceleration": "auto",
+  "gitlens.showWelcomeOnInstall": false,
+  "gitlens.showWhatsNewAfterUpgrades": false,
+  "workbench.colorTheme": "GitHub Dark Default",
+  "search.exclude": {
+    "**/*.git": true
+  },
+  "html.autoClosingTags": false,
 }
