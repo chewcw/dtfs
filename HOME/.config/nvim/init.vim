@@ -37,8 +37,8 @@ let mapleader = "\<space>"
 
 nmap <leader>n :nohl<CR>
 nnoremap <silent> <C-t> :tabnew<CR>
-nnoremap <silent> <A-.> gt
-nnoremap <silent> <A-,> gT
+nnoremap <silent> <A-.> :tabnext<CR>
+nnoremap <silent> <A-,> :tabprevious<CR>
 nnoremap <silent> <C-H> :wincmd h<CR>
 nnoremap <silent> <C-J> :wincmd j<CR>
 nnoremap <silent> <C-K> :wincmd k<CR>
