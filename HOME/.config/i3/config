@@ -339,6 +339,67 @@ mode "$mode_system" {
 }
 bindsym $mod+Shift+Escape mode "$mode_system"
 
+# -----------------------------------------------------------
+# move mouse cursor using keyboard
+# dependency: xdotool
+# https://www.reddit.com/r/i3wm/comments/3btki2/use_the_mouse_cursor_from_the_keyboard/
+mode "mouse" {
+
+	# set speeds here
+	set $slow 10
+	set $quick 40
+
+	# Mouse movement (slow/fine-tuned) -- vim keybindings
+	bindsym Shift+h exec xdotool mousemove_relative -- -$slow 0
+	bindsym Shift+j exec xdotool mousemove_relative 0 $slow
+	bindsym Shift+k exec xdotool mousemove_relative -- 0 -$slow
+	bindsym Shift+l exec xdotool mousemove_relative $slow 0
+
+	# Mouse movement (quicker) -- vim keybindings
+	bindsym h exec xdotool mousemove_relative -- -$quick 0
+	bindsym j exec xdotool mousemove_relative 0 $quick
+	bindsym k exec xdotool mousemove_relative -- 0 -$quick
+	bindsym l exec xdotool mousemove_relative $quick 0
+
+	# Left Click
+	bindsym f exec xdotool click 1
+
+	# Middle Click
+	bindsym d exec xdotool click 2
+
+	# Right Click
+	bindsym s exec xdotool click 3
+
+	# Left Click-and-drag
+	bindsym Shift+f exec xdotool mousedown 1
+
+	# Middle Click-and-drag 
+	bindsym Shift+d exec xdotool mousedown 2
+
+	# Right Click-and-drag
+	bindsym Shift+s exec xdotool mousedown 3
+
+	# Left Drag release
+	bindsym $mod+f exec xdotool mouseup 1
+
+	# Middle Drag release
+	bindsym $mod+d exec xdotool mouseup 2
+
+# Right Drag release
+	bindsym $mod+s exec xdotool mouseup 3
+
+# Scroll down
+	bindsym $mod+j exec xdotool click 5
+# Scroll up
+	bindsym $mod+k exec xdotool click 4
+
+	# return to normal keybindings -- IMPORTANT!!
+	bindsym Escape mode "default"
+}
+
+bindsym $mod+Shift+m mode "mouse"
+# -----------------------------------------------------------
+
 # printscreen (flameshot)
 # https://github.com/flameshot-org/flameshot#usage
 bindsym $mod+Shift+p exec flameshot gui
@@ -349,5 +410,5 @@ bindsym $mod+p exec flameshot screen -c -p $HOME/Pictures
 bindsym $mod+Shift+f exec nautilus --no-desktop
 
 # compton
-exec compton
+# exec compton
 exec source ~/.zshrc
