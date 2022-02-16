@@ -44,7 +44,7 @@ sudo make -C $HOME/.fff install
 ln -sf $pwd/HOME/.vimrc $HOME/.vimrc
 
 # Install Neovim (nightly)
-sudo ./install-nvim.sh
+./install-nvim.sh
 ln -sf $pwd/HOME/.config/nvim/init.vim $HOME/.config/nvim/init.vim
 
 # Install i3
