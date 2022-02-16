@@ -387,13 +387,13 @@ mode "mouse" {
 	bindsym Shift+s exec xdotool mousedown 3
 
 	# Left Drag release
-	bindsym $mod+f exec xdotool mouseup 1
+	bindsym Ctrl+f exec xdotool mouseup 1
 
 	# Middle Drag release
-	bindsym $mod+d exec xdotool mouseup 2
+	bindsym Ctrl+d exec xdotool mouseup 2
 
 # Right Drag release
-	bindsym $mod+s exec xdotool mouseup 3
+	bindsym Ctrl+s exec xdotool mouseup 3
 
 # Scroll down
 	bindsym $mod+j exec xdotool click 5
