@@ -316,8 +316,8 @@ bindsym $mod+Ctrl+l move workspace to output right
 # Pulse Audio controls
 bindsym $mod+plus exec "amixer -D pulse sset Master 5%+"
 bindsym $mod+minus exec "amixer -D pulse sset Master 5%-"
-bindsym $mod+m exec "amixer -D pulse sset Master mute"
-bindsym $mod+u exec "amixer -D pulse sset Master unmute"
+bindsym $mod+Shift+m exec "amixer -D pulse sset Master mute"
+bindsym $mod+Shift+u exec "amixer -D pulse sset Master unmute"
 
 # Brightness controls
 bindsym $mod+Shift+plus exec "sudo brightnessctl set 5%+"
@@ -348,6 +348,7 @@ mode "mouse" {
 	# set speeds here
 	set $slow 10
 	set $quick 40
+	set $fast 100
 
 	# Mouse movement (slow/fine-tuned) -- vim keybindings
 	bindsym Shift+h exec xdotool mousemove_relative -- -$slow 0
@@ -360,6 +361,12 @@ mode "mouse" {
 	bindsym j exec xdotool mousemove_relative 0 $quick
 	bindsym k exec xdotool mousemove_relative -- 0 -$quick
 	bindsym l exec xdotool mousemove_relative $quick 0
+  
+	# Mouse movement (faster) -- vim keybindings
+	bindsym Ctrl+h exec xdotool mousemove_relative -- -$fast 0
+	bindsym Ctrl+j exec xdotool mousemove_relative 0 $fast
+	bindsym Ctrl+k exec xdotool mousemove_relative -- 0 -$fast
+	bindsym Ctrl+l exec xdotool mousemove_relative $fast 0
 
 	# Left Click
 	bindsym f exec xdotool click 1
@@ -394,10 +401,10 @@ mode "mouse" {
 	bindsym $mod+k exec xdotool click 4
 
 	# return to normal keybindings -- IMPORTANT!!
-	bindsym Escape mode "default"
+	bindsym $mod+m mode "default"
 }
 
-bindsym $mod+Shift+m mode "mouse"
+bindsym $mod+m mode "mouse"
 # -----------------------------------------------------------
 
 # printscreen (flameshot)
