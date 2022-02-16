@@ -34,8 +34,8 @@ parse_args() {
 
 install_dependency() {
 	# Ag
-	apt update
-	apt install -y silversearcher-ag || true
+	sudo apt update
+	sudo apt install -y silversearcher-ag || true
 
 	# Install fff
 	git clone https://github.com/dylanaraps/fff $HOME/.fff || true
@@ -52,7 +52,7 @@ install_nvim_nightly() {
 	curl -Lo /tmp/nvim-linux64.tar.gz https://github.com/neovim/neovim/releases/download/nightly/nvim-linux64.tar.gz
 	tar -xf /tmp/nvim-linux64.tar.gz -C /tmp/ || true
 	mv /tmp/nvim-linux64/* $localNvimPath || true
-	ln -sf $localNvimPath/bin/nvim /usr/local/bin/nvim
+	sudo ln -sf $localNvimPath/bin/nvim /usr/local/bin/nvim
 	rm -rf /tmp/nvim-linux64 || true
 }
 
