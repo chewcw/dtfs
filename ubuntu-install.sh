@@ -137,14 +137,17 @@ sudo apt install -y feh
 sudo apt install -y barrier
 
 # Install compton
-sudo apt install -y compton
+# sudo apt install -y compton
 # Install symlink for compton
-mkdir -p $HOME/.config/compton
-ln -sf $pwd/HOME/.config/compton/compton.conf $HOME/.config/compton/compton.conf
+# mkdir -p $HOME/.config/compton
+# ln -sf $pwd/HOME/.config/compton/compton.conf $HOME/.config/compton/compton.conf
 
 # sz (https://github.com/Zarfir/Screenz)
-chmod +x $pwd/HOME/sz
-sudo ln -sf $pwd/HOME/sz /usr/local/bin/sz
+# chmod +x $pwd/HOME/sz
+# sudo ln -sf $pwd/HOME/sz /usr/local/bin/sz
+
+# lxrandr
+sudo apt install -y xdotool lxrandr
 
 # ------------------------------ put below in the end
 # Setup oh-my-zsh -> Powerlevel10k
