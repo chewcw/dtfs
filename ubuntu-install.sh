@@ -127,7 +127,7 @@ sudo apt install -y brightnessctl
 # https://github.com/flameshot-org/flameshot
 wget "https://github.com/flameshot-org/flameshot/releases/download/v0.10.1/flameshot-0.10.1-1.ubuntu-20.04.amd64.deb" -O /tmp/flameshot.deb  || true
 sudo dpkg -i /tmp/flameshot.deb || true
-ln -sf $pwd/HOME/.config/flameshot/flameshot.conf $HOME/.config/Dharkael/flameshot.conf
+mkdir -p $HOME/.config/Dharkael && ln -sf $pwd/HOME/.config/flameshot/flameshot.conf $HOME/.config/Dharkael/flameshot.conf
 
 # Install feh for desktop background
 sudo apt install -y feh
