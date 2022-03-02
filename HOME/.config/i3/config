@@ -346,7 +346,7 @@ bindsym $mod+Shift+Escape mode "$mode_system"
 mode "mouse" {
 
 	# set speeds here
-	set $slow 10
+	set $slow 5
 	set $quick 40
 	set $fast 100
 
