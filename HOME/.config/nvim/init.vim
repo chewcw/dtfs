@@ -33,9 +33,11 @@ set nowrap
 set mouse=n
 set notimeout
 set ttimeout
+set wildignorecase
 
 let mapleader = "\<space>"
 
+" normal mode keybindings
 nmap <leader>n :nohl<CR>
 nnoremap <silent> <C-t> :tabnew<CR>
 nnoremap <silent> <A-.> :tabnext<CR>
@@ -52,6 +54,11 @@ nnoremap <C-\> :vsplit<CR>
 nnoremap <C-_> :split<CR>
 nnoremap <C-f> :Ag<CR>
 nnoremap <C-w> :BufferClose<CR>
+" command mode keybindings
+cnoremap <C-u> <Up>
+cnoremap <C-d> <Down>
+cnoremap <C-b> <Left>
+cnoremap <C-w> <Right>
 
 " Conquer of Completion
 " inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
@@ -145,7 +152,8 @@ let g:ale_linters = { 'cs': ['OmniSharp'] }
 " augroup END
 
 " fff.vim
-let g:fff#split = "20new"
+let g:fff#split = "40vnew"
+let g:fff#split_direction = "nosplitbelow nosplitright"
 
 " onedark theme
 " onedark.vim override: Don't set a background color when running in a terminal;
