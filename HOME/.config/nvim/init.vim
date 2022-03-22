@@ -15,7 +15,6 @@ Plug 'joshdick/onedark.vim'
 Plug 'yamatsum/nvim-cursorline'
 Plug 'dylanaraps/fff.vim'
 Plug 'tpope/vim-fugitive'
-Plug 'romgrk/barbar.nvim'
 " Omnisharp
 " Plug 'OmniSharp/omnisharp-vim'
 " Plug 'dense-analysis/ale'
@@ -53,7 +52,7 @@ nnoremap <A-[> :vertical resize -5<CR>
 nnoremap <C-\> :vsplit<CR>
 nnoremap <C-_> :split<CR>
 nnoremap <C-f> :Ag<CR>
-nnoremap <C-w> :BufferClose<CR>
+nnoremap <backspace> X
 " command mode keybindings
 cnoremap <C-u> <Up>
 cnoremap <C-d> <Down>
@@ -86,8 +85,9 @@ let NERDTreeMapActivateNode='<space>'
 let NERDTreeShowHidden=1
 
 " FZF
-nnoremap <C-p> :FZF 
+nnoremap <C-p> :Files 
 nnoremap <C-A-p> :GFiles 
+
 
 " highlight color
 " https://vi.stackexchange.com/questions/9249/how-do-i-restore-visual-mode-selection-highlighting
@@ -197,8 +197,3 @@ endfunction
 " https://github.com/junegunn/fzf.vim/issues/346#issuecomment-288483704
 command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, {'options': '--delimiter : --nth 4..'}, <bang>0)
 
-" barbar.nvim
-let bufferline = get(g:, 'bufferline', {})
-let bufferline.icons = v:false
-let bufferline.auto_hide = v:true
-let bufferline.icon_close_tab = 'x'
