@@ -33,6 +33,7 @@ set mouse=n
 set notimeout
 set ttimeout
 set wildignorecase
+set clipboard=unnamedplus
 
 let mapleader = "\<space>"
 
