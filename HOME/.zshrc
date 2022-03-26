@@ -168,6 +168,7 @@ alias mouse="bluetoothctl connect 34:88:5D:3E:B8:DE"
 export FZF_DEFAULT_COMMAND="find -L"
 export FZF_ALT_C_COMMAND="find ."
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_COMPLETION_TRIGGER=','
 
 # zsh-vi-mode
 zvm_after_init_commands+=('[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh')
