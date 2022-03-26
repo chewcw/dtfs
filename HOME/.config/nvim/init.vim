@@ -34,6 +34,8 @@ set notimeout
 set ttimeout
 set wildignorecase
 set clipboard=unnamedplus
+" https://stackoverflow.com/questions/2288756/how-to-set-working-current-directory-in-vim
+set autochdir
 
 let mapleader = "\<space>"
 
@@ -189,6 +191,7 @@ augroup WindowManagement
   autocmd!
   autocmd WinEnter * call Handle_Win_Enter()
 augroup END
+
 " Change highlight group of active/inactive windows
 function! Handle_Win_Enter()
   setlocal winhighlight=Normal:ActiveWindow,NormalNC:InactiveWindow
@@ -197,4 +200,3 @@ endfunction
 " :Ag in FZF
 " https://github.com/junegunn/fzf.vim/issues/346#issuecomment-288483704
 command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, {'options': '--delimiter : --nth 4..'}, <bang>0)
-
