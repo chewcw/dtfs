@@ -6,7 +6,8 @@
     scrollPastBottom: true # enable scrolling past the bottom
     sidePanelWidth: 0.25 # number from 0 to 1
     expandFocusedSidePanel: true
-    mainPanelSplitMode: 'vertical' # one of 'horizontal' | 'flexible' | 'vertical'
+    mainPanelSplitMode: 'flexible' # one of 'horizontal' | 'flexible' | 'vertical'
+    showFileTree: false
     theme:
       lightTheme: false # For terminals with a light background
       activeBorderColor:
@@ -38,8 +39,8 @@
       mode: 'merge' # one of 'merge' | 'rebase' | 'ff-only'
     skipHookPrefix: WIP
     autoFetch: true
-    branchLogCmd: "git log --graph --color=always --abbrev-commit --decorate --date=relative --pretty=medium {{branchName}} --"
-    allBranchesLogCmd: "git log --oneline --graph --all --color=always --abbrev-commit --decorate --date=relative --pretty=medium"
+    branchLogCmd: 'git log --color=always --abbrev-commit --decorate --date=relative --pretty="format:%C(auto,green)%h%C(auto,magenta) %C(auto,blue)%>(12,trunc) %ad %C(auto,yellow)%<(12,trunc)%aN%C(auto,reset)%s%C(auto,red)% gD% D" {{branchName}} --'
+    allBranchesLogCmd: "git log --graph --all --color=always --abbrev-commit --decorate --date=relative --pretty=medium"
     overrideGpg: false # prevents lazygit from spawning a separate process when using GPG
     disableForcePushing: false
   refresher:
@@ -169,20 +170,32 @@
       update: 'u'
       bulkMenu: 'b'
   customCommands:
-    - key: "<c-K>"
+    - key: '<c-P>'
       command: "git remote prune {{.SelectedRemote.Name}}"
       context: "remotes"
       loadingText: "Pruning..."
       description: "prune deleted remote branches"
-    - key: '<c-L>'
+    - key: '<c-P>'
       context: 'localBranches'
-      loadingText: 'Pushing'
+      loadingText: 'Pushing...'
+      prompts:
+        - type: 'input'
+          title: 'which remote do you want to force push to?'
+      command: "git push -f {{index .PromptResponses 0}} {{.SelectedLocalBranch.Name}}" 
+      description: "git force push custom remote"
+    - key: '<c-p>'
+      context: 'localBranches'
+      loadingText: 'Pushing...'
       prompts:
         - type: 'input'
           title: 'which remote do you want to push to?'
-      command: "git push -f {{index .PromptResponses 0}} {{.SelectedLocalBranch.Name}}" 
-      description: "git force push custom remote"
-    - key: "<c-n>"
-      context: "global"
-      command: "git log --oneline --graph --decorate --all"
-      description: "git log graph"
+      command: "git push {{index .PromptResponses 0}} {{.SelectedLocalBranch.Name}}" 
+      description: "git push custom remote"
+    - key: '<c-R>'
+      context: "tags"
+      command: "git push -d {{index .PromptResponses 0}} {{.SelectedTag.Name}}"
+      loadingText: 'Removing...'
+      prompts:
+        - type: 'input'
+          title: 'which remote do you want to remove this tag?'
+      description: "Remove tag from custom remote"
