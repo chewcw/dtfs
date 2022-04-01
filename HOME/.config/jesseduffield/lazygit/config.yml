@@ -68,8 +68,8 @@
       nextItem-alt: 'j' # go one line down
       prevPage: ',' # go to next page in list
       nextPage: '.' # go to previous page in list
-      gotoTop: '<' # go to top of list
-      gotoBottom: '>' # go to bottom of list
+      gotoTop: 'g' # go to top of list
+      gotoBottom: 'G' # go to bottom of list
       prevBlock: '<left>' # goto the previous block / panel
       nextBlock: '<right>' # goto the next block / panel
       prevBlock-alt: 'h' # goto the previous block / panel
@@ -140,7 +140,7 @@
       squashDown: 's'
       renameCommit: 'r'
       renameCommitWithEditor: 'R'
-      viewResetOptions: 'g'
+      viewResetOptions: '<c-g>'
       markCommitAsFixup: 'f'
       createFixupCommit: 'F' # create fixup commit for this commit
       squashAboveCommits: 'S'
@@ -157,7 +157,7 @@
       resetCherryPick: '<c-R>'
       copyCommitMessageToClipboard: 'O'
     stash:
-      popStash: 'g'
+      popStash: 'p'
     commitFiles:
       checkoutCommitFile: 'c'
     main:
