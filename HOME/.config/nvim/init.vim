@@ -54,7 +54,7 @@ nnoremap <A-]> :vertical resize +5<CR>
 nnoremap <A-[> :vertical resize -5<CR>
 nnoremap <C-\> :vsplit<CR>
 nnoremap <C-_> :split<CR>
-nnoremap <C-f> :Ag<CR>
+nnoremap <C-f> :Ag 
 nnoremap <backspace> X
 " command mode keybindings
 cnoremap <C-u> <Up>
@@ -200,3 +200,4 @@ endfunction
 " :Ag in FZF
 " https://github.com/junegunn/fzf.vim/issues/346#issuecomment-288483704
 command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, {'options': '--delimiter : --nth 4..'}, <bang>0)
+
