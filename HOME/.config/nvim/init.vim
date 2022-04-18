@@ -41,6 +41,7 @@ let mapleader = "\<space>"
 
 " normal mode keybindings
 nmap <leader>n :nohl<CR>
+nmap <leader>m :delm!<CR>
 nnoremap <silent> <C-t> :tabnew<CR>
 nnoremap <silent> <A-.> :tabnext<CR>
 nnoremap <silent> <A-,> :tabprevious<CR>
@@ -56,6 +57,10 @@ nnoremap <C-\> :vsplit<CR>
 nnoremap <C-_> :split<CR>
 nnoremap <C-f> :Ag 
 nnoremap <backspace> X
+" https://medium.com/@kadek/understanding-vims-jump-list-7e1bfc72cdf0
+nnoremap <expr> k (v:count > 1 ? "m'" . v:count : '') . 'k'
+nnoremap <expr> j (v:count > 1 ? "m'" . v:count : '') . 'j'
+
 " command mode keybindings
 cnoremap <C-u> <Up>
 cnoremap <C-d> <Down>
