@@ -431,3 +431,7 @@ bindsym $mod+Shift+f exec nautilus --no-desktop
 # compton
 # exec compton
 exec source ~/.zshrc
+
+# custom keyboard shortcut
+# insert current date time
+bindsym --release $mod+t exec --no-startup-id sleep 0.1 && xdotool type "$(date +\"%Y-%m-%d (%a) %r\")"
