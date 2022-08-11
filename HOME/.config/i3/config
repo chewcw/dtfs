@@ -435,3 +435,13 @@ exec source ~/.zshrc
 # custom keyboard shortcut
 # insert current date time
 bindsym --release $mod+t exec --no-startup-id sleep 0.1 && xdotool type "$(date +\"%Y-%m-%d (%a) %r\")"
+
+# open terminal once log in
+exec --no-startup-id i3-msg 'workspace 2; exec /usr/bin/alacritty'
+
+# https://github.com/toggle-corp/alacritty-colorscheme/blob/master/README.md
+set $LIGHT_COLOR base16-gruvbox-light-hard-256.yml
+set $DARK_COLOR base16-onedark.yml
+
+# Toggle between light and dark colorschemes
+bindsym $mod+Shift+b exec /home/ccw/.local/bin/alacritty-colorscheme -V toggle $LIGHT_COLOR $DARK_COLOR
