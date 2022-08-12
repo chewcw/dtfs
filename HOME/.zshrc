@@ -131,6 +131,7 @@ alias gb="git branch"
 alias gsh="git stash"
 alias gch="git checkout"
 alias lg="lazygit"
+alias gforeachref="git for-each-ref --sort=committerdate --format '%(refname) on %(color:bold blue)%(committerdate) %(color:bold white) by %(color:green) %(committername)%(committeremail)'"
 
 # Use hjkl to navigate zsh completion menu
 # https://thevaluable.dev/zsh-install-configure-mouseless/
