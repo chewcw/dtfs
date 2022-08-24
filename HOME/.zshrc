@@ -199,3 +199,7 @@ export FFF_HIDDEN=1
 export FFF_COL2=0
 export FFF_COL5=2
 alias f="fff"
+
+# stdout to clipboard
+# https://stackoverflow.com/questions/5130968/how-can-i-copy-the-output-of-a-command-directly-into-my-clipboard
+alias xc="xclip -selection clipboard"
