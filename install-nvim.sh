@@ -38,8 +38,10 @@ install_dependency() {
 	sudo apt install -y silversearcher-ag || true
 
 	# Install fff
-	git clone https://github.com/dylanaraps/fff $HOME/.fff || true
-	sudo make -k -C $HOME/.fff install || true
+	if [ ! -d "$HOME/.fff" ]; then
+		git clone https://github.com/dylanaraps/fff $HOME/.fff || true
+		sudo make -k -C $HOME/.fff install || true
+	fi
 
 }
 
