@@ -36,8 +36,10 @@ git clone --depth 1 https://github.com/junegunn/fzf.git $HOME/.fzf || true
 $HOME/.fzf/install --no-update-rc --completion --key-bindings
 
 # Install fff
-git clone https://github.com/dylanaraps/fff $HOME/.fff || true
-sudo make -k -C $HOME/.fff install || true
+if [ ! -d "$HOME/.fff" ]; then
+	git clone https://github.com/dylanaraps/fff $HOME/.fff || true
+	sudo make -k -C $HOME/.fff install || true
+fi
 
 # Setup vim
 # Install symlink for .vimrc
