@@ -6,6 +6,10 @@ pwd=`pwd` whoami=`whoami`
 sudo apt-get update
 sudo apt-get install -y apt-transport-https curl
 
+git clone https://github.com/chewcw/dtfs.git
+mv $HOME/dtfs/* $HOME || true
+rm -rf $HOME/dtfs || true
+
 # Create config directory
 mkdir -p $HOME/.config
 
