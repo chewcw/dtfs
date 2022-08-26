@@ -39,7 +39,7 @@ install_dependency() {
 
 	# Install fff
 	git clone https://github.com/dylanaraps/fff $HOME/.fff || true
-	sudo make -C $HOME/.fff install
+	sudo make -k -C $HOME/.fff install
 
 }
 
