@@ -37,7 +37,7 @@ $HOME/.fzf/install --no-update-rc --completion --key-bindings
 
 # Install fff
 git clone https://github.com/dylanaraps/fff $HOME/.fff || true
-sudo make -C $HOME/.fff install || true
+sudo make -k -C $HOME/.fff install || true
 
 # Setup vim
 # Install symlink for .vimrc
