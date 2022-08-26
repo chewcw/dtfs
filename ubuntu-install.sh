@@ -22,10 +22,10 @@ mkdir -p $HOME/.config/jesseduffield/lazygit
 ln -sf $pwd/HOME/.config/jesseduffield/lazygit/config.yml $HOME/.config/jesseduffield/lazygit/config.yml
 sudo rm /etc/apt/sources.list.d/lazygit-team-ubuntu-release-focal.list
 
-# Install font (Iosevka-SS03)
-wget https://github.com/be5invis/Iosevka/releases/download/v10.1.1/ttc-sgr-iosevka-fixed-ss03-10.1.1.zip -O /tmp/ttc-sgr-iosevka-fixed-ss03-10.1.1.zip
+# Install font (Iosevka-SS14)
+wget https://github.com/be5invis/Iosevka/releases/download/v10.1.1/ttc-sgr-iosevka-fixed-ss14-10.1.1.zip -O /tmp/ttc-sgr-iosevka-fixed-ss14-10.1.1.zip
 mkdir -p $HOME/.fonts
-unzip -o /tmp/ttc-sgr-iosevka-fixed-ss03-10.1.1.zip -d $HOME/.fonts
+unzip -o /tmp/ttc-sgr-iosevka-fixed-ss14-10.1.1.zip -d $HOME/.fonts
 
 # Install gnome-vim
 # Use vim-gtk3 so that I have +xterm_clipboard support
