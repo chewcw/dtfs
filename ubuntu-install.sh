@@ -84,6 +84,14 @@ sudo apt install -y alacritty
 mkdir -p $HOME/.config/alacritty
 ln -sf $pwd/HOME/.config/alacritty/alacritty.yml $HOME/.config/alacritty/alacritty.yml
 
+# alacritty color theme
+git clone https://github.com/aarowill/base16-alacritty.git $HOME/.alacritty-colorscheme
+ln -sf $HOME/.alacritty-colorscheme/colors $pwd/HOME/.config/alacritty/colors 
+
+# alacritty color scheme switcher
+# https://github.com/toggle-corp/alacritty-colorscheme/blob/master/README.md
+pip install --user alacritty-colorscheme
+
 # Install vscode
 sudo apt install -y software-properties-common apt-transport-https curl
 curl -sSL https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add -
