@@ -11,10 +11,14 @@ Plug 'junegunn/fzf', {'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'gelguy/wilder.nvim', {'do': ':UpdateRemotePlugins'}
 Plug 'sindrets/winshift.nvim' 
-Plug 'joshdick/onedark.vim'
-Plug 'yamatsum/nvim-cursorline'
+" Plug 'joshdick/onedark.vim'
+" Plug 'yamatsum/nvim-cursorline'
 Plug 'dylanaraps/fff.vim'
 Plug 'tpope/vim-fugitive'
+Plug 'kyazdani42/nvim-web-devicons'
+Plug 'chriskempson/base16-vim'
+" Plug 'https://git.sr.ht/~swalladge/paper.vim'
+" Plug 'romgrk/barbar.nvim'
 " Omnisharp
 " Plug 'OmniSharp/omnisharp-vim'
 " Plug 'dense-analysis/ale'
@@ -23,7 +27,7 @@ call plug#end()
 
 " some rules not related to plugins
 set list
-set listchars=tab:▶\ ,trail:·
+" set listchars=tab:▶\ ,trail:·
 set relativenumber
 set foldmethod=indent
 set foldlevel=99
@@ -34,6 +38,7 @@ set notimeout
 set ttimeout
 set wildignorecase
 set clipboard=unnamedplus
+set scrolloff=5
 " https://stackoverflow.com/questions/2288756/how-to-set-working-current-directory-in-vim
 set autochdir
 
@@ -57,6 +62,7 @@ nnoremap <C-\> :vsplit<CR>
 nnoremap <C-_> :split<CR>
 nnoremap <C-f> :Ag 
 nnoremap <backspace> X
+nnoremap <A-c> <Cmd>BufferClose<Cr>
 " https://medium.com/@kadek/understanding-vims-jump-list-7e1bfc72cdf0
 nnoremap <expr> k (v:count > 1 ? "m'" . v:count : '') . 'k'
 nnoremap <expr> j (v:count > 1 ? "m'" . v:count : '') . 'j'
@@ -93,8 +99,8 @@ let NERDTreeMapActivateNode='<space>'
 let NERDTreeShowHidden=1
 
 " FZF
-nnoremap <C-p> :Files 
-nnoremap <C-A-p> :GFiles 
+nnoremap <C-p> :Files
+nnoremap <C-A-p> :GFiles
 
 
 " highlight color
@@ -124,14 +130,14 @@ nnoremap <C-A-K> <Cmd>WinShift up<CR>
 nnoremap <C-A-L> <Cmd>WinShift right<CR>
 
 " Omnisharp
-if has('patch-8.1.1880')
-  set completeopt=longest,menuone,popuphidden
-  set completepopup=highlight:Pmenu,border:off
-else
-  set completeopt=longest,menuone,preview
-  set previewheight=5
-endif
-let g:ale_linters = { 'cs': ['OmniSharp'] }
+" if has('patch-8.1.1880')
+"   set completeopt=longest,menuone,popuphidden
+"   set completepopup=highlight:Pmenu,border:off
+" else
+"   set completeopt=longest,menuone,preview
+"   set previewheight=5
+" endif
+" let g:ale_linters = { 'cs': ['OmniSharp'] }
 
 " augroup omnisharp_commands
 "   autocmd!
@@ -165,44 +171,48 @@ let g:fff#split_direction = "nosplitbelow nosplitright"
 
 " onedark theme
 " onedark.vim override: Don't set a background color when running in a terminal;
-if (has("autocmd") && !has("gui_running"))
-  augroup colorset
-    autocmd!
-    let s:white = { "gui": "#ABB2BF", "cterm": "145", "cterm16" : "7" }
-    autocmd ColorScheme * call onedark#set_highlight("Normal", { "fg": s:white }) " `bg` will not be styled since there is no `bg` setting
-  augroup END
-endif
+" if (has("autocmd") && !has("gui_running"))
+"   augroup colorset
+"     autocmd!
+"     let s:white = { "gui": "#ABB2BF", "cterm": "145", "cterm16" : "7" }
+"     autocmd ColorScheme * call onedark#set_highlight("Normal", { "fg": s:white }) " `bg` will not be styled since there is no `bg` setting
+"   augroup END
+" endif
 
-hi Comment cterm=italic
-let g:onedark_hide_endofbuffer=1
-let g:onedark_terminal_italics=1
-let g:onedark_termcolors=256
+" autocmd ColorScheme * highlight Normal ctermbg=NONE guibg=NONE
+
+" hi Comment cterm=italic
+" let g:onedark_hide_endofbuffer=1
+" let g:onedark_terminal_italics=1
+" let g:onedark_termcolors=256
 
 syntax on
-colorscheme onedark
+" colorscheme paper
 
 " checks if your terminal has 24-bit color support
-if (has("termguicolors"))
-    set termguicolors
-    hi LineNr ctermbg=NONE guibg=NONE
-endif
+" if (has("termguicolors"))
+    " set termguicolors
+    " hi LineNr ctermbg=NONE guibg=NONE
+" endif
+
+" set termguicolors
+" let base16colorspace=256
 
 " https://caleb89taylor.medium.com/customizing-individual-neovim-windows-4a08f2d02b4e
 " Background colors for active vs inactive windows
-hi activeWindow guibg=#0D1B22
-hi InactiveWindow guibg=#444444
+" hi activeWindow guibg=#0D1B22
+" hi InactiveWindow guibg=#444444
 " Call method on window enter
-augroup WindowManagement
-  autocmd!
-  autocmd WinEnter * call Handle_Win_Enter()
-augroup END
+" augroup WindowManagement
+"   autocmd!
+"   autocmd WinEnter * call Handle_Win_Enter()
+" augroup END
 
 " Change highlight group of active/inactive windows
-function! Handle_Win_Enter()
-  setlocal winhighlight=Normal:ActiveWindow,NormalNC:InactiveWindow
-endfunction
+" function! Handle_Win_Enter()
+"   setlocal winhighlight=Normal:ActiveWindow,NormalNC:InactiveWindow
+" endfunction
 
 " :Ag in FZF
 " https://github.com/junegunn/fzf.vim/issues/346#issuecomment-288483704
 command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, {'options': '--delimiter : --nth 4..'}, <bang>0)
-
