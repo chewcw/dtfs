@@ -17,6 +17,7 @@ Plug 'dylanaraps/fff.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'chriskempson/base16-vim'
+Plug 'lukas-reineke/indent-blankline.nvim'
 " Plug 'https://git.sr.ht/~swalladge/paper.vim'
 " Plug 'romgrk/barbar.nvim'
 " Omnisharp
@@ -26,7 +27,7 @@ Plug 'chriskempson/base16-vim'
 call plug#end()
 
 " some rules not related to plugins
-set list
+" set list
 " set listchars=tab:▶\ ,trail:·
 set relativenumber
 set foldmethod=indent
@@ -216,3 +217,6 @@ syntax on
 " :Ag in FZF
 " https://github.com/junegunn/fzf.vim/issues/346#issuecomment-288483704
 command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, {'options': '--delimiter : --nth 4..'}, <bang>0)
+
+" https://github.com/lukas-reineke/indent-blankline.nvim
+:lua require('indent_blankline/main')
