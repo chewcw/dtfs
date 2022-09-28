@@ -9,7 +9,6 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround', { 'branch': 'master' }
 Plug 'junegunn/fzf', {'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-Plug 'gelguy/wilder.nvim', {'do': ':UpdateRemotePlugins'}
 Plug 'sindrets/winshift.nvim' 
 " Plug 'joshdick/onedark.vim'
 " Plug 'yamatsum/nvim-cursorline'
@@ -24,6 +23,16 @@ Plug 'lukas-reineke/indent-blankline.nvim'
 " Plug 'OmniSharp/omnisharp-vim'
 " Plug 'dense-analysis/ale'
 " Omnisharp end
+if has('nvim')
+  function! UpdateRemotePlugins(...)
+    " Needed to refresh runtime files
+    let &rtp=&rtp
+    UpdateRemotePlugins
+  endfunction
+  Plug 'gelguy/wilder.nvim', { 'do': function('UpdateRemotePlugins') }
+else
+  Plug 'gelguy/wilder.nvim'
+endif
 call plug#end()
 
 " some rules not related to plugins
