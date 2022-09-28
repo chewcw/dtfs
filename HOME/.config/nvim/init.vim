@@ -62,7 +62,6 @@ nnoremap <A-[> :vertical resize -5<CR>
 nnoremap <C-\> :vsplit<CR>
 nnoremap <C-_> :split<CR>
 nnoremap <C-f> :Ag 
-nnoremap <backspace> X
 nnoremap <A-c> <Cmd>BufferClose<Cr>
 " https://medium.com/@kadek/understanding-vims-jump-list-7e1bfc72cdf0
 nnoremap <expr> k (v:count > 1 ? "m'" . v:count : '') . 'k'
