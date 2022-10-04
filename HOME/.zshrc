@@ -130,7 +130,7 @@ alias gs="git status"
 alias gb="git branch"
 alias gsh="git stash"
 alias gch="git checkout"
-alias gll="git log --graph --pretty=format:\"%h%x09%d%x09%Cred%an%x09%Cblue%aI%x09%Cgreen%s\""
+alias gll="git log --graph --pretty=format:\"%h %Cred%an %Cblue%aI %Cred%d%Cgreen%s\""
 alias lg="lazygit"
 alias gforeachref="git for-each-ref --sort=committerdate --format '%(refname) on %(color:bold blue)%(committerdate) %(color:bold white) by %(color:green) %(committername)%(committeremail)'"
 
