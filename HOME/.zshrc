@@ -1,6 +1,3 @@
-# start tmux automatically
-if [ "$TMUX" = "" ]; then tmux; fi
-
 # dotfiles position
 export DOTFILES=$HOME/dtfs
 
