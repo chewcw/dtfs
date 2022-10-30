@@ -9,6 +9,7 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround', { 'branch': 'master' }
 Plug 'junegunn/fzf', {'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+Plug 'mg979/vim-visual-multi', { 'branch': 'master' }
 Plug 'sindrets/winshift.nvim' 
 " Plug 'joshdick/onedark.vim'
 " Plug 'yamatsum/nvim-cursorline'
@@ -81,6 +82,13 @@ cnoremap <C-u> <Up>
 cnoremap <C-d> <Down>
 cnoremap <C-b> <Left>
 cnoremap <C-w> <Right>
+
+" vim-visual-multi keybindings
+" https://github.com/mg979/vim-visual-multi/wiki/Mappings#customization
+let g:VM_maps = {}
+let g:VM_maps['Select Cursor Down'] = '<A-S-j>'
+let g:VM_maps['Select Cursor Up'] = '<A-S-k>'
+let g:VM_maps['Find Under'] = 'gb'
 
 " Conquer of Completion
 " inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
