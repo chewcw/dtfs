@@ -1,6 +1,5 @@
 call plug#begin('~/AppData/Local/nvim/plugged')
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+Plug 'nvim-lualine/lualine.nvim'
 " Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 Plug 'sheerun/vim-polyglot'
 Plug 'machakann/vim-sandwich'
@@ -11,19 +10,6 @@ Plug 'junegunn/fzf', {'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'mg979/vim-visual-multi', { 'branch': 'master' }
 Plug 'sindrets/winshift.nvim' 
-" Plug 'joshdick/onedark.vim'
-" Plug 'yamatsum/nvim-cursorline'
-Plug 'dylanaraps/fff.vim'
-Plug 'tpope/vim-fugitive'
-Plug 'kyazdani42/nvim-web-devicons'
-Plug 'chriskempson/base16-vim'
-Plug 'lukas-reineke/indent-blankline.nvim'
-" Plug 'https://git.sr.ht/~swalladge/paper.vim'
-" Plug 'romgrk/barbar.nvim'
-" Omnisharp
-" Plug 'OmniSharp/omnisharp-vim'
-" Plug 'dense-analysis/ale'
-" Omnisharp end
 if has('nvim')
   function! UpdateRemotePlugins(...)
     " Needed to refresh runtime files
@@ -34,6 +20,25 @@ if has('nvim')
 else
   Plug 'gelguy/wilder.nvim'
 endif
+Plug 'dylanaraps/fff.vim'
+Plug 'tpope/vim-fugitive'
+Plug 'kyazdani42/nvim-web-devicons'
+" Plug 'chriskempson/base16-vim'
+Plug 'lukas-reineke/indent-blankline.nvim'
+Plug 'neovim/nvim-lspconfig'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/cmp-cmdline'
+Plug 'hrsh7th/nvim-cmp'
+Plug 'williamboman/mason.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
+Plug 'nvim-telescope/telescope-file-browser.nvim'
+" Omnisharp
+" Plug 'OmniSharp/omnisharp-vim'
+" Plug 'dense-analysis/ale'
+" Omnisharp end
 call plug#end()
 
 " some rules not related to plugins
@@ -186,34 +191,7 @@ nnoremap <C-A-L> <Cmd>WinShift right<CR>
 let g:fff#split = "40vnew"
 let g:fff#split_direction = "nosplitbelow nosplitright"
 
-" onedark theme
-" onedark.vim override: Don't set a background color when running in a terminal;
-" if (has("autocmd") && !has("gui_running"))
-"   augroup colorset
-"     autocmd!
-"     let s:white = { "gui": "#ABB2BF", "cterm": "145", "cterm16" : "7" }
-"     autocmd ColorScheme * call onedark#set_highlight("Normal", { "fg": s:white }) " `bg` will not be styled since there is no `bg` setting
-"   augroup END
-" endif
-
-" autocmd ColorScheme * highlight Normal ctermbg=NONE guibg=NONE
-
-" hi Comment cterm=italic
-" let g:onedark_hide_endofbuffer=1
-" let g:onedark_terminal_italics=1
-" let g:onedark_termcolors=256
-
 syntax on
-" colorscheme paper
-
-" checks if your terminal has 24-bit color support
-" if (has("termguicolors"))
-    " set termguicolors
-    " hi LineNr ctermbg=NONE guibg=NONE
-" endif
-
-" set termguicolors
-" let base16colorspace=256
 
 " https://caleb89taylor.medium.com/customizing-individual-neovim-windows-4a08f2d02b4e
 " Background colors for active vs inactive windows
@@ -234,5 +212,8 @@ syntax on
 " https://github.com/junegunn/fzf.vim/issues/346#issuecomment-288483704
 command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, {'options': '--delimiter : --nth 4..'}, <bang>0)
 
-" https://github.com/lukas-reineke/indent-blankline.nvim
+
+" :lua require('nvim-cmp/main')
 :lua require('indent_blankline/main')
+:lua require('nvim-lualine/main')
+:lua require('nvim-telescope/main')
