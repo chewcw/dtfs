@@ -35,6 +35,7 @@ Plug 'williamboman/mason.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
 Plug 'nvim-telescope/telescope-file-browser.nvim'
+Plug 'easymotion/vim-easymotion'
 " Omnisharp
 " Plug 'OmniSharp/omnisharp-vim'
 " Plug 'dense-analysis/ale'
@@ -55,6 +56,9 @@ set ttimeout
 set wildignorecase
 set clipboard=unnamedplus
 set scrolloff=5
+set tabstop=4
+set shiftwidth=4
+set expandtab
 " https://stackoverflow.com/questions/2288756/how-to-set-working-current-directory-in-vim
 set autochdir
 
@@ -88,12 +92,27 @@ cnoremap <C-d> <Down>
 cnoremap <C-b> <Left>
 cnoremap <C-w> <Right>
 
+" insert mode keybindings (insert close bracket automatically)
+" inoremap " ""<left>
+" inoremap ' ''<left>
+" inoremap ` ``<left>
+" inoremap ( ()<left>
+" inoremap [ []<left>
+" inoremap { {}<left>
+" inoremap {<CR> {<CR>}<ESC>O
+" inoremap {;<CR> {<CR>};<ESC>O
+
+
 " vim-visual-multi keybindings
 " https://github.com/mg979/vim-visual-multi/wiki/Mappings#customization
 let g:VM_maps = {}
 let g:VM_maps['Select Cursor Down'] = '<A-S-j>'
 let g:VM_maps['Select Cursor Up'] = '<A-S-k>'
 let g:VM_maps['Find Under'] = 'gb'
+
+" easymotion 2-character search
+nmap s <Plug>(easymotion-s2)
+nmap t <Plug>(easymotion-t2)
 
 " Conquer of Completion
 " inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
@@ -211,7 +230,6 @@ syntax on
 " :Ag in FZF
 " https://github.com/junegunn/fzf.vim/issues/346#issuecomment-288483704
 command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, {'options': '--delimiter : --nth 4..'}, <bang>0)
-
 
 " :lua require('nvim-cmp/main')
 :lua require('indent_blankline/main')
