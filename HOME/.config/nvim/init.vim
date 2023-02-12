@@ -102,7 +102,6 @@ cnoremap <C-w> <Right>
 " inoremap {<CR> {<CR>}<ESC>O
 " inoremap {;<CR> {<CR>};<ESC>O
 
-
 " vim-visual-multi keybindings
 " https://github.com/mg979/vim-visual-multi/wiki/Mappings#customization
 let g:VM_maps = {}
@@ -113,6 +112,12 @@ let g:VM_maps['Find Under'] = 'gb'
 " easymotion 2-character search
 nmap s <Plug>(easymotion-s2)
 nmap t <Plug>(easymotion-t2)
+nmap <leader>s <Plug>(easymotion-s)
+nmap <leader>w <Plug>(easymotion-w)
+nmap <leader>b <Plug>(easymotion-b)
+nmap <leader>j <Plug>(easymotion-j)
+nmap <leader>k <Plug>(easymotion-k)
+nmap <leader>/ <Plug>(easymotion-sn)
 
 " Conquer of Completion
 " inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
