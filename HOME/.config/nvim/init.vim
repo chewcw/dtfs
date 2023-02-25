@@ -191,7 +191,13 @@ set background=dark
 :hi Visual cterm=reverse ctermbg=NONE
 " https://stackoverflow.com/questions/7103173/vim-how-to-change-the-highlight-color-for-search-hits-and-quickfix-selection
 :hi Search cterm=NONE ctermfg=black ctermbg=grey
-
+" gitsigns
+" https://github.com/lewis6991/gitsigns.nvim/blob/main/doc/gitsigns.txt#L929
+:hi SignColumn ctermbg=251 ctermfg=0
+:hi GitSignsAdd ctermbg=251 ctermfg=0
+:hi GitSignsChange ctermbg=251 ctermfg=0
+:hi GitSignsDelete ctermbg=251 ctermfg=0
+:hi GitSignsUntracked ctermbg=251 ctermfg=0
 
 " Omnisharp
 " if has('patch-8.1.1880')
