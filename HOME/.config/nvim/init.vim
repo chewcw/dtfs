@@ -8,7 +8,7 @@ Plug 'tpope/vim-surround', { 'branch': 'master' }
 Plug 'junegunn/fzf', {'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'mg979/vim-visual-multi', { 'branch': 'master' }
-Plug 'sindrets/winshift.nvim' 
+Plug 'sindrets/winshift.nvim'
 Plug 'dylanaraps/fff.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'kyazdani42/nvim-web-devicons'
@@ -23,6 +23,8 @@ Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
 Plug 'nvim-telescope/telescope-file-browser.nvim'
 Plug 'easymotion/vim-easymotion'
+Plug 'lukas-reineke/indent-blankline.nvim'
+Plug 'lewis6991/gitsigns.nvim'
 if has('nvim')
   function! UpdateRemotePlugins(...)
     " Needed to refresh runtime files
@@ -35,7 +37,6 @@ else
 endif
 
 " Plug 'chriskempson/base16-vim'
-" Plug 'lukas-reineke/indent-blankline.nvim'
 " Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 " Omnisharp
 " Plug 'OmniSharp/omnisharp-vim'
@@ -60,6 +61,10 @@ set scrolloff=5
 set tabstop=4
 set shiftwidth=4
 set expandtab
+set showmatch
+set breakindent
+set undofile
+set completeopt="menuone,noselect"
 " https://stackoverflow.com/questions/2288756/how-to-set-working-current-directory-in-vim
 set autochdir
 
@@ -253,4 +258,5 @@ command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, {'options': '--delimiter : 
 :lua require('indent_blankline/main')
 :lua require('nvim-lualine/main')
 :lua require('nvim-telescope/main')
+:lua require('gitsigns/main')
 
