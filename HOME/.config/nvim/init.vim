@@ -178,9 +178,9 @@ set background=dark
 
 " fix telescope color scheme
 " https://github.com/nvim-telescope/telescope.nvim/issues/2145#issuecomment-1264323345
-:hi NormalFloat cterm=NONE ctermfg=Black ctermbg=LightGrey
+:hi NormalFloat ctermbg=NONE
 " comment color
-:hi Comment cterm=NONE ctermfg=Grey
+:hi Comment cterm=NONE ctermfg=DarkGrey
 " highlight color
 " https://vi.stackexchange.com/questions/9249/how-do-i-restore-visual-mode-selection-highlighting
 :hi Visual cterm=reverse ctermbg=NONE
