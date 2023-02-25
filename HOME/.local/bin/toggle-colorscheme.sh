@@ -59,12 +59,14 @@ grep -rn -E "set background=dark" $HOME/.config/nvim/init.vim
 if [ "$?" -eq 0 ]; then
     # light theme
     sed -i "s/set background=dark/set background=light/" $HOME/.config/nvim/init.vim;
-    sed -i "s/tokyo-night/papertheme/" $HOME/.config/alacritty/alacritty.yml;
+    sed -i "s/tokyo-night/solarized_light/" $HOME/.config/alacritty/alacritty.yml;
+    sed -i "s/ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#626262'/ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#cecece'/" $HOME/.zshrc
     toggle_tmux_colorscheme 1;
 else
     # dark theme
     sed -i "s/set background=light/set background=dark/" $HOME/.config/nvim/init.vim;
-    sed -i "s/papertheme/tokyo-night/" $HOME/.config/alacritty/alacritty.yml;
+    sed -i "s/solarized_light/tokyo-night/" $HOME/.config/alacritty/alacritty.yml;
+    sed -i "s/ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#cecece'/ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#626262'/" $HOME/.zshrc
     toggle_tmux_colorscheme 2;
 fi
 
