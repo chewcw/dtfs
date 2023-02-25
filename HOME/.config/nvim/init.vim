@@ -149,14 +149,6 @@ let NERDTreeShowHidden=1
 nnoremap <C-p> :Files
 nnoremap <C-A-p> :GFiles
 
-
-" highlight color
-" https://vi.stackexchange.com/questions/9249/how-do-i-restore-visual-mode-selection-highlighting
-" :highlight Visual cterm=reverse ctermbg=NONE
-" https://stackoverflow.com/questions/7103173/vim-how-to-change-the-highlight-color-for-search-hits-and-quickfix-selection
-hi Search cterm=NONE ctermfg=black ctermbg=lightgrey
-
-
 " gelguy/wilder.nvim
 call wilder#setup({ 
 	\ 'modes': [':', '/', '?'],
@@ -182,11 +174,19 @@ nnoremap <C-A-L> <Cmd>WinShift right<CR>
 " theme
 " this will be changed by colorscheme switcher
 " see $HOME/.local/bin/toggle-colorscheme.sh
-set background=light
+set background=dark
 
 " fix telescope color scheme
 " https://github.com/nvim-telescope/telescope.nvim/issues/2145#issuecomment-1264323345
-:hi NormalFloat ctermfg=LightGrey
+:hi NormalFloat cterm=NONE ctermfg=Black ctermbg=LightGrey
+" comment color
+:hi Comment cterm=NONE ctermfg=Grey
+" highlight color
+" https://vi.stackexchange.com/questions/9249/how-do-i-restore-visual-mode-selection-highlighting
+:hi Visual cterm=reverse ctermbg=NONE
+" https://stackoverflow.com/questions/7103173/vim-how-to-change-the-highlight-color-for-search-hits-and-quickfix-selection
+:hi Search cterm=NONE ctermfg=black ctermbg=grey
+
 
 " Omnisharp
 " if has('patch-8.1.1880')
@@ -228,7 +228,7 @@ set background=light
 let g:fff#split = "40vnew"
 let g:fff#split_direction = "nosplitbelow nosplitright"
 
-syntax on
+syntax enable
 
 " https://caleb89taylor.medium.com/customizing-individual-neovim-windows-4a08f2d02b4e
 " Background colors for active vs inactive windows

@@ -113,6 +113,11 @@ source $ZSH/oh-my-zsh.sh
 # export PATH=$HOME/go/bin:$PATH
 # export PATH=$PATH:$HOME/.cargo/bin
 
+# ZSH_AUTOSUGGEST text color
+# this can be changed by colorscheme switcher
+# see $HOME/.local/bin/toggle-colorscheme.sh
+export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#626262'
+
 export EDITOR=nvim
 export VISUAL=nvim
 
