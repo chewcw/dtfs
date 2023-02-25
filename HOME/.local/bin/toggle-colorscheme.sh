@@ -1,13 +1,70 @@
 #!/usr/bin/env bash
 
+# tmux change colorscheme related function
+function comment_or_uncomment_line() {
+    to_comment=$1
+    line_number=$2
+
+    if [[ to_comment -eq 1 && ! $(sed "$line_number!d" $HOME/.tmux.conf) =~ ^# ]]; then
+        # comment out the line
+        sed -i "${line_number}s/^/# /" $HOME/.tmux.conf;
+    fi
+
+    if [[ to_comment -eq 0 && $(sed "$line_number!d" $HOME/.tmux.conf) =~ ^# ]]; then
+        # uncomment the line
+        sed -i "${line_number}s/# //" $HOME/.tmux.conf;
+    fi
+}
+
+# tmux change colorscheme related function
+function toggle_tmux_colorscheme() {
+    is_light_mode=$1
+
+    light_start_line_number=$(awk '/tmux-gruvbox-light START/{ print NR+1; exit }' $HOME/.tmux.conf)
+    light_end_line_number=$(awk '/tmux-gruvbox-light END/{ print NR-1; exit }' $HOME/.tmux.conf)
+    dark_start_line_number=$(awk '/tmux-gruvbox-dark START/{ print NR+1; exit }' $HOME/.tmux.conf)
+    dark_end_line_number=$(awk '/tmux-gruvbox-dark END/{ print NR-1; exit }' $HOME/.tmux.conf)
+
+    if [[ $is_light_mode -eq 1 ]]; then
+        # light mode
+        for i in $(eval echo "{$light_start_line_number..$light_end_line_number}")
+        do
+            # uncomment all lines in light mode colorscheme
+            comment_or_uncomment_line 0 $i
+        done
+
+        for i in $(eval echo "{$dark_start_line_number..$dark_end_line_number}")
+        do
+            # comment out all lines in dark mode colorscheme
+            comment_or_uncomment_line 1 $i
+        done
+    else
+        # dark mode
+        for i in $(eval echo "{$light_start_line_number..$light_end_line_number}")
+        do
+            # comment out all lines in light mode colorscheme
+            comment_or_uncomment_line 1 $i
+        done
+
+        for i in $(eval echo "{$dark_start_line_number..$dark_end_line_number}")
+        do
+            # uncomment all lines in dark mode colorscheme
+            comment_or_uncomment_line 0 $i
+        done
+    fi
+}
+
+# start here
 grep -rn -E "set background=dark" $HOME/.config/nvim/init.vim
 if [ "$?" -eq 0 ]; then
-    sed -i "s/set background=dark/set background=light/" $HOME/.config/nvim/init.vim
+    # light theme
+    sed -i "s/set background=dark/set background=light/" $HOME/.config/nvim/init.vim;
+    sed -i "s/tokyo-night/papertheme/" $HOME/.config/alacritty/alacritty.yml;
+    toggle_tmux_colorscheme 1;
 else
-    sed -i "s/set background=light/set background=dark/" $HOME/.config/nvim/init.vim
+    # dark theme
+    sed -i "s/set background=light/set background=dark/" $HOME/.config/nvim/init.vim;
+    sed -i "s/papertheme/tokyo-night/" $HOME/.config/alacritty/alacritty.yml;
+    toggle_tmux_colorscheme 2;
 fi
 
-# https://github.com/toggle-corp/alacritty-colorscheme/blob/master/README.md
-export LIGHT_COLOR='base16-google-light-256.yml'
-export DARK_COLOR='base16-material-256.yml'
-$HOME/.local/bin/alacritty-colorscheme -V toggle $LIGHT_COLOR $DARK_COLOR
