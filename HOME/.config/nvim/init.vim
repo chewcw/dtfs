@@ -1,6 +1,5 @@
 call plug#begin('~/AppData/Local/nvim/plugged')
 Plug 'nvim-lualine/lualine.nvim'
-" Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 Plug 'sheerun/vim-polyglot'
 Plug 'machakann/vim-sandwich'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
@@ -10,21 +9,9 @@ Plug 'junegunn/fzf', {'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'mg979/vim-visual-multi', { 'branch': 'master' }
 Plug 'sindrets/winshift.nvim' 
-if has('nvim')
-  function! UpdateRemotePlugins(...)
-    " Needed to refresh runtime files
-    let &rtp=&rtp
-    UpdateRemotePlugins
-  endfunction
-  Plug 'gelguy/wilder.nvim', { 'do': function('UpdateRemotePlugins') }
-else
-  Plug 'gelguy/wilder.nvim'
-endif
 Plug 'dylanaraps/fff.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'kyazdani42/nvim-web-devicons'
-" Plug 'chriskempson/base16-vim'
-Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'neovim/nvim-lspconfig'
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
@@ -36,6 +23,20 @@ Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
 Plug 'nvim-telescope/telescope-file-browser.nvim'
 Plug 'easymotion/vim-easymotion'
+if has('nvim')
+  function! UpdateRemotePlugins(...)
+    " Needed to refresh runtime files
+    let &rtp=&rtp
+    UpdateRemotePlugins
+  endfunction
+	Plug 'gelguy/wilder.nvim', { 'do': function('UpdateRemotePlugins') }
+else
+	Plug 'gelguy/wilder.nvim'
+endif
+
+" Plug 'chriskempson/base16-vim'
+" Plug 'lukas-reineke/indent-blankline.nvim'
+" Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 " Omnisharp
 " Plug 'OmniSharp/omnisharp-vim'
 " Plug 'dense-analysis/ale'
@@ -151,7 +152,10 @@ nnoremap <C-A-p> :GFiles
 
 " highlight color
 " https://vi.stackexchange.com/questions/9249/how-do-i-restore-visual-mode-selection-highlighting
-:highlight Visual cterm=reverse ctermbg=NONE
+" :highlight Visual cterm=reverse ctermbg=NONE
+" https://stackoverflow.com/questions/7103173/vim-how-to-change-the-highlight-color-for-search-hits-and-quickfix-selection
+hi Search cterm=NONE ctermfg=black ctermbg=lightgrey
+
 
 " gelguy/wilder.nvim
 call wilder#setup({ 
@@ -162,18 +166,27 @@ call wilder#setup({
 	\ 'reject_key': '<C-k>',
 	\ })
 
-call wilder#set_option('renderer', wilder#wildmenu_renderer(
-	\ wilder#wildmenu_airline_theme({
-	\ 'highlights': {},
-	\ 'highlighter': wilder#basic_highlighter(),
-	\ 'separator': '  ',
-	\ })))
+" call wilder#set_option('renderer', wilder#wildmenu_renderer(
+" 	\ wilder#wildmenu_airline_theme({
+" 	\ 'highlights': {},
+" 	\ 'highlighter': wilder#basic_highlighter(),
+" 	\ 'separator': '  ',
+" 	\ })))
 
 " sindrets/winshift.nvim
 nnoremap <C-A-H> <Cmd>WinShift left<CR>
 nnoremap <C-A-J> <Cmd>WinShift down<CR>
 nnoremap <C-A-K> <Cmd>WinShift up<CR>
 nnoremap <C-A-L> <Cmd>WinShift right<CR>
+
+" theme
+" this will be changed by colorscheme switcher
+" see $HOME/.local/bin/toggle-colorscheme.sh
+set background=light
+
+" fix telescope color scheme
+" https://github.com/nvim-telescope/telescope.nvim/issues/2145#issuecomment-1264323345
+:hi NormalFloat ctermfg=LightGrey
 
 " Omnisharp
 " if has('patch-8.1.1880')
@@ -240,3 +253,4 @@ command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, {'options': '--delimiter : 
 :lua require('indent_blankline/main')
 :lua require('nvim-lualine/main')
 :lua require('nvim-telescope/main')
+

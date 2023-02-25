@@ -13,6 +13,8 @@ telescope.setup {
       theme = "dropdown",
       -- disables netrw and use telescope-file-browser in its place
       hijack_netrw = true,
+      hidden = true,
+      initial_mode = "normal",
       mappings = {
         -- your custom insert mode mappings
         ["i"] = {
@@ -27,6 +29,14 @@ telescope.setup {
           end
         },
       },
+    },
+  },
+  pickers = {
+    colorscheme = {
+      enable_preview = true,
+    },
+    find_files = {
+      hidden = true,
     },
   },
 }
@@ -45,8 +55,9 @@ vim.keymap.set("n", "<leader>fs", function()
     respect_gitignore = false,
     hidden = true,
     grouped = true,
-    previewer = false,
+    previewer = true,
     initial_mode = "normal",
     layout_config = { height = 40 }
   })
 end)
+

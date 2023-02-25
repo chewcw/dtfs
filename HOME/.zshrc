@@ -207,15 +207,7 @@ alias audio=pavucontrol-qt
 alias network=nm-connection-editor
 
 export PATH=$PATH:/usr/local/go/bin
-export PATH=$PATH:/home/ccw/.local/bin
-
-# https://github.com/toggle-corp/alacritty-colorscheme/blob/master/README.md
-LIGHT_COLOR='base16-google-light.yml'
-DARK_COLOR='base16-onedark.yml'
-
-alias day="alacritty-colorscheme -V apply $LIGHT_COLOR"
-alias night="alacritty-colorscheme -V apply $DARK_COLOR"
-alias toggle="alacritty-colorscheme -V toggle $LIGHT_COLOR $DARK_COLOR"
+export PATH=$PATH:$HOME/.local/bin
 
 # stdout to clipboard
 # https://stackoverflow.com/questions/5130968/how-can-i-copy-the-output-of-a-command-directly-into-my-clipboard

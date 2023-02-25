@@ -85,13 +85,10 @@ mkdir -p $HOME/.config/alacritty
 ln -sf $pwd/HOME/.config/alacritty/alacritty.yml $HOME/.config/alacritty/alacritty.yml
 
 # alacritty color theme
-git clone https://github.com/aarowill/base16-alacritty.git $HOME/.colorscheme
-ln -sf $HOME/.colorscheme/colors $pwd/HOME/.config/alacritty/colors
-ln -sf $HOME/.colorscheme/colors $pwd/HOME/.config/nvim/colors
-
-# alacritty color scheme switcher
-# https://github.com/toggle-corp/alacritty-colorscheme/blob/master/README.md
-pip install --user alacritty-colorscheme
+mkdir -p ~/.config/alacritty/themes
+git clone https://github.com/alacritty/alacritty-theme ~/.config/alacritty/themes
+# Install symlink for colorscheme switcher
+ln -sf $pwd/HOME/.local/bin/toggle-colorscheme.sh $HOME/.local/bin/toggle-colorscheme.sh
 
 # Install vscode
 sudo apt install -y software-properties-common apt-transport-https curl
