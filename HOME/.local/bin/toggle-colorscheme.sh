@@ -57,6 +57,7 @@ function toggle_tmux_colorscheme() {
 # start here
 ALACRITTY_LIGHT_THEME_NAME=atom_one_light
 ALACRITTY_DARK_THEME_NAME=tokyo-night
+# ALACRITTY_DARK_THEME_NAME=citylights
 
 grep -rn -E "set background=dark" $HOME/.config/nvim/init.vim
 if [ "$?" -eq 0 ]; then
@@ -64,12 +65,14 @@ if [ "$?" -eq 0 ]; then
     sed -i "s/set background=dark/set background=light/" $HOME/.config/nvim/init.vim;
     sed -i "s/$ALACRITTY_DARK_THEME_NAME/$ALACRITTY_LIGHT_THEME_NAME/" $HOME/.config/alacritty/alacritty.yml;
     sed -i "s/ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#626262'/ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#cecece'/" $HOME/.zshrc
+    sed -i "s/lightTheme: false/lightTheme: true/" $HOME/.config/jesseduffield/lazygit/config.yml
     toggle_tmux_colorscheme 1;
 else
     # dark theme
     sed -i "s/set background=light/set background=dark/" $HOME/.config/nvim/init.vim;
     sed -i "s/$ALACRITTY_LIGHT_THEME_NAME/$ALACRITTY_DARK_THEME_NAME/" $HOME/.config/alacritty/alacritty.yml;
     sed -i "s/ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#cecece'/ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#626262'/" $HOME/.zshrc
+    sed -i "s/lightTheme: true/lightTheme: false/" $HOME/.config/jesseduffield/lazygit/config.yml
     toggle_tmux_colorscheme 2;
 fi
 
