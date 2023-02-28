@@ -2,7 +2,7 @@
 
 set -e
 
-configFilePath=https://raw.githubusercontent.com/chewcw/dtfs/main/HOME/.config/nvim/init.vim
+configFileDirectory=https://github.com/chewcw/dtfs/trunk/HOME/.config/nvim
 localConfigFilePath=$HOME/.config/nvim
 localConfigFile=init.vim
 localNvimPath=$HOME/.local/nvim
@@ -36,6 +36,8 @@ install_dependency() {
 	# Ag
 	sudo apt update
 	sudo apt install -y silversearcher-ag || true
+	# svn
+	sudo apt install -y subversion || true
 
 	# Install fff
 	if [ ! -d "$HOME/.fff" ]; then
@@ -70,7 +72,7 @@ install_common_coc() {
 configure_nvim() {
 	mkdir -p $localConfigFilePath
 	rm -rf $localConfigFilePath/$localConfigFile || true
-	curl -o $localConfigFilePath/$localConfigFile $configFilePath
+	cd $localConfigFilePath && svn checkout $configFileDirectory
 }
 
 uninstall() {
