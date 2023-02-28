@@ -35,9 +35,11 @@ parse_args() {
 install_dependency() {
 	# Ag
 	sudo apt update
-	sudo apt install -y silversearcher-ag || true
+	[ ! $(command -v ag) ] && sudo apt install -y silversearcher-ag || true
 	# svn
-	sudo apt install -y subversion || true
+	[ ! $(command -v svn) ] && sudo apt install -y subversion || true
+	# ripgrep
+	[ ! $(command -v rg) ] && sudo apt install -y ripgrep || true
 
 	# Install fff
 	if [ ! -d "$HOME/.fff" ]; then
@@ -99,6 +101,9 @@ uninstall() {
 	# remove svn
 	echo "removing svn"
 	sudo apt remove --purge subversion -y || true
+	# remove ag
+	echo "removing ag"
+	sudo apt remove --purge silversearcher-ag -y || true
 }
 
 parse_args $1
