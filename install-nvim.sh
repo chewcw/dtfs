@@ -88,7 +88,7 @@ configure_nvim() {
 	mkdir -p $localConfigFilePath
 	rm -rf $localConfigFilePath/$localConfigFile || true
 	echo "svn checking out the nvim config directory from github"
-	cd $localConfigFilePath && svn checkout $configFileDirectory
+	cd $localConfigFilePath && svn checkout $configFileDirectory .
 }
 
 uninstall() {
