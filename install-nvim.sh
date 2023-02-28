@@ -48,16 +48,24 @@ install_dependency() {
 }
 
 install_nodejs() {
-	curl -sL install-node.vercel.app/lts | bash -s -- --yes
+	if ! command -v node &>/dev/null; then
+		echo "installing NodeJS"
+		curl -sL install-node.vercel.app/lts | bash -s -- --yes
+	fi
+	echo "NodeJS is installed"
 }
 
 install_nvim_nightly() {
-	mkdir -p $localNvimPath
-	curl -Lo /tmp/nvim-linux64.tar.gz https://github.com/neovim/neovim/releases/download/nightly/nvim-linux64.tar.gz
-	tar -xf /tmp/nvim-linux64.tar.gz -C /tmp/ || true
-	mv /tmp/nvim-linux64/* $localNvimPath || true
-	sudo ln -sf $localNvimPath/bin/nvim /usr/local/bin/nvim
-	rm -rf /tmp/nvim-linux64 || true
+	if ! command -v nvim &>/dev/null; then
+		echo "installing nvim nightly"
+		mkdir -p $localNvimPath
+		curl -Lo /tmp/nvim-linux64.tar.gz https://github.com/neovim/neovim/releases/download/nightly/nvim-linux64.tar.gz
+		tar -xf /tmp/nvim-linux64.tar.gz -C /tmp/ || true
+		mv /tmp/nvim-linux64/* $localNvimPath || true
+		sudo ln -sf $localNvimPath/bin/nvim /usr/local/bin/nvim
+		rm -rf /tmp/nvim-linux64 || true
+	fi
+	echo "nvim nightly is installed"
 }
 
 install_and_configure_plug() {
@@ -77,14 +85,20 @@ configure_nvim() {
 
 uninstall() {
 	# remove neovim
+	echo "removing nvim"
 	rm -rf $localNvimPath || true
 	rm -rf /usr/local/bin/nvim || true
 	# remove neovim related files
+	echo "removing nvim related files"
 	rm -rf $localConfigFilePath || true
 	rm -rf $HOME/AppData/Local/nvim || true
 	# remove nodejs
+	echo "removing NodeJS"
 	rm -rf /usr/local/bin/node /usr/local/bin/npm /usr/local/bin/npx || true
 	rm -rf /usr/local/lib/node_modules || true
+	# remove svn
+	echo "removing svn"
+	sudo apt remove --purge subversion -y || true
 }
 
 parse_args $1
