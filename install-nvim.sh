@@ -33,6 +33,8 @@ parse_args() {
 }
 
 install_dependency() {
+	echo "installing dependencies"
+
 	# Ag
 	sudo apt update
 	[ ! $(command -v ag) ] && sudo apt install -y silversearcher-ag || true
@@ -43,6 +45,7 @@ install_dependency() {
 
 	# Install fff
 	if [ ! -d "$HOME/.fff" ]; then
+		echo "cloning fff"
 		git clone https://github.com/dylanaraps/fff $HOME/.fff || true
 		sudo make -k -C $HOME/.fff install || true
 	fi
@@ -71,17 +74,20 @@ install_nvim_nightly() {
 }
 
 install_and_configure_plug() {
+	echo "installing and configuring plug"
 	sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim' || true
 	$localNvimPath/bin/nvim -u $localConfigFilePath/$localConfigFile +PlugInstall +qa
 }
 
 install_common_coc() {
+	echo "installing common coc"
 	$localNvimPath/bin/nvim +'CocInstall -sync coc-go coc-pyright coc-tsserver' +qa
 }
 
 configure_nvim() {
 	mkdir -p $localConfigFilePath
 	rm -rf $localConfigFilePath/$localConfigFile || true
+	echo "svn checking out the nvim config directory from github"
 	cd $localConfigFilePath && svn checkout $configFileDirectory
 }
 
