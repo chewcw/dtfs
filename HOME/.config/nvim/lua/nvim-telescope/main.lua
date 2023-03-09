@@ -1,10 +1,5 @@
 local status, telescope = pcall(require, "telescope")
 local builtin = require('telescope.builtin')
-
-local function telescope_buffer_dir()
-  return vim.fn.expand('%:p:h')
-end
-
 local fb_actions = require "telescope".extensions.file_browser.actions
 
 telescope.setup {
@@ -43,23 +38,31 @@ telescope.setup {
 }
 
 telescope.load_extension("file_browser")
+telescope.load_extension("live_grep_args")
 
-vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
-vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
+vim.keymap.set('n', '<leader>ff', function()
+  local opts = opts or {}
+  opts.cwd = vim.fn.systemlist('git rev-parse --show-toplevel')[1]
+  if vim.v.shell_error ~= 0 then
+    opts.cwd = vim.fn.expand('%:p:h')
+  end
+  builtin.find_files(opts)
+end)
+vim.keymap.set('n', '<leader>fg', telescope.extensions.live_grep_args.live_grep_args)
 vim.keymap.set('n', '<leader>fb', function()
   builtin.buffers({
-    initial_mode = "normal",
+    initial_mode = 'normal',
   })
 end)
 vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
-vim.keymap.set("n", "<leader>fs", function()
+vim.keymap.set('n', '<leader>fs', function()
   telescope.extensions.file_browser.file_browser({
-    path = "%:p:h",
-    cwd = telescope_buffer_dir(),
+    path = '%:p:h',
+    cwd = vim.fn.expand('%:p:h'),
     respect_gitignore = false,
     hidden = true,
     grouped = true,
-    initial_mode = "normal",
+    initial_mode = 'normal',
     layout_config = { height = 40 }
   })
 end)
