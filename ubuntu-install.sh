@@ -44,12 +44,15 @@ if [ ! -d "$HOME/.fff" ]; then
 	sudo make -k -C $HOME/.fff install || true
 fi
 
-# Install xcape (for remap capslock to escape AND ctrl)
-# if configure this along with setxkbmap
+# Install caps2esc (remapping capslock to escape AND ctrl)
 # when press caps alone, send escape
 # when press caps with another key, send ctrl
 # see: https://askubuntu.com/a/856887
-sudo apt install -y xcape
+# instead of using xcape, this is faster i think: caps2esc
+# see: https://gitlab.com/interception/linux/plugins/caps2esc
+sudo add-apt-repository ppa:deafmute/interception
+# by default wihout any configuration this will swap capslock and escape
+sudo apt install -y interception-caps2esc
 
 # Setup vim
 # Install symlink for .vimrc
