@@ -182,6 +182,11 @@ sudo apt install -y zsh
 # set zsh as default shell
 sudo chsh -s $(which zsh)
 
+# zsh plugin
+# bd (jump to parent directory easily)
+mkdir -p $HOME/zsh/plugins || true
+ln -sf $pwd/HOME/zsh/plugins/bd.zsh $HOME/zsh/plugins/bd.zsh
+
 # done
 echo "Setup done.."
 

@@ -184,7 +184,7 @@ bar {
 }
 
 # i3-gap
-for_window [class=".*"] border pixel 3
+for_window [class=".*"] border pixel 1
 set $mode_gaps Gaps: (o)uter, (i)nner, (h)orizontal, (v)ertical, (t)op, (r)ight, (b)ottom, (l)eft
 set $mode_gaps_outer Outer Gaps: +|-|0 (local), Shift + +|-|0 (global)
 set $mode_gaps_inner Inner Gaps: +|-|0 (local), Shift + +|-|0 (global)
@@ -306,11 +306,11 @@ mode "$mode_gaps_left" {
         bindsym Escape mode "default"
 }
 
-gaps inner 10
+gaps inner 0
 
 # desktop background
 exec feh --bg-scale ~/Pictures/wallpaper.jpg
- 
+
 # move workspace to another monitor
 bindsym $mod+Ctrl+h move workspace to output left
 bindsym $mod+Ctrl+l move workspace to output right
@@ -442,4 +442,4 @@ bindsym --release $mod+t exec --no-startup-id sleep 0.1 && xdotool type "$(date 
 exec --no-startup-id i3-msg 'workspace 2; exec /usr/bin/alacritty -e tmux'
 
 # Execute toggle between light and dark colorscheme command
-bindsym $mod+Shift+b exec $HOME/.local/bin/toggle-colorscheme
+bindsym $mod+Shift+b exec $HOME/.local/bin/toggle-colorscheme.sh

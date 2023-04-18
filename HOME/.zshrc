@@ -1,6 +1,3 @@
-# dotfiles position
-export DOTFILES=$HOME/dtfs
-
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -149,7 +146,7 @@ bindkey -M menuselect 'j' vi-down-line-or-history
 
 # Jump to parent directory easily
 # https://thevaluable.dev/zsh-install-configure-mouseless/
-source $DOTFILES/HOME/zsh/plugins/bd.zsh
+source $HOME/zsh/plugins/bd.zsh
 
 # keyboard repeat delay
 xset r rate 300 70 
@@ -220,6 +217,6 @@ alias xc="xclip -selection clipboard"
 
 # remap capslock to escape AND control
 # https://askubuntu.com/a/856887
-/usr/bin/setxkbmap -option 'caps:ctrl_modifier'⏎
+/usr/bin/setxkbmap -option 'caps:ctrl_modifier'
 /usr/bin/xcape -e 'Caps_Lock=Escape' -t 100
 
