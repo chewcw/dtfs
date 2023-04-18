@@ -218,11 +218,6 @@ export PATH=$PATH:$HOME/.local/bin
 alias xc="xclip -selection clipboard"
 alias xs="xsel --append --clipboard"
 
-# remap capslock to escape AND control
-# https://askubuntu.com/a/856887
-/usr/bin/setxkbmap -option 'caps:ctrl_modifier'
-/usr/bin/xcape -e 'Caps_Lock=Escape' -t 100
-
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -443,9 +438,4 @@ export PATH=$PATH:$HOME/.local/bin
 alias xc="xclip -selection clipboard"
 # xsel
 alias xs="xsel --append --clipboard"
-
-# remap capslock to escape AND control
-# https://askubuntu.com/a/856887
-/usr/bin/setxkbmap -option 'caps:ctrl_modifier'
-/usr/bin/xcape -e 'Caps_Lock=Escape' -t 100
 
