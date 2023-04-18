@@ -149,7 +149,8 @@ bindkey -M menuselect 'j' vi-down-line-or-history
 source $HOME/zsh/plugins/bd.zsh
 
 # keyboard repeat delay
-xset r rate 300 70 
+xset r rate 300 70
+fcitx &>/dev/null
 
 # open control panel in i3
 alias gnome-control-center="env XDB_CURRENT_DESKOP=GNOME gnome-control-center"

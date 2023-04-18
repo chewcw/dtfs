@@ -18,7 +18,7 @@ font pango:monospace 8
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
 # font pango:DejaVu Sans Mono 8
-font pango:DejaVu Sans Mono 9 
+font pango:DejaVu Sans Mono 9
 
 # Before i3 v4.8, we used to recommend this one as the default:
 # font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
@@ -443,3 +443,8 @@ exec --no-startup-id i3-msg 'workspace 2; exec /usr/bin/alacritty -e tmux'
 
 # Execute toggle between light and dark colorscheme command
 bindsym $mod+Shift+b exec $HOME/.local/bin/toggle-colorscheme.sh
+
+# lxqt ubuntu only
+# open monitor configuration
+bindsym $mod+Shift+w exec lxql-config-monitor
+bindsym $mod+o exec $HOME/Documents/connect_monitor.sh && xset r rate 300 70 && fcitx && 1>/dev/null 2>&1
