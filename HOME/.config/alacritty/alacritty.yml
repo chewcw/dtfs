@@ -16,7 +16,7 @@
 # this will be changed by colorscheme switcher
 # see $HOME/.local/bin/toggle-colorscheme.sh
 import:
-  - ~/.config/alacritty/themes/themes/papertheme.yaml
+  - ~/.config/alacritty/themes/themes/tokyo-night.yaml
 
 # Any items in the `env` entry below will be added as
 # environment variables. Some entries may override variables
@@ -127,7 +127,7 @@ font:
     #family: monospace
     # family: Iosevka SS07
     # family: Iosevka SS14
-    family: JetBrains Mono
+    family: Iosevka SS13
 
     # The `style` can be specified to pick a specific face.
     # style: regular
