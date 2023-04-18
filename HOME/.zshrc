@@ -217,3 +217,9 @@ export PATH=$PATH:$HOME/.local/bin
 # stdout to clipboard
 # https://stackoverflow.com/questions/5130968/how-can-i-copy-the-output-of-a-command-directly-into-my-clipboard
 alias xc="xclip -selection clipboard"
+
+# remap capslock to escape AND control
+# https://askubuntu.com/a/856887
+/usr/bin/setxkbmap -option 'caps:ctrl_modifier'⏎
+/usr/bin/xcape -e 'Caps_Lock=Escape' -t 100
+

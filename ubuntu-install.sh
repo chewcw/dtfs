@@ -41,6 +41,13 @@ if [ ! -d "$HOME/.fff" ]; then
 	sudo make -k -C $HOME/.fff install || true
 fi
 
+# Install xcape (for remap capslock to escape AND ctrl)
+# if configure this along with setxkbmap
+# when press caps alone, send escape
+# when press caps with another key, send ctrl
+# see: https://askubuntu.com/a/856887
+sudo apt install -y xcape
+
 # Setup vim
 # Install symlink for .vimrc
 ln -sf $pwd/HOME/.vimrc $HOME/.vimrc
