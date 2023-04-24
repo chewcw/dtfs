@@ -89,6 +89,7 @@ nnoremap <C-\> :vsplit<CR>
 nnoremap <C-_> :split<CR>
 nnoremap <C-f> :Ag 
 nnoremap <A-c> <Cmd>BufferClose<Cr>
+nnoremap - @@
 " https://medium.com/@kadek/understanding-vims-jump-list-7e1bfc72cdf0
 nnoremap <expr> k (v:count > 1 ? "m'" . v:count : '') . 'k'
 nnoremap <expr> j (v:count > 1 ? "m'" . v:count : '') . 'j'
@@ -117,8 +118,8 @@ let g:VM_maps['Select Cursor Up'] = '<A-S-k>'
 let g:VM_maps['Find Under'] = 'gb'
 
 " easymotion 2-character search
-nmap s <Plug>(easymotion-s2)
-nmap t <Plug>(easymotion-t2)
+" nmap s <Plug>(easymotion-s2)
+" nmap t <Plug>(easymotion-t2)
 nmap <leader>s <Plug>(easymotion-s)
 nmap <leader>w <Plug>(easymotion-w)
 nmap <leader>b <Plug>(easymotion-b)
