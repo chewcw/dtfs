@@ -50,9 +50,11 @@ fi
 # see: https://askubuntu.com/a/856887
 # instead of using xcape, this is faster i think: caps2esc
 # see: https://gitlab.com/interception/linux/plugins/caps2esc
-sudo add-apt-repository ppa:deafmute/interception
+# sudo add-apt-repository ppa:deafmute/interception
 # by default wihout any configuration this will swap capslock and escape
-sudo apt install -y interception-caps2esc
+# sudo apt install -y interception-caps2esc
+# TODO: still thinking which one is better, above or below
+setxkbmap -option caps:ctrl_modifier
 
 # Setup vim
 # Install symlink for .vimrc
