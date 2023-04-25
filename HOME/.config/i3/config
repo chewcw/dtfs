@@ -149,26 +149,26 @@ bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
-        # These bindings trigger as soon as you enter the resize mode
+# These bindings trigger as soon as you enter the resize mode
 
-        # Pressing left will shrink the window’s width.
-        # Pressing right will grow the window’s width.
-        # Pressing up will shrink the window’s height.
-        # Pressing down will grow the window’s height.
-        bindsym h resize shrink width 10 px or 10 ppt
-        bindsym j resize grow height 10 px or 10 ppt
-        bindsym k resize shrink height 10 px or 10 ppt
-        bindsym l resize grow width 10 px or 10 ppt
+# Pressing left will shrink the window’s width.
+# Pressing right will grow the window’s width.
+# Pressing up will shrink the window’s height.
+# Pressing down will grow the window’s height.
+    bindsym h resize shrink width 10 px or 10 ppt
+    bindsym j resize grow height 10 px or 10 ppt
+    bindsym k resize shrink height 10 px or 10 ppt
+    bindsym l resize grow width 10 px or 10 ppt
 
-        # same bindings, but for the arrow keys
-        bindsym Left resize shrink width 10 px or 10 ppt
-        bindsym Down resize grow height 10 px or 10 ppt
-        bindsym Up resize shrink height 10 px or 10 ppt
-        bindsym Right resize grow width 10 px or 10 ppt
+# same bindings, but for the arrow keys
+    bindsym Left resize shrink width 10 px or 10 ppt
+    bindsym Down resize grow height 10 px or 10 ppt
+    bindsym Up resize shrink height 10 px or 10 ppt
+    bindsym Right resize grow width 10 px or 10 ppt
 
-        # back to normal: Enter or Escape
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
+# back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
 }
 
 bindsym $mod+r mode "resize"
@@ -176,11 +176,11 @@ bindsym $mod+r mode "resize"
 # border color
 client.focused #ffd700 #2a2a2a #ffffff #8be503 #ffd700
 # client.unfocused #2a2a2a #2a2a2a #ffffff #2a2a2a #2a2a2a
-  
+
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-        status_command i3status
+    status_command i3status
 }
 
 # i3-gap
@@ -197,113 +197,113 @@ set $mode_gaps_left Left Gaps: +|-|0 (local), Shift + +|-|0 (global)
 bindsym $mod+Shift+g mode "$mode_gaps"
 
 mode "$mode_gaps" {
-        bindsym o      mode "$mode_gaps_outer"
-        bindsym i      mode "$mode_gaps_inner"
-        bindsym h      mode "$mode_gaps_horiz"
-        bindsym v      mode "$mode_gaps_verti"
-        bindsym t      mode "$mode_gaps_top"
-        bindsym r      mode "$mode_gaps_right"
-        bindsym b      mode "$mode_gaps_bottom"
-        bindsym l      mode "$mode_gaps_left"
-        bindsym Return mode "$mode_gaps"
-        bindsym Escape mode "default"
+    bindsym o      mode "$mode_gaps_outer"
+    bindsym i      mode "$mode_gaps_inner"
+    bindsym h      mode "$mode_gaps_horiz"
+    bindsym v      mode "$mode_gaps_verti"
+    bindsym t      mode "$mode_gaps_top"
+    bindsym r      mode "$mode_gaps_right"
+    bindsym b      mode "$mode_gaps_bottom"
+    bindsym l      mode "$mode_gaps_left"
+    bindsym Return mode "$mode_gaps"
+    bindsym Escape mode "default"
 }
 
 mode "$mode_gaps_outer" {
-        bindsym plus  gaps outer current plus 5
-        bindsym minus gaps outer current minus 5
-        bindsym 0     gaps outer current set 0
+    bindsym plus  gaps outer current plus 5
+    bindsym minus gaps outer current minus 5
+    bindsym 0     gaps outer current set 0
 
-        bindsym Shift+plus  gaps outer all plus 5
-        bindsym Shift+minus gaps outer all minus 5
-        bindsym Shift+0     gaps outer all set 0
+    bindsym Shift+plus  gaps outer all plus 5
+    bindsym Shift+minus gaps outer all minus 5
+    bindsym Shift+0     gaps outer all set 0
 
-        bindsym Return mode "$mode_gaps"
-        bindsym Escape mode "default"
+    bindsym Return mode "$mode_gaps"
+    bindsym Escape mode "default"
 }
 mode "$mode_gaps_inner" {
-        bindsym plus  gaps inner current plus 5
-        bindsym minus gaps inner current minus 5
-        bindsym 0     gaps inner current set 0
+    bindsym plus  gaps inner current plus 5
+    bindsym minus gaps inner current minus 5
+    bindsym 0     gaps inner current set 0
 
-        bindsym Shift+plus  gaps inner all plus 5
-        bindsym Shift+minus gaps inner all minus 5
-        bindsym Shift+0     gaps inner all set 0
+    bindsym Shift+plus  gaps inner all plus 5
+    bindsym Shift+minus gaps inner all minus 5
+    bindsym Shift+0     gaps inner all set 0
 
-        bindsym Return mode "$mode_gaps"
-        bindsym Escape mode "default"
+    bindsym Return mode "$mode_gaps"
+    bindsym Escape mode "default"
 }
 mode "$mode_gaps_horiz" {
-        bindsym plus  gaps horizontal current plus 5
-        bindsym minus gaps horizontal current minus 5
-        bindsym 0     gaps horizontal current set 0
+    bindsym plus  gaps horizontal current plus 5
+    bindsym minus gaps horizontal current minus 5
+    bindsym 0     gaps horizontal current set 0
 
-        bindsym Shift+plus  gaps horizontal all plus 5
-        bindsym Shift+minus gaps horizontal all minus 5
-        bindsym Shift+0     gaps horizontal all set 0
+    bindsym Shift+plus  gaps horizontal all plus 5
+    bindsym Shift+minus gaps horizontal all minus 5
+    bindsym Shift+0     gaps horizontal all set 0
 
-        bindsym Return mode "$mode_gaps"
-        bindsym Escape mode "default"
+    bindsym Return mode "$mode_gaps"
+    bindsym Escape mode "default"
 }
 mode "$mode_gaps_verti" {
-        bindsym plus  gaps vertical current plus 5
-        bindsym minus gaps vertical current minus 5
-        bindsym 0     gaps vertical current set 0
+    bindsym plus  gaps vertical current plus 5
+    bindsym minus gaps vertical current minus 5
+    bindsym 0     gaps vertical current set 0
 
-        bindsym Shift+plus  gaps vertical all plus 5
-        bindsym Shift+minus gaps vertical all minus 5
-        bindsym Shift+0     gaps vertical all set 0
+    bindsym Shift+plus  gaps vertical all plus 5
+    bindsym Shift+minus gaps vertical all minus 5
+    bindsym Shift+0     gaps vertical all set 0
 
-        bindsym Return mode "$mode_gaps"
-        bindsym Escape mode "default"
+    bindsym Return mode "$mode_gaps"
+    bindsym Escape mode "default"
 }
 mode "$mode_gaps_top" {
-        bindsym plus  gaps top current plus 5
-        bindsym minus gaps top current minus 5
-        bindsym 0     gaps top current set 0
+    bindsym plus  gaps top current plus 5
+    bindsym minus gaps top current minus 5
+    bindsym 0     gaps top current set 0
 
-        bindsym Shift+plus  gaps top all plus 5
-        bindsym Shift+minus gaps top all minus 5
-        bindsym Shift+0     gaps top all set 0
+    bindsym Shift+plus  gaps top all plus 5
+    bindsym Shift+minus gaps top all minus 5
+    bindsym Shift+0     gaps top all set 0
 
-        bindsym Return mode "$mode_gaps"
-        bindsym Escape mode "default"
+    bindsym Return mode "$mode_gaps"
+    bindsym Escape mode "default"
 }
 mode "$mode_gaps_right" {
-        bindsym plus  gaps right current plus 5
-        bindsym minus gaps right current minus 5
-        bindsym 0     gaps right current set 0
+    bindsym plus  gaps right current plus 5
+    bindsym minus gaps right current minus 5
+    bindsym 0     gaps right current set 0
 
-        bindsym Shift+plus  gaps right all plus 5
-        bindsym Shift+minus gaps right all minus 5
-        bindsym Shift+0     gaps right all set 0
+    bindsym Shift+plus  gaps right all plus 5
+    bindsym Shift+minus gaps right all minus 5
+    bindsym Shift+0     gaps right all set 0
 
-        bindsym Return mode "$mode_gaps"
-        bindsym Escape mode "default"
+    bindsym Return mode "$mode_gaps"
+    bindsym Escape mode "default"
 }
 mode "$mode_gaps_bottom" {
-        bindsym plus  gaps bottom current plus 5
-        bindsym minus gaps bottom current minus 5
-        bindsym 0     gaps bottom current set 0
+    bindsym plus  gaps bottom current plus 5
+    bindsym minus gaps bottom current minus 5
+    bindsym 0     gaps bottom current set 0
 
-        bindsym Shift+plus  gaps bottom all plus 5
-        bindsym Shift+minus gaps bottom all minus 5
-        bindsym Shift+0     gaps bottom all set 0
+    bindsym Shift+plus  gaps bottom all plus 5
+    bindsym Shift+minus gaps bottom all minus 5
+    bindsym Shift+0     gaps bottom all set 0
 
-        bindsym Return mode "$mode_gaps"
-        bindsym Escape mode "default"
+    bindsym Return mode "$mode_gaps"
+    bindsym Escape mode "default"
 }
 mode "$mode_gaps_left" {
-        bindsym plus  gaps left current plus 5
-        bindsym minus gaps left current minus 5
-        bindsym 0     gaps left current set 0
+    bindsym plus  gaps left current plus 5
+    bindsym minus gaps left current minus 5
+    bindsym 0     gaps left current set 0
 
-        bindsym Shift+plus  gaps left all plus 5
-        bindsym Shift+minus gaps left all minus 5
-        bindsym Shift+0     gaps left all set 0
+    bindsym Shift+plus  gaps left all plus 5
+    bindsym Shift+minus gaps left all minus 5
+    bindsym Shift+0     gaps left all set 0
 
-        bindsym Return mode "$mode_gaps"
-        bindsym Escape mode "default"
+    bindsym Return mode "$mode_gaps"
+    bindsym Escape mode "default"
 }
 
 gaps inner 0
@@ -335,7 +335,7 @@ mode "$mode_system" {
     bindsym r exec --no-startup-id "sudo systemctl reboot", mode "default"
     bindsym Shift+s exec --no-startup-id "sudo systemctl poweroff", mode "default"
 
-    # back to normal: Enter or Escape
+# back to normal: Enter or Escape
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
@@ -347,75 +347,75 @@ bindsym $mod+Shift+Escape mode "$mode_system"
 # https://www.reddit.com/r/i3wm/comments/3btki2/use_the_mouse_cursor_from_the_keyboard/
 mode "mouse" {
 
-	# set speeds here
-	set $slow 5
-	set $quick 40
-	set $fast 100
+# set speeds here
+    set $slow 5
+    set $quick 40
+    set $fast 100
 
-	# Mouse movement (slow/fine-tuned) -- vim keybindings
-	bindsym Shift+h exec xdotool mousemove_relative -- -$slow 0
-	bindsym Shift+j exec xdotool mousemove_relative 0 $slow
-	bindsym Shift+k exec xdotool mousemove_relative -- 0 -$slow
-	bindsym Shift+l exec xdotool mousemove_relative $slow 0
+# Mouse movement (slow/fine-tuned) -- vim keybindings
+    bindsym Shift+h exec xdotool mousemove_relative -- -$slow 0
+    bindsym Shift+j exec xdotool mousemove_relative 0 $slow
+    bindsym Shift+k exec xdotool mousemove_relative -- 0 -$slow
+    bindsym Shift+l exec xdotool mousemove_relative $slow 0
 
-	# Mouse movement (quicker) -- vim keybindings
-	bindsym h exec xdotool mousemove_relative -- -$quick 0
-	bindsym j exec xdotool mousemove_relative 0 $quick
-	bindsym k exec xdotool mousemove_relative -- 0 -$quick
-	bindsym l exec xdotool mousemove_relative $quick 0
-  
-	# Mouse movement (faster) -- vim keybindings
-	bindsym Ctrl+h exec xdotool mousemove_relative -- -$fast 0
-	bindsym Ctrl+j exec xdotool mousemove_relative 0 $fast
-	bindsym Ctrl+k exec xdotool mousemove_relative -- 0 -$fast
-	bindsym Ctrl+l exec xdotool mousemove_relative $fast 0
+# Mouse movement (quicker) -- vim keybindings
+    bindsym h exec xdotool mousemove_relative -- -$quick 0
+    bindsym j exec xdotool mousemove_relative 0 $quick
+    bindsym k exec xdotool mousemove_relative -- 0 -$quick
+    bindsym l exec xdotool mousemove_relative $quick 0
 
-	# Left Click
-	bindsym f exec xdotool click 1
+# Mouse movement (faster) -- vim keybindings
+    bindsym Ctrl+h exec xdotool mousemove_relative -- -$fast 0
+    bindsym Ctrl+j exec xdotool mousemove_relative 0 $fast
+    bindsym Ctrl+k exec xdotool mousemove_relative -- 0 -$fast
+    bindsym Ctrl+l exec xdotool mousemove_relative $fast 0
 
-	# Middle Click
-	bindsym d exec xdotool click 2
+# Left Click
+    bindsym f exec xdotool click 1
 
-	# Right Click
-	bindsym s exec xdotool click 3
+# Middle Click
+    bindsym d exec xdotool click 2
 
-	# Left Click-and-drag
-	bindsym Shift+f exec xdotool mousedown 1
+# Right Click
+    bindsym s exec xdotool click 3
 
-	# Middle Click-and-drag 
-	bindsym Shift+d exec xdotool mousedown 2
+# Left Click-and-drag
+    bindsym Shift+f exec xdotool mousedown 1
 
-	# Right Click-and-drag
-	bindsym Shift+s exec xdotool mousedown 3
+# Middle Click-and-drag 
+    bindsym Shift+d exec xdotool mousedown 2
 
-	# Left Drag release
-	bindsym Ctrl+f exec xdotool mouseup 1
+# Right Click-and-drag
+    bindsym Shift+s exec xdotool mousedown 3
 
-	# Middle Drag release
-	bindsym Ctrl+d exec xdotool mouseup 2
+# Left Drag release
+    bindsym Ctrl+f exec xdotool mouseup 1
+
+# Middle Drag release
+    bindsym Ctrl+d exec xdotool mouseup 2
 
 # Right Drag release
-	bindsym Ctrl+s exec xdotool mouseup 3
+    bindsym Ctrl+s exec xdotool mouseup 3
 
 # Scroll down
-	bindsym $mod+j exec xdotool click 5
+    bindsym $mod+j exec xdotool click 5
 # Scroll up
-	bindsym $mod+k exec xdotool click 4
+    bindsym $mod+k exec xdotool click 4
 
-	# return to normal keybindings -- IMPORTANT!!
-	bindsym $mod+m mode "default"
+# return to normal keybindings -- IMPORTANT!!
+    bindsym $mod+m mode "default"
 
 # these should still work
-	bindsym $mod+1 workspace $workspace1
-	bindsym $mod+2 workspace $workspace2
-	bindsym $mod+3 workspace $workspace3
-	bindsym $mod+4 workspace $workspace4
-	bindsym $mod+5 workspace $workspace5
-	bindsym $mod+6 workspace $workspace6
-	bindsym $mod+7 workspace $workspace7
-	bindsym $mod+8 workspace $workspace8
-	bindsym $mod+9 workspace $workspace9
-	bindsym $mod+0 workspace $workspace0
+    bindsym $mod+1 workspace $workspace1
+    bindsym $mod+2 workspace $workspace2
+    bindsym $mod+3 workspace $workspace3
+    bindsym $mod+4 workspace $workspace4
+    bindsym $mod+5 workspace $workspace5
+    bindsym $mod+6 workspace $workspace6
+    bindsym $mod+7 workspace $workspace7
+    bindsym $mod+8 workspace $workspace8
+    bindsym $mod+9 workspace $workspace9
+    bindsym $mod+0 workspace $workspace0
 }
 
 bindsym $mod+m mode "mouse"
@@ -448,3 +448,10 @@ bindsym $mod+Shift+b exec $HOME/.local/bin/toggle-colorscheme.sh
 # open monitor configuration
 bindsym $mod+Shift+w exec lxql-config-monitor
 bindsym $mod+o exec $HOME/Documents/connect_monitor.sh && xset r rate 300 70 && fcitx && 1>/dev/null 2>&1
+
+# enable / disable caps mode (show caps mode on the i3 status bar)
+# https://faq.i3wm.org/question/1258/i3bari3status-is-it-possible-to-have-caps-lock-and-num-lock-indicator.1.html
+mode "caps" {
+    bindsym Caps_Lock mode "default"
+}
+bindsym Caps_Lock mode "caps"
