@@ -88,8 +88,9 @@ ln -sf $pwd/HOME/.config/i3/config $HOME/.config/i3/config
 
 # Install tmux terminal multiplexer
 sudo apt install -y tmux
-# Install symlink for .tmux.conf
-ln -sf $pwd/HOME/.tmux.conf $HOME/.tmux.conf
+# Install symlink for tmux.conf
+mkdir -p $HOME/.config/tmux
+ln -sf $pwd/HOME/.config/tmux/tmux.conf $HOME/.config/tmux/tmux.conf
 
 # Install alacritty terminal emulator
 sudo add-apt-repository -y ppa:mmstick76/alacritty

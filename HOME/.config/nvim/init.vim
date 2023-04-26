@@ -52,7 +52,8 @@ set relativenumber
 set foldmethod=indent
 set foldlevel=99
 set nu rnu
-set nowrap
+set wrap
+set linebreak
 set mouse=n
 set notimeout
 set ttimeout
