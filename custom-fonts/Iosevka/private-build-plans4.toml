@@ -1,0 +1,67 @@
+[buildPlans.iosevka-ccw4]
+family = "Iosevka ccw4"
+spacing = "term"
+serifs = "sans"
+no-cv-ss = true
+export-glyph-names = false
+
+  [buildPlans.iosevka-ccw4.variants]
+  inherits = "ss04"
+
+    [buildPlans.iosevka-ccw4.variants.design]
+    capital-q = "vertical-crossing"
+    a = "single-storey-serifless"
+    f = "flat-hook-diagonal-tailed"
+    g = "single-storey-earless-corner-flat-hook"
+    i = "serifed-diagonal-tailed"
+    j = "diagonal-tailed-serifed"
+    l = "serifed-diagonal-tailed"
+    m = "normal"
+    n = "straight"
+    q = "earless-rounded-diagonal-tailed"
+    t = "diagonal-tailed"
+    v = "straight"
+    y = "cursive-flat-hook"
+    zero = "slashed"
+    one = "no-base-long-top-serif"
+    four = "closed"
+    six = "straight-bar"
+    seven = "curly-crossbar"
+    eight = "crossing-asymmetric"
+    nine = "straight-bar"
+    asterisk = "turn-hex-low"
+    caret = "medium"
+    paren = "large-contour"
+    brace = "curly-flat-boundary"
+    number-sign = "slanted"
+    ampersand = "closed"
+    at = "fourfold"
+    dollar = "through"
+    percent = "rings-continuous-slash"
+    ascii-single-quote = "straight"
+    ascii-grave = "straight"
+    question = "smooth"
+    lig-ltgteq = "slanted"
+    lig-neq = "slightly-slanted"
+    lig-double-arrow-bar = "without-notch"
+    lig-single-arrow-bar = "without-notch"
+
+[buildPlans.iosevka-ccw4.weights.regular]
+shape = 400
+menu = 400
+css = 400
+
+[buildPlans.iosevka-ccw4.weights.medium]
+shape = 500
+menu = 500
+css = 500
+
+[buildPlans.iosevka-ccw4.weights.semibold]
+shape = 600
+menu = 600
+css = 600
+
+[buildPlans.iosevka-ccw4.weights.bold]
+shape = 700
+menu = 700
+css = 700
