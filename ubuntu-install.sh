@@ -88,6 +88,9 @@ ln -sf $pwd/HOME/.config/i3/config $HOME/.config/i3/config
 
 # Install tmux terminal multiplexer
 sudo apt install -y tmux
+wget http://ftp.us.debian.org/debian/pool/main/t/tmux/tmux_3.1c-1+deb11u1_amd64.deb -O /tmp/tmux_3.1c-1+deb11u1_amd64.deb || true
+sudo dpkg --install /tmp/tmux_3.1c-1+deb11u1_amd64.deb
+rm -rf /tmp/tmux_3.1c-1+deb11u1_amd64.deb
 # Install symlink for tmux.conf
 mkdir -p $HOME/.config/tmux
 ln -sf $pwd/HOME/.config/tmux/tmux.conf $HOME/.config/tmux/tmux.conf

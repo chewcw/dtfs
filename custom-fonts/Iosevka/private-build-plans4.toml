@@ -10,7 +10,7 @@ export-glyph-names = false
 
     [buildPlans.iosevka-ccw4.variants.design]
     capital-q = "vertical-crossing"
-    a = "single-storey-serifless"
+    a = "double-storey-serifless"
     f = "flat-hook-diagonal-tailed"
     g = "single-storey-earless-corner-flat-hook"
     i = "serifed-diagonal-tailed"
