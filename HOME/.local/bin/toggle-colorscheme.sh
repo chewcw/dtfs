@@ -66,6 +66,7 @@ if [ "$?" -eq 0 ]; then
     sed -i "s/$ALACRITTY_DARK_THEME_NAME/$ALACRITTY_LIGHT_THEME_NAME/" $HOME/.config/alacritty/alacritty.yml;
     sed -i "s/ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#626262'/ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#cecece'/" $HOME/.zshrc
     sed -i "s/lightTheme: false/lightTheme: true/" $HOME/.config/jesseduffield/lazygit/config.yml
+    sed -i "s/colorscheme molokai/colorscheme github/" $HOME/.vimrc
     toggle_tmux_colorscheme 1;
 else
     # dark theme
@@ -73,6 +74,7 @@ else
     sed -i "s/$ALACRITTY_LIGHT_THEME_NAME/$ALACRITTY_DARK_THEME_NAME/" $HOME/.config/alacritty/alacritty.yml;
     sed -i "s/ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#cecece'/ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#626262'/" $HOME/.zshrc
     sed -i "s/lightTheme: true/lightTheme: false/" $HOME/.config/jesseduffield/lazygit/config.yml
+    sed -i "s/colorscheme github/colorscheme molokai/" $HOME/.vimrc
     toggle_tmux_colorscheme 2;
 fi
 
