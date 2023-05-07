@@ -1,6 +1,6 @@
 [buildPlans.iosevka-ccw4]
 family = "Iosevka ccw4"
-spacing = "term"
+spacing = "normal"
 serifs = "sans"
 no-cv-ss = true
 export-glyph-names = false
