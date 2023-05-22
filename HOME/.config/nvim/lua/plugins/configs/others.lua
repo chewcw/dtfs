@@ -20,7 +20,7 @@ M.blankline = {
   show_first_indent_level = true,
   show_current_context = true,
   show_current_context_start = false,
-  char = "┊",
+  char = "┆",
 }
 
 M.luasnip = function(opts)
