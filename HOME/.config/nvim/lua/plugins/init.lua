@@ -231,7 +231,7 @@ local default_plugins = {
 
   {
     "tpope/vim-surround",
-    keys = { "v" }
+    keys = { "v", "cs", "S" }
   },
 
   {
