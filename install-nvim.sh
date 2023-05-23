@@ -45,7 +45,7 @@ install_dependency() {
 install_nodejs() {
 	if ! command -v node &>/dev/null; then
 		echo "installing NodeJS"
-		curl -sL install-node.vercel.app/lts | bash -s -- --yes
+		curl -sL install-node.vercel.app/lts | sudo bash -s -- --yes
 	fi
 	echo "NodeJS is installed"
 }
@@ -76,8 +76,8 @@ uninstall() {
 	rm -rf $HOME/AppData/Local/nvim || true
 	# remove nodejs
 	echo "removing NodeJS"
-	rm -rf /usr/local/bin/node /usr/local/bin/npm /usr/local/bin/npx || true
-	rm -rf /usr/local/lib/node_modules || true
+	sudo rm -rf /usr/local/bin/node /usr/local/bin/npm /usr/local/bin/npx || true
+	sudo rm -rf /usr/local/lib/node_modules || true
 	# remove svn
 	echo "removing svn"
 	sudo apt remove --purge subversion  -y || true
