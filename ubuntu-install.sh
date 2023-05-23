@@ -96,9 +96,8 @@ mkdir -p $HOME/.config/tmux
 ln -sf $pwd/HOME/.config/tmux/tmux.conf $HOME/.config/tmux/tmux.conf
 
 # Install alacritty terminal emulator
-sudo add-apt-repository -y ppa:mmstick76/alacritty
-sudo apt update
-sudo apt install -y alacritty
+wget https://github.com/barnumbirr/alacritty-debian/releases/download/v0.12.0-1/alacritty_0.12.0_amd64_bullseye.deb -O /tmp/alacritty_0.12.0_amd64_bullseye.deb
+sudo dpkg -i /tmp/alacritty_0.12.0_amd64_bullseye.deb
 # Install symlink for alacritty.yml
 mkdir -p $HOME/.config/alacritty
 ln -sf $pwd/HOME/.config/alacritty/alacritty.yml $HOME/.config/alacritty/alacritty.yml
