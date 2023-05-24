@@ -61,6 +61,7 @@ local options = {
       "--column",
       "--smart-case",
     },
+    scroll_strategy = "limit",
     prompt_prefix = "   ",
     selection_caret = "  ",
     entry_prefix = "  ",
@@ -151,6 +152,8 @@ local options = {
           end
           return select_window_to_open
         end)(),
+        -- toggle preview
+        ["<C-p>"] = require("telescope.actions.layout").toggle_preview,
       },
     },
   },
