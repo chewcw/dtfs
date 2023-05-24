@@ -108,6 +108,9 @@ git clone https://github.com/alacritty/alacritty-theme ~/.config/alacritty/theme
 # Install symlink for colorscheme switcher
 ln -sf $pwd/HOME/.local/bin/toggle-colorscheme.sh $HOME/.local/bin/toggle-colorscheme.sh
 
+# Install symlink for docker development script
+ln -sf $pwd/HOME/.local/bin/dev.sh $HOME/.local/bin/dev.sh
+
 # Install vscode
 sudo apt install -y software-properties-common apt-transport-https curl
 curl -sSL https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add -
