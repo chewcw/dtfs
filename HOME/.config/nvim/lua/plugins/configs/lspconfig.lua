@@ -95,6 +95,7 @@ lspconfig.tsserver.setup({
 
 -- rust
 lspconfig.rust_analyzer.setup({
+  on_attach = M.on_attach,
   granularity = {
     group = "module",
   },
