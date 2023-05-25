@@ -1,3 +1,5 @@
+local inspect = require("core.utils_inspect")
+
 local M = {}
 local merge_tb = vim.tbl_deep_extend
 
@@ -21,10 +23,19 @@ M.load_config = function()
     virtual_text = true,
     underline = true,
   })
-  vim.cmd([[highlight DiagnosticUnderlineError gui=undercurl]])
-  vim.cmd([[highlight DiagnosticUnderlineWarn gui=undercurl]])
-  vim.cmd([[highlight DiagnosticUnderlineInfo gui=undercurl]])
-  vim.cmd([[highlight DiagnosticUnderlineHint gui=undercurl]])
+  -- vim lsp related highlight group
+  vim.api.nvim_set_hl(0, "DiagnosticUnderlineError", { undercurl = true })
+  vim.api.nvim_set_hl(0, "DiagnosticUnderlineWarn", { undercurl = true })
+  vim.api.nvim_set_hl(0, "DiagnosticUnderlineInfo", { undercurl = true })
+  vim.api.nvim_set_hl(0, "DiagnosticUnderlineHint", { undercurl = true })
+  local diagnosticError = vim.api.nvim_get_hl_by_name("DiagnosticError", {})
+  vim.api.nvim_set_hl(0, "DiagnosticVirtualTextError", { foreground = diagnosticError.foreground, italic = true, underdotted = true })
+  local diagnosticWarn = vim.api.nvim_get_hl_by_name("DiagnosticWarn", {})
+  vim.api.nvim_set_hl(0, "DiagnosticVirtualTextWarn", { foreground = diagnosticWarn.foreground, italic = true, underdotted = true })
+  local diagnosticInfo = vim.api.nvim_get_hl_by_name("DiagnosticInfo", {})
+  vim.api.nvim_set_hl(0, "DiagnosticVirtualTextInfo", { foreground = diagnosticInfo.foreground, italic = true, underdotted = true })
+  local diagnosticHint = vim.api.nvim_get_hl_by_name("DiagnosticHint", {})
+  vim.api.nvim_set_hl(0, "DiagnosticVirtualTextHint", { foreground = diagnosticHint.foreground, italic = true, underdotted = true })
 
   return config
 end
