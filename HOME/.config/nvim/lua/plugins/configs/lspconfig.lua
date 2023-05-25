@@ -41,6 +41,28 @@ M.capabilities.textDocument.completion.completionItem = {
 local lspconfig = require("lspconfig")
 local home = os.getenv("HOME")
 
+-- override lsp floating window border
+-- https://github.com/neovim/nvim-lspconfig/wiki/UI-Customization
+local function border(hl_name)
+  return {
+    { "╭", hl_name },
+    { "─", hl_name },
+    { "╮", hl_name },
+    { "│", hl_name },
+    { "╯", hl_name },
+    { "─", hl_name },
+    { "╰", hl_name },
+    { "│", hl_name },
+  }
+end
+local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
+function vim.lsp.util.open_floating_preview(contents, syntax, opts)
+  opts = opts or {}
+  opts.border = opts.border or border("FloatBorder")
+  return orig_util_open_floating_preview(contents, syntax, opts)
+end
+
+-- lua
 lspconfig.lua_ls.setup({
   on_attach = M.on_attach,
   capabilities = M.capabilities,
@@ -107,7 +129,7 @@ lspconfig.rust_analyzer.setup({
       enable = true,
     },
   },
-  cmd = { home .. "/.local/share/nvim/mason/bin/rust-analyzer" }
+  cmd = { home .. "/.local/share/nvim/mason/bin/rust-analyzer" },
 })
 
 return M

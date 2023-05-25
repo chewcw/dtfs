@@ -21,7 +21,6 @@ M.load_config = function()
     virtual_text = true,
     underline = true,
   })
-
   vim.cmd([[highlight DiagnosticUnderlineError gui=undercurl]])
   vim.cmd([[highlight DiagnosticUnderlineWarn gui=undercurl]])
   vim.cmd([[highlight DiagnosticUnderlineInfo gui=undercurl]])
