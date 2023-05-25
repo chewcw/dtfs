@@ -206,7 +206,7 @@ local default_plugins = {
       require("core.utils").load_mappings("telescope")
     end,
     opts = function()
-      return require("plugins.configs.telescope")
+      return require("plugins.configs.telescope").options
     end,
     config = function(_, opts)
       dofile(vim.g.base46_cache .. "telescope")
@@ -216,6 +216,8 @@ local default_plugins = {
       for _, ext in ipairs(opts.extensions_list) do
         telescope.load_extension(ext)
       end
+      -- update border style
+      require("plugins.configs.telescope").border()
     end,
   },
 
@@ -315,7 +317,7 @@ local default_plugins = {
 
   {
     "mg979/vim-visual-multi",
-    keys = { "<C-A-j>", "<C-A-k>", "<C-A-l>", "<C-A-h>", "gb", "gB" },
+    event = "BufEnter",
     init = function()
       require("core.mappings").vm.init()
     end,
@@ -332,6 +334,9 @@ local default_plugins = {
     keys = { "<leader>", '"', "'", "`", "c", "v", "g" },
     init = function()
       require("core.utils").load_mappings("whichkey")
+    end,
+    opts = function()
+      return require("plugins.configs.others").whichkey
     end,
     config = function(_, opts)
       dofile(vim.g.base46_cache .. "whichkey")

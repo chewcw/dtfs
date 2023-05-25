@@ -1,5 +1,7 @@
 local utils_window = require("core.utils_window")
 
+local M = {}
+
 -- when find_files or live_grep, the picker only shows files in the same folder
 -- this function can let us select the folder as working direcotory
 -- so that the picker can show all files or folders under that directory
@@ -49,7 +51,7 @@ local ts_select_dir_for_grep_or_find_files = function(grep)
   return select_cwd
 end
 
-local options = {
+M.options = {
   defaults = {
     vimgrep_arguments = {
       "rg",
@@ -89,7 +91,7 @@ local options = {
     generic_sorter = require("telescope.sorters").get_generic_fuzzy_sorter,
     path_display = { "truncate" },
     winblend = 0,
-    border = {},
+    border = true,
     borderchars = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
     color_devicons = true,
     set_env = { ["COLORTERM"] = "truecolor" }, -- default = nil,
@@ -240,4 +242,11 @@ local options = {
   },
 }
 
-return options
+-- override the border color in telescope picker
+M.border = function()
+  vim.cmd([[highlight! link TelescopeBorder FloatBorder]])
+  vim.cmd([[highlight! link TelescopePromptBorder FloatBorder]])
+  vim.cmd([[highlight TelescopePreviewBorder guifg=#b6d7a8]])
+end
+
+return M

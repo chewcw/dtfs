@@ -87,4 +87,10 @@ M.workspaces = {
   cd_type = "tab",
 }
 
+M.whichkey = {
+  window = {
+    border = "single",
+  },
+}
+
 return M
