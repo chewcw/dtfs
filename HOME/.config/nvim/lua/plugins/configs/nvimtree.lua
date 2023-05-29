@@ -1,5 +1,3 @@
-local utils = require("core.utils")
-
 local options = {
 	filters = {
 		dotfiles = false,
