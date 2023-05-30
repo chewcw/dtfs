@@ -233,12 +233,12 @@ local default_plugins = {
 
   {
     "tpope/vim-surround",
-    keys = { "v", "cs", "S", "ds", "ysiw" }
+    keys = { "v", "cs", "S", "ds", "ysiw" },
   },
 
   {
     "tomtom/tcomment_vim",
-    event = { "BufEnter "},
+    event = { "BufEnter " },
   },
 
   {
