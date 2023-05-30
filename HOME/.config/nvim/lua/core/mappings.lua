@@ -11,6 +11,12 @@ M.general = {
     ["<A-l>"] = { "<Right>", "move right" },
     ["<A-j>"] = { "<Down>", "move down" },
     ["<A-k>"] = { "<Up>", "move up" },
+
+    -- switch between windows
+    ["<C-h>"] = { "<Esc><C-w>h", "window left" },
+    ["<C-l>"] = { "<Esc><C-w>l", "window right" },
+    ["<C-j>"] = { "<Esc><C-w>j", "window down" },
+    ["<C-k>"] = { "<Esc><C-w>k", "window up" },
   },
 
   n = {
@@ -471,11 +477,14 @@ M.toggleterm = {
   plugin = true,
 
   n = {
+    ["<A-,>"] = { ":ToggleTerm direction=tab <CR>", "toggle term in tab mode" },
     ["<A-.>"] = { ":ToggleTerm direction=horizontal <CR>", "toggle term in horizontal mode" },
+    ["<A-/>"] = { ":ToggleTerm direction=float <CR>", "toggle term in float mode" },
   },
 
   t = {
-    ["<A-.>"] = { ":ToggleTerm direction=horizontal <CR>", "toggle term in horizontal mode" },
+    -- ["<A-.>"] = { ":ToggleTerm direction=horizontal <CR>", "toggle term in horizontal mode" },
+    -- ["<A-/>"] = { ":ToggleTerm direction=float <CR>", "toggle term in float mode" },
     ["<Esc><Esc>"] = { vim.api.nvim_replace_termcodes("<C-\\><C-N>", true, true, true), "escape terminal mode" },
   },
 }

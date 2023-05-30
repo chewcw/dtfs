@@ -13,7 +13,7 @@ local options = {
   autochdir = true,
   shell = "/usr/bin/zsh",
   float_opts = {
-    border = "double",
+    border = "single",
   },
   winbar = {
     enabled = true,
