@@ -17,6 +17,12 @@ M.general = {
     ["<C-l>"] = { "<Esc><C-w>l", "window right" },
     ["<C-j>"] = { "<Esc><C-w>j", "window down" },
     ["<C-k>"] = { "<Esc><C-w>k", "window up" },
+
+    -- tab
+    ["<A-S-t>"] = { "<cmd> tabedit <CR> <Esc>", "new tab" },
+    ["<A-S-w>"] = { "<cmd> tabclose <CR> <Esc>", "close tab" },
+    ["<A-S-h>"] = { "<cmd> tabprevious <CR> <Esc>", "previous tab" },
+    ["<A-S-l>"] = { "<cmd> tabnext <CR> <Esc>", "next tab" },
   },
 
   n = {
@@ -87,7 +93,7 @@ M.general = {
     ["<A-,>"] = { ":term <CR>", "open terminal in new buffer" },
 
     -- split window max out width and height
-    ["<C-w>f"] = { "<C-w>|<CR><C-w>_<CR>", "make split window max out width and height"},
+    ["<C-w>f"] = { "<C-w>|<CR><C-w>_<CR>", "make split window max out width and height" },
   },
 
   v = {
