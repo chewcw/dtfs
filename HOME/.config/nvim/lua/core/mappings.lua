@@ -85,6 +85,9 @@ M.general = {
 
     -- open terminal in new buffer
     ["<A-,>"] = { ":term <CR>", "open terminal in new buffer" },
+
+    -- split window max out width and height
+    ["<C-w>f"] = { "<C-w>|<CR><C-w>_<CR>", "make split window max out width and height"},
   },
 
   v = {
