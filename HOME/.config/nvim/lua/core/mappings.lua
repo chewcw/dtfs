@@ -82,6 +82,9 @@ M.general = {
     ["<leader>ch"] = { utils_comment.insert_comment_with_trails, "write comment with trails" },
     ["<leader>cs"] = { utils_comment.insert_comment_with_solid_line, "write comment with solid line" },
     ["<leader>cH"] = { utils_comment.insert_comment_with_header, "write comment with header" },
+
+    -- open terminal in new buffer
+    ["<A-,>"] = { ":term <CR>", "open terminal in new buffer" },
   },
 
   v = {
@@ -477,14 +480,11 @@ M.toggleterm = {
   plugin = true,
 
   n = {
-    ["<A-,>"] = { ":ToggleTerm direction=tab <CR>", "toggle term in tab mode" },
     ["<A-.>"] = { ":ToggleTerm direction=horizontal <CR>", "toggle term in horizontal mode" },
     ["<A-/>"] = { ":ToggleTerm direction=float <CR>", "toggle term in float mode" },
   },
 
   t = {
-    -- ["<A-.>"] = { ":ToggleTerm direction=horizontal <CR>", "toggle term in horizontal mode" },
-    -- ["<A-/>"] = { ":ToggleTerm direction=float <CR>", "toggle term in float mode" },
     ["<Esc><Esc>"] = { vim.api.nvim_replace_termcodes("<C-\\><C-N>", true, true, true), "escape terminal mode" },
   },
 }
