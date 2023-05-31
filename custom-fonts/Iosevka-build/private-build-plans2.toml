@@ -6,13 +6,21 @@ no-cv-ss = true
 export-glyph-names = false
 
   [buildPlans.iosevka-ccw2.variants]
-  inherits = "ss05"
+  inherits = "ss14"
 
     [buildPlans.iosevka-ccw2.variants.design]
+    capital-q = "vertical-crossing"
+    f = "serifless"
     g = "single-storey-flat-hook-earless-corner"
+    i = "zshaped"
     l = "zshaped"
     zero = "tall-slashed"
     one = "no-base"
+
+    [buildPlans.iosevka-ccw2.variants.italic]
+    a = "double-storey-serifless"
+    f = "serifless"
+    y = "straight-serifless"
 
 [buildPlans.iosevka-ccw2.weights.regular]
 shape = 400
