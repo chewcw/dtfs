@@ -35,6 +35,9 @@ M.load_config = function()
   local diagnosticHint = vim.api.nvim_get_hl_by_name("DiagnosticHint", {})
   vim.api.nvim_set_hl(0, "DiagnosticVirtualTextHint", { foreground = diagnosticHint.foreground, italic = true, underdotted = true })
 
+  local normal = vim.api.nvim_get_hl_by_name("Normal", {})
+  vim.api.nvim_set_hl(0, "NormalFloat", { background = normal.background })
+
   return config
 end
 

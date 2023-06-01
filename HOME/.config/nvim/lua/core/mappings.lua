@@ -475,10 +475,6 @@ M.easymotion = {
 
   n = {
     ["<leader>s"] = {
-      "<Plug>(easymotion-s)",
-      "Easymotion search 1 character",
-    },
-    ["<leader>S"] = {
       "<Plug>(easymotion-s2)",
       "Easymotion search 2 character",
     },
