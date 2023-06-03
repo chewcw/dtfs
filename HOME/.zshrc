@@ -121,7 +121,7 @@ export VISUAL=nvim
 
 alias c="code -r"
 alias dc="docker-compose"
-alias darm="docker run --rm --privileged multiarch/qemu-user-static --reset -p yes"
+alias darm="docker run --rm --privileged multiarch/qemu-user-static --reset -p yes --credential yes"
 alias g="git"
 alias gc="git commit"
 alias gl="git log"
