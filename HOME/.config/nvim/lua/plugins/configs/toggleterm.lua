@@ -11,7 +11,7 @@ local options = {
   terminal_mappings = true,
   hide_numbers = false,
   autochdir = true,
-  shell = "/usr/bin/zsh",
+  shell = "/bin/bash",
   float_opts = {
     border = "single",
   },
