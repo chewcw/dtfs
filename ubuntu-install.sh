@@ -60,13 +60,13 @@ sudo apt install -y interception-caps2esc
 # then somehow I want to cancel the action, but it turns out escape was 
 # registered, so maybe it's better to separate the escape and control function.
 
-# Setup vim
+# Setup neovim
 # Install symlink for .vimrc
 ln -sf $pwd/HOME/.vimrc $HOME/.vimrc
 
-# Install Neovim (nightly)
+# Install Neovim (v0.9.1)
 ./install-nvim.sh
-ln -sf $pwd/HOME/.config/nvim/init.vim $HOME/.config/nvim/init.vim
+ln -sf $pwd/HOME/.config/nvim $HOME/.config/nvim
 
 # Install i3
 sudo apt install -y i3-wm i3
