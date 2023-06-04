@@ -44,17 +44,21 @@ if [ ! -d "$HOME/.fff" ]; then
 	sudo make -k -C $HOME/.fff install || true
 fi
 
-# Install caps2esc (remapping capslock to escape AND ctrl)
+# Install mapping caps to ctrl (or remapping capslock to escape AND ctrl)
 # when press caps alone, send escape
 # when press caps with another key, send ctrl
-# see: https://askubuntu.com/a/856887
-# instead of using xcape, this is faster i think: caps2esc
+# caps2esc
 # see: https://gitlab.com/interception/linux/plugins/caps2esc
-sudo add-apt-repository ppa:deafmute/interception
 # by default wihout any configuration this will swap capslock and escape
+sudo add-apt-repository ppa:deafmute/interception
 sudo apt install -y interception-caps2esc
-# TODO: still thinking which one is better, above or below
+# TODO: which one is better? xcape or caps2esc?
+# see: https://askubuntu.com/a/856887
+# sudo apt install -y xcape
 # setxkbmap -option caps:ctrl_modifier
+# or just map caps to ctrl, if using above method, sometimes when press caps
+# then somehow I want to cancel the action, but it turns out escape was 
+# registered, so maybe it's better to separate the escape and control function.
 
 # Setup vim
 # Install symlink for .vimrc
