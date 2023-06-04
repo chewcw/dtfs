@@ -23,6 +23,9 @@ M.general = {
     ["<A-S-w>"] = { "<cmd> tabclose <CR> <Esc>", "close tab" },
     ["<A-S-h>"] = { "<cmd> tabprevious <CR> <Esc>", "previous tab" },
     ["<A-S-l>"] = { "<cmd> tabnext <CR> <Esc>", "next tab" },
+
+    -- insert new line above
+    ["<A-CR>"] = { "<C-o>O" },
   },
 
   n = {
@@ -76,10 +79,32 @@ M.general = {
     ["<A-S-l>"] = { ":tabnext <CR>", "next tab" },
 
     -- link
-    ["gx"] = { ":execute '!xdg-open ' .. shellescape(expand('<cfile>'), v:true)<CR>", "open link" },
+    ["gx"] = { ":execute '!xdg-open ' .. shellescape(expand('<cfile>'), v:true)<CR><CR>", "open link" },
 
     -- wrap
     ["gw"] = { "<cmd> set wrap! <CR>", "toggle line wrapping" },
+
+    -- toggle color column
+    ["gm"] = {
+      function()
+        if vim.opt.colorcolumn:get()[1] == "80" then
+          vim.cmd([[set colorcolumn=0]])
+        else
+          vim.cmd([[set colorcolumn=80]])
+        end
+      end,
+      "toggle color column",
+    },
+    ["gM"] = {
+      function()
+        if vim.opt.colorcolumn:get()[1] == "80" then
+          vim.cmd([[windo set colorcolumn=0]])
+        else
+          vim.cmd([[windo set colorcolumn=80]])
+        end
+      end,
+      "toggle color column for this window",
+    },
 
     -- insert new line above
     ["<A-CR>"] = { "O<Esc>" },
@@ -89,8 +114,8 @@ M.general = {
     ["<leader>cs"] = { utils_comment.insert_comment_with_solid_line, "write comment with solid line" },
     ["<leader>cH"] = { utils_comment.insert_comment_with_header, "write comment with header" },
 
-    -- open terminal in new buffer
-    ["<A-,>"] = { ":term <CR>", "open terminal in new buffer" },
+    -- open terminal in new buffer not using toggleterm
+    ["<A-t>"] = { ":term <CR>", "open terminal in new buffer" },
 
     -- split window max out width and height
     ["<C-w>f"] = { "<C-w>|<CR><C-w>_<CR>", "make split window max out width and height" },
@@ -486,13 +511,17 @@ M.toggleterm = {
 
   n = {
     ["<A-.>"] = { ":ToggleTerm direction=horizontal <CR>", "toggle term in horizontal mode" },
+    ["<A->>"] = { ":ToggleTerm direction=vertical <CR>", "toggle term in vertical mode" },
     ["<A-/>"] = { ":ToggleTerm direction=float <CR>", "toggle term in float mode" },
+    ["<A-,>"] = { ":ToggleTerm direction=tab <CR>", "toggle term in tab mode" },
   },
 
   t = {
     ["<Esc><Esc>"] = { vim.api.nvim_replace_termcodes("<C-\\><C-N>", true, true, true), "escape terminal mode" },
     ["<A-.>"] = { "<Esc><Esc> <cmd> ToggleTerm <CR>", "toggle term" },
+    ["<A->>"] = { "<ESC><Esc> <cmd> ToggleTerm <CR>", "toggle term" },
     ["<A-/>"] = { "<Esc><Esc> <cmd> ToggleTerm <CR>", "toggle term" },
+    ["<A-,>"] = { "<Esc><Esc> <cmd> ToggleTerm <CR>", "toggle term" },
   },
 }
 
