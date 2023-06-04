@@ -241,13 +241,13 @@ local default_plugins = {
     event = { "BufEnter " },
   },
 
-  {
-    "easymotion/vim-easymotion",
-    event = "BufEnter",
-    init = function()
-      require("core.utils").load_mappings("easymotion")
-    end,
-  },
+  -- {
+  --   "easymotion/vim-easymotion",
+  --   keys = { "<leader>S" },
+  --   init = function()
+  --     require("core.utils").load_mappings("easymotion")
+  --   end,
+  -- },
 
   {
     "gelguy/wilder.nvim",

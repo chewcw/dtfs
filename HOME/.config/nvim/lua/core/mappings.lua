@@ -495,16 +495,16 @@ M.gitsigns = {
   },
 }
 
-M.easymotion = {
-  plugin = true,
-
-  n = {
-    ["<leader>s"] = {
-      "<Plug>(easymotion-s2)",
-      "Easymotion search 2 character",
-    },
-  },
-}
+-- M.easymotion = {
+--   plugin = true,
+--
+--   n = {
+--     ["<leader>s"] = {
+--       "<Plug>(easymotion-s2)",
+--       "Easymotion search 2 character",
+--     },
+--   },
+-- }
 
 M.toggleterm = {
   plugin = true,
