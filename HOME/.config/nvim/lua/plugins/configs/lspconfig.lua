@@ -62,6 +62,10 @@ function vim.lsp.util.open_floating_preview(contents, syntax, opts)
   return orig_util_open_floating_preview(contents, syntax, opts)
 end
 
+-- add border to LspInfo
+-- https://vi.stackexchange.com/a/39001
+require("lspconfig.ui.windows").default_options.border = "single"
+
 -- lua
 lspconfig.lua_ls.setup({
   on_attach = M.on_attach,

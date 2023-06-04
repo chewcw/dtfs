@@ -37,6 +37,11 @@ M.load_highlight_group = function()
   -- normal float
   local normal = vim.api.nvim_get_hl_by_name("Normal", {})
   vim.api.nvim_set_hl(0, "NormalFloat", { background = normal.background })
+
+  -- LspInfo border
+  -- LspInfo was linked to Label highlight group
+  vim.cmd([[highlight! link LspInfoBorder Label]])
+  vim.api.nvim_set_hl(0, "LspInfoBorder", { link = "FloatBorder" })
 end
 
 M.load_config = function()
