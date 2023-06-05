@@ -1,6 +1,6 @@
 local M = {}
 
-local max_length = 85
+local max_length = 80
 
 M.insert_comment_with_trails = function()
   vim.ui.input({ prompt = "Insert comment: " }, function(input)
