@@ -13,12 +13,13 @@ set $mod Mod4
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font pango:monospace 8
+# font pango:monospace 8
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
 # font pango:DejaVu Sans Mono 8
-font pango:DejaVu Sans Mono 9
+# font pango:DejaVu Sans Mono 9
+font pango:DejaVu Sans Mono 10
 
 # Before i3 v4.8, we used to recommend this one as the default:
 # font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
@@ -442,11 +443,12 @@ bindsym --release $mod+t exec --no-startup-id sleep 0.1 && xdotool type "$(date 
 # exec --no-startup-id i3-msg 'workspace 2; exec /usr/bin/alacritty -e tmux'
 
 # Execute toggle between light and dark colorscheme command
-bindsym $mod+Shift+b exec $HOME/.local/bin/toggle-colorscheme.sh
+# this is not being used anymore
+# bindsym $mod+Shift+b exec $HOME/.local/bin/toggle-colorscheme.sh
 
 # lxqt ubuntu only
 # open monitor configuration
-bindsym $mod+Shift+w exec lxql-config-monitor
+bindsym $mod+Shift+w exec lxqt-config-monitor
 bindsym $mod+o exec $HOME/Documents/connect_monitor.sh && xset r rate 300 70 && fcitx && 1>/dev/null 2>&1
 
 # enable / disable caps mode (show caps mode on the i3 status bar)
