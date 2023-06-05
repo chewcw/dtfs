@@ -77,7 +77,7 @@ DISABLE_AUTO_UPDATE="true"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
   git
-  zsh-vi-mode
+  vi-mode
   zsh-autosuggestions
 )
 
@@ -178,7 +178,7 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_COMPLETION_TRIGGER=','
 
 # zsh-vi-mode
-zvm_after_init_commands+=('[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh')
+# zvm_after_init_commands+=('[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh')
 
 # directory's permission color
 # https://askubuntu.com/questions/881949/ugly-color-for-directories-in-gnome-terminal
