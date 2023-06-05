@@ -72,7 +72,7 @@ opt.linebreak = true
 g.mapleader = " "
 
 -- cursor
-opt.guicursor = "n-v-sm:block,i-c-ci-ve:ver20,r-cr-o:hor20"
+opt.guicursor = "n-v-sm:block,i-c-ci-ve:block,r-cr-o:hor20"
 
 -- list mode (show tab and trailing space)
 opt.list = true
