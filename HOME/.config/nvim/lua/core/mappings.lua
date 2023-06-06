@@ -510,18 +510,23 @@ M.toggleterm = {
   plugin = true,
 
   n = {
-    ["<A-.>"] = { ":ToggleTerm direction=horizontal <CR>", "toggle term in horizontal mode" },
-    ["<A->>"] = { ":ToggleTerm direction=vertical <CR>", "toggle term in vertical mode" },
-    ["<A-/>"] = { ":ToggleTerm direction=float <CR>", "toggle term in float mode" },
-    ["<A-,>"] = { ":ToggleTerm direction=tab <CR>", "toggle term in tab mode" },
+    ["<A-.>"] = { '<cmd> execute v:count .. "ToggleTerm direction=horizontal" <CR>', "toggle term in horizontal mode" },
+    ["<A->>"] = { '<cmd> execute v:count .. "ToggleTerm direction=vertical" <CR>', "toggle term in vertical mode" },
+    ["<A-/>"] = { '<cmd> execute v:count .. "ToggleTerm direction=float" <CR>', "toggle term in float mode" },
+    ["<A-,>"] = { '<cmd> execute v:count .. "ToggleTerm direction=tab" <CR>', "toggle term in tab mode" },
   },
 
   t = {
     ["<Esc><Esc>"] = { vim.api.nvim_replace_termcodes("<C-\\><C-N>", true, true, true), "escape terminal mode" },
     ["<A-.>"] = { "<Esc><Esc> <cmd> ToggleTerm <CR>", "toggle term" },
-    ["<A->>"] = { "<ESC><Esc> <cmd> ToggleTerm <CR>", "toggle term" },
+    ["<A->>"] = { "<Esc><Esc> <cmd> ToggleTerm <CR>", "toggle term" },
     ["<A-/>"] = { "<Esc><Esc> <cmd> ToggleTerm <CR>", "toggle term" },
     ["<A-,>"] = { "<Esc><Esc> <cmd> ToggleTerm <CR>", "toggle term" },
+    -- window navigation
+    ["<C-h>"] = { "<cmd>wincmd h<CR>", "navigate left" },
+    ["<C-j>"] = { "<cmd>wincmd j<CR>", "navigate down" },
+    ["<C-k>"] = { "<cmd>wincmd k<CR>", "navigate up" },
+    ["<C-l>"] = { "<cmd>wincmd l<CR>", "navigate right" },
   },
 }
 
