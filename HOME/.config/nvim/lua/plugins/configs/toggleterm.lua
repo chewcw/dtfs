@@ -11,7 +11,17 @@ local options = {
   terminal_mappings = true,
   hide_numbers = false,
   autochdir = true,
-  shell = "/bin/bash",
+  shell = function()
+    if vim.fn.executable("zsh") == 1 then
+      return "zsh"
+    elseif vim.fn.executable("fish") == 1 then
+      return "fish"
+    elseif vim.fn.executable("bash") == 1 then
+      return "bash"
+    else
+      return "sh"
+    end
+  end,
   float_opts = {
     border = "single",
   },
