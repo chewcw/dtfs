@@ -119,6 +119,24 @@ M.general = {
 
     -- split window max out width and height
     ["<C-w>f"] = { "<C-w>|<CR><C-w>_<CR>", "make split window max out width and height" },
+
+    -- toggle indentation between 2 and 4 spaces
+    ["g/"] = {
+      function()
+        if vim.opt.shiftwidth:get() == 2 and vim.opt.tabstop:get() == 2 and vim.opt.softtabstop:get() == 2 then
+          vim.cmd([[windo set shiftwidth=4]])
+          vim.cmd([[windo set tabstop=4]])
+          vim.cmd([[windo set softtabstop=4]])
+          print("tab is 4 spaces now")
+        else
+          vim.cmd([[windo set shiftwidth=2]])
+          vim.cmd([[windo set tabstop=2]])
+          vim.cmd([[windo set softtabstop=2]])
+          print("tab is 2 spaces now")
+        end
+      end,
+      "toggle indentation between 2 and 4 spaces",
+    },
   },
 
   v = {
@@ -180,17 +198,17 @@ M.lspconfig = {
 
   n = {
     -- ["gD"] = {
-    -- 	function()
-    -- 		vim.lsp.buf.declaration()
-    -- 	end,
-    -- 	"lsp declaration",
+    --  function()
+    --    vim.lsp.buf.declaration()
+    --  end,
+    --  "lsp declaration",
     -- },
 
     -- ["gd"] = {
-    -- 	function()
-    -- 		vim.lsp.buf.definition()
-    -- 	end,
-    -- 	"lsp definition",
+    --  function()
+    --    vim.lsp.buf.definition()
+    --  end,
+    --  "lsp definition",
     -- },
 
     ["gh"] = {
@@ -201,10 +219,10 @@ M.lspconfig = {
     },
 
     -- ["gi"] = {
-    -- 	function()
-    -- 		vim.lsp.buf.implementation()
-    -- 	end,
-    -- 	"lsp implementation",
+    --  function()
+    --    vim.lsp.buf.implementation()
+    --  end,
+    --  "lsp implementation",
     -- },
 
     ["<leader>ls"] = {
@@ -215,10 +233,10 @@ M.lspconfig = {
     },
 
     -- ["<leader>D"] = {
-    -- 	function()
-    -- 		vim.lsp.buf.type_definition()
-    -- 	end,
-    -- 	"lsp definition type",
+    --  function()
+    --    vim.lsp.buf.type_definition()
+    --  end,
+    --  "lsp definition type",
     -- },
 
     ["gn"] = {
@@ -236,17 +254,17 @@ M.lspconfig = {
     },
 
     -- ["gr"] = {
-    -- 	function()
-    -- 		vim.lsp.buf.references()
-    -- 	end,
-    -- 	"lsp references",
+    --  function()
+    --    vim.lsp.buf.references()
+    --  end,
+    --  "lsp references",
     -- },
 
     -- ["<leader>f"] = {
-    -- 	function()
-    -- 		vim.diagnostic.open_float({ border = "rounded" })
-    -- 	end,
-    -- 	"floating diagnostic",
+    --  function()
+    --    vim.diagnostic.open_float({ border = "rounded" })
+    --  end,
+    --  "floating diagnostic",
     -- },
 
     ["ge"] = {
@@ -282,10 +300,10 @@ M.lspconfig = {
     },
 
     -- ["<leader>q"] = {
-    -- 	function()
-    -- 		vim.diagnostic.setloclist()
-    -- 	end,
-    -- 	"diagnostic setloclist",
+    --  function()
+    --    vim.diagnostic.setloclist()
+    --  end,
+    --  "diagnostic setloclist",
     -- },
 
     ["<A-f>"] = {
@@ -296,24 +314,24 @@ M.lspconfig = {
     },
 
     -- ["<leader>wa"] = {
-    -- 	function()
-    -- 		vim.lsp.buf.add_workspace_folder()
-    -- 	end,
-    -- 	"add workspace folder",
+    --  function()
+    --    vim.lsp.buf.add_workspace_folder()
+    --  end,
+    --  "add workspace folder",
     -- },
 
     -- ["<leader>wr"] = {
-    -- 	function()
-    -- 		vim.lsp.buf.remove_workspace_folder()
-    -- 	end,
-    -- 	"remove workspace folder",
+    --  function()
+    --    vim.lsp.buf.remove_workspace_folder()
+    --  end,
+    --  "remove workspace folder",
     -- },
 
     -- ["<leader>wl"] = {
-    -- 	function()
-    -- 		print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-    -- 	end,
-    -- 	"list workspace folders",
+    --  function()
+    --    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+    --  end,
+    --  "list workspace folders",
     -- },
   },
 }
@@ -510,7 +528,10 @@ M.toggleterm = {
   plugin = true,
 
   n = {
-    ["<A-.>"] = { '<cmd> execute v:count .. "ToggleTerm direction=horizontal" <CR>', "toggle term in horizontal mode" },
+    ["<A-.>"] = {
+      '<cmd> execute v:count .. "ToggleTerm direction=horizontal" <CR>',
+      "toggle term in horizontal mode",
+    },
     ["<A->>"] = { '<cmd> execute v:count .. "ToggleTerm direction=vertical" <CR>', "toggle term in vertical mode" },
     ["<A-/>"] = { '<cmd> execute v:count .. "ToggleTerm direction=float" <CR>', "toggle term in float mode" },
     ["<A-,>"] = { '<cmd> execute v:count .. "ToggleTerm direction=tab" <CR>', "toggle term in tab mode" },

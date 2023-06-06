@@ -9,7 +9,7 @@ g.toggle_theme_icon = "   "
 g.transparency = config.ui.transparency
 
 -------------------------------------- options ------------------------------------------
-opt.laststatus = 3 -- global statusline
+opt.laststatus = 2 -- global statusline
 opt.showmode = false
 
 opt.clipboard = "unnamedplus"
@@ -18,9 +18,9 @@ opt.cursorline = true
 -- Indenting
 opt.expandtab = true
 opt.shiftwidth = 2
-opt.smartindent = true
 opt.tabstop = 2
 opt.softtabstop = 2
+opt.smartindent = true
 
 opt.fillchars = { eob = " " }
 opt.ignorecase = false
