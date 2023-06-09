@@ -117,6 +117,9 @@ ln -sf $pwd/HOME/.local/bin/toggle-colorscheme.sh $HOME/.local/bin/toggle-colors
 # Install symlink for docker development script
 ln -sf $pwd/HOME/.local/bin/dev.sh $HOME/.local/bin/dev.sh
 
+# Install symlink for connect monitor
+ln -sf $pwd/HOME/.local/bin/connect_monitor.sh $HOME/.local/bin/connect_monitor.sh
+
 # Install vscode
 sudo apt install -y software-properties-common apt-transport-https curl
 curl -sSL https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add -
