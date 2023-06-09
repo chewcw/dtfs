@@ -63,6 +63,8 @@ sudo apt install -y interception-caps2esc
 # Setup neovim
 # Install symlink for .vimrc
 ln -sf $pwd/HOME/.vimrc $HOME/.vimrc
+# Install symlink for .gvimrc
+ln -sf $pwd/HOME/.gvimrc $HOME/.gvimrc
 
 # Install Neovim (v0.9.1)
 ./install-nvim.sh
