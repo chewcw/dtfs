@@ -61,7 +61,6 @@ M.options = {
       "--with-filename",
       "--line-number",
       "--column",
-      "--smart-case",
     },
     scroll_strategy = "limit",
     prompt_prefix = "   ",
@@ -114,12 +113,15 @@ M.options = {
         ["<C-k>"] = require("telescope.actions").move_selection_previous,
         ["<A-\\>"] = require("telescope.actions").select_vertical,
         ["<A-_>"] = require("telescope.actions").select_horizontal,
+        ["<Esc><Esc>"] = require("telescope.actions").close,
       },
       n = {
         ["<C-j>"] = require("telescope.actions").move_selection_next,
         ["<C-k>"] = require("telescope.actions").move_selection_previous,
         ["<A-\\>"] = require("telescope.actions").select_vertical,
         ["<A-_>"] = require("telescope.actions").select_horizontal,
+        ["<Esc><Esc>"] = require("telescope.actions").close,
+        ["<Esc>"] = function() end, -- don't do anything
         -- ["l"] = function()
         -- vim.fn.feedkeys("\r")
         -- end,
@@ -140,8 +142,17 @@ M.options = {
           local select_window_to_open = function()
             local entry = require("telescope.actions.state").get_selected_entry(prompt_bufnr)
             -- this is a new file
-            if type(entry[1]) == "string" then
+            if type(entry[1]) == "string" and entry.lnum == nil then
               utils_window.open(entry[1], 0, 0)
+              -- live grep
+            elseif
+                type(entry[1]) == "string"
+                and string.match(entry[1], ":") == ":"
+                and entry.lnum ~= nil
+            then
+              local end_of_file_name = string.find(entry[1], ":")
+              local file_name = string.sub(entry[1], 1, end_of_file_name - 1)
+              utils_window.open(file_name, entry.lnum, entry.col)
               -- not a new file i.e. reference, etc.
             elseif entry.value.filename ~= nil and entry.value.lnum ~= nil and entry.value.col ~= nil then
               utils_window.open(entry.value.filename, entry.value.lnum, entry.value.col - 1)
