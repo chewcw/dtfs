@@ -30,7 +30,7 @@ opt.mouse = "a"
 -- Numbers
 opt.number = true
 opt.relativenumber = true
-opt.numberwidth = 2
+opt.numberwidth = 1
 opt.ruler = false
 
 -- disable nvim intro
@@ -128,10 +128,3 @@ vim.api.nvim_create_autocmd("BufWritePost", {
     vim.cmd("redraw!")
   end,
 })
-
--------------------------------------- commands ------------------------------------------
-local new_cmd = vim.api.nvim_create_user_command
-
-new_cmd("NvChadUpdate", function()
-  require("nvchad.update")()
-end, {})

@@ -1,4 +1,5 @@
 local utils_comment = require("core.utils_comment")
+local utils_renamer = require("core.utils_renamer")
 
 -- n, v, i, t = mode names
 
@@ -11,12 +12,6 @@ M.general = {
     ["<A-l>"] = { "<Right>", "move right" },
     ["<A-j>"] = { "<Down>", "move down" },
     ["<A-k>"] = { "<Up>", "move up" },
-
-    -- switch between windows
-    ["<C-h>"] = { "<Esc><C-w>h", "window left" },
-    ["<C-l>"] = { "<Esc><C-w>l", "window right" },
-    ["<C-j>"] = { "<Esc><C-w>j", "window down" },
-    ["<C-k>"] = { "<Esc><C-w>k", "window up" },
 
     -- tab
     ["<A-S-t>"] = { "<cmd> tabedit <CR> <Esc>", "new tab" },
@@ -241,7 +236,7 @@ M.lspconfig = {
 
     ["gn"] = {
       function()
-        require("nvchad_ui.renamer").open()
+        utils_renamer.open()
       end,
       "lsp rename",
     },
