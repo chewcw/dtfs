@@ -142,17 +142,20 @@ M.options = {
           local select_window_to_open = function()
             local entry = require("telescope.actions.state").get_selected_entry(prompt_bufnr)
             -- this is a new file
-            if type(entry[1]) == "string" and entry.lnum == nil then
+            if type(entry[1]) == "string" and entry.lnum == nil and entry.col == nil then
               utils_window.open(entry[1], 0, 0)
               -- live grep
             elseif
                 type(entry[1]) == "string"
                 and string.match(entry[1], ":") == ":"
                 and entry.lnum ~= nil
+                and entry.col ~= nil
+                and getmetatable(entry) ~= nil
             then
               local end_of_file_name = string.find(entry[1], ":")
               local file_name = string.sub(entry[1], 1, end_of_file_name - 1)
-              utils_window.open(file_name, entry.lnum, entry.col)
+              local cwd = getmetatable(entry).cwd
+              utils_window.open(cwd .. "/" .. file_name, entry.lnum, entry.col - 1)
               -- not a new file i.e. reference, etc.
             elseif entry.value.filename ~= nil and entry.value.lnum ~= nil and entry.value.col ~= nil then
               utils_window.open(entry.value.filename, entry.value.lnum, entry.value.col - 1)
