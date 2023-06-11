@@ -51,6 +51,38 @@ local ts_select_dir_for_grep_or_find_files = function(grep)
   return select_cwd
 end
 
+local select_window_to_open = function(prompt_bufnr)
+  local entry = require("telescope.actions.state").get_selected_entry(prompt_bufnr)
+
+  -- new file
+  if type(entry[1]) == "string" and entry.lnum == nil and entry.col == nil then
+    utils_window.open(entry[1], 0, 0)
+    -- live grep
+  elseif
+      type(entry[1]) == "string"
+      and string.match(entry[1], ":") == ":"
+      and entry.lnum ~= nil
+      and entry.col ~= nil
+      and getmetatable(entry) ~= nil
+  then
+    local end_of_file_name = string.find(entry[1], ":")
+    local file_name = string.sub(entry[1], 1, end_of_file_name - 1)
+    local cwd = getmetatable(entry).cwd
+    utils_window.open(cwd .. "/" .. file_name, entry.lnum, entry.col - 1)
+    -- not a new file i.e. reference, etc.
+  elseif entry.value.filename ~= nil and entry.value.lnum ~= nil and entry.value.col ~= nil then
+    utils_window.open(entry.value.filename, entry.value.lnum, entry.value.col - 1)
+    -- buffer
+  elseif entry.filename ~= nil and entry.lnum ~= nil then
+    utils_window.open(entry.filename, entry.lnum, 0)
+    -- git status
+  elseif type(entry[1]) ~= "string" and entry.path ~= nil then
+    utils_window.open(entry.path, 0, 0)
+  else
+    print("invalid")
+  end
+end
+
 M.options = {
   defaults = {
     vimgrep_arguments = {
@@ -138,36 +170,7 @@ M.options = {
           return insert_mode
         end)(),
         -- select window (which split) to open
-        ["<BS>"] = (function(prompt_bufnr)
-          local select_window_to_open = function()
-            local entry = require("telescope.actions.state").get_selected_entry(prompt_bufnr)
-            -- this is a new file
-            if type(entry[1]) == "string" and entry.lnum == nil and entry.col == nil then
-              utils_window.open(entry[1], 0, 0)
-              -- live grep
-            elseif
-                type(entry[1]) == "string"
-                and string.match(entry[1], ":") == ":"
-                and entry.lnum ~= nil
-                and entry.col ~= nil
-                and getmetatable(entry) ~= nil
-            then
-              local end_of_file_name = string.find(entry[1], ":")
-              local file_name = string.sub(entry[1], 1, end_of_file_name - 1)
-              local cwd = getmetatable(entry).cwd
-              utils_window.open(cwd .. "/" .. file_name, entry.lnum, entry.col - 1)
-              -- not a new file i.e. reference, etc.
-            elseif entry.value.filename ~= nil and entry.value.lnum ~= nil and entry.value.col ~= nil then
-              utils_window.open(entry.value.filename, entry.value.lnum, entry.value.col - 1)
-              -- buffer
-            elseif entry.filename ~= nil and entry.lnum ~= nil then
-              utils_window.open(entry.filename, entry.lnum, 0)
-            else
-              print("invalid")
-            end
-          end
-          return select_window_to_open
-        end)(),
+        ["<BS>"] = select_window_to_open,
         -- toggle preview
         ["<C-p>"] = require("telescope.actions.layout").toggle_preview,
       },
