@@ -256,6 +256,14 @@ M.options = {
         },
       },
     },
+
+    git_status = {
+      mappings = {
+        n = {
+          ["<BS>"] = select_window_to_open,
+        },
+      },
+    },
   },
 }
 
