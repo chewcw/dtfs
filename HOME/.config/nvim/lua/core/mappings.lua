@@ -494,9 +494,9 @@ M.gitsigns = {
 
     ["<leader>gb"] = {
       function()
-        package.loaded.gitsigns.blame_line()
+        require("gitsigns").toggle_current_line_blame()
       end,
-      "Blame line",
+      "Toggle current line blame",
     },
 
     ["<leader>gd"] = {
