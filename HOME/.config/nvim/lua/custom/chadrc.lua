@@ -2,12 +2,15 @@
 local M = {}
 
 M.ui = {
-  theme = "radium",
-  theme_toggle = { "radium", "one_light" },
+  theme = "nightowl",
+  theme_toggle = { "nightowl", "one_light" },
 
   hl_override = {
+    St_file_info = {
+      fg = "white",
+    },
     Comment = {
-      italic = true,
+      italic = false,
     },
     CursorLine = {
       bg = "black2",
@@ -19,6 +22,7 @@ M.ui = {
     St_InsertMode = {
       bg = "purple",
       fg = "black",
+      bold = true,
     },
     St_InsertmodeText = {
       fg = "purple",
@@ -68,10 +72,6 @@ M.ui = {
     St_NTerminalmodeText = {
       bg = "one_bg",
       fg = "white",
-    },
-    St_file_info = {
-      fg = "yellow",
-      italic = true,
     },
   },
 

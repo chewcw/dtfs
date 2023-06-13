@@ -22,8 +22,8 @@ M.ui = {
   cmp = {
     icons = true,
     lspkind_text = true,
-    style = "atom",             -- default/flat_light/flat_dark/atom/atom_colored
-    border_color = "grey_fg",   -- only applicable for "default" style, use color names from base30 variables
+    style = "atom",            -- default/flat_light/flat_dark/atom/atom_colored
+    border_color = "grey_fg",  -- only applicable for "default" style, use color names from base30 variables
     selected_item_bg = "simple", -- colored / simple
   },
 
@@ -37,12 +37,21 @@ M.ui = {
     separator_style = "block",
     overriden_modules = function()
       return {
-        -- fileInfo = function()
-        --   return "%#St_file_info#" .. "  " .. vim.fn.expand("%:p:.") .. " "
-        -- end,
+        fileInfo = function()
+          local icon = "   "
+          local filename = (vim.fn.expand("%") == "" and "Empty ") or vim.fn.expand("%:t")
+          local devicons_present, devicons = pcall(require, "nvim-web-devicons")
+          if devicons_present then
+            local ft_icon = devicons.get_icon(filename)
+            icon = (ft_icon ~= nil and " " .. ft_icon .. " ") or " "
+          end
+          return "%#St_file_info#" .. icon .. vim.fn.expand("%:p:.") .. " "
+        end,
+
         -- gitchanges = function()
         --   return ""
         -- end,
+
         -- cwd = function()
         --   return ""
         -- end,
