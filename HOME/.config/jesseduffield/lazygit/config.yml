@@ -1,6 +1,6 @@
 promptToReturnFromSubprocess: false
 os:
-  openCommand: 'code -rg {{filename}}'
+  open: 'nvim {{filename}}'
 gui:
   # stuff relating to the UI
   srollHeight: 2 # how many lines you scroll by
