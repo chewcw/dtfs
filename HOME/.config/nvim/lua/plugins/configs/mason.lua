@@ -8,7 +8,7 @@ local options = {
     "typescript-language-server",
     "prettierd",
 
-    -- golang 
+    -- golang
     "gopls",
     "goimports",
 
@@ -17,8 +17,7 @@ local options = {
     "csharpier",
 
     -- python
-    "python-lsp-server",
-    "ruff",
+    "pyright",
 
     -- rust
     "rust-analyzer",
