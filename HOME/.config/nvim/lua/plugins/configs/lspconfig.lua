@@ -106,10 +106,10 @@ lspconfig.omnisharp.setup({
 })
 
 -- python
-lspconfig.pylsp.setup({
+lspconfig.pyright.setup({
   on_attach = M.on_attach,
   capabilities = M.capabilities,
-  cmd = { home .. "/.local/share/nvim/mason/bin/pylsp" },
+  cmd = { home .. "/.local/share/nvim/mason/bin/pyright-langserver", "--stdio" },
 })
 
 -- javascript / typescript
