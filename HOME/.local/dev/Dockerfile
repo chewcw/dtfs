@@ -14,7 +14,7 @@ RUN echo 'deb http://download.opensuse.org/repositories/shells:/fish:/release:/3
     chsh --shell $(which fish) ccw
 
 # common utilities
-RUN apt install -y sudo git subversion ripgrep xclip xsel build-essential python3 python3-venv tar unzip ncurses-bin
+RUN apt install -y sudo git subversion ripgrep xclip xsel build-essential python3 python3-venv tar unzip ncurses-bin pip
 
 # so that ccw can use sudo command
 RUN passwd --delete ccw
@@ -30,8 +30,9 @@ RUN cd /tmp && wget https://dot.net/v1/dotnet-install.sh -O dotnet-install.sh &&
     `# https://learn.microsoft.com/en-us/dotnet/core/install/linux-debian#dependencies` \
     sudo apt install -y libicu67
 
-# golang 1.20.4
 ARG TARGETARCH
+
+# golang 1.20.4
 RUN sudo mkdir -p /usr/local/go && \
     wget "https://go.dev/dl/go1.20.4.linux-${TARGETARCH}.tar.gz" -O "/tmp/go1.20.4.linux-${TARGETARCH}.tar.gz" && \
     sudo tar -xzf "/tmp/go1.20.4.linux-${TARGETARCH}.tar.gz" -C /usr/local && \
