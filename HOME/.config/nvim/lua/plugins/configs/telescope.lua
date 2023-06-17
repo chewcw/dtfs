@@ -192,8 +192,8 @@ M.options = {
       layout_config = {
         horizontal = {
           prompt_position = "top",
-          preview_width = 0.30,
-          results_width = 0.70,
+          preview_width = 0.50,
+          results_width = 0.50,
         },
         vertical = {
           mirror = false,
