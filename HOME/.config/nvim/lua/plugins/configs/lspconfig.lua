@@ -90,6 +90,13 @@ lspconfig.lua_ls.setup({
   },
 })
 
+-- c, c++
+lspconfig.clangd.setup({
+  on_attach = M.on_attach,
+  capabilities = M.capabilities,
+  cmd = { home .. "/.local/share/nvim/mason/bin/clangd" },
+})
+
 -- golang
 lspconfig.gopls.setup({
   on_attach = M.on_attach,
