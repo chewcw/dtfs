@@ -328,6 +328,23 @@ local default_plugins = {
     keys = { "v" },
   },
 
+  -- debugging
+  {
+    "mfussenegger/nvim-dap",
+    keys = { "<leader>d" },
+    dependencies = {
+      "rcarriga/nvim-dap-ui",
+      "theHamsta/nvim-dap-virtual-text",
+      require("plugins.configs.nvim-dap").python,
+      require("plugins.configs.nvim-dap").go,
+    },
+    init = function()
+      require("core.utils").load_mappings("nvim_dap")
+    end,
+    opts = {},
+    config = require("plugins.configs.nvim-dap").config,
+  },
+
   -- Only load whichkey after all the gui
   {
     "folke/which-key.nvim",
