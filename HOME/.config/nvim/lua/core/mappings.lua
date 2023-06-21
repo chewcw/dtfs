@@ -578,4 +578,32 @@ M.vm = {
   end,
 }
 
+M.nvim_dap = {
+  n = {
+    ["<leader>dR"] = { function() require("dap").run_to_cursor() end, "Run to Cursor", },
+    ["<leader>dE"] = { function() require("dapui").eval(vim.fn.input "[Expression] > ") end, "Evaluate Input", },
+    ["<leader>dC"] = { function() require("dap").set_breakpoint(vim.fn.input "[Condition] > ") end, "Conditional Breakpoint", },
+    ["<leader>dU"] = { function() require("dapui").toggle() end, "Toggle UI", },
+    ["<leader>db"] = { function() require("dap").step_back() end, "Step Back", },
+    ["<leader>dc"] = { function() require("dap").continue() end, "Continue", },
+    ["<leader>dd"] = { function() require("dap").disconnect() end, "Disconnect", },
+    ["<leader>de"] = { function() require("dapui").eval() end, "Evaluate", },
+    ["<leader>dg"] = { function() require("dap").session() end, "Get Session", },
+    ["<leader>dh"] = { function() require("dap.ui.widgets").hover() end, "Hover Variables", },
+    ["<leader>dS"] = { function() require("dap.ui.widgets").scopes() end, "Scopes", },
+    ["<leader>di"] = { function() require("dap").step_into() end, "Step Into", },
+    ["<leader>do"] = { function() require("dap").step_over() end, "Step Over", },
+    ["<leader>dp"] = { function() require("dap").pause.toggle() end, "Pause", },
+    ["<leader>dq"] = { function() require("dap").close() end, "Quit", },
+    ["<leader>dr"] = { function() require("dap").repl.toggle() end, "Toggle REPL", },
+    ["<leader>ds"] = { function() require("dap").continue() end, "Start", },
+    ["<leader>dt"] = { function() require("dap").toggle_breakpoint() end, "Toggle Breakpoint", },
+    ["<leader>dx"] = { function() require("dap").terminate() end, "Terminate", },
+    ["<leader>du"] = { function() require("dap").step_out() end, "Step Out", },
+  },
+  v = {
+    ["<leader>de"] = { function() require("dapui").eval() end, "Evaluate", },
+  },
+}
+
 return M

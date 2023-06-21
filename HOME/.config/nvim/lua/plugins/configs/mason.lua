@@ -14,6 +14,7 @@ local options = {
     -- golang
     "gopls",
     "goimports",
+    "delve", -- debugger
 
     -- dotnet
     "omnisharp",
@@ -21,6 +22,7 @@ local options = {
 
     -- python
     "pyright",
+    "debugpy", -- debugger
 
     -- rust
     "rust-analyzer",
