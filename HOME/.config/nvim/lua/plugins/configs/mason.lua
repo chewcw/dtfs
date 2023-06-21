@@ -4,6 +4,9 @@ local options = {
     "lua-language-server",
     "stylua",
 
+    -- c, c++
+    "clangd",
+
     -- web dev
     "typescript-language-server",
     "prettierd",
