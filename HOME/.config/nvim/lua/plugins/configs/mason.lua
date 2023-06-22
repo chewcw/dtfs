@@ -19,6 +19,7 @@ local options = {
     -- dotnet
     "omnisharp",
     "csharpier",
+    "netcoredbg", -- debugger
 
     -- python
     "pyright",
@@ -37,7 +38,7 @@ local options = {
       package_uninstalled = " 󰚌",
     },
 
-    border = 'rounded',
+    border = "rounded",
 
     keymaps = {
       toggle_server_expand = "<CR>",
