@@ -21,6 +21,9 @@ local sources = {
 
   -- rust
   b.formatting.rustfmt,
+
+  -- python
+  b.formatting.autopep8,
 }
 
 null_ls.setup({
