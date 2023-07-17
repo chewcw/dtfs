@@ -313,6 +313,9 @@ local default_plugins = {
     "windwp/nvim-autopairs",
     event = "InsertEnter",
     config = true,
+    opts = function()
+      return require("plugins.configs.others").nvim_autopairs
+    end,
   },
 
   {

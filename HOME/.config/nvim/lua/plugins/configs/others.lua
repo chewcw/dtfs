@@ -93,4 +93,8 @@ M.whichkey = {
   },
 }
 
+M.nvim_autopairs = {
+  enable_afterquote = false,
+}
+
 return M
