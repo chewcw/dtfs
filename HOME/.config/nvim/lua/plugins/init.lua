@@ -346,6 +346,7 @@ local default_plugins = {
     end,
     config = function()
       require("plugins.configs.nvim-dap").csharp.setup()
+      require("plugins.configs.nvim-dap").rust.setup()
     end,
   },
 
