@@ -27,6 +27,7 @@ local options = {
 
     -- rust
     "rust-analyzer",
+    "corelldb", -- debugger
   },
 
   PATH = "skip",

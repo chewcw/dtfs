@@ -1,17 +1,17 @@
 local present, null_ls = pcall(require, "null-ls")
 
 if not present then
-	return
+  return
 end
 
 local b = null_ls.builtins
 
 local sources = {
-	-- webdev
+  -- webdev
   b.formatting.prettierd,
 
-	-- Lua
-	b.formatting.stylua,
+  -- Lua
+  b.formatting.stylua,
 
   -- csharp
   b.formatting.csharpier,
@@ -27,6 +27,6 @@ local sources = {
 }
 
 null_ls.setup({
-	debug = true,
-	sources = sources,
+  debug = true,
+  sources = sources,
 })
