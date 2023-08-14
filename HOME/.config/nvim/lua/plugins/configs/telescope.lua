@@ -153,6 +153,7 @@ M.options = {
         ["<A-\\>"] = require("telescope.actions").select_vertical,
         ["<A-_>"] = require("telescope.actions").select_horizontal,
         ["<Esc><Esc>"] = require("telescope.actions").close,
+        ["q"] = require("telescope.actions").close,
         ["<Esc>"] = function() end, -- don't do anything
         -- ["l"] = function()
         -- vim.fn.feedkeys("\r")
