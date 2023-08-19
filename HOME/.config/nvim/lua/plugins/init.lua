@@ -341,6 +341,12 @@ local default_plugins = {
     end,
   },
 
+  {
+    "nvim-treesitter/nvim-treesitter-context",
+    lazy = false,
+    config = true,
+  },
+
   -- Only load whichkey after all the gui
   {
     "folke/which-key.nvim",
