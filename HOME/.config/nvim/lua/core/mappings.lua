@@ -162,14 +162,14 @@ M.tabufline = {
     -- cycle through buffers
     ["<A-l>"] = {
       function()
-        require("nvchad_ui.tabufline").tabuflineNext()
+        require("nvchad.tabufline").tabuflineNext()
       end,
       "goto next buffer",
     },
 
     ["<A-h>"] = {
       function()
-        require("nvchad_ui.tabufline").tabuflinePrev()
+        require("nvchad.tabufline").tabuflinePrev()
       end,
       "goto prev buffer",
     },
@@ -177,7 +177,7 @@ M.tabufline = {
     -- close buffer + hide terminal buffer
     ["<A-w>"] = {
       function()
-        require("nvchad_ui.tabufline").close_buffer()
+        require("nvchad.tabufline").close_buffer()
       end,
       "close buffer",
     },
@@ -350,7 +350,7 @@ M.telescope = {
     -- find
     -- set global variable here so that the telescope picker knows this is a normal finder
     -- see telescope config file for more information
-    ["<leader>ff"] = { "<cmd> let g:find_files_type='normal' | Telescope find_files <CR>", "find files" },
+    ["<leader>ff"] = { "<cmd> let g:find_files_type='normal' | Telescope find_files follow=true <CR>", "find files" },
     ["<leader>fa"] = {
       "<cmd> let g:find_files_type='all' | Telescope find_files follow=true no_ignore=true hidden=true <CR>",
       "find all",
