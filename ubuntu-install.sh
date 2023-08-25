@@ -3,6 +3,33 @@
 set -e
 
 pwd=`pwd` whoami=`whoami`
+
+
+# determining debian or ubuntu
+uname -a | grep Debian &>/dev/null
+if [[ $? -eq 0 ]]; then
+	distro=debian
+	distro_version=11
+else
+	uname -a | grep Ubuntu &>/dev/null
+	if [[ $? -eq 0 ]]; then
+	       distro=ubuntu
+	       distro_version=22.04
+	fi
+fi
+
+if [[ -z $distro || -z $distro_version ]]; then
+	echo "Invalid distro=$distro or distro_version=$distro_version"
+	exit -1
+else
+	echo "------------------------------------------"
+	echo "Distro is $distro, version is $distro_version"
+	echo "------------------------------------------"
+fi
+
+sleep 3
+
+# start
 sudo apt-get update
 sudo apt-get install -y apt-transport-https curl
 
@@ -10,47 +37,79 @@ sudo apt-get install -y apt-transport-https curl
 mkdir -p $HOME/.config
 
 # Install git
+echo "------------------------------------------"
+echo "Installing git"
+echo "------------------------------------------"
 sudo apt install -y git
 
-# Install lazygit
-sudo add-apt-repository -y ppa:lazygit-team/release
-sudo apt update
-sudo apt install -y lazygit
+# Install lazygit v0.40.2
+if ! command -v lazygit &>/dev/null
+then
+	echo "------------------------------------------"
+	echo "Installing lazygit"
+	echo "------------------------------------------"
+	lazygit_tar_name=lazygit_0.40.2_Linux_x86_64.tar
+	rm -rf /tmp/$lazygit_tar_name
+	wget https://github.com/jesseduffield/lazygit/releases/download/v0.40.2/$lazygit_tar_name.gz -O /tmp/$lazygit_tar_name.gz
+	gzip -d /tmp/$lazygit_tar_name.gz
+	tar xvf /tmp/$lazygit_tar_name --directory=/tmp
+	sudo mv /tmp/lazygit /usr/local/bin/lazygit
+fi
 # Setup lazygit
+echo "------------------------------------------"
+echo "Setting up lazygit"
+echo "------------------------------------------"
 mkdir -p $HOME/.config/jesseduffield
 mkdir -p $HOME/.config/jesseduffield/lazygit
 ln -sf $pwd/HOME/.config/jesseduffield/lazygit/config.yml $HOME/.config/jesseduffield/lazygit/config.yml
-sudo rm /etc/apt/sources.list.d/lazygit-team-ubuntu-release-focal.list
 
 # Install font (Iosevka-SS14)
-wget https://github.com/be5invis/Iosevka/releases/download/v10.1.1/ttc-sgr-iosevka-fixed-ss14-10.1.1.zip -O /tmp/ttc-sgr-iosevka-fixed-ss14-10.1.1.zip
+echo "------------------------------------------"
+echo "Installing iosevka fonts"
+echo "------------------------------------------"
 mkdir -p $HOME/.fonts
-unzip -o /tmp/ttc-sgr-iosevka-fixed-ss14-10.1.1.zip -d $HOME/.fonts
+cp $pwd/custom-fonts/Iosevka-nerdfont-patched/* $HOME/.fonts || true
 
 # Install gnome-vim
 # Use vim-gtk3 so that I have +xterm_clipboard support
+echo "------------------------------------------"
+echo "Installing gnome-vim"
+echo "------------------------------------------"
 sudo apt install -y vim-gtk3
 
 # Install fzf
+echo "------------------------------------------"
+echo "Installing fzf"
+echo "------------------------------------------"
 git clone --depth 1 https://github.com/junegunn/fzf.git $HOME/.fzf || true
 $HOME/.fzf/install --no-update-rc --completion --key-bindings
 
 # Install xsel (I think it's better than xclip)
+echo "------------------------------------------"
+echo "Installing xsel"
+echo "------------------------------------------"
 sudo apt install xsel -y
 
 # Install fff
 if [ ! -d "$HOME/.fff" ]; then
+	echo "------------------------------------------"
+	echo "Installing fff"
+	echo "------------------------------------------"
 	git clone https://github.com/dylanaraps/fff $HOME/.fff || true
 	sudo make -k -C $HOME/.fff install || true
 fi
 
 # Install mapping caps to ctrl (or remapping capslock to escape AND ctrl)
+echo "------------------------------------------"
+echo "Installing interception tools and caps2esc"
+echo "------------------------------------------"
 # when press caps alone, send escape
 # when press caps with another key, send ctrl
 # caps2esc
 # see: https://gitlab.com/interception/linux/plugins/caps2esc
 # by default wihout any configuration this will swap capslock and escape
-sudo add-apt-repository ppa:deafmute/interception
+# sudo add-apt-repository ppa:deafmute/interception
+sudo apt install -y interception-tools
 sudo apt install -y interception-caps2esc
 # TODO: which one is better? xcape or caps2esc?
 # see: https://askubuntu.com/a/856887
@@ -62,23 +121,38 @@ sudo apt install -y interception-caps2esc
 
 # Setup neovim
 # Install symlink for .vimrc
+echo "------------------------------------------"
+echo "Setting up vimrc"
+echo "------------------------------------------"
 ln -sf $pwd/HOME/.vimrc $HOME/.vimrc
 # Install symlink for .gvimrc
+echo "------------------------------------------"
+echo "Setting up gvimrc"
+echo "------------------------------------------"
 ln -sf $pwd/HOME/.gvimrc $HOME/.gvimrc
 
 # Install Neovim (v0.9.1)
+echo "------------------------------------------"
+echo "Installing Neovim (v0.9.1)"
+echo "------------------------------------------"
 ./install-nvim.sh
 ln -sf $pwd/HOME/.config/nvim $HOME/.config/nvim
 
 # Install i3
+echo "------------------------------------------"
+echo "Installing i3wm"
+echo "------------------------------------------"
 sudo apt install -y i3-wm i3
 
 # Install i3-gaps
-sudo add-apt-repository -y ppa:regolith-linux/release
-sudo apt update
-sudo apt install -y i3-gaps
+# sudo add-apt-repository -y ppa:regolith-linux/release
+# sudo apt update
+# sudo apt install -y i3-gaps
 
 # Install i3status config
+echo "------------------------------------------"
+echo "Installing i3status"
+echo "------------------------------------------"
 sudo apt install -y i3status
 # Install symlink for i3status
 mkdir -p $HOME/.config/i3status
@@ -86,92 +160,164 @@ ln -sf $pwd/HOME/.config/i3status/config $HOME/.config/i3status/config
 
 # Setup i3
 # Install tmux plugin manager
-git clone https://github.com/tmux-plugins/tpm $HOME/.tmux/plugins/tpm || true
+if [[ ! -d $HOME/.tmux/plugins/tpm ]]; then
+	echo "------------------------------------------"
+	echo "Installing tmux plugin manager"
+	echo "------------------------------------------"
+	git clone https://github.com/tmux-plugins/tpm $HOME/.tmux/plugins/tpm || true
+fi
 
 # Install symlink for i3 config
+echo "------------------------------------------"
+echo "Installing symlink for i3 config"
+echo "------------------------------------------"
 mkdir -p $HOME/.config/i3
 ln -sf $pwd/HOME/.config/i3/config $HOME/.config/i3/config
 
 # Install tmux terminal multiplexer
-sudo apt install -y tmux
-wget http://ftp.us.debian.org/debian/pool/main/t/tmux/tmux_3.1c-1+deb11u1_amd64.deb -O /tmp/tmux_3.1c-1+deb11u1_amd64.deb || true
-sudo dpkg --install /tmp/tmux_3.1c-1+deb11u1_amd64.deb
-rm -rf /tmp/tmux_3.1c-1+deb11u1_amd64.deb
+if ! command -v tmux &>/dev/null
+then
+	echo "------------------------------------------"
+	echo "Installing tmux"
+	echo "------------------------------------------"
+	sudo apt install -y tmux
+	tmux_file_name=tmux_3.1c-1+deb11u1_amd64.deb
+	rm -rf /tmp/$tmux_file_name
+	wget http://ftp.us.debian.org/debian/pool/main/t/tmux/$tmux_file_name -O /tmp/$tmux_file_name || true
+	sudo dpkg --install /tmp/$tmux_file_name
+	rm -rf /tmp/$tmux_file_name
+fi
 # Install symlink for tmux.conf
 mkdir -p $HOME/.config/tmux
 ln -sf $pwd/HOME/.config/tmux/tmux.conf $HOME/.config/tmux/tmux.conf
 
 # Install alacritty terminal emulator
-wget https://github.com/barnumbirr/alacritty-debian/releases/download/v0.12.0-1/alacritty_0.12.0_amd64_bullseye.deb -O /tmp/alacritty_0.12.0_amd64_bullseye.deb
-sudo dpkg -i /tmp/alacritty_0.12.0_amd64_bullseye.deb
+if ! command -v alacritty &>/dev/null
+then
+	echo "------------------------------------------"
+	echo "Installing alacritty"
+	echo "------------------------------------------"
+	alacritty_file_name=alacritty_0.12.0_amd64_bullseye.deb
+	rm -rf /tmp/$alacritty_file_name
+	wget https://github.com/barnumbirr/alacritty-debian/releases/download/v0.12.0-1/$alacritty_file_name -O /tmp/$alacritty_file_name
+	sudo dpkg -i /tmp/$alacritty_file_name
+	rm -rf /tmp/$alacritty_file_name
+fi
 # Install symlink for alacritty.yml
 mkdir -p $HOME/.config/alacritty
 ln -sf $pwd/HOME/.config/alacritty/alacritty.yml $HOME/.config/alacritty/alacritty.yml
 
 # alacritty color theme
-mkdir -p ~/.config/alacritty/themes
-git clone https://github.com/alacritty/alacritty-theme ~/.config/alacritty/themes
+# mkdir -p ~/.config/alacritty/themes
+# git clone https://github.com/alacritty/alacritty-theme ~/.config/alacritty/themes
 # Install symlink for colorscheme switcher
-ln -sf $pwd/HOME/.local/bin/toggle-colorscheme.sh $HOME/.local/bin/toggle-colorscheme.sh
+# ln -sf $pwd/HOME/.local/bin/toggle-colorscheme.sh $HOME/.local/bin/toggle-colorscheme.sh
 
 # Install symlink for docker development script
+echo "------------------------------------------"
+echo "Installing symlink for docker development script"
+echo "------------------------------------------"
+mkdir -p $HOME/.local
+mkdir -p $HOME/.local/bin
 ln -sf $pwd/HOME/.local/bin/dev.sh $HOME/.local/bin/dev.sh
 
 # Install symlink for connect monitor
+echo "------------------------------------------"
+echo "Installing symlink for connection_monitor"
+echo "------------------------------------------"
 ln -sf $pwd/HOME/.local/bin/connect_monitor.sh $HOME/.local/bin/connect_monitor.sh
 
-# Install vscode
-sudo apt install -y software-properties-common apt-transport-https curl
-curl -sSL https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add -
-sudo add-apt-repository -y "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
-sudo apt update
-sudo apt install -y code
+# Install vscodium
+if ! command -v codium &>/dev/null
+then
+	echo "------------------------------------------"
+	echo "Installing vscodium"
+	echo "------------------------------------------"
+	codium_file_name=codium_1.81.1.23222_amd64.deb
+	rm -rf /tmp/$codium_file_name
+	wget https://github.com/VSCodium/vscodium/releases/download/1.81.1.23222/$codium_file_name -O /tmp/$codium_file_name
+	sudo dpkg --install /tmp/$codium_file_name || true
+	rm -rf /tmp/$codium_file_name
+fi
 
 # Install Brave browser
-sudo curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
-echo "deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg arch=amd64] https://brave-browser-apt-release.s3.brave.com/ stable main"|sudo tee /etc/apt/sources.list.d/brave-browser-release.list
-sudo apt update
-sudo apt install -y brave-browser
+# sudo curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
+# echo "deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg arch=amd64] https://brave-browser-apt-release.s3.brave.com/ stable main"|sudo tee /etc/apt/sources.list.d/brave-browser-release.list
+# sudo apt update
+# sudo apt install -y brave-browser
 
 # Install docker
-sudo apt update
-sudo apt install -y \
-	ca-certificates \
-	gnupg-agent \
-	software-properties-common
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-sudo add-apt-repository \
-	"deb [arch=amd64] https://download.docker.com/linux/ubuntu \
-	$(lsb_release -cs) \
-	stable"
-sudo apt update
-sudo apt install -y docker-ce
-sudo usermod -aG docker $whoami
+if ! command -v docker &>/dev/null
+then
+	echo "------------------------------------------"
+	echo "Installing docker for $distro"
+	echo "------------------------------------------"
+	sudo apt update
+	sudo apt install -y \
+		ca-certificates \
+		gnupg-agent \
+		software-properties-common
+	sudo install -m 0755 -d /etc/apt/keyrings
+	curl -fsSL https://download.docker.com/linux/$distro/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+	sudo chmod a+r /etc/apt/keyrings/docker.gpg
+	echo \
+	  "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/$distro \
+	  "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | \
+	  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+	sudo apt update
+	sudo apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
+	sudo usermod -aG docker $whoami
+fi
 
 # Enable docker experimental mode
+echo "------------------------------------------"
+echo "Enable docker experimental mode"
+echo "------------------------------------------"
 mkdir -p $HOME/.docker
 echo { \"experimental\" : \"enabled\" } > $HOME/.docker/config.json
 
 # Install vlc
+echo "------------------------------------------"
+echo "Installing vlc"
+echo "------------------------------------------"
 sudo apt install -y vlc
 
 # Install Audio controls 
-sudo apt install -y alsa-utils pulseaudio
+echo "------------------------------------------"
+echo "Installing audio controls"
+echo "------------------------------------------"
+sudo apt install -y alsa-utils pulseaudio || true
 
 # Install brightness controls
-sudo apt install -y brightnessctl
+echo "------------------------------------------"
+echo "Installing brightness controls"
+echo "------------------------------------------"
+sudo apt install -y brightnessctl || true
 
 # Install flameshot
 # https://github.com/flameshot-org/flameshot
-wget "https://github.com/flameshot-org/flameshot/releases/download/v0.10.1/flameshot-0.10.1-1.ubuntu-20.04.amd64.deb" -O /tmp/flameshot.deb  || true
-sudo dpkg -i /tmp/flameshot.deb || true
-mkdir -p $HOME/.config/Dharkael && ln -sf $pwd/HOME/.config/flameshot/flameshot.conf $HOME/.config/Dharkael/flameshot.conf
+if ! command -v flameshot &>/dev/null
+then
+	echo "------------------------------------------"
+	echo "Installing flameshot"
+	echo "------------------------------------------"
+	flameshot_file_name=flameshot-12.1.0-1.$distro-$distro_version.amd64.deb
+	wget "https://github.com/flameshot-org/flameshot/releases/download/v12.1.0/$flameshot_file_name" -O /tmp/$flameshot_file_name  || true
+	sudo dpkg -i /tmp/$flameshot_file_name || true
+	mkdir -p $HOME/.config/Dharkael && ln -sf $pwd/HOME/.config/flameshot/flameshot.conf $HOME/.config/Dharkael/flameshot.conf
+fi
 
 # Install feh for desktop background
+echo "------------------------------------------"
+echo "Installing feh"
+echo "------------------------------------------"
 sudo apt install -y feh
 
 # Install barrier
 # https://github.com/debauchee/barrier#distro-specific-packages
+echo "------------------------------------------"
+echo "Installing barrier"
+echo "------------------------------------------"
 sudo apt install -y barrier
 
 # Install compton
@@ -185,31 +331,67 @@ sudo apt install -y barrier
 # sudo ln -sf $pwd/HOME/sz /usr/local/bin/sz
 
 # lxrandr
+echo "------------------------------------------"
+echo "Installing xdotool and lxrandr"
+echo "------------------------------------------"
 sudo apt install -y xdotool lxrandr
 
+# shell setup
 # ------------------------------ put below in the end
-# Setup oh-my-zsh -> Powerlevel10k
-sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" || true
-git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k || true
+
+# Setup oh-my-zsh and Powerlevel10k
+if [[ -d $HOME/.oh-my-zsh ]]; then
+	rm -rf $HOME/.oh-my-zsh
+fi
+echo "------------------------------------------"
+echo "Installing oh-my-zsh"
+echo "------------------------------------------"
+# sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" || true
+curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh | bash
+
+if [[ ! -d $HOME/.oh-my-zsh/custom/themes/powerlevel10k ]]; then
+	echo "------------------------------------------"
+	echo "Installing powerlevel10k"
+	echo "------------------------------------------"
+	git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k || true
+fi
+
 # install zsh-autosuggestion
-git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions || true
+if [[ ! -d $HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions ]]; then
+	echo "------------------------------------------"
+	echo "Installing zsh-autosuggestion"
+	echo "------------------------------------------"
+	git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions || true
+fi
+
 # install zsh-vi-mode
 # git clone https://github.com/jeffreytse/zsh-vi-mode ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-vi-mode || true
 
 # Install symlink for .zshrc
+echo "------------------------------------------"
+echo "Installing symlink for .zshrc"
+echo "------------------------------------------"
 ln -sf $pwd/HOME/.zshrc $HOME/.zshrc
 
 # Install zsh
+echo "------------------------------------------"
+echo "Installing zsh"
+echo "------------------------------------------"
 sudo apt install -y zsh
 
 # set zsh as default shell
+echo "------------------------------------------"
+echo "Setting zsh as default shell "
+echo "------------------------------------------"
 sudo chsh -s $(which zsh)
 
 # zsh plugin
 # bd (jump to parent directory easily)
-mkdir -p $HOME/zsh/plugins || true
-ln -sf $pwd/HOME/zsh/plugins/bd.zsh $HOME/zsh/plugins/bd.zsh
+# mkdir -p $HOME/zsh/plugins || true
+# ln -sf $pwd/HOME/zsh/plugins/bd.zsh $HOME/zsh/plugins/bd.zsh
 
 # done
-echo "Setup done.."
+echo "=========================================="
+echo "Setup done......"
+echo "=========================================="
 
