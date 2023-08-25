@@ -109,8 +109,21 @@ echo "------------------------------------------"
 # see: https://gitlab.com/interception/linux/plugins/caps2esc
 # by default wihout any configuration this will swap capslock and escape
 # sudo add-apt-repository ppa:deafmute/interception
+# all docs I see online are using `intercept`, but in debian,
+# somehow the command is called `interception`
+
 sudo apt install -y interception-tools
 sudo apt install -y interception-caps2esc
+
+sudo bash -c 'cat << EOF > /etc/interception/udevmon.yaml
+- JOB: "interception -g $DEVNODE | caps2esc -m 0 | uinput -d $DEVNODE"
+  DEVICE:
+      EVENTS:
+        EV_KEY: [KEY_CAPSLOCK, KEY_ESC]
+EOF'
+
+sudo systemctl restart udevmon
+
 # TODO: which one is better? xcape or caps2esc?
 # see: https://askubuntu.com/a/856887
 # sudo apt install -y xcape
