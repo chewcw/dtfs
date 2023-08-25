@@ -147,7 +147,7 @@ bindkey -M menuselect 'j' vi-down-line-or-history
 
 # Jump to parent directory easily
 # https://thevaluable.dev/zsh-install-configure-mouseless/
-source $HOME/zsh/plugins/bd.zsh
+# source $HOME/zsh/plugins/bd.zsh
 
 # keyboard repeat delay
 xset r rate 300 70
