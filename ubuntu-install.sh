@@ -91,7 +91,7 @@ echo "------------------------------------------"
 sudo apt install xsel -y
 
 # Install fff
-if [ ! -d "$HOME/.fff" ]; then
+if [[ ! -d "$HOME/.fff" ]]; then
 	echo "------------------------------------------"
 	echo "Installing fff"
 	echo "------------------------------------------"
