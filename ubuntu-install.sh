@@ -349,6 +349,27 @@ echo "Installing xdotool and lxrandr"
 echo "------------------------------------------"
 sudo apt install -y xdotool lxrandr
 
+# X11 configuration using libinput as input driver
+echo "------------------------------------------"
+echo "X11 configuration using libinput"
+echo "------------------------------------------"
+# from https://cravencode.com/post/essentials/enable-tap-to-click-in-i3wm/
+# from https://unix.stackexchange.com/questions/567974/how-to-make-3-finger-tap-on-touchpad-act-as-middle-mouse-button-for-debian-10-c
+# how do I configure my device on X: https://wayland.freedesktop.org/libinput/doc/latest/faqs.html#how-do-i-configure-my-device-on-x
+# see libinput configuration option: https://www.mankier.com/4/libinput
+sudo mkdir -p /etc/X11/xorg.conf.d && sudo tee <<'EOF' /etc/X11/xorg.conf.d/90-touchpad.conf 1> /dev/null
+Section "InputClass"
+        Identifier "touchpad"
+        MatchIsTouchpad "on"
+        Driver "libinput"
+        Option "Tapping" "on"
+        Option "TappingButtonMap" "lrm" # three finger tap is middle click
+        Option "AccelSpeed" "+1.0" # touchpad acceleration
+EndSection
+
+EOF
+
+
 # shell setup
 # ------------------------------ put below in the end
 
