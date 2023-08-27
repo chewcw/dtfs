@@ -171,7 +171,6 @@ sudo apt install -y i3status
 mkdir -p $HOME/.config/i3status
 ln -sf $pwd/HOME/.config/i3status/config $HOME/.config/i3status/config
 
-# Setup i3
 # Install tmux plugin manager
 if [[ ! -d $HOME/.tmux/plugins/tpm ]]; then
 	echo "------------------------------------------"
@@ -180,12 +179,21 @@ if [[ ! -d $HOME/.tmux/plugins/tpm ]]; then
 	git clone https://github.com/tmux-plugins/tpm $HOME/.tmux/plugins/tpm || true
 fi
 
+# Setup i3
 # Install symlink for i3 config
 echo "------------------------------------------"
 echo "Installing symlink for i3 config"
 echo "------------------------------------------"
 mkdir -p $HOME/.config/i3
 ln -sf $pwd/HOME/.config/i3/config $HOME/.config/i3/config
+
+# Setup dunst (notification daemon)
+echo "------------------------------------------"
+echo "Installing symlink for dunstrc"
+echo "------------------------------------------"
+sudo mkdir -p /etc/xdg
+sudo mkdir -p /etc/xdg/dunst
+ln -sf $pwd/etc/xdg/dunst/dunstrc /etc/xdg/dunst/dunstrc
 
 # Install tmux terminal multiplexer
 if ! command -v tmux &>/dev/null
