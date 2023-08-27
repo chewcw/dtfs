@@ -143,6 +143,9 @@ echo "------------------------------------------"
 echo "Setting up gvimrc"
 echo "------------------------------------------"
 ln -sf $pwd/HOME/.gvimrc $HOME/.gvimrc
+mkdir -p $HOME/.vim
+mkdir -p $HOME/.vim/colors
+ln -sf $pwd/HOME/.vim/colors/github.vim $HOME/.vim/colors/github.vim
 
 # Install Neovim (v0.9.1)
 echo "------------------------------------------"
