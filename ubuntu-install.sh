@@ -375,7 +375,7 @@ Section "InputClass"
         Driver "libinput"
         Option "Tapping" "on"
         Option "TappingButtonMap" "lrm" # three finger tap is middle click
-        Option "AccelSpeed" "+1.0" # touchpad acceleration
+        Option "AccelSpeed" "+0.7" # touchpad acceleration
 EndSection
 
 EOF
