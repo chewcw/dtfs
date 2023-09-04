@@ -116,7 +116,7 @@ sudo apt install -y interception-tools
 sudo apt install -y interception-caps2esc
 
 sudo bash -c 'cat << EOF > /etc/interception/udevmon.yaml
-- JOB: "interception -g $DEVNODE | caps2esc -m 0 | uinput -d $DEVNODE"
+- JOB: "interception -g \$DEVNODE | caps2esc -m 0 | uinput -d \$DEVNODE"
   DEVICE:
       EVENTS:
         EV_KEY: [KEY_CAPSLOCK, KEY_ESC]
