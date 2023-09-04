@@ -196,7 +196,7 @@ echo "Installing symlink for dunstrc"
 echo "------------------------------------------"
 sudo mkdir -p /etc/xdg
 sudo mkdir -p /etc/xdg/dunst
-ln -sf $pwd/etc/xdg/dunst/dunstrc /etc/xdg/dunst/dunstrc
+sudo ln -sf $pwd/etc/xdg/dunst/dunstrc /etc/xdg/dunst/dunstrc
 
 # Install tmux terminal multiplexer
 if ! command -v tmux &>/dev/null
