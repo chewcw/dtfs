@@ -82,7 +82,7 @@ echo "------------------------------------------"
 echo "Installing fzf"
 echo "------------------------------------------"
 git clone --depth 1 https://github.com/junegunn/fzf.git $HOME/.fzf || true
-$HOME/.fzf/install --no-update-rc --completion --key-bindings
+sh -c "$HOME/.fzf/install --no-update-rc --completion --key-bindings"
 
 # Install xsel (I think it's better than xclip)
 echo "------------------------------------------"
