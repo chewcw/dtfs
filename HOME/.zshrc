@@ -219,3 +219,7 @@ export PATH=$PATH:$HOME/.local/bin
 alias xc="xclip -selection clipboard"
 alias xs="xsel --append --clipboard"
 
+alias gnome-control-center="env XDG_CURRENT_DESKTOP=GNOME gnome-control-center";
+export XDG_CURRENT_DESKTOP=GNOME;
+
+export POWERLEVEL9K_DISABLE_CONFIGURATION_WIZARD=true

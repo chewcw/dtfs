@@ -394,12 +394,12 @@ echo "------------------------------------------"
 # sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" || true
 curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh | bash
 
-if [[ ! -d $HOME/.oh-my-zsh/custom/themes/powerlevel10k ]]; then
-	echo "------------------------------------------"
-	echo "Installing powerlevel10k"
-	echo "------------------------------------------"
-	git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k || true
-fi
+#if [[ ! -d $HOME/.oh-my-zsh/custom/themes/powerlevel10k ]]; then
+#	echo "------------------------------------------"
+#	echo "Installing powerlevel10k"
+#	echo "------------------------------------------"
+#	git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k || true
+#fi
 
 # install zsh-autosuggestion
 if [[ ! -d $HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions ]]; then
