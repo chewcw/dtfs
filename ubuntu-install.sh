@@ -384,6 +384,12 @@ EOF
 # shell setup
 # ------------------------------ put below in the end
 
+# Install zsh
+echo "------------------------------------------"
+echo "Installing zsh"
+echo "------------------------------------------"
+sudo apt install -y zsh
+
 # Setup oh-my-zsh and Powerlevel10k
 if [[ -d $HOME/.oh-my-zsh ]]; then
 	rm -rf $HOME/.oh-my-zsh
@@ -417,18 +423,6 @@ echo "------------------------------------------"
 echo "Installing symlink for .zshrc"
 echo "------------------------------------------"
 ln -sf $pwd/HOME/.zshrc $HOME/.zshrc
-
-# Install zsh
-echo "------------------------------------------"
-echo "Installing zsh"
-echo "------------------------------------------"
-sudo apt install -y zsh
-
-# set zsh as default shell
-echo "------------------------------------------"
-echo "Setting zsh as default shell "
-echo "------------------------------------------"
-sudo chsh -s $(which zsh)
 
 # zsh plugin
 # bd (jump to parent directory easily)
