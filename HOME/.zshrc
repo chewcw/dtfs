@@ -223,3 +223,5 @@ alias gnome-control-center="env XDG_CURRENT_DESKTOP=GNOME gnome-control-center";
 export XDG_CURRENT_DESKTOP=GNOME;
 
 export POWERLEVEL9K_DISABLE_CONFIGURATION_WIZARD=true
+
+alias monitor=arandr
