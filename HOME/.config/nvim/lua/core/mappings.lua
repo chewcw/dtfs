@@ -53,6 +53,9 @@ M.general = {
     ["<leader>b\\"] = { "<cmd> vnew <CR>", "new buffer" },
     ["<leader>b_"] = { "<cmd> new <CR>", "new buffer" },
 
+    -- toggle last opened buffer
+    ["<A-p>"] = { "<C-6>", "toggle last opened buffer" },
+
     -- marks
     ["<leader>m"] = { ':delmarks a-zA-Z0-9"^.[] <CR>', "delete all marks" },
 
@@ -365,6 +368,7 @@ M.telescope = {
     -- git
     ["<leader>gc"] = { "<cmd> Telescope git_commits <CR>", "git commits" },
     ["<leader>gt"] = { "<cmd> Telescope git_status <CR>", "git status" },
+    ["<leader>ge"] =  { "<cmd> wincmd p | q <CR>", "exit gitsigns diffthis" },
 
     -- theme switcher
     ["<leader>th"] = { "<cmd> Telescope themes <CR>", "nvchad themes" },
@@ -504,6 +508,13 @@ M.gitsigns = {
         require("gitsigns").toggle_deleted()
       end,
       "Toggle deleted",
+    },
+
+    ["<leader>gD"] = {
+      function()
+        require("gitsigns").diffthis()
+      end,
+      "Diff this",
     },
   },
 }
