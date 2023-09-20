@@ -122,14 +122,14 @@ M.general = {
     ["g/"] = {
       function()
         if vim.opt.shiftwidth:get() == 2 and vim.opt.tabstop:get() == 2 and vim.opt.softtabstop:get() == 2 then
-          vim.cmd([[windo set shiftwidth=4]])
-          vim.cmd([[windo set tabstop=4]])
-          vim.cmd([[windo set softtabstop=4]])
+          vim.cmd([[tabdo set shiftwidth=4]])
+          vim.cmd([[tabdo set tabstop=4]])
+          vim.cmd([[tabdo set softtabstop=4]])
           print("tab is 4 spaces now")
         else
-          vim.cmd([[windo set shiftwidth=2]])
-          vim.cmd([[windo set tabstop=2]])
-          vim.cmd([[windo set softtabstop=2]])
+          vim.cmd([[tabdo set shiftwidth=2]])
+          vim.cmd([[tabdo set tabstop=2]])
+          vim.cmd([[tabdo set softtabstop=2]])
           print("tab is 2 spaces now")
         end
       end,
