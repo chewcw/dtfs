@@ -122,14 +122,14 @@ M.general = {
     ["g/"] = {
       function()
         if vim.opt.shiftwidth:get() == 2 and vim.opt.tabstop:get() == 2 and vim.opt.softtabstop:get() == 2 then
-          vim.cmd([[tabdo set shiftwidth=4]])
-          vim.cmd([[tabdo set tabstop=4]])
-          vim.cmd([[tabdo set softtabstop=4]])
+          vim.cmd([[bufdo set shiftwidth=4]])
+          vim.cmd([[bufdo set tabstop=4]])
+          vim.cmd([[bufdo set softtabstop=4]])
           print("tab is 4 spaces now")
         else
-          vim.cmd([[tabdo set shiftwidth=2]])
-          vim.cmd([[tabdo set tabstop=2]])
-          vim.cmd([[tabdo set softtabstop=2]])
+          vim.cmd([[bufdo set shiftwidth=2]])
+          vim.cmd([[bufdo set tabstop=2]])
+          vim.cmd([[bufdo set softtabstop=2]])
           print("tab is 2 spaces now")
         end
       end,
@@ -543,17 +543,25 @@ M.toggleterm = {
     ["<A-,>"] = { '<cmd> execute v:count .. "ToggleTerm direction=tab" <CR>', "toggle term in tab mode" },
   },
 
+  i = {
+    -- window navigation
+    ["<C-h>"] = { "<C-\\><C-N> <cmd>wincmd h<CR>", "navigate left" },
+    ["<C-j>"] = { "<C-\\><C-N> <cmd>wincmd j<CR>", "navigate down" },
+    ["<C-k>"] = { "<C-\\><C-N> <cmd>wincmd k<CR>", "navigate up" },
+    ["<C-l>"] = { "<C-\\><C-N> <cmd>wincmd l<CR>", "navigate right" },
+  },
+
   t = {
     ["<Esc><Esc>"] = { vim.api.nvim_replace_termcodes("<C-\\><C-N>", true, true, true), "escape terminal mode" },
-    ["<A-.>"] = { "<Esc><Esc> <cmd> ToggleTerm <CR>", "toggle term" },
-    ["<A->>"] = { "<Esc><Esc> <cmd> ToggleTerm <CR>", "toggle term" },
-    ["<A-/>"] = { "<Esc><Esc> <cmd> ToggleTerm <CR>", "toggle term" },
-    ["<A-,>"] = { "<Esc><Esc> <cmd> ToggleTerm <CR>", "toggle term" },
+    ["<A-.>"] = { "<C-\\><C-N> <cmd> ToggleTerm <CR>", "toggle term" },
+    ["<A->>"] = { "<C-\\><C-N> <cmd> ToggleTerm <CR>", "toggle term" },
+    ["<A-/>"] = { "<C-\\><C-N> <cmd> ToggleTerm <CR>", "toggle term" },
+    ["<A-,>"] = { "<C-\\><C-N> <cmd> ToggleTerm <CR>", "toggle term" },
     -- window navigation
-    ["<C-h>"] = { "<cmd>wincmd h<CR>", "navigate left" },
-    ["<C-j>"] = { "<cmd>wincmd j<CR>", "navigate down" },
-    ["<C-k>"] = { "<cmd>wincmd k<CR>", "navigate up" },
-    ["<C-l>"] = { "<cmd>wincmd l<CR>", "navigate right" },
+    ["<C-h>"] = { "<C-\\><C-N> <cmd>wincmd h<CR>", "navigate left" },
+    ["<C-j>"] = { "<C-\\><C-N> <cmd>wincmd j<CR>", "navigate down" },
+    ["<C-k>"] = { "<C-\\><C-N> <cmd>wincmd k<CR>", "navigate up" },
+    ["<C-l>"] = { "<C-\\><C-N> <cmd>wincmd l<CR>", "navigate right" },
   },
 }
 
