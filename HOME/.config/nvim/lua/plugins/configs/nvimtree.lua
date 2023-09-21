@@ -9,7 +9,7 @@ local options = {
 	hijack_unnamed_buffer_when_opening = false,
 	sync_root_with_cwd = true,
 	update_focused_file = {
-		enable = true,
+		enable = false,
 		update_root = false,
 	},
   respect_buf_cwd = false,
@@ -32,7 +32,7 @@ local options = {
 		},
     change_dir = {
       enable = true,
-      global = false,
+      global = true,
       restrict_above_cwd = false,
     },
 	},
@@ -107,7 +107,7 @@ local options = {
 		vim.keymap.set("n", "L", api.tree.expand_all, opts("expand all"))
 		vim.keymap.set("n", "H", api.tree.collapse_all, opts("collapse all"))
 		vim.keymap.set("n", "f", api.live_filter.start, opts("start filter"))
-		vim.keymap.set("n", "F", api.live_filter.clear, opts("clear filter"))
+		vim.keymap.set("n", "<Esc>", api.live_filter.clear, opts("clear filter"))
 		vim.keymap.set("n", "s", api.tree.search_node, opts("search node"))
 	end,
 }
