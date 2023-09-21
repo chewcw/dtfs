@@ -135,6 +135,9 @@ M.general = {
       end,
       "toggle indentation between 2 and 4 spaces",
     },
+
+    -- https://stackoverflow.com/questions/25101915/vim-case-insensitive-ex-command-completion
+    ["/"] = { "/\\C", "search without case sensitive" },
   },
 
   v = {
