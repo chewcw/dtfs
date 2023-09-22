@@ -546,14 +546,6 @@ M.toggleterm = {
     ["<A-,>"] = { '<cmd> execute v:count .. "ToggleTerm direction=tab" <CR>', "toggle term in tab mode" },
   },
 
-  i = {
-    -- window navigation
-    ["<C-h>"] = { "<C-\\><C-N> <cmd>wincmd h<CR>", "navigate left" },
-    ["<C-j>"] = { "<C-\\><C-N> <cmd>wincmd j<CR>", "navigate down" },
-    ["<C-k>"] = { "<C-\\><C-N> <cmd>wincmd k<CR>", "navigate up" },
-    ["<C-l>"] = { "<C-\\><C-N> <cmd>wincmd l<CR>", "navigate right" },
-  },
-
   t = {
     ["<Esc><Esc>"] = { vim.api.nvim_replace_termcodes("<C-\\><C-N>", true, true, true), "escape terminal mode" },
     ["<A-.>"] = { "<C-\\><C-N> <cmd> ToggleTerm <CR>", "toggle term" },
