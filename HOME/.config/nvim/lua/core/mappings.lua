@@ -368,6 +368,12 @@ M.telescope = {
     ["<leader>fz"] = { "<cmd> Telescope current_buffer_fuzzy_find <CR>", "find in current buffer" },
     ["<leader>f*"] = { "<cmd> Telescope grep_string <CR>", "search for string under cursor in cwd" },
 
+    ["<leader>fr"] = { 
+      function()
+        require("plugins.configs.telescope").resume_with_cache() 
+      end,
+      "resume with cache" },
+
     -- git
     ["<leader>gc"] = { "<cmd> Telescope git_commits <CR>", "git commits" },
     ["<leader>gt"] = { "<cmd> Telescope git_status <CR>", "git status" },
