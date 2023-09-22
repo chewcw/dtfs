@@ -51,6 +51,23 @@ local ts_select_dir_for_grep_or_find_files = function(grep)
   return select_cwd
 end
 
+
+-- https://github.com/nvim-telescope/telescope.nvim/issues/2024
+local last_search = nil
+M.resume_with_cache = function()
+  local telescope = require("telescope.builtin")
+  local telescope_state = require("telescope.state")
+
+  if last_search == nil then
+    telescope.resume()
+
+    local cached_pickers = telescope_state.get_global_key "cached_pickers" or {}
+    last_search = cached_pickers[1]
+  else
+    telescope.resume({ picker = last_search })
+  end
+end
+
 local select_window_to_open = function(prompt_bufnr)
   local entry = require("telescope.actions.state").get_selected_entry(prompt_bufnr)
 
