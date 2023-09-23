@@ -167,6 +167,10 @@ M.options = {
       n = {
         ["<C-j>"] = require("telescope.actions").move_selection_next,
         ["<C-k>"] = require("telescope.actions").move_selection_previous,
+        ["<C-l>"] = require("telescope.actions").preview_scrolling_right,
+        ["<C-h>"] = require("telescope.actions").preview_scrolling_left,
+        -- do nothing, to prevent open nvim_tree accidentally
+        ["<C-n>"] = function() end,
         ["<A-\\>"] = require("telescope.actions").select_vertical,
         ["<A-_>"] = require("telescope.actions").select_horizontal,
         ["<Esc><Esc>"] = require("telescope.actions").close,
