@@ -2,6 +2,9 @@ local utils_window = require("core.utils_window")
 
 local M = {}
 
+local picker_width = 0.85
+local picker_height = 0.85
+
 -- when find_files or live_grep, the picker only shows files in the same folder
 -- this function can let us select the folder as working direcotory
 -- so that the picker can show all files or folders under that directory
@@ -123,14 +126,14 @@ M.options = {
     layout_config = {
       horizontal = {
         prompt_position = "top",
-        preview_width = 0.40,
-        results_width = 0.80,
+        preview_width = 0.50,
+        results_width = 0.50,
       },
       vertical = {
         mirror = false,
       },
-      width = 0.95,
-      height = 0.95,
+      width = picker_width,
+      height = picker_height,
       preview_cutoff = 120,
     },
     fname_width = 50,
@@ -162,6 +165,7 @@ M.options = {
         ["<C-k>"] = require("telescope.actions").move_selection_previous,
         ["<A-\\>"] = require("telescope.actions").select_vertical,
         ["<A-_>"] = require("telescope.actions").select_horizontal,
+        ["<A-t>"] = require("telescope.actions").select_tab,
         ["<Esc><Esc>"] = require("telescope.actions").close,
       },
       n = {
@@ -169,10 +173,13 @@ M.options = {
         ["<C-k>"] = require("telescope.actions").move_selection_previous,
         ["<C-l>"] = require("telescope.actions").preview_scrolling_right,
         ["<C-h>"] = require("telescope.actions").preview_scrolling_left,
+        ["<A-l>"] = require("telescope.actions").results_scrolling_right,
+        ["<A-h>"] = require("telescope.actions").results_scrolling_left,
         -- do nothing, to prevent open nvim_tree accidentally
         ["<C-n>"] = function() end,
-        ["<A-\\>"] = require("telescope.actions").select_vertical,
-        ["<A-_>"] = require("telescope.actions").select_horizontal,
+        ["\\"] = require("telescope.actions").select_vertical,
+        ["_"] = require("telescope.actions").select_horizontal,
+        ["t"] = require("telescope.actions").select_tab,
         ["<Esc><Esc>"] = require("telescope.actions").close,
         ["q"] = require("telescope.actions").close,
         ["<Esc>"] = function() end, -- don't do anything
@@ -220,8 +227,8 @@ M.options = {
         vertical = {
           mirror = false,
         },
-        width = 0.95,
-        height = 0.95,
+        width = picker_width,
+        height = picker_height,
         preview_cutoff = 120,
       },
       mappings = {
