@@ -380,6 +380,13 @@ EndSection
 
 EOF
 
+echo "------------------------------------------"
+echo "Installing some common tools"
+echo "------------------------------------------"
+# document like pdf reader
+sudo apt install -y okular
+# inkscape
+sudo apt install -y inkscape
 
 # shell setup
 # ------------------------------ put below in the end
@@ -428,6 +435,11 @@ ln -sf $pwd/HOME/.zshrc $HOME/.zshrc
 # bd (jump to parent directory easily)
 # mkdir -p $HOME/zsh/plugins || true
 # ln -sf $pwd/HOME/zsh/plugins/bd.zsh $HOME/zsh/plugins/bd.zsh
+
+echo "------------------------------------------"
+echo "Cleaning apt"
+echo "------------------------------------------"
+sudo apt clean
 
 # done
 echo "=========================================="
