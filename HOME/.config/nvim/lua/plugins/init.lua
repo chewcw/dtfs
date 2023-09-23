@@ -194,6 +194,11 @@ local default_plugins = {
     "nvim-telescope/telescope.nvim",
     cmd = { "Telescope" },
     init = function()
+      -- put this before loading mappings because
+      -- when nvim loads the first time, if I press the mapping (<leader>fr) to open
+      -- Telescope.resume(), error occurs saying that "telescope" plugin is not found
+      -- or sort.
+      require("telescope")
       require("core.utils").load_mappings("telescope")
     end,
     opts = function()
