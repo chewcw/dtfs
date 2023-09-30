@@ -580,10 +580,10 @@ M.toggleterm = {
     ["<A-/>"] = { "<C-\\><C-N> <cmd> ToggleTerm <CR>", "toggle term" },
     ["<A-,>"] = { "<C-\\><C-N> <cmd> ToggleTerm <CR>", "toggle term" },
     -- window navigation
-    ["<C-h>"] = { "<C-\\><C-N> <cmd>wincmd h<CR>", "navigate left" },
-    ["<C-j>"] = { "<C-\\><C-N> <cmd>wincmd j<CR>", "navigate down" },
-    ["<C-k>"] = { "<C-\\><C-N> <cmd>wincmd k<CR>", "navigate up" },
-    ["<C-l>"] = { "<C-\\><C-N> <cmd>wincmd l<CR>", "navigate right" },
+    -- ["<A-h>"] = { "<C-\\><C-N> <cmd>wincmd h<CR>", "navigate left" },
+    -- ["<A-j>"] = { "<C-\\><C-N> <cmd>wincmd j<CR>", "navigate down" },
+    -- ["<A-k>"] = { "<C-\\><C-N> <cmd>wincmd k<CR>", "navigate up" },
+    -- ["<A-l>"] = { "<C-\\><C-N> <cmd>wincmd l<CR>", "navigate right" },
   },
 }
 
