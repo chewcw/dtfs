@@ -119,22 +119,40 @@ M.general = {
     ["<C-w>f"] = { "<C-w>|<CR><C-w>_<CR>", "make split window max out width and height" },
 
     -- toggle indentation between 2 and 4 spaces
-    ["g/"] = {
+    ["g4"] = {
       function()
-        if vim.opt.shiftwidth:get() == 2 and vim.opt.tabstop:get() == 2 and vim.opt.softtabstop:get() == 2 then
-          vim.cmd([[bufdo set shiftwidth=4]])
-          vim.cmd([[bufdo set tabstop=4]])
-          vim.cmd([[bufdo set softtabstop=4]])
-          print("tab is 4 spaces now")
-        else
-          vim.cmd([[bufdo set shiftwidth=2]])
-          vim.cmd([[bufdo set tabstop=2]])
-          vim.cmd([[bufdo set softtabstop=2]])
-          print("tab is 2 spaces now")
-        end
+        vim.cmd([[tabdo set shiftwidth=4]])
+        vim.cmd([[tabdo set tabstop=4]])
+        vim.cmd([[tabdo set softtabstop=4]])
+        print("tab is 4 spaces now")
       end,
-      "toggle indentation between 2 and 4 spaces",
+      "indentation 4 spaces"
     },
+    ["g2"] = {
+      function()
+        vim.cmd([[tabdo set shiftwidth=2]])
+        vim.cmd([[tabdo set tabstop=2]])
+        vim.cmd([[tabdo set softtabstop=2]])
+        print("tab is 2 spaces now")
+      end,
+      "indentation 2 spaces"
+    },
+    -- ["g."] = {
+    --   function()
+    --     if vim.opt.shiftwidth:get() == 2 and vim.opt.tabstop:get() == 2 and vim.opt.softtabstop:get() == 2 then
+    --       vim.cmd([[bufdo set shiftwidth=4]])
+    --       vim.cmd([[bufdo set tabstop=4]])
+    --       vim.cmd([[bufdo set softtabstop=4]])
+    --       print("tab is 4 spaces now")
+    --     else
+    --       vim.cmd([[bufdo set shiftwidth=2]])
+    --       vim.cmd([[bufdo set tabstop=2]])
+    --       vim.cmd([[bufdo set softtabstop=2]])
+    --       print("tab is 2 spaces now")
+    --     end
+    --   end,
+    --   "toggle indentation between 2 and 4 spaces",
+    -- },
 
     -- https://stackoverflow.com/questions/25101915/vim-case-insensitive-ex-command-completion
     ["/"] = { "/\\C", "search without case sensitive" },
