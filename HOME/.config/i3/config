@@ -175,7 +175,8 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 # border color
-client.focused #ffd700 #2a2a2a #ffffff #8be503 #ffd700
+# client.focused #ffd700 #2a2a2a #ffffff #8be503 #ffd700
+client.focused #4C7899 #285577 #FFFFFF #2E9EF4   #285577
 # client.unfocused #2a2a2a #2a2a2a #ffffff #2a2a2a #2a2a2a
 
 # Start i3bar to display a workspace bar (plus the system information i3status
@@ -185,7 +186,7 @@ bar {
 }
 
 # i3-gap
-for_window [class=".*"] border pixel 1
+for_window [class=".*"] border normal
 set $mode_gaps Gaps: (o)uter, (i)nner, (h)orizontal, (v)ertical, (t)op, (r)ight, (b)ottom, (l)eft
 set $mode_gaps_outer Outer Gaps: +|-|0 (local), Shift + +|-|0 (global)
 set $mode_gaps_inner Inner Gaps: +|-|0 (local), Shift + +|-|0 (global)
@@ -448,7 +449,7 @@ bindsym --release $mod+t exec --no-startup-id sleep 0.1 && xdotool type "$(date 
 
 # lxqt ubuntu only
 # open monitor configuration
-bindsym $mod+Shift+w exec lxqt-config-monitor
+bindsym $mod+Shift+w exec arandr
 bindsym $mod+o exec $HOME/.local/bin/connect_monitor.sh && xset r rate 300 70 && fcitx && 1>/dev/null 2>&1
 
 # enable / disable caps mode (show caps mode on the i3 status bar)
