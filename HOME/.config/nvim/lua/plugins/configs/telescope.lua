@@ -110,6 +110,7 @@ M.options = {
     vimgrep_arguments = {
       "rg",
       "-L",
+      "--smart-case",
       "--color=never",
       "--no-heading",
       "--with-filename",
