@@ -155,7 +155,23 @@ M.general = {
     -- },
 
     -- https://stackoverflow.com/questions/25101915/vim-case-insensitive-ex-command-completion
-    ["/"] = { "/\\C", "search without case sensitive" },
+    -- ["/"] = { "/\\C", "search without case sensitive" },
+    -- ["/"] = {
+      -- function()
+        -- local row, col = unpack(vim.api.nvim_win_get_cursor(0))
+        -- vim.api.nvim_buf_set_text(0, row, col, row, col, {"/\\C"})
+        -- vim.api.nvim_buf_set_text(0, 0, 0, 0, 0, {"/\\C"})
+        -- vim.api.nvim_buf_set_text(0, 0, 1, 0, 1, {""})
+        -- "/\\C"
+      -- end,
+      -- (function()
+      --   -- vim.api.nvim_win_set_cursor(0, { 0, 0})
+      --   local text = "/\\C"
+      --   return text
+      --   vim.cmd("norm! hh")
+      -- end)(),
+      -- "/\\C",
+      -- "search without case sensitive" },
   },
 
   v = {
