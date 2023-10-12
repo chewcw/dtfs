@@ -23,8 +23,8 @@ opt.softtabstop = 2
 opt.smartindent = true
 
 opt.fillchars = { eob = " " }
-opt.ignorecase = true
-opt.smartcase = false
+opt.ignorecase = false
+opt.smartcase = true
 opt.mouse = "a"
 
 -- Numbers
