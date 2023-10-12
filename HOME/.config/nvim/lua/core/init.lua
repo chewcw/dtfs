@@ -13,7 +13,7 @@ opt.laststatus = 3 -- global statusline
 opt.showmode = false
 
 opt.clipboard = "unnamedplus"
-opt.cursorline = true
+opt.cursorline = false
 
 -- Indenting
 opt.expandtab = true
@@ -24,7 +24,7 @@ opt.smartindent = true
 
 opt.fillchars = { eob = " " }
 opt.ignorecase = true
-opt.smartcase = true
+opt.smartcase = false
 opt.mouse = "a"
 
 -- Numbers
@@ -73,7 +73,7 @@ opt.textwidth = 85
 g.mapleader = " "
 
 -- cursor
-opt.guicursor = "n-v-sm:block,i-c-ci-ve:block-blinkwait0-blinkon100-blinkoff100,r-cr-o:hor20"
+opt.guicursor = "n-v-sm:block-blinkon100-blinkoff100,i-c-ci-ve:block-blinkon100-blinkoff100,r-cr-o:hor20"
 
 -- list mode (show tab and trailing space)
 opt.list = true
