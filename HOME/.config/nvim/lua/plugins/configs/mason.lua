@@ -10,6 +10,7 @@ local options = {
     -- web dev
     "typescript-language-server",
     "prettierd",
+    "emmet-language-server",
 
     -- golang
     "gopls",
