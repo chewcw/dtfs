@@ -25,6 +25,9 @@ M.open = function()
   vim.cmd "normal w"
   vim.cmd "startinsert"
 
+  -- https://www.reddit.com/r/neovim/comments/rh0ohq/nvimcmp_temporarily_disable_autocompletion/
+  require('cmp').setup.buffer { enabled = false }
+
   vim.api.nvim_buf_set_keymap(0, "i", "<Esc>", "<cmd>stopinsert | q!<CR>", map_opts)
   vim.api.nvim_buf_set_keymap(0, "n", "<Esc>", "<cmd>stopinsert | q!<CR>", map_opts)
 
