@@ -21,6 +21,8 @@ M.general = {
 
     -- insert new line above
     ["<A-CR>"] = { "<C-o>O" },
+
+    ["<Esc>"] = { "<Esc><Esc>" },
   },
 
   n = {
