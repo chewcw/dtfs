@@ -17,6 +17,7 @@ M.open = function()
     height = 1,
     line = "cursor+2",
     col = "cursor-1",
+    noautocmd = true,
   })
 
   local map_opts = { noremap = true, silent = true }
