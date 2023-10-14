@@ -73,7 +73,7 @@ opt.textwidth = 85
 g.mapleader = " "
 
 -- cursor
-opt.guicursor = "n-v-sm:block,i-c-ci-ve:block-blinkon100-blinkoff100,r-cr-o:hor20"
+opt.guicursor = "n-v-sm:block,i-c-ci-ve:ver30,r-cr-o:hor30"
 
 -- list mode (show tab and trailing space)
 opt.list = true

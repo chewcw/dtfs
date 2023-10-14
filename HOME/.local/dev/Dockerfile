@@ -1,3 +1,4 @@
+# syntax = docker/dockerfile:1.4.0
 FROM bitnami/minideb:bullseye
 
 RUN apt update && apt install -y wget curl gpg
@@ -64,7 +65,11 @@ RUN mkdir -p $HOME/.config && \
 
 # use vi mode in fish shell
 RUN mkdir -p $HOME/.config/fish && touch $HOME/.config/fish/config.fish && \
-    echo 'fish_vi_key_bindings' >> /home/ccw/.config/fish/config.fish
+cat <<EOF >> $HOME/.config/fish/config.fish
+fish_vi_key_bindings
+set fish_cursor_insert line
+EOF
+
 
 # install alacritty terminfo so that neovim can show undercurl
 RUN wget https://github.com/alacritty/alacritty/releases/download/v0.12.0/alacritty.info -O /tmp/alacritty.info && \
