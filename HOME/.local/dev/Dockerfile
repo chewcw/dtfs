@@ -1,4 +1,4 @@
-FROM bitnami/minideb
+FROM bitnami/minideb:bullseye
 
 RUN apt update && apt install -y wget curl gpg
 
