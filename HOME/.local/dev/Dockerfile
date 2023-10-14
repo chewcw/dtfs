@@ -32,11 +32,11 @@ RUN cd /tmp && wget https://dot.net/v1/dotnet-install.sh -O dotnet-install.sh &&
 
 ARG TARGETARCH
 
-# golang 1.20.4
+# golang 1.21.3
 RUN sudo mkdir -p /usr/local/go && \
-    wget "https://go.dev/dl/go1.20.4.linux-${TARGETARCH}.tar.gz" -O "/tmp/go1.20.4.linux-${TARGETARCH}.tar.gz" && \
-    sudo tar -xzf "/tmp/go1.20.4.linux-${TARGETARCH}.tar.gz" -C /usr/local && \
-    rm -rf "/tmp/go1.20.4.linux-${TARGETARCH}.tar.gz" && \
+    wget "https://go.dev/dl/go1.21.3.linux-${TARGETARCH}.tar.gz" -O "/tmp/go1.21.3.linux-${TARGETARCH}.tar.gz" && \
+    sudo tar -xzf "/tmp/go1.21.3.linux-${TARGETARCH}.tar.gz" -C /usr/local && \
+    rm -rf "/tmp/go1.21.3.linux-${TARGETARCH}.tar.gz" && \
     sudo ln -s /usr/local/go/bin/go /usr/local/bin/go
 
 # nodejs
