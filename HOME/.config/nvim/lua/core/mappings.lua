@@ -176,6 +176,7 @@ M.general = {
       -- "search without case sensitive" },
     ["<leader>s"] = { ":%s/", "replace in normal mode" },
     ["<leader>e"] = { ":e! <CR>", "e!" },
+    ["<leader>q"] = { ":q! <CR>", "q!" },
   },
 
   v = {
