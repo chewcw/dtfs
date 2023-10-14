@@ -175,6 +175,7 @@ M.general = {
       -- "/\\C",
       -- "search without case sensitive" },
     ["<leader>s"] = { ":%s/", "replace in normal mode" },
+    ["<leader>e"] = { ":e! <CR>", "e!" },
   },
 
   v = {
