@@ -174,6 +174,7 @@ M.general = {
       -- end)(),
       -- "/\\C",
       -- "search without case sensitive" },
+    ["<leader>s"] = { ":%s/", "replace in normal mode" },
   },
 
   v = {
@@ -635,7 +636,7 @@ M.vm = {
     vim.cmd('let g:VM_maps["Select Cursor Up"] = "<M-C-k>"')
     vim.cmd('let g:VM_maps["Skip Region"] = "<M-C-x>"')
     vim.cmd("let g:VM_set_statusline = 0")
-    vim.cmd("let g:VM_silent_exit = 1")
+    vim.cmd("let g:VM_silent_exit = 0")
   end,
 }
 
