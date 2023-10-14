@@ -2,11 +2,16 @@
 -- List of all default plugins & their definitions
 local default_plugins = {
 
-  "nvim-lua/plenary.nvim",
+  {
+    "nvim-lua/plenary.nvim",
+    branch = "master",
+    commit = "0dbe561",
+  },
 
   {
     "NvChad/base46",
     branch = "v2.0",
+    commit = "919af1c",
     build = function()
       require("base46").load_all_highlights()
     end,
@@ -15,6 +20,7 @@ local default_plugins = {
   {
     "NvChad/ui",
     branch = "v2.0",
+    commit = "b3a343e",
     lazy = false,
   },
 
@@ -41,6 +47,8 @@ local default_plugins = {
     config = function(_, opts)
       require("nvim-web-devicons").setup(opts)
     end,
+    branch = "master",
+    commit = "bc11ee2",
   },
 
   {
@@ -56,6 +64,8 @@ local default_plugins = {
       dofile(vim.g.base46_cache .. "blankline")
       require("indent_blankline").setup(opts)
     end,
+    branch = "master",
+    commit = "9637670",
   },
 
   {
@@ -72,6 +82,8 @@ local default_plugins = {
       dofile(vim.g.base46_cache .. "syntax")
       require("nvim-treesitter.configs").setup(opts)
     end,
+    branch = "master",
+    commit = "30604fd",
   },
 
   -- git stuff
@@ -100,6 +112,8 @@ local default_plugins = {
       dofile(vim.g.base46_cache .. "git")
       require("gitsigns").setup(opts)
     end,
+    branch = "main",
+    commit = "d927caa",
   },
 
   -- lsp stuff
@@ -120,6 +134,8 @@ local default_plugins = {
 
       vim.g.mason_binaries_list = opts.ensure_installed
     end,
+    branch = "main",
+    commit = "ee6a7f1",
   },
 
   {
@@ -131,6 +147,8 @@ local default_plugins = {
         config = function()
           require("plugins.configs.null-ls")
         end,
+        branch = "main",
+        commit = "0010ea9",
       },
     },
     init = function()
@@ -139,6 +157,8 @@ local default_plugins = {
     config = function()
       require("plugins.configs.lspconfig")
     end,
+    branch = "master",
+    commit = "a27356f",
   },
 
   -- load luasnips + cmp related in insert mode only
@@ -154,15 +174,37 @@ local default_plugins = {
         config = function(_, opts)
           require("plugins.configs.others").luasnip(opts)
         end,
+        branch = "master",
+        commit = "ea7d7ea",
       },
 
       -- cmp sources plugins
       {
-        "saadparwaiz1/cmp_luasnip",
-        "hrsh7th/cmp-nvim-lua",
-        "hrsh7th/cmp-nvim-lsp",
-        "hrsh7th/cmp-buffer",
-        "hrsh7th/cmp-path",
+        {
+          "saadparwaiz1/cmp_luasnip",
+          branch = "master",
+          commit = "1809552",
+        },
+        {
+          "hrsh7th/cmp-nvim-lua",
+          branch = "main",
+          commit = "f12408b",
+        },
+        {
+          "hrsh7th/cmp-nvim-lsp",
+          branch = "main",
+          commit = "44b16d1",
+        },
+        {
+          "hrsh7th/cmp-buffer",
+          branch = "main",
+          commit = "3022dbc",
+        },
+        {
+          "hrsh7th/cmp-path",
+          branch = "main",
+          commit = "91ff86c",
+        },
       },
     },
     opts = function()
@@ -171,6 +213,8 @@ local default_plugins = {
     config = function(_, opts)
       require("cmp").setup(opts)
     end,
+    branch = "main",
+    commit = "5dce1b7",
   },
 
   -- file managing , picker etc
@@ -188,6 +232,8 @@ local default_plugins = {
       require("nvim-tree").setup(opts)
       vim.g.nvimtree_side = opts.view.side
     end,
+    branch = "master",
+    commit = "5897b36",
   },
 
   {
@@ -215,26 +261,58 @@ local default_plugins = {
       -- update border style
       require("plugins.configs.telescope").border()
     end,
+    branch = "master",
+    commit = "6b79d7a",
   },
 
   {
     "nvim-telescope/telescope-file-browser.nvim",
-    dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
+    dependencies = {
+      {
+        "nvim-telescope/telescope.nvim",
+        branch = "master",
+        commit = "6b79d7a",
+      },
+      {
+        "nvim-lua/plenary.nvim",
+        branch = "master",
+        commit = "0dbe561",
+      },
+    },
+    branch = "master",
+    commit = "ad7b637",
   },
 
   {
     "nvim-telescope/telescope-ui-select.nvim",
-    dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
+    dependencies = {
+      {
+        "nvim-telescope/telescope.nvim",
+        branch = "master",
+        commit = "6b79d7a",
+      },
+      {
+        "nvim-lua/plenary.nvim",
+        branch = "master",
+        commit = "0dbe561",
+      },
+    },
+    branch = "master",
+    commit = "62ea5e5",
   },
 
   {
     "tpope/vim-surround",
     keys = { "v", "cs", "S", "ds", "ysiw" },
+    branch = "master",
+    commit = "3d188ed",
   },
 
   {
     "tomtom/tcomment_vim",
     event = { "BufEnter " },
+    branch = "master",
+    commit = "b4930f9",
   },
 
   -- {
@@ -266,6 +344,8 @@ local default_plugins = {
     config = function(_, opts)
       require("wilder").setup(opts)
     end,
+    branch = "master",
+    commit = "679f348",
   },
 
   {
@@ -274,6 +354,8 @@ local default_plugins = {
     init = function()
       vim.g.markology_include = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
     end,
+    branch = "master",
+    commit = "9681b3f",
   },
 
   {
@@ -286,6 +368,8 @@ local default_plugins = {
     opts = function()
       return require("plugins.configs.toggleterm")
     end,
+    branch = "main",
+    commit = "12cba0a",
   },
 
   {
@@ -294,6 +378,8 @@ local default_plugins = {
     init = function()
       require("core.utils").load_mappings("codeium")
     end,
+    branch = "main",
+    commit = "70ba94a",
   },
 
   {
@@ -303,6 +389,8 @@ local default_plugins = {
     opts = function()
       return require("plugins.configs.others").workspaces
     end,
+    branch = "master",
+    commit = "a6fb499",
   },
 
   {
@@ -312,6 +400,8 @@ local default_plugins = {
     opts = function()
       return require("plugins.configs.others").nvim_autopairs
     end,
+    branch = "master",
+    commit = "a52fc6e",
   },
 
   {
@@ -320,11 +410,15 @@ local default_plugins = {
     init = function()
       require("core.mappings").vm.init()
     end,
+    branch = "master",
+    commit = "724bd53",
   },
 
   {
     "michaeljsmith/vim-indent-object",
     keys = { "v" },
+    branch = "master",
+    commit = "5c5b24c",
   },
 
   -- debugging
@@ -344,12 +438,16 @@ local default_plugins = {
       require("plugins.configs.nvim-dap").csharp.setup()
       require("plugins.configs.nvim-dap").rust.setup()
     end,
+    branch = "master",
+    commit = "31e1ece",
   },
 
   {
     "nvim-treesitter/nvim-treesitter-context",
     lazy = false,
     config = true,
+    branch = "master",
+    commit = "31692b2",
   },
 
   -- Only load whichkey after all the gui
@@ -366,6 +464,8 @@ local default_plugins = {
       dofile(vim.g.base46_cache .. "whichkey")
       require("which-key").setup(opts)
     end,
+    branch = "main",
+    commit = "7ccf476",
   },
 }
 

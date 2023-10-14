@@ -209,7 +209,7 @@ M.options = {
     },
   },
 
-  extensions_list = { "themes", "file_browser", "workspaces", "ui-select" },
+  extensions_list = { "file_browser", "workspaces", "ui-select" },
 
   extensions = {
     file_browser = {
