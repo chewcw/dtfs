@@ -42,6 +42,29 @@ echo "Installing git"
 echo "------------------------------------------"
 sudo apt install -y git
 
+# setup global git config
+echo "------------------------------------------"
+echo "Setup global git config"
+echo "------------------------------------------"
+touch $HOME/.gitconfig
+cat << EOF > $HOME/.gitconfig
+[user]
+  name = chewcw
+  email = chwai87@gmail.com
+[diff]
+	tool = nvimdiff
+  prompt = false
+[merge]
+  tool = vimdiff
+  conflictstyle = diff3
+  prompt = false
+[mergetool "vimdiff"]
+  # https://www.linkedin.com/pulse/how-set-up-3-way-merge-tool-git-p4-vimdiff-wasin-thonkaew
+  cmd = vimdiff -u $HOME/.vimrc -c \"wincmd J\" -c \"windo set wrap\" \"\$MERGED\" \"\$LOCAL\" \"\$BASE\" \"\$REMOTE\"
+[mergetool]
+  keepBackup = false
+EOF
+
 # Install lazygit v0.40.2
 if ! command -v lazygit &>/dev/null
 then
@@ -55,6 +78,7 @@ then
 	tar xvf /tmp/$lazygit_tar_name --directory=/tmp
 	sudo mv /tmp/lazygit /usr/local/bin/lazygit
 fi
+
 # Setup lazygit
 echo "------------------------------------------"
 echo "Setting up lazygit"
