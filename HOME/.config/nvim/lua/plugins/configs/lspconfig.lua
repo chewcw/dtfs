@@ -144,9 +144,9 @@ lspconfig.rust_analyzer.setup({
 })
 
 -- emmet
-lspconfig.emmet_language_server.setup({
+lspconfig.emmet_ls.setup({
   on_attach = M.on_attach,
-  cmd = { home .. "/.local/share/nvim/mason/bin/emmet-language-server", "--stdio" },
+  cmd = { home .. "/.local/share/nvim/mason/bin/emmet-ls", "--stdio" },
 })
 
 return M
