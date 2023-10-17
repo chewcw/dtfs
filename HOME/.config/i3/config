@@ -96,10 +96,10 @@ bindsym --whole-window $mod+Shift+button3 sticky toggle
 bindsym $mod+space focus mode_toggle
 
 # focus the parent container
-bindsym $mod+a focus parent
+bindsym $mod+y focus parent
 
 # focus the child container
-bindsym $mod+shift+a focus child
+bindsym $mod+shift+y focus child
 
 # workspace variables
 set $workspace1 "1"
@@ -465,4 +465,4 @@ bindsym $mod+Shift+grave exec dunstctl history-pop
 # close notification
 bindsym $mod+c exec dunstctl close
 # close all notifications
-bindsym $mod+Shift+c exec dunstctl close
+bindsym $mod+Shift+c exec dunstctl close-all
