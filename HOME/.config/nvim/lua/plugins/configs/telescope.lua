@@ -169,7 +169,6 @@ M.options = {
         ["<A-\\>"] = require("telescope.actions").select_vertical,
         ["<A-_>"] = require("telescope.actions").select_horizontal,
         ["<A-t>"] = require("telescope.actions").select_tab,
-        ["<Esc><Esc>"] = require("telescope.actions").close,
       },
       n = {
         ["<C-j>"] = require("telescope.actions").move_selection_next,
@@ -183,7 +182,6 @@ M.options = {
         ["\\"] = require("telescope.actions").select_vertical,
         ["_"] = require("telescope.actions").select_horizontal,
         ["t"] = require("telescope.actions").select_tab,
-        ["<Esc><Esc>"] = require("telescope.actions").close,
         ["q"] = require("telescope.actions").close,
         ["<Esc>"] = function() end, -- don't do anything
         -- ["l"] = function()
@@ -204,7 +202,7 @@ M.options = {
         -- select window (which split) to open
         ["<BS>"] = select_window_to_open,
         -- toggle preview
-        ["<C-p>"] = require("telescope.actions.layout").toggle_preview,
+        ["p"] = require("telescope.actions.layout").toggle_preview,
       },
     },
   },

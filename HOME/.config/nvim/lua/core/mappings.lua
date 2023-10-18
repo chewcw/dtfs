@@ -21,8 +21,6 @@ M.general = {
 
     -- insert new line above
     ["<A-CR>"] = { "<C-o>O" },
-
-    ["<Esc>"] = { "<Esc><Esc>" },
   },
 
   n = {
@@ -597,7 +595,7 @@ M.toggleterm = {
   },
 
   t = {
-    ["<Esc><Esc>"] = { vim.api.nvim_replace_termcodes("<C-\\><C-N>", true, true, true), "escape terminal mode" },
+    ["<C-\\>"] = { vim.api.nvim_replace_termcodes("<C-\\><C-N>", true, true, true), "escape terminal mode" },
     ["<A-.>"] = { "<C-\\><C-N> <cmd> ToggleTerm <CR>", "toggle term" },
     ["<A->>"] = { "<C-\\><C-N> <cmd> ToggleTerm <CR>", "toggle term" },
     ["<A-/>"] = { "<C-\\><C-N> <cmd> ToggleTerm <CR>", "toggle term" },
