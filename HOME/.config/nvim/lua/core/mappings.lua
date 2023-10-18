@@ -177,6 +177,9 @@ M.general = {
     ["<leader>s"] = { ":%s/", "replace in normal mode" },
     ["<leader>e"] = { ":e! <CR>", "e!" },
     ["<leader>q"] = { ":q! <CR>", "q!" },
+
+    -- somehow if this was not mapped, it's going to conflict with the <C-m> keystroke
+    ["<CR>"] = { "<CR>" },
   },
 
   v = {
