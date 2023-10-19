@@ -3,8 +3,8 @@ local utils_window = require("core.utils_window")
 
 local M = {}
 
-local picker_width = 0.85
-local picker_height = 0.85
+local picker_width = vim.o.columns
+local picker_height = 0.45
 
 -- when find_files or live_grep, the picker only shows files in the same folder
 -- this function can let us select the folder as working direcotory
@@ -107,104 +107,105 @@ end
 
 M.options = {
   defaults = {
-    vimgrep_arguments = {
-      "rg",
-      "-L",
-      "--smart-case",
-      "--color=never",
-      "--no-heading",
-      "--with-filename",
-      "--line-number",
-      "--column",
-    },
-    scroll_strategy = "limit",
-    prompt_prefix = "",
-    selection_caret = "  ",
-    entry_prefix = "  ",
-    initial_mode = "normal",
-    selection_strategy = "reset",
-    sorting_strategy = "ascending",
-    layout_strategy = "horizontal",
-    preview = true,
-    layout_config = {
-      horizontal = {
-        prompt_position = "top",
-        preview_width = 0.50,
-        results_width = 0.50,
+      vimgrep_arguments = {
+        "rg",
+        "-L",
+        "--smart-case",
+        "--color=never",
+        "--no-heading",
+        "--with-filename",
+        "--line-number",
+        "--column",
       },
-      vertical = {
-        mirror = false,
+      scroll_strategy = "limit",
+      prompt_prefix = "",
+      selection_caret = "  ",
+      entry_prefix = "  ",
+      initial_mode = "normal",
+      selection_strategy = "reset",
+      sorting_strategy = "ascending",
+      -- https://github.com/nvim-telescope/telescope.nvim/issues/848#issuecomment-1437928837
+      layout_strategy = "bottom_pane",
+      preview = true,
+      layout_config = {
+        horizontal = {
+          prompt_position = "top",
+          preview_width = 0.50,
+          results_width = 0.50,
+        },
+        vertical = {
+          mirror = false,
+        },
+        width = picker_width,
+        height = picker_height,
+        preview_cutoff = 120,
       },
-      width = picker_width,
-      height = picker_height,
-      preview_cutoff = 120,
-    },
-    fname_width = 50,
-    file_sorter = require("telescope.sorters").get_fuzzy_file,
-    file_ignore_patterns = { "node_modules" },
-    generic_sorter = require("telescope.sorters").get_generic_fuzzy_sorter,
-    path_display = { "truncate" },
-    winblend = 0,
-    border = true,
-    borderchars = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
-    color_devicons = true,
-    set_env = { ["COLORTERM"] = "truecolor" }, -- default = nil,
-    file_previewer = require("telescope.previewers").vim_buffer_cat.new,
-    grep_previewer = require("telescope.previewers").vim_buffer_vimgrep.new,
-    qflist_previewer = require("telescope.previewers").vim_buffer_qflist.new,
-    -- get_selection_window = function(picker, entry)
-    --   -- print(inspect(picker))
-    --   local s = picker.original_win_id
-    --   vim.ui.input({ prompt = "Pick window: " }, function(input)
-    --     s = tonumber(input)
-    --   end)
-    --   return s
-    -- end,
-    -- Developer configurations: Not meant for general override
-    buffer_previewer_maker = require("telescope.previewers").buffer_previewer_maker,
-    mappings = {
-      i = {
-        ["<C-j>"] = require("telescope.actions").move_selection_next,
-        ["<C-k>"] = require("telescope.actions").move_selection_previous,
-        ["<A-\\>"] = require("telescope.actions").select_vertical,
-        ["<A-_>"] = require("telescope.actions").select_horizontal,
-        ["<A-t>"] = require("telescope.actions").select_tab,
+      fname_width = 50,
+      file_sorter = require("telescope.sorters").get_fuzzy_file,
+      file_ignore_patterns = { "node_modules" },
+      generic_sorter = require("telescope.sorters").get_generic_fuzzy_sorter,
+      path_display = { "truncate" },
+      winblend = 0,
+      border = true,
+      borderchars = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
+      color_devicons = true,
+      set_env = { ["COLORTERM"] = "truecolor" }, -- default = nil,
+      file_previewer = require("telescope.previewers").vim_buffer_cat.new,
+      grep_previewer = require("telescope.previewers").vim_buffer_vimgrep.new,
+      qflist_previewer = require("telescope.previewers").vim_buffer_qflist.new,
+      -- get_selection_window = function(picker, entry)
+      --   -- print(inspect(picker))
+      --   local s = picker.original_win_id
+      --   vim.ui.input({ prompt = "Pick window: " }, function(input)
+      --     s = tonumber(input)
+      --   end)
+      --   return s
+      -- end,
+      -- Developer configurations: Not meant for general override
+      buffer_previewer_maker = require("telescope.previewers").buffer_previewer_maker,
+      mappings = {
+        i = {
+          ["<C-j>"] = require("telescope.actions").move_selection_next,
+          ["<C-k>"] = require("telescope.actions").move_selection_previous,
+          ["<A-\\>"] = require("telescope.actions").select_vertical,
+          ["<A-_>"] = require("telescope.actions").select_horizontal,
+          ["<A-t>"] = require("telescope.actions").select_tab,
+        },
+        n = {
+          ["<C-j>"] = require("telescope.actions").move_selection_next,
+          ["<C-k>"] = require("telescope.actions").move_selection_previous,
+          ["<C-l>"] = require("telescope.actions").preview_scrolling_right,
+          ["<C-h>"] = require("telescope.actions").preview_scrolling_left,
+          ["<A-l>"] = require("telescope.actions").results_scrolling_right,
+          ["<A-h>"] = require("telescope.actions").results_scrolling_left,
+          -- do nothing, to prevent open nvim_tree accidentally
+          ["<C-n>"] = function() end,
+          ["\\"] = require("telescope.actions").select_vertical,
+          ["_"] = require("telescope.actions").select_horizontal,
+          ["t"] = require("telescope.actions").select_tab,
+          ["q"] = require("telescope.actions").close,
+          ["<Esc>"] = function() end, -- don't do anything
+          ["l"] = function()
+            vim.fn.feedkeys("\r")
+          end,
+          ["i"] = (function()
+            local insert_mode = function()
+              vim.cmd("startinsert")
+            end
+            return insert_mode
+          end)(),
+          ["/"] = (function()
+            local insert_mode = function()
+              vim.cmd("startinsert")
+            end
+            return insert_mode
+          end)(),
+          -- select window (which split) to open
+          ["<BS>"] = select_window_to_open,
+          -- toggle preview
+          ["p"] = require("telescope.actions.layout").toggle_preview,
+        },
       },
-      n = {
-        ["<C-j>"] = require("telescope.actions").move_selection_next,
-        ["<C-k>"] = require("telescope.actions").move_selection_previous,
-        ["<C-l>"] = require("telescope.actions").preview_scrolling_right,
-        ["<C-h>"] = require("telescope.actions").preview_scrolling_left,
-        ["<A-l>"] = require("telescope.actions").results_scrolling_right,
-        ["<A-h>"] = require("telescope.actions").results_scrolling_left,
-        -- do nothing, to prevent open nvim_tree accidentally
-        ["<C-n>"] = function() end,
-        ["\\"] = require("telescope.actions").select_vertical,
-        ["_"] = require("telescope.actions").select_horizontal,
-        ["t"] = require("telescope.actions").select_tab,
-        ["q"] = require("telescope.actions").close,
-        ["<Esc>"] = function() end, -- don't do anything
-        -- ["l"] = function()
-        -- vim.fn.feedkeys("\r")
-        -- end,
-        ["i"] = (function()
-          local insert_mode = function()
-            vim.cmd("startinsert")
-          end
-          return insert_mode
-        end)(),
-        ["/"] = (function()
-          local insert_mode = function()
-            vim.cmd("startinsert")
-          end
-          return insert_mode
-        end)(),
-        -- select window (which split) to open
-        ["<BS>"] = select_window_to_open,
-        -- toggle preview
-        ["p"] = require("telescope.actions.layout").toggle_preview,
-      },
-    },
   },
 
   extensions_list = { "file_browser", "workspaces", "ui-select" },
@@ -213,12 +214,10 @@ M.options = {
     file_browser = {
       path = "%:p:h",
       cwd = vim.fn.expand("%:p:h"),
-      theme = "dropdown",
       grouped = true,
       hijack_netrw = false,
       hidden = true,
       initial_mode = "normal",
-      layout_strategy = "horizontal",
       layout_config = {
         horizontal = {
           prompt_position = "top",
