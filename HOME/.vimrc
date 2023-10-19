@@ -29,6 +29,7 @@ if &diff
   nnoremap <leader>r :diffget REMOTE<CR>
   nnoremap <leader>b :diffget BASE<CR>
   nnoremap <leader>e :e!<CR>
+  nnoremap <leader>q :cq<CR>
 
   " https://vi.stackexchange.com/a/25026
   highlight CursorLine     ctermbg=Black        ctermfg=NONE
