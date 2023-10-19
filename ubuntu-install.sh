@@ -52,8 +52,10 @@ cat << EOF > $HOME/.gitconfig
   name = chewcw
   email = chwai87@gmail.com
 [diff]
-	tool = nvimdiff
+	tool = vimdiff
   prompt = false
+[difftool "vimdiff"]
+  cmd = vimdiff -u $HOME/.vimrc -c \"wincmd L\" -c \"windo set wrap\" \"\$BASE\" \"\$REMOTE\"
 [merge]
   tool = vimdiff
   conflictstyle = diff3
