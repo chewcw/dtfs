@@ -171,6 +171,10 @@ M.options = {
           ["<A-\\>"] = require("telescope.actions").select_vertical,
           ["<A-_>"] = require("telescope.actions").select_horizontal,
           ["<A-t>"] = require("telescope.actions").select_tab,
+          ["<C-h>"] = function()
+            local keys = vim.api.nvim_replace_termcodes('<C-h>', false, false, true)
+            vim.api.nvim_feedkeys(keys, "n", {})
+          end,
         },
         n = {
           ["<C-j>"] = require("telescope.actions").move_selection_next,
@@ -247,9 +251,13 @@ M.options = {
           ["<C-w>"] = require("telescope").extensions.file_browser.actions.goto_cwd,
           ["<C-t>"] = require("telescope").extensions.file_browser.actions.change_cwd,
           ["<C-f>"] = require("telescope").extensions.file_browser.actions.toggle_browser,
-          ["<C-h>"] = require("telescope").extensions.file_browser.actions.toggle_hidden,
+          -- ["<C-h>"] = require("telescope").extensions.file_browser.actions.toggle_hidden,
           ["<C-s>"] = require("telescope").extensions.file_browser.actions.toggle_all,
           ["<bs>"] = require("telescope").extensions.file_browser.actions.backspace,
+          ["<C-h>"] = function()
+            local keys = vim.api.nvim_replace_termcodes('<C-h>', false, false, true)
+            vim.api.nvim_feedkeys(keys, "n", {})
+          end,
         },
         n = {
           ["q"] = require("telescope.actions").close,
@@ -263,10 +271,6 @@ M.options = {
             end
             return enter
           end)(),
-          ["y"] = require("telescope").extensions.file_browser.actions.copy,
-          ["d"] = require("telescope").extensions.file_browser.actions.remove,
-          ["m"] = require("telescope").extensions.file_browser.actions.move,
-          ["r"] = require("telescope").extensions.file_browser.actions.rename,
           ["."] = require("telescope").extensions.file_browser.actions.toggle_hidden,
           -- default mappings
           ["c"] = require("telescope").extensions.file_browser.actions.create,
