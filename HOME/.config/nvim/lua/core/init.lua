@@ -99,6 +99,19 @@ autocmd("FileType", {
   end,
 })
 
+-- save fold on save and laod fold on open
+-- https://stackoverflow.com/a/77180744
+vim.api.nvim_create_autocmd({"BufWinLeave"}, {
+  pattern = {"*.*"},
+  desc = "save view (folds), when closing file",
+  command = "mkview",
+})
+vim.api.nvim_create_autocmd({"BufWinEnter"}, {
+  pattern = {"*.*"},
+  desc = "load view (folds), when opening file",
+  command = "silent! loadview"
+})
+
 -- reload some chadrc options on-save
 vim.api.nvim_create_autocmd("BufWritePost", {
   pattern = vim.tbl_map(
