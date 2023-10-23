@@ -179,18 +179,18 @@ M.options = {
         n = {
           ["<C-j>"] = require("telescope.actions").move_selection_next,
           ["<C-k>"] = require("telescope.actions").move_selection_previous,
-          ["<C-l>"] = require("telescope.actions").preview_scrolling_right,
-          ["<C-h>"] = require("telescope.actions").preview_scrolling_left,
-          ["<A-l>"] = require("telescope.actions").results_scrolling_right,
-          ["<A-h>"] = require("telescope.actions").results_scrolling_left,
+          ["]"] = require("telescope.actions").preview_scrolling_right,
+          ["["] = require("telescope.actions").preview_scrolling_left,
+          ["}"] = require("telescope.actions").results_scrolling_right,
+          ["{"] = require("telescope.actions").results_scrolling_left,
           -- do nothing, to prevent open nvim_tree accidentally
           ["<C-n>"] = function() end,
-          ["\\"] = require("telescope.actions").select_vertical,
-          ["_"] = require("telescope.actions").select_horizontal,
+          ["<A-\\>"] = require("telescope.actions").select_vertical,
+          ["<A-_>"] = require("telescope.actions").select_horizontal,
           ["t"] = require("telescope.actions").select_tab,
           ["q"] = require("telescope.actions").close,
           ["<Esc>"] = function() end, -- don't do anything
-          ["l"] = function()
+          ["<C-l>"] = function()
             vim.fn.feedkeys("\r")
           end,
           ["i"] = (function()
@@ -264,8 +264,16 @@ M.options = {
           ["t"] = require("telescope").extensions.file_browser.actions.change_cwd,
           ["T"] = require("telescope").extensions.file_browser.actions.goto_cwd,
           ["n"] = require("telescope").extensions.file_browser.actions.create_from_prompt,
-          ["h"] = require("telescope").extensions.file_browser.actions.goto_parent_dir,
-          ["l"] = (function()
+          ["h"] = function()
+            local keys = vim.api.nvim_replace_termcodes('h', false, false, true)
+            vim.api.nvim_feedkeys(keys, "n", {})
+          end,
+          ["l"] = function()
+            local keys = vim.api.nvim_replace_termcodes('l', false, false, true)
+            vim.api.nvim_feedkeys(keys, "n", {})
+          end,
+          ["<C-h>"] = require("telescope").extensions.file_browser.actions.goto_parent_dir,
+          ["<C-l>"] = (function()
             local enter = function()
               vim.fn.feedkeys("\r")
             end
