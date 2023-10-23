@@ -26,18 +26,18 @@ connect_monitor() {
 
 	if [[ $laptop_screen == 1 && $vga == 0 && $hdmi == 1 ]]; then
 		# home setup
-		# source /home/ccw/.zshrc && monitor-home
-		xrandr --auto && xrandr \
-      --output HDMI-1 --mode 1920x1080 \
-      --right-of \
-      eDP-1 --primary --mode 1920x1080
+		if ! xrandr --output eDP-1 --mode 1920x1080 --pos 0x0 \
+      --output HDMI-1 --primary --mode 1920x1080 --pos 1920x0 &>/dev/null;
+    then
+      xrandr \
+        --output eDP-1 --primary --mode 1920x1080 --pos 0x0 \
+        --output HDMI-1 --mode 1920x1200 --pos 1920x0
+    fi
 	elif [[ $laptop_screen == 1 && $vga == 1 && $hdmi == 1 ]]; then
 		# maple setup
-		# source /home/ccw/.zshrc && monitor-maple
-		xrandr --auto && xrandr --output \
-    eDP-1 --off \
-    --output DP-1 --mode 1920x1080 \
-    --left-of HDMI-1 --mode 1920x1080
+		xrandr --output eDP-1 --off \
+    --output DP-1 --mode 1920x1080 --pos 0x0 \
+    --output HDMI-1 --primary --mode 1920x1080 --pos 1920x0
 	else
 		xrandr --auto
 	fi
