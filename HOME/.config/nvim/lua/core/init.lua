@@ -60,6 +60,7 @@ opt.wildignorecase = true
 opt.showmatch = true
 opt.breakindent = true
 opt.completeopt = "menuone,noselect"
+opt.showtabline = 0
 
 -- vertical line
 opt.colorcolumn = "80"
