@@ -11,6 +11,7 @@ local options = {
   terminal_mappings = true,
   hide_numbers = false,
   autochdir = true,
+  shade_terminals = false,
   shell = function()
     if vim.fn.executable("zsh") == 1 then
       return "zsh"
