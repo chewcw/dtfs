@@ -175,6 +175,10 @@ M.general = {
     ["<leader>s"] = { ":%s/", "replace in normal mode" },
     ["<leader>e"] = { ":e! <CR>", "e!" },
     ["<leader>q"] = { ":q! <CR>", "q!" },
+    ["<A-l>"] = { "<cmd> bprevious <CR>", "goto next buffer" },
+    ["<A-h>"] = { "<cmd> bnext <CR>", "goto prev buffer" },
+    ["<A-d>"] = { "<cmd> bdelete! <CR>", "delete the buffer from buffer list" },
+    ["<A-w>"] = { "<cmd> bwipeout! <CR>", "wipe out the buffer from buffer list" },
   },
 
   v = {
@@ -225,8 +229,6 @@ M.tabufline = {
       end,
       "close buffer",
     },
-
-    ["<A-d>"] = { "<cmd> bd! <CR>", "delete the buffer from buffer list" },
   },
 }
 
