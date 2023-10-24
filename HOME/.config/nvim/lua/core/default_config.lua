@@ -62,7 +62,7 @@ M.ui = {
   -- lazyload it when there are 1+ buffers
   tabufline = {
     show_numbers = false,
-    enabled = true,
+    enabled = false,
     lazyload = false,
     overriden_modules = nil,
   },
