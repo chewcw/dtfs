@@ -37,7 +37,7 @@ M.general = {
 
     -- line numbers
     ["<leader>ln"] = { "<cmd> set nu! <CR>", "toggle line number" },
-    ["<leader>rn"] = { "<cmd> set rnu! <CR>", "toggle relative number" },
+    ["<leader>lr"] = { "<cmd> set rnu! <CR>", "toggle relative number" },
 
     -- Allow moving the cursor through wrapped lines with j, k, <Up> and <Down>
     -- http://www.reddit.com/r/vim/comments/2k4cbr/problem_with_gj_and_gk/
@@ -80,10 +80,10 @@ M.general = {
     ["gx"] = { ":execute '!xdg-open ' .. shellescape(expand('<cfile>'), v:true)<CR><CR>", "open link" },
 
     -- wrap
-    ["gw"] = { "<cmd> set wrap! <CR>", "toggle line wrapping" },
+    ["<leader>lw"] = { "<cmd> set wrap! <CR>", "toggle line wrapping" },
 
     -- toggle color column
-    ["gm"] = {
+    ["<leader>lm"] = {
       function()
         if vim.opt.colorcolumn:get()[1] == "80" then
           vim.cmd([[set colorcolumn=0]])
@@ -93,7 +93,7 @@ M.general = {
       end,
       "toggle color column",
     },
-    ["gM"] = {
+    ["<leader>lM"] = {
       function()
         if vim.opt.colorcolumn:get()[1] == "80" then
           vim.cmd([[windo set colorcolumn=0]])
@@ -151,7 +151,7 @@ M.general = {
     --       print("tab is 2 spaces now")
     --     end
     --   end,
-    --   "toggle indentation between 2 and 4 spaces",
+    --   "toggle indentation between 3 and 4 spaces",
     -- },
 
     -- https://stackoverflow.com/questions/25101915/vim-case-insensitive-ex-command-completion
@@ -179,12 +179,18 @@ M.general = {
     ["<A-h>"] = { "<cmd> bnext <CR>", "goto prev buffer" },
     ["<A-d>"] = { "<cmd> bdelete! <CR>", "delete the buffer from buffer list" },
     ["<A-w>"] = { "<cmd> bwipeout! <CR>", "wipe out the buffer from buffer list" },
+
+    -- https://vim.fandom.com/wiki/Swapping_characters,_words_and_lines
+    ["gw"] = { '"_yiw:s/\\(\\%#\\w\\+\\)\\(\\W\\+\\)\\(\\w\\+\\)/\\3\\2\\1/<CR>``:redraw<CR>:nohlsearch<CR>' },
+    ["gl"] = { '"_yiw?\\w\\+\\_W\\+\\%#<CR>:s/\\(\\%#\\w\\+\\)\\(\\_W\\+\\)\\(\\w\\+\\)/\\3\\2\\1/<CR>``:redraw<CR>:nohlsearch<CR>' },
   },
 
   v = {
     ["<Up>"] = { 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', "move up", opts = { expr = true } },
     ["<Down>"] = { 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', "move down", opts = { expr = true } },
     ["<leader>s"] = { ":s/\\%V", "replace in visual mode" },
+    -- https://vim.fandom.com/wiki/Swapping_characters,_words_and_lines
+    ["<C-x>"] = { '<Esc>`.``gv"*d"-P``"*P' },
   },
 
   x = {
@@ -454,8 +460,8 @@ M.telescope = {
     ["gS"] = { "<cmd> Telescope lsp_workspace_symbols  symbol_width=60 <CR>", "lsp workspace symbols" },
 
     -- diagnostic
-    ["<leader>fQ"] = { "<cmd> Telescope diagnostics <CR>", "open workspace diagnostics" },
-    ["<leader>fq"] = { "<cmd> Telescope diagnostics bufnr=0 <CR>", "open current buffer diagnostics" },
+    ["gQ"] = { "<cmd> Telescope diagnostics <CR>", "open workspace diagnostics" },
+    ["gq"] = { "<cmd> Telescope diagnostics bufnr=0 <CR>", "open current buffer diagnostics" },
   },
 }
 
