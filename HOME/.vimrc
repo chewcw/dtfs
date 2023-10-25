@@ -41,3 +41,8 @@ if &diff
   highlight DiffRemoved    ctermbg=NONE         ctermfg=DarkRed
   highlight DiffText       ctermbg=NONE         ctermfg=Yellow
 endif
+
+" https://vim.fandom.com/wiki/Swapping_characters,_words_and_lines
+nnoremap <silent> gw "_yiw:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR><c-o><c-l>:nohlsearch<CR>
+nnoremap <silent> gl "_yiw?\w\+\_W\+\%#<CR>:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR><c-o><c-l>:nohlsearch<CR>
+vnoremap <C-x> <Esc>`.``gv"*d"-P``"*P
