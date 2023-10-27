@@ -103,6 +103,26 @@ M.general = {
       end,
       "toggle color column for this window",
     },
+    ["<leader>lc"] = {
+      function()
+        if vim.opt.cursorline:get() == false then
+          vim.cmd([[set cursorline]])
+        else
+          vim.cmd([[set nocursorline]])
+        end
+      end,
+      "toggle cursor line"
+    },
+    ["<leader>lC"] = {
+      function()
+        if vim.opt.cursorline:get() == false then
+          vim.cmd([[windo set cursorline]])
+        else
+          vim.cmd([[windo set nocursorline]])
+        end
+      end,
+      "toggle cursor line for this window"
+    },
 
     -- insert new line above
     ["<A-CR>"] = { "O<Esc>" },
