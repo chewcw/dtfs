@@ -25,10 +25,11 @@ connect_monitor() {
 	fi
 
 	if [[ $laptop_screen == 1 && $vga == 0 && $hdmi == 1 ]]; then
-		# home setup
-		if ! xrandr --output eDP-1 --mode 1920x1080 --pos 0x0 \
-      --output HDMI-1 --primary --mode 1920x1080 --pos 1920x0 &>/dev/null;
+    # work
+		if ! xrandr --output eDP-1 --mode 1920x1080 --primary --pos 0x0 \
+      --output HDMI-1 --mode 1600x900 --pos 1920x0
     then
+		# home setup
       xrandr \
         --output eDP-1 --primary --mode 1920x1080 --pos 0x0 \
         --output HDMI-1 --mode 1920x1200 --pos 1920x0
