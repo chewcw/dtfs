@@ -213,7 +213,7 @@ M.options = {
       },
   },
 
-  extensions_list = { "file_browser", "workspaces", "ui-select" },
+  extensions_list = { "file_browser", "workspaces", "ui-select", "telescope-tabs" },
 
   extensions = {
     file_browser = {
