@@ -302,6 +302,22 @@ local default_plugins = {
   },
 
   {
+    "LukasPietzschmann/telescope-tabs",
+    dependencies = {
+      {
+        "nvim-telescope/telescope.nvim",
+        branch = "master",
+        commit = "6b79d7a",
+      },
+    },
+    branch = "master",
+    commit = "a38c8fe",
+    -- config = function(_, opts)
+    --   require("telescope-tabs").setup(opts)
+    -- end,
+  },
+
+  {
     "tpope/vim-surround",
     keys = { "v", "cs", "S", "ds", "ysiw" },
     branch = "master",
