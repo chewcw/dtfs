@@ -97,4 +97,8 @@ M.nvim_autopairs = {
   enable_afterquote = false,
 }
 
+M.treesitter_context = {
+  separator = ".",
+}
+
 return M
