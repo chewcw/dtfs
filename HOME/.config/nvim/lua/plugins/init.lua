@@ -312,9 +312,6 @@ local default_plugins = {
     },
     branch = "master",
     commit = "a38c8fe",
-    -- config = function(_, opts)
-    --   require("telescope-tabs").setup(opts)
-    -- end,
   },
 
   {
@@ -464,6 +461,12 @@ local default_plugins = {
     config = true,
     branch = "master",
     commit = "31692b2",
+    opts = function()
+      return require("plugins.configs.others").treesitter_context
+    end,
+    config = function(_, opts)
+      require("treesitter-context").setup(opts)
+    end,
   },
 
   -- Only load whichkey after all the gui
