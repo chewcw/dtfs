@@ -664,7 +664,12 @@ M.vm = {
     vim.cmd('let g:VM_maps["Select All"] = "<M-C-n>"')
     vim.cmd('let g:VM_maps["Select Cursor Down"] = "<M-C-j>"')
     vim.cmd('let g:VM_maps["Select Cursor Up"] = "<M-C-k>"')
-    vim.cmd('let g:VM_maps["Skip Region"] = "<M-C-x>"')
+    vim.cmd('let g:VM_maps["Skip Region"] = "q"')
+    vim.cmd('let g:VM_maps["Remove Region"] = "Q"')
+    vim.cmd('let g:VM_maps["Invert Direction"] = "o"')
+    vim.cmd('let g:VM_maps["Goto Next"] = "]"')
+    vim.cmd('let g:VM_maps["Goto Prev"] = "["')
+    vim.cmd('let g:VM_maps["Surround"] = "S"')
     vim.cmd("let g:VM_set_statusline = 0")
     vim.cmd("let g:VM_silent_exit = 0")
   end,
