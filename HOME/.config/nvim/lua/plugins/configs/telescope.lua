@@ -261,6 +261,9 @@ M.options = {
             local keys = vim.api.nvim_replace_termcodes('<C-h>', false, false, true)
             vim.api.nvim_feedkeys(keys, "n", {})
           end,
+          ["<C-l>"] = function()
+            vim.fn.feedkeys("\r")
+          end,
         },
         n = {
           ["q"] = require("telescope.actions").close,
