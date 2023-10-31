@@ -622,10 +622,11 @@ M.toggleterm = {
     ["<A->>"] = { '<cmd> execute v:count .. "ToggleTerm direction=vertical" <CR>', "toggle term in vertical mode" },
     ["<A-/>"] = { '<cmd> execute v:count .. "ToggleTerm direction=float" <CR>', "toggle term in float mode" },
     ["<A-,>"] = { '<cmd> execute v:count .. "ToggleTerm direction=tab" <CR>', "toggle term in tab mode" },
+    ["<C-]>"] = { '' }, -- map this to empty so that it works in terminal mode, see below
   },
 
   t = {
-    ["<C-\\>"] = { vim.api.nvim_replace_termcodes("<C-\\><C-N>", true, true, true), "escape terminal mode" },
+    ["<C-]>"] = { vim.api.nvim_replace_termcodes("<C-\\><C-N>", true, true, true), "escape terminal mode" },
     ["<A-.>"] = { "<C-\\><C-N> <cmd> ToggleTerm <CR>", "toggle term" },
     ["<A->>"] = { "<C-\\><C-N> <cmd> ToggleTerm <CR>", "toggle term" },
     ["<A-/>"] = { "<C-\\><C-N> <cmd> ToggleTerm <CR>", "toggle term" },
