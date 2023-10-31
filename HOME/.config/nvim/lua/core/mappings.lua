@@ -436,6 +436,7 @@ M.telescope = {
     ["<leader>fz"] = { "<cmd> Telescope current_buffer_fuzzy_find <CR>", "find in current buffer" },
     ["<leader>f*"] = { "<cmd> Telescope grep_string <CR>", "search for string under cursor in cwd" },
     ["<leader>ft"] = { "<cmd> Telescope telescope-tabs list_tabs <CR>", "list tabs" },
+    ["<leader>fj"] = { "<cmd> Telescope jumplist <CR>", "list jumplist" },
 
     ["<leader>fr"] = {
       function()
