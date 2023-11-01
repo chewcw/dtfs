@@ -206,6 +206,10 @@ M.general = {
     -- https://vim.fandom.com/wiki/Swapping_characters,_words_and_lines
     ["gw"] = { '"_yiw:s/\\(\\%#\\w\\+\\)\\(\\W\\+\\)\\(\\w\\+\\)/\\3\\2\\1/<CR>``:redraw<CR>:nohlsearch<CR>' },
     ["gl"] = { '"_yiw?\\w\\+\\_W\\+\\%#<CR>:s/\\(\\%#\\w\\+\\)\\(\\_W\\+\\)\\(\\w\\+\\)/\\3\\2\\1/<CR>``:redraw<CR>:nohlsearch<CR>' },
+
+    -- https://stackoverflow.com/a/1269631
+    ["<C-w>tk"] = { "<C-w>t<C-w>K", "switch from vertical split to horizontal split" },
+    ["<C-w>th"] = { "<C-w>t<C-w>H", "switch from horizontal split to vertical split" },
   },
 
   v = {
