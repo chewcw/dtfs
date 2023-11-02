@@ -25,6 +25,7 @@ local options = {
     -- python
     "pyright",
     "debugpy", -- debugger
+    "black",
 
     -- rust
     "rust-analyzer",
