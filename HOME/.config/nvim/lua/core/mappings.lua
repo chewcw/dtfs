@@ -270,6 +270,15 @@ M.lspconfig = {
 
   -- See `<cmd> :help vim.lsp.*` for documentation on any of the below functions
 
+  i = {
+    ["<C-]"] = {
+      function()
+        vim.lsp.buf.signature_help()
+      end,
+      "lsp signature_help",
+    }
+  },
+
   n = {
     -- ["gD"] = {
     --  function()
@@ -299,12 +308,12 @@ M.lspconfig = {
     --  "lsp implementation",
     -- },
 
-    ["<leader>ls"] = {
-      function()
-        vim.lsp.buf.signature_help()
-      end,
-      "lsp signature_help",
-    },
+    -- ["<leader>ls"] = {
+    --   function()
+    --     vim.lsp.buf.signature_help()
+    --   end,
+    --   "lsp signature_help",
+    -- },
 
     -- ["<leader>D"] = {
     --  function()
@@ -315,7 +324,8 @@ M.lspconfig = {
 
     ["gn"] = {
       function()
-        utils_renamer.open()
+        -- utils_renamer.open()
+        vim.lsp.buf.rename()
       end,
       "lsp rename",
     },
@@ -584,11 +594,25 @@ M.gitsigns = {
       "Preview hunk",
     },
 
+    ["<leader>gP"] = {
+      function()
+        require("gitsigns").preview_hunk_inline()
+      end,
+      "Preview hunk",
+    },
+
     ["<leader>gb"] = {
       function()
         require("gitsigns").toggle_current_line_blame()
       end,
       "Toggle current line blame",
+    },
+
+    ["<leader>gB"] = {
+      function()
+        require("gitsigns").blame_line()
+      end,
+      "Current line blame",
     },
 
     ["<leader>gd"] = {
