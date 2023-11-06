@@ -434,6 +434,7 @@ bindsym $mod+Shift+f exec nautilus --no-desktop
 
 # compton
 # exec compton
+
 exec source ~/.zshrc
 
 # custom keyboard shortcut
@@ -450,7 +451,7 @@ bindsym --release $mod+t exec --no-startup-id sleep 0.1 && xdotool type "$(date 
 # lxqt ubuntu only
 # open monitor configuration
 bindsym $mod+Shift+w exec arandr
-bindsym $mod+o exec $HOME/.local/bin/connect_monitor.sh && xset r rate 300 70 && fcitx && 1>/dev/null 2>&1 && sudo modprobe --remove psmouse && sudo modprobe psmouse
+bindsym $mod+o exec $HOME/.local/bin/connect_monitor.sh && xset r rate 300 70 && fcitx && 1>/dev/null 2>&1 && sudo modprobe --remove psmouse && sudo modprobe psmouse && sudo timedatectl set-ntp false && sudo timedatectl set-ntp true
 
 # enable / disable caps mode (show caps mode on the i3 status bar)
 # https://faq.i3wm.org/question/1258/i3bari3status-is-it-possible-to-have-caps-lock-and-num-lock-indicator.1.html
