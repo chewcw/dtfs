@@ -271,7 +271,7 @@ M.lspconfig = {
   -- See `<cmd> :help vim.lsp.*` for documentation on any of the below functions
 
   i = {
-    ["<C-]"] = {
+    ["<C-s>"] = {
       function()
         vim.lsp.buf.signature_help()
       end,
