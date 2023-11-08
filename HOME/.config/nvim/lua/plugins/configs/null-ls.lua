@@ -23,7 +23,7 @@ local sources = {
   b.formatting.rustfmt,
 
   -- python
-  b.formatting.autopep8,
+  b.formatting.black,
 }
 
 null_ls.setup({
