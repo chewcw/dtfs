@@ -25,7 +25,7 @@ local options = {
     -- python
     "pyright",
     "debugpy", -- debugger
-    "autopep8",
+    "black",
 
     -- rust
     "rust-analyzer",
