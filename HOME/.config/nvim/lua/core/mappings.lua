@@ -82,7 +82,8 @@ M.general = {
     ["gx"] = { ":execute '!xdg-open ' .. shellescape(expand('<cfile>'), v:true)<CR><CR>", "open link" },
 
     -- wrap
-    ["<leader>lw"] = { "<cmd> set wrap! <CR>", "toggle line wrapping" },
+    ["<leader>lw"] = { ":set wrap! <CR>", "toggle line wrapping" },
+    ["<leader>lW"] = { ":windo set wrap! <CR>", "toggle line wrapping in this window" },
 
     -- toggle color column
     ["<leader>lm"] = {
@@ -98,12 +99,12 @@ M.general = {
     ["<leader>lM"] = {
       function()
         if vim.opt.colorcolumn:get()[1] == "80" then
-          vim.cmd([[windo set colorcolumn=0]])
+          vim.cmd([[bufdo set colorcolumn=0]])
         else
-          vim.cmd([[windo set colorcolumn=80]])
+          vim.cmd([[bufdo set colorcolumn=80]])
         end
       end,
-      "toggle color column for this window",
+      "toggle color column for buffers",
     },
     ["<leader>lc"] = {
       function()
@@ -118,12 +119,12 @@ M.general = {
     ["<leader>lC"] = {
       function()
         if vim.opt.cursorline:get() == false then
-          vim.cmd([[windo set cursorline]])
+          vim.cmd([[bufdo set cursorline]])
         else
-          vim.cmd([[windo set nocursorline]])
+          vim.cmd([[bufdo set nocursorline]])
         end
       end,
-      "toggle cursor line for this window"
+      "toggle cursor line for buffers"
     },
 
     -- insert new line above
