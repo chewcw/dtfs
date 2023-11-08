@@ -34,28 +34,22 @@ M.ui = {
     theme = "minimal", -- default/vscode/vscode_colored/minimal
     -- default/round/block/arrow separators work only for default statusline theme
     -- round and block will work for minimal theme only
-    separator_style = "block",
-    overriden_modules = function()
-      return {
-        fileInfo = function()
-          local icon = "   "
-          local filename = (vim.fn.expand("%") == "" and "Empty ") or vim.fn.expand("%:t")
-          local devicons_present, devicons = pcall(require, "nvim-web-devicons")
-          if devicons_present then
-            local ft_icon = devicons.get_icon(filename)
-            icon = (ft_icon ~= nil and " " .. ft_icon .. " ") or " "
-          end
-          return "%#St_file_info#" .. icon .. vim.fn.expand("%:p:.") .. " "
-        end,
+    separator_style = "default",
+    overriden_modules = function(modules)
+      modules[1] = (function()
+        return ""
+      end)()
 
-        -- gitchanges = function()
-        --   return ""
-        -- end,
-
-        -- cwd = function()
-        --   return ""
-        -- end,
-      }
+      modules[2] = (function()
+        local icon = "   "
+        local filename = (vim.fn.expand("%:p") == "" and "Empty ") or vim.fn.expand("%:p")
+        local devicons_present, devicons = pcall(require, "nvim-web-devicons")
+        if devicons_present then
+          local ft_icon = devicons.get_icon(filename)
+          icon = (ft_icon ~= nil and " " .. ft_icon .. " ") or " "
+        end
+        return "%#St_file_info#" .. icon .. filename .. " "
+      end)()
     end,
   },
 
