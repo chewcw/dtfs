@@ -329,6 +329,7 @@ M.options = {
     },
 
     buffers = {
+      sort_lastused = true,
       mappings = {
         n = {
           -- close the buffer
