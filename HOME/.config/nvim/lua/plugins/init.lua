@@ -8,35 +8,13 @@ local default_plugins = {
     commit = "0dbe561",
   },
 
-  {
-    "NvChad/base46",
-    branch = "v2.0",
-    commit = "919af1c",
-    build = function()
-      require("base46").load_all_highlights()
-    end,
-  },
-
-  {
-    "NvChad/ui",
-    branch = "v2.0",
-    commit = "b3a343e",
-    lazy = false,
-  },
-
   -- {
-  -- 	"NvChad/nvim-colorizer.lua",
-  -- 	init = function()
-  -- 		require("core.utils").lazy_load("nvim-colorizer.lua")
-  -- 	end,
-  -- 	config = function(_, opts)
-  -- 		require("colorizer").setup(opts)
-
-  -- 		-- execute colorizer as soon as possible
-  -- 		vim.defer_fn(function()
-  -- 			require("colorizer").attach_to_buffer(0)
-  -- 		end, 0)
-  -- 	end,
+  --   "NvChad/base46",
+  --   branch = "v2.0",
+  --   commit = "919af1c",
+  --   build = function()
+  --     require("base46").load_all_highlights()
+  --   end,
   -- },
 
   {

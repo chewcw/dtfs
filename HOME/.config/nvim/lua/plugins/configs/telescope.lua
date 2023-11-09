@@ -117,7 +117,7 @@ M.options = {
         "--line-number",
         "--column",
       },
-      scroll_strategy = "limit",
+      scroll_strategy = "cycle",
       prompt_prefix = "",
       selection_caret = "  ",
       entry_prefix = "  ",
@@ -330,6 +330,7 @@ M.options = {
 
     buffers = {
       sort_lastused = true,
+      selection_strategy = "follow",
       mappings = {
         n = {
           -- close the buffer
