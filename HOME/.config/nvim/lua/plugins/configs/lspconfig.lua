@@ -1,4 +1,5 @@
 dofile(vim.g.base46_cache .. "lsp")
+require("nvchad.lsp")
 
 local M = {}
 local utils = require("core.utils")
@@ -15,19 +16,6 @@ M.on_attach = function(client, bufnr)
   if not utils.load_config().ui.lsp_semantic_tokens then
     client.server_capabilities.semanticTokensProvider = nil
   end
-
-  vim.api.nvim_create_augroup("lsp_augroup", { clear = true })
-
-  vim.api.nvim_create_autocmd("InsertEnter", {
-    buffer = bufnr,
-    callback = function() vim.lsp.buf.inlay_hint(bufnr, true) end,
-    group = "lsp_augroup",
-  })
-  vim.api.nvim_create_autocmd("InsertLeave", {
-    buffer = bufnr,
-    callback = function() vim.lsp.buf.inlay_hint(bufnr, false) end,
-    group = "lsp_augroup",
-  })
 end
 
 M.capabilities = vim.lsp.protocol.make_client_capabilities()

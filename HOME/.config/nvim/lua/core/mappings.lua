@@ -199,8 +199,8 @@ M.general = {
     ["<leader>s"] = { "/\\%V", "search in last visual selection" },
     ["<leader>e"] = { ":e! <CR>", "e!" },
     ["<leader>q"] = { ":q! <CR>", "q!" },
-    -- ["<A-l>"] = { "<cmd> bprevious <CR>", "goto next buffer" },
-    -- ["<A-h>"] = { "<cmd> bnext <CR>", "goto prev buffer" },
+    ["<A-l>"] = { "<cmd> bprevious <CR>", "goto next buffer" },
+    ["<A-h>"] = { "<cmd> bnext <CR>", "goto prev buffer" },
     ["<A-w>"] = { ":b#|bdelete!#<CR>", "delete the buffer from buffer list" }, -- https://stackoverflow.com/a/19620009
     ["<A-d>"] = { "<cmd> bwipeout! <CR>", "wipe out the buffer from buffer list" },
 
@@ -216,7 +216,7 @@ M.general = {
   v = {
     ["<Up>"] = { 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', "move up", opts = { expr = true } },
     ["<Down>"] = { 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', "move down", opts = { expr = true } },
-    ["<leader>r"] = { ":s/\\%V", "replace in visual mode" },
+    ["<leader>s"] = { ":s/\\%V", "replace in visual mode" },
     -- https://vim.fandom.com/wiki/Swapping_characters,_words_and_lines
     ["<C-x>"] = { '<Esc>`.``gv"*d"-P``"*P' },
   },
@@ -234,6 +234,35 @@ M.general = {
     ["<A-j>"] = { "<Down>", "move down in command mode" },
     ["<A-h>"] = { "<Left>", "move backward in command mode" },
     ["<A-l>"] = { "<Right>", "move forward in command mode" },
+  },
+}
+
+M.tabufline = {
+  plugin = true,
+
+  n = {
+    -- cycle through buffers
+    ["<A-l>"] = {
+      function()
+        require("nvchad.tabufline").tabuflineNext()
+      end,
+      "goto next buffer",
+    },
+
+    ["<A-h>"] = {
+      function()
+        require("nvchad.tabufline").tabuflinePrev()
+      end,
+      "goto prev buffer",
+    },
+
+    -- close buffer + hide terminal buffer
+    ["<A-w>"] = {
+      function()
+        require("nvchad.tabufline").close_buffer()
+      end,
+      "close buffer",
+    },
   },
 }
 
