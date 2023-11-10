@@ -32,10 +32,10 @@ if &diff
   set norelativenumber
   syntax off
 
-  nnoremap <leader>l :diffget LOCAL<CR>
-  nnoremap <leader>r :diffget REMOTE<CR>
-  nnoremap <leader>b :diffget BASE<CR>
-  nnoremap <leader>q :cq<CR>
+  nnoremap <leader>ggl :diffget LOCAL<CR>
+  nnoremap <leader>ggr :diffget REMOTE<CR>
+  nnoremap <leader>ggb :diffget BASE<CR>
+  nnoremap <leader>ggq :cq<CR>
 
   " https://vi.stackexchange.com/a/25026
   highlight CursorLine     ctermbg=Black        ctermfg=NONE

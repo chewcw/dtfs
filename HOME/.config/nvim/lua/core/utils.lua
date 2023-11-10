@@ -46,6 +46,15 @@ M.load_highlight_group = function()
   -- LspInfo was linked to Label highlight group
   vim.cmd([[highlight! link LspInfoBorder Label]])
   vim.api.nvim_set_hl(0, "LspInfoBorder", { link = "FloatBorder" })
+
+  -- nvimdiff
+  vim.api.nvim_set_hl(0, "DiffAdd", { ctermbg = 0, bg="#1c444a" })
+  vim.api.nvim_set_hl(0, "DiffAdded", { ctermbg = 0, bg="#1c444a" })
+  vim.api.nvim_set_hl(0, "DiffChange", { ctermbg = 0, bg="#1d2739" })
+  vim.api.nvim_set_hl(0, "DiffChanged", { ctermbg = 0, bg="#1d2739" })
+  vim.api.nvim_set_hl(0, "DiffDelete", { ctermbg = 0, bg="#4c0f0f" })
+  vim.api.nvim_set_hl(0, "DiffRemoved", { ctermbg = 0, bg="#4c0f0f" })
+  vim.api.nvim_set_hl(0, "DiffText", { ctermbg = 0, bg="#3c4e77" })
 end
 
 M.load_config = function()

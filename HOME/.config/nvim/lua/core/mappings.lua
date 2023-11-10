@@ -211,6 +211,12 @@ M.general = {
     -- https://stackoverflow.com/a/1269631
     ["<C-w>tk"] = { "<C-w>t<C-w>K", "switch from vertical split to horizontal split" },
     ["<C-w>th"] = { "<C-w>t<C-w>H", "switch from horizontal split to vertical split" },
+
+    -- for nvimdiff
+    ["<leader>ggl"] = { ":diffget LOCAL <CR>", "diffget from local" },
+    ["<leader>ggr"] = { ":diffget REMOTE <CR>", "diffget from remote" },
+    ["<leader>ggb"] = { ":diffget BASE <CR>", "diffget from base" },
+    ["<leader>ggq"] = { ":cq <CR>", "cquit" },
   },
 
   v = {
