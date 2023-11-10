@@ -2,12 +2,12 @@
   name = chewcw
   email = chwai87@gmail.com
 [diff]
-	tool = nvimdiff
+	tool = vimdiff
   prompt = false
 [difftool "vimdiff"]
   cmd = vimdiff -u /home/ccw/.vimrc -c \"wincmd L\" -c \"windo set wrap\" \"$BASE\" \"$REMOTE\"
 [merge]
-  tool = nvimdiff
+  tool = vimdiff
   conflictstyle = diff3
   prompt = false
 [mergetool "vimdiff"]
