@@ -1,0 +1,17 @@
+[user]
+  name = chewcw
+  email = chwai87@gmail.com
+[diff]
+	tool = nvimdiff
+  prompt = false
+[difftool "vimdiff"]
+  cmd = vimdiff -u /home/ccw/.vimrc -c \"wincmd L\" -c \"windo set wrap\" \"$BASE\" \"$REMOTE\"
+[merge]
+  tool = nvimdiff
+  conflictstyle = diff3
+  prompt = false
+[mergetool "vimdiff"]
+  # https://www.linkedin.com/pulse/how-set-up-3-way-merge-tool-git-p4-vimdiff-wasin-thonkaew
+  cmd = vimdiff -u /home/ccw/.vimrc -c \"wincmd J\" -c \"windo set wrap\" \"$MERGED\" \"$LOCAL\" \"$BASE\" \"$REMOTE\"
+[mergetool]
+  keepBackup = false
