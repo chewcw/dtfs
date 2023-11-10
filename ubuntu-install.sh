@@ -46,26 +46,7 @@ sudo apt install -y git
 echo "------------------------------------------"
 echo "Setup global git config"
 echo "------------------------------------------"
-touch $HOME/.gitconfig
-cat << EOF > $HOME/.gitconfig
-[user]
-  name = chewcw
-  email = chwai87@gmail.com
-[diff]
-	tool = vimdiff
-  prompt = false
-[difftool "vimdiff"]
-  cmd = vimdiff -u $HOME/.vimrc -c \"wincmd L\" -c \"windo set wrap\" \"\$BASE\" \"\$REMOTE\"
-[merge]
-  tool = vimdiff
-  conflictstyle = diff3
-  prompt = false
-[mergetool "vimdiff"]
-  # https://www.linkedin.com/pulse/how-set-up-3-way-merge-tool-git-p4-vimdiff-wasin-thonkaew
-  cmd = vimdiff -u $HOME/.vimrc -c \"wincmd J\" -c \"windo set wrap\" \"\$MERGED\" \"\$LOCAL\" \"\$BASE\" \"\$REMOTE\"
-[mergetool]
-  keepBackup = false
-EOF
+ln -sf $pwd/HOME/.gitconfig $HOME/.gitconfig
 
 # Install lazygit v0.40.2
 if ! command -v lazygit &>/dev/null
