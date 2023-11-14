@@ -99,12 +99,12 @@ M.general = {
     ["<leader>lM"] = {
       function()
         if vim.opt.colorcolumn:get()[1] == "80" then
-          vim.cmd([[bufdo set colorcolumn=0]])
+          vim.cmd([[windo set colorcolumn=0]])
         else
-          vim.cmd([[bufdo set colorcolumn=80]])
+          vim.cmd([[windo set colorcolumn=80]])
         end
       end,
-      "toggle color column for buffers",
+      "toggle color column for window",
     },
     ["<leader>lc"] = {
       function()
@@ -119,12 +119,12 @@ M.general = {
     ["<leader>lC"] = {
       function()
         if vim.opt.cursorline:get() == false then
-          vim.cmd([[bufdo set cursorline]])
+          vim.cmd([[windo set cursorline]])
         else
-          vim.cmd([[bufdo set nocursorline]])
+          vim.cmd([[windo set nocursorline]])
         end
       end,
-      "toggle cursor line for buffers"
+      "toggle cursor line for window"
     },
 
     -- insert new line above
