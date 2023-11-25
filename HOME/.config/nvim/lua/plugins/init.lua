@@ -458,7 +458,6 @@ local default_plugins = {
   {
     "nvim-treesitter/nvim-treesitter-context",
     lazy = false,
-    config = true,
     branch = "master",
     commit = "31692b2",
     opts = function()
