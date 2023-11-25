@@ -48,13 +48,16 @@ M.load_highlight_group = function()
   vim.api.nvim_set_hl(0, "LspInfoBorder", { link = "FloatBorder" })
 
   -- nvimdiff
-  vim.api.nvim_set_hl(0, "DiffAdd", { ctermbg = 0, bg="#1c444a" })
-  vim.api.nvim_set_hl(0, "DiffAdded", { ctermbg = 0, bg="#1c444a" })
-  vim.api.nvim_set_hl(0, "DiffChange", { ctermbg = 0, bg="#1d2739" })
-  vim.api.nvim_set_hl(0, "DiffChanged", { ctermbg = 0, bg="#1d2739" })
-  vim.api.nvim_set_hl(0, "DiffDelete", { ctermbg = 0, bg="#4c0f0f" })
-  vim.api.nvim_set_hl(0, "DiffRemoved", { ctermbg = 0, bg="#4c0f0f" })
-  vim.api.nvim_set_hl(0, "DiffText", { ctermbg = 0, bg="#3c4e77" })
+  vim.api.nvim_set_hl(0, "DiffAdd", { ctermbg = 0, bg = "#132f33" })
+  vim.api.nvim_set_hl(0, "DiffAdded", { ctermbg = 0, bg = "#1c444a" })
+  vim.api.nvim_set_hl(0, "DiffChange", { ctermbg = 0, fg = "#c5c5c6", bg = "#05294a" })
+  vim.api.nvim_set_hl(0, "DiffChanged", { ctermbg = 0, bg = "#777d88" })
+  vim.api.nvim_set_hl(0, "DiffDelete", { ctermbg = 0, bg = "#4c0f0f" })
+  vim.api.nvim_set_hl(0, "DiffRemoved", { ctermbg = 0, bg = "#ea9999" })
+  vim.api.nvim_set_hl(0, "DiffText", { link = "DiffChange" })
+  vim.api.nvim_set_hl(0, "DiffModified", { ctermbg = 0, bg = "#3c4e77" })
+  vim.api.nvim_set_hl(0, "DiffChangeDelete", { ctermbg = 0, bg = "#674ea7" })
+  vim.api.nvim_set_hl(0, "DiffNewFile", { ctermbg = 0, bg = "#3c4e77" })
 end
 
 M.load_config = function()
