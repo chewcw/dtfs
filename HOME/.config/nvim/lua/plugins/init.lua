@@ -407,16 +407,16 @@ local default_plugins = {
     commit = "a6fb499",
   },
 
-  {
-    "windwp/nvim-autopairs",
-    event = "InsertEnter",
-    config = true,
-    opts = function()
-      return require("plugins.configs.others").nvim_autopairs
-    end,
-    branch = "master",
-    commit = "a52fc6e",
-  },
+  -- {
+  --   "windwp/nvim-autopairs",
+  --   event = "InsertEnter",
+  --   config = true,
+  --   opts = function()
+  --     return require("plugins.configs.others").nvim_autopairs
+  --   end,
+  --   branch = "master",
+  --   commit = "a52fc6e",
+  -- },
 
   {
     "mg979/vim-visual-multi",
