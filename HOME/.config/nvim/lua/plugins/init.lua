@@ -469,6 +469,12 @@ local default_plugins = {
     end,
   },
 
+  {
+    "tpope/vim-fugitive",
+    lazy = false,
+    branch = "master",
+  },
+
   -- Only load whichkey after all the gui
   {
     "folke/which-key.nvim",
