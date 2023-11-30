@@ -58,6 +58,9 @@ M.load_highlight_group = function()
   vim.api.nvim_set_hl(0, "DiffModified", { ctermbg = 0, bg = "#3c4e77" })
   vim.api.nvim_set_hl(0, "DiffChangeDelete", { ctermbg = 0, bg = "#674ea7" })
   vim.api.nvim_set_hl(0, "DiffNewFile", { ctermbg = 0, bg = "#3c4e77" })
+
+  -- visual
+  vim.api.nvim_set_hl(0, "Visual", { fg = "Black", bg = "#f1c232" })
 end
 
 M.load_config = function()
