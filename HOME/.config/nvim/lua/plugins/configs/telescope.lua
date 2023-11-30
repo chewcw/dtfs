@@ -192,6 +192,9 @@ M.options = {
           ["<A-_>"] = require("telescope.actions").select_horizontal,
           ["t"] = require("telescope.actions").select_tab,
           ["q"] = require("telescope.actions").close,
+          ["u"] = function()
+            vim.cmd("undo")
+          end,
           ["<Esc>"] = function() end, -- don't do anything
           ["<C-l>"] = function()
             vim.fn.feedkeys("\r")
