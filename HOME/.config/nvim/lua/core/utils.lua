@@ -60,7 +60,7 @@ M.load_highlight_group = function()
   vim.api.nvim_set_hl(0, "DiffNewFile", { ctermbg = 0, bg = "#3c4e77" })
 
   -- visual
-  vim.api.nvim_set_hl(0, "Visual", { fg = "Black", bg = "#f1c232" })
+  vim.api.nvim_set_hl(0, "Visual", { fg = "LightGray", bg = "#3d484c" })
 end
 
 M.load_config = function()
