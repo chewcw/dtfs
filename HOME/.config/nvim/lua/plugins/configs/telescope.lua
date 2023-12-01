@@ -214,7 +214,7 @@ M.options = {
           -- select window (which split) to open
           ["<BS>"] = select_window_to_open,
           -- toggle preview
-          ["p"] = require("telescope.actions.layout").toggle_preview,
+          ["<C-p>"] = require("telescope.actions.layout").toggle_preview,
         },
       },
   },
