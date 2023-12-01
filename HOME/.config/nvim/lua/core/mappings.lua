@@ -225,6 +225,11 @@ M.general = {
     ["<leader>r"] = { ":s/\\%V", "replace in visual mode" },
     -- https://vim.fandom.com/wiki/Swapping_characters,_words_and_lines
     ["<C-x>"] = { '<Esc>`.``gv"*d"-P``"*P' },
+    -- switch between windows
+    ["<C-h>"] = { "<C-w>h", "window left" },
+    ["<C-l>"] = { "<C-w>l", "window right" },
+    ["<C-j>"] = { "<C-w>j", "window down" },
+    ["<C-k>"] = { "<C-w>k", "window up" },
   },
 
   x = {
