@@ -475,6 +475,16 @@ local default_plugins = {
     branch = "master",
   },
 
+  {
+    "iamcco/markdown-preview.nvim",
+    cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+    ft = { "markdown" },
+    build = function() vim.fn["mkdp#util#install"]() end,
+    lazy = true,
+    branch = "master",
+    commit = "a923f5f",
+  },
+
   -- Only load whichkey after all the gui
   {
     "folke/which-key.nvim",
