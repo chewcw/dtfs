@@ -514,6 +514,10 @@ M.telescope = {
     ["gQ"] = { "<cmd> Telescope diagnostics <CR>", "open workspace diagnostics" },
     ["gq"] = { "<cmd> Telescope diagnostics bufnr=0 <CR>", "open current buffer diagnostics" },
   },
+
+  v = {
+    ["<leader>f*"] = { "<cmd> Telescope grep_string <CR>", "search for string under cursor in cwd" },
+  },
 }
 
 M.whichkey = {
