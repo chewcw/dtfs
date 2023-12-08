@@ -42,7 +42,7 @@ M.ui = {
 
       modules[2] = (function()
         local icon = "   "
-        local filename = (vim.fn.expand("%:p") == "" and "Empty ") or vim.fn.expand("%:p")
+        local filename = (vim.fn.expand("%") == "" and "Empty ") or vim.fn.expand("%")
         local devicons_present, devicons = pcall(require, "nvim-web-devicons")
         if devicons_present then
           local ft_icon = devicons.get_icon(filename)
