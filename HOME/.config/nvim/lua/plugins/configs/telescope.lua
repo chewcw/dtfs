@@ -341,6 +341,10 @@ M.options = {
       },
     },
 
+    jumplist = {
+      show_line = false,
+    },
+
     git_status = {
       mappings = {
         n = {
