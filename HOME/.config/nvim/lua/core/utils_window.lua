@@ -135,7 +135,7 @@ local function pick_win_id()
   if laststatus == 3 then
     for _, id in ipairs(not_selectable) do
       for opt, value in pairs(win_opts[id]) do
-        vim.api.nvim_win_set_option(id, opt, value)
+        pcall(vim.api.nvim_win_set_option, id, opt, value)
       end
     end
   end
