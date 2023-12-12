@@ -201,7 +201,7 @@ M.general = {
     ["<leader>q"] = { ":q! <CR>", "q!" },
     ["<A-l>"] = { "<cmd> bprevious <CR>", "goto next buffer" },
     ["<A-h>"] = { "<cmd> bnext <CR>", "goto prev buffer" },
-    ["<A-w>"] = { ":b#|bdelete!#<CR>", "delete the buffer from buffer list" }, -- https://stackoverflow.com/a/19620009
+    ["<A-w>"] = { "<cmd> bnext|bdelete!#<CR>", "delete the buffer from buffer list" }, -- https://stackoverflow.com/a/19620009
     ["<A-d>"] = { "<cmd> bwipeout! <CR>", "wipe out the buffer from buffer list" },
 
     -- https://vim.fandom.com/wiki/Swapping_characters,_words_and_lines
