@@ -142,7 +142,7 @@ M.options = {
       },
       fname_width = 50,
       file_sorter = require("telescope.sorters").get_fuzzy_file,
-      file_ignore_patterns = { "node_modules" },
+      file_ignore_patterns = {},
       generic_sorter = require("telescope.sorters").get_generic_fuzzy_sorter,
       path_display = { "truncate" },
       winblend = 0,
@@ -171,6 +171,12 @@ M.options = {
           ["<A-\\>"] = require("telescope.actions").select_vertical,
           ["<A-_>"] = require("telescope.actions").select_horizontal,
           ["<A-t>"] = require("telescope.actions").select_tab,
+          ["<C-A-l>"] = require("telescope.actions").preview_scrolling_right,
+          ["<C-A-h>"] = require("telescope.actions").preview_scrolling_left,
+          ["<C-A-d>"] = require("telescope.actions").preview_scrolling_down,
+          ["<C-A-u>"] = require("telescope.actions").preview_scrolling_up,
+          ["<C-u>"] = require("telescope.actions").results_scrolling_up,
+          ["<C-d>"] = require("telescope.actions").results_scrolling_down,
           ["<C-h>"] = function()
             local keys = vim.api.nvim_replace_termcodes('<C-h>', false, false, true)
             vim.api.nvim_feedkeys(keys, "n", {})
@@ -182,15 +188,19 @@ M.options = {
         n = {
           ["<C-j>"] = require("telescope.actions").move_selection_next,
           ["<C-k>"] = require("telescope.actions").move_selection_previous,
-          ["]"] = require("telescope.actions").preview_scrolling_right,
-          ["["] = require("telescope.actions").preview_scrolling_left,
-          ["}"] = require("telescope.actions").results_scrolling_right,
-          ["{"] = require("telescope.actions").results_scrolling_left,
+          ["<C-A-l>"] = require("telescope.actions").preview_scrolling_right,
+          ["<C-A-h>"] = require("telescope.actions").preview_scrolling_left,
+          ["<C-A-d>"] = require("telescope.actions").preview_scrolling_down,
+          ["<C-A-u>"] = require("telescope.actions").preview_scrolling_up,
+          ["<C-u>"] = require("telescope.actions").results_scrolling_up,
+          ["<C-d>"] = require("telescope.actions").results_scrolling_down,
+          ["]"] = require("telescope.actions").results_scrolling_right,
+          ["["] = require("telescope.actions").results_scrolling_left,
           -- do nothing, to prevent open nvim_tree accidentally
           ["<C-n>"] = function() end,
           ["<A-\\>"] = require("telescope.actions").select_vertical,
           ["<A-_>"] = require("telescope.actions").select_horizontal,
-          ["t"] = require("telescope.actions").select_tab,
+          ["<A-t>"] = require("telescope.actions").select_tab,
           ["q"] = require("telescope.actions").close,
           ["u"] = function()
             vim.cmd("undo")
