@@ -76,9 +76,9 @@ g.mapleader = " "
 -- cursor
 opt.guicursor = "n-v-sm:block,i-c-ci-ve:ver30,r-cr-o:hor30"
 
--- list mode (show tab and trailing space)
+-- list mode (show return and space)
 opt.list = true
-opt.listchars:append("trail:·")
+opt.listchars:append("eol:↵,space:·,trail:·")
 
 -- disable some default providers
 for _, provider in ipairs({ "node", "perl", "python3", "ruby" }) do
