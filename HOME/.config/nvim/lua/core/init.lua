@@ -74,11 +74,29 @@ opt.textwidth = 85
 g.mapleader = " "
 
 -- cursor
-opt.guicursor = "n-v-sm:block,i-c-ci-ve:ver30,r-cr-o:hor30"
+opt.guicursor = "n-v-sm:block,i-c-ci-ve:block,r-cr-o:hor30"
 
 -- list mode (show return and space)
 opt.list = true
 opt.listchars:append("lead:·,multispace:·,trail:·")
+
+-- abbrevation just for fun
+vim.cmd('abbrev zdegreec <C-v>u2103')
+vim.cmd('abbrev zdegree <C-v>u00b0')
+vim.cmd('abbrev zcopyright <C-v>u00a9')
+vim.cmd('abbrev zalmostequal <C-v>u2248')
+vim.cmd('abbrev zinfinity <C-v>u221e')
+vim.cmd('abbrev zmultiply <C-v>u00d7')
+vim.cmd('abbrev zdivideby <C-v>u00f7')
+vim.cmd('abbrev zplusminus <C-v>u00b1')
+vim.cmd('abbrev zarrowright <C-v>u2192')
+vim.cmd('abbrev zarrowleft <C-v>u2190')
+vim.cmd('abbrev zarrowup <C-v>u2191')
+vim.cmd('abbrev zarrowdown <C-v>u2193')
+vim.cmd('abbrev zcheck <C-v>u2713')
+vim.cmd('abbrev zchecklight <C-v>U1f5f8')
+vim.cmd('abbrev zcheckheavy <C-v>u2714')
+vim.cmd('abbrev zcheckbox <C-v>U1f5f9')
 
 -- disable some default providers
 for _, provider in ipairs({ "node", "perl", "python3", "ruby" }) do
