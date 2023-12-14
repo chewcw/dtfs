@@ -78,7 +78,7 @@ opt.guicursor = "n-v-sm:block,i-c-ci-ve:ver30,r-cr-o:hor30"
 
 -- list mode (show return and space)
 opt.list = true
-opt.listchars:append("eol:↵,space:·,trail:·")
+opt.listchars:append("lead:·,multispace:·,trail:·")
 
 -- disable some default providers
 for _, provider in ipairs({ "node", "perl", "python3", "ruby" }) do
