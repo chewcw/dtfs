@@ -19,8 +19,8 @@ M.blankline = {
   show_trailing_blankline_indent = true,
   show_first_indent_level = true,
   show_current_context = true,
-  show_current_context_start = false,
-  char = "┆",
+  show_current_context_start = true,
+  char = "⦚",
 }
 
 M.luasnip = function(opts)

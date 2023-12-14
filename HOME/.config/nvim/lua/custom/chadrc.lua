@@ -2,8 +2,8 @@
 local M = {}
 
 M.ui = {
-  theme = "radium",
-  theme_toggle = { "radium", "one_light" },
+  theme = "monochrome",
+  theme_toggle = { "monochrome", "one_light" },
 
   hl_override = {
     St_file_info = {
