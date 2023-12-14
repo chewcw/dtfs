@@ -12,6 +12,8 @@ M.general = {
     ["<A-l>"] = { "<Right>", "move right" },
     ["<A-j>"] = { "<Down>", "move down" },
     ["<A-k>"] = { "<Up>", "move up" },
+    ["<A-w>"] = { "<C-Right>", "move next word" },
+    ["<A-b>"] = { "<C-Left>", "move previous word" },
 
     -- tab
     ["<A-S-t>"] = { "<cmd> tabedit <CR> <Esc>", "new tab" },
@@ -199,10 +201,10 @@ M.general = {
     ["<leader>s"] = { "/\\%V", "search in last visual selection" },
     ["<leader>e"] = { ":e! <CR>", "e!" },
     ["<leader>q"] = { ":q! <CR>", "q!" },
-    ["<A-l>"] = { "<cmd> bprevious <CR>", "goto next buffer" },
-    ["<A-h>"] = { "<cmd> bnext <CR>", "goto prev buffer" },
-    ["<A-w>"] = { "<cmd> bnext|bdelete!#<CR>", "delete the buffer from buffer list" }, -- https://stackoverflow.com/a/19620009
-    ["<A-d>"] = { "<cmd> bwipeout! <CR>", "wipe out the buffer from buffer list" },
+    ["<C-A-l>"] = { "<cmd> bprevious <CR>", "goto next buffer" },
+    ["<C-A-h>"] = { "<cmd> bnext <CR>", "goto prev buffer" },
+    ["<C-A-w>"] = { "<cmd> bnext|bdelete!#<CR>", "delete the buffer from buffer list" }, -- https://stackoverflow.com/a/19620009
+    ["<C-A-d>"] = { "<cmd> bwipeout! <CR>", "wipe out the buffer from buffer list" },
 
     -- https://vim.fandom.com/wiki/Swapping_characters,_words_and_lines
     ["gw"] = { '"_yiw:s/\\(\\%#\\w\\+\\)\\(\\W\\+\\)\\(\\w\\+\\)/\\3\\2\\1/<CR>``:redraw<CR>:nohlsearch<CR>' },
@@ -241,40 +243,18 @@ M.general = {
   },
 
   c = {
-    ["<A-k>"] = { "<Up>", "move up in command mode" },
-    ["<A-j>"] = { "<Down>", "move down in command mode" },
-    ["<A-h>"] = { "<Left>", "move backward in command mode" },
-    ["<A-l>"] = { "<Right>", "move forward in command mode" },
+    -- navigate within command mode
+    ["<A-h>"] = { "<Left>", "move left" },
+    ["<A-l>"] = { "<Right>", "move right" },
+    ["<A-j>"] = { "<Down>", "move down" },
+    ["<A-k>"] = { "<Up>", "move up" },
+    ["<A-w>"] = { "<C-Right>", "move next word" },
+    ["<A-b>"] = { "<C-Left>", "move previous word" },
   },
 }
 
 M.tabufline = {
   plugin = true,
-
-  n = {
-    -- cycle through buffers
-    ["<A-l>"] = {
-      function()
-        require("nvchad.tabufline").tabuflineNext()
-      end,
-      "goto next buffer",
-    },
-
-    ["<A-h>"] = {
-      function()
-        require("nvchad.tabufline").tabuflinePrev()
-      end,
-      "goto prev buffer",
-    },
-
-    -- close buffer + hide terminal buffer
-    ["<A-w>"] = {
-      function()
-        require("nvchad.tabufline").close_buffer()
-      end,
-      "close buffer",
-    },
-  },
 }
 
 M.lspconfig = {
