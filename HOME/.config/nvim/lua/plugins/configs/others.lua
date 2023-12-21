@@ -11,16 +11,23 @@ M.blankline = {
     "TelescopePrompt",
     "TelescopeResults",
     "mason",
-    "nvdash",
-    "nvcheatsheet",
     "",
   },
-  buftype_exclude = { "terminal" },
-  show_trailing_blankline_indent = true,
+  buftype_exclude = {
+    "terminal",
+    "quickfix",
+    "nofile",
+    "prompt",
+  },
+  bufname_exclude = {
+    "^fugitive:.*",
+  },
+  show_trailing_blankline_indent = false,
   show_first_indent_level = true,
   show_current_context = true,
-  show_current_context_start = true,
-  char = "⦚",
+  show_current_context_start = false,
+  char = "⸾",
+  context_char = "⸾",
 }
 
 M.luasnip = function(opts)

@@ -13,26 +13,31 @@ M.load_highlight_group = function()
   vim.api.nvim_set_hl(
     0,
     "DiagnosticVirtualTextError",
-    { foreground = diagnosticError.foreground, italic = true, underdotted = true }
+    { foreground = diagnosticError.foreground }
   )
   local diagnosticWarn = vim.api.nvim_get_hl_by_name("DiagnosticWarn", {})
   vim.api.nvim_set_hl(
     0,
     "DiagnosticVirtualTextWarn",
-    { foreground = diagnosticWarn.foreground, italic = true, underdotted = true }
+    { foreground = diagnosticWarn.foreground }
   )
   local diagnosticInfo = vim.api.nvim_get_hl_by_name("DiagnosticInfo", {})
   vim.api.nvim_set_hl(
     0,
     "DiagnosticVirtualTextInfo",
-    { foreground = diagnosticInfo.foreground, italic = true, underdotted = true }
+    { foreground = diagnosticInfo.foreground }
   )
   local diagnosticHint = vim.api.nvim_get_hl_by_name("DiagnosticHint", {})
   vim.api.nvim_set_hl(
     0,
     "DiagnosticVirtualTextHint",
-    { foreground = diagnosticHint.foreground, italic = true, underdotted = true }
+    { foreground = diagnosticHint.foreground }
   )
+
+  -- normal
+  vim.api.nvim_set_hl(0, "Normal", { fg = "#e4e4e4", bg = "#050b0c" })
+  vim.api.nvim_set_hl(0, "NormalNC", { fg = "#e4e4e4", bg = "#050b0c" })
+  vim.api.nvim_set_hl(0, "NormalSB", { fg = "#e4e4e4", bg = "#050b0c" })
 
   -- normal float
   local float = vim.api.nvim_get_hl_by_name("FloatBorder", {})
@@ -62,22 +67,34 @@ M.load_highlight_group = function()
   -- visual
   vim.api.nvim_set_hl(0, "Visual", { fg = "LightGray", bg = "#3d484c" })
 
-  -- treesitter context separator color
-  vim.api.nvim_set_hl(0, "TreesitterContextSeparator", { fg = "Gray" })
+  -- treesitter context
+  vim.api.nvim_set_hl(0, "TreesitterContextSeparator", { link = "NormalFloat" })
+
+  -- color column
+  vim.api.nvim_set_hl(0, "ColorColumn", { bg = "#151515" })
+
+  -- blankline space tab listchars
+  vim.api.nvim_set_hl(0, "Label", { fg = "#555757" })
+  vim.api.nvim_set_hl(0, "Whitespace", { fg = "#1d2324" })
+
+  -- general
+  vim.cmd([[ highlight! String cterm=NONE gui=NONE ]])
+  vim.api.nvim_set_hl(0, "Character", { link = "String" })
+  vim.api.nvim_set_hl(0, "Comment", { link = "NonText" })
+
+  -- cursor line
+  vim.api.nvim_set_hl(0, "CursorLine", { bg = "#151515" })
+  vim.api.nvim_set_hl(0, "CursorLineNr", { link = "Statement" })
+
+  -- popup menu
+  vim.api.nvim_set_hl(0, "PmenuSbar", { link = "Pmenu" })
+  vim.api.nvim_set_hl(0, "PmenuThumb", { link = "Pmenu" })
 end
 
 M.load_config = function()
   local config = require("core.default_config")
-  local chadrc_path = vim.api.nvim_get_runtime_file("lua/custom/chadrc.lua", false)[1]
 
-  if chadrc_path then
-    local chadrc = dofile(chadrc_path)
-
-    -- config.mappings = M.remove_disabled_keys(chadrc.mappings, require("core.mappings"))
-    config.mappings = require("core.mappings")
-    config = merge_tb("force", config, chadrc)
-  end
-
+  config.mappings = require("core.mappings")
   config.mappings.disabled = nil
 
   -- TODO: chewcw - put somewhere else wouldn't work, why?

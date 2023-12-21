@@ -460,9 +460,6 @@ M.telescope = {
     ["<leader>gt"] = { "<cmd> Telescope git_status <CR>", "git status" },
     ["<leader>ge"] =  { "<cmd> wincmd p | q <CR>", "exit gitsigns diffthis" },
 
-    -- theme switcher
-    ["<leader>th"] = { "<cmd> Telescope themes <CR>", "nvchad themes" },
-
     -- terminal switcher
     ["<leader>tt"] = { "<cmd> TermSelect <CR>", "select terminal" },
 

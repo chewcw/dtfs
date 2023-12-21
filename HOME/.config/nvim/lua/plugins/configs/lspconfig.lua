@@ -1,6 +1,3 @@
-dofile(vim.g.base46_cache .. "lsp")
-require("nvchad.lsp")
-
 local M = {}
 local utils = require("core.utils")
 
@@ -10,7 +7,7 @@ M.on_attach = function(client, bufnr)
   utils.load_mappings("lspconfig", { buffer = bufnr })
 
   if client.server_capabilities.signatureHelpProvider then
-    require("nvchad.signature").setup(client)
+    -- require("nvchad.signature").setup(client)
   end
 
   if not utils.load_config().ui.lsp_semantic_tokens then
@@ -45,13 +42,13 @@ local home = os.getenv("HOME")
 -- https://github.com/neovim/nvim-lspconfig/wiki/UI-Customization
 local function border(hl_name)
   return {
-    { "╭", hl_name },
+    { "┌", hl_name },
     { "─", hl_name },
-    { "╮", hl_name },
+    { "┐", hl_name },
     { "│", hl_name },
-    { "╯", hl_name },
+    { "┘", hl_name },
     { "─", hl_name },
-    { "╰", hl_name },
+    { "└", hl_name },
     { "│", hl_name },
   }
 end
@@ -80,7 +77,6 @@ lspconfig.lua_ls.setup({
         library = {
           [vim.fn.expand("$VIMRUNTIME/lua")] = true,
           [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true,
-          [vim.fn.stdpath("data") .. "/lazy/extensions/nvchad_types"] = true,
           [vim.fn.stdpath("data") .. "/lazy/lazy.nvim/lua/lazy"] = true,
         },
         maxPreload = 100000,
