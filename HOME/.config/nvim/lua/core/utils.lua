@@ -61,6 +61,9 @@ M.load_highlight_group = function()
 
   -- visual
   vim.api.nvim_set_hl(0, "Visual", { fg = "LightGray", bg = "#3d484c" })
+
+  -- treesitter context separator color
+  vim.api.nvim_set_hl(0, "TreesitterContextSeparator", { fg = "Gray" })
 end
 
 M.load_config = function()
