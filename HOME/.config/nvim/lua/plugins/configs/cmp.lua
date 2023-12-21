@@ -1,75 +1,71 @@
 local cmp = require("cmp")
 
-dofile(vim.g.base46_cache .. "cmp")
-
-local cmp_ui = require("core.utils").load_config().ui.cmp
-local cmp_style = cmp_ui.style
-
-local field_arrangement = {
-  atom = { "kind", "abbr", "menu" },
-  atom_colored = { "kind", "abbr", "menu" },
+local kind_icons = {
+  Text = "",
+  Method = "󰆧",
+  Function = "󰊕",
+  Constructor = "",
+  Field = "󰇽",
+  Variable = "󰂡",
+  Class = "󰠱",
+  Interface = "",
+  Module = "",
+  Property = "󰜢",
+  Unit = "",
+  Value = "󰎠",
+  Enum = "",
+  Keyword = "󰌋",
+  Snippet = "",
+  Color = "󰏘",
+  File = "󰈙",
+  Reference = "",
+  Folder = "󰉋",
+  EnumMember = "",
+  Constant = "󰏿",
+  Struct = "",
+  Event = "",
+  Operator = "󰆕",
+  TypeParameter = "󰅲",
 }
-
-local formatting_style = {
-  -- default fields order i.e completion word + item.kind + item.kind icons
-  fields = field_arrangement[cmp_style] or { "abbr", "kind", "menu" },
-
-  format = function(_, item)
-    local icons = require("nvchad.icons.lspkind")
-    local icon = (cmp_ui.icons and icons[item.kind]) or ""
-
-    if cmp_style == "atom" or cmp_style == "atom_colored" then
-      icon = " " .. icon .. " "
-      item.menu = cmp_ui.lspkind_text and "   (" .. item.kind .. ")" or ""
-      item.kind = icon
-    else
-      icon = cmp_ui.lspkind_text and (" " .. icon .. " ") or icon
-      item.kind = string.format("%s %s", icon, cmp_ui.lspkind_text and item.kind or "")
-    end
-
-    return item
-  end,
-}
-
-local function border(hl_name)
-  return {
-    { "┌", hl_name },
-    { "─", hl_name },
-    { "┐", hl_name },
-    { "│", hl_name },
-    { "┘", hl_name },
-    { "─", hl_name },
-    { "└", hl_name },
-    { "│", hl_name },
-  }
-end
 
 local options = {
-  completion = {
-    completeopt = "menu,menuone",
+  view = {
+    entries = { name = "native", selection_order = "near_cursor" },
   },
 
-  window = {
-    completion = {
-      side_padding = (cmp_style ~= "atom" and cmp_style ~= "atom_colored") and 1 or 0,
-      -- winhighlight = "Normal:CmpPmenu,CursorLine:CmpSel,Search:PmenuSel",
-      winhighlight = "Normal:FloatBorder,CursorLine:CmpSel,Search:FloatBorder",
-      scrollbar = false,
-    },
-    documentation = {
-      -- border = border("CmpDocBorder"),
-      border = border("FloatBorder"),
-      -- winhighlight = "Normal:CmpDoc",
-      winhighlight = "Normal:FloatBorder",
-    },
-  },
   snippet = {
     expand = function(args)
       require("luasnip").lsp_expand(args.body)
     end,
   },
 
-  formatting = formatting_style,
+  window = {
+    completion = {
+      completeopt = "menu,menuone",
+      winhighlight = "Normal:FloatBorder,FloatBorder:FloatBorder,Search:None",
+      scrollbar = false,
+      side_padding = 5,
+    },
+    documentation = {
+      winhighlight = "Normal:Pmenu,FloatBorder:FloatBorder,Search:None",
+    },
+  },
+
+  formatting = {
+    fields = { "abbr", "kind" },
+
+    format = function(entry, vim_item)
+      vim_item.kind = string.format("%s %s", kind_icons[vim_item.kind], vim_item.kind)
+      vim_item.menu = ({
+        buffer = "[Buffer]",
+        nvim_lsp = "[LSP]",
+        luasnip = "[LuaSnip]",
+        nvim_lua = "[Lua]",
+        latex_symbols = "[LaTeX]",
+      })[entry.source.name]
+      return vim_item
+    end,
+  },
 
   mapping = {
     ["<C-k>"] = cmp.mapping.select_prev_item(),
@@ -118,13 +114,8 @@ local options = {
     { name = "buffer" },
     { name = "nvim_lua" },
     { name = "path" },
+    { name = "rg" },
   },
 }
-
-if cmp_style ~= "atom" and cmp_style ~= "atom_colored" then
-  options.window.completion.border = border("CmpBorder")
-else
-  options.window.completion.border = border("FloatBorder")
-end
 
 return options

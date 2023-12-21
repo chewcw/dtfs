@@ -2,12 +2,6 @@ local opt = vim.opt
 local g = vim.g
 local config = require("core.utils").load_config()
 
--------------------------------------- globals -----------------------------------------
-g.nvchad_theme = config.ui.theme
-g.base46_cache = vim.fn.stdpath("data") .. "/nvchad/base46/"
-g.toggle_theme_icon = "   "
-g.transparency = config.ui.transparency
-
 -------------------------------------- options ------------------------------------------
 opt.laststatus = 3 -- global statusline
 opt.showmode = true
@@ -80,24 +74,6 @@ opt.guicursor = "n-v-sm:block,i-c-ci-ve:block,r-cr-o:hor30"
 opt.list = true
 opt.listchars:append("lead:·,multispace:·,trail:·")
 
--- abbrevation just for fun
-vim.cmd('abbrev zdegreec <C-v>u2103')
-vim.cmd('abbrev zdegree <C-v>u00b0')
-vim.cmd('abbrev zcopyright <C-v>u00a9')
-vim.cmd('abbrev zalmostequal <C-v>u2248')
-vim.cmd('abbrev zinfinity <C-v>u221e')
-vim.cmd('abbrev zmultiply <C-v>u00d7')
-vim.cmd('abbrev zdivideby <C-v>u00f7')
-vim.cmd('abbrev zplusminus <C-v>u00b1')
-vim.cmd('abbrev zarrowright <C-v>u2192')
-vim.cmd('abbrev zarrowleft <C-v>u2190')
-vim.cmd('abbrev zarrowup <C-v>u2191')
-vim.cmd('abbrev zarrowdown <C-v>u2193')
-vim.cmd('abbrev zcheck <C-v>u2713')
-vim.cmd('abbrev zchecklight <C-v>U1f5f8')
-vim.cmd('abbrev zcheckheavy <C-v>u2714')
-vim.cmd('abbrev zcheckbox <C-v>U1f5f9')
-
 -- disable some default providers
 for _, provider in ipairs({ "node", "perl", "python3", "ruby" }) do
   vim.g["loaded_" .. provider .. "_provider"] = 0
@@ -106,6 +82,12 @@ end
 -- add binaries installed by mason.nvim to path
 local is_windows = vim.loop.os_uname().sysname == "Windows_NT"
 vim.env.PATH = vim.env.PATH .. (is_windows and ";" or ":") .. vim.fn.stdpath("data") .. "/mason/bin"
+
+-- abbrevation
+require("core.abbrev")
+
+-- statusline
+require("core.statusline")
 
 -------------------------------------- autocmds ------------------------------------------
 local autocmd = vim.api.nvim_create_autocmd
@@ -129,35 +111,4 @@ vim.api.nvim_create_autocmd({"BufWinEnter"}, {
   pattern = {"*.*"},
   desc = "load view (folds), when opening file",
   command = "silent! loadview"
-})
-
--- reload some chadrc options on-save
-vim.api.nvim_create_autocmd("BufWritePost", {
-  pattern = vim.tbl_map(
-    vim.fs.normalize,
-    vim.fn.glob(vim.fn.stdpath("config") .. "/lua/custom/**/*.lua", true, true, true)
-  ),
-  group = vim.api.nvim_create_augroup("ReloadNvChad", {}),
-
-  callback = function(opts)
-    local fp = vim.fn.fnamemodify(vim.fs.normalize(vim.api.nvim_buf_get_name(opts.buf)), ":r") --[[@as string]]
-    local app_name = vim.env.NVIM_APPNAME and vim.env.NVIM_APPNAME or "nvim"
-    local module = string.gsub(fp, "^.*/" .. app_name .. "/lua/", ""):gsub("/", ".")
-
-    require("plenary.reload").reload_module("base46")
-    require("plenary.reload").reload_module(module)
-    require("plenary.reload").reload_module("custom.chadrc")
-
-    config = require("core.utils").load_config()
-
-    vim.g.nvchad_theme = config.ui.theme
-    vim.g.transparency = config.ui.transparency
-
-    -- statusline
-    require("plenary.reload").reload_module("nvchad.statusline." .. config.ui.statusline.theme)
-    vim.opt.statusline = "%!v:lua.require('nvchad.statusline." .. config.ui.statusline.theme .. "').run()"
-
-    require("base46").load_all_highlights()
-    vim.cmd("redraw!")
-  end,
 })

@@ -9,37 +9,6 @@ local default_plugins = {
   },
 
   {
-    "NvChad/base46",
-    branch = "v2.0",
-    commit = "919af1c",
-    build = function()
-      require("base46").load_all_highlights()
-    end,
-  },
-
-  {
-    "NvChad/ui",
-    branch = "v2.0",
-    commit = "b3a343e",
-    lazy = false,
-  },
-
-  -- {
-  -- 	"NvChad/nvim-colorizer.lua",
-  -- 	init = function()
-  -- 		require("core.utils").lazy_load("nvim-colorizer.lua")
-  -- 	end,
-  -- 	config = function(_, opts)
-  -- 		require("colorizer").setup(opts)
-
-  -- 		-- execute colorizer as soon as possible
-  -- 		vim.defer_fn(function()
-  -- 			require("colorizer").attach_to_buffer(0)
-  -- 		end, 0)
-  -- 	end,
-  -- },
-
-  {
     "nvim-tree/nvim-web-devicons",
     opts = function()
       return require("plugins.configs.others").webdevicons
@@ -61,7 +30,6 @@ local default_plugins = {
     end,
     config = function(_, opts)
       require("core.utils").load_mappings("blankline")
-      dofile(vim.g.base46_cache .. "blankline")
       require("indent_blankline").setup(opts)
     end,
     branch = "master",
@@ -79,7 +47,7 @@ local default_plugins = {
       return require("plugins.configs.treesitter")
     end,
     config = function(_, opts)
-      dofile(vim.g.base46_cache .. "syntax")
+      -- dofile(vim.g.base46_cache .. "syntax")
       require("nvim-treesitter.configs").setup(opts)
     end,
     branch = "master",
@@ -109,7 +77,7 @@ local default_plugins = {
       return require("plugins.configs.others").gitsigns
     end,
     config = function(_, opts)
-      dofile(vim.g.base46_cache .. "git")
+      -- dofile(vim.g.base46_cache .. "git")
       require("gitsigns").setup(opts)
     end,
     branch = "main",
@@ -124,10 +92,9 @@ local default_plugins = {
       return require("plugins.configs.mason")
     end,
     config = function(_, opts)
-      dofile(vim.g.base46_cache .. "mason")
       require("mason").setup(opts)
 
-      -- custom nvchad cmd to install all mason binaries listed
+      -- custom cmd to install all mason binaries listed
       vim.api.nvim_create_user_command("MasonInstallAll", function()
         vim.cmd("MasonInstall " .. table.concat(opts.ensure_installed, " "))
       end, {})
@@ -166,20 +133,18 @@ local default_plugins = {
     "hrsh7th/nvim-cmp",
     event = "InsertEnter",
     dependencies = {
-      {
-        -- snippet plugin
-        "L3MON4D3/LuaSnip",
-        dependencies = "rafamadriz/friendly-snippets",
-        opts = { history = true, updateevents = "TextChanged,TextChangedI" },
-        config = function(_, opts)
-          require("plugins.configs.others").luasnip(opts)
-        end,
-        branch = "master",
-        commit = "ea7d7ea",
-      },
-
       -- cmp sources plugins
       {
+        {
+          "L3MON4D3/LuaSnip",
+          dependencies = "rafamadriz/friendly-snippets",
+          opts = { history = true, updateevents = "TextChanged,TextChangedI" },
+          config = function(_, opts)
+            require("plugins.configs.others").luasnip(opts)
+          end,
+          branch = "master",
+          commit = "ea7d7ea",
+        },
         {
           "saadparwaiz1/cmp_luasnip",
           branch = "master",
@@ -205,6 +170,11 @@ local default_plugins = {
           branch = "main",
           commit = "91ff86c",
         },
+        {
+          "lukas-reineke/cmp-rg",
+          branch = "master",
+          commit = "677a787",
+        },
       },
     },
     opts = function()
@@ -229,7 +199,6 @@ local default_plugins = {
       return require("plugins.configs.nvimtree")
     end,
     config = function(_, opts)
-      dofile(vim.g.base46_cache .. "nvimtree")
       require("nvim-tree").setup(opts)
       vim.g.nvimtree_side = opts.view.side
     end,
@@ -252,7 +221,6 @@ local default_plugins = {
       return require("plugins.configs.telescope").options
     end,
     config = function(_, opts)
-      dofile(vim.g.base46_cache .. "telescope")
       local telescope = require("telescope")
       telescope.setup(opts)
       -- load extensions
@@ -349,9 +317,8 @@ local default_plugins = {
         "renderer",
         wilder.popupmenu_renderer(wilder.popupmenu_border_theme({
           highlights = {
-            border = "Normal",
+            border = "FloatBorder",
           },
-          border = "single",
         }))
       )
     end,
@@ -485,6 +452,16 @@ local default_plugins = {
     commit = "a923f5f",
   },
 
+  {
+    "blazkowolf/gruber-darker.nvim",
+    lazy = false,
+    init = function()
+      vim.cmd.colorscheme("gruber-darker")
+    end,
+    branch = "main",
+    commit = "3d1bf7f",
+  },
+
   -- Only load whichkey after all the gui
   {
     "folke/which-key.nvim",
@@ -496,7 +473,6 @@ local default_plugins = {
       return require("plugins.configs.others").whichkey
     end,
     config = function(_, opts)
-      dofile(vim.g.base46_cache .. "whichkey")
       require("which-key").setup(opts)
     end,
     branch = "main",
