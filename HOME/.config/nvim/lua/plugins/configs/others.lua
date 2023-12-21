@@ -98,10 +98,10 @@ M.nvim_autopairs = {
 }
 
 M.treesitter_context = {
-  separator = "-",
-  max_lines = 2,
+  separator = "┉",
+  max_lines = 5,
   multiline_threshold = 2,
-  mode = "cursor",
+  mode = "topline",
 }
 
 return M
