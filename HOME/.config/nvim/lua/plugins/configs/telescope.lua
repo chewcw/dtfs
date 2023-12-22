@@ -369,9 +369,9 @@ M.options = {
 M.border = function()
   vim.cmd([[highlight! link TelescopeBorder FloatBorder]])
   vim.cmd([[highlight! link TelescopePromptBorder FloatBorder]])
-  vim.cmd([[highlight TelescopePreviewBorder guifg=#b6d7a8]])
-  vim.cmd([[highlight link TelescopeBorder NormalFloat]])
-  vim.cmd([[highlight link TelescopePromptBorder NormalFloat]])
+  -- vim.cmd([[highlight TelescopePreviewBorder guifg=#b6d7a8]])
+  vim.cmd([[highlight link TelescopeBorder FloatBorder]])
+  vim.cmd([[highlight link TelescopePromptBorder FloatBorder]])
   vim.cmd([[highlight! link TelescopePromptNormal Normal]])
   vim.cmd([[highlight! link TelescopeNormal Normal]])
 end

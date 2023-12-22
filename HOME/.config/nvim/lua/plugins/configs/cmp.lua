@@ -28,10 +28,23 @@ local kind_icons = {
   TypeParameter = "󰅲",
 }
 
+local function border(hl_name)
+  return {
+    { "┌", hl_name },
+    { "─", hl_name },
+    { "┐", hl_name },
+    { "│", hl_name },
+    { "┘", hl_name },
+    { "─", hl_name },
+    { "└", hl_name },
+    { "│", hl_name },
+  }
+end
+
 local options = {
-  view = {
-    entries = { name = "native", selection_order = "near_cursor" },
-  },
+  -- view = {
+  --   entries = { name = "native", selection_order = "near_cursor" },
+  -- },
 
   snippet = {
     expand = function(args)
@@ -40,19 +53,18 @@ local options = {
   },
 
   window = {
-    completion = {
-      completeopt = "menu,menuone",
-      winhighlight = "Normal:FloatBorder,FloatBorder:FloatBorder,Search:None",
-      scrollbar = false,
-      side_padding = 5,
-    },
-    documentation = {
-      winhighlight = "Normal:Pmenu,FloatBorder:FloatBorder,Search:None",
-    },
+    documentation = cmp.config.window.bordered({
+      winhighlight = 'Normal:FloatBorder,CursorLine:PmenuSel,Search:None',
+      border = border("FloatBorder"),
+    }),
+    completion = cmp.config.window.bordered({
+      winhighlight = 'Normal:Pmenu,FloatBorder:Pmenu,CursorLine:PmenuSel,Search:FloatBorder',
+      border = border("FloatBorder"),
+    }),
   },
 
   formatting = {
-    fields = { "abbr", "kind" },
+    fields = { "abbr", "kind", "menu" },
 
     format = function(entry, vim_item)
       vim_item.kind = string.format("%s %s", kind_icons[vim_item.kind], vim_item.kind)

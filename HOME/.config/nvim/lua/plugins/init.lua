@@ -452,14 +452,24 @@ local default_plugins = {
     commit = "a923f5f",
   },
 
+  -- {
+  --   "blazkowolf/gruber-darker.nvim",
+  --   lazy = false,
+  --   init = function()
+  --     -- vim.cmd.colorscheme("gruber-darker")
+  --   end,
+  --   branch = "main",
+  --   commit = "3d1bf7f",
+  -- },
+
   {
-    "blazkowolf/gruber-darker.nvim",
+    "savq/melange-nvim",
     lazy = false,
     init = function()
-      vim.cmd.colorscheme("gruber-darker")
+      vim.cmd.colorscheme("melange")
     end,
-    branch = "main",
-    commit = "3d1bf7f",
+    branch = "master",
+    commit = "ca3444c",
   },
 
   -- Only load whichkey after all the gui
