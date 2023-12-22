@@ -11,7 +11,7 @@ M.load_highlight_group = function()
   vim.api.nvim_set_hl(0, "DiagnosticUnderlineHint", { undercurl = true })
   vim.api.nvim_set_hl(0, "DiagnosticUnnecessary", {
     undercurl = true,
-    foreground = vim.api.nvim_get_hl_by_name("NonText", {}).foreground,
+    foreground = vim.api.nvim_get_hl_by_name("Label", {}).foreground,
   })
   local diagnosticError = vim.api.nvim_get_hl_by_name("DiagnosticError", {})
   vim.api.nvim_set_hl(
@@ -53,8 +53,8 @@ M.load_highlight_group = function()
 
   -- LspInfo border
   -- LspInfo was linked to Label highlight group
-  vim.cmd([[highlight! link LspInfoBorder Label]])
-  vim.api.nvim_set_hl(0, "LspInfoBorder", { link = "FloatBorder" })
+  -- vim.cmd([[highlight! link LspInfoBorder Label]])
+  -- vim.api.nvim_set_hl(0, "LspInfoBorder", { link = "FloatBorder" })
 
   -- nvimdiff
   vim.api.nvim_set_hl(0, "DiffAdd", { ctermbg = 0, bg = "#132f33" })
@@ -69,30 +69,40 @@ M.load_highlight_group = function()
   vim.api.nvim_set_hl(0, "DiffNewFile", { ctermbg = 0, bg = "#3c4e77" })
 
   -- visual
-  vim.api.nvim_set_hl(0, "Visual", { fg = "LightGray", bg = "#3d484c" })
+  -- vim.api.nvim_set_hl(0, "Visual", { fg = "LightGray", bg = "#3d484c" })
 
   -- treesitter context
-  vim.api.nvim_set_hl(0, "TreesitterContextSeparator", { link = "NormalFloat" })
+  -- vim.api.nvim_set_hl(0, "TreesitterContextSeparator", { link = "NormalFloat" })
+  vim.api.nvim_set_hl(0, "TreesitterContext", { default })
 
   -- color column
   vim.api.nvim_set_hl(0, "ColorColumn", { bg = "#151515" })
 
-  -- blankline space tab listchars
+  -- space tab listchars
   vim.api.nvim_set_hl(0, "Label", { fg = "#555757" })
   vim.api.nvim_set_hl(0, "Whitespace", { fg = "#1d2324" })
+
+  -- indent-blankline
+  vim.api.nvim_set_hl(0, "IndentBlanklineChar", { fg = "#1d2324" })
+  vim.api.nvim_set_hl(0, "IndentBlanklineSpaceChar", { link = "IndentBlanklineChar" })
+  vim.api.nvim_set_hl(0, "IndentBlanklineSpaceCharBlankline", { link = "IndentBlanklineChar" })
+  vim.api.nvim_set_hl(0, "IndentBlanklineContextChar", { default, bg = vim.api.nvim_get_hl_by_name("Whitespace", {}).foreground })
+  vim.api.nvim_set_hl(0, "IndentBlanklineContextSpaceChar", { default })
 
   -- general
   vim.cmd([[ highlight! String cterm=NONE gui=NONE ]])
   vim.api.nvim_set_hl(0, "Character", { link = "String" })
-  vim.api.nvim_set_hl(0, "Comment", { link = "NonText" })
+  vim.api.nvim_set_hl(0, "Comment", { link = "Label" })
 
   -- cursor line
-  vim.api.nvim_set_hl(0, "CursorLine", { bg = "#151515" })
+  vim.api.nvim_set_hl(0, "LineNr", { link = "Whitespace" })
+  -- vim.api.nvim_set_hl(0, "CursorLine", { bg = "#151515" })
+  vim.api.nvim_set_hl(0, "CursorLine", { default })
   vim.api.nvim_set_hl(0, "CursorLineNr", { link = "Statement" })
 
   -- popup menu
-  vim.api.nvim_set_hl(0, "PmenuSbar", { link = "Pmenu" })
-  vim.api.nvim_set_hl(0, "PmenuThumb", { link = "Pmenu" })
+  -- vim.api.nvim_set_hl(0, "PmenuSbar", { link = "Pmenu" })
+  -- vim.api.nvim_set_hl(0, "PmenuThumb", { link = "Pmenu" })
 end
 
 M.load_config = function()
