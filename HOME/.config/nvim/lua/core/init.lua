@@ -7,7 +7,7 @@ opt.laststatus = 3 -- global statusline
 opt.showmode = true
 
 opt.clipboard = "unnamedplus"
-opt.cursorline = true
+opt.cursorline = false
 
 -- Indenting
 opt.expandtab = true
@@ -16,7 +16,7 @@ opt.tabstop = 2
 opt.softtabstop = 2
 opt.smartindent = true
 
-opt.fillchars = { eob = " " }
+opt.fillchars = { eob = "~" }
 opt.ignorecase = false
 opt.smartcase = true
 opt.mouse = "a"

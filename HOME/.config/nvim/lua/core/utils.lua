@@ -9,6 +9,10 @@ M.load_highlight_group = function()
   vim.api.nvim_set_hl(0, "DiagnosticUnderlineWarn", { undercurl = true })
   vim.api.nvim_set_hl(0, "DiagnosticUnderlineInfo", { undercurl = true })
   vim.api.nvim_set_hl(0, "DiagnosticUnderlineHint", { undercurl = true })
+  vim.api.nvim_set_hl(0, "DiagnosticUnnecessary", {
+    undercurl = true,
+    foreground = vim.api.nvim_get_hl_by_name("NonText", {}).foreground,
+  })
   local diagnosticError = vim.api.nvim_get_hl_by_name("DiagnosticError", {})
   vim.api.nvim_set_hl(
     0,

@@ -76,11 +76,11 @@ local options = {
     ["<C-e>"] = cmp.mapping.close(),
     ["<C-q>"] = cmp.mapping.abort(),
     ["<CR>"] = cmp.mapping.confirm({
-      behavior = cmp.ConfirmBehavior.Replace,
+      behavior = cmp.ConfirmBehavior.Insert,
       select = false,
     }),
     ["<Tab>"] = cmp.mapping.confirm({
-      behavior = cmp.ConfirmBehavior.Replace,
+      behavior = cmp.ConfirmBehavior.Insert,
       select = false,
     }),
     -- ["<Tab>"] = cmp.mapping(function(fallback)
