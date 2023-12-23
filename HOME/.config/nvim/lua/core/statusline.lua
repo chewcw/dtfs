@@ -32,32 +32,35 @@ local function lsp()
   local warnings = ""
   local hints = ""
   local info = ""
+  local lsp_server_count = ""
 
   if count["errors"] ~= 0 then
-    errors = " %#LspDiagnosticsSignError# " .. count["errors"]
+    errors = " %#LspDiagnosticsSignError#☠  " .. count["errors"]
   end
   if count["warnings"] ~= 0 then
-    warnings = " %#LspDiagnosticsSignWarning# " .. count["warnings"]
+    warnings = " %#LspDiagnosticsSignWarning#  " .. count["warnings"]
   end
   if count["hints"] ~= 0 then
-    hints = " %#LspDiagnosticsSignHint# " .. count["hints"]
+    hints = " %#LspDiagnosticsSignHint#⚙ " .. count["hints"]
   end
   if count["info"] ~= 0 then
-    info = " %#LspDiagnosticsSignInformation# " .. count["info"]
+    info = " %#LspDiagnosticsSignInformation#🛈  " .. count["info"]
   end
 
-  return errors .. warnings .. hints .. info .. "%#Normal#"
+  lsp_server_count = " lsp: " .. vim.tbl_count(vim.lsp.get_active_clients())
+
+  return lsp_server_count .. errors .. warnings .. hints .. info .. "%#Normal#"
 end
 
 local function filetype()
-  return string.format(" %s ", vim.bo.filetype):upper()
+  return string.format(" %s ", vim.bo.filetype)
 end
 
 local function lineinfo()
   if vim.bo.filetype == "alpha" then
     return ""
   end
-  return " %P %l:%c "
+  return " %l:%c "
 end
 
 local vcs = function()
@@ -93,14 +96,16 @@ Statusline = {}
 
 Statusline.active = function()
   return table.concat {
-    "%#Normal# ",
     filepath(),
     filename(),
+    " | ",
     vcs(),
-    "%#Normal#",
-    lsp(),
+    " | ",
     "%=%#StatusLineExtra#",
+    lsp(),
+    " | ",
     filetype(),
+    " | ",
     lineinfo(),
   }
 end
