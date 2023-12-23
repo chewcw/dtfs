@@ -1,60 +1,10 @@
 local utils_window = require("core.utils_window")
-
+local telescope_utils = require("plugins.configs.telescope_utils")
 
 local M = {}
 
 local picker_width = vim.o.columns
 local picker_height = 0.45
-
--- when find_files or live_grep, the picker only shows files in the same folder
--- this function can let us select the folder as working direcotory
--- so that the picker can show all files or folders under that directory
--- reference https://github.com/nvim-telescope/telescope.nvim/issues/2201#issuecomment-1284691502
-local ts_select_dir_for_grep_or_find_files = function(grep)
-  local select_cwd = function(_)
-    -- this global variable is set in mappings
-    -- to identify this is a "all" search - including .gitignore files
-    -- or "normal" search - without .gitignore files
-    local no_ignore = false
-    if vim.g.find_files_type == "all" then
-      no_ignore = true
-    end
-
-    local action_state = require("telescope.actions.state")
-    local fb = require("telescope").extensions.file_browser
-    -- this is live grep or find_files?
-    local grep_or_find_files = require("telescope.builtin").live_grep
-    if not grep then
-      grep_or_find_files = require("telescope.builtin").find_files
-    end
-    local current_line = action_state.get_current_line()
-
-    fb.file_browser({
-      files = false,
-      depth = true,
-      hidden = false,
-      cwd = vim.fn.getcwd(),
-      attach_mappings = function(_)
-        require("telescope.actions").select_default:replace(function()
-          local entry_path = action_state.get_selected_entry().Path
-          local dir = entry_path:is_dir() and entry_path or entry_path:parent()
-          local relative = dir:make_relative(vim.fn.getcwd())
-          local absolute = dir:absolute()
-          grep_or_find_files({
-            results_title = relative .. "/",
-            cwd = absolute,
-            default_text = current_line,
-            no_ignore = no_ignore,
-            follow = true,
-          })
-        end)
-        return true
-      end,
-    })
-  end
-  return select_cwd
-end
-
 
 -- https://github.com/nvim-telescope/telescope.nvim/issues/2024
 local last_search = nil
@@ -73,43 +23,11 @@ M.resume_with_cache = function()
   end
 end
 
-local select_window_to_open = function(prompt_bufnr)
-  local entry = require("telescope.actions.state").get_selected_entry(prompt_bufnr)
-
-  -- new file
-  if type(entry[1]) == "string" and entry.lnum == nil and entry.col == nil then
-    utils_window.open(entry[1], 0, 0)
-    -- live grep
-  elseif
-      type(entry[1]) == "string"
-      and string.match(entry[1], ":") == ":"
-      and entry.lnum ~= nil
-      and entry.col ~= nil
-      and getmetatable(entry) ~= nil
-  then
-    local end_of_file_name = string.find(entry[1], ":")
-    local file_name = string.sub(entry[1], 1, end_of_file_name - 1)
-    local cwd = getmetatable(entry).cwd
-    utils_window.open(cwd .. "/" .. file_name, entry.lnum, entry.col - 1)
-    -- not a new file i.e. reference, etc.
-  elseif entry.value.filename ~= nil and entry.value.lnum ~= nil and entry.value.col ~= nil then
-    utils_window.open(entry.value.filename, entry.value.lnum, entry.value.col - 1)
-    -- buffer
-  elseif entry.filename ~= nil and entry.lnum ~= nil then
-    utils_window.open(entry.filename, entry.lnum, 0)
-    -- git status
-  elseif type(entry[1]) ~= "string" and entry.path ~= nil then
-    utils_window.open(entry.path, 0, 0)
-  else
-    print("invalid")
-  end
-end
-
 M.options = {
   defaults = {
       vimgrep_arguments = {
         "rg",
-        "-L",
+        "--follow",
         "--smart-case",
         "--color=never",
         "--no-heading",
@@ -222,7 +140,7 @@ M.options = {
             return insert_mode
           end)(),
           -- select window (which split) to open
-          ["<BS>"] = select_window_to_open,
+          ["<BS>"] = telescope_utils.select_window_to_open,
           -- toggle preview
           ["<C-p>"] = require("telescope.actions.layout").toggle_preview,
         },
@@ -322,10 +240,10 @@ M.options = {
     live_grep = {
       mappings = {
         i = {
-          ["<C-f>"] = ts_select_dir_for_grep_or_find_files(true),
+          ["<C-f>"] = telescope_utils.ts_select_dir_for_grep_or_find_files(true),
         },
         n = {
-          ["<C-f>"] = ts_select_dir_for_grep_or_find_files(true),
+          ["<C-f>"] = telescope_utils.ts_select_dir_for_grep_or_find_files(true),
         },
       },
     },
@@ -333,10 +251,10 @@ M.options = {
     find_files = {
       mappings = {
         i = {
-          ["<C-f>"] = ts_select_dir_for_grep_or_find_files(false),
+          ["<C-f>"] = telescope_utils.ts_select_dir_for_grep_or_find_files(false),
         },
         n = {
-          ["<C-f>"] = ts_select_dir_for_grep_or_find_files(false),
+          ["<C-f>"] = telescope_utils.ts_select_dir_for_grep_or_find_files(false),
         },
       },
     },
@@ -358,22 +276,11 @@ M.options = {
     git_status = {
       mappings = {
         n = {
-          ["<BS>"] = select_window_to_open,
+          ["<BS>"] = telescope_utils.select_window_to_open,
         },
       },
     },
   },
 }
-
--- override the border color in telescope picker
-M.border = function()
-  vim.cmd([[highlight! link TelescopeBorder FloatBorder]])
-  vim.cmd([[highlight! link TelescopePromptBorder FloatBorder]])
-  -- vim.cmd([[highlight TelescopePreviewBorder guifg=#b6d7a8]])
-  vim.cmd([[highlight link TelescopeBorder FloatBorder]])
-  vim.cmd([[highlight link TelescopePromptBorder FloatBorder]])
-  vim.cmd([[highlight! link TelescopePromptNormal Normal]])
-  vim.cmd([[highlight! link TelescopeNormal Normal]])
-end
 
 return M
