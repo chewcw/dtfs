@@ -26,8 +26,8 @@ M.blankline = {
   show_first_indent_level = true,
   show_current_context = true,
   show_current_context_start = false,
-  char = "⸾",
-  context_char = "⸾",
+  char = "|",
+  context_char = "·",
 }
 
 M.luasnip = function(opts)
@@ -64,7 +64,7 @@ M.gitsigns = {
     delete = { hl = "DiffDelete", text = " " },
     topdelete = { hl = "DiffDelete", text = " " },
     changedelete = { hl = "DiffChangeDelete", text = " " },
-    untracked = { hl = "GitSignsAdd", text = " " },
+    untracked = { hl = "DiffNewFile", text = " " },
   },
   on_attach = function(bufnr)
     utils.load_mappings("gitsigns", { buffer = bufnr })

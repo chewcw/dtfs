@@ -56,7 +56,7 @@ M.load_highlight_group = function()
   -- vim.cmd([[highlight! link LspInfoBorder Label]])
   -- vim.api.nvim_set_hl(0, "LspInfoBorder", { link = "FloatBorder" })
 
-  -- nvimdiff
+  -- diff
   vim.api.nvim_set_hl(0, "DiffAdd", { ctermbg = 0, bg = "#132f33" })
   vim.api.nvim_set_hl(0, "DiffAdded", { ctermbg = 0, bg = "#132f33" })
   vim.api.nvim_set_hl(0, "DiffChange", { ctermbg = 0, fg = "#c5c5c6", bg = "#05294a" })
@@ -103,6 +103,15 @@ M.load_highlight_group = function()
   -- popup menu
   -- vim.api.nvim_set_hl(0, "PmenuSbar", { link = "Pmenu" })
   -- vim.api.nvim_set_hl(0, "PmenuThumb", { link = "Pmenu" })
+
+  -- telescope related
+  vim.cmd([[highlight! link TelescopeBorder FloatBorder]])
+  vim.cmd([[highlight! link TelescopePromptBorder FloatBorder]])
+  -- vim.cmd([[highlight TelescopePreviewBorder guifg=#b6d7a8]])
+  vim.cmd([[highlight link TelescopeBorder FloatBorder]])
+  vim.cmd([[highlight link TelescopePromptBorder FloatBorder]])
+  vim.cmd([[highlight! link TelescopePromptNormal Normal]])
+  vim.cmd([[highlight! link TelescopeNormal Normal]])
 end
 
 M.load_config = function()
