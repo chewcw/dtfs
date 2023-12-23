@@ -42,10 +42,6 @@ local function border(hl_name)
 end
 
 local options = {
-  -- view = {
-  --   entries = { name = "native", selection_order = "near_cursor" },
-  -- },
-
   snippet = {
     expand = function(args)
       require("luasnip").lsp_expand(args.body)
@@ -58,6 +54,7 @@ local options = {
       border = border("FloatBorder"),
     }),
     completion = cmp.config.window.bordered({
+      completeopt = "menu,menuone",
       winhighlight = 'Normal:Pmenu,FloatBorder:Pmenu,CursorLine:PmenuSel,Search:FloatBorder',
       border = border("FloatBorder"),
     }),
@@ -89,11 +86,11 @@ local options = {
     ["<C-q>"] = cmp.mapping.abort(),
     ["<CR>"] = cmp.mapping.confirm({
       behavior = cmp.ConfirmBehavior.Insert,
-      select = false,
+      select = true,
     }),
     ["<Tab>"] = cmp.mapping.confirm({
       behavior = cmp.ConfirmBehavior.Insert,
-      select = false,
+      select = true,
     }),
     -- ["<Tab>"] = cmp.mapping(function(fallback)
     -- 	if cmp.visible() then
