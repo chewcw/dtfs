@@ -417,8 +417,8 @@ M.nvimtree = {
 
   n = {
     -- toggle
-    ["<C-n>"] = { "<cmd> NvimTreeToggle <CR>", "toggle nvimtree" },
-    ["<C-f>"] = { "<cmd> NvimTreeFindFile <CR>", "find file in nvimtree" },
+    ["<C-n><C-n>"] = { "<cmd> NvimTreeToggle <CR>", "toggle nvimtree" },
+    ["<C-n><C-f>"] = { "<cmd> NvimTreeFindFile <CR>", "find file in nvimtree" },
   },
 }
 

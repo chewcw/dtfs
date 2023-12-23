@@ -227,8 +227,6 @@ local default_plugins = {
       for _, ext in ipairs(opts.extensions_list) do
         telescope.load_extension(ext)
       end
-      -- update border style
-      require("plugins.configs.telescope").border()
     end,
     branch = "master",
     commit = "6b79d7a",
