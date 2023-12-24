@@ -211,8 +211,8 @@ M.general = {
     ["gl"] = { '"_yiw?\\w\\+\\_W\\+\\%#<CR>:s/\\(\\%#\\w\\+\\)\\(\\_W\\+\\)\\(\\w\\+\\)/\\3\\2\\1/<CR>``:redraw<CR>:nohlsearch<CR>' },
 
     -- https://stackoverflow.com/a/1269631
-    ["<C-w>tk"] = { "<C-w>t<C-w>K", "switch from vertical split to horizontal split" },
-    ["<C-w>th"] = { "<C-w>t<C-w>H", "switch from horizontal split to vertical split" },
+    ["<C-w>th"] = { "<C-w>t<C-w>K", "switch from vertical split to horizontal split" },
+    ["<C-w>tv"] = { "<C-w>t<C-w>H", "switch from horizontal split to vertical split" },
 
     -- for nvimdiff
     ["<leader>ggl"] = { ":diffget LOCAL <CR>", "diffget from local" },
