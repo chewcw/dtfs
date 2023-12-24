@@ -35,32 +35,40 @@ local function lsp()
   local lsp_server_count = ""
 
   if count["errors"] ~= 0 then
-    errors = " %#LspDiagnosticsSignError#☠  " .. count["errors"]
+    errors = " %#LspDiagnosticsSignError#E" .. count["errors"]
   end
   if count["warnings"] ~= 0 then
-    warnings = " %#LspDiagnosticsSignWarning#  " .. count["warnings"]
+    warnings = " %#LspDiagnosticsSignWarning#W" .. count["warnings"]
   end
   if count["hints"] ~= 0 then
-    hints = " %#LspDiagnosticsSignHint#⚙ " .. count["hints"]
+    hints = " %#LspDiagnosticsSignHint#H" .. count["hints"]
   end
   if count["info"] ~= 0 then
-    info = " %#LspDiagnosticsSignInformation#🛈  " .. count["info"]
+    info = " %#LspDiagnosticsSignInformation#I" .. count["info"]
   end
 
-  lsp_server_count = " lsp: " .. vim.tbl_count(vim.lsp.get_active_clients())
+  lsp_servers = vim.lsp.get_active_clients()
+  lsp_server_names = ""
+  for _, server in ipairs(lsp_servers) do
+    if lsp_server_names == "" then
+      lsp_server_names = server.name
+    else
+      lsp_server_names = lsp_server_names .. "," .. server.name
+    end
+  end
 
-  return lsp_server_count .. errors .. warnings .. hints .. info .. "%#Normal#"
+  return "%#Structure#" .. lsp_server_names .. errors .. warnings .. hints .. info
 end
 
 local function filetype()
-  return string.format(" %s ", vim.bo.filetype)
+  return "%#Normal#" .. vim.bo.filetype
 end
 
 local function lineinfo()
   if vim.bo.filetype == "alpha" then
     return ""
   end
-  return " %l:%c "
+  return "%#Normal#" .. " %l:%c "
 end
 
 local vcs = function()
@@ -103,8 +111,6 @@ Statusline.active = function()
     " | ",
     "%=%#StatusLineExtra#",
     lsp(),
-    " | ",
-    filetype(),
     " | ",
     lineinfo(),
   }
