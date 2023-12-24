@@ -114,16 +114,19 @@ echo "------------------------------------------"
 # when press caps with another key, send ctrl
 # caps2esc
 # see: https://gitlab.com/interception/linux/plugins/caps2esc
-# by default wihout any configuration this will swap capslock and escape
+# by default without any configuration this will swap capslock and escape
 # sudo add-apt-repository ppa:deafmute/interception
 # all docs I see online are using `intercept`, but in debian,
 # somehow the command is called `interception`
+# ########### updated, the keymap has been modified by myself to suit my needs:
+# see: https://gitlab.com/chewcw/caps2esc.git README
+# added another 2 special modes:
+# mode 3 for normal keyboard, mode 4 for 60% layouts keyboard
 
 sudo apt install -y interception-tools
-sudo apt install -y interception-caps2esc
-
+sudo wget https://gitlab.com/chewcw/caps2esc/-/raw/master/build/caps2esc?ref_type=heads -O /usr/bin/caps2esc
 sudo bash -c 'cat << EOF > /etc/interception/udevmon.yaml
-- JOB: "interception -g \$DEVNODE | caps2esc -m 0 | uinput -d \$DEVNODE"
+- JOB: "interception -g \$DEVNODE | caps2esc -m 3 | uinput -d \$DEVNODE"
   DEVICE:
       EVENTS:
         EV_KEY: [KEY_CAPSLOCK, KEY_ESC]
