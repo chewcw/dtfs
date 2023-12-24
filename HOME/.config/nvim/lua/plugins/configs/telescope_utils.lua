@@ -1,3 +1,5 @@
+local utils_window = require("core.utils_window")
+
 local M = {}
 
 -- when find_files or live_grep, the picker only shows files in the same folder
