@@ -460,14 +460,20 @@ local default_plugins = {
   --   commit = "3d1bf7f",
   -- },
 
+  -- {
+  --   "savq/melange-nvim",
+  --   init = function()
+  --     vim.cmd.colorscheme("melange")
+  --   end,
+  --   branch = "master",
+  --   commit = "ca3444c",
+  -- },
+
   {
-    "savq/melange-nvim",
-    lazy = false,
+    "kvrohit/rasmus.nvim",
     init = function()
-      vim.cmd.colorscheme("melange")
+      vim.cmd.colorscheme("rasmus")
     end,
-    branch = "master",
-    commit = "ca3444c",
   },
 
   -- Only load whichkey after all the gui
