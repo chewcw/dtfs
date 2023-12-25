@@ -170,11 +170,6 @@ local default_plugins = {
           branch = "main",
           commit = "91ff86c",
         },
-        {
-          "lukas-reineke/cmp-rg",
-          branch = "master",
-          commit = "677a787",
-        },
       },
     },
     opts = function()
