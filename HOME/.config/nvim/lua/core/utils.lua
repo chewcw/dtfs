@@ -2,7 +2,6 @@ local M = {}
 local merge_tb = vim.tbl_deep_extend
 
 -- load custom highlight group
--- don't know where to put these code
 M.load_highlight_group = function()
   -- vim lsp related highlight group
   vim.api.nvim_set_hl(0, "DiagnosticUnderlineError", { undercurl = true })
@@ -11,7 +10,7 @@ M.load_highlight_group = function()
   vim.api.nvim_set_hl(0, "DiagnosticUnderlineHint", { undercurl = true })
   vim.api.nvim_set_hl(0, "DiagnosticUnnecessary", {
     undercurl = true,
-    foreground = vim.api.nvim_get_hl_by_name("Label", {}).foreground,
+    foreground = vim.api.nvim_get_hl_by_name("Conceal", {}).foreground,
   })
   local diagnosticError = vim.api.nvim_get_hl_by_name("DiagnosticError", {})
   vim.api.nvim_set_hl(
@@ -39,9 +38,58 @@ M.load_highlight_group = function()
   )
 
   -- normal
-  vim.api.nvim_set_hl(0, "Normal", { fg = "#e4e4e4", bg = "#050b0c" })
-  vim.api.nvim_set_hl(0, "NormalNC", { fg = "#e4e4e4", bg = "#141819" })
-  vim.api.nvim_set_hl(0, "NormalSB", { fg = "#e4e4e4", bg = "#141819" })
+  vim.api.nvim_set_hl(0, "Normal", { fg = "None", bg = "#050b0c" })
+  vim.api.nvim_set_hl(0, "NormalNC", { fg = "None", bg = "#141819" })
+  vim.api.nvim_set_hl(0, "NormalSB", { fg = "None", bg = "#141819" })
+
+  -- search highlight
+  vim.api.nvim_set_hl(0, "Search", { link = "Cursor" })
+  vim.api.nvim_set_hl(0, "IncSearch", { link = "Cursor" })
+
+  -- visual
+  vim.api.nvim_set_hl(0, "Visual", {
+    fg = "None",
+    bg = vim.api.nvim_get_hl_by_name("NonText", {}).foreground
+  })
+  vim.api.nvim_set_hl(0, "VisualNC", {
+    fg = "None",
+    bg = vim.api.nvim_get_hl_by_name("NonText", {}).foreground
+  })
+
+  -- float
+  vim.api.nvim_set_hl(0, "FloatBorder", {
+    bg = vim.api.nvim_get_hl_by_name("Normal", {}).background,
+    fg = vim.api.nvim_get_hl_by_name("Normal", {}).foreground,
+  })
+
+  -- split
+  vim.api.nvim_set_hl(0, "VertSplit", {
+      fg = vim.api.nvim_get_hl_by_name("VertSplit", {}).foreground,
+      bg = "None",
+    })
+
+  -- winbar
+  vim.api.nvim_set_hl(0, "WinBar", { link = "Normal" })
+  vim.api.nvim_set_hl(0, "WinBarNC", { link = "NormalNC" })
+
+  -- Pmenu
+  vim.api.nvim_set_hl(0, "Pmenu", { link = "FloatBorder" })
+  vim.api.nvim_set_hl(0, "PmenuSBar", { default })
+
+  -- whichkey
+  vim.api.nvim_set_hl(0, "WhichKeyFloat", { link = "FloatBorder" })
+
+  -- statusline
+  vim.api.nvim_set_hl(0, "StatusLine", { link = "Normal" })
+  vim.api.nvim_set_hl(0, "StatusLineNC", { link = "NormalNC" })
+
+  -- sign column
+  vim.api.nvim_set_hl(0, "SignColumn", { bg = "NONE" })
+
+  -- nvimtree
+  vim.api.nvim_set_hl(0, "NvimTreeNormal", { link = "Normal" })
+  vim.api.nvim_set_hl(0, "NvimTreeNormalNC", { link = "NormalNC" })
+  vim.api.nvim_set_hl(0, "NvimTreeLineNr", { link = "Normal" })
 
   -- normal float
   local float = vim.api.nvim_get_hl_by_name("FloatBorder", {})
@@ -64,14 +112,18 @@ M.load_highlight_group = function()
   vim.api.nvim_set_hl(0, "DiffNewFile", { ctermbg = 0, bg = "#3c4e77" })
 
   -- treesitter context
-  vim.api.nvim_set_hl(0, "TreesitterContextSeparator", { default })
-  vim.api.nvim_set_hl(0, "TreesitterContext", { default })
+  vim.api.nvim_set_hl(0, "TreesitterContextSeparator", { link = "NonText"})
+  vim.api.nvim_set_hl(0, "TreesitterContext", { link = "Normal" })
+  vim.api.nvim_set_hl(0, "TreesitterContextLineNumber", {
+    fg = vim.api.nvim_get_hl_by_name("LineNr", {}).foreground,
+    bg = vim.api.nvim_get_hl_by_name("Normal", {}).background,
+  })
 
   -- color column
   vim.api.nvim_set_hl(0, "ColorColumn", { bg = "#141819" })
 
   -- space tab listchars
-  vim.api.nvim_set_hl(0, "Label", { fg = "#555757" })
+  -- vim.api.nvim_set_hl(0, "Label", { fg = "#555757" })
   vim.api.nvim_set_hl(0, "Whitespace", { fg = "#1d2324" })
 
   -- indent-blankline
@@ -81,23 +133,26 @@ M.load_highlight_group = function()
   vim.api.nvim_set_hl(0, "IndentBlanklineContextChar", { default, bg = vim.api.nvim_get_hl_by_name("Whitespace", {}).foreground })
   vim.api.nvim_set_hl(0, "IndentBlanklineContextSpaceChar", { default })
 
-  -- general
+  -- text
   vim.cmd([[ highlight! String cterm=NONE gui=NONE ]])
-  vim.api.nvim_set_hl(0, "Character", { link = "String" })
-  vim.api.nvim_set_hl(0, "Comment", { link = "Label" })
+  -- vim.api.nvim_set_hl(0, "Character", { link = "String" })
+  vim.api.nvim_set_hl(0, "Comment", { fg = vim.api.nvim_get_hl_by_name("Folded", {}).foreground })
+  vim.api.nvim_set_hl(0, "Special", { link = "Identifier" })
+  vim.api.nvim_set_hl(0, "Function", { fg = "#8d91d4" })
+  vim.api.nvim_set_hl(0, "Keyword", { fg = "#8d91d4" })
 
   -- cursor line
   vim.api.nvim_set_hl(0, "LineNr", { link = "Whitespace" })
   vim.api.nvim_set_hl(0, "CursorLine", { default })
   vim.api.nvim_set_hl(0, "CursorLineNr", { default })
 
-  -- telescope related
-  vim.cmd([[highlight! link TelescopeBorder FloatBorder]])
-  vim.cmd([[highlight! link TelescopePromptBorder FloatBorder]])
-  vim.cmd([[highlight link TelescopeBorder FloatBorder]])
-  vim.cmd([[highlight link TelescopePromptBorder FloatBorder]])
-  vim.cmd([[highlight! link TelescopePromptNormal Normal]])
-  vim.cmd([[highlight! link TelescopeNormal Normal]])
+  -- telescope
+  vim.api.nvim_set_hl(0, "TelescopeBorder", { link = "FloatBorder" })
+  vim.api.nvim_set_hl(0, "TelescopePromptBorder", { link = "FloatBorder" })
+  vim.api.nvim_set_hl(0, "TelescopeResultsBorder", { link = "FloatBorder" })
+  vim.api.nvim_set_hl(0, "TelescopePreviewBorder", { link = "FloatBorder" })
+  vim.api.nvim_set_hl(0, "TelescopePromptNormal", { link = "Normal" })
+  vim.api.nvim_set_hl(0, "TelescopeNormal", { link = "Normal" })
 end
 
 M.load_config = function()
