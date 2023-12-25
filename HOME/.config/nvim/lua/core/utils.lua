@@ -40,8 +40,8 @@ M.load_highlight_group = function()
 
   -- normal
   vim.api.nvim_set_hl(0, "Normal", { fg = "#e4e4e4", bg = "#050b0c" })
-  vim.api.nvim_set_hl(0, "NormalNC", { fg = "#e4e4e4", bg = "#050b0c" })
-  vim.api.nvim_set_hl(0, "NormalSB", { fg = "#e4e4e4", bg = "#050b0c" })
+  vim.api.nvim_set_hl(0, "NormalNC", { fg = "#e4e4e4", bg = "#141819" })
+  vim.api.nvim_set_hl(0, "NormalSB", { fg = "#e4e4e4", bg = "#141819" })
 
   -- normal float
   local float = vim.api.nvim_get_hl_by_name("FloatBorder", {})
@@ -50,11 +50,6 @@ M.load_highlight_group = function()
     foreground = float.foreground,
     background = normal.background,
   })
-
-  -- LspInfo border
-  -- LspInfo was linked to Label highlight group
-  -- vim.cmd([[highlight! link LspInfoBorder Label]])
-  -- vim.api.nvim_set_hl(0, "LspInfoBorder", { link = "FloatBorder" })
 
   -- diff
   vim.api.nvim_set_hl(0, "DiffAdd", { ctermbg = 0, bg = "#132f33" })
@@ -68,15 +63,12 @@ M.load_highlight_group = function()
   vim.api.nvim_set_hl(0, "DiffChangeDelete", { ctermbg = 0, bg = "#674ea7" })
   vim.api.nvim_set_hl(0, "DiffNewFile", { ctermbg = 0, bg = "#3c4e77" })
 
-  -- visual
-  -- vim.api.nvim_set_hl(0, "Visual", { fg = "LightGray", bg = "#3d484c" })
-
   -- treesitter context
-  -- vim.api.nvim_set_hl(0, "TreesitterContextSeparator", { link = "NormalFloat" })
+  vim.api.nvim_set_hl(0, "TreesitterContextSeparator", { default })
   vim.api.nvim_set_hl(0, "TreesitterContext", { default })
 
   -- color column
-  vim.api.nvim_set_hl(0, "ColorColumn", { bg = "#151515" })
+  vim.api.nvim_set_hl(0, "ColorColumn", { bg = "#141819" })
 
   -- space tab listchars
   vim.api.nvim_set_hl(0, "Label", { fg = "#555757" })
@@ -96,18 +88,12 @@ M.load_highlight_group = function()
 
   -- cursor line
   vim.api.nvim_set_hl(0, "LineNr", { link = "Whitespace" })
-  -- vim.api.nvim_set_hl(0, "CursorLine", { bg = "#151515" })
   vim.api.nvim_set_hl(0, "CursorLine", { default })
-  vim.api.nvim_set_hl(0, "CursorLineNr", { link = "Statement" })
-
-  -- popup menu
-  -- vim.api.nvim_set_hl(0, "PmenuSbar", { link = "Pmenu" })
-  -- vim.api.nvim_set_hl(0, "PmenuThumb", { link = "Pmenu" })
+  vim.api.nvim_set_hl(0, "CursorLineNr", { default })
 
   -- telescope related
   vim.cmd([[highlight! link TelescopeBorder FloatBorder]])
   vim.cmd([[highlight! link TelescopePromptBorder FloatBorder]])
-  -- vim.cmd([[highlight TelescopePreviewBorder guifg=#b6d7a8]])
   vim.cmd([[highlight link TelescopeBorder FloatBorder]])
   vim.cmd([[highlight link TelescopePromptBorder FloatBorder]])
   vim.cmd([[highlight! link TelescopePromptNormal Normal]])
