@@ -434,11 +434,11 @@ local default_plugins = {
     end,
   },
 
-  {
-    "tpope/vim-fugitive",
-    lazy = false,
-    branch = "master",
-  },
+  -- {
+  --   "tpope/vim-fugitive",
+  --   lazy = false,
+  --   branch = "master",
+  -- },
 
   {
     "iamcco/markdown-preview.nvim",
@@ -474,6 +474,18 @@ local default_plugins = {
     init = function()
       vim.cmd.colorscheme("rasmus")
     end,
+    branch = "main",
+    commit = "f824de9",
+  },
+
+  {
+    "NeogitOrg/neogit",
+    lazy = false,
+    config = function(_, opts)
+      require("neogit").setup(opts)
+    end,
+    branch = "master",
+    commit = "7b4a2c7",
   },
 
   -- Only load whichkey after all the gui

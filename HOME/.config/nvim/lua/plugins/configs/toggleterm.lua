@@ -27,7 +27,7 @@ local options = {
     border = "single",
   },
   winbar = {
-    enabled = true,
+    enabled = false,
   },
 }
 
