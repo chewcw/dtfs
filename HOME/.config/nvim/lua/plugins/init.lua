@@ -434,11 +434,11 @@ local default_plugins = {
     end,
   },
 
-  -- {
-  --   "tpope/vim-fugitive",
-  --   lazy = false,
-  --   branch = "master",
-  -- },
+  {
+    "tpope/vim-fugitive",
+    lazy = false,
+    branch = "master",
+  },
 
   {
     "iamcco/markdown-preview.nvim",
