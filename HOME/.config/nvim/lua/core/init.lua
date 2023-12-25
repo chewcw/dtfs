@@ -24,6 +24,7 @@ opt.fillchars = {
   vertleft = " ",
   horizup = " ",
   horizdown = " ",
+  verthoriz = " ",
 }
 opt.ignorecase = false
 opt.smartcase = true

@@ -111,6 +111,23 @@ M.load_highlight_group = function()
   vim.api.nvim_set_hl(0, "DiffChangeDelete", { ctermbg = 0, bg = "#674ea7" })
   vim.api.nvim_set_hl(0, "DiffNewFile", { ctermbg = 0, bg = "#3c4e77" })
 
+  -- neogit
+  vim.api.nvim_set_hl(0, "NeogitDiffAdd", { link = "DiffAdd" })
+  vim.api.nvim_set_hl(0, "NeogitDiffAdded", { link = "DiffAdded" })
+  vim.api.nvim_set_hl(0, "NeogitDiffChange", { link = "DiffChange" })
+  vim.api.nvim_set_hl(0, "NeogitDiffChanged", { link = "DiffChanged" })
+  vim.api.nvim_set_hl(0, "NeogitDiffDelete", { link = "DiffDelete" })
+  vim.api.nvim_set_hl(0, "NeogitDiffRemoved", { link = "DiffRemoved" })
+  vim.api.nvim_set_hl(0, "NeogitDiffText", { link = "DiffText" })
+  vim.api.nvim_set_hl(0, "NeogitDiffModified", { link = "DiffModified" })
+  vim.api.nvim_set_hl(0, "NeogitDiffChangeDelete", { link = "DiffChangeDelete" })
+  vim.api.nvim_set_hl(0, "NeogitDiffNewFile", { link = "DiffNewFile" })
+  vim.api.nvim_set_hl(0, "NeogitDiffAddHighlight", {})
+  vim.api.nvim_set_hl(0, "NeogitDiffcontext", { link = "NormalNC" })
+  vim.api.nvim_set_hl(0, "NeogitDiffContextHighlight", { link = "Normal" })
+  vim.api.nvim_set_hl(0, "NeogitDiffDeleteHighlight", {})
+  vim.api.nvim_set_hl(0, "NeogitDiffHeaderHighlight", {})
+
   -- treesitter context
   vim.api.nvim_set_hl(0, "TreesitterContextSeparator", { link = "NonText"})
   vim.api.nvim_set_hl(0, "TreesitterContext", { link = "Normal" })
