@@ -27,7 +27,7 @@ M.blankline = {
   show_current_context = true,
   show_current_context_start = false,
   char = "|",
-  context_char = "·",
+  context_char = " ",
 }
 
 M.luasnip = function(opts)
@@ -105,7 +105,7 @@ M.nvim_autopairs = {
 }
 
 M.treesitter_context = {
-  separator = "┉",
+  separator = " ",
   max_lines = 5,
   multiline_threshold = 2,
   mode = "topline",
