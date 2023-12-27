@@ -2,6 +2,23 @@ local utils_window = require("core.utils_window")
 
 local M = {}
 
+-- https://github.com/nvim-telescope/telescope.nvim/issues/2024
+local last_search = nil
+M.resume_with_cache = function()
+  local status1, telescope = pcall(require, "telescope.builtin")
+  local status2, telescope_state = pcall(require, "telescope.state")
+  if (status1 and status2) then
+    if last_search == nil then
+      telescope.resume()
+
+      local cached_pickers = telescope_state.get_global_key("cached_pickers") or {}
+      last_search = cached_pickers[1]
+    else
+      telescope.resume({ picker = last_search })
+    end
+  end
+end
+
 -- when find_files or live_grep, the picker only shows files in the same folder
 -- this function can let us select the folder as working direcotory
 -- so that the picker can show all files or folders under that directory

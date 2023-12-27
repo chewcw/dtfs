@@ -38,9 +38,9 @@ M.load_highlight_group = function()
   )
 
   -- normal
-  vim.api.nvim_set_hl(0, "Normal", { fg = "None", bg = "#050b0c" })
-  vim.api.nvim_set_hl(0, "NormalNC", { fg = "None", bg = "#141819" })
-  vim.api.nvim_set_hl(0, "NormalSB", { fg = "None", bg = "#141819" })
+  vim.api.nvim_set_hl(0, "Normal", { fg = "#bcbcbc", bg = "#050b0c" })
+  vim.api.nvim_set_hl(0, "NormalNC", { fg = "#bcbcbc", bg = "#141819" })
+  vim.api.nvim_set_hl(0, "NormalSB", { fg = "#bcbcbc", bg = "#141819" })
 
   -- search highlight
   vim.api.nvim_set_hl(0, "Search", { link = "Cursor" })

@@ -6,23 +6,6 @@ local M = {}
 local picker_width = vim.o.columns
 local picker_height = 0.45
 
--- https://github.com/nvim-telescope/telescope.nvim/issues/2024
-local last_search = nil
-M.resume_with_cache = function()
-  local status1, telescope = pcall(require, "telescope.builtin")
-  local status2, telescope_state = pcall(require, "telescope.state")
-  if (status1 and status2) then
-    if last_search == nil then
-      telescope.resume()
-
-      local cached_pickers = telescope_state.get_global_key("cached_pickers") or {}
-      last_search = cached_pickers[1]
-    else
-      telescope.resume({ picker = last_search })
-    end
-  end
-end
-
 M.options = {
   defaults = {
       vimgrep_arguments = {
