@@ -156,7 +156,9 @@ M.load_highlight_group = function()
   vim.api.nvim_set_hl(0, "Comment", { fg = vim.api.nvim_get_hl_by_name("Folded", {}).foreground })
   vim.api.nvim_set_hl(0, "Special", { link = "Identifier" })
   vim.api.nvim_set_hl(0, "Function", { fg = "#8d91d4" })
-  vim.api.nvim_set_hl(0, "Keyword", { fg = "#8d91d4" })
+  vim.api.nvim_set_hl(0, "Keyword", { fg = "#d4d08d" })
+  vim.api.nvim_set_hl(0, "Structure", { link = "Type" })
+  vim.api.nvim_set_hl(0, "Operator", { link = "Delimiter" })
 
   -- cursor line
   vim.api.nvim_set_hl(0, "LineNr", { link = "Whitespace" })
