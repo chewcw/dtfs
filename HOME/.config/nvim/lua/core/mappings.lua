@@ -449,7 +449,7 @@ M.telescope = {
 
     ["<leader>fr"] = {
       function()
-        local status, config_telescope = pcall(require, "plugins.configs.telescope")
+        local status, config_telescope = pcall(require, "plugins.configs.telescope_utils")
         if (status) then
           config_telescope.resume_with_cache()
         end
