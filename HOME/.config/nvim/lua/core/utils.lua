@@ -187,7 +187,9 @@ M.load_config = function()
     underline = true,
   })
 
-  M.load_highlight_group()
+  -- require("core.colorscheme_biscuit").setup()
+  require("core.colorscheme_rasmus").setup()
+  -- M.load_highlight_group()
 
   return config
 end

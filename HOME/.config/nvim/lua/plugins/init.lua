@@ -464,14 +464,14 @@ local default_plugins = {
   --   commit = "ca3444c",
   -- },
 
-  {
-    "kvrohit/rasmus.nvim",
-    init = function()
-      vim.cmd.colorscheme("rasmus")
-    end,
-    branch = "main",
-    commit = "f824de9",
-  },
+  -- {
+  --   "kvrohit/rasmus.nvim",
+  --   init = function()
+  --     vim.cmd.colorscheme("rasmus")
+  --   end,
+  --   branch = "main",
+  --   commit = "f824de9",
+  -- },
 
   {
     "NeogitOrg/neogit",
