@@ -139,7 +139,7 @@ M.setup = function()
     FoldColumn = { fg = c.main1 },
     IncSearch = { reverse = true },
     LineNr = { fg = c.gray05 },
-    CursorLineNr = { fg = c.gray07 },
+    CursorLineNr = { fg = c.main1 },
     MatchParen = { fg = c.yellow },
     ModeMsg = { fg = c.main4, bold = true },
     MoreMsg = { fg = c.main4, bold = true },
@@ -198,11 +198,11 @@ M.setup = function()
     Character = { fg = c.main4 },                                                                                -- any character constant: 'c', '\n'
     Number = { fg = c.main4 },                                                                                   -- a number constant: 5
     Float = { fg = c.main4 },                                                                                    -- a floating point constant: 2.3e10
-    Statement = { fg = c.main1 },                                                                                -- any statement
+    Statement = { fg = c.main2 },                                                                                -- any statement
     Label = { fg = c.main4 },                                                                                    -- case, default, etc.
     Operator = { fg = c.gray07 },                                                                               -- sizeof", "+", "*", etc.
     Exception = { fg = c.yellow },                                                                              -- try, catch, throw
-    PreProc = { fg = c.red },                                                                                   -- generic Preprocessor
+    PreProc = { fg = c.main1 },                                                                                   -- generic Preprocessor
     Include = { fg = c.main1 },                                                                                  -- preprocessor #include
     Define = { fg = c.main4 },                                                                                   -- preprocessor #define
     Macro = { fg = c.main1 },                                                                                    -- same as Define
@@ -213,7 +213,7 @@ M.setup = function()
     Tag = { fg = c.yellow },                                                                                    -- you can use CTRL-] on this
     Delimiter = { fg = c.gray07 },                                                                              -- character that needs attention like , or .
     SpecialComment = { fg = c.main1 },                                                                           -- special things inside a comment
-    Debug = { fg = c.red },                                                                                     -- debugging statements
+    Debug = { fg = c.main4 },                                                                                     -- debugging statements
     Underlined = { fg = c.main4, bg = c.none, underline = true },                                                -- text that stands out, HTML links
     Ignore = { fg = c.gray07 },                                                                                 -- left blank, hidden
     Error = { fg = c.red, bg = c.none, bold = true, underline = true },                                         -- any erroneous construct
@@ -260,8 +260,8 @@ M.setup = function()
     markdownCodeBlock = { fg = c.fg, bg = c.gray02 },
     markdownCodeDelimiter = { fg = c.fg, bg = c.gray02 },
     -- Dashboard
-    DashboardShortCut = { fg = c.red },
-    DashboardHeader = { fg = c.magenta },
+    DashboardShortCut = { fg = c.main4 },
+    DashboardHeader = { fg = c.main4 },
     DashboardCenter = { fg = c.main1 },
     DashboardFooter = { fg = c.main2, italic = true },
     -- TreeSitter highlight groups
@@ -305,7 +305,7 @@ M.setup = function()
     TSStringEscape = { fg = c.main4 },                                                                           -- For escape characters within a string.
     TSStringSpecial = { fg = c.main2 },                                                                         -- For strings with special meaning that don't fit into the above categories.
     TSSymbol = { fg = c.main2 },                                                                                -- For identifiers referring to symbols or atoms.
-    TSTag = { fg = c.yellow },                                                                                  -- Tags like html tag names.
+    TSTag = { fg = c.main2 },                                                                                  -- Tags like html tag names.
     TSTagAttribute = { fg = c.fg },                                                                             -- For html tag attributes.
     TSTagDelimiter = { fg = c.gray05 },                                                                         -- Tag delimiter like `<` `>` `/`
     TSText = { fg = c.fg },                                                                                     -- For strings considered text in a markup language.
@@ -370,15 +370,6 @@ M.setup = function()
     LspTroubleText = { fg = c.gray04 },
     LspTroubleCount = { fg = c.magenta, bg = c.gray03 },
     LspTroubleNormal = { fg = c.fg, bg = c.bg },
-    -- Diff
-    -- diffAdded = { fg = c.bright_green },
-    -- diffRemoved = { fg = c.bright_red },
-    -- diffChanged = { fg = c.bright_blue },
-    -- diffOldFile = { fg = c.gray04 },
-    -- diffNewFile = { fg = c.fg },
-    -- diffFile = { fg = c.gray05 },
-    -- diffLine = { fg = c.main4 },
-    -- diffIndexLine = { fg = c.magenta },
     -- GitSigns
     GitSignsAdd = { fg = c.bright_green },     -- diff mode: Added line |diff.txt|
     GitSignsAddNr = { fg = c.bright_green },   -- diff mode: Added line |diff.txt|
@@ -405,7 +396,7 @@ M.setup = function()
     NvimTreeSignColumn = { fg = c.fg, bg = c.none },
     NvimTreeImageFile = { fg = c.magenta },
     NvimTreeExecFile = { fg = c.main2 },
-    NvimTreeSpecialFile = { fg = c.magenta },
+    NvimTreeSpecialFile = {},
     NvimTreeFolderName = { fg = c.main1 },
     NvimTreeOpenedFolderName = { fg = c.bright_blue },
     NvimTreeOpenedFile = { fg = c.bright_blue },
@@ -417,16 +408,6 @@ M.setup = function()
     NvimTreeGitRenamed = { fg = c.yellow },
     NvimTreeGitNew = { fg = c.main2 },
     NvimTreeGitDeleted = { fg = c.red },
-    -- Ale-vim
-    ALEError = { fg = c.red },
-    ALEWarning = { fg = c.yellow },
-    ALEInfo = { fg = c.main1 },
-    ALEErrorSign = { fg = c.red },
-    ALEWarningSign = { fg = c.yellow },
-    ALEInfoSign = { fg = c.main1 },
-    ALEVirtualTextError = { fg = c.red },
-    ALEVirtualTextWarning = { fg = c.yellow },
-    ALEVirtualTextInfo = { fg = c.main1 },
     -- WhichKey
     WhichKey = { fg = c.bright_cyan },
     WhichKeyGroup = { fg = c.yellow },
@@ -435,48 +416,6 @@ M.setup = function()
     WhichKeyFloating = { bg = c.gray01 },
     WhichKeyFloat = { link = "FloatBorder" },
     WhichKeyNormal = { link = "Normal" },
-    -- LspSaga
-    LspSagaFinderSelection = { fg = c.magenta },
-    LspSagaLspFinderBorder = { fg = c.gray05 },
-    LspFloatWinNormal = { bg = c.bg },
-    LspFloatWinBorder = { fg = c.gray05 },
-    LspSagaBorderTitle = { fg = c.gray07 },
-    TargetWord = { fg = c.main4 },
-    ReferencesCount = { fg = c.gray07 },
-    DefinitionCount = { fg = c.gray07 },
-    TargetFileName = { fg = c.bright_blue },
-    DefinitionIcon = { fg = c.gray07 },
-    ReferencesIcon = { fg = c.gray07 },
-    ProviderTruncateLine = { fg = c.gray05 },
-    SagaShadow = { fg = c.gray05 },
-    DiagnosticTruncateLine = { fg = c.gray05 },
-    DiagnosticWarning = { fg = c.yellow },
-    DiagnosticInformation = { fg = c.main1 },
-    DefinitionPreviewTitle = { fg = c.gray07 },
-    LspSagaShTruncateLine = { fg = c.gray05 },
-    LspSagaDocTruncateLine = { fg = c.gray05 },
-    LspSagaCodeActionTitle = { fg = c.gray07 },
-    LspSagaCodeActionTruncateLine = { fg = c.gray05 },
-    LspSagaCodeActionContent = { fg = c.magenta },
-    LspSagaRenamePromptPrefix = { fg = c.main2 },
-    LspSagaRenameBorder = { fg = c.gray05 },
-    LspSagaHoverBorder = { fg = c.gray05 },
-    LspSagaSignatureHelpBorder = { fg = c.gray05 },
-    LspSagaCodeActionBorder = { fg = c.gray05 },
-    LspSagaAutoPreview = { fg = c.gray07 },
-    LspSagaDefPreviewBorder = { fg = c.gray05 },
-    LspLinesDiagBorder = { fg = c.gray05 },
-    LspSagaLightBulb = { fg = c.gray07 },
-    LspSagaLightBulbSign = { fg = c.gray07 },
-    LspSagaDiagnosticBorder = { fg = c.gray05 },
-    LspSagaDiagnosticHeader = { fg = c.gray07 },
-    LspSagaDiagnosticTruncateLine = { fg = c.gray05 },
-    -- BufferLine
-    BufferLineIndicatorSelected = { fg = c.main2 },
-    BufferLineFill = { bg = c.gray03 },
-    -- Sneak
-    Sneak = { fg = c.bg, bg = c.main2 },
-    SneakScope = { bg = c.gray04 },
     -- Indent Blankline
     IndentBlanklineChar = { fg = c.gray00 },
     IndentBlanklineContextChar = { bg = c.gray00 },
@@ -495,38 +434,6 @@ M.setup = function()
     CmpItemKindKeyword = { fg = c.fg },
     CmpItemKindProperty = { fg = c.fg },
     CmpItemKindUnit = { fg = c.fg },
-    -- mini.nvim
-    MiniStatuslineModeNormal = { fg = c.bg, bg = c.bright_cyan },
-    MiniStatuslineModeInsert = { fg = c.bg, bg = c.bright_blue },
-    MiniStatuslineModeVisual = { fg = c.bg, bg = c.bright_magenta },
-    MiniStatuslineModeReplace = { fg = c.bg, bg = c.bright_yellow },
-    MiniStatuslineModeCommand = { fg = c.bg, bg = c.bright_green },
-    MiniStatuslineModeOther = { fg = c.gray05, bg = c.gray01 },
-    MiniStatuslineDevInfo = { fg = c.fg, bg = c.gray02 },
-    MiniStatuslineFilename = { fg = c.fg, bg = c.gray01 },
-    MiniStatuslineFileinfo = { fg = c.fg, bg = c.gray02 },
-    MiniStatuslineInactive = { fg = c.gray05, bg = c.gray01 },
-    MiniTablineCurrent = { fg = c.bg, bg = c.bright_cyan },
-    MiniTablineVisible = { fg = c.bg, bg = c.bright_magenta },
-    MiniTablineHidden = { fg = c.gray05, bg = c.gray02 },
-    MiniTablineModifiedCurrent = { fg = c.bg, bg = c.bright_cyan },
-    MiniTablineModifiedVisible = { fg = c.bg, bg = c.bright_magenta },
-    MiniTablineModifiedHidden = { fg = c.gray05, bg = c.gray02 },
-    MiniTablineFill = { bg = c.gray01 },
-    MiniCursorword = { underline = true },
-    MiniSurround = { underline = true },
-    MiniTrailspace = { bg = c.red },
-    MiniCompletionActiveParameter = { underline = true },
-    MiniJump = { reverse = true },
-    MiniStarterCurrent = { fg = c.bright_cyan },
-    MiniStarterFooter = { fg = c.gray07 },
-    MiniStarterHeader = { fg = c.bright_blue },
-    MiniStarterInactive = { fg = c.gray07 },
-    MiniStarterItem = { fg = c.fg, bg = c.gray01 },
-    MiniStarterItemBullet = { bg = c.gray01 },
-    MiniStarterItemPrefix = { underline = true },
-    MiniStarterSelection = { fg = c.bright_magenta },
-    MiniStarterQuery = { fg = c.bright_magenta },
     -- Custom highlight groups for use in statusline plugins
     StatusLineNormalMode = { fg = c.black, bg = c.gray02 },
     StatusLineInsertMode = { fg = c.black, bg = c.gray03 },
@@ -537,13 +444,6 @@ M.setup = function()
     StatusLineInfo = { fg = c.main1, bg = c.none },
     StatusLineWarn = { fg = c.yellow, bg = c.none },
     StatusLineError = { fg = c.red, bg = c.none },
-    -- Hydra
-    HydraRed = { fg = c.red },
-    HydraBlue = { fg = c.main1 },
-    HydraAmaranth = { fg = c.bright_red },
-    HydraTeal = { fg = c.main4 },
-    HydraPink = { fg = c.magenta },
-    HydraHint = { fg = c.fg, bg = c.gray02 },
     -- JSON
     jsonNumber = { fg = c.yellow },
     jsonNull = { fg = c.bright_black },
