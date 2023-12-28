@@ -436,44 +436,6 @@ local default_plugins = {
   },
 
   {
-    "iamcco/markdown-preview.nvim",
-    cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
-    ft = { "markdown" },
-    build = function() vim.fn["mkdp#util#install"]() end,
-    lazy = true,
-    branch = "master",
-    commit = "a923f5f",
-  },
-
-  -- {
-  --   "blazkowolf/gruber-darker.nvim",
-  --   lazy = false,
-  --   init = function()
-  --     -- vim.cmd.colorscheme("gruber-darker")
-  --   end,
-  --   branch = "main",
-  --   commit = "3d1bf7f",
-  -- },
-
-  -- {
-  --   "savq/melange-nvim",
-  --   init = function()
-  --     vim.cmd.colorscheme("melange")
-  --   end,
-  --   branch = "master",
-  --   commit = "ca3444c",
-  -- },
-
-  -- {
-  --   "kvrohit/rasmus.nvim",
-  --   init = function()
-  --     vim.cmd.colorscheme("rasmus")
-  --   end,
-  --   branch = "main",
-  --   commit = "f824de9",
-  -- },
-
-  {
     "NeogitOrg/neogit",
     lazy = false,
     config = function(_, opts)
@@ -481,6 +443,16 @@ local default_plugins = {
     end,
     branch = "master",
     commit = "7b4a2c7",
+  },
+
+  {
+    "iamcco/markdown-preview.nvim",
+    cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+    ft = { "markdown" },
+    build = function() vim.fn["mkdp#util#install"]() end,
+    lazy = true,
+    branch = "master",
+    commit = "a923f5f",
   },
 
   -- Only load whichkey after all the gui
