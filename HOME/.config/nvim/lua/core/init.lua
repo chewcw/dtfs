@@ -77,7 +77,7 @@ opt.textwidth = 85
 g.mapleader = " "
 
 -- cursor
-opt.guicursor = "n-v-sm:block,i-c-ci-ve:block,r-cr-o:hor30"
+opt.guicursor = "n-v-sm:block,i-c-ci-ve:block-blinkwait0-blinkoff400-blinkon250-Cursor/lCursor,r-cr-o:hor30"
 
 -- list mode (show return and space)
 opt.list = true
