@@ -78,7 +78,7 @@ local cfg = {
 }
 
 M.setup = function()
-  vim.api.nvim_command("hi clear")
+  -- vim.api.nvim_command("hi clear")
   if vim.fn.exists("syntax_on") then
     vim.api.nvim_command("syntax reset")
   end
@@ -208,9 +208,9 @@ M.setup = function()
     Macro = { fg = c.main1 },                                                                                    -- same as Define
     Typedef = { fg = c.main4 },                                                                                  -- A typedef
     PreCondit = { fg = c.main4 },                                                                                -- preprocessor #if, #else, #endif, etc.
-    Special = { fg = c.gray07, bg = c.none },                                                                     -- any special symbol
-    SpecialChar = { fg = c.gray07 },                                                                              -- special character in a constant
-    Tag = { fg = c.yellow },                                                                                    -- you can use CTRL-] on this
+    Special = { fg = c.main3, bg = c.none },                                                                     -- any special symbol
+    SpecialChar = { fg = c.main3 },                                                                              -- special character in a constant
+    Tag = { fg = c.main3 },                                                                                    -- you can use CTRL-] on this
     Delimiter = { fg = c.gray07 },                                                                              -- character that needs attention like , or .
     SpecialComment = { fg = c.main1 },                                                                           -- special things inside a comment
     Debug = { fg = c.main4 },                                                                                     -- debugging statements
@@ -453,27 +453,25 @@ M.setup = function()
     TreesitterContextSeparator = { fg = c.gray03 },
     TreesitterContext = { fg = c.fg, bg = cfg.transparent and c.none or c.bg },
     TreesitterContextLineNumber = { fg = c.fg, bg = cfg.transparent and c.none or c.bg },
-    -- Neogit
-    NeogitDiffAdd = { fg = get_highlight("DiffAdd", "foreground"), bg = c.none },
-    -- NeogitDiffAdded = { fg = get_highlight("DiffAdded", "foreground") },
-    NeogitDiffChange = { fg = get_highlight("DiffChange", "background"), bg = c.none },
-    -- NeogitDiffChanged = { fg = get_highlight("DiffChanged", "foreground") },
-    NeogitDiffDelete = { fg = get_highlight("DiffDelete", "background"), bg = c.none },
-    -- NeogitDiffRemoved = { fg = get_highlight("DiffRemoved", "foreground", bg = c.none) },
-    NeogitDiffText = { fg = get_highlight("DiffText", "foreground"), bg = c.none },
-    -- NeogitDiffModified = { fg = get_highlight("DiffModified", "foreground") },
-    -- NeogitDiffChangeDelete = { fg = get_highlight("DiffChangeDelete", "foreground") },
-    -- NeogitDiffNewFile = { fg = get_highlight("DiffNewFile", "foreground") },
-    NeogitDiffAddHighlight = {},
-    NeogitDiffcontext = {},
-    NeogitDiffContextHighlight = {},
-    NeogitDiffDeleteHighlight = {},
-    NeogitDiffHeaderHighlight = {},
   }
 
   for group, parameters in pairs(groups) do
     highlight(group, parameters)
   end
+
+    -- Neogit
+  highlight("NeogitDiffAdd", { fg = get_highlight("DiffAdd", "background") })
+  highlight("NeogitDiffDelete", { fg = get_highlight("DiffDelete", "background") })
+  highlight("NeogitDiffText", { fg = get_highlight("DiffText", "background") })
+  vim.cmd([[ highlight! link NeogitCursorLine CursorLine ]])
+  vim.cmd([[ highlight! NeogitDiffAddHighlight cterm=NONE guifg=NONE guibg=NONE ]])
+  vim.cmd([[ highlight! NeogitDiffDeleteHighlight cterm=NONE guifg=NONE guibg=NONE ]])
+  vim.cmd([[ highlight! NeogitDiffContextHighlight cterm=NONE guifg=NONE guibg=NONE ]])
+  vim.cmd([[ highlight! NeogitDiffHeaderHighlight cterm=NONE guifg=NONE guibg=NONE ]])
+  vim.cmd([[ highlight! NeogitHunkHeaderHighlight cterm=NONE guifg=NONE guibg=NONE ]])
+  vim.cmd([[ highlight! NeogitDiffContext cterm=NONE guifg=NONE guibg=NONE ]])
+  vim.cmd([[ highlight! NeogitDiffHeader cterm=NONE guifg=NONE guibg=NONE ]])
+  vim.cmd([[ highlight! NeogitHunkHeader cterm=NONE guifg=NONE guibg=NONE ]])
 end
 
 return M
