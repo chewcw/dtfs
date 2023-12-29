@@ -106,12 +106,12 @@ Statusline.active = function()
   return table.concat {
     filepath(),
     filename(),
-    " | ",
+    " 💕 ",
     vcs(),
-    " | ",
+    " 💕 ",
     "%=%#StatusLineExtra#",
     lsp(),
-    " | ",
+    " 🚀 ",
     lineinfo(),
   }
 end
