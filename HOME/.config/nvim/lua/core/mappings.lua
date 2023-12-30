@@ -138,7 +138,7 @@ M.general = {
     ["<leader>cH"] = { utils_comment.insert_comment_with_header, "write comment with header" },
 
     -- open terminal in new buffer not using toggleterm
-    ["<A-t>"] = { ":term <CR>", "open terminal in new buffer" },
+    ["<A-t>"] = { ":term zsh || fish || bash <CR>", "open terminal in new buffer" },
 
     -- split window max out width and height
     ["<C-w>f"] = { "<C-w>|<CR><C-w>_<CR>", "make split window max out width and height" },

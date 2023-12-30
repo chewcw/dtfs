@@ -50,25 +50,29 @@ local function lsp()
   lsp_servers = vim.lsp.get_active_clients()
   lsp_server_names = ""
   for _, server in ipairs(lsp_servers) do
+    if server.name == "null-ls" then
+      goto continue
+    end
     if lsp_server_names == "" then
       lsp_server_names = server.name
     else
       lsp_server_names = lsp_server_names .. "," .. server.name
     end
+    ::continue::
   end
 
-  return "%#Structure#" .. lsp_server_names .. errors .. warnings .. hints .. info
+  return lsp_server_names .. errors .. warnings .. hints .. info
 end
 
 local function filetype()
-  return "%#Normal#" .. vim.bo.filetype
+  return vim.bo.filetype
 end
 
 local function lineinfo()
   if vim.bo.filetype == "alpha" then
     return ""
   end
-  return "%#Normal#" .. " %l:%c "
+  return " %l:%c "
 end
 
 local vcs = function()
@@ -94,24 +98,32 @@ local vcs = function()
      changed,
      removed,
      " ",
-     "%#GitSignsAdd#  ",
+     "%#StatusLineText#",
      git_info.head,
-     " %#Normal#",
   }
+end
+
+local cwd = function()
+  return vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
 end
 
 Statusline = {}
 
 Statusline.active = function()
   return table.concat {
+    "%#StatusLineText#",
+    " 🗁 ",
     filepath(),
     filename(),
-    " 💕 ",
+    "  ",
     vcs(),
-    " 💕 ",
     "%=%#StatusLineExtra#",
-    lsp(),
     " 🚀 ",
+    lsp(),
+    "%#StatusLineText#",
+    " 🗀  ",
+    cwd(),
+    " 🖉 ",
     lineinfo(),
   }
 end
@@ -121,7 +133,7 @@ function Statusline.inactive()
 end
 
 function Statusline.short()
-  return "%#StatusLineNC#   NvimTree"
+  return ""
 end
 
 vim.api.nvim_exec([[
@@ -129,6 +141,7 @@ vim.api.nvim_exec([[
   au!
   au WinEnter,BufEnter * setlocal statusline=%!v:lua.Statusline.active()
   au WinLeave,BufLeave * setlocal statusline=%!v:lua.Statusline.inactive()
-  au WinEnter,BufEnter,FileType NvimTree setlocal statusline=%!v:lua.Statusline.short()
+  au WinEnter,BufEnter,FileType NvimTree_1 setlocal statusline=%!v:lua.Statusline.short()
+  au WinLeave,BufLeave,FileType NvimTree_1 setlocal statusline=%!v:lua.Statusline.short()
   augroup END
 ]], false)
