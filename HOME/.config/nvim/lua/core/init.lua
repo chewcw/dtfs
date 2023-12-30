@@ -3,7 +3,7 @@ local g = vim.g
 local config = require("core.utils").load_config()
 
 -------------------------------------- options ------------------------------------------
-opt.laststatus = 3 -- global statusline
+opt.laststatus = 2 -- global statusline
 opt.showmode = true
 
 opt.clipboard = "unnamedplus"
@@ -18,13 +18,14 @@ opt.smartindent = true
 
 opt.fillchars = {
   eob = "~",
-  vert = " ",
-  horiz = " ",
-  vertright = " ",
-  vertleft = " ",
-  horizup = " ",
-  horizdown = " ",
-  verthoriz = " ",
+  -- vert = "│",
+  -- horiz = "―",
+  -- vertright = " ",
+  -- vertleft = " ",
+  -- horizup = " ",
+  -- horizdown = " ",
+  -- verthoriz = " ",
+  stl = " ",
 }
 opt.ignorecase = false
 opt.smartcase = true
@@ -40,7 +41,7 @@ opt.ruler = false
 opt.shortmess:append("sI")
 
 opt.signcolumn = "yes"
-opt.splitbelow = false
+opt.splitbelow = true
 opt.splitright = true
 opt.termguicolors = true
 opt.timeoutlen = 400

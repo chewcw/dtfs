@@ -12,7 +12,7 @@ local colors = function()
   return {
     -- Basic
     bg = "#030a0e",
-    bg_nc = "#101416",
+    bg_nc = "#232628",
     fg = "#bcbcbc",
     -- Normal
     main1 = "#EA907A",
@@ -20,14 +20,14 @@ local colors = function()
     main3 = "#F4F7C5",
     main4 = "#AACDBE",
     black = "#010507",
-    red = "#e43845",
+    red = "#9f2730",
     green = "#618b79",
     yellow = "#e5c114",
     magenta = "#8a50a2",
     cyan = "#94c9b2",
     white = "#F9F9F9",
     brown = "#FFBF9B",
-    dark_blue = "#05294a",
+    blue = "#36536e",
     -- Bright
     bright_black = "#4c4c4b",
     bright_red = "#ffafa5",
@@ -78,7 +78,7 @@ local cfg = {
 }
 
 M.setup = function()
-  -- vim.api.nvim_command("hi clear")
+  vim.api.nvim_command("hi clear")
   if vim.fn.exists("syntax_on") then
     vim.api.nvim_command("syntax reset")
   end
@@ -121,58 +121,58 @@ M.setup = function()
     Conceal = { fg = c.gray05 },
     Cursor = { fg = c.main4, bg = c.none, reverse = true },
     CursorIM = { fg = c.main4, bg = c.none, reverse = true },
-    Directory = { fg = c.main1, bg = c.none, bold = true },
+    Directory = { fg = c.main1, bg = c.none },
 
-    DiffAdd = { bg = c.bright_green, fg = c.black },
-    DiffAdded = { bg = c.bright_green, fg = c.black },
-    DiffChange = { fg = c.gray07, bg = c.dark_blue, },
-    DiffChanged = { bg = c.dark_blue, fg = c.gray07 },
-    DiffChangeDelete = { bg = c.magenta, fg = c.gray07 },
-    DiffDelete = { bg = c.red, fg = c.black },
-    DiffRemoved = { bg = c.red, fg = c.black },
-    DiffText = { fg = c.gray07, bg = c.dark_blue, },
-    DiffModified = { bg = c.cyan, fg = c.black },
-    DiffNewFile = { bg = c.cyan, fg = c.black },
+    DiffAdd = { fg = c.black, bg = c.bright_green },
+    DiffAdded = { fg = c.black, bg = c.bright_green },
+    DiffChange = { fg = c.gray07, bg = c.blue },
+    DiffChanged = { fg = c.gray07, bg = c.blue },
+    DiffChangeDelete = { fg = c.gray07, bg = c.magenta },
+    DiffDelete = { fg = c.black, bg = c.red },
+    DiffRemoved = { fg = c.black, bg = c.red },
+    DiffText = { fg = c.gray07, bg = c.blue },
+    DiffModified = { fg = c.black, bg = c.cyan },
+    DiffNewFile = { fg = c.black, bg = c.cyan },
 
     ErrorMsg = { fg = c.red },
     Folded = { fg = c.gray05, bg = c.none, italic = true },
     FoldColumn = { fg = c.main1 },
-    IncSearch = { reverse = true },
+    IncSearch = { fg = c.black, bg = c.brown },
     LineNr = { fg = c.gray05 },
     CursorLineNr = { fg = c.main1 },
-    MatchParen = { fg = c.yellow },
-    ModeMsg = { fg = c.main4, bold = true },
-    MoreMsg = { fg = c.main4, bold = true },
+    MatchParen = {},
+    ModeMsg = { fg = c.main4 },
+    MoreMsg = { fg = c.main4 },
     NonText = { fg = c.gray03 },
     Pmenu = { bg = c.bg },
     PmenuSel = { fg = c.bg, bg = c.gray06 },
     PmenuSbar = { fg = c.fg, bg = c.gray02 },
     PmenuThumb = { fg = c.fg, bg = c.gray05 },
-    Question = { fg = c.main2, bold = true },
-    QuickFixLine = { fg = c.main1, bg = c.gray01, bold = true, italic = true },
-    qfLineNr = { fg = c.main1, bg = c.gray01 },
-    Search = { reverse = true },
+    Question = { fg = c.main2 },
+    QuickFixLine = { fg = c.main2, bg = c.gray01 },
+    qfLineNr = {},
+    Search = { fg = c.black, bg = c.brown },
     SpecialKey = { fg = c.gray03 },
     SpellBad = { fg = c.red, bg = c.none, italic = true, undercurl = true },
     SpellCap = { fg = c.main1, bg = c.none, italic = true, undercurl = true },
     SpellLocal = { fg = c.main4, bg = c.none, italic = true, undercurl = true },
     SpellRare = { fg = c.main4, bg = c.none, italic = true, undercurl = true },
-    StatusLine = { link = "Normal" },
-    StatusLineNC = { link = "NormalNC" },
-    StatusLineTerm = { fg = c.gray07, bg = c.gray01 },
-    StatusLineTermNC = { fg = c.gray07, bg = c.gray01 },
+    StatusLine = { fg = c.fg, bg = c.bg },
+    StatusLineNC = { fg = c.fg, bg = c.gray03 },
+    StatusLineTerm = { link = "StatusLine" },
+    StatusLineTermNC = { link = "StatusLineNC" },
     TabLineFill = { fg = c.gray05, bg = c.gray01 },
     TablineSel = { fg = c.bg, bg = c.gray07 },
     Tabline = { fg = c.gray05 },
-    Title = { fg = c.main4, bg = c.none, bold = true },
+    Title = { fg = c.main4, bg = c.none },
     Visual = { fg = c.none, bg = c.gray03 },
     VisualNOS = { fg = c.none, bg = c.gray03 },
-    WarningMsg = { fg = c.yellow, bold = true },
-    WildMenu = { fg = c.bg, bg = c.main1, bold = true },
+    WarningMsg = { fg = c.yellow },
+    WildMenu = { fg = c.bg, bg = c.main1 },
     CursorColumn = { fg = c.none, bg = c.gray02 },
     CursorLine = { fg = c.none, bg = c.none },
     ToolbarLine = { fg = c.fg, bg = c.gray01 },
-    ToolbarButton = { fg = c.fg, bg = c.none, bold = true },
+    ToolbarButton = { fg = c.fg, bg = c.none },
     NormalMode = { fg = c.main4, bg = c.none, reverse = true },
     InsertMode = { fg = c.main2, bg = c.none, reverse = true },
     VisualMode = { fg = c.main4, bg = c.none, reverse = true },
@@ -216,32 +216,32 @@ M.setup = function()
     Debug = { fg = c.main4 },                                                                                     -- debugging statements
     Underlined = { fg = c.main4, bg = c.none, underline = true },                                                -- text that stands out, HTML links
     Ignore = { fg = c.gray07 },                                                                                 -- left blank, hidden
-    Error = { fg = c.red, bg = c.none, bold = true, underline = true },                                         -- any erroneous construct
-    Todo = { fg = c.main4, bg = c.none, bold = true, italic = true },                                            -- anything that needs extra attention; mostly the keywords TODO FIXME and XXX
+    Error = { fg = c.red, bg = c.none, underline = true },                                         -- any erroneous construct
+    Todo = { fg = c.main4, bg = c.none, italic = true },                                            -- anything that needs extra attention; mostly the keywords TODO FIXME and XXX
     -- HTML
     htmlArg = { fg = c.fg },
     htmlBold = { fg = c.fg, bg = c.none, bold = true },
     htmlEndTag = { fg = c.fg },
     htmlStyle = { fg = c.main4, bg = c.none },
     htmlLink = { fg = c.main4 },
-    htmlSpecialChar = { fg = c.yellow },
-    htmlSpecialTagName = { fg = c.main1 },
-    htmlTag = { fg = c.fg },
-    htmlTagN = { fg = c.yellow },
-    htmlTagName = { fg = c.yellow },
+    htmlSpecialChar = { fg = c.main2 },
+    htmlSpecialTagName = { fg = c.main2 },
+    htmlTag = { link = "Tag" },
+    htmlTagN = { link = "Tag" },
+    htmlTagName = { link = "Tag" },
     htmlTitle = { fg = c.fg },
-    htmlH1 = { fg = c.main1, bold = true },
-    htmlH2 = { fg = c.main1, bold = true },
-    htmlH3 = { fg = c.main1, bold = true },
-    htmlH4 = { fg = c.main1, bold = true },
-    htmlH5 = { fg = c.main1, bold = true },
+    htmlH1 = { fg = c.main1 },
+    htmlH2 = { fg = c.main1 },
+    htmlH3 = { fg = c.main1 },
+    htmlH4 = { fg = c.main1 },
+    htmlH5 = { fg = c.main1 },
     -- Markdown
-    markdownH1 = { fg = c.bright_white, bold = true },
-    markdownH2 = { fg = c.bright_white, bold = true },
-    markdownH3 = { fg = c.bright_white, bold = true },
-    markdownH4 = { fg = c.bright_white, bold = true },
-    markdownH5 = { fg = c.bright_white, bold = true },
-    markdownH6 = { fg = c.bright_white, bold = true },
+    markdownH1 = { fg = c.bright_white },
+    markdownH2 = { fg = c.bright_white },
+    markdownH3 = { fg = c.bright_white },
+    markdownH4 = { fg = c.bright_white },
+    markdownH5 = { fg = c.bright_white },
+    markdownH6 = { fg = c.bright_white },
     markdownHeadingDelimiter = { fg = c.gray05 },
     markdownHeadingRule = { fg = c.gray05 },
     markdownId = { fg = c.main4 },
@@ -313,7 +313,7 @@ M.setup = function()
     TSEmphasis = { fg = c.bright_white, bold = true },                                                          -- For text to be represented with emphasis.
     TSUnderline = { fg = c.bright_white, bg = c.none, underline = true },                                       -- For text to be represented with an underline.
     TSStrike = {},                                                                                              -- For strikethrough text.
-    TSTitle = { fg = c.fg, bg = c.none, bold = true },                                                          -- Text that is part of a title.
+    TSTitle = { fg = c.fg, bg = c.none },                                                          -- Text that is part of a title.
     TSLiteral = { fg = c.fg },                                                                                  -- Literal text.
     TSURI = { fg = c.main4 },                                                                                    -- Any URL like a link or email.
     TSMath = { fg = c.main1 },                                                                                   -- For LaTeX-like math environments.
@@ -370,16 +370,6 @@ M.setup = function()
     LspTroubleText = { fg = c.gray04 },
     LspTroubleCount = { fg = c.magenta, bg = c.gray03 },
     LspTroubleNormal = { fg = c.fg, bg = c.bg },
-    -- GitSigns
-    GitSignsAdd = { fg = c.bright_green },     -- diff mode: Added line |diff.txt|
-    GitSignsAddNr = { fg = c.bright_green },   -- diff mode: Added line |diff.txt|
-    GitSignsAddLn = { fg = c.bright_green },   -- diff mode: Added line |diff.txt|
-    GitSignsChange = { fg = c.bright_yellow }, -- diff mode: Changed line |diff.txt|
-    GitSignsChangeNr = { fg = c.bright_yellow }, -- diff mode: Changed line |diff.txt|
-    GitSignsChangeLn = { fg = c.bright_yellow }, -- diff mode: Changed line |diff.txt|
-    GitSignsDelete = { fg = c.bright_red },    -- diff mode: Deleted line |diff.txt|
-    GitSignsDeleteNr = { fg = c.bright_red },  -- diff mode: Deleted line |diff.txt|
-    GitSignsDeleteLn = { fg = c.bright_red },  -- diff mode: Deleted line |diff.txt|
     -- Telescope
     TelescopeSelectionCaret = { fg = c.main1, bg = c.gray01 },
     TelescopeBorder = { link = "FloatBorder" },
@@ -417,8 +407,8 @@ M.setup = function()
     WhichKeyFloat = { link = "FloatBorder" },
     WhichKeyNormal = { link = "Normal" },
     -- Indent Blankline
-    IndentBlanklineChar = { fg = c.gray00 },
-    IndentBlanklineContextChar = { bg = c.gray00 },
+    IndentBlanklineChar = { fg = c.bg_nc },
+    IndentBlanklineContextChar = { bg = c.bg_nc },
     IndentBlanklineSpaceChar = { link = "IndentBlanklineChar" },
     IndentBlanklineSpaceCharBlankline = { link = "IndentBlanklineChar" },
     IndentBlanklineContextSpaceChar = { default = true },
@@ -444,6 +434,7 @@ M.setup = function()
     StatusLineInfo = { fg = c.main1, bg = c.none },
     StatusLineWarn = { fg = c.yellow, bg = c.none },
     StatusLineError = { fg = c.red, bg = c.none },
+    StatusLineText = { fg = get_highlight("Normal", "foreground"), bg = c.none },
     -- JSON
     jsonNumber = { fg = c.yellow },
     jsonNull = { fg = c.bright_black },
@@ -459,7 +450,7 @@ M.setup = function()
     highlight(group, parameters)
   end
 
-    -- Neogit
+  -- Neogit
   highlight("NeogitDiffAdd", { fg = get_highlight("DiffAdd", "background") })
   highlight("NeogitDiffDelete", { fg = get_highlight("DiffDelete", "background") })
   highlight("NeogitDiffText", { fg = get_highlight("DiffText", "background") })
@@ -472,6 +463,17 @@ M.setup = function()
   vim.cmd([[ highlight! NeogitDiffContext cterm=NONE guifg=NONE guibg=NONE ]])
   vim.cmd([[ highlight! NeogitDiffHeader cterm=NONE guifg=NONE guibg=NONE ]])
   vim.cmd([[ highlight! NeogitHunkHeader cterm=NONE guifg=NONE guibg=NONE ]])
+
+  -- GitSigns (used in statusline)
+  highlight("GitSignsAdd", { fg = get_highlight("DiffAdd", "background"), bold = true })
+  highlight("GitSignsChange", { fg = get_highlight("DiffChange", "background"), bold = true })
+  highlight("GitSignsDelete", { fg = get_highlight("DiffDelete", "background"), bold = true })
+
+  -- Markology
+  vim.cmd([[ highlight! MarkologyHLl cterm=bold ctermfg=10 ctermbg=NONE guifg=Green guibg=NONE ]])
+  vim.cmd([[ highlight! MarkologyHLm cterm=bold ctermfg=10 ctermbg=NONE guifg=Green guibg=NONE ]])
+  vim.cmd([[ highlight! MarkologyHLo cterm=bold ctermfg=10 ctermbg=NONE guifg=Green guibg=NONE ]])
+  vim.cmd([[ highlight! MarkologyHLu cterm=bold ctermfg=10 ctermbg=NONE guifg=Green guibg=NONE ]])
 end
 
 return M
