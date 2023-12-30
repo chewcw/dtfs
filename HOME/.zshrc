@@ -225,3 +225,4 @@ export XDG_CURRENT_DESKTOP=GNOME;
 export POWERLEVEL9K_DISABLE_CONFIGURATION_WIZARD=true
 
 alias monitor=arandr
+alias img=eog
