@@ -219,6 +219,9 @@ M.general = {
     ["<leader>ggr"] = { ":diffget REMOTE <CR>", "diffget from remote" },
     ["<leader>ggb"] = { ":diffget BASE <CR>", "diffget from base" },
     ["<leader>ggq"] = { ":cq <CR>", "cquit" },
+
+    -- gf open in new tab
+    ["gF"] = { "<C-w>gf", "open file in new tab" },
   },
 
   v = {
@@ -232,6 +235,9 @@ M.general = {
     ["<C-l>"] = { "<C-w>l", "window right" },
     ["<C-j>"] = { "<C-w>j", "window down" },
     ["<C-k>"] = { "<C-w>k", "window up" },
+
+    -- gf open in new tab
+    ["gF"] = { "<C-w>gf", "open file in new tab" },
   },
 
   x = {
