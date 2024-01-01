@@ -107,6 +107,10 @@ local cwd = function()
   return vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
 end
 
+local tabpage = function()
+  return vim.api.nvim_get_current_tabpage()
+end
+
 Statusline = {}
 
 Statusline.active = function()
@@ -125,11 +129,18 @@ Statusline.active = function()
     cwd(),
     " 🖉 ",
     lineinfo(),
+    " ⭾ ",
+    tabpage(),
   }
 end
 
 function Statusline.inactive()
-  return " %F"
+  return table.concat({
+    " %f",
+    "%=%#StatusLineExtra#",
+    " ⭾ ",
+    tabpage(),
+  })
 end
 
 function Statusline.short()
