@@ -201,7 +201,7 @@ M.setup = function()
     Statement = { fg = c.main2 },                                                                                -- any statement
     Label = { fg = c.main4 },                                                                                    -- case, default, etc.
     Operator = { fg = c.gray07 },                                                                               -- sizeof", "+", "*", etc.
-    Exception = { fg = c.yellow },                                                                              -- try, catch, throw
+    Exception = { fg = c.main2 },                                                                              -- try, catch, throw
     PreProc = { fg = c.main1 },                                                                                   -- generic Preprocessor
     Include = { fg = c.main1 },                                                                                  -- preprocessor #include
     Define = { fg = c.main4 },                                                                                   -- preprocessor #define
