@@ -433,6 +433,45 @@ local default_plugins = {
     "tpope/vim-fugitive",
     lazy = false,
     branch = "master",
+    init = function()
+      -- my own command, may need to remove this user command if later vim-fugitive
+      -- was uninstalled
+      vim.api.nvim_create_user_command(
+        "Gll",
+        function(args)
+          local cmd = [[ Git log --graph --pretty=format:"%h %Cred%an %Cblue%aI %Cred%d%Cgreen%s" ]]
+          if (args['args']) then
+            cmd = cmd .. " " .. args['args']
+          end
+          vim.cmd(cmd)
+        end,
+        { desc = "Git log with format", nargs = "*" }
+      )
+
+      vim.api.nvim_create_user_command(
+        "VG",
+        function(args)
+          local cmd = "vertical G"
+          if (args['args']) then
+            cmd = cmd .. " " .. args['args']
+          end
+          vim.cmd(cmd)
+        end,
+        { desc = "Git log with vertical layout", nargs = "*" }
+      )
+
+      vim.api.nvim_create_user_command(
+        "VGll",
+        function(args)
+          local cmd = [[ vertical Git log --graph --pretty=format:"%h %Cred%an %Cblue%aI %Cred%d%Cgreen%s" ]]
+          if (args['args']) then
+            cmd = cmd .. " " .. args['args']
+          end
+          vim.cmd(cmd)
+        end,
+        { desc = "Git log with format and vertical layout", nargs = "*" }
+      )
+    end,
   },
 
   {
