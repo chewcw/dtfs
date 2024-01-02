@@ -103,12 +103,12 @@ require("core.statusline")
 local autocmd = vim.api.nvim_create_autocmd
 
 -- dont list quickfix buffers
--- autocmd("FileType", {
---   pattern = "qf",
---   callback = function()
---     vim.opt_local.buflisted = false
---   end,
--- })
+autocmd("FileType", {
+  pattern = "qf",
+  callback = function()
+    vim.opt_local.buflisted = false
+  end,
+})
 
 -- save fold on save and laod fold on open
 -- https://stackoverflow.com/a/77180744
