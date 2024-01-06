@@ -1,19 +1,23 @@
 -- abbrevation just for fun
-vim.cmd('abbrev zdegreec <C-v>u2103')
-vim.cmd('abbrev zdegree <C-v>u00b0')
-vim.cmd('abbrev zcopyright <C-v>u00a9')
-vim.cmd('abbrev zalmostequal <C-v>u2248')
-vim.cmd('abbrev zlessequal <C-v>u2264')
-vim.cmd('abbrev zgreatequal <C-v>u2265')
-vim.cmd('abbrev zinfinity <C-v>u221e')
-vim.cmd('abbrev zmultiply <C-v>u00d7')
-vim.cmd('abbrev zdivideby <C-v>u00f7')
-vim.cmd('abbrev zplusminus <C-v>u00b1')
-vim.cmd('abbrev zarrowright <C-v>u2192')
-vim.cmd('abbrev zarrowleft <C-v>u2190')
-vim.cmd('abbrev zarrowup <C-v>u2191')
-vim.cmd('abbrev zarrowdown <C-v>u2193')
-vim.cmd('abbrev zcheck <C-v>u2713')
-vim.cmd('abbrev zchecklight <C-v>U1f5f8')
-vim.cmd('abbrev zcheckheavy <C-v>u2714')
-vim.cmd('abbrev zcheckbox <C-v>U1f5f9')
+vim.cmd('abbrev zdegreec <C-v>u2103') -- ℃
+vim.cmd('abbrev zdegree <C-v>u00b0') -- °
+vim.cmd('abbrev zcopyright <C-v>u00a9') -- ©
+vim.cmd('abbrev zalmostequal <C-v>u2248') -- ≈
+vim.cmd('abbrev zlessequal <C-v>u2264') -- ≤
+vim.cmd('abbrev zgreatequal <C-v>u2265') -- ≥
+vim.cmd('abbrev zinfinity <C-v>u221e') -- ∞
+vim.cmd('abbrev zmultiply <C-v>u00d7') -- ×
+vim.cmd('abbrev zdivideby <C-v>u00f7') -- ÷
+vim.cmd('abbrev zplusminus <C-v>u00b1') -- ±
+vim.cmd('abbrev zarrowright <C-v>u2192') -- →
+vim.cmd('abbrev zarrowleft <C-v>u2190') -- ←
+vim.cmd('abbrev zarrowup <C-v>u2191') -- ↑
+vim.cmd('abbrev zarrowdown <C-v>u2193') -- ↓
+vim.cmd('abbrev zcheck <C-v>u2713') -- ✓
+vim.cmd('abbrev zchecklight <C-v>U1f5f8') -- 🗸
+vim.cmd('abbrev zcheckheavy <C-v>u2714') -- ✔
+vim.cmd('abbrev zcheckbox <C-v>U1f5f9') -- 🗹
+vim.cmd('abbrev zsquareroot <C-v>u221a') -- √
+vim.cmd('abbrev zsquare <C-v>u00b2') -- ²
+vim.cmd('abbrev zcuberoot <C-v>u221b') -- ∛
+vim.cmd('abbrev zcube <C-v>u00b3') -- ³
