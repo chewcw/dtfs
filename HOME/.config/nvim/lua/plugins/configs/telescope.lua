@@ -166,7 +166,27 @@ M.options = {
           ["<C-g>"] = require("telescope").extensions.file_browser.actions.goto_parent_dir,
           ["<C-e>"] = require("telescope").extensions.file_browser.actions.goto_home_dir,
           ["<C-w>"] = require("telescope").extensions.file_browser.actions.goto_cwd,
-          ["<C-t>"] = require("telescope").extensions.file_browser.actions.change_cwd,
+          ["<C-t>"] = function(prompt_bufnr)
+            -- https://github.com/nvim-telescope/telescope-file-browser.nvim/blob/master/lua/telescope/_extensions/file_browser/actions.lua
+            local action_state = require("telescope.actions.state")
+            local current_picker = action_state.get_current_picker(prompt_bufnr)
+            local finder = current_picker.finder
+            local entry_path = action_state.get_selected_entry().Path
+            local fb_utils = require("telescope._extensions.file_browser.utils")
+            finder.path = entry_path:is_dir() and entry_path:absolute() or entry_path:parent():absolute()
+            finder.cwd = finder.path
+            vim.cmd("tcd " .. finder.path)
+
+            fb_utils.redraw_border_title(current_picker)
+            current_picker:refresh(
+              finder,
+              { new_prefix = fb_utils.relative_path_prefix(finder), reset_prompt = true, multi = current_picker._multi }
+            )
+            fb_utils.notify(
+              "action.change_cwd",
+              { msg = "Set the current working directory for this tab!", level = "INFO", quiet = finder.quiet }
+            )
+          end,
           ["<C-f>"] = require("telescope").extensions.file_browser.actions.toggle_browser,
           -- ["<C-h>"] = require("telescope").extensions.file_browser.actions.toggle_hidden,
           ["<C-s>"] = require("telescope").extensions.file_browser.actions.toggle_all,
@@ -181,7 +201,27 @@ M.options = {
         },
         n = {
           ["q"] = require("telescope.actions").close,
-          ["t"] = require("telescope").extensions.file_browser.actions.change_cwd,
+          ["t"] = function(prompt_bufnr)
+            -- https://github.com/nvim-telescope/telescope-file-browser.nvim/blob/master/lua/telescope/_extensions/file_browser/actions.lua
+            local action_state = require("telescope.actions.state")
+            local current_picker = action_state.get_current_picker(prompt_bufnr)
+            local finder = current_picker.finder
+            local entry_path = action_state.get_selected_entry().Path
+            local fb_utils = require("telescope._extensions.file_browser.utils")
+            finder.path = entry_path:is_dir() and entry_path:absolute() or entry_path:parent():absolute()
+            finder.cwd = finder.path
+            vim.cmd("tcd " .. finder.path)
+
+            fb_utils.redraw_border_title(current_picker)
+            current_picker:refresh(
+              finder,
+              { new_prefix = fb_utils.relative_path_prefix(finder), reset_prompt = true, multi = current_picker._multi }
+            )
+            fb_utils.notify(
+              "action.change_cwd",
+              { msg = "Set the current working directory for this tab!", level = "INFO", quiet = finder.quiet }
+            )
+          end,
           ["T"] = require("telescope").extensions.file_browser.actions.goto_cwd,
           ["n"] = require("telescope").extensions.file_browser.actions.create_from_prompt,
           ["h"] = function()
@@ -210,7 +250,7 @@ M.options = {
           ["g"] = require("telescope").extensions.file_browser.actions.goto_parent_dir,
           ["e"] = require("telescope").extensions.file_browser.actions.goto_home_dir,
           ["w"] = require("telescope").extensions.file_browser.actions.goto_cwd,
-          ["t"] = require("telescope").extensions.file_browser.actions.change_cwd,
+          -- ["t"] = require("telescope").extensions.file_browser.actions.change_cwd,
           ["f"] = require("telescope").extensions.file_browser.actions.toggle_browser,
           -- ["h"] = require("telescope").extensions.file_browser.actions.toggle_hidden,
           ["s"] = require("telescope").extensions.file_browser.actions.toggle_all,
