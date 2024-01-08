@@ -50,7 +50,7 @@ local options = {
 
   window = {
     documentation = cmp.config.window.bordered({
-      winhighlight = 'Normal:FloatBorder,CursorLine:PmenuSel,Search:None',
+      winhighlight = 'Normal:Pmenu,FloatBorder:Pmenu,CursorLine:PmenuSel,Search:FloatBorder',
       border = border("FloatBorder"),
     }),
     completion = cmp.config.window.bordered({
