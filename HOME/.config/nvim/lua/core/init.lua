@@ -61,7 +61,11 @@ opt.autochdir = false
 opt.scrolloff = 5
 opt.foldlevel = 99
 opt.wildignorecase = true
-opt.showmatch = true
+-- this is the annoying opening parenthesis highlighting when typing closing parenthesis
+-- https://stackoverflow.com/a/34716232
+opt.showmatch = false
+-- this has no effect if the showmatch is disabled
+opt.matchtime = 1
 opt.breakindent = true
 opt.completeopt = "menuone,noselect"
 opt.showtabline = 0
@@ -76,6 +80,7 @@ opt.textwidth = 85
 
 -- leader
 g.mapleader = " "
+
 
 -- cursor
 opt.guicursor = "n-v-sm:block,i-c-ci-ve:block-blinkwait0-blinkoff400-blinkon250-Cursor/lCursor,r-cr-o:hor30"
