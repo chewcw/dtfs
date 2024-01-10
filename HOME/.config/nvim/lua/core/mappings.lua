@@ -702,7 +702,9 @@ M.vm = {
     vim.cmd('let g:VM_maps["Goto Next"] = "]"')
     vim.cmd('let g:VM_maps["Goto Prev"] = "["')
     vim.cmd('let g:VM_maps["Surround"] = "S"')
-    vim.cmd("let g:VM_set_statusline = 0")
+    vim.cmd('let g:VM_maps["Undo"] = "u"')
+    vim.cmd('let g:VM_maps["Redo"] = "<C-r>"')
+    vim.cmd("let g:VM_set_statusline = 1")
     vim.cmd("let g:VM_silent_exit = 0")
   end,
 }
