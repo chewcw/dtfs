@@ -33,11 +33,11 @@ RUN cd /tmp && wget https://dot.net/v1/dotnet-install.sh -O dotnet-install.sh &&
 
 ARG TARGETARCH
 
-# golang 1.21.3
+# golang 1.21.6
 RUN sudo mkdir -p /usr/local/go && \
-    wget "https://go.dev/dl/go1.21.3.linux-${TARGETARCH}.tar.gz" -O "/tmp/go1.21.3.linux-${TARGETARCH}.tar.gz" && \
-    sudo tar -xzf "/tmp/go1.21.3.linux-${TARGETARCH}.tar.gz" -C /usr/local && \
-    rm -rf "/tmp/go1.21.3.linux-${TARGETARCH}.tar.gz" && \
+    wget "https://go.dev/dl/go1.21.6.linux-${TARGETARCH}.tar.gz" -O "/tmp/go1.21.6.linux-${TARGETARCH}.tar.gz" && \
+    sudo tar -xzf "/tmp/go1.21.6.linux-${TARGETARCH}.tar.gz" -C /usr/local && \
+    rm -rf "/tmp/go1.21.6.linux-${TARGETARCH}.tar.gz" && \
     sudo ln -s /usr/local/go/bin/go /usr/local/bin/go
 
 # nodejs
@@ -51,25 +51,21 @@ RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y && \
 RUN /bin/bash -c "if [[ $TARGETARCH == "amd64" ]]; then \
       curl https://raw.githubusercontent.com/chewcw/dtfs/main/install-nvim.sh | bash; \
     else \
-      cd /usr/local && sudo svn checkout https://github.com/chewcw/nv-built-aarch64/trunk/nvim; \
+      cd /tmp; git clone https://github.com/chewcw/nv-built-aarch64; sudo mv nvim/ /usr/local/; \
     fi"
 # symlink for neovim
 RUN sudo ln -sf /usr/local/nvim/bin/nvim /usr/bin/nvim
 
-WORKDIR /workspace
+# cleanup
+RUN rm -rf /tmp/*
 
-# update neovim to latest configuration
-RUN mkdir -p $HOME/.config && \
-    cd $HOME/.config && \
-    svn checkout https://github.com/chewcw/dtfs/trunk/HOME/.config/nvim
+WORKDIR /workspace
 
 # use vi mode in fish shell
 RUN mkdir -p $HOME/.config/fish && touch $HOME/.config/fish/config.fish && \
 cat <<EOF >> $HOME/.config/fish/config.fish
 fish_vi_key_bindings
-set fish_cursor_insert line
 EOF
-
 
 # install alacritty terminfo so that neovim can show undercurl
 RUN wget https://github.com/alacritty/alacritty/releases/download/v0.12.0/alacritty.info -O /tmp/alacritty.info && \

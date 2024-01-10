@@ -6,7 +6,7 @@
 set -e
 
 DOCKER=$(which docker)
-IMAGE=chewcw/development:1.0.1-nvim-initialized
+IMAGE=chewcw/development:1.0.2
 TERM=$TERM
 DISPLAY=$DISPLAY
 
