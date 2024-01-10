@@ -2,8 +2,9 @@
 
 set -e
 
-configFileDirectory=https://github.com/chewcw/dtfs/trunk/HOME/.config/nvim
+configFileDirectory=HOME/.config/nvim
 localConfigFilePath=$HOME/.config/nvim
+tempFilePath=/tmp
 
 parse_args() {
 	case $1 in
@@ -12,17 +13,21 @@ parse_args() {
 			install_nodejs
 			install_nvim_v091
 			configure_nvim
+      clean
 			;;
 		"update" )
 			configure_nvim
+      clean
 			;;
 		"uninstall" )
 			uninstall
+      clean
 			;;
 		* )
 			install_dependency
 			install_nvim_v091
 			configure_nvim
+      clean
 			;;
 	esac
 }
@@ -30,8 +35,6 @@ parse_args() {
 install_dependency() {
 	echo "installing dependencies"
 
-	# svn
-	[ ! $(command -v svn) ] && sudo apt install -y subversion || true
 	# ripgrep
 	[ ! $(command -v rg) ] && sudo apt install -y ripgrep || true
   # xclip and xsel
@@ -57,7 +60,6 @@ install_nvim_v091() {
     tar xvzf /tmp/nvim-linux64.tar.gz -C /tmp
     sudo cp -r /tmp/nvim-linux64 /usr/local/nvim
     sudo ln -sf /usr/local/nvim/bin/nvim /usr/bin/nvim
-    rm -rf /tmp/nvim-linux64.tar.gz
   fi
   echo "nvim v0.9.1 is installed"
 }
@@ -65,8 +67,10 @@ install_nvim_v091() {
 configure_nvim() {
 	mkdir -p $localConfigFilePath
 	rm -rf $localConfigFilePath/* || true
-	echo "svn checking out the nvim config directory from github"
-	cd $localConfigFilePath && svn checkout $configFileDirectory .
+	echo "checking out the nvim config directory from github"
+  cd $tempFilePath
+  git clone https://github.com/chewcw/dtfs
+	cp -r $tempFilePath/dtfs/$configFileDirectory/* $localConfigFilePath
 }
 
 uninstall() {
@@ -81,12 +85,13 @@ uninstall() {
 	echo "removing NodeJS"
 	sudo rm -rf /usr/local/bin/node /usr/local/bin/npm /usr/local/bin/npx || true
 	sudo rm -rf /usr/local/lib/node_modules || true
-	# remove svn
-	echo "removing svn"
-	sudo apt remove --purge subversion  -y || true
 	# remove python3-venv
   echo "removing python3-venv"
   sudo apt remove --purge  python3-venv -y || true
+}
+
+clean() {
+  rm -rf $tempFilePath/*
 }
 
 parse_args $1
