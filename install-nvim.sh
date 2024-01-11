@@ -17,7 +17,6 @@ parse_args() {
 			;;
 		"update" )
 			configure_nvim
-      clean
 			;;
 		"uninstall" )
 			uninstall
