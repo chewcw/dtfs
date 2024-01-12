@@ -68,8 +68,10 @@ configure_nvim() {
 	rm -rf $localConfigFilePath/* || true
 	echo "checking out the nvim config directory from github"
   cd $tempFilePath
+  rm -rf dtfs/
   git clone https://github.com/chewcw/dtfs
-	cp -r $tempFilePath/dtfs/$configFileDirectory/* $localConfigFilePath
+  cp -r $tempFilePath/dtfs/$configFileDirectory/* $localConfigFilePath
+  rm -rf dtfs/
 }
 
 uninstall() {
