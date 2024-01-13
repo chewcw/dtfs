@@ -56,6 +56,15 @@ RUN /bin/bash -c "if [[ $TARGETARCH == "amd64" ]]; then \
 # symlink for neovim
 RUN sudo ln -sf /usr/local/nvim/bin/nvim /usr/bin/nvim
 
+# install firefox
+RUN sudo apt install -y firefox-esr
+
+# xdg-utils
+RUN sudo apt install -y xdg-utils
+
+# set default web browser
+# RUN xdg-settings set default-web-browser firefox-esr.desktop
+
 # cleanup
 RUN rm -rf /tmp/*
 
@@ -74,7 +83,8 @@ RUN wget https://github.com/alacritty/alacritty/releases/download/v0.12.0/alacri
 
 # this env is necessary for neovim undercurl to work
 ENV TERM=
-# this env is necessary for neovim xclip integration to work
+# this env is necessary for neovim xclip integration to work, and also to share the
+# host's display, for example the browser in the container will be opened in host's env
 ENV DISPLAY=
 
 COPY entrypoint.sh /entrypoint.sh
