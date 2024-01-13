@@ -6,7 +6,7 @@
 set -e
 
 DOCKER=$(which docker)
-IMAGE=chewcw/development:1.0.2
+IMAGE=chewcw/development:1.0.3
 TERM=$TERM
 DISPLAY=$DISPLAY
 
@@ -15,9 +15,11 @@ $DOCKER run \
   `# this is to make sure the neovim inside the container can have undercurl` \
   `# must use alacritty in this case` \
   -e TERM=$TERM \
-  `# these are for xclip/xsel to work inside the container` \
   -e DISPLAY=$DISPLAY \
+  `# this is for xclip/xsel to work inside the container` \
   -v /tmp/.X11-unix:/tmp/.X11-unix \
+  `# these is to share the host's XServer with the container` \
+  -v $HOME/.Xauthority:/root/.Xauthority \
   `# can append any desired argument` \
   $1 \
   $IMAGE \
