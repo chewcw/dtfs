@@ -32,7 +32,6 @@ local function lsp()
   local warnings = ""
   local hints = ""
   local info = ""
-  local lsp_server_count = ""
 
   if count["errors"] ~= 0 then
     errors = " %#LspDiagnosticsSignError#E" .. count["errors"]
@@ -47,21 +46,23 @@ local function lsp()
     info = " %#LspDiagnosticsSignInformation#I" .. count["info"]
   end
 
-  lsp_servers = vim.lsp.get_active_clients()
-  lsp_server_names = ""
-  for _, server in ipairs(lsp_servers) do
-    if server.name == "null-ls" then
+  local this_bufnr = vim.api.nvim_get_current_buf()
+  local buf_clients = vim.lsp.get_active_clients({ bufnr = this_bufnr })
+
+  local lsp_client_name = ""
+  for _, client in ipairs(buf_clients) do
+    if client.name == "null-ls" then
       goto continue
     end
-    if lsp_server_names == "" then
-      lsp_server_names = server.name
+    if lsp_client_name == "" then
+      lsp_client_name = client.name
     else
-      lsp_server_names = lsp_server_names .. "," .. server.name
+      lsp_client_name = lsp_client_name .. "," .. client.name
     end
     ::continue::
   end
 
-  return lsp_server_names .. errors .. warnings .. hints .. info
+  return lsp_client_name .. errors .. warnings .. hints .. info
 end
 
 local function filetype()
