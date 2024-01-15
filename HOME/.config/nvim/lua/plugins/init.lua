@@ -494,6 +494,14 @@ local default_plugins = {
     commit = "a923f5f",
   },
 
+  {
+    "mbbill/undotree",
+    cmd = { "UndotreeToggle" },
+    lazy = true,
+    branch = "master",
+    commit = "36ff7ab",
+  },
+
   -- Only load whichkey after all the gui
   {
     "folke/which-key.nvim",
