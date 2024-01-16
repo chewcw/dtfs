@@ -27,9 +27,9 @@ opt.fillchars = {
   -- verthoriz = " ",
   stl = " ",
   fold = " ",
-  foldopen = "",
+  foldopen = "🢐",
   foldsep = " ",
-  foldclose = "",
+  foldclose = "🢒",
 }
 opt.ignorecase = false
 opt.smartcase = true
