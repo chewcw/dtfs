@@ -436,47 +436,35 @@ local default_plugins = {
     init = function()
       -- my own command, may need to remove this user command if later vim-fugitive
       -- was uninstalled
-      vim.api.nvim_create_user_command(
-        "Gll",
-        function(args)
-          local cmd = [[ Git log --graph --pretty=format:"%h %Cred%an %Cblue%aI %Cred%d%Cgreen%s" ]]
-          if (args['args']) then
-            cmd = cmd .. " " .. args['args']
-          end
-          vim.cmd(cmd)
-        end,
-        { desc = "Git log with format", nargs = "*" }
-      )
+      vim.api.nvim_create_user_command("Gll", function(args)
+        local cmd = [[ Git log --graph --pretty=format:"%h %Cred%an %Cblue%aI %Cred%d%Cgreen%s" ]]
+        if args["args"] then
+          cmd = cmd .. " " .. args["args"]
+        end
+        vim.cmd(cmd)
+      end, { desc = "Git log with format", nargs = "*" })
 
-      vim.api.nvim_create_user_command(
-        "VG",
-        function(args)
-          local cmd = "vertical G"
-          if (args['args']) then
-            cmd = cmd .. " " .. args['args']
-          end
-          vim.cmd(cmd)
-        end,
-        { desc = "Git log with vertical layout", nargs = "*" }
-      )
+      vim.api.nvim_create_user_command("VG", function(args)
+        local cmd = "vertical G"
+        if args["args"] then
+          cmd = cmd .. " " .. args["args"]
+        end
+        vim.cmd(cmd)
+      end, { desc = "Git log with vertical layout", nargs = "*" })
 
-      vim.api.nvim_create_user_command(
-        "VGll",
-        function(args)
-          local cmd = [[ vertical Git log --graph --pretty=format:"%h %Cred%an %Cblue%aI %Cred%d%Cgreen%s" ]]
-          if (args['args']) then
-            cmd = cmd .. " " .. args['args']
-          end
-          vim.cmd(cmd)
-        end,
-        { desc = "Git log with format and vertical layout", nargs = "*" }
-      )
+      vim.api.nvim_create_user_command("VGll", function(args)
+        local cmd = [[ vertical Git log --graph --pretty=format:"%h %Cred%an %Cblue%aI %Cred%d%Cgreen%s" ]]
+        if args["args"] then
+          cmd = cmd .. " " .. args["args"]
+        end
+        vim.cmd(cmd)
+      end, { desc = "Git log with format and vertical layout", nargs = "*" })
     end,
   },
 
   {
     "NeogitOrg/neogit",
-    lazy = false,
+    command = { "Neogit" },
     config = function(_, opts)
       require("neogit").setup(opts)
     end,
@@ -488,7 +476,9 @@ local default_plugins = {
     "iamcco/markdown-preview.nvim",
     cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
     ft = { "markdown" },
-    build = function() vim.fn["mkdp#util#install"]() end,
+    build = function()
+      vim.fn["mkdp#util#install"]()
+    end,
     lazy = true,
     branch = "master",
     commit = "a923f5f",
@@ -500,6 +490,49 @@ local default_plugins = {
     lazy = true,
     branch = "master",
     commit = "36ff7ab",
+  },
+
+  {
+    "kevinhwang91/nvim-ufo",
+    dependencies = {
+      "kevinhwang91/promise-async",
+      {
+        "luukvbaal/statuscol.nvim",
+        config = function()
+          local builtin = require("statuscol.builtin")
+          require("statuscol").setup({
+            relculright = true,
+            segments = {
+              { text = { builtin.foldfunc },      click = "v:lua.ScFa" },
+              { text = { "%s" },                  click = "v:lua.ScSa" },
+              { text = { builtin.lnumfunc, " " }, click = "v:lua.ScLa" },
+            },
+          })
+        end,
+        branch = "main",
+        commit = "3b62975",
+      },
+    },
+    event = "BufReadPost",
+    lazy = false,
+    opts = {
+      provider_selector = function()
+        return { "treesitter", "indent" }
+      end,
+    },
+    init = function()
+      vim.keymap.set("n", "zR", function()
+        require("ufo").openAllFolds()
+      end)
+      vim.keymap.set("n", "zM", function()
+        require("ufo").closeAllFolds()
+      end)
+    end,
+    config = function(_, opts)
+      require("ufo").setup(opts)
+    end,
+    branch = "main",
+    commit = "b0741a6",
   },
 
   -- Only load whichkey after all the gui

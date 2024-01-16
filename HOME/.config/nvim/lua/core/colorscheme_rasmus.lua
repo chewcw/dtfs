@@ -135,8 +135,8 @@ M.setup = function()
     DiffNewFile = { fg = c.black, bg = c.cyan },
 
     ErrorMsg = { fg = c.red },
-    Folded = { fg = c.gray05, bg = c.none, italic = true },
-    FoldColumn = { fg = c.main1 },
+    Folded = { fg = c.gray05, bg = c.gray00 },
+    FoldColumn = { fg = c.gray04 },
     IncSearch = { fg = c.black, bg = c.brown },
     LineNr = { fg = c.gray05 },
     CursorLineNr = { fg = c.main1 },
