@@ -59,12 +59,12 @@ end
 
 M.gitsigns = {
   signs = {
-    add = { hl = "DiffAdd", text = " " },
-    change = { hl = "DiffChange", text = " " },
-    delete = { hl = "DiffDelete", text = " " },
-    topdelete = { hl = "DiffDelete", text = " " },
-    changedelete = { hl = "DiffChangeDelete", text = " " },
-    untracked = { hl = "DiffNewFile", text = " " },
+    add          = { text = '│' },
+    change       = { text = '│' },
+    delete       = { text = '_' },
+    topdelete    = { text = '‾' },
+    changedelete = { text = '~' },
+    untracked    = { text = '┆' },
   },
   on_attach = function(bufnr)
     utils.load_mappings("gitsigns", { buffer = bufnr })
