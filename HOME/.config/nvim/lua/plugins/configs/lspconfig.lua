@@ -70,6 +70,11 @@ M.capabilities.textDocument.completion.completionItem = {
   },
 }
 
+M.capabilities.textDocument.foldingRange = {
+  dynamicRegistration = false,
+  lineFoldingOnly = true,
+}
+
 local lspconfig = require("lspconfig")
 local home = os.getenv("HOME")
 
@@ -160,6 +165,7 @@ lspconfig.tsserver.setup({
 -- rust
 lspconfig.rust_analyzer.setup({
   on_attach = M.on_attach,
+  capabilities = M.capabilities,
   granularity = {
     group = "module",
   },
@@ -177,6 +183,7 @@ lspconfig.rust_analyzer.setup({
 -- emmet
 lspconfig.emmet_ls.setup({
   on_attach = M.on_attach,
+  capabilities = M.capabilities,
   cmd = { home .. "/.local/share/nvim/mason/bin/emmet-ls", "--stdio" },
 })
 

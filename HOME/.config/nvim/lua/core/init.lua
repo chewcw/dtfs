@@ -26,6 +26,10 @@ opt.fillchars = {
   -- horizdown = " ",
   -- verthoriz = " ",
   stl = " ",
+  fold = " ",
+  foldopen = "",
+  foldsep = " ",
+  foldclose = "",
 }
 opt.ignorecase = false
 opt.smartcase = true
@@ -60,6 +64,9 @@ opt.autochdir = false
 -- misc
 opt.scrolloff = 5
 opt.foldlevel = 99
+opt.foldlevelstart = 99
+opt.foldenable = true
+opt.foldcolumn = '1'
 opt.wildignorecase = true
 -- this is the annoying opening parenthesis highlighting when typing closing parenthesis
 -- https://stackoverflow.com/a/34716232
