@@ -674,9 +674,27 @@ M.codeium = {
   plugin = true,
 
   i = {
-    ["<A-\\>"] = {
+    ["<A-]>"] = {
+      function()
+        return vim.fn["codeium#CycleCompletions"](1)
+      end,
+      opts = { expr = true },
+    },
+    ["<A-[>"] = {
+      function()
+        return vim.fn["codeium#CycleCompletions"](-1)
+      end,
+      opts = { expr = true },
+    },
+    ["<A-CR>"] = {
       function()
         return vim.fn["codeium#Accept"]()
+      end,
+      opts = { expr = true },
+    },
+    ["<A-q>"] = {
+      function()
+        return vim.fn["codeium#Clear"]()
       end,
       opts = { expr = true },
     },
