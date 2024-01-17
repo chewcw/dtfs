@@ -1,3 +1,7 @@
+local function bufnr()
+  return "[%n]"
+end
+
 local function filepath()
   local fpath = vim.fn.fnamemodify(vim.fn.expand "%", ":~:.:h")
   if fpath == "" or fpath == "." then
@@ -12,7 +16,11 @@ local function filename()
   if fname == "" then
       return ""
   end
-  return fname .. " "
+  return fname
+end
+
+local function modified()
+  return "%m"
 end
 
 local function lsp()
@@ -117,9 +125,11 @@ Statusline = {}
 Statusline.active = function()
   return table.concat {
     "%#StatusLineText#",
+    bufnr(),
     " 🗁 ",
     filepath(),
     filename(),
+    modified(),
     "  ",
     vcs(),
     "%=%#StatusLineExtra#",
@@ -137,7 +147,10 @@ end
 
 function Statusline.inactive()
   return table.concat({
+    bufnr(),
+    " 🗁 ",
     " %f",
+    modified(),
     "%=%#StatusLineExtra#",
     " ⭾ ",
     tabpage(),
