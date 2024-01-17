@@ -686,7 +686,7 @@ M.codeium = {
       end,
       opts = { expr = true },
     },
-    ["<A-g>"] = {
+    ["<A-Tab>"] = {
       function()
         return vim.fn["codeium#Accept"]()
       end,
