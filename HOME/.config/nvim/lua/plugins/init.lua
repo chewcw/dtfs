@@ -515,11 +515,9 @@ local default_plugins = {
     },
     event = "BufReadPost",
     lazy = false,
-    opts = {
-      provider_selector = function()
-        return { "treesitter", "indent" }
-      end,
-    },
+    opts = function()
+      return require("plugins.configs.others").ufo
+    end,
     init = function()
       vim.keymap.set("n", "zR", function()
         require("ufo").openAllFolds()
