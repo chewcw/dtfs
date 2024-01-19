@@ -134,3 +134,17 @@ vim.api.nvim_create_autocmd({"BufWinEnter"}, {
   desc = "load view (folds), when opening file",
   command = "silent! loadview"
 })
+
+-- update command line color in insert mode
+vim.api.nvim_create_autocmd({"InsertEnter"}, {
+  callback = function()
+    vim.api.nvim_set_hl(0, "MsgArea", {
+      bg = require("core.colorscheme").colors().blue,
+    })
+  end
+})
+vim.api.nvim_create_autocmd({"InsertLeave"}, {
+  callback = function()
+    vim.api.nvim_set_hl(0, "MsgArea", { bg = "None" })
+  end
+})
