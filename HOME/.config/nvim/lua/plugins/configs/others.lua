@@ -81,7 +81,7 @@ M.wilder = {
   next_key = "<C-j>",
   previous_key = "<C-k>",
   accept_key = "<C-l>",
-  reject_key = "<C-h>",
+  reject_key = "<C-q>",
 }
 
 M.workspaces = {
