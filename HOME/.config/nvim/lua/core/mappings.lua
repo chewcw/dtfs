@@ -18,6 +18,7 @@ M.general = {
     -- tab
     ["<A-S-t>"] = { "<cmd> tabedit <CR> <Esc>", "new tab" },
     ["<A-S-w>"] = { "<cmd> tabclose <CR> <Esc>", "close tab" },
+    ["<A-S-d>"] = { "<cmd> tabclose <CR> <Esc>", "close tab" },
     ["<A-S-h>"] = { "<cmd> tabprevious <CR> <Esc>", "previous tab" },
     ["<A-S-l>"] = { "<cmd> tabnext <CR> <Esc>", "next tab" },
 
