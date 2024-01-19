@@ -78,6 +78,7 @@ M.options = {
           ["<C-A-u>"] = require("telescope.actions").preview_scrolling_up,
           ["<C-u>"] = require("telescope.actions").results_scrolling_up,
           ["<C-d>"] = require("telescope.actions").results_scrolling_down,
+          ["<C-t>"] = require("trouble.providers.telescope").open_with_trouble,
           ["<C-h>"] = function()
             local keys = vim.api.nvim_replace_termcodes('<C-h>', false, false, true)
             vim.api.nvim_feedkeys(keys, "n", {})
@@ -95,6 +96,7 @@ M.options = {
           ["<C-A-u>"] = require("telescope.actions").preview_scrolling_up,
           ["<C-u>"] = require("telescope.actions").results_scrolling_up,
           ["<C-d>"] = require("telescope.actions").results_scrolling_down,
+          ["<C-t>"] = require("trouble.providers.telescope").open_with_trouble,
           ["]"] = require("telescope.actions").results_scrolling_right,
           ["["] = require("telescope.actions").results_scrolling_left,
           -- do nothing, to prevent open nvim_tree accidentally
@@ -166,27 +168,6 @@ M.options = {
           ["<C-g>"] = require("telescope").extensions.file_browser.actions.goto_parent_dir,
           ["<C-e>"] = require("telescope").extensions.file_browser.actions.goto_home_dir,
           ["<C-w>"] = require("telescope").extensions.file_browser.actions.goto_cwd,
-          ["<C-t>"] = function(prompt_bufnr)
-            -- https://github.com/nvim-telescope/telescope-file-browser.nvim/blob/master/lua/telescope/_extensions/file_browser/actions.lua
-            local action_state = require("telescope.actions.state")
-            local current_picker = action_state.get_current_picker(prompt_bufnr)
-            local finder = current_picker.finder
-            local entry_path = action_state.get_selected_entry().Path
-            local fb_utils = require("telescope._extensions.file_browser.utils")
-            finder.path = entry_path:is_dir() and entry_path:absolute() or entry_path:parent():absolute()
-            finder.cwd = finder.path
-            vim.cmd("tcd " .. finder.path)
-
-            fb_utils.redraw_border_title(current_picker)
-            current_picker:refresh(
-              finder,
-              { new_prefix = fb_utils.relative_path_prefix(finder), reset_prompt = true, multi = current_picker._multi }
-            )
-            fb_utils.notify(
-              "action.change_cwd",
-              { msg = "Set the current working directory for this tab!", level = "INFO", quiet = finder.quiet }
-            )
-          end,
           ["<C-f>"] = require("telescope").extensions.file_browser.actions.toggle_browser,
           -- ["<C-h>"] = require("telescope").extensions.file_browser.actions.toggle_hidden,
           ["<C-s>"] = require("telescope").extensions.file_browser.actions.toggle_all,

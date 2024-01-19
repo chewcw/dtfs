@@ -534,6 +534,17 @@ local default_plugins = {
     commit = "b0741a6",
   },
 
+  {
+    "folke/trouble.nvim",
+    lazy = false,
+    init = function()
+      require("core.utils").load_mappings("trouble")
+    end,
+    config = true,
+    branch = "main",
+    commit = "f1168fe",
+  },
+
   -- Only load whichkey after all the gui
   {
     "folke/which-key.nvim",

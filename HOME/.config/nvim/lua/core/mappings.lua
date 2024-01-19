@@ -756,4 +756,39 @@ M.nvim_dap = {
   },
 }
 
+M.trouble = {
+  n = {
+    ["tr"] = {
+      function()
+        require("trouble").toggle("lsp_references")
+      end,
+      "lsp references",
+    },
+    ["ti"] = {
+      function()
+        require("trouble").toggle("lsp_implementations")
+      end,
+      "lsp implementation",
+    },
+    ["td"] = {
+      function()
+        require("trouble").toggle("lsp_definitions")
+      end,
+      "lsp definitions",
+    },
+    ["tq"] = {
+      function()
+        require("trouble").toggle("document_diagnostics")
+      end,
+      "open current buffer diagnostics",
+    },
+    ["tQ"] = {
+      function()
+        require("trouble").toggle("workspace_diagnostics")
+      end,
+      "open workspace diagnostics",
+    },
+  },
+}
+
 return M
