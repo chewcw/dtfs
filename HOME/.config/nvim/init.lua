@@ -12,4 +12,4 @@ end
 vim.opt.rtp:prepend(lazypath)
 require("plugins")
 
-require("core.colorscheme_rasmus").setup()
+require("core.colorscheme").setup()

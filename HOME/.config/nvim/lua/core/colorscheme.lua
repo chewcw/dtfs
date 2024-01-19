@@ -8,7 +8,7 @@ local get_highlight = function(group, type)
   return vim.api.nvim_get_hl_by_name(group, {})[type]
 end
 
-local colors = function()
+M.colors = function()
   return {
     -- Basic
     bg = "#030a0e",
@@ -27,7 +27,7 @@ local colors = function()
     cyan = "#94c9b2",
     white = "#F9F9F9",
     brown = "#FFBF9B",
-    blue = "#36536e",
+    blue = "#4a647c",
     -- Bright
     bright_black = "#4c4c4b",
     bright_red = "#ffafa5",
@@ -87,7 +87,7 @@ M.setup = function()
   vim.g.colors_name = "rasmus"
   vim.o.background = "dark"
 
-  local c = colors()
+  local c = M.colors()
 
   vim.g.terminal_color_0 = c.black
   vim.g.terminal_color_1 = c.red
@@ -119,8 +119,9 @@ M.setup = function()
     FloatBorder = { fg = c.gray03, bg = c.bg },
     ColorColumn = { fg = c.none, bg = c.bg_nc },
     Conceal = { fg = c.gray05 },
-    Cursor = { fg = c.main4, bg = c.none, reverse = true },
-    CursorIM = { fg = c.main4, bg = c.none, reverse = true },
+    Cursor = { bg = c.blue, fg = c.white, reverse = false },
+    CursorIM = { bg = c.blue, fg = c.white, reverse = false },
+    CurSearch = { bg = c.blue, fg = c.white, reverse = false },
     Directory = { fg = c.main1, bg = c.none },
 
     DiffAdd = { fg = c.black, bg = c.bright_green },
