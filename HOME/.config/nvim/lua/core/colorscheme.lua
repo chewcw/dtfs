@@ -191,7 +191,7 @@ M.setup = function()
     Comment = { fg = c.gray05, bg = c.none, bold = cfg.comment_style.bold, italic = cfg.comment_style.italic }, -- italic comments
     Conditional = { fg = c.main1, bg = c.none, bold = cfg.keyword_style.bold, italic = cfg.keyword_style.italic }, -- italic if, then, else, endif, switch, etc.
     Keyword = { fg = c.main2, bg = c.none, bold = cfg.keyword_style.bold, italic = cfg.keyword_style.italic },   -- italic for, do, while, etc.
-    Repeat = { fg = c.main1, bg = c.none, bold = cfg.keyword_style.bold, italic = cfg.keyword_style.italic },    -- italic any other keyword
+    Repeat = { fg = c.main2, bg = c.none, bold = cfg.keyword_style.bold, italic = cfg.keyword_style.italic },    -- italic any other keyword
     Boolean = { fg = c.main4, bg = c.none, bold = cfg.boolean_style.bold, italic = cfg.boolean_style.italic },   -- true , false
     Function = { fg = c.main3, bg = c.none, bold = cfg.function_style.bold, italic = cfg.function_style.italic },
     Identifier = { fg = c.main1, bg = c.none },                                                                  -- any variable name
