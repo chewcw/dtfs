@@ -311,8 +311,8 @@ local default_plugins = {
         wilder.popupmenu_renderer(wilder.popupmenu_border_theme({
           highlights = {
             border = "FloatBorder",
-            pumblend = 30,
           },
+          pumblend = 20,
         }))
       )
     end,

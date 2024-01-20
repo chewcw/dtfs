@@ -46,7 +46,7 @@ M.options = {
       file_ignore_patterns = {},
       generic_sorter = require("telescope.sorters").get_generic_fuzzy_sorter,
       path_display = { "truncate" },
-      winblend = 0,
+      winblend = 10,
       border = true,
       borderchars = { "─", "│", "─", "│", "┌", "┐", "┘", "└" },
       -- borderchars = { "=", "", "", "", "", "", "", "" },
