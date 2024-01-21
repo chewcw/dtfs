@@ -493,46 +493,46 @@ local default_plugins = {
     commit = "36ff7ab",
   },
 
-  {
-    "kevinhwang91/nvim-ufo",
-    dependencies = {
-      "kevinhwang91/promise-async",
-      {
-        "luukvbaal/statuscol.nvim",
-        config = function()
-          local builtin = require("statuscol.builtin")
-          require("statuscol").setup({
-            relculright = true,
-            segments = {
-              { text = { builtin.foldfunc },      click = "v:lua.ScFa" },
-              { text = { "%s" },                  click = "v:lua.ScSa" },
-              { text = { builtin.lnumfunc, " " }, click = "v:lua.ScLa" },
-            },
-          })
-        end,
-        branch = "main",
-        commit = "3b62975",
-      },
-    },
-    event = "BufReadPost",
-    lazy = false,
-    opts = function()
-      return require("plugins.configs.others").ufo
-    end,
-    init = function()
-      vim.keymap.set("n", "zR", function()
-        require("ufo").openAllFolds()
-      end)
-      vim.keymap.set("n", "zM", function()
-        require("ufo").closeAllFolds()
-      end)
-    end,
-    config = function(_, opts)
-      require("ufo").setup(opts)
-    end,
-    branch = "main",
-    commit = "b0741a6",
-  },
+  -- {
+    -- "kevinhwang91/nvim-ufo",
+    -- dependencies = {
+    --   "kevinhwang91/promise-async",
+    --   {
+    --     "luukvbaal/statuscol.nvim",
+    --     config = function()
+    --       local builtin = require("statuscol.builtin")
+    --       require("statuscol").setup({
+    --         relculright = true,
+    --         segments = {
+    --           { text = { builtin.foldfunc },      click = "v:lua.ScFa" },
+    --           { text = { "%s" },                  click = "v:lua.ScSa" },
+    --           { text = { builtin.lnumfunc, " " }, click = "v:lua.ScLa" },
+    --         },
+    --       })
+    --     end,
+    --     branch = "main",
+    --     commit = "3b62975",
+    --   },
+    -- },
+    -- event = "BufReadPost",
+    -- lazy = false,
+    -- opts = function()
+    --   return require("plugins.configs.others").ufo
+    -- end,
+    -- init = function()
+    --   vim.keymap.set("n", "zR", function()
+    --     require("ufo").openAllFolds()
+    --   end)
+    --   vim.keymap.set("n", "zM", function()
+    --     require("ufo").closeAllFolds()
+    --   end)
+    -- end,
+    -- config = function(_, opts)
+    --   require("ufo").setup(opts)
+    -- end,
+    -- branch = "main",
+    -- commit = "b0741a6",
+  -- },
 
   {
     "folke/trouble.nvim",
