@@ -16,6 +16,7 @@ $DOCKER run \
   `# must use alacritty in this case` \
   -e TERM=$TERM \
   -e DISPLAY=$DISPLAY \
+  -e EDITOR=nvim \
   `# this is for xclip/xsel to work inside the container` \
   -v /tmp/.X11-unix:/tmp/.X11-unix \
   `# these is to share the host's XServer with the container` \
