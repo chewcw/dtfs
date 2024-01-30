@@ -463,6 +463,8 @@ M.telescope = {
       end,
       "resume with cache" },
 
+    ["<leader>fR"] = { "<cmd> Telescope pickers <CR>", "cache pickers" },
+
     -- git
     ["<leader>gc"] = { "<cmd> Telescope git_commits <CR>", "git commits" },
     ["<leader>gt"] = { "<cmd> Telescope git_status <CR>", "git status" },

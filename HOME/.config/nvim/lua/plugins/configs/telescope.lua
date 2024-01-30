@@ -27,6 +27,9 @@ M.options = {
       sorting_strategy = "ascending",
       -- https://github.com/nvim-telescope/telescope.nvim/issues/848#issuecomment-1437928837
       layout_strategy = "bottom_pane",
+      cache_picker = {
+        num_pickers = -1,
+      },
       preview = true,
       layout_config = {
         horizontal = {
