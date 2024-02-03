@@ -790,6 +790,12 @@ M.trouble = {
       end,
       "open workspace diagnostics",
     },
+    ["t."] = {
+      function()
+        require("trouble").toggle("quickfix")
+      end,
+      "open quickfix",
+    },
   },
 }
 
