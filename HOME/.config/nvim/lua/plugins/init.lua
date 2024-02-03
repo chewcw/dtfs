@@ -545,6 +545,14 @@ local default_plugins = {
     commit = "f1168fe",
   },
 
+  {
+    "Issafalcon/lsp-overloads.nvim",
+    event = { "BufEnter " },
+    config = true,
+    branch = "main",
+    commit = "6b02341",
+  },
+
   -- Only load whichkey after all the gui
   {
     "folke/which-key.nvim",

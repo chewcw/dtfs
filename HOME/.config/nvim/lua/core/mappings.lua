@@ -223,6 +223,9 @@ M.general = {
 
     -- gf open in new tab
     ["gF"] = { "<C-w>gf", "open file in new tab" },
+
+    -- overloads
+    ["<C-s>"] = { ":LspOverloadsSignature<CR>", "show function overloads" },
   },
 
   v = {
