@@ -20,7 +20,7 @@ M.colors = function()
     main3 = "#F4F7C5",
     main4 = "#AACDBE",
     black = "#010507",
-    red = "#9f2730",
+    red = "#bb676e",
     green = "#618b79",
     yellow = "#e5c114",
     magenta = "#8a50a2",
@@ -38,6 +38,9 @@ M.colors = function()
     bright_cyan = "#94c9b2",
     bright_white = "#eaeaea",
     bright_brown = "#FFBF9B",
+    -- Dark
+    dark_yellow = "#5b4d08",
+    dark_red = "#3f0f13",
     -- Grays
     gray00 = "#1b1b1a",
     gray01 = "#222221",

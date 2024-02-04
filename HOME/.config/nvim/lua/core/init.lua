@@ -139,14 +139,38 @@ vim.api.nvim_create_autocmd({"BufWinEnter"}, {
 vim.api.nvim_create_autocmd({"InsertEnter"}, {
   callback = function()
     vim.api.nvim_set_hl(0, "MsgArea", {
-      bg = require("core.colorscheme").colors().blue,
-    })
+      bg = require("core.colorscheme").colors().dark_yellow,
+    } )
   end
 })
 vim.api.nvim_create_autocmd({"InsertLeave"}, {
   callback = function()
     vim.api.nvim_set_hl(0, "MsgArea", { bg = "None" })
   end
+})
+
+-- search for any unsaved buffer and show it on the MsgArea
+function search_modified_unsaved_buffers()
+  for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+    if vim.api.nvim_buf_get_option(buf, "modified") then
+      vim.api.nvim_set_hl(0, "MsgArea", {
+        bg = require("core.colorscheme").colors().dark_red,
+      })
+      return
+    end
+    vim.api.nvim_set_hl(0, "MsgArea", { bg = "None" })
+  end
+end
+vim.api.nvim_create_autocmd({"BufModifiedSet"}, {
+  callback = search_modified_unsaved_buffers,
+})
+vim.api.nvim_create_autocmd({"InsertLeave"}, {
+  callback = search_modified_unsaved_buffers,
+})
+-- opening and closing telescope picker will also be triggered
+-- so this event is to run the function after the telescope picker is closed
+vim.api.nvim_create_autocmd({"WinEnter"}, {
+  callback = search_modified_unsaved_buffers,
 })
 
 -- for trouble.nvim plugin there is no NormalNC highlight group
