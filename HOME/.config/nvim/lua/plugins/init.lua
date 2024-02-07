@@ -547,7 +547,7 @@ local default_plugins = {
 
   {
     "Issafalcon/lsp-overloads.nvim",
-    event = { "BufEnter " },
+    event = { "BufEnter" },
     config = true,
     branch = "main",
     commit = "6b02341",
