@@ -547,7 +547,8 @@ local default_plugins = {
 
   {
     "Issafalcon/lsp-overloads.nvim",
-    event = { "BufEnter" },
+    lazy = true,
+    cmd = { "LspOverloadsSignatureAutoToggle" },
     config = true,
     branch = "main",
     commit = "6b02341",
