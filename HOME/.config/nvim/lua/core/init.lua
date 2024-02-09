@@ -149,6 +149,20 @@ vim.api.nvim_create_autocmd({"InsertLeave"}, {
   end
 })
 
+-- update command line color in command mode
+vim.api.nvim_create_autocmd({"CmdLineEnter"}, {
+  callback = function()
+    vim.api.nvim_set_hl(0, "MsgArea", {
+      bg = require("core.colorscheme").colors().dark_green,
+    } )
+  end
+})
+vim.api.nvim_create_autocmd({"CmdLineLeave"}, {
+  callback = function()
+    vim.api.nvim_set_hl(0, "MsgArea", { bg = "None" })
+  end
+})
+
 -- search for any unsaved buffer and show it on the MsgArea
 function search_modified_unsaved_buffers()
   for _, buf in ipairs(vim.api.nvim_list_bufs()) do
