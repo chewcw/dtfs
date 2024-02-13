@@ -153,7 +153,7 @@ vim.api.nvim_create_autocmd({"InsertLeave"}, {
 vim.api.nvim_create_autocmd({"CmdLineEnter"}, {
   callback = function()
     vim.api.nvim_set_hl(0, "MsgArea", {
-      bg = require("core.colorscheme").colors().dark_green,
+      bg = require("core.colorscheme").colors().dark_blue,
     } )
   end
 })
