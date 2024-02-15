@@ -261,6 +261,13 @@ M.general = {
     ["<A-k>"] = { "<Up>", "move up" },
     ["<A-w>"] = { "<C-Right>", "move next word" },
     ["<A-b>"] = { "<C-Left>", "move previous word" },
+    ["<A-CR>"] = {
+      function()
+        local last_command = vim.fn.getcmdline()
+        local modified_command = ":vertical " .. last_command
+        vim.cmd(modified_command)
+        vim.api.nvim_input("<Esc>")
+      end, "add `vertical` to the beginning of the command" },
   },
 }
 

@@ -445,21 +445,13 @@ local default_plugins = {
         vim.cmd(cmd)
       end, { desc = "Git log with format", nargs = "*" })
 
-      vim.api.nvim_create_user_command("VG", function(args)
-        local cmd = "vertical G"
-        if args["args"] then
-          cmd = cmd .. " " .. args["args"]
-        end
-        vim.cmd(cmd)
-      end, { desc = "Git log with vertical layout", nargs = "*" })
-
-      vim.api.nvim_create_user_command("VGll", function(args)
+      vim.api.nvim_create_user_command("Gllv", function(args)
         local cmd = [[ vertical Git log --graph --pretty=format:"%h %Cred%an %Cblue%aI %Cred%d%Cgreen%s" ]]
         if args["args"] then
           cmd = cmd .. " " .. args["args"]
         end
         vim.cmd(cmd)
-      end, { desc = "Git log with format and vertical layout", nargs = "*" })
+      end, { desc = "Git log with format", nargs = "*" })
     end,
   },
 
