@@ -200,3 +200,18 @@ vim.api.nvim_create_autocmd({"BufWinLeave"}, {
     end
   end,
 })
+
+-- update command line color in terminal mode
+vim.api.nvim_create_autocmd({"TermEnter"}, {
+  callback = function()
+    vim.api.nvim_set_hl(0, "MsgArea", {
+      bg = require("core.colorscheme").colors().dark_green,
+    } )
+  end
+})
+vim.api.nvim_create_autocmd({"TermLeave"}, {
+  callback = function()
+    vim.api.nvim_set_hl(0, "MsgArea", { bg = "None" })
+  end
+})
+
