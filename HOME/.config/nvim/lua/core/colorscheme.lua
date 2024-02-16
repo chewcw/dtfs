@@ -43,6 +43,7 @@ M.colors = function()
     dark_green = "#263730",
     dark_red = "#3f0f13",
     dark_blue = "#25323e",
+    dark_magenta = "#56415e",
     -- Grays
     gray00 = "#1b1b1a",
     gray01 = "#222221",
