@@ -85,9 +85,11 @@ vim.wo.wrap = false
 opt.linebreak = true
 opt.textwidth = 85
 
+-- fold method
+opt.foldmethod = "indent"
+
 -- leader
 g.mapleader = " "
-
 
 -- cursor
 opt.guicursor = "n-v-sm:block,i-c-ci-ve:block-blinkwait0-blinkoff400-blinkon250-Cursor/lCursor,r-cr-o:hor30"
