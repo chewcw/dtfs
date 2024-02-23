@@ -27,7 +27,7 @@ M.blankline = {
   show_current_context = true,
   show_current_context_start = false,
   char = "│",
-  context_char = " ",
+  context_char = "│",
 }
 
 M.luasnip = function(opts)
