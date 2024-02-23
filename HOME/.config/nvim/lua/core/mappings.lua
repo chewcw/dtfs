@@ -111,20 +111,24 @@ M.general = {
     },
     ["<leader>lc"] = {
       function()
-        if vim.opt.cursorline:get() == false then
+        if vim.opt.cursorlineopt._value ~= 'both' then
           vim.cmd([[set cursorline]])
+          vim.cmd([[set cursorlineopt=both]])
         else
-          vim.cmd([[set nocursorline]])
+          vim.cmd([[set cursorline]])
+          vim.cmd([[set cursorlineopt=number]])
         end
       end,
       "toggle cursor line"
     },
     ["<leader>lC"] = {
       function()
-        if vim.opt.cursorline:get() == false then
+        if vim.opt.cursorlineopt._value ~= 'both' then
           vim.cmd([[windo set cursorline]])
+          vim.cmd([[windo set cursorlineopt=both]])
         else
-          vim.cmd([[windo set nocursorline]])
+          vim.cmd([[windo set cursorline]])
+          vim.cmd([[windo set cursorlineopt=number]])
         end
       end,
       "toggle cursor line for window"
