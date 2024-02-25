@@ -88,6 +88,9 @@ M.general = {
     ["<leader>lw"] = { ":set wrap! <CR>", "toggle line wrapping" },
     ["<leader>lW"] = { ":windo set wrap! <CR>", "toggle line wrapping in this window" },
 
+    ["<leader>uu"] = { ":UndotreeToggle <CR> :UndotreeFocus <CR>", "toggle undotree" },
+    ["<leader>uf"] = { ":UndotreeFocus <CR>", "focus undotree" },
+
     -- toggle color column
     ["<leader>lm"] = {
       function()
@@ -448,8 +451,8 @@ M.nvimtree = {
 
   n = {
     -- toggle
-    ["<C-n><C-n>"] = { "<cmd> NvimTreeToggle <CR>", "toggle nvimtree" },
-    ["<C-n><C-f>"] = { "<cmd> NvimTreeFindFile <CR>", "find file in nvimtree" },
+    ["<leader>NN"] = { "<cmd> NvimTreeToggle <CR>", "toggle nvimtree" },
+    ["<leader>NF"] = { "<cmd> NvimTreeFindFile <CR>", "find file in nvimtree" },
   },
 }
 
