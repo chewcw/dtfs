@@ -213,7 +213,7 @@ M.general = {
     ["<C-A-h>"] = { "<cmd> bnext <CR>", "goto prev buffer" },
     ["<C-A-w>"] = { "<cmd> bprevious|bdelete!#<CR>", "delete the buffer from buffer list" }, -- https://stackoverflow.com/a/19620009
     -- ["<C-A-d>"] = { "<cmd> bwipeout! <CR>", "wipe out the buffer from buffer list" },
-    ["<C-A-d>"] = { "<cmd> :lua require('plugins.configs.telescope_utils').delete_and_select_buffer() <CR>", "delete the buffer and select the next buffer" },
+    ["<C-A-d>"] = { "<cmd> :lua require('plugins.configs.telescope_utils').delete_and_select_old_buffer() <CR>", "delete the buffer and select the old buffer" },
 
     -- https://vim.fandom.com/wiki/Swapping_characters,_words_and_lines
     ["gw"] = { '"_yiw:s/\\(\\%#\\w\\+\\)\\(\\W\\+\\)\\(\\w\\+\\)/\\3\\2\\1/<CR>``:redraw<CR>:nohlsearch<CR>' },
@@ -476,8 +476,8 @@ M.telescope = {
     ["<leader>fb"] = { "<cmd> Telescope buffers ignore_current_buffer=true cwd_only=true <CR>", "find buffers for current working directory" },
     ["<leader>fB"] = { "<cmd> Telescope buffers ignore_current_buffer=true <CR>", "find buffers" },
     ["<leader>fh"] = { "<cmd> Telescope help_tags <CR>", "help page" },
-    ["<leader>fo"] = { "<cmd> Telescope oldfiles cwd_only=true <CR>", "find oldfiles for current working directory" },
-    ["<leader>fO"] = { "<cmd> Telescope oldfiles <CR>", "find oldfiles" },
+    ["<leader>fo"] = { "<cmd> Telescope oldfiles ignore_current_buffer=true cwd_only=true <CR>", "find oldfiles for current working directory" },
+    ["<leader>fO"] = { "<cmd> Telescope oldfiles ignore_current_buffer=true <CR>", "find oldfiles" },
     ["<leader>fz"] = { "<cmd> Telescope current_buffer_fuzzy_find <CR>", "find in current buffer" },
     ["<leader>f*"] = { "<cmd> Telescope grep_string <CR>", "search for string under cursor in cwd" },
     ["<leader>ft"] = { "<cmd> Telescope telescope-tabs list_tabs <CR>", "list tabs" },

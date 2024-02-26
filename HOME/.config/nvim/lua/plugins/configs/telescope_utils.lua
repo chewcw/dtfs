@@ -220,4 +220,31 @@ M.delete_and_select_buffer = function()
   end
 end
 
+-- Function to delete the current buffer and prompt for the oldfiles using Telescope
+M.delete_and_select_old_buffer = function()
+  local current_bufnr = vim.fn.bufnr("%")
+
+  -- Get a list of buffer names before deletion
+  local buffer_names_before = vim.fn.getbufinfo({ buflisted = 1 })
+  local buffer_numbers_before = {}
+  for _, buf in ipairs(buffer_names_before) do
+      table.insert(buffer_numbers_before, buf.bufnr)
+  end
+
+  local num_buffers = vim.fn.bufnr("$")
+  if num_buffers > 1 or vim.fn.buflisted(current_bufnr) == 0 then
+    -- Delete the current buffer
+    vim.cmd("bprevious|bdelete!" .. current_bufnr)
+
+    -- Open oldfiles
+    vim.cmd("Telescope oldfiles ignore_current_buffer=true cwd_only=true")
+  else
+    -- If it's the last buffer, create a new blank buffer
+    vim.cmd("enew")
+
+    -- Delete the original buffer without closing the window
+    vim.cmd("bdelete!" .. current_bufnr)
+  end
+end
+
 return M
