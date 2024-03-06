@@ -118,9 +118,9 @@ local default_plugins = {
         commit = "0010ea9",
       },
       {
-        "Hoffs/omnisharp-extended-lsp.nvim",
+        "chewcw/omnisharp-extended-lsp.nvim",
         branch = "main",
-        commit = "4be2e86",
+        commit = "4af667b",
       },
     },
     init = function()
