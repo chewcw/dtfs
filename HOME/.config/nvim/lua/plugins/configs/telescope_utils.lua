@@ -264,7 +264,7 @@ M.open_lsp_definitions_conditional = function(opts)
   --   end
   -- end
   if vim.fn.expand('%:e') == 'cs' then
-    require('omnisharp_extended').lsp_definitions()
+    require('omnisharp_extended').telescope_lsp_definitions(opts)
     return
   end
   require('telescope.builtin').lsp_definitions(opts)
