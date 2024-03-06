@@ -117,6 +117,11 @@ local default_plugins = {
         branch = "main",
         commit = "0010ea9",
       },
+      {
+        "Hoffs/omnisharp-extended-lsp.nvim",
+        branch = "main",
+        commit = "4be2e86",
+      },
     },
     init = function()
       require("core.utils").lazy_load("nvim-lspconfig")

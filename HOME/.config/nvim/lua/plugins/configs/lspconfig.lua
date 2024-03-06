@@ -145,6 +145,10 @@ local pid = vim.fn.getpid()
 lspconfig.omnisharp.setup({
   on_attach = M.on_attach,
   capabilities = M.capabilities,
+  handlers = {
+    ["textDocument/definition"] = require("omnisharp_extended").handler,
+  },
+  enable_editorconfig_support = true,
   cmd = { home .. "/.local/share/nvim/mason/bin/omnisharp", "--languageserver", "--hostPID", tostring(pid) },
 })
 
