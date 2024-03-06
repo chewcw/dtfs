@@ -247,4 +247,27 @@ M.delete_and_select_old_buffer = function()
   end
 end
 
+-- Function to open lsp_definitions using Telescope, handle special case for
+-- Omnisharp
+M.open_lsp_definitions_conditional = function(opts)
+  -- local bufnr = vim.api.nvim_get_current_buf()
+  -- local clients = vim.lsp.get_active_clients({ bufnr = bufnr })
+  -- local this_bufnr = vim.api.nvim_get_current_buf()
+  -- local buf_clients = vim.lsp.get_active_clients({ bufnr = this_bufnr })
+  -- local clients = vim.lsp.buf_get_clients(0)
+
+  -- for _, client in ipairs(buf_clients) do
+  --   if client.name == "omnisharp" then
+  --     require('omnisharp_extended').lsp_definitions()
+  --   else
+  --     require("telescope.builtin").lsp_definitions(opts)
+  --   end
+  -- end
+  if vim.fn.expand('%:e') == 'cs' then
+    require('omnisharp_extended').lsp_definitions()
+    return
+  end
+  require('telescope.builtin').lsp_definitions(opts)
+end
+
 return M

@@ -513,9 +513,14 @@ M.telescope = {
     },
     ["gr"] = { "<cmd> Telescope lsp_references show_line=false <CR>", "lsp references" },
     ["gR"] = { "<cmd> Telescope lsp_references show_line=false jump_type=never <CR>", "lsp references in vsplit" },
-    ["gd"] = { "<cmd> Telescope lsp_definitions show_line=false <CR>", "lsp definitions" },
+    -- ["gd"] = { "<cmd> Telescope lsp_definitions show_line=false <CR>", "lsp definitions" },
+    ["gd"] = { "<cmd> :lua require('plugins.configs.telescope_utils').open_lsp_definitions_conditional({show_line=false}) <CR>" },
+    -- ["gD"] = {
+    --   "<cmd> Telescope lsp_definitions show_line=false jump_type=never <CR>",
+    --   "lsp definitions in vsplit",
+    -- },
     ["gD"] = {
-      "<cmd> Telescope lsp_definitions show_line=false jump_type=never <CR>",
+      "<cmd> :lua require('plugins.configs.telescope_utils').open_lsp_definitions_conditional({show_line=false, jump_type='never'}) <CR>",
       "lsp definitions in vsplit",
     },
     ["gt"] = { "<cmd> Telescope lsp_type_definitions show_line=false <CR>", "lsp type definitions" },
