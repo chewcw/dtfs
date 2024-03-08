@@ -18,7 +18,7 @@ M.general = {
     -- tab
     ["<A-S-t>"] = { "<cmd> tabedit <CR> <Esc>", "new tab" },
     ["<A-S-w>"] = { "<cmd> tabclose <CR> <Esc>", "close tab" },
-    ["<A-S-d>"] = { "<cmd> tabclose <CR> <Esc>", "close tab" },
+    ["<A-S-d>"] = { "<cmd> bprevious|bdelete!#<CR> <cmd> tabclose <CR> <Esc>", "delete buffer from buffer list and close tab" },
     ["<A-S-h>"] = { "<cmd> tabprevious <CR> <Esc>", "previous tab" },
     ["<A-S-l>"] = { "<cmd> tabnext <CR> <Esc>", "next tab" },
 
@@ -78,6 +78,7 @@ M.general = {
     -- tab
     ["<A-S-t>"] = { ":tabedit <CR>", "new tab" },
     ["<A-S-w>"] = { ":tabclose <CR>", "close tab" },
+    ["<A-S-d>"] = { "<cmd> bprevious|bdelete!#<CR> <cmd> tabclose <CR>", "delete buffer from buffer list and close tab" },
     ["<A-S-h>"] = { ":tabprevious <CR>", "previous tab" },
     ["<A-S-l>"] = { ":tabnext <CR>", "next tab" },
 
