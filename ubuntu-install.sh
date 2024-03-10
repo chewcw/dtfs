@@ -70,12 +70,16 @@ mkdir -p $HOME/.config/jesseduffield
 mkdir -p $HOME/.config/jesseduffield/lazygit
 ln -sf $pwd/HOME/.config/jesseduffield/lazygit/config.yml $HOME/.config/jesseduffield/lazygit/config.yml
 
-# Install font (Iosevka-SS14)
+# Install font
 echo "------------------------------------------"
 echo "Installing iosevka fonts"
 echo "------------------------------------------"
 mkdir -p $HOME/.fonts
-cp $pwd/custom-fonts/Iosevka-nerdfont-patched/* $HOME/.fonts || true
+mkdir -p /tmp/PkgTTF-Iosevka-29.0.0/
+wget 'https://github.com/be5invis/Iosevka/releases/download/v29.0.0/PkgTTF-Iosevka-29.0.0.zip' -O /tmp/ || true
+unzip /tmp/PkgTTF-Iosevka-29.0.0.zip -d /tmp/Pkg-Iosevka-29.0.0/ || true
+cp /tmp/Pkg-Iosevka-29.0.0/* $HOME/.fonts || true
+# cp $pwd/custom-fonts/Iosevka-nerdfont-patched/* $HOME/.fonts || true
 
 # Install gnome-vim
 # Use vim-gtk3 so that I have +xterm_clipboard support
@@ -400,6 +404,12 @@ sudo apt install -y inkscape
 
 # shell setup
 # ------------------------------ put below in the end
+
+# bashrc
+echo "------------------------------------------"
+echo "Editing bashrc"
+echo "------------------------------------------"
+echo 'set -o vi' >> $HOME/.bashrc
 
 # Install zsh
 echo "------------------------------------------"
