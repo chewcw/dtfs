@@ -2,14 +2,13 @@
 
 set -e
 
-FISH=$(which fish)
+ZSH=$(which zsh)
 
 # fetch latest neovim configuration
-curl https://raw.githubusercontent.com/chewcw/dtfs/main/install-nvim.sh | bash -s update
-sleep 3s;
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/chewcw/dtfs/main/install-nvim.sh)" "" update
 
 if [ $# -eq 0 ]; then
-  $FISH
+  $ZSH
 else
-  $FISH -c "$@"
+  $ZSH -c "$@"
 fi
