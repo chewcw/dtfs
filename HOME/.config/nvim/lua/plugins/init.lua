@@ -402,25 +402,25 @@ local default_plugins = {
   },
 
   -- debugging
-  {
-    "mfussenegger/nvim-dap",
-    keys = { "<leader>d" },
-    dependencies = {
-      require("plugins.configs.nvim-dap").dapui,
-      require("plugins.configs.nvim-dap").virtual_text,
-      require("plugins.configs.nvim-dap").python,
-      require("plugins.configs.nvim-dap").go,
-    },
-    init = function()
-      require("core.utils").load_mappings("nvim_dap")
-    end,
-    config = function()
-      require("plugins.configs.nvim-dap").csharp.setup()
-      require("plugins.configs.nvim-dap").rust.setup()
-    end,
-    branch = "master",
-    commit = "31e1ece",
-  },
+  -- {
+  --   "mfussenegger/nvim-dap",
+  --   keys = { "<leader>d" },
+  --   dependencies = {
+  --     require("plugins.configs.nvim-dap").dapui,
+  --     require("plugins.configs.nvim-dap").virtual_text,
+  --     require("plugins.configs.nvim-dap").python,
+  --     require("plugins.configs.nvim-dap").go,
+  --   },
+  --   init = function()
+  --     require("core.utils").load_mappings("nvim_dap")
+  --   end,
+  --   config = function()
+  --     require("plugins.configs.nvim-dap").csharp.setup()
+  --     require("plugins.configs.nvim-dap").rust.setup()
+  --   end,
+  --   branch = "master",
+  --   commit = "31e1ece",
+  -- },
 
   {
     "nvim-treesitter/nvim-treesitter-context",
