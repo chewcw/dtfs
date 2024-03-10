@@ -15,21 +15,21 @@ local options = {
     -- golang
     "gopls",
     "goimports",
-    "delve", -- debugger
+    -- "delve", -- debugger
 
     -- dotnet
     "omnisharp",
     "csharpier",
-    "netcoredbg", -- debugger
+    -- "netcoredbg", -- debugger
 
     -- python
     "pyright",
-    "debugpy", -- debugger
+    -- "debugpy", -- debugger
     "black",
 
     -- rust
     "rust-analyzer",
-    "corelldb", -- debugger
+    -- "corelldb", -- debugger
   },
 
   PATH = "skip",
