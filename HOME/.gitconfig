@@ -1,5 +1,5 @@
 [user]
-  name = chewcw
+  name = ChewCW
   email = chwai87@gmail.com
 [diff]
 	tool = vimdiff
@@ -15,3 +15,13 @@
   cmd = vimdiff -u /home/ccw/.vimrc -c \"wincmd J\" -c \"windo set wrap\" \"$MERGED\" \"$LOCAL\" \"$BASE\" \"$REMOTE\"
 [mergetool]
   keepBackup = false
+[rerere]
+  enabled = true
+  autoUpdate = true
+[maintenance]
+	repo = /home/ccw/Documents/dtfs
+[filter "lfs"]
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process

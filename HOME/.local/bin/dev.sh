@@ -6,7 +6,7 @@
 set -e
 
 DOCKER=$(which docker)
-IMAGE=chewcw/development:1.0.3
+IMAGE=chewcw/development:1.0.4
 TERM=$TERM
 DISPLAY=$DISPLAY
 
@@ -23,6 +23,7 @@ $DOCKER run \
   -v $HOME/.Xauthority:/root/.Xauthority \
   --privileged \
   -v /var/run/docker.sock:/var/run/docker.sock \
+  --hostname catty \
   `# can append any desired argument` \
   $1 \
   $IMAGE \

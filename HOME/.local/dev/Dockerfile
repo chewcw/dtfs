@@ -1,58 +1,107 @@
 # syntax = docker/dockerfile:1.4.0
-FROM bitnami/minideb:bullseye
+FROM debian:trixie-slim
 
-RUN apt update && apt install -y wget curl gpg
-
-# add new user and add to sudo group
-RUN useradd --create-home ccw && \
-    usermod -aG sudo ccw
+RUN apt update && apt install -y wget curl sudo git ripgrep xclip xsel build-essential python3 python3 tar unzip ncurses-bin vim pip zsh
 
 # fish shell
-RUN echo 'deb http://download.opensuse.org/repositories/shells:/fish:/release:/3/Debian_11/ /' | tee /etc/apt/sources.list.d/shells:fish:release:3.list && \
-    curl -fsSL https://download.opensuse.org/repositories/shells:fish:release:3/Debian_11/Release.key | gpg --dearmor | tee /etc/apt/trusted.gpg.d/shells_fish_release_3.gpg > /dev/null && \
-    apt update && \
-    apt install -y fish && \
-    chsh --shell $(which fish) ccw
+# RUN echo 'deb http://download.opensuse.org/repositories/shells:/fish:/release:/3/Debian_11/ /' | tee /etc/apt/sources.list.d/shells:fish:release:3.list && \
+#     curl -fsSL https://download.opensuse.org/repositories/shells:fish:release:3/Debian_11/Release.key | gpg --dearmor | tee /etc/apt/trusted.gpg.d/shells_fish_release_3.gpg > /dev/null && \
+#     apt update && \
+#     apt install -y fish && \
+#     chsh --shell $(which fish) ccw
 
-# common utilities
-RUN apt install -y sudo git subversion ripgrep xclip xsel build-essential python3 python3-venv tar unzip ncurses-bin pip
+# add new user and add to sudo group
+RUN <<EOF
+useradd --create-home --shell /usr/bin/zsh ccw;
+usermod -aG sudo ccw;
+EOF
 
 # so that ccw can use sudo command
 RUN passwd --delete ccw
 USER ccw
 
+# bash
+RUN <<EOF
+echo "" >> /home/ccw/.bashrc;
+echo 'set -o vi' >> /home/ccw/.bashrc;
+EOF
+
+# oh-my-zsh
+RUN <<EOF
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended;
+git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions || true;
+EOF
+
+RUN <<EOF cat > /home/ccw/.zshrc
+export ZSH="\$HOME/.oh-my-zsh"
+ZSH_THEME="af-magic"
+DISABLE_AUTO_UPDATE="true"
+plugins=(git vi-mode zsh-autosuggestions)
+source \$ZSH/oh-my-zsh.sh
+export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#626262'
+export VI_MODE_SET_CURSOR=false
+function zle-line-init zle-keymap-select {
+    RPS1="\${\${KEYMAP/vicmd/-- NORMAL --}/(main|viins)/}"
+    RPS2=\$RPS1
+    zle reset-prompt
+}
+zle -N zle-line-init
+zle -N zle-keymap-select
+export EDITOR=nvim
+export VISUAL=nvim
+zmodload zsh/complist
+bindkey -M menuselect 'h' vi-backward-char
+bindkey -M menuselect 'k' vi-up-line-or-history
+bindkey -M menuselect 'l' vi-forward-char
+bindkey -M menuselect 'j' vi-down-line-or-history
+export LS_COLORS="di=1;36:ln=35:so=32:pi=33:ex=31:bd=34;46:cd=34;43:su=30;41:sg=30;46:tw=30;42:ow=30;43"
+zstyle ':completion:*:default' list-colors \${(s.:.)LS_COLORS}
+export PATH=\$PATH:/usr/local/go/bin
+export PATH=\$PATH:\$HOME/.local/bin
+EOF
+
 # install development tooling and runtime ------------------------------------------ 
-# dotnet latest
-RUN cd /tmp && wget https://dot.net/v1/dotnet-install.sh -O dotnet-install.sh && \
-    sudo chmod +x dotnet-install.sh && \
-    ./dotnet-install.sh --channel 7.0 && \
-    rm -rf /tmp/dotnet-install.sh && \
-    sudo ln -s $HOME/.dotnet/dotnet /usr/local/bin/dotnet && \
-    `# https://learn.microsoft.com/en-us/dotnet/core/install/linux-debian#dependencies` \
-    sudo apt install -y libicu67
+# dotnet v8.0
+RUN <<EOF
+cd /tmp;
+wget https://dot.net/v1/dotnet-install.sh -O dotnet-install.sh;
+sudo chmod +x dotnet-install.sh;
+./dotnet-install.sh --channel 8.0;
+rm -rf /tmp/dotnet-install.sh;
+sudo ln -s $HOME/.dotnet/dotnet /usr/local/bin/dotnet;
+`# https://learn.microsoft.com/en-us/dotnet/core/install/linux-debian#dependencies`
+sudo apt install -y libicu72;
+EOF
 
 ARG TARGETARCH
 
-# golang 1.21.6
-RUN sudo mkdir -p /usr/local/go && \
-    wget "https://go.dev/dl/go1.21.6.linux-${TARGETARCH}.tar.gz" -O "/tmp/go1.21.6.linux-${TARGETARCH}.tar.gz" && \
-    sudo tar -xzf "/tmp/go1.21.6.linux-${TARGETARCH}.tar.gz" -C /usr/local && \
-    rm -rf "/tmp/go1.21.6.linux-${TARGETARCH}.tar.gz" && \
-    sudo ln -s /usr/local/go/bin/go /usr/local/bin/go
+# golang 1.22.1
+RUN <<EOF
+sudo mkdir -p /usr/local/go;
+wget "https://go.dev/dl/go1.22.1.linux-${TARGETARCH}.tar.gz" -O "/tmp/go1.22.1.linux-${TARGETARCH}.tar.gz";
+sudo tar -xzf "/tmp/go1.22.1.linux-${TARGETARCH}.tar.gz" -C /usr/local;
+rm -rf "/tmp/go1.22.1.linux-${TARGETARCH}.tar.gz";
+sudo ln -s /usr/local/go/bin/go /usr/local/bin/go;
+EOF
 
-# nodejs
-RUN curl -sL install-node.vercel.app/lts | sudo bash -s -- --yes
+# FNM (Fast Node Manager)
+RUN curl -fsSL https://fnm.vercel.app/install | bash 
 
 # rust
-RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y && \
-    ls $HOME/.cargo/bin | awk '{print "/home/ccw/.cargo/bin/"$0}' | xargs sudo ln -s -t /usr/local/bin
+RUN <<EOF
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y;
+ls $HOME/.cargo/bin | awk '{print "/home/ccw/.cargo/bin/"$0}' | xargs sudo ln -s -t /usr/local/bin
+EOF
 
 # neovim
-RUN /bin/bash -c "if [[ $TARGETARCH == "amd64" ]]; then \
-      curl https://raw.githubusercontent.com/chewcw/dtfs/main/install-nvim.sh | bash; \
-    else \
-      cd /tmp; git clone https://github.com/chewcw/nv-built-aarch64; sudo mv nvim/ /usr/local/; \
-    fi"
+RUN <<EOF
+/bin/bash -c "if [[ $TARGETARCH == "amd64" ]]; then
+    curl https://raw.githubusercontent.com/chewcw/dtfs/main/install-nvim.sh | bash;
+  else
+    cd /tmp; git clone https://github.com/chewcw/nv-built-aarch64; sudo mv nv-built-aarch64/nvim/bin/nvim /usr/local/bin/;
+  fi"
+EOF
+
 # symlink for neovim
 RUN sudo ln -sf /usr/local/nvim/bin/nvim /usr/bin/nvim
 
@@ -63,18 +112,29 @@ RUN sudo apt install -y firefox-esr
 RUN sudo apt install -y xdg-utils
 
 # set default web browser
-# RUN xdg-settings set default-web-browser firefox-esr.desktop
+RUN xdg-settings set default-web-browser firefox-esr.desktop
+
+# install vscode
+RUN <<EOF
+ARCH=$([ "$TARGETARCH" = "amd64" ] && echo "x64" || echo "arm64" )
+wget "https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-$ARCH" -O /tmp/code.deb;
+sudo dpkg -i /tmp/code.deb;
+EOF
 
 # cleanup
-RUN rm -rf /tmp/*
+RUN <<EOF
+rm -rf /tmp/*
+sudo apt autoremove --yes
+sudo rm -rf /var/lib/apt/lists/*
+EOF
 
 WORKDIR /workspace
 
 # use vi mode in fish shell
-RUN mkdir -p $HOME/.config/fish && touch $HOME/.config/fish/config.fish && \
-cat <<EOF >> $HOME/.config/fish/config.fish
-fish_vi_key_bindings
-EOF
+# RUN mkdir -p $HOME/.config/fish && touch $HOME/.config/fish/config.fish && \
+# cat <<EOF >> $HOME/.config/fish/config.fish
+# fish_vi_key_bindings
+# EOF
 
 # install alacritty terminfo so that neovim can show undercurl
 RUN wget https://github.com/alacritty/alacritty/releases/download/v0.12.0/alacritty.info -O /tmp/alacritty.info && \
@@ -87,5 +147,20 @@ ENV TERM=
 # host's display, for example the browser in the container will be opened in host's env
 ENV DISPLAY=
 
-COPY entrypoint.sh /entrypoint.sh
+RUN <<EOF
+`# install Lazy.nvim and plugins`
+nvim &>/dev/null &
+sleep 15s;
+EOF
+
+RUN <<EOF
+`# install LSP related`
+nvim --headless -c 'MasonInstallAll' -c q &>/dev/null &
+sleep 1m;
+EOF
+
+COPY .gitconfig /home/ccw/.gitconfig
+COPY .codeium /home/ccw/
+COPY .local/dev/entrypoint.sh /entrypoint.sh
+
 ENTRYPOINT ["/entrypoint.sh"]

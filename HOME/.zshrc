@@ -115,6 +115,16 @@ source $ZSH/oh-my-zsh.sh
 # this can be changed by colorscheme switcher
 # see $HOME/.local/bin/toggle-colorscheme.sh
 export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#626262'
+export VI_MODE_SET_CURSOR=false
+
+# https://unix.stackexchange.com/a/1019
+function zle-line-init zle-keymap-select {
+    RPS1="${${KEYMAP/vicmd/-- NORMAL --}/(main|viins)/}"
+    RPS2=$RPS1
+    zle reset-prompt
+}
+zle -N zle-line-init
+zle -N zle-keymap-select
 
 export EDITOR=nvim
 export VISUAL=nvim
