@@ -11,7 +11,6 @@ vim.api.nvim_create_user_command("LazyStart", function()
   end
 
   vim.opt.rtp:prepend(lazypath)
-  require("plugins")
 end, {})
 
 require("core.colorscheme").setup()
