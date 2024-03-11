@@ -69,7 +69,11 @@ configure_nvim() {
 	echo "checking out the nvim config directory from github"
   cd $tempFilePath
   rm -rf dtfs/
-  git clone https://github.com/chewcw/dtfs
+  git clone https://github.com/chewcw/dtfs --no-checkout --depth 1 dtfs
+  cd dtfs
+  git sparse-checkout init --cone
+  git sparse-checkout set HOME/.config/nvim
+  git checkout
   cp -r $tempFilePath/dtfs/$configFileDirectory/* $localConfigFilePath
   rm -rf dtfs/
 }
