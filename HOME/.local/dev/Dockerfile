@@ -171,8 +171,8 @@ nvim --headless -c 'MasonInstallAll' -c q &>/dev/null &
 sleep 1m;
 EOF
 
-COPY .gitconfig /home/ccw/.gitconfig
-COPY .codeium /home/ccw/
-COPY .local/dev/entrypoint.sh /entrypoint.sh
+COPY --chown=ccw:ccw .gitconfig /home/ccw/.gitconfig
+COPY --chown=ccw:ccw .codeium /home/ccw/.codeium
+COPY --chown=ccw:ccw .local/dev/entrypoint.sh /entrypoint.sh
 
 ENTRYPOINT ["/entrypoint.sh"]
