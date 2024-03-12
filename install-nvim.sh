@@ -75,7 +75,7 @@ configure_nvim() {
   git sparse-checkout set HOME/.config/nvim
   git checkout
   cp -r $tempFilePath/dtfs/$configFileDirectory/* $localConfigFilePath
-  rm -rf dtfs/
+  rm -rf /tmp/dtfs/
 }
 
 uninstall() {

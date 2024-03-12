@@ -20,6 +20,12 @@ EOF
 RUN passwd --delete ccw
 USER ccw
 
+# fzf
+RUN <<EOF
+git clone --depth 1 https://github.com/junegunn/fzf.git $HOME/.fzf
+sh -c "$HOME/.fzf/install --no-update-rc --completion --key-bindings"
+EOF
+
 # bash
 RUN <<EOF
 echo "" >> /home/ccw/.bashrc;
@@ -32,12 +38,97 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/too
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions || true;
 EOF
 
+ARG TARGETARCH
+
+# install development tooling and runtime ------------------------------------------ 
+RUN <<EOF
+`# dotnet v8.0`
+cd /tmp;
+wget https://dot.net/v1/dotnet-install.sh -O dotnet-install.sh;
+sudo chmod +x dotnet-install.sh;
+./dotnet-install.sh --channel 8.0;
+rm -rf /tmp/dotnet-install.sh;
+sudo ln -s $HOME/.dotnet/dotnet /usr/local/bin/dotnet;
+`# https://learn.microsoft.com/en-us/dotnet/core/install/linux-debian#dependencies`
+sudo apt install -y libicu72;
+
+`# golang 1.22.1`
+sudo mkdir -p /usr/local/go;
+wget "https://go.dev/dl/go1.22.1.linux-${TARGETARCH}.tar.gz" -O "/tmp/go1.22.1.linux-${TARGETARCH}.tar.gz";
+sudo tar -xzf "/tmp/go1.22.1.linux-${TARGETARCH}.tar.gz" -C /usr/local;
+rm -rf "/tmp/go1.22.1.linux-${TARGETARCH}.tar.gz";
+sudo ln -s /usr/local/go/bin/go /usr/local/bin/go;
+
+`# FNM (Fast Node Manager)`
+curl -fsSL https://fnm.vercel.app/install | bash 
+
+`# rust`
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y;
+ls $HOME/.cargo/bin | awk '{print "/home/ccw/.cargo/bin/"$0}' | xargs sudo ln -s -t /usr/local/bin
+EOF
+
+# install firefox
+RUN sudo apt install -y firefox-esr
+
+# xdg-utils
+RUN <<EOF
+sudo apt install -y xdg-utils
+`# set default web browser`
+xdg-settings set default-web-browser firefox-esr.desktop
+EOF
+
+# neovim
+RUN <<EOF
+`# install neovim`
+/bin/bash -c "if [[ $TARGETARCH == "amd64" ]]; then
+    curl https://raw.githubusercontent.com/chewcw/dtfs/main/install-nvim.sh | bash;
+  else
+    cd /tmp; git clone https://github.com/chewcw/nv-built-aarch64; sudo mv nv-built-aarch64/nvim /usr/local;
+  fi"
+`# symlink for neovim`
+sudo ln -sf /usr/local/nvim/bin/nvim /usr/bin/nvim
+EOF
+
+# install vscode
+RUN <<EOF
+ARCH=$([ "$TARGETARCH" = "amd64" ] && echo "x64" || echo "arm64" )
+wget "https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-$ARCH" -O /tmp/code.deb;
+sudo dpkg -i /tmp/code.deb;
+EOF
+
+# cleanup
+RUN <<EOF
+rm -rf /tmp/*
+sudo apt autoremove --yes
+sudo rm -rf /var/lib/apt/lists/*
+sudo apt update
+EOF
+
+WORKDIR /workspace
+
+# use vi mode in fish shell
+# RUN mkdir -p $HOME/.config/fish && touch $HOME/.config/fish/config.fish && \
+# cat <<EOF >> $HOME/.config/fish/config.fish
+# fish_vi_key_bindings
+# EOF
+
+# install alacritty terminfo so that neovim can show undercurl
+RUN wget https://github.com/alacritty/alacritty/releases/download/v0.12.0/alacritty.info -O /tmp/alacritty.info && \
+    sudo tic -xe alacritty,alacritty-direct /tmp/alacritty.info && \
+    rm -rf /tmp/alacritty.info
+
+# zshrc
 RUN <<EOF cat > /home/ccw/.zshrc
 export ZSH="\$HOME/.oh-my-zsh"
 ZSH_THEME="af-magic"
 DISABLE_AUTO_UPDATE="true"
 plugins=(git vi-mode zsh-autosuggestions)
 source \$ZSH/oh-my-zsh.sh
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+export FZF_DEFAULT_COMMAND="find -L"
+export FZF_ALT_C_COMMAND="find ."
+export FZF_CTRL_T_COMMAND="\$FZF_DEFAULT_COMMAND"
+export FZF_COMPLETION_TRIGGER=','
 export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#626262'
 export VI_MODE_SET_CURSOR=false
 function zle-line-init zle-keymap-select {
@@ -58,88 +149,9 @@ export LS_COLORS="di=1;36:ln=35:so=32:pi=33:ex=31:bd=34;46:cd=34;43:su=30;41:sg=
 zstyle ':completion:*:default' list-colors \${(s.:.)LS_COLORS}
 export PATH=\$PATH:/usr/local/go/bin
 export PATH=\$PATH:\$HOME/.local/bin
+export PATH=\$PATH:\$HOME/.local/share/fnm
+eval "\$(fnm env)"
 EOF
-
-# install development tooling and runtime ------------------------------------------ 
-# dotnet v8.0
-RUN <<EOF
-cd /tmp;
-wget https://dot.net/v1/dotnet-install.sh -O dotnet-install.sh;
-sudo chmod +x dotnet-install.sh;
-./dotnet-install.sh --channel 8.0;
-rm -rf /tmp/dotnet-install.sh;
-sudo ln -s $HOME/.dotnet/dotnet /usr/local/bin/dotnet;
-`# https://learn.microsoft.com/en-us/dotnet/core/install/linux-debian#dependencies`
-sudo apt install -y libicu72;
-EOF
-
-ARG TARGETARCH
-
-# golang 1.22.1
-RUN <<EOF
-sudo mkdir -p /usr/local/go;
-wget "https://go.dev/dl/go1.22.1.linux-${TARGETARCH}.tar.gz" -O "/tmp/go1.22.1.linux-${TARGETARCH}.tar.gz";
-sudo tar -xzf "/tmp/go1.22.1.linux-${TARGETARCH}.tar.gz" -C /usr/local;
-rm -rf "/tmp/go1.22.1.linux-${TARGETARCH}.tar.gz";
-sudo ln -s /usr/local/go/bin/go /usr/local/bin/go;
-EOF
-
-# FNM (Fast Node Manager)
-RUN curl -fsSL https://fnm.vercel.app/install | bash 
-
-# rust
-RUN <<EOF
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y;
-ls $HOME/.cargo/bin | awk '{print "/home/ccw/.cargo/bin/"$0}' | xargs sudo ln -s -t /usr/local/bin
-EOF
-
-# neovim
-RUN <<EOF
-/bin/bash -c "if [[ $TARGETARCH == "amd64" ]]; then
-    curl https://raw.githubusercontent.com/chewcw/dtfs/main/install-nvim.sh | bash;
-  else
-    cd /tmp; git clone https://github.com/chewcw/nv-built-aarch64; sudo mv nv-built-aarch64/nvim/bin/nvim /usr/local/bin/;
-  fi"
-EOF
-
-# symlink for neovim
-RUN sudo ln -sf /usr/local/nvim/bin/nvim /usr/bin/nvim
-
-# install firefox
-RUN sudo apt install -y firefox-esr
-
-# xdg-utils
-RUN sudo apt install -y xdg-utils
-
-# set default web browser
-RUN xdg-settings set default-web-browser firefox-esr.desktop
-
-# install vscode
-RUN <<EOF
-ARCH=$([ "$TARGETARCH" = "amd64" ] && echo "x64" || echo "arm64" )
-wget "https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-$ARCH" -O /tmp/code.deb;
-sudo dpkg -i /tmp/code.deb;
-EOF
-
-# cleanup
-RUN <<EOF
-rm -rf /tmp/*
-sudo apt autoremove --yes
-sudo rm -rf /var/lib/apt/lists/*
-EOF
-
-WORKDIR /workspace
-
-# use vi mode in fish shell
-# RUN mkdir -p $HOME/.config/fish && touch $HOME/.config/fish/config.fish && \
-# cat <<EOF >> $HOME/.config/fish/config.fish
-# fish_vi_key_bindings
-# EOF
-
-# install alacritty terminfo so that neovim can show undercurl
-RUN wget https://github.com/alacritty/alacritty/releases/download/v0.12.0/alacritty.info -O /tmp/alacritty.info && \
-    sudo tic -xe alacritty,alacritty-direct /tmp/alacritty.info && \
-    rm -rf /tmp/alacritty.info
 
 # this env is necessary for neovim undercurl to work
 ENV TERM=
