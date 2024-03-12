@@ -21,9 +21,6 @@ $DOCKER run \
   -v /tmp/.X11-unix:/tmp/.X11-unix \
   `# these is to share the host's XServer with the container` \
   -v $HOME/.Xauthority:/root/.Xauthority \
-  --privileged \
-  -v /var/run/docker.sock:/var/run/docker.sock \
-  --hostname catty \
   `# can append any desired argument` \
   $1 \
   $IMAGE \
