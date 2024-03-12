@@ -65,7 +65,9 @@ M.general = {
     ["<leader>m"] = { ':delmarks a-zA-Z0-9"^.[] <CR>', "delete all marks" },
 
     -- split
+    ["<A-C-\\>"] = { ":vnew <CR>", "open new vsplit" },
     ["<A-\\>"] = { ":vsplit <CR>", "split vertically" },
+    ["<A-C-_>"] = { ":new <CR>", "open new split" },
     ["<A-_>"] = { ":split <CR>", "split horizontally" },
     ["<A-=>"] = { ":resize +5 <CR>", "resize horizontally" },
     ["<A-->"] = { ":resize -5 <CR>", "resize horizontally" },
