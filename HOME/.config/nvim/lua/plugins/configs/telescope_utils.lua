@@ -270,4 +270,37 @@ M.open_lsp_definitions_conditional = function(opts)
   require('telescope.builtin').lsp_definitions(opts)
 end
 
+-- Function to open new split and prompt for the open buffer using Telescope
+M.open_new_split_and_select_buffer = function(split_type)
+    -- Split type
+    if split_type == 'vertical' then
+      vim.cmd("vnew")
+    else
+      vim.cmd("new")
+    end
+
+    -- Get a list of buffer names
+    local buffer_names = vim.fn.getbufinfo({ buflisted = 1 })
+    local buffer_numbers = {}
+    for _, buf in ipairs(buffer_names) do
+        table.insert(buffer_numbers, buf.bufnr)
+    end
+
+  print(buffer_numbers)
+
+    -- Open the next buffer using Telescope
+    if buffer_numbers then
+        require('telescope.builtin').buffers({
+            cwd_only = true,
+            attach_mappings = function(_, map)
+                map('i', '<CR>', function()
+                    vim.api.nvim_command('buffer ' .. buffer_numbers)
+                    require('telescope.actions').close()
+                end)
+                return true
+            end,
+        })
+    end
+end
+
 return M
