@@ -17,15 +17,22 @@ M.general = {
 
     -- tab
     ["<A-S-t>"] = { "<cmd> tabedit <CR> <Esc>", "new tab" },
-    ["<A-S-w>"] = { "<cmd> tabclose <CR> <Esc>", "close tab" },
-    ["<A-S-d>"] = { "<cmd> bprevious|bdelete!#<CR> <cmd> tabclose <CR> <Esc>", "delete buffer from buffer list and close tab" },
+    -- ["<A-S-w>"] = { "<cmd> tabclose <CR> <Esc>", "close tab" },
+    ["<A-S-w>"] = {
+      "<cmd> bprevious|bdelete!#<CR> <cmd> tabclose <CR> <Esc>",
+      "delete buffer from buffer list and close tab",
+    },
+    ["<A-S-d>"] = {
+      "<cmd> :lua require('plugins.configs.telescope_utils').delete_and_select_old_buffer() <CR>",
+      "delete the buffer and select the old buffer",
+    },
     ["<A-S-h>"] = { "<cmd> tabprevious <CR> <Esc>", "previous tab" },
     ["<A-S-l>"] = { "<cmd> tabnext <CR> <Esc>", "next tab" },
 
     -- insert new line above
     ["<A-CR>"] = { "<C-o>O" },
 
-    ["<C-n>"] = { '' }, -- unmap this
+    ["<C-n>"] = { "" }, -- unmap this
   },
 
   n = {
@@ -65,9 +72,15 @@ M.general = {
     ["<leader>m"] = { ':delmarks a-zA-Z0-9"^.[] <CR>', "delete all marks" },
 
     -- split
-    ["<A-C-\\>"] = { "<cmd> :lua require('plugins.configs.telescope_utils').open_new_split_and_select_buffer('vertical') <CR>", "open new vsplit" },
+    ["<A-C-\\>"] = {
+      "<cmd> :lua require('plugins.configs.telescope_utils').open_new_split_and_select_buffer('vertical') <CR>",
+      "open new vsplit",
+    },
     ["<A-\\>"] = { ":vsplit <CR>", "split vertically" },
-    ["<A-C-_>"] = { "<cmd> :lua require('plugins.configs.telescope_utils').open_new_split_and_select_buffer('horizontal') <CR>", "open new split and select buffer" },
+    ["<A-C-_>"] = {
+      "<cmd> :lua require('plugins.configs.telescope_utils').open_new_split_and_select_buffer('horizontal') <CR>",
+      "open new split and select buffer",
+    },
     ["<A-_>"] = { ":split <CR>", "split horizontally" },
     ["<A-=>"] = { ":resize +5 <CR>", "resize horizontally" },
     ["<A-->"] = { ":resize -5 <CR>", "resize horizontally" },
@@ -79,8 +92,8 @@ M.general = {
 
     -- tab
     ["<A-S-t>"] = { ":tabedit <CR>", "new tab" },
-    ["<A-S-w>"] = { ":tabclose <CR>", "close tab" },
-    ["<A-S-d>"] = { "<cmd> bprevious|bdelete!#<CR> <cmd> tabclose <CR>", "delete buffer from buffer list and close tab" },
+    -- ["<A-S-w>"] = { "<cmd> bprevious|bdelete!#<CR> <cmd> tabclose <CR> <Esc>", "delete buffer from buffer list and close tab" },
+    -- ["<A-S-d>"] = { "<cmd> :lua require('plugins.configs.telescope_utils').delete_and_select_old_buffer() <CR>", "delete the buffer and select the old buffer" },
     ["<A-S-h>"] = { ":tabprevious <CR>", "previous tab" },
     ["<A-S-l>"] = { ":tabnext <CR>", "next tab" },
 
@@ -117,7 +130,7 @@ M.general = {
     },
     ["<leader>lc"] = {
       function()
-        if vim.opt.cursorlineopt._value ~= 'both' then
+        if vim.opt.cursorlineopt._value ~= "both" then
           vim.cmd([[set cursorline]])
           vim.cmd([[set cursorlineopt=both]])
         else
@@ -125,11 +138,11 @@ M.general = {
           vim.cmd([[set cursorlineopt=number]])
         end
       end,
-      "toggle cursor line"
+      "toggle cursor line",
     },
     ["<leader>lC"] = {
       function()
-        if vim.opt.cursorlineopt._value ~= 'both' then
+        if vim.opt.cursorlineopt._value ~= "both" then
           vim.cmd([[windo set cursorline]])
           vim.cmd([[windo set cursorlineopt=both]])
         else
@@ -137,7 +150,7 @@ M.general = {
           vim.cmd([[windo set cursorlineopt=number]])
         end
       end,
-      "toggle cursor line for window"
+      "toggle cursor line for window",
     },
 
     -- insert new line above
@@ -162,7 +175,7 @@ M.general = {
         vim.cmd([[tabdo set softtabstop=4]])
         print("tab is 4 spaces now")
       end,
-      "indentation 4 spaces"
+      "indentation 4 spaces",
     },
     ["g2"] = {
       function()
@@ -171,7 +184,7 @@ M.general = {
         vim.cmd([[tabdo set softtabstop=2]])
         print("tab is 2 spaces now")
       end,
-      "indentation 2 spaces"
+      "indentation 2 spaces",
     },
     -- ["g."] = {
     --   function()
@@ -193,34 +206,42 @@ M.general = {
     -- https://stackoverflow.com/questions/25101915/vim-case-insensitive-ex-command-completion
     -- ["/"] = { "/\\C", "search without case sensitive" },
     -- ["/"] = {
-      -- function()
-        -- local row, col = unpack(vim.api.nvim_win_get_cursor(0))
-        -- vim.api.nvim_buf_set_text(0, row, col, row, col, {"/\\C"})
-        -- vim.api.nvim_buf_set_text(0, 0, 0, 0, 0, {"/\\C"})
-        -- vim.api.nvim_buf_set_text(0, 0, 1, 0, 1, {""})
-        -- "/\\C"
-      -- end,
-      -- (function()
-      --   -- vim.api.nvim_win_set_cursor(0, { 0, 0})
-      --   local text = "/\\C"
-      --   return text
-      --   vim.cmd("norm! hh")
-      -- end)(),
-      -- "/\\C",
-      -- "search without case sensitive" },
+    -- function()
+    -- local row, col = unpack(vim.api.nvim_win_get_cursor(0))
+    -- vim.api.nvim_buf_set_text(0, row, col, row, col, {"/\\C"})
+    -- vim.api.nvim_buf_set_text(0, 0, 0, 0, 0, {"/\\C"})
+    -- vim.api.nvim_buf_set_text(0, 0, 1, 0, 1, {""})
+    -- "/\\C"
+    -- end,
+    -- (function()
+    --   -- vim.api.nvim_win_set_cursor(0, { 0, 0})
+    --   local text = "/\\C"
+    --   return text
+    --   vim.cmd("norm! hh")
+    -- end)(),
+    -- "/\\C",
+    -- "search without case sensitive" },
     ["<leader>r"] = { ":%s/", "replace in normal mode" },
     ["<leader>s"] = { "/\\%V", "search in last visual selection" },
     ["<leader>e"] = { ":e! <CR>", "e!" },
     ["<leader>q"] = { ":q! <CR>", "q!" },
-    ["<C-A-l>"] = { "<cmd> bprevious <CR>", "goto next buffer" },
-    ["<C-A-h>"] = { "<cmd> bnext <CR>", "goto prev buffer" },
-    ["<C-A-w>"] = { "<cmd> bprevious|bdelete!#<CR>", "delete the buffer from buffer list" }, -- https://stackoverflow.com/a/19620009
+    ["<C-A-l>"] = { "<cmd> bprevious <CR>", "goto previous buffer" },
+    ["<C-A-h>"] = { "<cmd> bnext <CR>", "goto next buffer" },
+    ["<C-A-w>"] = {
+      "<cmd> :lua require('plugins.configs.telescope_utils').delete_buffer_and_if_is_last_then_open_new() <CR>",
+      "delete the buffer from buffer list",
+    },
     -- ["<C-A-d>"] = { "<cmd> bwipeout! <CR>", "wipe out the buffer from buffer list" },
-    ["<C-A-d>"] = { "<cmd> :lua require('plugins.configs.telescope_utils').delete_and_select_old_buffer() <CR>", "delete the buffer and select the old buffer" },
+    ["<C-A-d>"] = {
+      "<cmd> :lua require('plugins.configs.telescope_utils').delete_and_select_old_buffer() <CR>",
+      "delete the buffer and select the old buffer",
+    },
 
     -- https://vim.fandom.com/wiki/Swapping_characters,_words_and_lines
     ["gw"] = { '"_yiw:s/\\(\\%#\\w\\+\\)\\(\\W\\+\\)\\(\\w\\+\\)/\\3\\2\\1/<CR>``:redraw<CR>:nohlsearch<CR>' },
-    ["gl"] = { '"_yiw?\\w\\+\\_W\\+\\%#<CR>:s/\\(\\%#\\w\\+\\)\\(\\_W\\+\\)\\(\\w\\+\\)/\\3\\2\\1/<CR>``:redraw<CR>:nohlsearch<CR>' },
+    ["gl"] = {
+      '"_yiw?\\w\\+\\_W\\+\\%#<CR>:s/\\(\\%#\\w\\+\\)\\(\\_W\\+\\)\\(\\w\\+\\)/\\3\\2\\1/<CR>``:redraw<CR>:nohlsearch<CR>',
+    },
 
     -- https://stackoverflow.com/a/1269631
     ["<C-w>th"] = { "<C-w>t<C-w>K", "switch from vertical split to horizontal split" },
@@ -305,7 +326,7 @@ M.lspconfig = {
         vim.lsp.buf.signature_help()
       end,
       "lsp signature_help",
-    }
+    },
   },
 
   n = {
@@ -469,17 +490,29 @@ M.telescope = {
     -- find
     -- set global variable here so that the telescope picker knows this is a normal finder
     -- see telescope config file for more information
-    ["<leader>ff"] = { "<cmd> let g:find_files_type='normal' | Telescope find_files follow=true <CR>", "find files" },
+    ["<leader>ff"] = {
+      "<cmd> let g:find_files_type='normal' | Telescope find_files follow=true <CR>",
+      "find files",
+    },
     ["<leader>fa"] = {
       "<cmd> let g:find_files_type='all' | Telescope find_files follow=true no_ignore=true hidden=true <CR>",
       "find all",
     },
     ["<leader>fG"] = { "<cmd> Telescope live_grep <CR>", "live grep" },
-    ["<leader>fg"] = { "<cmd> :lua require('plugins.configs.telescope_utils').custom_rg() <CR>", "live grep (custom)" },
-    ["<leader>fb"] = { "<cmd> Telescope buffers ignore_current_buffer=true cwd_only=true <CR>", "find buffers for current working directory" },
+    ["<leader>fg"] = {
+      "<cmd> :lua require('plugins.configs.telescope_utils').custom_rg() <CR>",
+      "live grep (custom)",
+    },
+    ["<leader>fb"] = {
+      "<cmd> Telescope buffers ignore_current_buffer=true cwd_only=true <CR>",
+      "find buffers for current working directory",
+    },
     ["<leader>fB"] = { "<cmd> Telescope buffers ignore_current_buffer=true <CR>", "find buffers" },
     ["<leader>fh"] = { "<cmd> Telescope help_tags <CR>", "help page" },
-    ["<leader>fo"] = { "<cmd> Telescope oldfiles ignore_current_buffer=true cwd_only=true <CR>", "find oldfiles for current working directory" },
+    ["<leader>fo"] = {
+      "<cmd> Telescope oldfiles ignore_current_buffer=true cwd_only=true <CR>",
+      "find oldfiles for current working directory",
+    },
     ["<leader>fO"] = { "<cmd> Telescope oldfiles ignore_current_buffer=true <CR>", "find oldfiles" },
     ["<leader>fz"] = { "<cmd> Telescope current_buffer_fuzzy_find <CR>", "find in current buffer" },
     ["<leader>f*"] = { "<cmd> Telescope grep_string <CR>", "search for string under cursor in cwd" },
@@ -489,18 +522,19 @@ M.telescope = {
     ["<leader>fr"] = {
       function()
         local status, config_telescope = pcall(require, "plugins.configs.telescope_utils")
-        if (status) then
+        if status then
           config_telescope.resume_with_cache()
         end
       end,
-      "resume with cache" },
+      "resume with cache",
+    },
 
     ["<leader>fR"] = { "<cmd> Telescope pickers <CR>", "cache pickers" },
 
     -- git
     ["<leader>gc"] = { "<cmd> Telescope git_commits <CR>", "git commits" },
     ["<leader>gt"] = { "<cmd> Telescope git_status <CR>", "git status" },
-    ["<leader>ge"] =  { "<cmd> wincmd p | q <CR>", "exit gitsigns diffthis" },
+    ["<leader>ge"] = { "<cmd> wincmd p | q <CR>", "exit gitsigns diffthis" },
 
     -- terminal switcher
     ["<leader>tt"] = { "<cmd> TermSelect <CR>", "select terminal" },
@@ -517,7 +551,9 @@ M.telescope = {
     ["gr"] = { "<cmd> Telescope lsp_references show_line=false <CR>", "lsp references" },
     ["gR"] = { "<cmd> Telescope lsp_references show_line=false jump_type=never <CR>", "lsp references in vsplit" },
     -- ["gd"] = { "<cmd> Telescope lsp_definitions show_line=false <CR>", "lsp definitions" },
-    ["gd"] = { "<cmd> :lua require('plugins.configs.telescope_utils').open_lsp_definitions_conditional({show_line=false}) <CR>" },
+    ["gd"] = {
+      "<cmd> :lua require('plugins.configs.telescope_utils').open_lsp_definitions_conditional({show_line=false}) <CR>",
+    },
     -- ["gD"] = {
     --   "<cmd> Telescope lsp_definitions show_line=false jump_type=never <CR>",
     --   "lsp definitions in vsplit",
@@ -768,29 +804,134 @@ M.vm = {
 
 M.nvim_dap = {
   n = {
-    ["<leader>dR"] = { function() require("dap").run_to_cursor() end, "Run to Cursor", },
-    ["<leader>dE"] = { function() require("dapui").eval(vim.fn.input "[Expression] > ") end, "Evaluate Input", },
-    ["<leader>dC"] = { function() require("dap").set_breakpoint(vim.fn.input "[Condition] > ") end, "Conditional Breakpoint", },
-    ["<leader>dU"] = { function() require("dapui").toggle() end, "Toggle UI", },
-    ["<leader>db"] = { function() require("dap").step_back() end, "Step Back", },
-    ["<leader>dc"] = { function() require("dap").continue() end, "Continue", },
-    ["<leader>dd"] = { function() require("dap").disconnect() end, "Disconnect", },
-    ["<leader>de"] = { function() require("dapui").eval() end, "Evaluate", },
-    ["<leader>dg"] = { function() require("dap").session() end, "Get Session", },
-    ["<leader>dh"] = { function() require("dap.ui.widgets").hover() end, "Hover Variables", },
-    ["<leader>dS"] = { function() require("dap.ui.widgets").scopes() end, "Scopes", },
-    ["<leader>di"] = { function() require("dap").step_into() end, "Step Into", },
-    ["<leader>do"] = { function() require("dap").step_over() end, "Step Over", },
-    ["<leader>dp"] = { function() require("dap").pause.toggle() end, "Pause", },
-    ["<leader>dq"] = { function() require("dap").close() end, "Quit", },
-    ["<leader>dr"] = { function() require("dap").repl.toggle() end, "Toggle REPL", },
-    ["<leader>ds"] = { function() require("dap").continue() end, "Start", },
-    ["<leader>dt"] = { function() require("dap").toggle_breakpoint() end, "Toggle Breakpoint", },
-    ["<leader>dx"] = { function() require("dap").terminate() end, "Terminate", },
-    ["<leader>du"] = { function() require("dap").step_out() end, "Step Out", },
+    ["<leader>dR"] = {
+      function()
+        require("dap").run_to_cursor()
+      end,
+      "Run to Cursor",
+    },
+    ["<leader>dE"] = {
+      function()
+        require("dapui").eval(vim.fn.input("[Expression] > "))
+      end,
+      "Evaluate Input",
+    },
+    ["<leader>dC"] = {
+      function()
+        require("dap").set_breakpoint(vim.fn.input("[Condition] > "))
+      end,
+      "Conditional Breakpoint",
+    },
+    ["<leader>dU"] = {
+      function()
+        require("dapui").toggle()
+      end,
+      "Toggle UI",
+    },
+    ["<leader>db"] = {
+      function()
+        require("dap").step_back()
+      end,
+      "Step Back",
+    },
+    ["<leader>dc"] = {
+      function()
+        require("dap").continue()
+      end,
+      "Continue",
+    },
+    ["<leader>dd"] = {
+      function()
+        require("dap").disconnect()
+      end,
+      "Disconnect",
+    },
+    ["<leader>de"] = {
+      function()
+        require("dapui").eval()
+      end,
+      "Evaluate",
+    },
+    ["<leader>dg"] = {
+      function()
+        require("dap").session()
+      end,
+      "Get Session",
+    },
+    ["<leader>dh"] = {
+      function()
+        require("dap.ui.widgets").hover()
+      end,
+      "Hover Variables",
+    },
+    ["<leader>dS"] = {
+      function()
+        require("dap.ui.widgets").scopes()
+      end,
+      "Scopes",
+    },
+    ["<leader>di"] = {
+      function()
+        require("dap").step_into()
+      end,
+      "Step Into",
+    },
+    ["<leader>do"] = {
+      function()
+        require("dap").step_over()
+      end,
+      "Step Over",
+    },
+    ["<leader>dp"] = {
+      function()
+        require("dap").pause.toggle()
+      end,
+      "Pause",
+    },
+    ["<leader>dq"] = {
+      function()
+        require("dap").close()
+      end,
+      "Quit",
+    },
+    ["<leader>dr"] = {
+      function()
+        require("dap").repl.toggle()
+      end,
+      "Toggle REPL",
+    },
+    ["<leader>ds"] = {
+      function()
+        require("dap").continue()
+      end,
+      "Start",
+    },
+    ["<leader>dt"] = {
+      function()
+        require("dap").toggle_breakpoint()
+      end,
+      "Toggle Breakpoint",
+    },
+    ["<leader>dx"] = {
+      function()
+        require("dap").terminate()
+      end,
+      "Terminate",
+    },
+    ["<leader>du"] = {
+      function()
+        require("dap").step_out()
+      end,
+      "Step Out",
+    },
   },
   v = {
-    ["<leader>de"] = { function() require("dapui").eval() end, "Evaluate", },
+    ["<leader>de"] = {
+      function()
+        require("dapui").eval()
+      end,
+      "Evaluate",
+    },
   },
 }
 

@@ -270,7 +270,7 @@ M.open_lsp_definitions_conditional = function(opts)
   require('telescope.builtin').lsp_definitions(opts)
 end
 
--- Function to open new split and prompt for the open buffer using Telescope
+-- Function to open new split and prompt for the oldfiles using Telescope
 M.open_new_split_and_select_buffer = function(split_type)
     -- Split type
     if split_type == 'vertical' then
@@ -279,28 +279,32 @@ M.open_new_split_and_select_buffer = function(split_type)
       vim.cmd("new")
     end
 
-    -- Get a list of buffer names
-    local buffer_names = vim.fn.getbufinfo({ buflisted = 1 })
-    local buffer_numbers = {}
-    for _, buf in ipairs(buffer_names) do
-        table.insert(buffer_numbers, buf.bufnr)
-    end
+    -- Open oldfiles
+    vim.cmd("Telescope oldfiles ignore_current_buffer=true cwd_only=true")
+end
 
-  print(buffer_numbers)
+-- Function to delete the current buffer and if it's the last buffer, create new buffer
+M.delete_buffer_and_if_is_last_then_open_new = function()
+  local current_bufnr = vim.fn.bufnr("%")
 
-    -- Open the next buffer using Telescope
-    if buffer_numbers then
-        require('telescope.builtin').buffers({
-            cwd_only = true,
-            attach_mappings = function(_, map)
-                map('i', '<CR>', function()
-                    vim.api.nvim_command('buffer ' .. buffer_numbers)
-                    require('telescope.actions').close()
-                end)
-                return true
-            end,
-        })
-    end
+  -- Get a list of buffer names before deletion
+  local buffer_names_before = vim.fn.getbufinfo({ buflisted = 1 })
+  local buffer_numbers_before = {}
+  for _, buf in ipairs(buffer_names_before) do
+      table.insert(buffer_numbers_before, buf.bufnr)
+  end
+
+  local num_buffers = vim.fn.bufnr("$")
+  if num_buffers > 1 or vim.fn.buflisted(current_bufnr) == 0 then
+    -- Delete the current buffer
+    vim.cmd("bprevious|bdelete!" .. current_bufnr)
+  else
+    -- If it's the last buffer, create a new blank buffer
+    vim.cmd("enew")
+
+    -- Delete the original buffer without closing the window
+    vim.cmd("bdelete!" .. current_bufnr)
+  end
 end
 
 return M
