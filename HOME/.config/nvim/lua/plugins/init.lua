@@ -471,15 +471,15 @@ local default_plugins = {
     end,
   },
 
-  {
-    "NeogitOrg/neogit",
-    command = { "Neogit" },
-    config = function(_, opts)
-      require("neogit").setup(opts)
-    end,
-    branch = "master",
-    commit = "7b4a2c7",
-  },
+  -- {
+  --   "NeogitOrg/neogit",
+  --   command = { "Neogit" },
+  --   config = function(_, opts)
+  --     require("neogit").setup(opts)
+  --   end,
+  --   branch = "master",
+  --   commit = "7b4a2c7",
+  -- },
 
   {
     "iamcco/markdown-preview.nvim",
