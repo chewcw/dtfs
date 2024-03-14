@@ -258,6 +258,8 @@ M.general = {
 
     -- overloads
     ["<C-s>"] = { ":LspOverloadsSignature<CR>", "show function overloads" },
+
+    ["gp"] = { "`[v`]", "select last pasted content" }, --https://stackoverflow.com/a/4313335
   },
 
   v = {
@@ -298,7 +300,8 @@ M.general = {
         local modified_command = ":vertical " .. last_command
         vim.cmd(modified_command)
         vim.api.nvim_input("<Esc>")
-      end, "add `vertical` to the beginning of the command to open in vertical mode"
+      end,
+      "add `vertical` to the beginning of the command to open in vertical mode",
     },
     ["<A-t>"] = {
       function()
@@ -306,7 +309,8 @@ M.general = {
         local modified_command = ":tab " .. last_command
         vim.cmd(modified_command)
         vim.api.nvim_input("<Esc>")
-      end, "add `tab` to the beginning of the command to open in new tab"
+      end,
+      "add `tab` to the beginning of the command to open in new tab",
     },
   },
 }
