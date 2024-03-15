@@ -98,6 +98,9 @@ opt.guicursor = "n-v-sm:block,i-c-ci-ve:block-blinkwait0-blinkoff400-blinkon250-
 opt.list = true
 opt.listchars:append("lead:·,multispace:·,trail:·")
 
+-- tabline
+opt.showtabline = 1
+
 -- disable some default providers
 for _, provider in ipairs({ "node", "perl", "python3", "ruby" }) do
   vim.g["loaded_" .. provider .. "_provider"] = 0

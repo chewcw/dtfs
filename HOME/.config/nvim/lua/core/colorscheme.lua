@@ -45,6 +45,7 @@ M.colors = function()
     dark_blue = "#25323e",
     dark_magenta = "#56415e",
     dark_bg_nc = "#151618",
+    dark_brown = "#462b24",
     -- Grays
     gray00 = "#1b1b1a",
     gray01 = "#222221",
@@ -169,8 +170,8 @@ M.setup = function()
     StatusLineNC = { fg = c.fg, bg = c.gray03 },
     StatusLineTerm = { link = "StatusLine" },
     StatusLineTermNC = { link = "StatusLineNC" },
-    TabLineFill = { fg = c.gray05, bg = c.gray01 },
-    TablineSel = { fg = c.bg, bg = c.gray07 },
+    TabLineFill = { fg = c.gray05, bg = c.none },
+    TablineSel = { fg = c.fg, bg = c.dark_brown },
     Tabline = { fg = c.gray05 },
     Title = { fg = c.main4, bg = c.none },
     Visual = { fg = c.none, bg = c.gray03 },
