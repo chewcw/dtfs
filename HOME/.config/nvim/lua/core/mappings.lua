@@ -573,12 +573,12 @@ M.telescope = {
       "<cmd> Telescope lsp_type_definitions show_line=false jump_type=never <CR>",
       "lsp type definitions in vsplit",
     },
-    ["gs"] = { "<cmd> Telescope lsp_document_symbols symbol_width=60 <CR>", "lsp document symbols" },
-    ["gS"] = { "<cmd> Telescope lsp_workspace_symbols  symbol_width=60 <CR>", "lsp workspace symbols" },
+    ["<leader>gs"] = { "<cmd> Telescope lsp_document_symbols symbol_width=60 <CR>", "lsp document symbols" },
+    ["<leader>gS"] = { "<cmd> Telescope lsp_workspace_symbols  symbol_width=60 <CR>", "lsp workspace symbols" },
 
     -- diagnostic
-    ["gQ"] = { "<cmd> Telescope diagnostics <CR>", "open workspace diagnostics" },
-    ["gq"] = { "<cmd> Telescope diagnostics bufnr=0 <CR>", "open current buffer diagnostics" },
+    ["<leader>gQ"] = { "<cmd> Telescope diagnostics <CR>", "open workspace diagnostics" },
+    ["<leader>gq"] = { "<cmd> Telescope diagnostics bufnr=0 <CR>", "open current buffer diagnostics" },
   },
 
   v = {
