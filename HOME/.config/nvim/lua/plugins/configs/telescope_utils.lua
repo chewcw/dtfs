@@ -7,7 +7,7 @@ local last_search = nil
 M.resume_with_cache = function()
   local status1, telescope = pcall(require, "telescope.builtin")
   local status2, telescope_state = pcall(require, "telescope.state")
-  if (status1 and status2) then
+  if status1 and status2 then
     if last_search == nil then
       telescope.resume()
 
@@ -114,7 +114,7 @@ M.custom_rg = function(opts)
   opts = opts or {}
   opts.cwd = opts.cwd and vim.fn.expand(opts.cwd) or vim.loop.cwd()
 
-  local custom_grep = finders.new_async_job {
+  local custom_grep = finders.new_async_job({
     command_generator = function(prompt)
       if not prompt or prompt == "" then
         return nil
@@ -123,7 +123,7 @@ M.custom_rg = function(opts)
       local prompt_split = vim.split(prompt, "  ")
 
       local args = { "rg" }
-      table.insert(args, { 
+      table.insert(args, {
         "--follow",
         "--color=never",
         "--smart-case",
@@ -143,26 +143,26 @@ M.custom_rg = function(opts)
         table.insert(args, prompt_split2_split)
       end
 
-      return flatten { args }
+      return flatten({ args })
     end,
     entry_maker = make_entry.gen_from_vimgrep(opts),
     cwd = opts.cwd,
-  }
+  })
 
   pickers
-    .new(opts, {
-      debounce = 100,
-      prompt_title = "Live Grep (custom)",
-      finder = custom_grep,
-      previewer = conf.values.grep_previewer(opts),
-      sorter = require("telescope.sorters").empty(),
-      attach_mappings = function(_, map)
-        map("i", "<C-f>", M.ts_select_dir_for_grep_or_find_files(true))
-        map("n", "<C-f>", M.ts_select_dir_for_grep_or_find_files(true))
-        return true
-      end
-    })
-    :find()
+      .new(opts, {
+        debounce = 100,
+        prompt_title = "Live Grep (custom)",
+        finder = custom_grep,
+        previewer = conf.values.grep_previewer(opts),
+        sorter = require("telescope.sorters").empty(),
+        attach_mappings = function(_, map)
+          map("i", "<C-f>", M.ts_select_dir_for_grep_or_find_files(true))
+          map("n", "<C-f>", M.ts_select_dir_for_grep_or_find_files(true))
+          return true
+        end,
+      })
+      :find()
 end
 
 -- Function to delete the current buffer and prompt for the next buffer using Telescope
@@ -173,50 +173,53 @@ M.delete_and_select_buffer = function()
   local buffer_names_before = vim.fn.getbufinfo({ buflisted = 1 })
   local buffer_numbers_before = {}
   for _, buf in ipairs(buffer_names_before) do
-      table.insert(buffer_numbers_before, buf.bufnr)
+    table.insert(buffer_numbers_before, buf.bufnr)
   end
 
   local num_buffers = vim.fn.bufnr("$")
   if num_buffers > 1 or vim.fn.buflisted(current_bufnr) == 0 then
-
     -- Delete the current buffer
-    vim.cmd("bprevious|bdelete!" .. current_bufnr)
+    pcall(function()
+      vim.cmd("bprevious|bdelete!" .. current_bufnr)
+    end)
 
     -- Get a list of buffer names after deletion
     local buffer_names_after = vim.fn.getbufinfo({ buflisted = 1 })
     local buffer_numbers_after = {}
     for _, buf in ipairs(buffer_names_after) do
-        table.insert(buffer_numbers_after, buf.bufnr)
+      table.insert(buffer_numbers_after, buf.bufnr)
     end
 
     -- Find the buffer that is still open after deletion
     local next_bufnr
     for _, bufnr in ipairs(buffer_numbers_before) do
-        if not vim.tbl_contains(buffer_numbers_after, bufnr) then
-            next_bufnr = bufnr
-            break
-        end
+      if not vim.tbl_contains(buffer_numbers_after, bufnr) then
+        next_bufnr = bufnr
+        break
+      end
     end
 
     -- Open the next buffer using Telescope
     if next_bufnr then
-        require('telescope.builtin').buffers({
-            cwd_only = true,
-            attach_mappings = function(_, map)
-                map('i', '<CR>', function()
-                    vim.api.nvim_command('buffer ' .. next_bufnr)
-                    require('telescope.actions').close()
-                end)
-                return true
-            end,
-        })
+      require("telescope.builtin").buffers({
+        cwd_only = true,
+        attach_mappings = function(_, map)
+          map("i", "<CR>", function()
+            vim.api.nvim_command("buffer " .. next_bufnr)
+            require("telescope.actions").close()
+          end)
+          return true
+        end,
+      })
     end
   else
     -- If it's the last buffer, create a new blank buffer
     vim.cmd("enew")
 
     -- Delete the original buffer without closing the window
-    vim.cmd("bdelete!" .. current_bufnr)
+    pcall(function()
+      vim.cmd("bdelete!" .. current_bufnr)
+    end)
   end
 end
 
@@ -228,13 +231,15 @@ M.delete_and_select_old_buffer = function()
   local buffer_names_before = vim.fn.getbufinfo({ buflisted = 1 })
   local buffer_numbers_before = {}
   for _, buf in ipairs(buffer_names_before) do
-      table.insert(buffer_numbers_before, buf.bufnr)
+    table.insert(buffer_numbers_before, buf.bufnr)
   end
 
   local num_buffers = vim.fn.bufnr("$")
   if num_buffers > 1 or vim.fn.buflisted(current_bufnr) == 0 then
     -- Delete the current buffer
-    vim.cmd("bprevious|bdelete!" .. current_bufnr)
+    pcall(function()
+      vim.cmd("bprevious|bdelete!" .. current_bufnr)
+    end)
 
     -- Open oldfiles
     vim.cmd("Telescope oldfiles ignore_current_buffer=true cwd_only=true")
@@ -243,7 +248,9 @@ M.delete_and_select_old_buffer = function()
     vim.cmd("enew")
 
     -- Delete the original buffer without closing the window
-    vim.cmd("bdelete!" .. current_bufnr)
+    pcall(function()
+      vim.cmd("bdelete!" .. current_bufnr)
+    end)
   end
 end
 
@@ -263,24 +270,24 @@ M.open_lsp_definitions_conditional = function(opts)
   --     require("telescope.builtin").lsp_definitions(opts)
   --   end
   -- end
-  if vim.fn.expand('%:e') == 'cs' then
-    require('omnisharp_extended').telescope_lsp_definitions(opts)
+  if vim.fn.expand("%:e") == "cs" then
+    require("omnisharp_extended").telescope_lsp_definitions(opts)
     return
   end
-  require('telescope.builtin').lsp_definitions(opts)
+  require("telescope.builtin").lsp_definitions(opts)
 end
 
 -- Function to open new split and prompt for the oldfiles using Telescope
 M.open_new_split_and_select_buffer = function(split_type)
-    -- Split type
-    if split_type == 'vertical' then
-      vim.cmd("vnew")
-    else
-      vim.cmd("new")
-    end
+  -- Split type
+  if split_type == "vertical" then
+    vim.cmd("vnew")
+  else
+    vim.cmd("new")
+  end
 
-    -- Open oldfiles
-    vim.cmd("Telescope oldfiles ignore_current_buffer=true cwd_only=true")
+  -- Open oldfiles
+  vim.cmd("Telescope oldfiles ignore_current_buffer=true cwd_only=true")
 end
 
 -- Function to delete the current buffer and if it's the last buffer, create new buffer
@@ -291,19 +298,23 @@ M.delete_buffer_and_if_is_last_then_open_new = function()
   local buffer_names_before = vim.fn.getbufinfo({ buflisted = 1 })
   local buffer_numbers_before = {}
   for _, buf in ipairs(buffer_names_before) do
-      table.insert(buffer_numbers_before, buf.bufnr)
+    table.insert(buffer_numbers_before, buf.bufnr)
   end
 
   local num_buffers = vim.fn.bufnr("$")
   if num_buffers > 1 or vim.fn.buflisted(current_bufnr) == 0 then
     -- Delete the current buffer
-    vim.cmd("bprevious|bdelete!" .. current_bufnr)
+    pcall(function()
+      vim.cmd("bprevious|bdelete!" .. current_bufnr)
+    end)
   else
     -- If it's the last buffer, create a new blank buffer
     vim.cmd("enew")
 
     -- Delete the original buffer without closing the window
-    vim.cmd("bdelete!" .. current_bufnr)
+    pcall(function()
+      vim.cmd("bdelete!" .. current_bufnr)
+    end)
   end
 end
 
