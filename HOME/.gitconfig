@@ -34,8 +34,6 @@
   co = checkout
   m = merge
   cz = stash
-  P = pull
-  p = push
 [filter "lfs"]
 	required = true
 	clean = git-lfs clean -- %f
