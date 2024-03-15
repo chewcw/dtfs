@@ -153,6 +153,18 @@ export PATH=\$PATH:\$HOME/.local/share/fnm
 eval "\$(fnm env)"
 EOF
 
+USER root
+# xdg-open in the /usr/local/bin should take precedence over /usr/bin/xdg-open
+# the purpose is to use vim to open link in the background without blocking using
+# this xdg-open script
+RUN <<EOF cat > /usr/local/bin/xdg-open
+#!/bin/sh
+/usr/bin/xdg-open "\$@" &
+EOF
+RUN chmod +x /usr/local/bin/xdg-open
+
+USER ccw
+
 # this env is necessary for neovim undercurl to work
 ENV TERM=
 # this env is necessary for neovim xclip integration to work, and also to share the
