@@ -227,10 +227,10 @@ M.general = {
     ["<leader>s"] = { "/\\%V", "search in last visual selection" },
     ["<leader>e"] = { ":e! <CR>", "e!" },
     ["<leader>q"] = { ":q! <CR>", "q!" },
-    ["<C-A-l>"] = { "<cmd> bprevious <CR>", "goto previous buffer" },
-    ["<C-A-h>"] = { "<cmd> bnext <CR>", "goto next buffer" },
+    ["<C-A-l>"] = { "<cmd> :lua require('plugins.configs.buffer_utils').navigate_to_next_buffer() <CR>", "goto previous buffer" },
+    ["<C-A-h>"] = { "<cmd> :lua require('plugins.configs.buffer_utils').navigate_to_previous_buffer() <CR>", "goto next buffer" },
     ["<C-A-w>"] = {
-      "<cmd> :lua require('plugins.configs.telescope_utils').delete_buffer_and_if_is_last_then_open_new() <CR>",
+      "<cmd> :lua require('plugins.configs.telescope_utils').delete_and_select_buffer() <CR>",
       "delete the buffer from buffer list",
     },
     -- ["<C-A-d>"] = { "<cmd> bwipeout! <CR>", "wipe out the buffer from buffer list" },
