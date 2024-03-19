@@ -249,11 +249,11 @@ M.general = {
     ["<C-w>th"] = { "<C-w>t<C-w>K", "switch from vertical split to horizontal split" },
     ["<C-w>tv"] = { "<C-w>t<C-w>H", "switch from horizontal split to vertical split" },
 
-    -- for nvimdiff
-    ["<leader>ggl"] = { ":diffget LOCAL <CR>", "diffget from local" },
-    ["<leader>ggr"] = { ":diffget REMOTE <CR>", "diffget from remote" },
-    ["<leader>ggb"] = { ":diffget BASE <CR>", "diffget from base" },
-    ["<leader>ggq"] = { ":cq <CR>", "cquit" },
+    -- for Git related nvimdiff
+    ["<leader>hl"] = { ":diffget LOCAL <CR>", "diffget from local" },
+    ["<leader>hr"] = { ":diffget REMOTE <CR>", "diffget from remote" },
+    ["<leader>hs"] = { ":diffget BASE <CR>", "diffget from base" },
+    ["<leader>hq"] = { ":cq <CR>", "cquit" },
 
     -- gf open in new tab
     ["gF"] = { "<C-w>gf", "open file in new tab" },
@@ -661,50 +661,50 @@ M.gitsigns = {
       -- opts = { expr = true },
     },
 
-    -- Actions
-    ["<leader>gr"] = {
+    -- Git related actions
+    ["<leader>hR"] = {
       function()
         require("gitsigns").reset_hunk()
       end,
       "Reset hunk",
     },
 
-    ["<leader>gp"] = {
+    ["<leader>hp"] = {
       function()
         require("gitsigns").preview_hunk()
       end,
       "Preview hunk",
     },
 
-    ["<leader>gP"] = {
+    ["<leader>hP"] = {
       function()
         require("gitsigns").preview_hunk_inline()
       end,
       "Preview hunk",
     },
 
-    ["<leader>gb"] = {
+    ["<leader>hb"] = {
       function()
         require("gitsigns").toggle_current_line_blame()
       end,
       "Toggle current line blame",
     },
 
-    ["<leader>gB"] = {
+    ["<leader>hB"] = {
       function()
         require("gitsigns").blame_line()
       end,
       "Current line blame",
     },
 
-    ["<leader>gd"] = {
+    ["<leader>hd"] = {
       function()
         require("gitsigns").toggle_deleted()
       end,
       "Toggle deleted",
     },
 
-    ["<leader>gD"] = {
+    ["<leader>hD"] = {
       function()
         require("gitsigns").diffthis()
       end,
