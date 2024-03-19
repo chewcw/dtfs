@@ -116,6 +116,9 @@ require("core.abbrev")
 -- statusline
 require("core.statusline")
 
+-- tabline
+require("core.tabline")
+
 -------------------------------------- autocmds ------------------------------------------
 local autocmd = vim.api.nvim_create_autocmd
 
@@ -169,7 +172,7 @@ vim.api.nvim_create_autocmd({"CmdLineLeave"}, {
 })
 
 -- search for any unsaved buffer and show it on the MsgArea
-function search_modified_unsaved_buffers()
+function Search_modified_unsaved_buffers()
   for _, buf in ipairs(vim.api.nvim_list_bufs()) do
     if vim.api.nvim_buf_get_option(buf, "modified") then
       vim.api.nvim_set_hl(0, "MsgArea", {
@@ -181,15 +184,15 @@ function search_modified_unsaved_buffers()
   end
 end
 vim.api.nvim_create_autocmd({"BufModifiedSet"}, {
-  callback = search_modified_unsaved_buffers,
+  callback = Search_modified_unsaved_buffers,
 })
 vim.api.nvim_create_autocmd({"InsertLeave"}, {
-  callback = search_modified_unsaved_buffers,
+  callback = Search_modified_unsaved_buffers,
 })
 -- opening and closing telescope picker will also be triggered
 -- so this event is to run the function after the telescope picker is closed
 vim.api.nvim_create_autocmd({"WinEnter"}, {
-  callback = search_modified_unsaved_buffers,
+  callback = Search_modified_unsaved_buffers,
 })
 
 -- for trouble.nvim plugin there is no NormalNC highlight group
