@@ -21,7 +21,7 @@ opt.fillchars = {
   -- vert = "│",
   -- horiz = "―",
   -- vertright = " ",
-  -- vertleft = " 
+  -- vertleft = "
   -- horizup = " ",
   -- horizdown = " ",
   -- verthoriz = " ",
@@ -66,7 +66,7 @@ opt.scrolloff = 5
 opt.foldlevel = 99
 opt.foldlevelstart = 99
 opt.foldenable = true
-opt.foldcolumn = '0'
+opt.foldcolumn = "0"
 opt.wildignorecase = true
 -- this is the annoying opening parenthesis highlighting when typing closing parenthesis
 -- https://stackoverflow.com/a/34716232
@@ -132,43 +132,43 @@ autocmd("FileType", {
 
 -- save fold on save and laod fold on open
 -- https://stackoverflow.com/a/77180744
-vim.api.nvim_create_autocmd({"BufWinLeave"}, {
-  pattern = {"*.*"},
+vim.api.nvim_create_autocmd({ "BufWinLeave" }, {
+  pattern = { "*.*" },
   desc = "save view (folds), when closing file",
   command = "mkview",
 })
-vim.api.nvim_create_autocmd({"BufWinEnter"}, {
-  pattern = {"*.*"},
+vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
+  pattern = { "*.*" },
   desc = "load view (folds), when opening file",
-  command = "silent! loadview"
+  command = "silent! loadview",
 })
 
 -- update command line color in insert mode
-vim.api.nvim_create_autocmd({"InsertEnter"}, {
+vim.api.nvim_create_autocmd({ "InsertEnter" }, {
   callback = function()
     vim.api.nvim_set_hl(0, "MsgArea", {
       bg = require("core.colorscheme").colors().dark_yellow,
-    } )
-  end
+    })
+  end,
 })
-vim.api.nvim_create_autocmd({"InsertLeave"}, {
+vim.api.nvim_create_autocmd({ "InsertLeave" }, {
   callback = function()
     vim.api.nvim_set_hl(0, "MsgArea", { bg = "None" })
-  end
+  end,
 })
 
 -- update command line color in command mode
-vim.api.nvim_create_autocmd({"CmdLineEnter"}, {
+vim.api.nvim_create_autocmd({ "CmdLineEnter" }, {
   callback = function()
     vim.api.nvim_set_hl(0, "MsgArea", {
       bg = require("core.colorscheme").colors().dark_blue,
-    } )
-  end
+    })
+  end,
 })
-vim.api.nvim_create_autocmd({"CmdLineLeave"}, {
+vim.api.nvim_create_autocmd({ "CmdLineLeave" }, {
   callback = function()
     vim.api.nvim_set_hl(0, "MsgArea", { bg = "None" })
-  end
+  end,
 })
 
 -- search for any unsaved buffer and show it on the MsgArea
@@ -183,21 +183,22 @@ function Search_modified_unsaved_buffers()
     vim.api.nvim_set_hl(0, "MsgArea", { bg = "None" })
   end
 end
-vim.api.nvim_create_autocmd({"BufModifiedSet"}, {
+
+vim.api.nvim_create_autocmd({ "BufModifiedSet" }, {
   callback = Search_modified_unsaved_buffers,
 })
-vim.api.nvim_create_autocmd({"InsertLeave"}, {
+vim.api.nvim_create_autocmd({ "InsertLeave" }, {
   callback = Search_modified_unsaved_buffers,
 })
 -- opening and closing telescope picker will also be triggered
 -- so this event is to run the function after the telescope picker is closed
-vim.api.nvim_create_autocmd({"WinEnter"}, {
+vim.api.nvim_create_autocmd({ "WinEnter" }, {
   callback = Search_modified_unsaved_buffers,
 })
 
 -- for trouble.nvim plugin there is no NormalNC highlight group
 -- this is a hack
-vim.api.nvim_create_autocmd({"BufWinLeave"}, {
+vim.api.nvim_create_autocmd({ "BufWinLeave" }, {
   callback = function()
     local buf_name = vim.api.nvim_buf_get_name(0)
     local colors = require("core.colorscheme")
@@ -210,16 +211,29 @@ vim.api.nvim_create_autocmd({"BufWinLeave"}, {
 })
 
 -- update command line color in terminal mode
-vim.api.nvim_create_autocmd({"TermEnter"}, {
+vim.api.nvim_create_autocmd({ "TermEnter" }, {
   callback = function()
     vim.api.nvim_set_hl(0, "MsgArea", {
       bg = require("core.colorscheme").colors().dark_green,
-    } )
-  end
+    })
+  end,
 })
-vim.api.nvim_create_autocmd({"TermLeave"}, {
+vim.api.nvim_create_autocmd({ "TermLeave" }, {
   callback = function()
     vim.api.nvim_set_hl(0, "MsgArea", { bg = "None" })
-  end
+  end,
 })
 
+-- Stop lsp and detach gitsigns in diff mode
+function DoSomethingInDiffMode()
+  if vim.api.nvim_win_get_option(0, "diff") then
+    vim.lsp.stop_client(vim.lsp.get_active_clients())
+    pcall(function()
+      vim.cmd(":Gitsigns detach_all")
+    end)
+  end
+end
+
+vim.api.nvim_create_autocmd({ "OptionSet" }, {
+  callback = DoSomethingInDiffMode,
+})
