@@ -4,7 +4,7 @@ M = {}
 M.delete_buffer_create_new = function()
   -- Delete the current buffer
   pcall(function()
-    local current_bufnr = vim.fn.bufnr("%") -- Get the buffer number of the current buffer
+    local current_bufnr = vim.fn.bufnr("%")    -- Get the buffer number of the current buffer
     local bufname = vim.api.nvim_buf_get_name(0) -- Get the name of the current buffer
     if bufname == "" then
       return
@@ -58,6 +58,25 @@ M.navigate_to_next_buffer = function()
   -- If a next buffer in the same directory is found, navigate to it
   if next_bufnr then
     vim.cmd("buffer " .. next_bufnr)
+  end
+end
+
+-- Function to dynamically show listchars
+M.toggle_listchars_symbol = function()
+  if vim.o.list then
+    vim.o.list = false
+  else
+    vim.o.list = true
+  end
+end
+
+-- Function to dynamically show newline symbol
+M.toggle_newline_symbol = function()
+  local newline = "eol:⏎"
+  if vim.o.listchars:find("eol:") then
+    vim.o.listchars = string.gsub(vim.o.listchars, "," .. newline, "")
+  else
+    vim.o.listchars = vim.o.listchars .. "," .. newline
   end
 end
 
