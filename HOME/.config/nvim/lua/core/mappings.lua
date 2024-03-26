@@ -177,18 +177,18 @@ M.general = {
     -- toggle indentation between 2 and 4 spaces
     ["g4"] = {
       function()
-        vim.cmd([[tabdo set shiftwidth=4]])
-        vim.cmd([[tabdo set tabstop=4]])
-        vim.cmd([[tabdo set softtabstop=4]])
+        vim.cmd([[windo set shiftwidth=4]])
+        vim.cmd([[windo set tabstop=4]])
+        vim.cmd([[windo set softtabstop=4]])
         print("tab is 4 spaces now")
       end,
       "indentation 4 spaces",
     },
     ["g2"] = {
       function()
-        vim.cmd([[tabdo set shiftwidth=2]])
-        vim.cmd([[tabdo set tabstop=2]])
-        vim.cmd([[tabdo set softtabstop=2]])
+        vim.cmd([[windo set shiftwidth=2]])
+        vim.cmd([[windo set tabstop=2]])
+        vim.cmd([[windo set softtabstop=2]])
         print("tab is 2 spaces now")
       end,
       "indentation 2 spaces",
