@@ -31,6 +31,7 @@ vim.cmd('abbrev zsub6 <C-v>u2086') -- ₆
 vim.cmd('abbrev zsub7 <C-v>u2087') -- ₇
 vim.cmd('abbrev zsub8 <C-v>u2088') -- ₈
 vim.cmd('abbrev zsub9 <C-v>u2089') -- ₉
+vim.cmd('abbrev zsubn <C-v>u2099') -- ₙ
 vim.cmd('abbrev zsup0 <C-v>u2070') -- ⁰
 vim.cmd('abbrev zsup1 <C-v>u00b9') -- ¹
 vim.cmd('abbrev zsup2 <C-v>u00b2') -- ²
@@ -41,3 +42,5 @@ vim.cmd('abbrev zsup6 <C-v>u2076') -- ⁶
 vim.cmd('abbrev zsup7 <C-v>u2077') -- ⁷
 vim.cmd('abbrev zsup8 <C-v>u2078') -- ⁸
 vim.cmd('abbrev zsup9 <C-v>u2079') -- ⁹
+vim.cmd('abbrev zsupn <C-v>u207f') -- ⁿ
+vim.cmd('abbrev zdelta <C-v>u0394') -- Δ
