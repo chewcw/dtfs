@@ -120,7 +120,9 @@ require("core.statusline")
 -- tabline
 require("core.tabline")
 
--------------------------------------- autocmds ------------------------------------------
+-- ---------------------------------------------------------------------------- 
+-- autocmds
+-- ---------------------------------------------------------------------------- 
 local autocmd = vim.api.nvim_create_autocmd
 
 -- dont list quickfix buffers
@@ -242,7 +244,9 @@ vim.api.nvim_create_autocmd({ "OptionSet" }, {
   callback = DoSomethingInDiffMode,
 })
 
--------------------------------------- user commands ------------------------------------------
+-- ---------------------------------------------------------------------------- 
+-- user commands
+-- ---------------------------------------------------------------------------- 
 -- A user command to copy buffer file path
 -- https://www.reddit.com/r/neovim/comments/u221as/comment/i5y9zy2/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
 vim.api.nvim_create_user_command("CopyPath", function()

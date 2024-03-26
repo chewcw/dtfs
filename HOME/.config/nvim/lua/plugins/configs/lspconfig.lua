@@ -7,47 +7,47 @@ M.on_attach = function(client, bufnr)
   utils.load_mappings("lspconfig", { buffer = bufnr })
 
   -- if client.server_capabilities.signatureHelpProvider then
-    -- require("nvchad.signature").setup(client)
+  -- require("nvchad.signature").setup(client)
   -- end
 
   -- if not utils.load_config().ui.lsp_semantic_tokens then
-    -- client.server_capabilities.semanticTokensProvider = nil
+  -- client.server_capabilities.semanticTokensProvider = nil
   -- end
 
   -- gopls auto format and organize imports on save
   -- https://github.com/neovim/nvim-lspconfig/issues/115#issuecomment-1801096383
---   if client.name == "gopls" then
---     local golang_organize_imports = function(isPreflight)
---       local params = vim.lsp.util.make_range_params(nil, vim.lsp.util._get_offset_encoding(bufnr))
---       params.context = { only = { "source.organizeImports" } }
---
---       if isPreflight then
---         vim.lsp.buf_request(bufnr, "textDocument/codeAction", params, function() end)
---         return
---       end
---
---       local result = vim.lsp.buf_request_sync(bufnr, "textDocument/codeAction", params, 3000)
---       for _, res in pairs(result or {}) do
---         for _, r in pairs(res.result or {}) do
---           if r.edit then
---             vim.lsp.util.apply_workspace_edit(r.edit, vim.lsp.util._get_offset_encoding(bufnr))
---           else
---             vim.lsp.buf.execute_command(r.command)
---           end
---         end
---       end
---     end
---
---     golang_organize_imports(true)
---
---     vim.api.nvim_create_autocmd("BufWritePre", {
---       pattern = "*.go",
---       group = vim.api.nvim_create_augroup("LspGolangOrganizeImports" .. bufnr, {}),
---       callback = function()
---         golang_organize_imports()
---       end,
---     })
---     end
+  --   if client.name == "gopls" then
+  --     local golang_organize_imports = function(isPreflight)
+  --       local params = vim.lsp.util.make_range_params(nil, vim.lsp.util._get_offset_encoding(bufnr))
+  --       params.context = { only = { "source.organizeImports" } }
+  --
+  --       if isPreflight then
+  --         vim.lsp.buf_request(bufnr, "textDocument/codeAction", params, function() end)
+  --         return
+  --       end
+  --
+  --       local result = vim.lsp.buf_request_sync(bufnr, "textDocument/codeAction", params, 3000)
+  --       for _, res in pairs(result or {}) do
+  --         for _, r in pairs(res.result or {}) do
+  --           if r.edit then
+  --             vim.lsp.util.apply_workspace_edit(r.edit, vim.lsp.util._get_offset_encoding(bufnr))
+  --           else
+  --             vim.lsp.buf.execute_command(r.command)
+  --           end
+  --         end
+  --       end
+  --     end
+  --
+  --     golang_organize_imports(true)
+  --
+  --     vim.api.nvim_create_autocmd("BufWritePre", {
+  --       pattern = "*.go",
+  --       group = vim.api.nvim_create_augroup("LspGolangOrganizeImports" .. bufnr, {}),
+  --       callback = function()
+  --         golang_organize_imports()
+  --       end,
+  --     })
+  --     end
 end
 
 M.capabilities = vim.lsp.protocol.make_client_capabilities()

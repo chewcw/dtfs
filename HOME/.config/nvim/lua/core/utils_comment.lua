@@ -3,6 +3,8 @@ local M = {}
 local max_length = 80
 
 M.insert_comment_with_trails = function()
+  table.unpack = table.unpack or unpack
+
   vim.ui.input({ prompt = "Insert comment: " }, function(input)
     if input ~= nil then
       -- get row and col of the cursor
@@ -29,6 +31,8 @@ M.insert_comment_with_trails = function()
 end
 
 M.insert_comment_with_solid_line = function()
+  table.unpack = table.unpack or unpack
+
   -- get row and col of the cursor
   local row, _ = table.unpack(vim.api.nvim_win_get_cursor(0))
   -- run TComment
@@ -48,6 +52,8 @@ M.insert_comment_with_solid_line = function()
 end
 
 M.insert_comment_with_header = function()
+  table.unpack = table.unpack or unpack
+
   vim.ui.input({ prompt = "Insert comment: " }, function(input)
     if input ~= nil then
       vim.cmd("normal O")
