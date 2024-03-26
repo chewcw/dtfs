@@ -276,6 +276,12 @@ M.general = {
     ["<C-j>"] = { "<C-w>j", "window down" },
     ["<C-k>"] = { "<C-w>k", "window up" },
 
+    -- for Git related nvimdiff
+    ["<leader>hl"] = { ":diffget LOCAL <CR>", "diffget from local" },
+    ["<leader>hr"] = { ":diffget REMOTE <CR>", "diffget from remote" },
+    ["<leader>hs"] = { ":diffget BASE <CR>", "diffget from base" },
+    ["<leader>hq"] = { ":cq <CR>", "cquit" },
+
     -- gf open in new tab
     ["gF"] = { "<C-w>gf", "open file in new tab" },
   },
