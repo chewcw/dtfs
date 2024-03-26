@@ -95,6 +95,7 @@ g.mapleader = " "
 opt.guicursor = "n-v-sm:block,i-c-ci-ve:block-blinkwait0-blinkoff400-blinkon250-Cursor/lCursor,r-cr-o:hor30"
 
 -- list mode (show return and space)
+-- take note on the function toggle_newline_symbol in plugins.configs.buffer_utils.lua
 opt.list = true
 opt.listchars:append("lead:·,multispace:·,trail:·")
 
