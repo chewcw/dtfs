@@ -224,12 +224,15 @@ vim.api.nvim_create_autocmd({ "TermLeave" }, {
   end,
 })
 
--- Stop lsp and detach gitsigns in diff mode
+-- Stop lsp, detach gitsigns, and disable treesitter_context in diff mode
 function DoSomethingInDiffMode()
   if vim.api.nvim_win_get_option(0, "diff") then
     vim.lsp.stop_client(vim.lsp.get_active_clients())
     pcall(function()
       vim.cmd(":Gitsigns detach_all")
+    end)
+    pcall(function()
+      vim.cmd(":TSContextDisable")
     end)
   end
 end
