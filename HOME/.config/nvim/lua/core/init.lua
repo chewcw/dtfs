@@ -123,9 +123,9 @@ require("core.statusline")
 -- tabline
 require("core.tabline")
 
--- ---------------------------------------------------------------------------- 
+-- ----------------------------------------------------------------------------
 -- autocmds
--- ---------------------------------------------------------------------------- 
+-- ----------------------------------------------------------------------------
 local autocmd = vim.api.nvim_create_autocmd
 
 -- dont list quickfix buffers
@@ -169,11 +169,18 @@ vim.api.nvim_create_autocmd({ "CmdLineEnter" }, {
     vim.api.nvim_set_hl(0, "MsgArea", {
       bg = require("core.colorscheme").colors().dark_blue,
     })
+    -- so that when I press ctrl+f in the command line it wouldn't have error
+    pcall(function()
+      vim.cmd(":TSContextDisable")
+    end)
   end,
 })
 vim.api.nvim_create_autocmd({ "CmdLineLeave" }, {
   callback = function()
     vim.api.nvim_set_hl(0, "MsgArea", { bg = "None" })
+    pcall(function()
+      vim.cmd(":TSContextEnable")
+    end)
   end,
 })
 
@@ -247,13 +254,13 @@ vim.api.nvim_create_autocmd({ "OptionSet" }, {
   callback = DoSomethingInDiffMode,
 })
 
--- ---------------------------------------------------------------------------- 
+-- ----------------------------------------------------------------------------
 -- user commands
--- ---------------------------------------------------------------------------- 
+-- ----------------------------------------------------------------------------
 -- A user command to copy buffer file path
 -- https://www.reddit.com/r/neovim/comments/u221as/comment/i5y9zy2/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
 vim.api.nvim_create_user_command("CopyPath", function()
-    local path = vim.fn.expand("%:p")
-    vim.fn.setreg("+", path)
-    vim.notify('Copied "' .. path .. '" to the clipboard!')
+  local path = vim.fn.expand("%:p")
+  vim.fn.setreg("+", path)
+  vim.notify('Copied "' .. path .. '" to the clipboard!')
 end, {})
