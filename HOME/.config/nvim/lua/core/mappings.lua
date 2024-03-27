@@ -101,8 +101,13 @@ M.general = {
     -- ["<A-S-d>"] = { "<cmd> :lua require('plugins.configs.telescope_utils').delete_and_select_old_buffer() <CR>", "delete the buffer and select the old buffer" },
     ["<A-S-h>"] = { ":tabprevious <CR>", "previous tab" },
     ["<A-S-l>"] = { ":tabnext <CR>", "next tab" },
-    ["<C-T>c"] = { ":tabclose <CR>", "close current tab" },
+    -- normally if I run :tabclose, next tab will be focused, this keymap overrides
+    -- it and focus on previous tab instead
+    ["<C-T>c"] = { "<cmd> :lua require('core.utils').close_and_focus_previous_tab() <CR>", "close current tab" },
     ["<C-T>o"] = { ":tabonly <CR>", "close other tab" },
+    -- normally if I run :tabclose, next tab will be focused, this keymap overrides
+    -- it and focus on previous tab instead
+    ["<C-W>c"] = { "<cmd> :lua require('core.utils').close_and_focus_previous_tab() <CR>", "close current tab" },
 
     -- link
     ["gx"] = { ":execute '!xdg-open ' .. shellescape(expand('<cfile>'), v:true)<CR><CR>", "open link" },
