@@ -130,7 +130,7 @@ M.setup = function()
     Cursor = { bg = c.blue, fg = c.white, reverse = false },
     CursorIM = { bg = c.blue, fg = c.white, reverse = false },
     CurSearch = { bg = c.blue, fg = c.white, reverse = false },
-    Directory = { fg = c.main1, bg = c.none },
+    Directory = { fg = c.none, bg = c.dark_green },
 
     DiffAdd = { fg = c.black, bg = c.bright_green },
     DiffAdded = { fg = c.black, bg = c.bright_green },
@@ -171,7 +171,7 @@ M.setup = function()
     StatusLineTerm = { link = "StatusLine" },
     StatusLineTermNC = { link = "StatusLineNC" },
     TabLineFill = { fg = c.gray05, bg = c.none },
-    TablineSel = { fg = c.fg, bg = c.dark_brown },
+    TablineSel = { fg = c.fg, bg = c.dark_blue },
     Tabline = { fg = c.gray05 },
     Title = { fg = c.main4, bg = c.none },
     Visual = { fg = c.none, bg = c.gray03 },
