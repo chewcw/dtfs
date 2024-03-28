@@ -102,13 +102,12 @@ local vcs = function()
     removed = ""
   end
   return table.concat {
+     git_info.head,
      " ",
      added,
      changed,
      removed,
      " ",
-     "%#StatusLineText#",
-     git_info.head,
   }
 end
 
@@ -116,9 +115,9 @@ local cwd = function()
   return vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
 end
 
-local tabpage = function()
-  return vim.api.nvim_get_current_tabpage()
-end
+-- local tabpage = function()
+--   return vim.api.nvim_get_current_tabpage()
+-- end
 
 Statusline = {}
 
@@ -126,22 +125,23 @@ Statusline.active = function()
   return table.concat {
     "%#StatusLineText#",
     bufnr(),
-    " 🗁 ",
+    " ",
+    "%#TablineSel#",
+    "🗁 ",
     filepath(),
     filename(),
     modified(),
+    "%#StatusLineText#",
     "  ",
     vcs(),
     "%=%#StatusLineExtra#",
     " 🚀 ",
     lsp(),
     "%#StatusLineText#",
-    " 🗀  ",
+    " 🖿  ",
     cwd(),
     " 🖉 ",
     lineinfo(),
-    " ⭾ ",
-    tabpage(),
   }
 end
 
@@ -151,9 +151,6 @@ function Statusline.inactive()
     " 🗁 ",
     " %f",
     modified(),
-    "%=%#StatusLineExtra#",
-    " ⭾ ",
-    tabpage(),
   })
 end
 
