@@ -120,7 +120,7 @@ RUN wget https://github.com/alacritty/alacritty/releases/download/v0.12.0/alacri
 # zshrc
 RUN <<EOF cat > /home/ccw/.zshrc
 export ZSH="\$HOME/.oh-my-zsh"
-ZSH_THEME="af-magic"
+ZSH_THEME="avit"
 DISABLE_AUTO_UPDATE="true"
 plugins=(git vi-mode zsh-autosuggestions)
 source \$ZSH/oh-my-zsh.sh
