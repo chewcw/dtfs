@@ -439,7 +439,7 @@ exec source ~/.zshrc
 
 # custom keyboard shortcut
 # insert current date time
-bindsym --release $mod+t exec --no-startup-id sleep 0.1 && xdotool type "$(date +\"%Y-%m-%d (%a) %r\")"
+bindsym --release $mod+t exec --no-startup-id sleep 0.1 && xdotool type "$(date +\"%Y-%m-%d (%a) %R\")"
 
 # open terminal once log in
 # exec --no-startup-id i3-msg 'workspace 2; exec /usr/bin/alacritty -e tmux'
