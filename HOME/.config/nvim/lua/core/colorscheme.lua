@@ -130,7 +130,7 @@ M.setup = function()
     Cursor = { bg = c.blue, fg = c.white, reverse = false },
     CursorIM = { bg = c.blue, fg = c.white, reverse = false },
     CurSearch = { bg = c.blue, fg = c.white, reverse = false },
-    Directory = { fg = c.none, bg = c.dark_green },
+    Directory = { fg = c.main1, bg = c.none },
 
     DiffAdd = { fg = c.black, bg = c.bright_green },
     DiffAdded = { fg = c.black, bg = c.bright_green },
