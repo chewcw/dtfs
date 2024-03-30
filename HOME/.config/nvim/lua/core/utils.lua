@@ -306,20 +306,22 @@ end
 
 -- Function to close current tab and focus on previous tab
 M.close_and_focus_previous_tab = function()
-    -- Get the index of the current tabpage
-    local current_tabpage = vim.fn.tabpagenr()
+  -- Get the index of the current tabpage
+  local current_tabpage = vim.fn.tabpagenr()
 
-    -- Close the current tabpage
-    vim.api.nvim_command('tabclose')
+  -- Close the current tabpage
+  pcall(function()
+    vim.api.nvim_command("tabclose")
+  end)
 
-    -- Calculate the index of the previous tabpage
-    local previous_tabpage = current_tabpage - 1
-    if previous_tabpage < 1 then
-        previous_tabpage = 1
-    end
+  -- Calculate the index of the previous tabpage
+  local previous_tabpage = current_tabpage - 1
+  if previous_tabpage < 1 then
+    previous_tabpage = 1
+  end
 
-    -- Go to the previous tabpage
-    vim.api.nvim_command('tabnext ' .. previous_tabpage)
+  -- Go to the previous tabpage
+  vim.api.nvim_command("tabnext " .. previous_tabpage)
 end
 
 return M
