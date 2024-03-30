@@ -102,12 +102,23 @@ echo "------------------------------------------"
 sudo apt install xsel -y
 
 # Install fff
-if [[ ! -d "$HOME/.fff" ]]; then
+# if [[ ! -d "$HOME/.fff" ]]; then
+# 	echo "------------------------------------------"
+# 	echo "Installing fff"
+# 	echo "------------------------------------------"
+# 	git clone https://github.com/dylanaraps/fff $HOME/.fff || true
+# 	sudo make -k -C $HOME/.fff install || true
+# fi
+
+# Install yazi (file manager)
+if [[ ! -f "$HOME/.local/bin/yazi" ]]; then
 	echo "------------------------------------------"
-	echo "Installing fff"
+	echo "Installing yazi"
 	echo "------------------------------------------"
-	git clone https://github.com/dylanaraps/fff $HOME/.fff || true
-	sudo make -k -C $HOME/.fff install || true
+  wget https://github.com/sxyazi/yazi/releases/download/v0.2.4/yazi-x86_64-unknown-linux-gnu.zip -O /tmp/yazi-x86_64-unknown-linux-gnu.zip || true;
+  cd /tmp; unzip yazi-x86_64-unknown-linux-gnu.zip;
+  sudo mv yazi-x86_64-unknown-linux-gnu/yazi /usr/local/bin/yazi;
+  rm -rf /tmp/yazi-x86_64-unknown-linux-gnu*;
 fi
 
 # Install mapping caps to ctrl (or remapping capslock to escape AND ctrl)
