@@ -334,6 +334,15 @@ M.general = {
       end,
       "add `tab` to the beginning of the command to open in new tab",
     },
+    ["<A-0>"] = {
+      function()
+        local last_command = vim.fn.getcmdline()
+        local modified_command = "0" .. last_command
+        vim.cmd(modified_command)
+        vim.api.nvim_input("<Esc>")
+      end,
+      "add `0` to the beginning of the command to open in current window (useful for fugitive :Git log)",
+    },
   },
 }
 
