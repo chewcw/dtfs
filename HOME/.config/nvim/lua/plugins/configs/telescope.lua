@@ -226,6 +226,10 @@ M.options = {
           end)(),
           ["."] = require("telescope").extensions.file_browser.actions.toggle_hidden,
           ["<C-a>"] = require("telescope").extensions.file_browser.actions.toggle_all,
+          ["s"] = function()
+              local keys = vim.api.nvim_replace_termcodes('s', false, false, true)
+              vim.api.nvim_feedkeys(keys, "n", {})
+            end,
           -- default mappings
           ["c"] = require("telescope").extensions.file_browser.actions.create,
           ["r"] = require("telescope").extensions.file_browser.actions.rename,
