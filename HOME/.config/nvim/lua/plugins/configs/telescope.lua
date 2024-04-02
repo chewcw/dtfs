@@ -1,4 +1,3 @@
-local utils_window = require("core.utils_window")
 local telescope_utils = require("plugins.configs.telescope_utils")
 
 local M = {}
@@ -107,6 +106,8 @@ M.options = {
           ["<A-\\>"] = require("telescope.actions").select_vertical,
           ["<A-_>"] = require("telescope.actions").select_horizontal,
           ["<A-t>"] = require("telescope.actions").select_tab,
+          -- toggle all
+          ["<C-a>"] = require("telescope.actions").toggle_all,
           ["q"] = require("telescope.actions").close,
           ["u"] = function()
             vim.cmd("undo")
@@ -173,7 +174,7 @@ M.options = {
           ["<C-w>"] = require("telescope").extensions.file_browser.actions.goto_cwd,
           ["<C-f>"] = require("telescope").extensions.file_browser.actions.toggle_browser,
           -- ["<C-h>"] = require("telescope").extensions.file_browser.actions.toggle_hidden,
-          ["<C-s>"] = require("telescope").extensions.file_browser.actions.toggle_all,
+          ["<C-a>"] = require("telescope").extensions.file_browser.actions.toggle_all,
           ["<bs>"] = require("telescope").extensions.file_browser.actions.backspace,
           ["<C-h>"] = function()
             local keys = vim.api.nvim_replace_termcodes('<C-h>', false, false, true)
@@ -224,6 +225,7 @@ M.options = {
             return enter
           end)(),
           ["."] = require("telescope").extensions.file_browser.actions.toggle_hidden,
+          ["<C-a>"] = require("telescope").extensions.file_browser.actions.toggle_all,
           -- default mappings
           ["c"] = require("telescope").extensions.file_browser.actions.create,
           ["r"] = require("telescope").extensions.file_browser.actions.rename,
@@ -237,7 +239,6 @@ M.options = {
           -- ["t"] = require("telescope").extensions.file_browser.actions.change_cwd,
           ["f"] = require("telescope").extensions.file_browser.actions.toggle_browser,
           -- ["h"] = require("telescope").extensions.file_browser.actions.toggle_hidden,
-          ["s"] = require("telescope").extensions.file_browser.actions.toggle_all,
         },
       },
     },
