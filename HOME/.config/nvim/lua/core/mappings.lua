@@ -18,14 +18,14 @@ M.general = {
     -- tab
     ["<A-S-t>"] = { "<cmd> tabedit <CR> <Esc>", "new tab" },
     -- ["<A-S-w>"] = { "<cmd> tabclose <CR> <Esc>", "close tab" },
-    ["<A-S-w>"] = {
-      "<cmd> bprevious|bdelete!#<CR> <cmd> tabclose <CR> <Esc>",
-      "delete buffer from buffer list and close tab",
-    },
-    ["<A-S-d>"] = {
-      "<cmd> :lua require('plugins.configs.telescope_utils').delete_and_select_old_buffer() <CR>",
-      "delete the buffer and select the old buffer",
-    },
+    -- ["<A-S-w>"] = {
+    --   "<cmd> bprevious|bdelete!#<CR> <cmd> tabclose <CR> <Esc>",
+    --   "delete buffer from buffer list and close tab",
+    -- },
+    -- ["<A-S-d>"] = {
+    --   "<cmd> :lua require('plugins.configs.telescope_utils').delete_and_select_old_buffer() <CR>",
+    --   "delete the buffer and select the old buffer",
+    -- },
     ["<A-S-h>"] = { "<cmd> tabprevious <CR> <Esc>", "previous tab" },
     ["<A-S-l>"] = { "<cmd> tabnext <CR> <Esc>", "next tab" },
 
@@ -120,6 +120,7 @@ M.general = {
     ["<leader>lw"] = { ":set wrap! <CR>", "toggle line wrapping" },
     ["<leader>lW"] = { ":windo set wrap! <CR>", "toggle line wrapping in this window" },
 
+    -- undotree
     ["<leader>uu"] = { ":UndotreeToggle <CR> :UndotreeFocus <CR>", "toggle undotree" },
     ["<leader>uf"] = { ":UndotreeFocus <CR>", "focus undotree" },
 
@@ -320,7 +321,9 @@ M.general = {
       function()
         local last_command = vim.fn.getcmdline()
         local modified_command = ":vertical " .. last_command
-        vim.cmd(modified_command)
+        if not pcall(function() vim.cmd(modified_command) end) then
+          vim.cmd(last_command)
+        end
         vim.api.nvim_input("<Esc>")
       end,
       "add `vertical` to the beginning of the command to open in vertical mode",
@@ -329,7 +332,9 @@ M.general = {
       function()
         local last_command = vim.fn.getcmdline()
         local modified_command = ":tab " .. last_command
-        vim.cmd(modified_command)
+        if not pcall(function() vim.cmd(modified_command) end) then
+          vim.cmd(last_command)
+        end
         vim.api.nvim_input("<Esc>")
       end,
       "add `tab` to the beginning of the command to open in new tab",
@@ -338,7 +343,9 @@ M.general = {
       function()
         local last_command = vim.fn.getcmdline()
         local modified_command = "0" .. last_command
-        vim.cmd(modified_command)
+        if not pcall (function() vim.cmd(modified_command) end) then
+          vim.cmd(last_command)
+        end
         vim.api.nvim_input("<Esc>")
       end,
       "add `0` to the beginning of the command to open in current window (useful for fugitive :Git log)",
