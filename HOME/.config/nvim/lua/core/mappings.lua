@@ -1,5 +1,4 @@
 local utils_comment = require("core.utils_comment")
-local utils_renamer = require("core.utils_renamer")
 
 -- n, v, i, t = mode names
 
@@ -765,12 +764,25 @@ M.toggleterm = {
 
   n = {
     ["<A-.>"] = {
-      '<cmd> execute v:count .. "ToggleTerm direction=horizontal" <CR>',
-      "toggle term in horizontal mode",
+      function()
+        require('plugins.configs.toggleterm_utils').toggle_term('horizontal')
+      end, "toggle term in horizontal mode"
     },
-    ["<A->>"] = { '<cmd> execute v:count .. "ToggleTerm direction=vertical" <CR>', "toggle term in vertical mode" },
-    ["<A-/>"] = { '<cmd> execute v:count .. "ToggleTerm direction=float" <CR>', "toggle term in float mode" },
-    ["<A-,>"] = { '<cmd> execute v:count .. "ToggleTerm direction=tab" <CR>', "toggle term in tab mode" },
+    ["<A->>"] = {
+      function()
+        require('plugins.configs.toggleterm_utils').toggle_term('vertical')
+      end, "toggle term in vertical mode"
+    },
+    ["<A-/>"] = {
+      function()
+        require('plugins.configs.toggleterm_utils').toggle_term('float')
+      end, "toggle term in float mode"
+    },
+    ["<A-,>"] = {
+      function()
+        require('plugins.configs.toggleterm_utils').toggle_term('tab')
+      end, "toggle term in tab mode"
+    },
   },
 
   t = {
