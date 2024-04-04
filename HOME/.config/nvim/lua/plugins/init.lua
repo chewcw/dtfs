@@ -479,6 +479,12 @@ local default_plugins = {
     end,
   },
 
+  {
+    "junegunn/gv.vim",
+    lazy = false,
+    branch = "master",
+  },
+
   -- {
   --   "NeogitOrg/neogit",
   --   command = { "Neogit" },
