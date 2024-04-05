@@ -264,10 +264,10 @@ M.general = {
     ["<C-w>tv"] = { "<C-w>t<C-w>H", "switch from horizontal split to vertical split" },
 
     -- for Git related nvimdiff
-    ["<leader>hl"] = { ":diffget LOCAL <CR>", "diffget from local" },
-    ["<leader>hr"] = { ":diffget REMOTE <CR>", "diffget from remote" },
-    ["<leader>hs"] = { ":diffget BASE <CR>", "diffget from base" },
-    ["<leader>hq"] = { ":cq <CR>", "cquit" },
+    ["<leader>gl"] = { ":diffget LOCAL <CR>", "diffget from local" },
+    ["<leader>gr"] = { ":diffget REMOTE <CR>", "diffget from remote" },
+    ["<leader>gs"] = { ":diffget BASE <CR>", "diffget from base" },
+    ["<leader>gq"] = { ":cq <CR>", "cquit" },
 
     -- gf open in new tab
     ["gF"] = { "<C-w>gf", "open file in new tab" },
@@ -291,10 +291,10 @@ M.general = {
     ["<C-k>"] = { "<C-w>k", "window up" },
 
     -- for Git related nvimdiff
-    ["<leader>hl"] = { ":diffget LOCAL <CR>", "diffget from local" },
-    ["<leader>hr"] = { ":diffget REMOTE <CR>", "diffget from remote" },
-    ["<leader>hs"] = { ":diffget BASE <CR>", "diffget from base" },
-    ["<leader>hq"] = { ":cq <CR>", "cquit" },
+    ["<leader>gl"] = { ":diffget LOCAL <CR>", "diffget from local" },
+    ["<leader>gr"] = { ":diffget REMOTE <CR>", "diffget from remote" },
+    ["<leader>gs"] = { ":diffget BASE <CR>", "diffget from base" },
+    ["<leader>gq"] = { ":cq <CR>", "cquit" },
 
     -- gf open in new tab
     ["gF"] = { "<C-w>gf", "open file in new tab" },
@@ -608,12 +608,12 @@ M.telescope = {
       "<cmd> Telescope lsp_type_definitions show_line=false jump_type=never <CR>",
       "lsp type definitions in vsplit",
     },
-    ["<leader>gs"] = { "<cmd> Telescope lsp_document_symbols symbol_width=60 <CR>", "lsp document symbols" },
-    ["<leader>gS"] = { "<cmd> Telescope lsp_workspace_symbols  symbol_width=60 <CR>", "lsp workspace symbols" },
+    ["gs"] = { "<cmd> Telescope lsp_document_symbols symbol_width=60 <CR>", "lsp document symbols" },
+    ["gS"] = { "<cmd> Telescope lsp_workspace_symbols  symbol_width=60 <CR>", "lsp workspace symbols" },
 
     -- diagnostic
-    ["<leader>gQ"] = { "<cmd> Telescope diagnostics <CR>", "open workspace diagnostics" },
-    ["<leader>gq"] = { "<cmd> Telescope diagnostics bufnr=0 <CR>", "open current buffer diagnostics" },
+    ["gC"] = { "<cmd> Telescope diagnostics <CR>", "open workspace diagnostics" },
+    ["gc"] = { "<cmd> Telescope diagnostics bufnr=0 <CR>", "open current buffer diagnostics" },
   },
 
   v = {
@@ -697,49 +697,49 @@ M.gitsigns = {
     },
 
     -- Git related actions
-    ["<leader>hR"] = {
+    ["<leader>gR"] = {
       function()
         require("gitsigns").reset_hunk()
       end,
       "Reset hunk",
     },
 
-    ["<leader>hp"] = {
+    ["<leader>gp"] = {
       function()
         require("gitsigns").preview_hunk()
       end,
       "Preview hunk",
     },
 
-    ["<leader>hP"] = {
+    ["<leader>gP"] = {
       function()
         require("gitsigns").preview_hunk_inline()
       end,
       "Preview hunk",
     },
 
-    ["<leader>hb"] = {
+    ["<leader>gb"] = {
       function()
         require("gitsigns").toggle_current_line_blame()
       end,
       "Toggle current line blame",
     },
 
-    ["<leader>hB"] = {
+    ["<leader>gB"] = {
       function()
         require("gitsigns").blame_line()
       end,
       "Current line blame",
     },
 
-    ["<leader>hd"] = {
+    ["<leader>gd"] = {
       function()
         require("gitsigns").toggle_deleted()
       end,
       "Toggle deleted",
     },
 
-    ["<leader>hD"] = {
+    ["<leader>gD"] = {
       function()
         require("gitsigns").diffthis()
       end,
