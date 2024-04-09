@@ -44,3 +44,4 @@ vim.cmd('abbrev zsup8 <C-v>u2078') -- ⁸
 vim.cmd('abbrev zsup9 <C-v>u2079') -- ⁹
 vim.cmd('abbrev zsupn <C-v>u207f') -- ⁿ
 vim.cmd('abbrev zdelta <C-v>u0394') -- Δ
+vim.cmd('abbrev zohm <C-v>u2126') -- Ω
