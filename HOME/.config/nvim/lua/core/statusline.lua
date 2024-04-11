@@ -120,7 +120,11 @@ end
 -- end
 
 local fileformat = function()
-  return "%{&fileformat}"
+  return " %{&fileformat}"
+end
+
+local encoding = function()
+  return " %{&encoding}"
 end
 
 Statusline = {}
@@ -145,8 +149,9 @@ Statusline.active = function()
     " 🖿  ",
     cwd(),
     " 🖉 ",
-    lineinfo(),
+    encoding(),
     fileformat(),
+    lineinfo(),
   }
 end
 
