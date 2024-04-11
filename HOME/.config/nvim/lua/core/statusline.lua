@@ -119,6 +119,10 @@ end
 --   return vim.api.nvim_get_current_tabpage()
 -- end
 
+local fileformat = function()
+  return "%{&fileformat}"
+end
+
 Statusline = {}
 
 Statusline.active = function()
@@ -142,6 +146,7 @@ Statusline.active = function()
     cwd(),
     " 🖉 ",
     lineinfo(),
+    fileformat(),
   }
 end
 
