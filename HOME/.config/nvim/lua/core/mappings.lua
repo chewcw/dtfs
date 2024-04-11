@@ -31,7 +31,7 @@ M.general = {
     -- insert new line above
     ["<A-CR>"] = { "<C-o>O" },
 
-    ["<C-n>"] = { "" }, -- unmap this
+    -- ["<C-n>"] = { "" }, -- unmap this
   },
 
   n = {
@@ -786,11 +786,11 @@ M.toggleterm = {
   },
 
   t = {
-    ["<C-\\><C-N>"] = { vim.api.nvim_replace_termcodes("<C-\\><C-N>", true, true, true), "escape terminal mode" },
-    ["<A-.>"] = { "<C-\\><C-N> <cmd> ToggleTerm <CR>", "toggle term" },
-    ["<A->>"] = { "<C-\\><C-N> <cmd> ToggleTerm <CR>", "toggle term" },
-    ["<A-/>"] = { "<C-\\><C-N> <cmd> ToggleTerm <CR>", "toggle term" },
-    ["<A-,>"] = { "<C-\\><C-N> <cmd> ToggleTerm <CR>", "toggle term" },
+    ["<C-n>"] = { vim.api.nvim_replace_termcodes("<C-\\><C-N>", true, true, true), "escape terminal mode" },
+    ["<A-.>"] = { "<C-n> <cmd> ToggleTerm <CR>", "toggle term" },
+    ["<A->>"] = { "<C-n> <cmd> ToggleTerm <CR>", "toggle term" },
+    ["<A-/>"] = { "<C-n> <cmd> ToggleTerm <CR>", "toggle term" },
+    ["<A-,>"] = { "<C-n> <cmd> ToggleTerm <CR>", "toggle term" },
     -- window navigation
     -- ["<A-h>"] = { "<C-\\><C-N> <cmd>wincmd h<CR>", "navigate left" },
     -- ["<A-j>"] = { "<C-\\><C-N> <cmd>wincmd j<CR>", "navigate down" },
