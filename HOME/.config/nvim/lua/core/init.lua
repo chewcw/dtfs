@@ -264,3 +264,9 @@ vim.api.nvim_create_user_command("CopyPath", function()
   vim.fn.setreg("+", path)
   vim.notify('Copied "' .. path .. '" to the clipboard!')
 end, {})
+
+-- A user command to update quickfix list after cdo / cfdo
+-- https://vi.stackexchange.com/a/13663https://vi.stackexchange.com/a/13663
+vim.api.nvim_create_user_command("UpdateQF", function()
+  vim.cmd([[ call setqflist(map(getqflist(), 'extend(v:val, {"text":get(getbufline(v:val.bufnr, v:val.lnum),0)})')) ]])
+end, {})
