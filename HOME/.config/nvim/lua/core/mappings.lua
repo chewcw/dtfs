@@ -612,8 +612,8 @@ M.telescope = {
     ["gS"] = { "<cmd> Telescope lsp_workspace_symbols  symbol_width=60 <CR>", "lsp workspace symbols" },
 
     -- diagnostic
-    ["gC"] = { "<cmd> Telescope diagnostics <CR>", "open workspace diagnostics" },
-    ["gc"] = { "<cmd> Telescope diagnostics bufnr=0 <CR>", "open current buffer diagnostics" },
+    ["gE"] = { "<cmd> Telescope diagnostics <CR>", "open workspace diagnostics" },
+    ["ge"] = { "<cmd> Telescope diagnostics bufnr=0 <CR>", "open current buffer diagnostics" },
   },
 
   v = {
@@ -1009,13 +1009,13 @@ M.trouble = {
       end,
       "lsp definitions",
     },
-    ["tq"] = {
+    ["te"] = {
       function()
         require("trouble").toggle("document_diagnostics")
       end,
       "open current buffer diagnostics",
     },
-    ["tQ"] = {
+    ["tE"] = {
       function()
         require("trouble").toggle("workspace_diagnostics")
       end,
