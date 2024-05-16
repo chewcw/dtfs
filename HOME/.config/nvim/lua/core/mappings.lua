@@ -612,8 +612,8 @@ M.telescope = {
     ["gS"] = { "<cmd> Telescope lsp_workspace_symbols  symbol_width=60 <CR>", "lsp workspace symbols" },
 
     -- diagnostic
-    ["gN"] = { "<cmd> Telescope diagnostics <CR>", "open workspace diagnostics" },
-    ["gn"] = { "<cmd> Telescope diagnostics bufnr=0 <CR>", "open current buffer diagnostics" },
+    ["gZ"] = { "<cmd> Telescope diagnostics <CR>", "open workspace diagnostics" },
+    ["gz"] = { "<cmd> Telescope diagnostics bufnr=0 <CR>", "open current buffer diagnostics" },
   },
 
   v = {
