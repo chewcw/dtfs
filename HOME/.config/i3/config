@@ -314,12 +314,12 @@ gaps inner 5
 exec feh --bg-scale ~/Pictures/wallpaper.jpg
 
 # hide window title bar
-for_window [class="^.*"] border pixel 3
+for_window [class="^.*"] border pixel 5
 for_window [floating] border normal
 default_border normal
 default_floating_border normal
 
-hide_edge_borders smart_no_gaps
+# hide_edge_borders smart_no_gaps
 
 title_align center
 
