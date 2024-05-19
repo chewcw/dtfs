@@ -178,9 +178,9 @@ mkdir -p $HOME/.vim
 mkdir -p $HOME/.vim/colors
 ln -sf $pwd/HOME/.vim/colors/github.vim $HOME/.vim/colors/github.vim
 
-# Install Neovim (v0.9.1)
+# Install Neovim (v0.10.0)
 echo "------------------------------------------"
-echo "Installing Neovim (v0.9.1)"
+echo "Installing Neovim (v0.10.0)"
 echo "------------------------------------------"
 ./install-nvim.sh
 ln -sf $pwd/HOME/.config/nvim $HOME/.config/nvim
@@ -190,6 +190,17 @@ echo "------------------------------------------"
 echo "Installing i3wm"
 echo "------------------------------------------"
 sudo apt install -y i3-wm i3
+
+# Install utility
+echo "------------------------------------------"
+echo "Installing arandr (GUI for xrandr)"
+echo "------------------------------------------"
+sudo apt install -y arandr
+
+echo "------------------------------------------"
+echo "Installing pasystray (system tray for Pulse Audio - pavucontrol)"
+echo "------------------------------------------"
+sudo apt install -y pasystray
 
 # Install i3-gaps
 # sudo add-apt-repository -y ppa:regolith-linux/release
