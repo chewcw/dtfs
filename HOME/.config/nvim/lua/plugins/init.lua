@@ -359,7 +359,7 @@ local default_plugins = {
       require("core.utils").load_mappings("codeium")
     end,
     branch = "main",
-    commit = "70ba94a",
+    commit = "9406f13",
   },
 
   {
