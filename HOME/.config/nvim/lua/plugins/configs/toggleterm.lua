@@ -9,9 +9,9 @@ local options = {
   start_in_insert = false,
   insert_mappings = true,
   terminal_mappings = true,
-  hide_numbers = true,
-  autochdir = true,
-  shade_terminals = false,
+  hide_numbers = false,
+  autochdir = false,
+  shade_terminals = true,
   shell = function()
     if vim.fn.executable("zsh") == 1 then
       return "zsh"
@@ -27,7 +27,7 @@ local options = {
     border = "single",
   },
   winbar = {
-    enabled = false,
+    enabled = true,
   },
 }
 
