@@ -186,7 +186,6 @@ bar {
 }
 
 # i3-gap
-for_window [class=".*"] border normal
 set $mode_gaps Gaps: (o)uter, (i)nner, (h)orizontal, (v)ertical, (t)op, (r)ight, (b)ottom, (l)eft
 set $mode_gaps_outer Outer Gaps: +|-|0 (local), Shift + +|-|0 (global)
 set $mode_gaps_inner Inner Gaps: +|-|0 (local), Shift + +|-|0 (global)
@@ -308,10 +307,24 @@ mode "$mode_gaps_left" {
     bindsym Escape mode "default"
 }
 
-gaps inner 0
+gaps outer 0
+gaps inner 5
 
 # desktop background
 exec feh --bg-scale ~/Pictures/wallpaper.jpg
+
+# hide window title bar
+for_window [class="^.*"] border pixel 3
+for_window [floating] border normal
+default_border normal
+default_floating_border normal
+
+hide_edge_borders smart_no_gaps
+
+title_align center
+
+floating_minimum_size 300 x 300
+floating_maximum_size 1800 x 1000
 
 # move workspace to another monitor
 bindsym $mod+Ctrl+h move workspace to output left
