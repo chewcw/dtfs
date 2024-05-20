@@ -49,26 +49,26 @@ echo "------------------------------------------"
 ln -sf $pwd/HOME/.gitconfig $HOME/.gitconfig
 
 # Install lazygit v0.40.2
-if ! command -v lazygit &>/dev/null
-then
-	echo "------------------------------------------"
-	echo "Installing lazygit"
-	echo "------------------------------------------"
-	lazygit_tar_name=lazygit_0.40.2_Linux_x86_64.tar
-	rm -rf /tmp/$lazygit_tar_name
-	wget https://github.com/jesseduffield/lazygit/releases/download/v0.40.2/$lazygit_tar_name.gz -O /tmp/$lazygit_tar_name.gz
-	gzip -d /tmp/$lazygit_tar_name.gz
-	tar xvf /tmp/$lazygit_tar_name --directory=/tmp
-	sudo mv /tmp/lazygit /usr/local/bin/lazygit
-fi
+# if ! command -v lazygit &>/dev/null
+# then
+# 	echo "------------------------------------------"
+# 	echo "Installing lazygit"
+# 	echo "------------------------------------------"
+# 	lazygit_tar_name=lazygit_0.40.2_Linux_x86_64.tar
+# 	rm -rf /tmp/$lazygit_tar_name
+# 	wget https://github.com/jesseduffield/lazygit/releases/download/v0.40.2/$lazygit_tar_name.gz -O /tmp/$lazygit_tar_name.gz
+# 	gzip -d /tmp/$lazygit_tar_name.gz
+# 	tar xvf /tmp/$lazygit_tar_name --directory=/tmp
+# 	sudo mv /tmp/lazygit /usr/local/bin/lazygit
+# fi
 
 # Setup lazygit
-echo "------------------------------------------"
-echo "Setting up lazygit"
-echo "------------------------------------------"
-mkdir -p $HOME/.config/jesseduffield
-mkdir -p $HOME/.config/jesseduffield/lazygit
-ln -sf $pwd/HOME/.config/jesseduffield/lazygit/config.yml $HOME/.config/jesseduffield/lazygit/config.yml
+# echo "------------------------------------------"
+# echo "Setting up lazygit"
+# echo "------------------------------------------"
+# mkdir -p $HOME/.config/jesseduffield
+# mkdir -p $HOME/.config/jesseduffield/lazygit
+# ln -sf $pwd/HOME/.config/jesseduffield/lazygit/config.yml $HOME/.config/jesseduffield/lazygit/config.yml
 
 # Install font
 echo "------------------------------------------"
@@ -81,11 +81,11 @@ unzip /tmp/PkgTTF-Iosevka-29.0.0.zip -d /tmp/Pkg-Iosevka-29.0.0/ || true
 cp /tmp/Pkg-Iosevka-29.0.0/* $HOME/.fonts || true
 # cp $pwd/custom-fonts/Iosevka-nerdfont-patched/* $HOME/.fonts || true
 
-echo "------------------------------------------"
-echo "Installing InputMono font"
-echo "------------------------------------------"
-mkdir -p $HOME/.fonts
-cp $pwd/HOME/custom-fonts/InputMono/InputMonoCompressed/* $HOME/.fonts || true
+# echo "------------------------------------------"
+# echo "Installing InputMono font"
+# echo "------------------------------------------"
+# mkdir -p $HOME/.fonts
+# cp $pwd/HOME/custom-fonts/InputMono/InputMonoCompressed/* $HOME/.fonts || true
 
 # Install gnome-vim
 # Use vim-gtk3 so that I have +xterm_clipboard support
@@ -191,16 +191,40 @@ echo "Installing i3wm"
 echo "------------------------------------------"
 sudo apt install -y i3-wm i3
 
-# Install utility
+# ----------------------------------------------------------------------------- 
+# Installing some utilities
+# ----------------------------------------------------------------------------- 
 echo "------------------------------------------"
 echo "Installing arandr (GUI for xrandr)"
 echo "------------------------------------------"
 sudo apt install -y arandr
 
-echo "------------------------------------------"
+echo "-------------------------------------------------------------------"
 echo "Installing pasystray (system tray for Pulse Audio - pavucontrol)"
-echo "------------------------------------------"
+echo "-------------------------------------------------------------------"
 sudo apt install -y pasystray
+
+echo "------------------------------------------"
+echo "Installing windows compositor"
+echo "------------------------------------------"
+sudo apt install -y xcompmgr
+
+echo "-------------------------------------------------------------------"
+echo "Installing projecteur (pointer spotlight, for presentation)"
+echo "-------------------------------------------------------------------"
+sudo apt install -y projecteur
+# Install symlink for projecteur configuration
+mkdir -p $HOME/.config/Projecteur
+ln -sf $pwd/HOME/.config/Projecteur/Projecteur.conf $HOME/.config/Projecteur/Projecteur.conf
+
+echo "-------------------------------------------------------------------"
+echo "Installing gromit-mpx (ZoomIt-like, for linux, for presentation)"
+echo "-------------------------------------------------------------------"
+# debian package is not the latest version
+# check out https://github.com/bk138/gromit-mpx?tab=readme-ov-file#building-it to build from source
+sudo apt install -y gromit-mpx
+ln -sf $pwd/HOME/.config/gromit-mpx.cfg $HOME/.config/gromit-mpx.cfg
+ln -sf $pwd/HOME/.config/gromit-mpx.ini $HOME/.config/gromit-mpx.ini
 
 # Install i3-gaps
 # sudo add-apt-repository -y ppa:regolith-linux/release
@@ -293,18 +317,24 @@ echo "Installing symlink for connection_monitor"
 echo "------------------------------------------"
 ln -sf $pwd/HOME/.local/bin/connect_monitor.sh $HOME/.local/bin/connect_monitor.sh
 
+# Install symlink for init stuff
+echo "------------------------------------------"
+echo "Installing symlink for init stuff"
+echo "------------------------------------------"
+ln -sf $pwd/HOME/.local/bin/init_stuff.sh $HOME/.local/bin/init_stuff.sh
+
 # Install vscodium
-if ! command -v codium &>/dev/null
-then
-	echo "------------------------------------------"
-	echo "Installing vscodium"
-	echo "------------------------------------------"
-	codium_file_name=codium_1.81.1.23222_amd64.deb
-	rm -rf /tmp/$codium_file_name
-	wget https://github.com/VSCodium/vscodium/releases/download/1.81.1.23222/$codium_file_name -O /tmp/$codium_file_name
-	sudo dpkg --install /tmp/$codium_file_name || true
-	rm -rf /tmp/$codium_file_name
-fi
+# if ! command -v codium &>/dev/null
+# then
+# 	echo "------------------------------------------"
+# 	echo "Installing vscodium"
+# 	echo "------------------------------------------"
+# 	codium_file_name=codium_1.81.1.23222_amd64.deb
+# 	rm -rf /tmp/$codium_file_name
+# 	wget https://github.com/VSCodium/vscodium/releases/download/1.81.1.23222/$codium_file_name -O /tmp/$codium_file_name
+# 	sudo dpkg --install /tmp/$codium_file_name || true
+# 	rm -rf /tmp/$codium_file_name
+# fi
 
 # Install Brave browser
 # sudo curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
@@ -371,6 +401,10 @@ then
 	wget "https://github.com/flameshot-org/flameshot/releases/download/v12.1.0/$flameshot_file_name" -O /tmp/$flameshot_file_name  || true
 	sudo dpkg -i /tmp/$flameshot_file_name || true
 	mkdir -p $HOME/.config/Dharkael && ln -sf $pwd/HOME/.config/flameshot/flameshot.conf $HOME/.config/Dharkael/flameshot.conf
+
+  # Install symlink for flameshot config
+  mkdir -p $HOME/.config/flameshot
+  ln -sf $pwd/HOME/.config/flameshot/flameshot.ini $HOME/.config/flameshot/flameshot.conf
 fi
 
 # Install feh for desktop background
@@ -396,11 +430,11 @@ sudo apt install -y barrier
 # chmod +x $pwd/HOME/sz
 # sudo ln -sf $pwd/HOME/sz /usr/local/bin/sz
 
-# lxrandr
+# xdotool
 echo "------------------------------------------"
-echo "Installing xdotool and lxrandr"
+echo "Installing xdotool (moving cursor using keyboard)"
 echo "------------------------------------------"
-sudo apt install -y xdotool lxrandr
+sudo apt install -y xdotool
 
 # X11 configuration using libinput as input driver
 echo "------------------------------------------"
