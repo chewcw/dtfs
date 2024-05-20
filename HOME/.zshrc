@@ -225,6 +225,12 @@ export POWERLEVEL9K_DISABLE_CONFIGURATION_WIZARD=true
 alias monitor=arandr
 alias img=eog
 
+# Prevent ghost character showing in the shell
+# https://serverfault.com/a/894545
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+export LANGUAGE=en_US.UTF-8
+
 # yazi
 function y() {
 	local tmp="$(mktemp -t "yazi-cwd.XXXXX")"

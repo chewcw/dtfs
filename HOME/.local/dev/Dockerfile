@@ -104,6 +104,14 @@ sudo rm -rf /var/lib/apt/lists/*
 sudo apt update
 EOF
 
+# update locale
+RUN <<EOF
+sudo apt-get update
+sudo apt-get install -y locales
+sed -i 's/^# *\(en_US.UTF-8\)/\1/' /etc/locale.gen
+sudo locale-gen
+EOF
+
 WORKDIR /workspace
 
 # use vi mode in fish shell
@@ -150,6 +158,9 @@ zstyle ':completion:*:default' list-colors \${(s.:.)LS_COLORS}
 export PATH=\$PATH:/usr/local/go/bin
 export PATH=\$PATH:\$HOME/.local/bin
 export PATH=\$PATH:\$HOME/.local/share/fnm
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+export LANGUAGE=en_US.UTF-8
 eval "\$(fnm env)"
 EOF
 
