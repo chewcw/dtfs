@@ -15,8 +15,8 @@ order += "battery 0"
 order += "memory"
 order += "cpu_usage"
 order += "volume master"
-order += "tztime local"
 order += "tztime eastern"
+order += "tztime local"
 
 wireless wlp0s20f3 {
         format_up = "W: %essid %bitrate %ip"
