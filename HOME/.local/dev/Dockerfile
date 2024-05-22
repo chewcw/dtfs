@@ -1,7 +1,7 @@
 # syntax = docker/dockerfile:1.4.0
 FROM debian:trixie-slim
 
-RUN apt update && apt install -y wget curl sudo git ripgrep xclip xsel build-essential python3 python3 tar unzip ncurses-bin vim pip zsh
+RUN apt update && apt install -y wget curl sudo git ripgrep xclip xsel build-essential python3 python3 tar unzip ncurses-bin vim pip zsh file
 
 # fish shell
 # RUN echo 'deb http://download.opensuse.org/repositories/shells:/fish:/release:/3/Debian_11/ /' | tee /etc/apt/sources.list.d/shells:fish:release:3.list && \
@@ -185,13 +185,20 @@ ENV DISPLAY=
 RUN <<EOF
 `# install Lazy.nvim and plugins`
 nvim &>/dev/null &
-sleep 15s;
+sleep 1m;
 EOF
 
 RUN <<EOF
 `# install LSP related`
 nvim --headless -c 'MasonInstallAll' -c q &>/dev/null &
 sleep 1m;
+EOF
+
+# locales
+RUN <<EOF
+sudo apt install locales -y
+sudo sed -i 's/^# *\(en_US.UTF-8\)/\1/' /etc/locale.gen
+sudo locale-gen
 EOF
 
 COPY --chown=ccw:ccw .gitconfig /home/ccw/.gitconfig
