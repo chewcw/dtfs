@@ -25,6 +25,7 @@ local options = {
   end,
   float_opts = {
     border = "single",
+    shade_terminals = true,
   },
   winbar = {
     enabled = true,
