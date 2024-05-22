@@ -66,7 +66,7 @@ M.options = {
       --   return s
       -- end,
       -- Developer configurations: Not meant for general override
-      buffer_previewer_maker = require("telescope.previewers").buffer_previewer_maker,
+      buffer_previewer_maker = telescope_utils.dont_preview_binaries(),
       mappings = {
         i = {
           ["<C-j>"] = require("telescope.actions").move_selection_next,
