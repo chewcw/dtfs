@@ -231,6 +231,12 @@ export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 export LANGUAGE=en_US.UTF-8
 
+# edit command in the text editor
+# https://unix.stackexchange.com/a/90529
+export VISUAL=nvim
+autoload edit-command-line; zle -N edit-command-line
+bindkey -M vicmd z edit-command-line
+
 # yazi
 function y() {
 	local tmp="$(mktemp -t "yazi-cwd.XXXXX")"
