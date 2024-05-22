@@ -209,6 +209,29 @@ local default_plugins = {
   {
     "nvim-telescope/telescope.nvim",
     cmd = { "Telescope" },
+    dependencies = {
+      {
+        'nvim-telescope/telescope-fzf-native.nvim',
+        build = "make",
+        branch = "main",
+        commit = "9ef21b2",
+      },
+      {
+        "nvim-telescope/telescope-file-browser.nvim",
+        branch = "master",
+        commit = "ad7b637",
+      },
+      {
+        "nvim-telescope/telescope-ui-select.nvim",
+        branch = "master",
+        commit = "62ea5e5",
+      },
+      {
+        "LukasPietzschmann/telescope-tabs",
+        branch = "master",
+        commit = "a38c8fe",
+      },
+    },
     init = function()
       -- put this before loading mappings because
       -- when nvim loads the first time, if I press the mapping (<leader>fr) to open
@@ -230,55 +253,6 @@ local default_plugins = {
     end,
     branch = "master",
     commit = "6b79d7a",
-  },
-
-  {
-    "nvim-telescope/telescope-file-browser.nvim",
-    dependencies = {
-      {
-        "nvim-telescope/telescope.nvim",
-        branch = "master",
-        commit = "6b79d7a",
-      },
-      {
-        "nvim-lua/plenary.nvim",
-        branch = "master",
-        commit = "0dbe561",
-      },
-    },
-    branch = "master",
-    commit = "ad7b637",
-  },
-
-  {
-    "nvim-telescope/telescope-ui-select.nvim",
-    dependencies = {
-      {
-        "nvim-telescope/telescope.nvim",
-        branch = "master",
-        commit = "6b79d7a",
-      },
-      {
-        "nvim-lua/plenary.nvim",
-        branch = "master",
-        commit = "0dbe561",
-      },
-    },
-    branch = "master",
-    commit = "62ea5e5",
-  },
-
-  {
-    "LukasPietzschmann/telescope-tabs",
-    dependencies = {
-      {
-        "nvim-telescope/telescope.nvim",
-        branch = "master",
-        commit = "6b79d7a",
-      },
-    },
-    branch = "master",
-    commit = "a38c8fe",
   },
 
   {
@@ -575,11 +549,6 @@ local default_plugins = {
     config = true,
     branch = "main",
     commit = "6b02341",
-  },
-
-  {
-    'nvim-telescope/telescope-fzf-native.nvim',
-    build = 'make',
   },
 
   -- Only load whichkey after all the gui
