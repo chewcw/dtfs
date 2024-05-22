@@ -136,7 +136,7 @@ M.options = {
       },
   },
 
-  extensions_list = { "file_browser", "workspaces", "ui-select", "telescope-tabs" },
+  extensions_list = { "file_browser", "workspaces", "ui-select", "telescope-tabs", "fzf" },
 
   extensions = {
     file_browser = {
@@ -245,6 +245,13 @@ M.options = {
           -- ["h"] = require("telescope").extensions.file_browser.actions.toggle_hidden,
         },
       },
+    },
+
+    fzf = {
+      fuzzy = true,
+      override_generic_sorter = true,
+      override_file_sorter = true,
+      case_mode = "smart_case",
     },
   },
 

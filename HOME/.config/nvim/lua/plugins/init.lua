@@ -483,6 +483,7 @@ local default_plugins = {
     "junegunn/gv.vim",
     lazy = false,
     branch = "master",
+    commit = "b6bb666",
   },
 
   -- {
@@ -574,6 +575,11 @@ local default_plugins = {
     config = true,
     branch = "main",
     commit = "6b02341",
+  },
+
+  {
+    'nvim-telescope/telescope-fzf-native.nvim',
+    build = 'make',
   },
 
   -- Only load whichkey after all the gui
