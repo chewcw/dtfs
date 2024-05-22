@@ -295,15 +295,26 @@ M.dont_preview_binaries = function()
       command = "file",
       args = { "--mime-type", "-b", filepath },
       on_exit = function(j)
-        local mime_type = vim.split(j:result()[1], "/")[1]
-        if mime_type == "text" then
-          previewers.buffer_previewer_maker(filepath, bufnr, opts)
-        else
-          -- maybe we want to write something to the buffer here
-          vim.schedule(function()
-            vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, { "BINARY" })
-          end)
+        local binary_mime_patterns = {
+          "application/octet-stream",
+          "image/",
+          "video/",
+          "audio/",
+          "application/zip",
+          "application/x-executable",
+          "application/vnd.microsoft.portable-executable",
+        }
+
+        for _, pattern in ipairs(binary_mime_patterns) do
+          if j:result()[1]:match(pattern) then
+            vim.schedule(function()
+              vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, { "BINARY" })
+            end)
+            break
+          end
         end
+
+        previewers.buffer_previewer_maker(filepath, bufnr, opts)
       end
     }):sync()
   end
