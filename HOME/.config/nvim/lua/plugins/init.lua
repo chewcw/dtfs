@@ -551,6 +551,14 @@ local default_plugins = {
     commit = "6b02341",
   },
 
+  {
+    "sindrets/diffview.nvim",
+    lazy = false,
+    config = true,
+    branch = "main",
+    commit = "72c6983",
+  },
+  
   -- Only load whichkey after all the gui
   {
     "folke/which-key.nvim",
