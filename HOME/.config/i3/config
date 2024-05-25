@@ -457,10 +457,41 @@ bindsym $mod+Shift+f exec nautilus --no-desktop
 # compton
 # exec compton
 
+# presentation mode
+set $mode_presentation presentation
+mode "$mode_presentation" {
+  bindsym 1 exec --no-startup-id sh -c 'pkill gromit-mpx || gromit-mpx'
+  bindsym 2 exec --no-startup-id sh -c 'projecteur &'; exec --no-startup-id sh -c 'sleep 0.2 && projecteur -c spot=toggle'
+  bindsym grave exec sh -c '$HOME/.local/bin/projecteur_action.sh default'; exec sh -c 'projecteur -c quit'
+  bindsym Shift+3 exec sh -c '$HOME/.local/bin/projecteur_action.sh zoomIn'; exec sh -c 'projecteur -c quit'
+  bindsym Shift+4 exec sh -c '$HOME/.local/bin/projecteur_action.sh zoomOut'; exec sh -c 'projecteur -c quit'
+  bindsym 3 exec sh -c '$HOME/.local/bin/projecteur_action.sh increaseSpotSize';
+  bindsym 4 exec sh -c '$HOME/.local/bin/projecteur_action.sh decreaseSpotSize';
+
+  bindsym $mod+F3 mode "default"; exec sh -c 'projecteur -c quit'; exec sh -c 'pkill gromit-mpx'
+}
+bindsym $mod+F3 mode "$mode_presentation"; exec sh -c '$HOME/.local/bin/projecteur_action.sh default'
+
 # presentation (pen tool to draw on the screen)
-bindsym Ctrl+F1 exec --no-startup-id sh -c 'pkill gromit-mpx || gromit-mpx'
+# bindsym Ctrl+F1 exec --no-startup-id sh -c 'pkill gromit-mpx || gromit-mpx'
+
 # presentation (cursor spotlight)
-bindsym Ctrl+F3 exec --no-startup-id sh -c 'pkill projecteur || projecteur &'; exec --no-startup-id sh -c 'sleep 0.2 && projecteur -c spot=toggle'
+# mode "$mode_projecteur" {
+#   bindsym Ctrl+grave exec sh -c '$HOME/.local/bin/projecteur_action.sh default'; mode "default"; exec sh -c 'projecteur -c quit'
+#   bindsym Ctrl+1 exec sh -c '$HOME/.local/bin/projecteur_action.sh zoomIn'; mode "default"; exec sh -c 'projecteur -c quit'
+#   bindsym Ctrl+2 exec sh -c '$HOME/.local/bin/projecteur_action.sh zoomOut'; mode "default"; exec sh -c 'projecteur -c quit'
+#   bindsym Ctrl+Shift+1 exec sh -c '$HOME/.local/bin/projecteur_action.sh increaseSpotSize';
+#   bindsym Ctrl+Shift+2 exec sh -c '$HOME/.local/bin/projecteur_action.sh decreaseSpotSize';
+#
+#   # back to normal: Enter or Escape
+#   bindsym Ctrl+F3 mode "default"; exec sh -c 'projecteur -c quit'
+#   bindsym Escape mode "default"; exec sh -c 'projecteur -c quit'
+# }
+# bindsym Ctrl+F3 exec --no-startup-id sh -c 'projecteur &'; exec --no-startup-id sh -c 'sleep 0.2 && projecteur -c spot=toggle'; mode "$mode_projecteur"
+
+# mod + mouse up and mouse down to scroll through workspaces
+bindsym --whole-window --border $mod+button4 workspace prev_on_output
+bindsym --whole-window --border $mod+button5 workspace next_on_output
 
 exec source ~/.zshrc
 
