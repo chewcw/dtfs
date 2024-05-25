@@ -216,6 +216,8 @@ sudo apt install -y projecteur
 # Install symlink for projecteur configuration
 mkdir -p $HOME/.config/Projecteur
 ln -sf $pwd/HOME/.config/Projecteur/Projecteur.conf $HOME/.config/Projecteur/Projecteur.conf
+# Install symlink for projecteur_action.sh (used inside i3 config)
+ln -sf $pwd/HOME/.local/bin/projecteur_action.sh $HOME/.local/bin/projecteur_action.sh
 
 echo "-------------------------------------------------------------------"
 echo "Installing gromit-mpx (ZoomIt-like, for linux, for presentation)"
