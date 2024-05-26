@@ -554,7 +554,13 @@ local default_plugins = {
   {
     "sindrets/diffview.nvim",
     lazy = false,
-    config = true,
+    opts = function()
+      local actions = require("diffview.actions")
+      return require("plugins.configs.others").diffview(actions)
+    end,
+    config = function(_, opts)
+      require("diffview").setup(opts)
+    end,
     branch = "main",
     commit = "72c6983",
   },
