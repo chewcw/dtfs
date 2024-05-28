@@ -7,12 +7,12 @@ local options = {
 	hijack_netrw = true,
 	hijack_cursor = true,
 	hijack_unnamed_buffer_when_opening = false,
-	sync_root_with_cwd = true,
+	sync_root_with_cwd = false,
 	update_focused_file = {
 		enable = false,
 		update_root = false,
 	},
-  respect_buf_cwd = false,
+  respect_buf_cwd = true,
 	view = {
 		adaptive_size = true,
 		side = "left",
@@ -31,7 +31,7 @@ local options = {
 			resize_window = true,
 		},
     change_dir = {
-      enable = true,
+      enable = false,
       global = true,
       restrict_above_cwd = false,
     },
