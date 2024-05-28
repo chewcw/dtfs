@@ -238,6 +238,17 @@ M.options = {
             local keys = vim.api.nvim_replace_termcodes("s", false, false, true)
             vim.api.nvim_feedkeys(keys, "n", {})
           end,
+          -- Copy absolute file path
+          -- https://github.com/nvim-telescope/telescope-file-browser.nvim/issues/327#issuecomment-1793591898
+          ["<C-y>"] = function()
+            local entry = require("telescope.actions.state").get_selected_entry()
+            local cb_opts = vim.opt.clipboard:get()
+            if vim.tbl_contains(cb_opts, "unnamed") then vim.fn.setreg("*", entry.path) end
+            if vim.tbl_contains(cb_opts, "unnamedplus") then
+              vim.fn.setreg("+", entry.path)
+            end
+            vim.fn.setreg("", entry.path)
+          end,
           -- default mappings
           ["c"] = require("telescope").extensions.file_browser.actions.create,
           ["r"] = require("telescope").extensions.file_browser.actions.rename,
