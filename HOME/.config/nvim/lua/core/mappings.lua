@@ -1009,13 +1009,13 @@ M.trouble = {
       end,
       "lsp definitions",
     },
-    ["te"] = {
+    ["tz"] = {
       function()
         require("trouble").toggle("document_diagnostics")
       end,
       "open current buffer diagnostics",
     },
-    ["tE"] = {
+    ["tZ"] = {
       function()
         require("trouble").toggle("workspace_diagnostics")
       end,
