@@ -487,9 +487,9 @@ M.setup = function()
   vim.cmd([[ highlight! NeogitHunkHeader cterm=NONE guifg=NONE guibg=NONE ]])
 
   -- GitSigns (used in statusline)
-  highlight("GitSignsAdd", { fg = get_highlight("DiffAdd", "background"), bold = true })
-  highlight("GitSignsChange", { fg = get_highlight("DiffChange", "background"), bold = true })
-  highlight("GitSignsDelete", { fg = get_highlight("DiffDelete", "background"), bold = true })
+  highlight("GitSignsAdd", { fg = get_highlight("DiffAdd", "foreground"), bold = true })
+  highlight("GitSignsChange", { fg = get_highlight("DiffChange", "foreground"), bold = true })
+  highlight("GitSignsDelete", { fg = get_highlight("DiffDelete", "foreground"), bold = true })
 
   -- Markology
   vim.cmd([[ highlight! MarkologyHLl cterm=bold ctermfg=10 ctermbg=NONE guifg=Green guibg=NONE ]])
