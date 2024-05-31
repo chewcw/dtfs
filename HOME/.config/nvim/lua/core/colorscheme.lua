@@ -346,10 +346,10 @@ M.setup = function()
     DiagnosticWarn = { fg = c.yellow },                                                                         -- base highlight group for "Warning"
     DiagnosticInfo = { fg = c.main1 },                                                                           -- base highlight group from "Information"
     DiagnosticHint = { fg = c.gray05 },                                                                           -- base highlight group for "Hint"
-    DiagnosticVirtualTextError = { fg = c.red, bg = c.bg_nc },
-    DiagnosticVirtualTextWarn = { fg = c.yellow, bg = c.bg_nc },
-    DiagnosticVirtualTextInfo = { fg = c.main1, bg = c.bg_nc },
-    DiagnosticVirtualTextHint = { fg = c.gray05, bg = c.bg_nc },
+    DiagnosticVirtualTextError = { fg = c.red, italic = true },
+    DiagnosticVirtualTextWarn = { fg = c.yellow, italic = true },
+    DiagnosticVirtualTextInfo = { fg = c.main1, italic = true },
+    DiagnosticVirtualTextHint = { fg = c.gray03, italic = true },
     DiagnosticUnderlineError = { fg = c.red, undercurl = true, sp = c.red },           -- used to underline "Error" diagnostics.
     DiagnosticUnderlineWarn = { fg = c.yellow, undercurl = true, sp = c.yellow },      -- used to underline "Warning" diagnostics.
     DiagnosticUnderlineInfo = { fg = c.main1, undercurl = true, sp = c.main1 },          -- used to underline "Information" diagnostics.
