@@ -270,3 +270,18 @@ end, {})
 vim.api.nvim_create_user_command("UpdateQF", function()
   vim.cmd([[ call setqflist(map(getqflist(), 'extend(v:val, {"text":get(getbufline(v:val.bufnr, v:val.lnum),0)})')) ]])
 end, {})
+
+-- ---------------------------------------------------------------------------- 
+-- set tab size for certain file type
+-- ---------------------------------------------------------------------------- 
+-- csharp
+local filetype_cs_group = vim.api.nvim_create_augroup("FileTypeCS", { clear = true })
+vim.api.nvim_create_autocmd("FileType", {
+  group = filetype_cs_group,
+  pattern = "cs",
+  callback = function()
+    vim.opt_local.tabstop = 4
+    vim.opt_local.shiftwidth = 4
+    vim.opt_local.expandtab = true
+  end,
+})
