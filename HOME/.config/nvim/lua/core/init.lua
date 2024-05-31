@@ -31,7 +31,7 @@ opt.fillchars = {
   -- foldsep = " ",
   -- foldclose = " ",
 }
-opt.ignorecase = false
+opt.ignorecase = true
 opt.smartcase = true
 opt.mouse = "a"
 
