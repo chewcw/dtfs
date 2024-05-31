@@ -135,12 +135,12 @@ M.setup = function()
 
     DiffAdd = { fg = c.green, bg = c.none, bold = true, italic = true },
     DiffAdded = { fg = c.green, bg = c.none, bold = true, italic = true },
-    DiffChange = { fg = c.blue, bg = c.none, bold = true, italic = true },
-    DiffChanged = { fg = c.blue, bg = c.none, bold = true, italic = true },
+    DiffChange = { fg = c.bright_blue, bg = c.none, bold = true, italic = true },
+    DiffChanged = { fg = c.bright_blue, bg = c.none, bold = true, italic = true },
     DiffChangeDelete = { fg = c.magenta, bg = c.none, bold = true, italic = true },
     DiffDelete = { fg = c.red, bg = c.none, bold = true, italic = true },
     DiffRemoved = { fg = c.red, bg = c.none, bold = true, italic = true },
-    DiffText = { fg = c.blue, bg = c.none, bold = true, italic = true },
+    DiffText = { fg = c.bright_blue, bg = c.none, bold = true, italic = true },
     DiffModified = { fg = c.cyan, bg = c.none, bold = true, italic = true },
     DiffNewFile = { fg = c.cyan, bg = c.none, bold = true, italic = true },
 
