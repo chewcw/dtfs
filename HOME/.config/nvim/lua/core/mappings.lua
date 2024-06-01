@@ -32,6 +32,7 @@ M.general = {
     ["<A-CR>"] = { "<C-o>O" },
 
     -- ["<C-n>"] = { "" }, -- unmap this
+    ["<C-]>"] = { "<Esc>", "esc" }, -- i always press the wrong key
   },
 
   n = {
