@@ -321,4 +321,16 @@ M.dont_preview_binaries = function()
   return new_maker
 end
 
+M.force_delete_buffer = function(prompt_bufnr)
+  local action_state = require('telescope.actions.state')
+  local actions = require('telescope.actions')
+  local selected_entry = action_state.get_selected_entry()
+
+  if selected_entry then
+    vim.api.nvim_buf_delete(selected_entry.bufnr, {force = true})
+  end
+
+  actions.close(prompt_bufnr)
+end
+
 return M
