@@ -78,7 +78,7 @@ opt.completeopt = "menuone,noselect"
 opt.showtabline = 0
 
 -- vertical line
-opt.colorcolumn = "80"
+opt.colorcolumn = "85"
 
 -- wrap
 vim.wo.wrap = false
