@@ -303,6 +303,7 @@ M.options = {
         n = {
           -- close the buffer
           ["d"] = require("telescope.actions").delete_buffer,
+          ["D"] = telescope_utils.force_delete_buffer,
         },
       },
     },
