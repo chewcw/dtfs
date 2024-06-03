@@ -351,6 +351,11 @@ bindsym $mod+minus exec "amixer -D pulse sset Master 1%-"
 bindsym $mod+Shift+m exec "amixer -D pulse sset Master mute"
 bindsym $mod+Shift+u exec "amixer -D pulse sset Master unmute"
 
+# mute microphone
+bindsym $mod+Ctrl+m exec "amixer set Capture nocap"
+# unmute microphone
+bindsym $mod+Ctrl+u exec "amixer set Capture cap"
+
 # Brightness controls
 bindsym $mod+Shift+plus exec "sudo brightnessctl set 5%+"
 bindsym $mod+Shift+minus exec "sudo brightnessctl set 5%-"
