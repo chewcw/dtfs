@@ -14,7 +14,7 @@ borderSize=3
 cursor=13
 dotColor=@Variant(\\0\\0\\0\\x43\\x1\\xff\\xff\\xff\\xff\\0\\0\\0\\0\\0\\0)
 dotOpacity=0.7
-dotSize=20
+dotSize=10
 enableZoom=false
 zoomFactor=1.5
 multiScreenOverlay=false
@@ -119,18 +119,23 @@ case "$1" in
     default
     ;;
   increaseSpotSize)
+    default
     increaseSpotSizeBy5
     ;;
   decreaseSpotSize)
+    default
     decreaseSpotSizeBy5
     ;;
   zoomIn)
+    default
     zoomIn
     ;;
   zoomOut)
+    default
     zoomOut
     ;;
   disableZoom)
+    default
     disableZoom
     ;;
   *)
