@@ -564,6 +564,17 @@ local default_plugins = {
     branch = "main",
     commit = "72c6983",
   },
+
+  {
+    "rmagatti/auto-session",
+    lazy = false,
+    opts = function()
+      return {
+        log_level = "error",
+        auto_session_suppress_dirs = { "~/*", "/tmp/*", "/"},
+      }
+    end,
+  },
   
   -- Only load whichkey after all the gui
   {
