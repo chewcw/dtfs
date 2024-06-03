@@ -110,6 +110,7 @@ local options = {
 		vim.keymap.set("n", "f", api.live_filter.start, opts("start filter"))
 		vim.keymap.set("n", "<Esc>", api.live_filter.clear, opts("clear filter"))
 		vim.keymap.set("n", "s", api.tree.search_node, opts("search node"))
+		vim.keymap.set("n", "E", api.node.run.cmd, opts("run command on node"))
 	end,
 }
 
