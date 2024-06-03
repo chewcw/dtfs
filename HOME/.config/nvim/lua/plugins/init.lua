@@ -571,7 +571,7 @@ local default_plugins = {
     opts = function()
       return {
         log_level = "error",
-        auto_session_suppress_dirs = { "~/*", "/tmp/*", "/"},
+        auto_session_suppress_dirs = { "~", "~/*", "/tmp", "/tmp/*", "/" },
       }
     end,
   },
