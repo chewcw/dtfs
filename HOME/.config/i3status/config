@@ -75,8 +75,8 @@ read_file uptime {
 }
 
 volume master {
-   format = "v: %volume"
-   format_muted = "v: mute"
+   format = "🕪 (%volume)"
+   format_muted = "🕩 (mute)"
    device = "default"
    mixer = "Master"
    mixer_idx = 0
