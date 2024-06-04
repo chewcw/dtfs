@@ -119,23 +119,18 @@ case "$1" in
     default
     ;;
   increaseSpotSize)
-    default
     increaseSpotSizeBy5
     ;;
   decreaseSpotSize)
-    default
     decreaseSpotSizeBy5
     ;;
   zoomIn)
-    default
     zoomIn
     ;;
   zoomOut)
-    default
     zoomOut
     ;;
   disableZoom)
-    default
     disableZoom
     ;;
   *)
