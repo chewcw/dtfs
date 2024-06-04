@@ -198,6 +198,9 @@ client.focused #4C7899 #285577 #FFFFFF #2E9EF4   #285577
 # finds out, if available)
 bar {
     status_command i3status
+# system try to be shown on the primary monitor
+# https://i3wm.org/docs/userguide.html#_tray_output
+    tray_output primary
 }
 
 # i3-gap
