@@ -571,11 +571,11 @@ local default_plugins = {
     opts = function()
       return {
         log_level = "error",
-        auto_session_suppress_dirs = { "~", "~/*", "/tmp", "/tmp/*", "/" },
+        auto_session_suppress_dirs = { "~", "~/*", "~/Documents/*", "~/Documents/dtfs/*", "/tmp", "/tmp/*", "/" },
       }
     end,
   },
-  
+
   -- Only load whichkey after all the gui
   {
     "folke/which-key.nvim",
