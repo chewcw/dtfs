@@ -139,7 +139,6 @@ M.options = {
     },
     sources = cmp.config.sources({
       { name = "async_path" },
-      { name = "cmdline_history" },
     }, {
       {
         name = "cmdline",
@@ -182,7 +181,6 @@ M.options = {
     },
     sources = {
       { name = "buffer" },
-      { name = "cmdline_history" },
     },
     formatting = { fields = { "abbr" } },
   },
