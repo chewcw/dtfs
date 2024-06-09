@@ -324,13 +324,17 @@ end
 M.force_delete_buffer = function(prompt_bufnr)
   local action_state = require('telescope.actions.state')
   local actions = require('telescope.actions')
+  local current_picker = action_state.get_current_picker(prompt_bufnr)
   local selected_entry = action_state.get_selected_entry()
 
   if selected_entry then
     vim.api.nvim_buf_delete(selected_entry.bufnr, {force = true})
+    current_picker:refresh(current_picker.finder, { reset_prompt = true })
+    vim.schedule(function()
+      actions._close(prompt_bufnr, true) -- Close the current Telescope window
+      require('telescope.builtin').buffers() -- Reopen the buffer picker
+    end)
   end
-
-  actions.close(prompt_bufnr)
 end
 
 return M
