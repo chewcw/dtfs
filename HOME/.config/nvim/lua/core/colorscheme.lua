@@ -13,7 +13,7 @@ M.colors = function()
     -- Basic
     bg = "#030a0e",
     bg_nc = "#232628",
-    fg = "#bcbcbc",
+    fg = "#a9a9a9",
     -- Normal
     main1 = "#EA907A",
     main2 = "#FBC687",
@@ -42,9 +42,8 @@ M.colors = function()
     dark_yellow = "#5b4d08",
     dark_green = "#263730",
     dark_red = "#3f0f13",
-    dark_blue = "#25323e",
+    dark_blue = "#081923",
     dark_magenta = "#56415e",
-    dark_bg_nc = "#151618",
     dark_brown = "#462b24",
     dark_cyan = "#4a6459",
     -- Grays
@@ -57,17 +56,17 @@ M.colors = function()
     gray06 = "#767675",
     gray07 = "#b6b6b5",
     -- Reds
-    red00 = "#994646";
-    red01 = "#883e3e";
-    red02 = "#763636";
+    red00 = "#994646",
+    red01 = "#883e3e",
+    red02 = "#763636",
     -- Yellows
-    yellow00 = "#cead12";
-    yellow01 = "#b79a10";
-    yellow02 = "#a0870e";
+    yellow00 = "#cead12",
+    yellow01 = "#b79a10",
+    yellow02 = "#a0870e",
     -- Blues
-    blue00 = "#1a242c";
-    blue01 = "#172027";
-    blue02 = "#141c22";
+    blue00 = "#1a242c",
+    blue01 = "#172027",
+    blue02 = "#141c22",
     -- Special
     none = "NONE",
   }
@@ -137,12 +136,12 @@ M.setup = function()
     SignColumn = { fg = c.fg, bg = c.none },
     EndOfBuffer = { fg = c.gray05 },
     NormalFloat = { fg = get_highlight("FloatBorder", "foreground"), bg = get_highlight("Normal", "background") },
-    FloatBorder = { fg = c.gray03, bg = c.bg },
+    FloatBorder = { fg = c.gray02, bg = c.bg },
     ColorColumn = { fg = c.none, bg = c.bg_nc },
     Conceal = { fg = c.gray05 },
     Cursor = { bg = c.bright_blue, fg = c.white, reverse = false },
     CursorIM = { bg = c.bright_blue, fg = c.white, reverse = false },
-    CurSearch = { bg = c.bright_blue, fg = c.gray00, reverse = false },
+    CurSearch = { bg = c.none, fg = c.bright_green, reverse = false },
     Directory = { fg = c.main1, bg = c.none },
 
     DiffAdd = { fg = c.bright_magenta, bg = c.none, bold = true, italic = true },
@@ -167,7 +166,7 @@ M.setup = function()
     MoreMsg = { fg = c.main4 },
     NonText = { fg = c.gray03 },
     Pmenu = { bg = c.bg },
-    PmenuSel = { fg = c.bg, bg = c.gray06 },
+    PmenuSel = { fg = c.none, bg = c.dark_blue },
     PmenuSbar = { fg = c.fg, bg = c.gray02 },
     PmenuThumb = { fg = c.fg, bg = c.gray05 },
     Question = { fg = c.main2 },
@@ -192,7 +191,7 @@ M.setup = function()
     WarningMsg = { fg = c.yellow },
     WildMenu = { fg = c.bg, bg = c.main1 },
     CursorColumn = { fg = c.none, bg = c.bg_nc },
-    CursorLine = { fg = c.none, bg = c.bg_nc },
+    CursorLine = { fg = c.none, bg = c.dark_blue },
     ToolbarLine = { fg = c.fg, bg = c.gray01 },
     ToolbarButton = { fg = c.fg, bg = c.none },
     NormalMode = { fg = c.main4, bg = c.none, reverse = true },
@@ -207,9 +206,9 @@ M.setup = function()
     --common
     Type = { fg = c.main4 },                                                                                     -- int, long, char, etc.
     StorageClass = { fg = c.main4 },                                                                             -- static, register, volatile, etc.
-    Structure = { fg = c.fg },                                                                                  -- struct, union, enum, etc.
+    Structure = { fg = c.fg },                                                                                   -- struct, union, enum, etc.
     Constant = { fg = c.main4 },                                                                                 -- any constant
-    Comment = { fg = c.gray05, bg = c.none, bold = cfg.comment_style.bold, italic = cfg.comment_style.italic }, -- italic comments
+    Comment = { fg = c.gray05, bg = c.none, bold = cfg.comment_style.bold, italic = cfg.comment_style.italic },  -- italic comments
     Conditional = { fg = c.main1, bg = c.none, bold = cfg.keyword_style.bold, italic = cfg.keyword_style.italic }, -- italic if, then, else, endif, switch, etc.
     Keyword = { fg = c.main2, bg = c.none, bold = cfg.keyword_style.bold, italic = cfg.keyword_style.italic },   -- italic for, do, while, etc.
     Repeat = { fg = c.main2, bg = c.none, bold = cfg.keyword_style.bold, italic = cfg.keyword_style.italic },    -- italic any other keyword
@@ -222,9 +221,9 @@ M.setup = function()
     Float = { fg = c.main4 },                                                                                    -- a floating point constant: 2.3e10
     Statement = { fg = c.main2 },                                                                                -- any statement
     Label = { fg = c.main4 },                                                                                    -- case, default, etc.
-    Operator = { fg = c.gray07 },                                                                               -- sizeof", "+", "*", etc.
-    Exception = { fg = c.main2 },                                                                              -- try, catch, throw
-    PreProc = { fg = c.main1 },                                                                                   -- generic Preprocessor
+    Operator = { fg = c.gray07 },                                                                                -- sizeof", "+", "*", etc.
+    Exception = { fg = c.main2 },                                                                                -- try, catch, throw
+    PreProc = { fg = c.main1 },                                                                                  -- generic Preprocessor
     Include = { fg = c.main1 },                                                                                  -- preprocessor #include
     Define = { fg = c.main4 },                                                                                   -- preprocessor #define
     Macro = { fg = c.main1 },                                                                                    -- same as Define
@@ -232,14 +231,14 @@ M.setup = function()
     PreCondit = { fg = c.main4 },                                                                                -- preprocessor #if, #else, #endif, etc.
     Special = { fg = c.main3, bg = c.none },                                                                     -- any special symbol
     SpecialChar = { fg = c.main3 },                                                                              -- special character in a constant
-    Tag = { fg = c.main3 },                                                                                    -- you can use CTRL-] on this
-    Delimiter = { fg = c.gray07 },                                                                              -- character that needs attention like , or .
+    Tag = { fg = c.main3 },                                                                                      -- you can use CTRL-] on this
+    Delimiter = { fg = c.gray07 },                                                                               -- character that needs attention like , or .
     SpecialComment = { fg = c.main1 },                                                                           -- special things inside a comment
-    Debug = { fg = c.main4 },                                                                                     -- debugging statements
+    Debug = { fg = c.main4 },                                                                                    -- debugging statements
     Underlined = { fg = c.main4, bg = c.none, underline = true },                                                -- text that stands out, HTML links
-    Ignore = { fg = c.gray07 },                                                                                 -- left blank, hidden
-    Error = { fg = c.red, bg = c.none, underline = true },                                         -- any erroneous construct
-    Todo = { fg = c.main4, bg = c.none, italic = true },                                            -- anything that needs extra attention; mostly the keywords TODO FIXME and XXX
+    Ignore = { fg = c.gray07 },                                                                                  -- left blank, hidden
+    Error = { fg = c.red, bg = c.none, underline = true },                                                       -- any erroneous construct
+    Todo = { fg = c.main4, bg = c.none, italic = true },                                                         -- anything that needs extra attention; mostly the keywords TODO FIXME and XXX
     -- HTML
     htmlArg = { fg = c.fg },
     htmlBold = { fg = c.fg, bg = c.none, bold = true },
@@ -290,44 +289,44 @@ M.setup = function()
     TSAnnotation = { fg = c.main2 },                                                                            -- For C++/Dart attributes, annotations that can be attached to the code to denote some kind of meta information.
     TSAttribute = { fg = c.fg },                                                                                -- (unstable) TODO: docs
     TSBoolean = { fg = c.main4, bg = c.none, bold = cfg.boolean_style.bold, italic = cfg.boolean_style.italic }, -- true or false
-    TSCharacter = { fg = c.main4 },                                                                              -- For characters.
+    TSCharacter = { fg = c.main4 },                                                                             -- For characters.
     TSComment = { fg = c.gray05, bg = c.none, bold = cfg.comment_style.bold, italic = cfg.comment_style.italic }, -- For comment blocks.
-    TSConditional = { fg = c.main1, bold = cfg.keyword_style.bold, italic = cfg.keyword_style.italic },          -- For keywords related to conditionnals.
+    TSConditional = { fg = c.main1, bold = cfg.keyword_style.bold, italic = cfg.keyword_style.italic },         -- For keywords related to conditionnals.
     TSConstant = { fg = c.fg },                                                                                 -- For constants
-    TSConstBuiltin = { fg = c.main4, italic = true },                                                            -- For constants that are built in the language: `nil` in Lua.
-    TSConstMacro = { fg = c.main4 },                                                                             -- For constants that are defined by macros: `NULL` in C.
+    TSConstBuiltin = { fg = c.main4, italic = true },                                                           -- For constants that are built in the language: `nil` in Lua.
+    TSConstMacro = { fg = c.main4 },                                                                            -- For constants that are defined by macros: `NULL` in C.
     TSConstructor = { fg = c.gray07 },                                                                          -- For constructor calls and definitions: `= { }` in Lua, and Java constructors.
     TSError = { fg = c.red },                                                                                   -- For syntax/parser errors.
     TSException = { fg = c.yellow },                                                                            -- For exception related keywords.
-    TSField = { fg = c.main4 },                                                                                  -- For fields.
-    TSFloat = { fg = c.main4 },                                                                                  -- For floats.
+    TSField = { fg = c.main4 },                                                                                 -- For fields.
+    TSFloat = { fg = c.main4 },                                                                                 -- For floats.
     TSFunction = { fg = c.fg, bold = cfg.function_style.bold, italic = cfg.function_style.italic },             -- For fuction (calls and definitions).
     TSFuncBuiltin = { fg = c.fg, bold = cfg.function_style.bold, italic = cfg.function_style.italic },          -- For builtin functions: `table.insert` in Lua.
-    TSFuncMacro = { fg = c.main1 },                                                                              -- For macro defined fuctions (calls and definitions): each `macro_rules` in Rust.
-    TSInclude = { fg = c.main1, italic = true },                                                                 -- For includes: `#include` in C, `use` or `extern crate` in Rust, or `require` in Lua.
-    TSKeyword = { fg = c.main1, bold = cfg.keyword_style.bold, italic = cfg.keyword_style.italic },              -- For keywords that don't fall in previous categories.
-    TSKeywordFunction = { fg = c.main1, bold = cfg.function_style.bold, italic = cfg.function_style.italic },    -- For keywords used to define a fuction.
+    TSFuncMacro = { fg = c.main1 },                                                                             -- For macro defined fuctions (calls and definitions): each `macro_rules` in Rust.
+    TSInclude = { fg = c.main1, italic = true },                                                                -- For includes: `#include` in C, `use` or `extern crate` in Rust, or `require` in Lua.
+    TSKeyword = { fg = c.main1, bold = cfg.keyword_style.bold, italic = cfg.keyword_style.italic },             -- For keywords that don't fall in previous categories.
+    TSKeywordFunction = { fg = c.main1, bold = cfg.function_style.bold, italic = cfg.function_style.italic },   -- For keywords used to define a fuction.
     TSKeywordOperator = { fg = c.yellow },                                                                      -- For operators that are English words, e.g. `and`, `as`, `or`.
-    TSKeywordReturn = { fg = c.main1, bold = cfg.keyword_style.bold, italic = cfg.keyword_style.italic },        -- For the `return` and `yield` keywords.
-    TSLabel = { fg = c.main4 },                                                                                  -- For labels: `label:` in C and `:label:` in Lua.
+    TSKeywordReturn = { fg = c.main1, bold = cfg.keyword_style.bold, italic = cfg.keyword_style.italic },       -- For the `return` and `yield` keywords.
+    TSLabel = { fg = c.main4 },                                                                                 -- For labels: `label:` in C and `:label:` in Lua.
     TSMethod = { fg = c.bright_blue, bold = cfg.function_style.bold, italic = cfg.function_style.italic },      -- For method calls and definitions.
-    TSNamespace = { fg = c.main1 },                                                                              -- For identifiers referring to modules and namespaces.
+    TSNamespace = { fg = c.main1 },                                                                             -- For identifiers referring to modules and namespaces.
     -- TSNone = {}, -- No highlighting. Don't change the values of this highlight group.
-    TSNumber = { fg = c.main4 },                                                                                 -- For all numbers
+    TSNumber = { fg = c.main4 },                                                                                -- For all numbers
     TSOperator = { fg = c.yellow },                                                                             -- For any operator: `+`, but also `->` and `*` in C.
     TSParameter = { fg = c.fg },                                                                                -- For parameters of a function.
     TSParameterReference = { fg = c.fg },                                                                       -- For references to parameters of a function.
-    TSProperty = { fg = c.main1 },                                                                               -- Same as `TSField`.
+    TSProperty = { fg = c.main1 },                                                                              -- Same as `TSField`.
     TSPunctDelimiter = { fg = c.gray05 },                                                                       -- For delimiters ie: `.`
     TSPunctBracket = { fg = c.gray05 },                                                                         -- For brackets and parens.
     TSPunctSpecial = { fg = c.main2 },                                                                          -- For special punctutation that does not fall in the catagories before.
-    TSRepeat = { fg = c.main1, bold = cfg.keyword_style.bold, italic = cfg.keyword_style.italic },               -- For keywords related to loops.
-    TSString = { fg = c.main4 },                                                                                 -- For strings.
+    TSRepeat = { fg = c.main1, bold = cfg.keyword_style.bold, italic = cfg.keyword_style.italic },              -- For keywords related to loops.
+    TSString = { fg = c.main4 },                                                                                -- For strings.
     TSStringRegex = { fg = c.main2 },                                                                           -- For regexes.
-    TSStringEscape = { fg = c.main4 },                                                                           -- For escape characters within a string.
+    TSStringEscape = { fg = c.main4 },                                                                          -- For escape characters within a string.
     TSStringSpecial = { fg = c.main2 },                                                                         -- For strings with special meaning that don't fit into the above categories.
     TSSymbol = { fg = c.main2 },                                                                                -- For identifiers referring to symbols or atoms.
-    TSTag = { fg = c.main2 },                                                                                  -- Tags like html tag names.
+    TSTag = { fg = c.main2 },                                                                                   -- Tags like html tag names.
     TSTagAttribute = { fg = c.fg },                                                                             -- For html tag attributes.
     TSTagDelimiter = { fg = c.gray05 },                                                                         -- Tag delimiter like `<` `>` `/`
     TSText = { fg = c.fg },                                                                                     -- For strings considered text in a markup language.
@@ -335,18 +334,18 @@ M.setup = function()
     TSEmphasis = { fg = c.bright_white, bold = true },                                                          -- For text to be represented with emphasis.
     TSUnderline = { fg = c.bright_white, bg = c.none, underline = true },                                       -- For text to be represented with an underline.
     TSStrike = {},                                                                                              -- For strikethrough text.
-    TSTitle = { fg = c.fg, bg = c.none },                                                          -- Text that is part of a title.
+    TSTitle = { fg = c.fg, bg = c.none },                                                                       -- Text that is part of a title.
     TSLiteral = { fg = c.fg },                                                                                  -- Literal text.
-    TSURI = { fg = c.main4 },                                                                                    -- Any URL like a link or email.
-    TSMath = { fg = c.main1 },                                                                                   -- For LaTeX-like math environments.
+    TSURI = { fg = c.main4 },                                                                                   -- Any URL like a link or email.
+    TSMath = { fg = c.main1 },                                                                                  -- For LaTeX-like math environments.
     TSTextReference = { fg = c.yellow },                                                                        -- For footnotes, text references, citations.
-    TSEnvironment = { fg = c.main1 },                                                                            -- For text environments of markup languages.
+    TSEnvironment = { fg = c.main1 },                                                                           -- For text environments of markup languages.
     TSEnvironmentName = { fg = c.bright_blue },                                                                 -- For the name/the string indicating the type of text environment.
-    TSNote = { fg = c.main1 },                                                                                   -- Text representation of an informational note.
+    TSNote = { fg = c.main1 },                                                                                  -- Text representation of an informational note.
     TSWarning = { fg = c.yellow },                                                                              -- Text representation of a warning note.
     TSDanger = { fg = c.red },                                                                                  -- Text representation of a danger note.
     TSType = { fg = c.fg },                                                                                     -- For types.
-    TSTypeBuiltin = { fg = c.main1 },                                                                            -- For builtin types.
+    TSTypeBuiltin = { fg = c.main1 },                                                                           -- For builtin types.
     TSVariable = { fg = c.fg, bold = cfg.variable_style.bold, italic = cfg.variable_style.italic },             -- Any variable name that does not have another highlight.
     TSVariableBuiltin = { fg = c.yellow, bold = cfg.variable_style.bold, italic = cfg.variable_style.italic },  -- Variable names that are defined by the languages, like `this` or `self`.
     -- highlight groups for the native LSP client
@@ -354,39 +353,39 @@ M.setup = function()
     LspReferenceRead = { fg = c.bg, bg = c.magenta },                                                           -- used for highlighting "read" references
     LspReferenceWrite = { fg = c.bg, bg = c.magenta },                                                          -- used for highlighting "write" references
     -- Diagnostics
-    DiagnosticError = { fg = c.red01 },                                                                           -- base highlight group for "Error"
-    DiagnosticWarn = { fg = c.yellow01 },                                                                         -- base highlight group for "Warning"
-    DiagnosticInfo = { fg = c.blue01 },                                                                           -- base highlight group from "Information"
-    DiagnosticHint = { fg = c.gray05 },                                                                           -- base highlight group for "Hint"
+    DiagnosticError = { fg = c.red01 },                                                                         -- base highlight group for "Error"
+    DiagnosticWarn = { fg = c.yellow01 },                                                                       -- base highlight group for "Warning"
+    DiagnosticInfo = { fg = c.blue01 },                                                                         -- base highlight group from "Information"
+    DiagnosticHint = { fg = c.gray05 },                                                                         -- base highlight group for "Hint"
     DiagnosticVirtualTextError = { fg = c.red01, italic = true },
     DiagnosticVirtualTextWarn = { fg = c.yellow01, italic = true },
     DiagnosticVirtualTextInfo = { fg = c.blue01, italic = true },
     DiagnosticVirtualTextHint = { fg = c.gray05, italic = true },
-    DiagnosticUnderlineError = { fg = c.red01, undercurl = true, sp = c.red01 },           -- used to underline "Error" diagnostics.
-    DiagnosticUnderlineWarn = { fg = c.yellow01, undercurl = true, sp = c.yellow01 },      -- used to underline "Warning" diagnostics.
-    DiagnosticUnderlineInfo = { fg = c.blue01, undercurl = true, sp = c.blue01 },          -- used to underline "Information" diagnostics.
-    DiagnosticUnderlineHint = { fg = c.gray05, undercurl = true, sp = c.gray05 },          -- used to underline "Hint" diagnostics.
+    DiagnosticUnderlineError = { fg = c.red01, undercurl = true, sp = c.red01 },         -- used to underline "Error" diagnostics.
+    DiagnosticUnderlineWarn = { fg = c.yellow01, undercurl = true, sp = c.yellow01 },    -- used to underline "Warning" diagnostics.
+    DiagnosticUnderlineInfo = { fg = c.blue01, undercurl = true, sp = c.blue01 },        -- used to underline "Information" diagnostics.
+    DiagnosticUnderlineHint = { fg = c.gray05, undercurl = true, sp = c.gray05 },        -- used to underline "Hint" diagnostics.
     -- Diagnostics (old)
-    LspDiagnosticsDefaultError = { fg = c.red },                                       -- used for "Error" diagnostic virtual text
-    LspDiagnosticsSignError = { fg = c.red },                                          -- used for "Error" diagnostic signs in sign column
-    LspDiagnosticsFloatingError = { fg = c.red, bold = true },                         -- used for "Error" diagnostic messages in the diagnostics float
-    LspDiagnosticsVirtualTextError = { fg = c.red, bold = true },                      -- Virtual text "Error"
-    LspDiagnosticsUnderlineError = { fg = c.red, undercurl = true, sp = c.red },       -- used to underline "Error" diagnostics.
-    LspDiagnosticsDefaultWarning = { fg = c.yellow },                                  -- used for "Warning" diagnostic signs in sign column
-    LspDiagnosticsSignWarning = { fg = c.yellow },                                     -- used for "Warning" diagnostic signs in sign column
-    LspDiagnosticsFloatingWarning = { fg = c.yellow, bold = true },                    -- used for "Warning" diagnostic messages in the diagnostics float
-    LspDiagnosticsVirtualTextWarning = { fg = c.yellow, bold = true },                 -- Virtual text "Warning"
+    LspDiagnosticsDefaultError = { fg = c.red },                                         -- used for "Error" diagnostic virtual text
+    LspDiagnosticsSignError = { fg = c.red },                                            -- used for "Error" diagnostic signs in sign column
+    LspDiagnosticsFloatingError = { fg = c.red, bold = true },                           -- used for "Error" diagnostic messages in the diagnostics float
+    LspDiagnosticsVirtualTextError = { fg = c.red, bold = true },                        -- Virtual text "Error"
+    LspDiagnosticsUnderlineError = { fg = c.red, undercurl = true, sp = c.red },         -- used to underline "Error" diagnostics.
+    LspDiagnosticsDefaultWarning = { fg = c.yellow },                                    -- used for "Warning" diagnostic signs in sign column
+    LspDiagnosticsSignWarning = { fg = c.yellow },                                       -- used for "Warning" diagnostic signs in sign column
+    LspDiagnosticsFloatingWarning = { fg = c.yellow, bold = true },                      -- used for "Warning" diagnostic messages in the diagnostics float
+    LspDiagnosticsVirtualTextWarning = { fg = c.yellow, bold = true },                   -- Virtual text "Warning"
     LspDiagnosticsUnderlineWarning = { fg = c.yellow, undercurl = true, sp = c.yellow }, -- used to underline "Warning" diagnostics.
-    LspDiagnosticsDefaultInformation = { fg = c.main1 },                                -- used for "Information" diagnostic virtual text
-    LspDiagnosticsSignInformation = { fg = c.main1 },                                   -- used for "Information" diagnostic signs in sign column
-    LspDiagnosticsFloatingInformation = { fg = c.main1, bold = true },                  -- used for "Information" diagnostic messages in the diagnostics float
-    LspDiagnosticsVirtualTextInformation = { fg = c.main1, bold = true },               -- Virtual text "Information"
+    LspDiagnosticsDefaultInformation = { fg = c.main1 },                                 -- used for "Information" diagnostic virtual text
+    LspDiagnosticsSignInformation = { fg = c.main1 },                                    -- used for "Information" diagnostic signs in sign column
+    LspDiagnosticsFloatingInformation = { fg = c.main1, bold = true },                   -- used for "Information" diagnostic messages in the diagnostics float
+    LspDiagnosticsVirtualTextInformation = { fg = c.main1, bold = true },                -- Virtual text "Information"
     LspDiagnosticsUnderlineInformation = { fg = c.main1, undercurl = true, sp = c.main1 }, -- used to underline "Information" diagnostics.
     LspDiagnosticsDefaultHint = { fg = c.gray05 },                                       -- used for "Hint" diagnostic virtual text
     LspDiagnosticsSignHint = { fg = c.gray05 },                                          -- used for "Hint" diagnostic signs in sign column
     LspDiagnosticsFloatingHint = { fg = c.gray05, bold = true },                         -- used for "Hint" diagnostic messages in the diagnostics float
     LspDiagnosticsVirtualTextHint = { fg = c.gray05, bold = true },                      -- Virtual text "Hint"
-    LspDiagnosticsUnderlineHint = { fg = c.gray05, undercurl = true, sp = c.main4 },      -- used to underline "Hint" diagnostics.
+    LspDiagnosticsUnderlineHint = { fg = c.gray05, undercurl = true, sp = c.main4 },     -- used to underline "Hint" diagnostics.
     -- Plugins highlight groups
     -- LspTrouble
     LspTroubleText = { fg = c.gray04 },
@@ -435,8 +434,8 @@ M.setup = function()
     -- IndentBlanklineSpaceChar = { link = "IndentBlanklineChar" },
     -- IndentBlanklineSpaceCharBlankline = { link = "IndentBlanklineChar" },
     -- nvim-cmp
-    CmpItemAbbrDeprecated = { fg = c.gray05, strikethrough = true },
-    CmpItemAbbrMatch = { fg = c.yellow },
+    CmpItemAbbrDeprecated = { fg = c.fg, strikethrough = true },
+    CmpItemAbbrMatch = { fg = c.yellow, bg = c.none },
     CmpItemAbbrMatchFuzzy = { fg = c.yellow },
     CmpItemKindVariable = { fg = c.main1 },
     CmpItemKindInterface = { fg = c.main1 },
