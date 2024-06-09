@@ -133,33 +133,33 @@ local default_plugins = {
     commit = "a27356f",
   },
 
-  -- load luasnips + cmp related in insert mode only
+  -- cmp related
   {
     "hrsh7th/nvim-cmp",
-    event = "InsertEnter",
+    event = "BufEnter",
     dependencies = {
       -- cmp sources plugins
       {
-        {
-          "L3MON4D3/LuaSnip",
-          dependencies = "rafamadriz/friendly-snippets",
-          opts = { history = true, updateevents = "TextChanged,TextChangedI" },
-          config = function(_, opts)
-            require("plugins.configs.others").luasnip(opts)
-          end,
-          branch = "master",
-          commit = "ea7d7ea",
-        },
-        {
-          "saadparwaiz1/cmp_luasnip",
-          branch = "master",
-          commit = "1809552",
-        },
-        {
-          "hrsh7th/cmp-nvim-lua",
-          branch = "main",
-          commit = "f12408b",
-        },
+        -- {
+        --   "L3MON4D3/LuaSnip",
+        --   dependencies = "rafamadriz/friendly-snippets",
+        --   opts = { history = true, updateevents = "TextChanged,TextChangedI" },
+        --   config = function(_, opts)
+        --     require("plugins.configs.others").luasnip(opts)
+        --   end,
+        --   branch = "master",
+        --   commit = "ea7d7ea",
+        -- },
+        -- {
+        --   "saadparwaiz1/cmp_luasnip",
+        --   branch = "master",
+        --   commit = "1809552",
+        -- },
+        -- {
+        --   "hrsh7th/cmp-nvim-lua",
+        --   branch = "main",
+        --   commit = "f12408b",
+        -- },
         {
           "hrsh7th/cmp-nvim-lsp",
           branch = "main",
@@ -170,21 +170,49 @@ local default_plugins = {
           branch = "main",
           commit = "3022dbc",
         },
+        -- {
+        --   "hrsh7th/cmp-path",
+        --   branch = "main",
+        --   commit = "91ff86c",
+        -- },
         {
-          "hrsh7th/cmp-path",
+          "https://codeberg.org/FelipeLema/cmp-async-path",
           branch = "main",
-          commit = "91ff86c",
+          commit = "7df7f3",
+        },
+        {
+          "hrsh7th/cmp-cmdline",
+          branch = "main",
+          commit = "d250c63",
+        },
+        {
+          "dmitmel/cmp-cmdline-history",
+          branch = "master",
+          commit = "003573b",
+        },
+        {
+          "hrsh7th/cmp-emoji",
+          branch = "main",
+          commit = "e8398e2",
+        },
+        {
+          "Dynge/gitmoji.nvim",
+          branch = "main",
+          commit = "326ddf0",
+          ft = "gitcommit",
         },
       },
     },
     opts = function()
-      return require("plugins.configs.cmp")
+      return require("plugins.configs.cmp").options
     end,
     config = function(_, opts)
-      require("cmp").setup(opts)
+      require("cmp").setup(opts.core)
+      require("cmp").setup.cmdline(":", opts.cmdline)
+      require("cmp").setup.cmdline("/", opts.search)
     end,
     branch = "main",
-    commit = "5dce1b7",
+    commit = "a110e12",
   },
 
   -- file managing , picker etc
@@ -211,7 +239,7 @@ local default_plugins = {
     cmd = { "Telescope" },
     dependencies = {
       {
-        'nvim-telescope/telescope-fzf-native.nvim',
+        "nvim-telescope/telescope-fzf-native.nvim",
         build = "make",
         branch = "main",
         commit = "9ef21b2",
@@ -277,30 +305,30 @@ local default_plugins = {
   --   end,
   -- },
 
-  {
-    "gelguy/wilder.nvim",
-    event = "BufEnter",
-    opts = function()
-      return require("plugins.configs.others").wilder
-    end,
-    init = function()
-      local wilder = require("wilder")
-      wilder.set_option(
-        "renderer",
-        wilder.popupmenu_renderer(wilder.popupmenu_border_theme({
-          highlights = {
-            border = "FloatBorder",
-          },
-          pumblend = 20,
-        }))
-      )
-    end,
-    config = function(_, opts)
-      require("wilder").setup(opts)
-    end,
-    branch = "master",
-    commit = "679f348",
-  },
+  -- {
+  --   "gelguy/wilder.nvim",
+  --   event = "BufEnter",
+  --   opts = function()
+  --     return require("plugins.configs.others").wilder
+  --   end,
+  --   init = function()
+  --     local wilder = require("wilder")
+  --     wilder.set_option(
+  --       "renderer",
+  --       wilder.popupmenu_renderer(wilder.popupmenu_border_theme({
+  --         highlights = {
+  --           border = "FloatBorder",
+  --         },
+  --         pumblend = 20,
+  --       }))
+  --     )
+  --   end,
+  --   config = function(_, opts)
+  --     require("wilder").setup(opts)
+  --   end,
+  --   branch = "master",
+  --   commit = "679f348",
+  -- },
 
   {
     "jeetsukumaran/vim-markology",
@@ -445,8 +473,8 @@ local default_plugins = {
         if args["args"] then
           cmd = cmd .. " " .. args["args"]
         end
-        vim.cmd("tabnew")   -- create new tab
-        vim.cmd(cmd)        -- show the log
+        vim.cmd("tabnew") -- create new tab
+        vim.cmd(cmd)    -- show the log
         vim.cmd("wincmd k") -- move cursor to above buffer
         vim.cmd("wincmd q") -- close the empty buffer
       end, { desc = "Git log with format (new tab)", nargs = "*" })
@@ -571,7 +599,15 @@ local default_plugins = {
     opts = function()
       return {
         log_level = "error",
-        auto_session_suppress_dirs = { "~", "~/*", "~/Documents/*", "~/Documents/dtfs/*", "/tmp", "/tmp/*", "/" },
+        auto_session_suppress_dirs = {
+          "~",
+          "~/*",
+          "~/Documents/*",
+          "~/Documents/dtfs/*",
+          "/tmp",
+          "/tmp/*",
+          "/",
+        },
       }
     end,
   },
