@@ -186,11 +186,6 @@ local default_plugins = {
           commit = "d250c63",
         },
         {
-          "dmitmel/cmp-cmdline-history",
-          branch = "master",
-          commit = "003573b",
-        },
-        {
           "hrsh7th/cmp-emoji",
           branch = "main",
           commit = "e8398e2",
