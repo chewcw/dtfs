@@ -32,12 +32,12 @@ M.colors = function()
     bright_black = "#4c4c4b",
     bright_red = "#ffafa5",
     bright_green = "#7aae98",
-    bright_yellow = "#ffe35c",
+    bright_yellow = "#e7c72b",
     bright_blue = "#a6cded",
     bright_magenta = "#ac82bd",
-    bright_cyan = "#94c9b2",
+    bright_cyan = "#deeee7",
     bright_white = "#eaeaea",
-    bright_brown = "#FFBF9B",
+    bright_brown = "#ffdfcd",
     -- Dark
     dark_yellow = "#5b4d08",
     dark_green = "#263730",
@@ -471,6 +471,10 @@ M.setup = function()
   for group, parameters in pairs(groups) do
     highlight(group, parameters)
   end
+
+  -- additional
+  highlight("@variable", { fg = c.bright_cyan })
+  highlight("@method", { fg = c.bright_brown })
 
   -- Neogit
   highlight("NeogitDiffAdd", { fg = get_highlight("DiffAdd", "background") })
