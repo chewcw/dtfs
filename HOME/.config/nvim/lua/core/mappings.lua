@@ -38,6 +38,14 @@ M.general = {
   n = {
     ["<leader>n"] = { ":nohl <CR>", "clear highlights" },
 
+    ["<C-e>"] = {
+      function()
+        local result = vim.treesitter.get_captures_at_cursor(0)
+        print(vim.inspect(result))
+      end,
+      "get highlight group under cursor",
+    },
+
     -- switch between windows
     ["<C-h>"] = { "<C-w>h", "window left" },
     ["<C-l>"] = { "<C-w>l", "window right" },
