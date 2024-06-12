@@ -490,8 +490,9 @@ mode "$mode_presentation" {
   bindsym Shift+4 exec sh -c '$HOME/.local/bin/projecteur_action.sh zoomOut'; exec sh -c 'projecteur -c quit'
   bindsym 3 exec sh -c '$HOME/.local/bin/projecteur_action.sh increaseSpotSize';
   bindsym 4 exec sh -c '$HOME/.local/bin/projecteur_action.sh decreaseSpotSize';
+  bindsym 5 exec sh -c 'pkill boomer || boomer';
 
-  bindsym $mod+F3 mode "default"; exec sh -c 'projecteur -c quit'; exec sh -c 'pkill gromit-mpx'
+  bindsym $mod+F3 mode "default"; exec sh -c 'projecteur -c quit'; exec sh -c 'pkill gromit-mpx'; exec sh -c 'pkill boomer'
 }
 bindsym $mod+F3 mode "$mode_presentation"; exec sh -c '$HOME/.local/bin/projecteur_action.sh default'
 
