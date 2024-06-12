@@ -228,6 +228,12 @@ sudo apt install -y gromit-mpx
 ln -sf $pwd/HOME/.config/gromit-mpx.cfg $HOME/.config/gromit-mpx.cfg
 ln -sf $pwd/HOME/.config/gromit-mpx.ini $HOME/.config/gromit-mpx.ini
 
+echo "-------------------------------------------------------------------"
+echo "Setting symlink for Boomer (zoomer for linux, for presentation)"
+echo "-------------------------------------------------------------------"
+# https://github.com/tsoding/boomer
+ln -sf $pwd/HOME/.local/bin/boomer $HOME/.local/bin/boomer
+
 # Install i3-gaps
 # sudo add-apt-repository -y ppa:regolith-linux/release
 # sudo apt update
