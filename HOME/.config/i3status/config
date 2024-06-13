@@ -44,7 +44,7 @@ tztime local {
 }
 
 tztime eastern {
-        format = "ET: %H:%M"
+        format = "ET:(%a) %H:%M"
         timezone = "US/Eastern"
 }
 
