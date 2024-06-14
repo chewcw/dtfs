@@ -601,7 +601,6 @@ local default_plugins = {
           "~/Documents/dtfs/*",
           "/tmp",
           "/tmp/*",
-          "/",
         },
       }
     end,
