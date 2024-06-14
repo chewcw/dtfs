@@ -19,7 +19,10 @@ function MyTabLine()
         local bufname = vim.fn.bufname(bufnr)
         local buffer_name = bufname ~= '' and vim.fn.fnamemodify(bufname, ":t") or 'No_Name'
 
-        tabline = tabline .. " " .. buffer_name .. " "
+        -- Check if the buffer is modified
+        local is_modified = vim.fn.getbufvar(bufnr, '&modified') == 1 and '*' or ''
+
+        tabline = tabline .. " " .. buffer_name .. is_modified .. " "
     end
 
     return tabline .. '%#TabLineFill#%T'
