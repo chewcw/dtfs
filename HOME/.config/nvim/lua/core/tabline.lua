@@ -19,7 +19,7 @@ function MyTabLine()
         local bufname = vim.fn.bufname(bufnr)
         local buffer_name = bufname ~= '' and vim.fn.fnamemodify(bufname, ":t") or 'No_Name'
 
-        tabline = tabline .. " " .. project_name .. "[" .. buffer_name .. "] "
+        tabline = tabline .. " " .. buffer_name .. " "
     end
 
     return tabline .. '%#TabLineFill#%T'
