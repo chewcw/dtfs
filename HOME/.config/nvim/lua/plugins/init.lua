@@ -130,7 +130,7 @@ local default_plugins = {
       require("plugins.configs.lspconfig")
     end,
     branch = "master",
-    commit = "a27356f",
+    commit = "37f362e",
   },
 
   -- cmp related
@@ -247,7 +247,7 @@ local default_plugins = {
       {
         "nvim-telescope/telescope-ui-select.nvim",
         branch = "master",
-        commit = "62ea5e5",
+        commit = "6e51d7d",
       },
       {
         "LukasPietzschmann/telescope-tabs",
