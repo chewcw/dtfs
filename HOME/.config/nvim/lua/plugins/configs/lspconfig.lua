@@ -148,7 +148,20 @@ lspconfig.omnisharp.setup({
   handlers = {
     ["textDocument/definition"] = require("omnisharp_extended").handler,
   },
-  enable_editorconfig_support = true,
+  settings = {
+    FormattingOptions = {
+      EnableEditorConfigSupport = true,
+      OrganizeImports = true,
+    },
+    RoslynExtensionsOptions = {
+      EnableAnalyzersSupport = true,
+      EnableImportCompletion = true,
+      AnalyzeOpenDocumentsOnly = nil,
+    },
+    Sdk = {
+      IncludePrereleases = true,
+    },
+  },
   cmd = { home .. "/.local/share/nvim/mason/bin/omnisharp", "--languageserver", "--hostPID", tostring(pid) },
 })
 
