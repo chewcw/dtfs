@@ -386,6 +386,13 @@ local default_plugins = {
     event = "BufEnter",
     init = function()
       require("core.mappings").vm.init()
+      -- highlight groups
+      -- https://github.com/mg979/vim-visual-multi/wiki/Highlight-colors
+      vim.cmd("let g:VM_Mono_hl = 'CurSearch'")
+      vim.cmd("let g:VM_Extend_hl = 'Visual'")
+      vim.cmd("let g:VM_Cursor_hl = 'Visual'")
+      vim.cmd("let g:VM_Insert_hl = 'Cursor'")
+      vim.cmd("let g:VM_highlight_matches = ''")
     end,
     branch = "master",
     commit = "724bd53",
