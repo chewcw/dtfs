@@ -140,26 +140,26 @@ local default_plugins = {
     dependencies = {
       -- cmp sources plugins
       {
-        -- {
-        --   "L3MON4D3/LuaSnip",
-        --   dependencies = "rafamadriz/friendly-snippets",
-        --   opts = { history = true, updateevents = "TextChanged,TextChangedI" },
-        --   config = function(_, opts)
-        --     require("plugins.configs.others").luasnip(opts)
-        --   end,
-        --   branch = "master",
-        --   commit = "ea7d7ea",
-        -- },
-        -- {
-        --   "saadparwaiz1/cmp_luasnip",
-        --   branch = "master",
-        --   commit = "1809552",
-        -- },
-        -- {
-        --   "hrsh7th/cmp-nvim-lua",
-        --   branch = "main",
-        --   commit = "f12408b",
-        -- },
+        {
+          "L3MON4D3/LuaSnip",
+          dependencies = "rafamadriz/friendly-snippets",
+          opts = { history = true, updateevents = "TextChanged,TextChangedI" },
+          config = function(_, opts)
+            require("plugins.configs.others").luasnip(opts)
+          end,
+          branch = "master",
+          commit = "ea7d7ea",
+        },
+        {
+          "saadparwaiz1/cmp_luasnip",
+          branch = "master",
+          commit = "1809552",
+        },
+        {
+          "hrsh7th/cmp-nvim-lua",
+          branch = "main",
+          commit = "f12408b",
+        },
         {
           "hrsh7th/cmp-nvim-lsp",
           branch = "main",
