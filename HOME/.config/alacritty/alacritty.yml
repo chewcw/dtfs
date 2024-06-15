@@ -15,8 +15,8 @@
 # import theme
 # this will be changed by colorscheme switcher
 # see $HOME/.local/bin/toggle-colorscheme.sh
-import:
-  - ~/.config/alacritty/themes/themes/tokyo-night.yaml
+# import:
+#   - ~/.config/alacritty/themes/themes/tokyo-night.yaml
 
 # Any items in the `env` entry below will be added as
 # environment variables. Some entries may override variables
@@ -52,8 +52,8 @@ window:
   #
   # Blank space added around the window in pixels. This padding is scaled
   # by DPI and the specified value is always added at both opposing sides.
-  padding:
-    x: 5
+  # padding:
+  #   x: 0
   #  y: 0
 
   # Spread additional padding evenly around the terminal content.
@@ -187,11 +187,13 @@ font:
   # it is recommended to set `use_thin_strokes` to `false`.
   #use_thin_strokes: true
 
+  custom_cursor_colors: true
+
 # If `true`, bold text is drawn using the bright color variants.
 # draw_bold_text_with_bright_colors: false
 
 # Colors (Tomorrow Night)
-# colors:
+colors:
   # COLORSCHEME: base16-gruvbox-dark-soft.yml
   # Default colors
   # bar:
@@ -200,9 +202,9 @@ font:
   #   foreground: '0xd5c4a1'
 
   # Colors the cursor will use if `custom_cursor_colors` is true
-  # cursor:
-  #   text: '0x32302f'
-  #   cursor: '0xd5c4a1'
+  cursor:
+    text: '0x000000'
+    cursor: '0xcead12'
 
   # Normal colors
   # normal:
@@ -235,7 +237,7 @@ font:
   #   - {index: 21, color: '0x282a2e'}
 cursor:
   # Cursor style
-  style:
+  # style:
     # Cursor shape
     #
     # Values for `shape`:
@@ -251,7 +253,7 @@ cursor:
     #   - Off: Disable blinking by default
     #   - On: Enable blinking by default
     #   - Always: Force the cursor to always blink
-    blinking: Off
+    # blinking: Off
 
   # Vi mode cursor style
   #
@@ -266,7 +268,7 @@ cursor:
 
   # If this is `true`, the cursor will be rendered as a hollow box when the
   # window is not focused.
-  #unfocused_hollow: true
+  unfocused_hollow: true
 
   # Thickness of the cursor relative to the cell width as floating point number
   # from `0.0` to `1.0`.

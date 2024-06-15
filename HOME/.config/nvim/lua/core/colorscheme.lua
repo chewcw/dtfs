@@ -140,9 +140,9 @@ M.setup = function()
     FloatBorder = { fg = c.gray04, bg = c.bg },
     ColorColumn = { fg = c.none, bg = c.bg_nc },
     Conceal = { fg = c.gray05 },
-    Cursor = { bg = c.bright_yellow, fg = c.white, reverse = false },
-    CursorIM = { bg = c.bright_yellow, fg = c.white, reverse = false },
-    CurSearch = { bg = c.bright_yellow, fg = c.black, reverse = false },
+    Cursor = { bg = c.yellow00, fg = c.black, reverse = false },
+    CursorIM = { bg = c.bright_yellow, fg = c.black, reverse = false },
+    CurSearch = { bg = c.bright_green, fg = c.black, reverse = false },
     Directory = { fg = c.main1, bg = c.none },
 
     DiffAdd = { fg = c.bright_magenta, bg = c.none, bold = true, italic = true },
@@ -161,7 +161,7 @@ M.setup = function()
     FoldColumn = { fg = c.gray04 },
     IncSearch = { fg = c.black, bg = c.bright_brown },
     LineNr = { fg = c.gray05 },
-    CursorLineNr = { fg = c.main1 },
+    CursorLineNr = { fg = c.yellow00 },
     MatchParen = {},
     ModeMsg = { fg = c.main4 },
     MoreMsg = { fg = c.main4 },
@@ -356,15 +356,15 @@ M.setup = function()
     -- Diagnostics
     DiagnosticError = { fg = c.red01 },                                                                         -- base highlight group for "Error"
     DiagnosticWarn = { fg = c.yellow01 },                                                                       -- base highlight group for "Warning"
-    DiagnosticInfo = { fg = c.blue01 },                                                                         -- base highlight group from "Information"
+    DiagnosticInfo = { fg = c.gray04 },                                                                         -- base highlight group from "Information"
     DiagnosticHint = { fg = c.gray05 },                                                                         -- base highlight group for "Hint"
     DiagnosticVirtualTextError = { fg = c.red01, italic = true },
     DiagnosticVirtualTextWarn = { fg = c.yellow01, italic = true },
-    DiagnosticVirtualTextInfo = { fg = c.blue01, italic = true },
+    DiagnosticVirtualTextInfo = { fg = c.gray04, italic = true },
     DiagnosticVirtualTextHint = { fg = c.gray05, italic = true },
     DiagnosticUnderlineError = { fg = c.red01, undercurl = true, sp = c.red01 },         -- used to underline "Error" diagnostics.
     DiagnosticUnderlineWarn = { fg = c.yellow01, undercurl = true, sp = c.yellow01 },    -- used to underline "Warning" diagnostics.
-    DiagnosticUnderlineInfo = { fg = c.blue01, undercurl = true, sp = c.blue01 },        -- used to underline "Information" diagnostics.
+    DiagnosticUnderlineInfo = { fg = c.gray04, undercurl = true, sp = c.gray04 },        -- used to underline "Information" diagnostics.
     DiagnosticUnderlineHint = { fg = c.gray05, undercurl = true, sp = c.gray05 },        -- used to underline "Hint" diagnostics.
     -- Diagnostics (old)
     LspDiagnosticsDefaultError = { fg = c.red },                                         -- used for "Error" diagnostic virtual text
