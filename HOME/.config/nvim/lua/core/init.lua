@@ -8,6 +8,7 @@ opt.showmode = true
 
 opt.clipboard = "unnamedplus"
 opt.cursorline = true
+opt.cursorlineopt = "number"
 
 -- Indenting
 opt.expandtab = true
