@@ -51,6 +51,14 @@ M.options = {
       end,
     },
 
+    -- experimental = {
+    --   ghost_text = true,
+    -- },
+
+    completion = {
+      completeopt = "menu,menuone,nooinsert",
+    },
+
     window = {
       documentation = cmp.config.window.bordered({
         winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,CursorLine:PmenuSel,Search:FloatBorder",
