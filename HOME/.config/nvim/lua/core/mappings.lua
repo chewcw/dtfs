@@ -1061,4 +1061,22 @@ M.trouble = {
   },
 }
 
+M.yanky = {
+  plugin = true,
+  n = {
+    ["p"] = { "<Plug>(YankyPutAfter)", "yanky p" },
+    ["P"] = { "<Plug>(YankyPutBefore)", "yanky P" },
+    ["gp"] = { "<Plug>(YankyGPutAfter)", "yanky gp" },
+    ["gP"] = { "<Plug>(YankyGPutBefore)", "yanky gP" },
+    [">P"] = { "<Plug>(YankyNextEntry)", "yanky paste next entry from yank ring history" },
+    ["<P"] = { "<Plug>(YankyPreviousEntry)", "yanky paste previous entry from yank ring history" },
+  },
+  x = {
+    ["p"] = { "<Plug>(YankyPutAfter)", "yanky p" },
+    ["P"] = { "<Plug>(YankyPutBefore)", "yanky P" },
+    ["gp"] = { "<Plug>(YankyGPutAfter)", "yanky gp" },
+    ["gP"] = { "<Plug>(YankyGPutBefore)", "yanky gP" },
+  },
+}
+
 return M
