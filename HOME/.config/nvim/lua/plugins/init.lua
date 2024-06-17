@@ -613,6 +613,27 @@ local default_plugins = {
     end,
   },
 
+  {
+    "tpope/vim-repeat",
+    keys = { "v", "cs", "S", "ds", "ysiw" },
+    branch = "master",
+    commit = "24afe92",
+  },
+
+  {
+    "gbprod/yanky.nvim",
+    keys = { "\"", "yy" },
+    opts = function()
+      return require("plugins.configs.others").yanky
+    end,
+    config = function(_, opts)
+      require("core.utils").load_mappings("yanky")
+      require("yanky").setup(opts)
+    end,
+    branch = "main",
+    commit = "73215b7",
+  },
+
   -- Only load whichkey after all the gui
   {
     "folke/which-key.nvim",
