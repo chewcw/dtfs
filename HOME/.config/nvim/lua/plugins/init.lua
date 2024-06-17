@@ -648,7 +648,7 @@ local default_plugins = {
       require("which-key").setup(opts)
     end,
     branch = "main",
-    commit = "7ccf476",
+    commit = "0099511",
   },
 }
 
