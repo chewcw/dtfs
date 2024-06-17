@@ -98,12 +98,12 @@ M.general = {
     ["<leader>m"] = { ':delmarks a-zA-Z0-9"^.[] <CR>', "delete all marks" },
 
     -- split
-    ["<A-C-\\>"] = {
+    ["<C-A-\\>"] = {
       "<cmd> :lua require('plugins.configs.telescope_utils').open_new_split_and_select_buffer('vertical') <CR>",
       "open new vsplit",
     },
     ["<A-\\>"] = { ":vsplit <CR>", "split vertically" },
-    ["<A-C-_>"] = {
+    ["<C-A-_>"] = {
       "<cmd> :lua require('plugins.configs.telescope_utils').open_new_split_and_select_buffer('horizontal') <CR>",
       "open new split and select buffer",
     },

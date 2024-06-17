@@ -280,8 +280,8 @@ M.open_new_split_and_select_buffer = function(split_type)
     vim.cmd("new")
   end
 
-  -- Open oldfiles
-  vim.cmd("Telescope oldfiles ignore_current_buffer=true cwd_only=true")
+  -- Open find files
+  vim.cmd("let g:find_files_type='normal' | Telescope find_files follow=true")
 end
 
 -- Don't preview binary file
