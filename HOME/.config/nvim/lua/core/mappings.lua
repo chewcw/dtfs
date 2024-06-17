@@ -60,9 +60,15 @@ M.general = {
     ["<leader>lr"] = { "<cmd> set rnu! <CR>", "toggle relative number" },
 
     -- listchars symbol
-    ["<leader>ll"] = { "<cmd> :lua require('plugins.configs.buffer_utils').toggle_listchars_symbol() <CR>", "toggle listchars symbol" },
+    ["<leader>ll"] = {
+      "<cmd> :lua require('plugins.configs.buffer_utils').toggle_listchars_symbol() <CR>",
+      "toggle listchars symbol",
+    },
     -- newline symbol
-    ["<leader>le"] = { "<cmd> :lua require('plugins.configs.buffer_utils').toggle_newline_symbol() <CR>", "toggle newline symbol" },
+    ["<leader>le"] = {
+      "<cmd> :lua require('plugins.configs.buffer_utils').toggle_newline_symbol() <CR>",
+      "toggle newline symbol",
+    },
 
     -- Allow moving the cursor through wrapped lines with j, k, <Up> and <Down>
     -- http://www.reddit.com/r/vim/comments/2k4cbr/problem_with_gj_and_gk/
@@ -250,8 +256,14 @@ M.general = {
     ["<leader>s"] = { "/\\%V", "search in last visual selection" },
     ["<leader>e"] = { ":e! <CR>", "e!" },
     ["<leader>q"] = { ":q! <CR>", "q!" },
-    ["<C-A-l>"] = { "<cmd> :lua require('plugins.configs.buffer_utils').navigate_to_next_buffer() <CR>", "goto previous buffer" },
-    ["<C-A-h>"] = { "<cmd> :lua require('plugins.configs.buffer_utils').navigate_to_previous_buffer() <CR>", "goto next buffer" },
+    ["<C-A-l>"] = {
+      "<cmd> :lua require('plugins.configs.buffer_utils').navigate_to_next_buffer() <CR>",
+      "goto previous buffer",
+    },
+    ["<C-A-h>"] = {
+      "<cmd> :lua require('plugins.configs.buffer_utils').navigate_to_previous_buffer() <CR>",
+      "goto next buffer",
+    },
     ["<C-A-w>"] = {
       "<cmd> :lua require('plugins.configs.telescope_utils').delete_and_select_buffer() <CR>",
       "delete the buffer from buffer list",
@@ -329,7 +341,9 @@ M.general = {
       function()
         local last_command = vim.fn.getcmdline()
         local modified_command = ":vertical " .. last_command
-        if not pcall(function() vim.cmd(modified_command) end) then
+        if not pcall(function()
+              vim.cmd(modified_command)
+            end) then
           vim.cmd(last_command)
         end
         vim.api.nvim_input("<Esc>")
@@ -340,7 +354,9 @@ M.general = {
       function()
         local last_command = vim.fn.getcmdline()
         local modified_command = ":tab " .. last_command
-        if not pcall(function() vim.cmd(modified_command) end) then
+        if not pcall(function()
+              vim.cmd(modified_command)
+            end) then
           vim.cmd(last_command)
         end
         vim.api.nvim_input("<Esc>")
@@ -351,7 +367,9 @@ M.general = {
       function()
         local last_command = vim.fn.getcmdline()
         local modified_command = "0" .. last_command
-        if not pcall (function() vim.cmd(modified_command) end) then
+        if not pcall(function()
+              vim.cmd(modified_command)
+            end) then
           vim.cmd(last_command)
         end
         vim.api.nvim_input("<Esc>")
@@ -774,23 +792,27 @@ M.toggleterm = {
   n = {
     ["<A-.>"] = {
       function()
-        require('plugins.configs.toggleterm_utils').toggle_term('horizontal')
-      end, "toggle term in horizontal mode"
+        require("plugins.configs.toggleterm_utils").toggle_term("horizontal")
+      end,
+      "toggle term in horizontal mode",
     },
     ["<A->>"] = {
       function()
-        require('plugins.configs.toggleterm_utils').toggle_term('vertical')
-      end, "toggle term in vertical mode"
+        require("plugins.configs.toggleterm_utils").toggle_term("vertical")
+      end,
+      "toggle term in vertical mode",
     },
     ["<A-/>"] = {
       function()
-        require('plugins.configs.toggleterm_utils').toggle_term('float')
-      end, "toggle term in float mode"
+        require("plugins.configs.toggleterm_utils").toggle_term("float")
+      end,
+      "toggle term in float mode",
     },
     ["<A-,>"] = {
       function()
-        require('plugins.configs.toggleterm_utils').toggle_term('tab')
-      end, "toggle term in tab mode"
+        require("plugins.configs.toggleterm_utils").toggle_term("tab")
+      end,
+      "toggle term in tab mode",
     },
   },
 
