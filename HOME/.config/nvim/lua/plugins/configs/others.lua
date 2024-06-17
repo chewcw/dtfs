@@ -152,4 +152,22 @@ M.diffview = function(actions)
   }
 end
 
+M.yanky = {
+  ring = {
+    history_length = 20,
+    storage = "shada",
+    sync_with_numbered_registers = true,
+    cancel_event = "update",
+    ignore_registers = { "_" },
+    update_register_on_cycle = false,
+  },
+  system_clipboard = {
+    sync_with_ring = true,
+  },
+  highlight = {
+    on_put = false,
+    on_yank = false,
+  },
+}
+
 return M

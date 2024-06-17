@@ -622,7 +622,7 @@ local default_plugins = {
 
   {
     "gbprod/yanky.nvim",
-    keys = { "\"", "yy" },
+    event = "BufEnter",
     opts = function()
       return require("plugins.configs.others").yanky
     end,
