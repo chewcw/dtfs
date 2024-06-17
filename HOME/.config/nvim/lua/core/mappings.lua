@@ -296,7 +296,7 @@ M.general = {
     -- overloads
     ["<C-s>"] = { ":LspOverloadsSignature<CR>", "show function overloads" },
 
-    ["gp"] = { "`[v`]", "select last pasted content" }, --https://stackoverflow.com/a/4313335
+    ["gV"] = { "`[v`]", "select last pasted content" }, --https://stackoverflow.com/a/4313335
   },
 
   v = {
