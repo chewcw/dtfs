@@ -96,7 +96,7 @@ uninstall() {
 }
 
 clean() {
-  rm -rf $tempFilePath/*
+  sudo rm -rf $tempFilePath/*
 }
 
 parse_args $1
