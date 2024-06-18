@@ -153,7 +153,7 @@ sudo bash -c 'cat << EOF > /etc/interception/udevmon.yaml
         EV_KEY: [KEY_CAPSLOCK, KEY_ESC]
 EOF'
 
-sudo systemctl restart udevmon
+sudo systemctl restart udevmon || true
 
 # TODO: which one is better? xcape or caps2esc?
 # see: https://askubuntu.com/a/856887
