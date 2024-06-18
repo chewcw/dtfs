@@ -36,6 +36,9 @@ sudo apt-get install -y apt-transport-https curl
 # Create config directory
 mkdir -p $HOME/.config
 
+# Create local bin directory
+mkdir -p $HOME/.local/bin
+
 # Install git
 echo "------------------------------------------"
 echo "Installing git"
@@ -217,7 +220,7 @@ sudo apt install -y projecteur
 mkdir -p $HOME/.config/Projecteur
 ln -sf $pwd/HOME/.config/Projecteur/Projecteur.conf $HOME/.config/Projecteur/Projecteur.conf
 # Install symlink for projecteur_action.sh (used inside i3 config)
-ln -sf $pwd/HOME/.local/bin/projecteur_action.sh $HOME/.local/bin/projecteur_action.sh
+ln -sf $pwd/HOME/.local/bin/projecteur_action.sh $HOME/.local/bin
 
 echo "-------------------------------------------------------------------"
 echo "Installing gromit-mpx (ZoomIt-like, for linux, for presentation)"
