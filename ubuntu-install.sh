@@ -9,7 +9,7 @@ pwd=`pwd` whoami=`whoami`
 uname -a | grep Debian &>/dev/null
 if [[ $? -eq 0 ]]; then
 	distro=debian
-	distro_version=11
+	distro_version=12
 else
 	uname -a | grep Ubuntu &>/dev/null
 	if [[ $? -eq 0 ]]; then
