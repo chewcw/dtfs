@@ -4,7 +4,9 @@ set -e
 
 configFileDirectory=HOME/.config/nvim
 localConfigFilePath=$HOME/.config/nvim
-tempFilePath=/tmp
+tempFilePath=/tmp/nvim-installation-temp
+
+mkdir -p $tempFilePath
 
 parse_args() {
 	case $1 in
@@ -57,8 +59,8 @@ install_nvim_v010() {
     echo "installing nvim v0.10.0"
     wget https://github.com/neovim/neovim/releases/download/v0.10.0/nvim-linux64.tar.gz -O /tmp/nvim-linux64.tar.gz
     tar xvzf /tmp/nvim-linux64.tar.gz -C /tmp
-    sudo cp -r /tmp/nvim-linux64 /usr/local/nvim
-    sudo ln -sf /usr/local/nvim/bin/nvim /usr/bin/nvim
+    sudo cp -r /tmp/nvim-linux64 /usr/local/nvim-v0-10-0
+    sudo ln -sf /usr/local/nvim-v0-10-0/bin/nvim /usr/bin/nvim
   fi
   echo "nvim v0.10.0 is installed"
 }
@@ -75,7 +77,6 @@ configure_nvim() {
   git sparse-checkout set HOME/.config/nvim
   git checkout
   cp -r $tempFilePath/dtfs/$configFileDirectory/* $localConfigFilePath
-  rm -rf /tmp/dtfs/
 }
 
 uninstall() {
@@ -96,7 +97,7 @@ uninstall() {
 }
 
 clean() {
-  sudo rm -rf $tempFilePath/*
+  sudo rm -rf $tempFilePath
 }
 
 parse_args $1
