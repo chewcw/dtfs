@@ -78,11 +78,14 @@ echo "------------------------------------------"
 echo "Installing iosevka font"
 echo "------------------------------------------"
 mkdir -p $HOME/.fonts
-mkdir -p /tmp/PkgTTF-Iosevka-29.0.0/
-wget 'https://github.com/be5invis/Iosevka/releases/download/v29.0.0/PkgTTF-Iosevka-29.0.0.zip' -O /tmp/ || true
-unzip /tmp/PkgTTF-Iosevka-29.0.0.zip -d /tmp/Pkg-Iosevka-29.0.0/ || true
-cp /tmp/Pkg-Iosevka-29.0.0/* $HOME/.fonts || true
+# mkdir -p /tmp/PkgTTF-Iosevka-29.0.0/
+# wget 'https://github.com/be5invis/Iosevka/releases/download/v29.0.0/PkgTTF-Iosevka-29.0.0.zip' -O /tmp/ || true
+# unzip /tmp/PkgTTF-Iosevka-29.0.0.zip -d /tmp/Pkg-Iosevka-29.0.0/ || true
+# cp /tmp/Pkg-Iosevka-29.0.0/* $HOME/.fonts || true
 # cp $pwd/custom-fonts/Iosevka-nerdfont-patched/* $HOME/.fonts || true
+wget 'https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/IosevkaTerm.zip' -O /tmp/IosevkaTerm.zip
+unzip /tmp/IosevkaTerm.zip -d $HOME/.fonts/
+fc-cache -f
 
 # echo "------------------------------------------"
 # echo "Installing InputMono font"
@@ -103,6 +106,7 @@ echo "Installing fzf"
 echo "------------------------------------------"
 git clone --depth 1 https://github.com/junegunn/fzf.git $HOME/.fzf || true
 sh -c "$HOME/.fzf/install --no-update-rc --completion --key-bindings"
+# sudo apt install -y fzf
 
 # Install xsel (I think it's better than xclip)
 echo "------------------------------------------"
@@ -149,6 +153,7 @@ echo "------------------------------------------"
 
 sudo apt install -y interception-tools
 sudo wget https://gitlab.com/chewcw/caps2esc/-/raw/master/build/caps2esc?ref_type=heads -O /usr/bin/caps2esc
+sudo chmod +x /usr/bin/caps2esc
 sudo bash -c 'cat << EOF > /etc/interception/udevmon.yaml
 - JOB: "interception -g \$DEVNODE | caps2esc -m 3 | uinput -d \$DEVNODE"
   DEVICE:
@@ -185,8 +190,8 @@ ln -sf $pwd/HOME/.vim/colors/github.vim $HOME/.vim/colors/github.vim
 echo "------------------------------------------"
 echo "Installing Neovim (v0.10.0)"
 echo "------------------------------------------"
-./install-nvim.sh
-ln -sf $pwd/HOME/.config/nvim $HOME/.config/nvim
+$pwd/install-nvim.sh
+ln -sf $pwd/HOME/.config/nvim $HOME/.config
 
 # Install i3
 echo "------------------------------------------"
@@ -220,7 +225,7 @@ sudo apt install -y projecteur
 mkdir -p $HOME/.config/Projecteur
 ln -sf $pwd/HOME/.config/Projecteur/Projecteur.conf $HOME/.config/Projecteur/Projecteur.conf
 # Install symlink for projecteur_action.sh (used inside i3 config)
-ln -sf $pwd/HOME/.local/bin/projecteur_action.sh $HOME/.local/bin
+ln -sf $pwd/HOME/.local/bin/projecteur_action.sh $HOME/.local/bin/projecteur_action.sh
 
 echo "-------------------------------------------------------------------"
 echo "Installing gromit-mpx (ZoomIt-like, for linux, for presentation)"
@@ -258,6 +263,11 @@ if [[ ! -d $HOME/.tmux/plugins/tpm ]]; then
 	echo "------------------------------------------"
 	git clone https://github.com/tmux-plugins/tpm $HOME/.tmux/plugins/tpm || true
 fi
+
+echo "------------------------------------------"
+echo "tmux-resurrect folder"
+echo "------------------------------------------"
+mkdir -p $HOME/.tmux/resurrect/
 
 # Setup i3
 # Install symlink for i3 config
@@ -530,6 +540,12 @@ ln -sf $pwd/HOME/.zshrc $HOME/.zshrc
 # ln -sf $pwd/HOME/zsh/plugins/bd.zsh $HOME/zsh/plugins/bd.zsh
 
 echo "------------------------------------------"
+echo "Changing shell to zsh for both root and ccw"
+echo "------------------------------------------"
+sudo chsh -s $(which zsh) ccw
+sudo chsh -s $(which zsh)
+
+echo "------------------------------------------"
 echo "Cleaning apt"
 echo "------------------------------------------"
 sudo apt clean
@@ -538,4 +554,3 @@ sudo apt clean
 echo "=========================================="
 echo "Setup done......"
 echo "=========================================="
-
