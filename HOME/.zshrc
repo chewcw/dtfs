@@ -198,11 +198,11 @@ alias monitor="xrandr --auto"
 alias watch="watch "
 
 # fff
-export FFF_FAV1=/home/ccw/Documents/
-export FFF_HIDDEN=1
-export FFF_COL2=0
-export FFF_COL5=2
-alias f=$HOME/.fff/fff
+# export FFF_FAV1=/home/ccw/Documents/
+# export FFF_HIDDEN=1
+# export FFF_COL2=0
+# export FFF_COL5=2
+# alias f=$HOME/.fff/fff
 
 # specific to LXQT lubuntu
 export XCURSOR_SIZE=35

@@ -1,7 +1,5 @@
 #!/usr/bin/bash
 
-set -e
-
 $HOME/.local/bin/connect_monitor.sh;
 
 xset r rate 300 70;

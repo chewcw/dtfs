@@ -101,4 +101,3 @@ clean() {
 }
 
 parse_args $1
-
