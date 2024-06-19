@@ -413,20 +413,18 @@ sudo apt install -y brightnessctl || true
 
 # Install flameshot
 # https://github.com/flameshot-org/flameshot
-if ! command -v flameshot &>/dev/null
-then
-	echo "------------------------------------------"
-	echo "Installing flameshot"
-	echo "------------------------------------------"
-	flameshot_file_name=flameshot-12.1.0-1.$distro-$distro_version.amd64.deb
-	wget "https://github.com/flameshot-org/flameshot/releases/download/v12.1.0/$flameshot_file_name" -O /tmp/$flameshot_file_name  || true
-	sudo dpkg -i /tmp/$flameshot_file_name || true
-	mkdir -p $HOME/.config/Dharkael && ln -sf $pwd/HOME/.config/flameshot/flameshot.conf $HOME/.config/Dharkael/flameshot.conf
+echo "------------------------------------------"
+echo "Installing flameshot"
+echo "------------------------------------------"
+# flameshot_file_name=flameshot-12.1.0-1.$distro-$distro_version.amd64.deb
+# wget "https://github.com/flameshot-org/flameshot/releases/download/v12.1.0/$flameshot_file_name" -O /tmp/$flameshot_file_name  || true
+# sudo dpkg -i /tmp/$flameshot_file_name || true
+sudo apt install flameshot -y
+mkdir -p $HOME/.config/Dharkael && ln -sf $pwd/HOME/.config/flameshot/flameshot.conf $HOME/.config/Dharkael/flameshot.conf
 
-  # Install symlink for flameshot config
-  mkdir -p $HOME/.config/flameshot
-  ln -sf $pwd/HOME/.config/flameshot/flameshot.ini $HOME/.config/flameshot/flameshot.conf
-fi
+# Install symlink for flameshot config
+mkdir -p $HOME/.config/flameshot
+ln -sf $pwd/HOME/.config/flameshot/flameshot.ini $HOME/.config/flameshot/flameshot.ini
 
 # Install feh for desktop background
 echo "------------------------------------------"
