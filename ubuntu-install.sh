@@ -232,7 +232,8 @@ echo "Installing gromit-mpx (ZoomIt-like, for linux, for presentation)"
 echo "-------------------------------------------------------------------"
 # debian package is not the latest version
 # check out https://github.com/bk138/gromit-mpx?tab=readme-ov-file#building-it to build from source
-sudo apt install -y gromit-mpx
+# sudo apt install -y gromit-mpx
+ln -sf $pwd/HOME/.local/bin/gromit-mpx $HOME/.local/bin/gromit-mpx
 ln -sf $pwd/HOME/.config/gromit-mpx.cfg $HOME/.config/gromit-mpx.cfg
 ln -sf $pwd/HOME/.config/gromit-mpx.ini $HOME/.config/gromit-mpx.ini
 
