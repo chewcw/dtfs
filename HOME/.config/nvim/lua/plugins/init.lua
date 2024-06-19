@@ -447,6 +447,9 @@ local default_plugins = {
       -- my own command, may need to remove this user command if later vim-fugitive
       -- was uninstalled
       vim.api.nvim_create_user_command("Gll", function(args)
+        local buffer_utils = require("plugins.configs.buffer_utils")
+        buffer_utils.delete_buffer_create_new()
+
         local cmd = [[ 0Git log --graph --pretty=format:"%h %Cred%an %Cblue%aI %Cred%d%Cgreen%s" ]]
         if args["args"] then
           cmd = cmd .. " " .. args["args"]
