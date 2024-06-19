@@ -55,9 +55,9 @@ M.options = {
     --   ghost_text = true,
     -- },
 
-    completion = {
-      completeopt = "menu,menuone,nooinsert",
-    },
+    -- completion = {
+    --   completeopt = "menu,menuone,nooinsert",
+    -- },
 
     window = {
       documentation = cmp.config.window.bordered({
