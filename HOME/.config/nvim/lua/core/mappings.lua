@@ -297,6 +297,9 @@ M.general = {
     ["<C-s>"] = { ":LspOverloadsSignature<CR>", "show function overloads" },
 
     ["gV"] = { "`[v`]", "select last pasted content" }, --https://stackoverflow.com/a/4313335
+
+    ["]q"] = { ":cnext<CR>", "select next item in the quickfix list" },
+    ["[q"] = { ":cprevious<CR>", "select previous item in the quickfix list" },
   },
 
   v = {
