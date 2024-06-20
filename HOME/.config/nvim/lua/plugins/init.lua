@@ -637,6 +637,13 @@ local default_plugins = {
     commit = "73215b7",
   },
 
+  {
+    "tpope/vim-unimpaired",
+    lazy = false,
+    branch = "master",
+    commit = "6d44a6d",
+  },
+
   -- Only load whichkey after all the gui
   {
     "folke/which-key.nvim",
