@@ -141,20 +141,20 @@ M.general = {
     -- toggle color column
     ["<leader>lm"] = {
       function()
-        if vim.opt.colorcolumn:get()[1] == "80" then
+        if vim.opt.colorcolumn:get()[1] == "85" then
           vim.cmd([[set colorcolumn=0]])
         else
-          vim.cmd([[set colorcolumn=80]])
+          vim.cmd([[set colorcolumn=85]])
         end
       end,
       "toggle color column",
     },
     ["<leader>lM"] = {
       function()
-        if vim.opt.colorcolumn:get()[1] == "80" then
+        if vim.opt.colorcolumn:get()[1] == "85" then
           vim.cmd([[windo set colorcolumn=0]])
         else
-          vim.cmd([[windo set colorcolumn=80]])
+          vim.cmd([[windo set colorcolumn=85]])
         end
       end,
       "toggle color column for window",
