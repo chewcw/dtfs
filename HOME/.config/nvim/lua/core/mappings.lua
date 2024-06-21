@@ -134,6 +134,10 @@ M.general = {
     ["<leader>lw"] = { ":set wrap! <CR>", "toggle line wrapping" },
     ["<leader>lW"] = { ":windo set wrap! <CR>", "toggle line wrapping in this window" },
 
+    -- cursor column
+    ["<leader>ls"] = { ":set cursorcolumn! <CR>", "toggle cursor column" },
+    ["<leader>lS"] = { ":windo set cursorcolumn! <CR>", "toggle cursor column in this window" },
+
     -- undotree
     ["<leader>uu"] = { ":UndotreeToggle <CR> :UndotreeFocus <CR>", "toggle undotree" },
     ["<leader>uf"] = { ":UndotreeFocus <CR>", "focus undotree" },
