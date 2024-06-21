@@ -98,7 +98,7 @@ opt.guicursor = "n-v-sm:block,i-c-ci-ve:block-blinkwait0-blinkoff400-blinkon250-
 -- list mode (show return and space)
 -- take note on the function toggle_newline_symbol in plugins.configs.buffer_utils.lua
 opt.list = true
-opt.listchars:append("lead:·,multispace:·,trail:·")
+opt.listchars:append("lead:·,multispace:·,trail:·,tab:>-")
 
 -- tabline
 opt.showtabline = 1
