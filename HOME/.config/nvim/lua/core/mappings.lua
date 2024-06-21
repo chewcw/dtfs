@@ -268,13 +268,15 @@ M.general = {
     -- },
     ["<C-A-w>"] = {
       "<cmd> :lua require('plugins.configs.telescope_utils').delete_and_select_buffer() <CR>",
-      "delete the buffer from buffer list",
+      "delete the buffer from buffer list and select from available buffer",
     },
     -- ["<C-A-d>"] = { "<cmd> bwipeout! <CR>", "wipe out the buffer from buffer list" },
     ["<C-A-d>"] = {
       "<cmd> :lua require('plugins.configs.telescope_utils').delete_and_select_old_buffer() <CR>",
       "delete the buffer and select the old buffer",
     },
+    ["<A-c>"] = { "<C-w>c", "close the window but not the last one" },
+    ["<A-o>"] = { "<C-w>o", "close other window" },
 
     -- https://vim.fandom.com/wiki/Swapping_characters,_words_and_lines
     ["gw"] = { '"_yiw:s/\\(\\%#\\w\\+\\)\\(\\W\\+\\)\\(\\w\\+\\)/\\3\\2\\1/<CR>``:redraw<CR>:nohlsearch<CR>' },
