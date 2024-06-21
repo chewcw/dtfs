@@ -159,7 +159,7 @@ M.setup = function()
     ErrorMsg = { fg = c.red },
     Folded = { fg = c.gray05, bg = c.gray00 },
     FoldColumn = { fg = c.gray04 },
-    IncSearch = { fg = c.black, bg = c.bright_brown },
+    IncSearch = { bg = c.bright_green, fg = c.black },
     LineNr = { fg = c.gray05 },
     CursorLineNr = { fg = c.yellow00 },
     MatchParen = {},
