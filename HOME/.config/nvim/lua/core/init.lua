@@ -258,14 +258,6 @@ vim.api.nvim_create_autocmd({ "OptionSet" }, {
 -- ----------------------------------------------------------------------------
 -- user commands
 -- ----------------------------------------------------------------------------
--- A user command to copy buffer file path
--- https://www.reddit.com/r/neovim/comments/u221as/comment/i5y9zy2/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
-vim.api.nvim_create_user_command("CopyPath", function()
-	local path = vim.fn.expand("%:p")
-	vim.fn.setreg("+", path)
-	vim.notify('Copied "' .. path .. '" to the clipboard!')
-end, {})
-
 -- A user command to update quickfix list after cdo / cfdo
 -- https://vi.stackexchange.com/a/13663https://vi.stackexchange.com/a/13663
 vim.api.nvim_create_user_command("UpdateQF", function()
