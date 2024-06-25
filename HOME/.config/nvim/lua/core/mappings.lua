@@ -496,14 +496,14 @@ M.lspconfig = {
       "show diagnostics message",
     },
 
-    ["[d"] = {
+    ["[z"] = {
       function()
         vim.diagnostic.goto_prev()
       end,
       "goto prev",
     },
 
-    ["]d"] = {
+    ["]z"] = {
       function()
         vim.diagnostic.goto_next()
       end,
