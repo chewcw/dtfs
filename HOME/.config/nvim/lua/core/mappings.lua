@@ -306,6 +306,8 @@ M.general = {
 
     ["]q"] = { ":cnext<CR>", "select next item in the quickfix list" },
     ["[q"] = { ":cprevious<CR>", "select previous item in the quickfix list" },
+    ["]l"] = { ":lnext<CR>", "select next item in the location list" },
+    ["[l"] = { ":lprevious<CR>", "select previous item in the location list" },
   },
 
   v = {
