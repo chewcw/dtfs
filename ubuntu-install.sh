@@ -304,26 +304,37 @@ mkdir -p $HOME/.config/tmux
 ln -sf $pwd/HOME/.config/tmux/tmux.conf $HOME/.config/tmux/tmux.conf
 
 # Install alacritty terminal emulator
-if ! command -v alacritty &>/dev/null
-then
-	echo "------------------------------------------"
-	echo "Installing alacritty"
-	echo "------------------------------------------"
-	alacritty_file_name=alacritty_0.12.0_amd64_bullseye.deb
-	rm -rf /tmp/$alacritty_file_name
-	wget https://github.com/barnumbirr/alacritty-debian/releases/download/v0.12.0-1/$alacritty_file_name -O /tmp/$alacritty_file_name
-	sudo dpkg -i /tmp/$alacritty_file_name
-	rm -rf /tmp/$alacritty_file_name
-fi
+# if ! command -v alacritty &>/dev/null
+# then
+#   echo "------------------------------------------"
+#   echo "Installing alacritty"
+#   echo "------------------------------------------"
+#   alacritty_file_name=alacritty_0.13.2_amd64_bullseye.deb
+#   rm -rf /tmp/$alacritty_file_name
+#   wget https://github.com/barnumbirr/alacritty-debian/releases/download/v0.13.2-1/$alacritty_file_name -O /tmp/$alacritty_file_name
+#   sudo dpkg -i /tmp/$alacritty_file_name
+#   rm -rf /tmp/$alacritty_file_name
+# fi
 # Install symlink for alacritty.yml
-mkdir -p $HOME/.config/alacritty
-ln -sf $pwd/HOME/.config/alacritty/alacritty.yml $HOME/.config/alacritty/alacritty.yml
+# mkdir -p $HOME/.config/alacritty
+# ln -sf $pwd/HOME/.config/alacritty/alacritty.yml $HOME/.config/alacritty/alacritty.yml
 
 # alacritty color theme
 # mkdir -p ~/.config/alacritty/themes
 # git clone https://github.com/alacritty/alacritty-theme ~/.config/alacritty/themes
 # Install symlink for colorscheme switcher
 # ln -sf $pwd/HOME/.local/bin/toggle-colorscheme.sh $HOME/.local/bin/toggle-colorscheme.sh
+
+# Install kitty terminal emulator
+if ! command -v kitty &>/dev/null
+then
+#   echo "------------------------------------------"
+#   echo "Installing kitty"
+#   echo "------------------------------------------"
+  sudo apt install kitty -y
+
+  ln -sf $pwd/HOME/.config/kitty/kitty.conf $HOME/.config/kitty/kitty.conf
+fi
 
 # Install symlink for docker development script
 echo "------------------------------------------"

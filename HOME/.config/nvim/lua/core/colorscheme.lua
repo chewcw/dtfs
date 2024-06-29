@@ -140,7 +140,7 @@ M.setup = function()
     FloatBorder = { fg = c.gray04, bg = c.bg },
     ColorColumn = { fg = c.none, bg = c.bg_nc },
     Conceal = { fg = c.gray05 },
-    Cursor = { bg = c.yellow00, fg = c.black, reverse = false },
+    Cursor = { bg = c.none, fg = c.none, reverse = false }, -- set both guifg and guibg to none to let the terminal emulator to render the color of cursor and text underneath
     CursorIM = { bg = c.bright_yellow, fg = c.black, reverse = false },
     CurSearch = { bg = c.bright_green, fg = c.black, reverse = false },
     Directory = { fg = c.main1, bg = c.none },
