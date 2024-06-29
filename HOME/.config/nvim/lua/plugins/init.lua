@@ -147,28 +147,28 @@ local default_plugins = {
           config = function(_, opts)
             require("plugins.configs.others").luasnip(opts)
           end,
-          branch = "master",
-          commit = "ea7d7ea",
+          -- branch = "master",
+          -- commit = "ea7d7ea",
         },
         {
           "saadparwaiz1/cmp_luasnip",
-          branch = "master",
-          commit = "1809552",
+          -- branch = "master",
+          -- commit = "1809552",
         },
         {
           "hrsh7th/cmp-nvim-lua",
-          branch = "main",
-          commit = "f12408b",
+          -- branch = "main",
+          -- commit = "f12408b",
         },
         {
           "hrsh7th/cmp-nvim-lsp",
-          branch = "main",
-          commit = "44b16d1",
+          -- branch = "main",
+          -- commit = "44b16d1",
         },
         {
           "hrsh7th/cmp-buffer",
-          branch = "main",
-          commit = "3022dbc",
+          -- branch = "main",
+          -- commit = "3022dbc",
         },
         -- {
         --   "hrsh7th/cmp-path",
@@ -177,30 +177,29 @@ local default_plugins = {
         -- },
         {
           "https://codeberg.org/FelipeLema/cmp-async-path",
-          branch = "main",
-          commit = "7df7f3",
+          -- branch = "main",
+          -- commit = "7df7f3",
         },
         {
           "hrsh7th/cmp-cmdline",
-          branch = "main",
-          commit = "d250c63",
+          -- branch = "main",
+          -- commit = "d250c63",
         },
         {
           "hrsh7th/cmp-emoji",
-          branch = "main",
-          commit = "e8398e2",
+          -- branch = "main",
+          -- commit = "e8398e2",
         },
         {
           "Dynge/gitmoji.nvim",
-          branch = "main",
-          commit = "326ddf0",
+          -- branch = "main",
+          -- commit = "326ddf0",
           ft = "gitcommit",
         },
         {
           "chrisgrieser/cmp_yanky",
-          branch = "main",
-          commit = "c3d0891",
-          lazy = false,
+          -- branch = "main",
+          -- commit = "c3d0891",
         },
       },
     },
@@ -212,8 +211,8 @@ local default_plugins = {
       require("cmp").setup.cmdline(":", opts.cmdline)
       require("cmp").setup.cmdline("/", opts.search)
     end,
-    branch = "main",
-    commit = "a110e12",
+    -- branch = "main",
+    -- commit = "a110e12",
   },
 
   -- file managing , picker etc
