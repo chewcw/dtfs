@@ -637,6 +637,13 @@ local default_plugins = {
     commit = "73215b7",
   },
 
+  {
+    "chrisbra/unicode.vim",
+    cmd = "UnicodeSearch",
+    branch = "master",
+    commit = "bc20d0f",
+  },
+
   -- Only load whichkey after all the gui
   {
     "folke/which-key.nvim",
