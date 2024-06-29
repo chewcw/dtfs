@@ -123,7 +123,6 @@ M.options = {
       { name = "async_path" },
       { name = "gitmoji" },
       { name = "emoji" },
-      { name = "cmp_yanky" },
     },
   },
   cmdline = {
