@@ -196,6 +196,12 @@ local default_plugins = {
           commit = "326ddf0",
           ft = "gitcommit",
         },
+        {
+          "chrisgrieser/cmp_yanky",
+          branch = "main",
+          commit = "c3d0891",
+          lazy = false,
+        },
       },
     },
     opts = function()

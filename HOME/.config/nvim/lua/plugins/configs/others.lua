@@ -154,7 +154,7 @@ end
 
 M.yanky = {
   ring = {
-    history_length = 20,
+    history_length = 10,
     storage = "shada",
     sync_with_numbered_registers = true,
     cancel_event = "update",
