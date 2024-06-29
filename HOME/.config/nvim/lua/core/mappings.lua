@@ -33,6 +33,10 @@ M.general = {
 
     -- ["<C-n>"] = { "" }, -- unmap this
     ["<C-]>"] = { "<Esc>", "esc" }, -- i always press the wrong key
+
+    -- should I map this, this leave probably here for future reference?
+    -- https://vim.fandom.com/wiki/Prevent_escape_from_moving_the_cursor_one_character_to_the_left
+    -- ["<Esc>"] = { "<C-O>:stopinsert<CR>" },
   },
 
   n = {
