@@ -3,7 +3,7 @@ local buf, win
 
 M.close = function()
 	if win and vim.api.nvim_win_is_valid(win) then
-		vim.api.nvim_win_close(win, true)
+    vim.api.nvim_win_close(win, true)
 	end
 end
 
@@ -84,11 +84,11 @@ local function create_win(filetype)
 end
 
 M.nredir = function(cmd, filetype)
-	if win and vim.api.nvim_win_is_valid(win) then
-		vim.api.nvim_set_current_win(win)
-	else
-		create_win(filetype)
-	end
+	-- if win and vim.api.nvim_win_is_valid(win) then
+		-- vim.api.nvim_set_current_win(win)
+	-- else
+  create_win(filetype)
+	-- end
 
 	redraw(cmd)
 end
