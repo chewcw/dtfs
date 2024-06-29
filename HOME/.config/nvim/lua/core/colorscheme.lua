@@ -28,6 +28,7 @@ M.colors = function()
     white = "#F9F9F9",
     brown = "#FFBF9B",
     blue = "#1d2831",
+    pink = "#c082a1",
     -- Bright
     bright_black = "#4c4c4b",
     bright_red = "#ffafa5",
@@ -145,8 +146,8 @@ M.setup = function()
     CurSearch = { bg = c.bright_green, fg = c.black, reverse = false },
     Directory = { fg = c.main1, bg = c.none },
 
-    DiffAdd = { fg = c.bright_magenta, bg = c.none, bold = true, italic = true },
-    DiffAdded = { fg = c.bright_magenta, bg = c.none, bold = true, italic = true },
+    DiffAdd = { fg = c.pink, bg = c.none, bold = true, italic = true },
+    DiffAdded = { fg = c.pink, bg = c.none, bold = true, italic = true },
     DiffChange = { fg = c.bright_magenta, bg = c.none, bold = true, italic = true },
     DiffChanged = { fg = c.bright_magenta, bg = c.none, bold = true, italic = true },
     DiffChangeDelete = { fg = c.magenta, bg = c.none, bold = true, italic = true },
@@ -154,7 +155,7 @@ M.setup = function()
     DiffRemoved = { fg = c.red, bg = c.none, bold = true, italic = true },
     DiffText = { fg = c.bright_green, bg = c.none, bold = true, italic = true },
     DiffModified = { fg = c.bright_magenta, bg = c.none, bold = true, italic = true },
-    DiffNewFile = { fg = c.bright_magenta, bg = c.none, bold = true, italic = true },
+    DiffNewFile = { fg = c.pink, bg = c.none, bold = true, italic = true },
 
     ErrorMsg = { fg = c.red },
     Folded = { fg = c.gray05, bg = c.gray00 },
