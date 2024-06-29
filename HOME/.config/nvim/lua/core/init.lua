@@ -264,6 +264,12 @@ vim.api.nvim_create_user_command("UpdateQF", function()
 	vim.cmd([[ call setqflist(map(getqflist(), 'extend(v:val, {"text":get(getbufline(v:val.bufnr, v:val.lnum),0)})')) ]])
 end, {})
 
+-- Redirect the output of a Vim or external command into a scratch buffer
+-- reference: https://github.com/sbulav/nredir.nvim
+vim.api.nvim_create_user_command('Redir', function(opts)
+  require('core.utils_redir').nredir(opts.args)
+end, { nargs = 1, complete = 'command' })
+
 -- ---------------------------------------------------------------------------- 
 -- set tab size for certain file type
 -- ---------------------------------------------------------------------------- 
