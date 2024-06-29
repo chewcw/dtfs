@@ -86,7 +86,13 @@ M.options = {
         return vim_item
       end,
     },
-
+    matching = {
+      disallow_fuzzy_matching = false,
+      disallow_fullfuzzy_matching = false,
+      disallow_partial_fuzzy_matching = false,
+      disallow_partial_matching = false,
+      disallow_prefix_unmatching = false,
+    },
     mapping = {
       ["<C-k>"] = cmp.mapping.select_prev_item(),
       ["<C-j>"] = cmp.mapping.select_next_item(),
@@ -103,6 +109,10 @@ M.options = {
         behavior = cmp.ConfirmBehavior.Insert,
         select = true,
       }),
+      ["<C-l>"] = cmp.mapping.confirm({
+        behavior = cmp.ConfirmBehavior.Insert,
+        select = true,
+      }),
     },
 
     sources = {
@@ -113,6 +123,7 @@ M.options = {
       { name = "async_path" },
       { name = "gitmoji" },
       { name = "emoji" },
+      { name = "cmp_yanky" },
     },
   },
   cmdline = {
