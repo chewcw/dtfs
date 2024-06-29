@@ -330,7 +330,7 @@ gaps outer 0
 gaps inner 5
 
 # desktop background
-exec feh --bg-scale ~/Pictures/wallpaper.jpg
+exec feh --bg-fill ~/Pictures/wallpaper.jpg
 
 # hide window title bar
 for_window [class="^.*"] border pixel 5
