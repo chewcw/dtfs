@@ -296,3 +296,15 @@ vim.api.nvim_create_autocmd("FileType", {
 		vim.opt_local.expandtab = true
 	end,
 })
+
+-- ---------------------------------------------------------------------------- 
+-- Focus left tab when tab closed
+-- ---------------------------------------------------------------------------- 
+-- https://stackoverflow.com/a/77006146
+vim.api.nvim_create_augroup('TabClosed', { clear = true })
+vim.api.nvim_create_autocmd('TabClosed', {
+  group = 'TabClosed',
+  callback = function()
+    vim.cmd('tabprevious')
+  end,
+})
