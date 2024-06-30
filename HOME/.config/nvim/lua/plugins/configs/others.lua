@@ -170,4 +170,8 @@ M.yanky = {
   },
 }
 
+M.trouble = {
+  cycle_results = false,
+}
+
 return M
