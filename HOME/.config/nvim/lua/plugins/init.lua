@@ -644,6 +644,18 @@ local default_plugins = {
     commit = "bc20d0f",
   },
 
+  {
+    "inkarkat/vim-EnhancedJumps",
+    branch = "master",
+    commit = "84df0d7",
+    event = "BufEnter",
+    dependencies = {
+      {
+        "inkarkat/vim-ingo-library",
+      }
+    },
+  },
+
   -- Only load whichkey after all the gui
   {
     "folke/which-key.nvim",
