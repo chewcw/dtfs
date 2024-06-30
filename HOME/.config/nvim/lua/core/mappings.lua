@@ -96,7 +96,9 @@ M.general = {
     ["<leader>b_"] = { "<cmd> new <CR>", "new buffer" },
 
     -- toggle last opened buffer
-    ["<A-p>"] = { "<C-6>", "toggle last opened buffer" },
+    -- use inkarkat/vim-EnhancedJumps
+    -- see https://github.com/inkarkat/vim-EnhancedJumps
+    -- ["<A-p>"] = { "<C-6>", "toggle last opened buffer" },
 
     -- marks
     ["<leader>m"] = { ':delmarks a-zA-Z0-9"^.[] <CR>', "delete all marks" },
