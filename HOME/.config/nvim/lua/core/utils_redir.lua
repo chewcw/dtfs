@@ -64,9 +64,20 @@ local function set_mappings()
 	end
 end
 
-local function create_win(filetype)
+local function create_win(filetype, window_type)
 	filetype = (filetype == nil and "result") or filetype
-	vim.api.nvim_command("botright vnew")
+  if window_type == "horizontal" then
+    vim.api.nvim_command("botright new")
+  end
+
+  if window_type == "vertical" then
+    vim.api.nvim_command("botright vnew")
+  end
+
+  if window_type == "tab" then
+    vim.api.nvim_command("tabnew")
+  end
+
 	win = vim.api.nvim_get_current_win()
 	buf = vim.api.nvim_get_current_buf()
 
@@ -83,11 +94,11 @@ local function create_win(filetype)
 	set_mappings()
 end
 
-M.nredir = function(cmd, filetype)
+M.nredir = function(cmd, window_type, filetype)
 	-- if win and vim.api.nvim_win_is_valid(win) then
 		-- vim.api.nvim_set_current_win(win)
 	-- else
-  create_win(filetype)
+  create_win(filetype, window_type)
 	-- end
 
 	redraw(cmd)
