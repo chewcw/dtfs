@@ -570,7 +570,9 @@ local default_plugins = {
     init = function()
       require("core.utils").load_mappings("trouble")
     end,
-    config = true,
+    opts = function()
+      return require("plugins.configs.others").trouble
+    end,
     branch = "main",
     commit = "f1168fe",
   },
