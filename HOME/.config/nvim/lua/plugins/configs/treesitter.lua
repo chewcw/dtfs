@@ -13,6 +13,8 @@ local options = {
     "c_sharp",
     "python",
     "rust",
+    "vimdoc",
+    "query",
   },
 
   highlight = {

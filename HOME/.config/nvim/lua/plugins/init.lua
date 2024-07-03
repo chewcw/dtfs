@@ -4,8 +4,8 @@ local default_plugins = {
 
   {
     "nvim-lua/plenary.nvim",
-    branch = "master",
-    commit = "0dbe561",
+    -- branch = "master",
+    -- commit = "0dbe561",
   },
 
   {
@@ -16,8 +16,8 @@ local default_plugins = {
     config = function(_, opts)
       require("nvim-web-devicons").setup(opts)
     end,
-    branch = "master",
-    commit = "bc11ee2",
+    -- branch = "master",
+    -- commit = "bc11ee2",
   },
 
   {
@@ -25,23 +25,25 @@ local default_plugins = {
     init = function()
       require("core.utils").lazy_load("indent-blankline.nvim")
     end,
+    main = "ibl",
     opts = function()
       return require("plugins.configs.others").blankline
     end,
     config = function(_, opts)
       require("core.utils").load_mappings("blankline")
-      require("indent_blankline").setup(opts)
+      require("ibl").setup(opts)
     end,
-    branch = "master",
-    commit = "9637670",
+    -- branch = "master",
+    -- commit = "9637670",
   },
 
   {
     "nvim-treesitter/nvim-treesitter",
+    lazy = false,
     init = function()
       require("core.utils").lazy_load("nvim-treesitter")
     end,
-    cmd = { "TSInstall", "TSBufEnable", "TSBufDisable", "TSModuleInfo" },
+    -- cmd = { "TSInstall", "TSBufEnable", "TSBufDisable", "TSModuleInfo" },
     build = ":TSUpdate",
     opts = function()
       return require("plugins.configs.treesitter")
@@ -50,8 +52,8 @@ local default_plugins = {
       -- dofile(vim.g.base46_cache .. "syntax")
       require("nvim-treesitter.configs").setup(opts)
     end,
-    branch = "master",
-    commit = "30604fd",
+    -- branch = "master",
+    -- commit = "30604fd",
   },
 
   -- git stuff
@@ -80,8 +82,8 @@ local default_plugins = {
       -- dofile(vim.g.base46_cache .. "git")
       require("gitsigns").setup(opts)
     end,
-    branch = "main",
-    commit = "d927caa",
+    -- branch = "main",
+    -- commit = "d927caa",
   },
 
   -- lsp stuff
@@ -101,8 +103,8 @@ local default_plugins = {
 
       vim.g.mason_binaries_list = opts.ensure_installed
     end,
-    branch = "main",
-    commit = "ee6a7f1",
+    -- branch = "main",
+    -- commit = "ee6a7f1",
   },
 
   {
@@ -114,13 +116,13 @@ local default_plugins = {
         config = function()
           require("plugins.configs.null-ls")
         end,
-        branch = "main",
-        commit = "0010ea9",
+        -- branch = "main",
+        -- commit = "0010ea9",
       },
       {
         "Hoffs/omnisharp-extended-lsp.nvim",
-        branch = "main",
-        commit = "78cda39",
+        -- branch = "main",
+        -- commit = "78cda39",
       },
     },
     init = function()
@@ -129,8 +131,8 @@ local default_plugins = {
     config = function()
       require("plugins.configs.lspconfig")
     end,
-    branch = "master",
-    commit = "37f362e",
+    -- branch = "master",
+    -- commit = "37f362e",
   },
 
   -- cmp related
@@ -225,8 +227,8 @@ local default_plugins = {
       require("nvim-tree").setup(opts)
       vim.g.nvimtree_side = opts.view.side
     end,
-    branch = "master",
-    commit = "5897b36",
+    -- branch = "master",
+    -- commit = "5897b36",
   },
 
   {
@@ -236,23 +238,23 @@ local default_plugins = {
       {
         "nvim-telescope/telescope-fzf-native.nvim",
         build = "make",
-        branch = "main",
-        commit = "9ef21b2",
+        -- branch = "main",
+        -- commit = "9ef21b2",
       },
       {
         "nvim-telescope/telescope-file-browser.nvim",
-        branch = "master",
-        commit = "ad7b637",
+        -- branch = "master",
+        -- commit = "ad7b637",
       },
       {
         "nvim-telescope/telescope-ui-select.nvim",
-        branch = "master",
-        commit = "6e51d7d",
+        -- branch = "master",
+        -- commit = "6e51d7d",
       },
       {
         "LukasPietzschmann/telescope-tabs",
-        branch = "master",
-        commit = "a38c8fe",
+        -- branch = "master",
+        -- commit = "a38c8fe",
       },
     },
     init = function()
@@ -274,22 +276,22 @@ local default_plugins = {
         telescope.load_extension(ext)
       end
     end,
-    branch = "master",
-    commit = "6b79d7a",
+    -- branch = "master",
+    -- commit = "6b79d7a",
   },
 
   {
     "tpope/vim-surround",
     keys = { "v", "cs", "S", "ds", "ysiw" },
-    branch = "master",
-    commit = "3d188ed",
+    -- branch = "master",
+    -- commit = "3d188ed",
   },
 
   {
     "tomtom/tcomment_vim",
     event = { "BufEnter " },
-    branch = "master",
-    commit = "b4930f9",
+    -- branch = "master",
+    -- commit = "b4930f9",
   },
 
   -- {
@@ -321,8 +323,8 @@ local default_plugins = {
   --   config = function(_, opts)
   --     require("wilder").setup(opts)
   --   end,
-  --   branch = "master",
-  --   commit = "679f348",
+    -- branch = "master",
+    -- commit = "679f348",
   -- },
 
   {
@@ -331,8 +333,8 @@ local default_plugins = {
     init = function()
       vim.g.markology_include = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
     end,
-    branch = "master",
-    commit = "9681b3f",
+    -- branch = "master",
+    -- commit = "9681b3f",
   },
 
   {
@@ -345,8 +347,8 @@ local default_plugins = {
     opts = function()
       return require("plugins.configs.toggleterm")
     end,
-    branch = "main",
-    commit = "12cba0a",
+    -- branch = "main",
+    -- commit = "12cba0a",
   },
 
   {
@@ -355,8 +357,8 @@ local default_plugins = {
     init = function()
       require("core.utils").load_mappings("codeium")
     end,
-    branch = "main",
-    commit = "9406f13",
+    -- branch = "main",
+    -- commit = "9406f13",
   },
 
   {
@@ -366,8 +368,8 @@ local default_plugins = {
     opts = function()
       return require("plugins.configs.others").workspaces
     end,
-    branch = "master",
-    commit = "a6fb499",
+    -- branch = "master",
+    -- commit = "a6fb499",
   },
 
   -- {
@@ -394,15 +396,15 @@ local default_plugins = {
       vim.cmd("let g:VM_Insert_hl = 'Cursor'")
       vim.cmd("let g:VM_highlight_matches = ''")
     end,
-    branch = "master",
-    commit = "724bd53",
+    -- branch = "master",
+    -- commit = "724bd53",
   },
 
   {
     "michaeljsmith/vim-indent-object",
     keys = { "v" },
-    branch = "master",
-    commit = "5c5b24c",
+    -- branch = "master",
+    -- commit = "5c5b24c",
   },
 
   -- debugging
@@ -429,8 +431,8 @@ local default_plugins = {
   {
     "nvim-treesitter/nvim-treesitter-context",
     lazy = false,
-    branch = "master",
-    commit = "31692b2",
+    -- branch = "master",
+    -- commit = "31692b2",
     opts = function()
       return require("plugins.configs.others").treesitter_context
     end,
@@ -442,7 +444,7 @@ local default_plugins = {
   {
     "tpope/vim-fugitive",
     lazy = false,
-    branch = "master",
+    -- branch = "master",
     init = function()
       -- my own command, may need to remove this user command if later vim-fugitive
       -- was uninstalled
@@ -489,8 +491,8 @@ local default_plugins = {
   {
     "junegunn/gv.vim",
     lazy = false,
-    branch = "master",
-    commit = "b6bb666",
+    -- branch = "master",
+    -- commit = "b6bb666",
   },
 
   -- {
@@ -511,16 +513,16 @@ local default_plugins = {
       vim.fn["mkdp#util#install"]()
     end,
     lazy = true,
-    branch = "master",
-    commit = "a923f5f",
+    -- branch = "master",
+    -- commit = "a923f5f",
   },
 
   {
     "mbbill/undotree",
     cmd = { "UndotreeToggle" },
     lazy = true,
-    branch = "master",
-    commit = "36ff7ab",
+    -- branch = "master",
+    -- commit = "36ff7ab",
   },
 
   -- {
@@ -573,8 +575,8 @@ local default_plugins = {
     opts = function()
       return require("plugins.configs.others").trouble
     end,
-    branch = "main",
-    commit = "f1168fe",
+    -- branch = "main",
+    -- commit = "f1168fe",
   },
 
   {
@@ -582,8 +584,8 @@ local default_plugins = {
     lazy = true,
     cmd = { "LspOverloadsSignatureAutoToggle" },
     config = true,
-    branch = "main",
-    commit = "6b02341",
+    -- branch = "main",
+    -- commit = "6b02341",
   },
 
   {
@@ -596,8 +598,8 @@ local default_plugins = {
     config = function(_, opts)
       require("diffview").setup(opts)
     end,
-    branch = "main",
-    commit = "72c6983",
+    -- branch = "main",
+    -- commit = "72c6983",
   },
 
   {
@@ -621,8 +623,8 @@ local default_plugins = {
   {
     "tpope/vim-repeat",
     keys = { "v", "cs", "S", "ds", "ysiw" },
-    branch = "master",
-    commit = "24afe92",
+    -- branch = "master",
+    -- commit = "24afe92",
   },
 
   {
@@ -635,21 +637,21 @@ local default_plugins = {
       require("core.utils").load_mappings("yanky")
       require("yanky").setup(opts)
     end,
-    branch = "main",
-    commit = "73215b7",
+    -- branch = "main",
+    -- commit = "73215b7",
   },
 
   {
     "chrisbra/unicode.vim",
     cmd = "UnicodeSearch",
-    branch = "master",
-    commit = "bc20d0f",
+    -- branch = "master",
+    -- commit = "bc20d0f",
   },
 
   {
     "inkarkat/vim-EnhancedJumps",
-    branch = "master",
-    commit = "84df0d7",
+    -- branch = "master",
+    -- commit = "84df0d7",
     event = "BufEnter",
     dependencies = {
       {
@@ -671,8 +673,8 @@ local default_plugins = {
     config = function(_, opts)
       require("which-key").setup(opts)
     end,
-    branch = "main",
-    commit = "0099511",
+    -- branch = "main",
+    -- commit = "0099511",
   },
 }
 

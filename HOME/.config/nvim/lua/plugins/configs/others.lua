@@ -2,32 +2,48 @@ local M = {}
 local utils = require("core.utils")
 
 M.blankline = {
-  indentLine_enabled = 1,
-  filetype_exclude = {
-    "help",
-    "terminal",
-    "lazy",
-    "lspinfo",
-    "TelescopePrompt",
-    "TelescopeResults",
-    "mason",
-    "",
+  -- indentLine_enabled = 1,
+  -- buftype_exclude = {
+  --   "terminal",
+  --   "quickfix",
+  --   "nofile",
+  --   "prompt",
+  -- },
+  -- show_trailing_blankline_indent = false,
+  -- show_first_indent_level = true,
+  -- char = "│",
+  -- context_char = "│",
+  scope = {
+    enabled = true,
+    show_start = false,
+    show_end = false,
+    char = "",
+    highlight = {
+      "IndentBlanklineScope",
+    },
   },
-  buftype_exclude = {
-    "terminal",
-    "quickfix",
-    "nofile",
-    "prompt",
+  exclude = {
+    filetypes = {
+      "help",
+      "terminal",
+      "lazy",
+      "lspinfo",
+      "TelescopePrompt",
+      "TelescopeResults",
+      "mason",
+      "",
+    },
+    buftypes = {
+      "^fugitive:.*",
+      "terminal",
+      "nofile",
+      "quickfix",
+      "prompt",
+    },
   },
-  bufname_exclude = {
-    "^fugitive:.*",
+  indent = {
+    char = "│",
   },
-  show_trailing_blankline_indent = false,
-  show_first_indent_level = true,
-  show_current_context = true,
-  show_current_context_start = false,
-  char = "│",
-  context_char = "│",
 }
 
 M.luasnip = function(opts)
