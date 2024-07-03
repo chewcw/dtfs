@@ -467,6 +467,8 @@ M.setup = function()
     TreesitterContextSeparator = { fg = c.gray03 },
     TreesitterContext = { fg = c.fg, bg = cfg.transparent and c.none or c.bg },
     TreesitterContextLineNumber = { fg = c.fg, bg = cfg.transparent and c.none or c.bg },
+    -- Indent blankline
+    IndentBlanklineScope = { fg = c.dark_yellow, bg = c.none },
   }
 
   for group, parameters in pairs(groups) do

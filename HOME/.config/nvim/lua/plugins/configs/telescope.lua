@@ -80,7 +80,7 @@ M.options = {
         ["<C-A-u>"] = require("telescope.actions").preview_scrolling_up,
         ["<C-u>"] = require("telescope.actions").results_scrolling_up,
         ["<C-d>"] = require("telescope.actions").results_scrolling_down,
-        ["<C-t>"] = require("trouble.providers.telescope").open_with_trouble,
+        ["<C-t>"] = require("trouble.sources.telescope").open,
         ["<C-h>"] = function()
           local keys = vim.api.nvim_replace_termcodes("<C-h>", false, false, true)
           vim.api.nvim_feedkeys(keys, "n", {})
@@ -98,7 +98,7 @@ M.options = {
         ["<C-A-u>"] = require("telescope.actions").preview_scrolling_up,
         ["<C-u>"] = require("telescope.actions").results_scrolling_up,
         ["<C-d>"] = require("telescope.actions").results_scrolling_down,
-        ["<C-t>"] = require("trouble.providers.telescope").open_with_trouble,
+        ["<C-t>"] = require("trouble.sources.telescope").open,
         ["]"] = require("telescope.actions").results_scrolling_right,
         ["["] = require("telescope.actions").results_scrolling_left,
         -- do nothing, to prevent open nvim_tree accidentally
