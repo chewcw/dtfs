@@ -18,19 +18,19 @@ opt.softtabstop = 2
 opt.smartindent = true
 
 opt.fillchars = {
-	eob = "~",
-	-- vert = "│",
-	-- horiz = "―",
-	-- vertright = " ",
-	-- vertleft = "
-	-- horizup = " ",
-	-- horizdown = " ",
-	-- verthoriz = " ",
-	stl = " ",
-	fold = " ",
-	-- foldopen = "🢒",
-	-- foldsep = " ",
-	-- foldclose = " ",
+  eob = "~",
+  -- vert = "│",
+  -- horiz = "―",
+  -- vertright = " ",
+  -- vertleft = "
+  -- horizup = " ",
+  -- horizdown = " ",
+  -- verthoriz = " ",
+  stl = " ",
+  fold = " ",
+  -- foldopen = "🢒",
+  -- foldsep = " ",
+  -- foldclose = " ",
 }
 opt.ignorecase = true
 opt.smartcase = true
@@ -108,7 +108,7 @@ opt.virtualedit = "insert"
 
 -- disable some default providers
 for _, provider in ipairs({ "node", "perl", "python3", "ruby" }) do
-	vim.g["loaded_" .. provider .. "_provider"] = 0
+  vim.g["loaded_" .. provider .. "_provider"] = 0
 end
 
 -- add binaries installed by mason.nvim to path
@@ -131,128 +131,128 @@ local autocmd = vim.api.nvim_create_autocmd
 
 -- dont list quickfix buffers
 autocmd("FileType", {
-	pattern = "qf",
-	callback = function()
-		vim.opt_local.buflisted = false
-	end,
+  pattern = "qf",
+  callback = function()
+    vim.opt_local.buflisted = false
+  end,
 })
 
 -- save fold on save and laod fold on open
 -- https://stackoverflow.com/a/77180744
 vim.api.nvim_create_autocmd({ "BufWinLeave" }, {
-	pattern = { "*.*" },
-	desc = "save view (folds), when closing file",
-	command = "mkview",
+  pattern = { "*.*" },
+  desc = "save view (folds), when closing file",
+  command = "mkview",
 })
 vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
-	pattern = { "*.*" },
-	desc = "load view (folds), when opening file",
-	command = "silent! loadview",
+  pattern = { "*.*" },
+  desc = "load view (folds), when opening file",
+  command = "silent! loadview",
 })
 
 -- update command line color in insert mode
 vim.api.nvim_create_autocmd({ "InsertEnter" }, {
-	callback = function()
-		vim.api.nvim_set_hl(0, "MsgArea", {
-			bg = require("core.colorscheme").colors().dark_yellow,
-		})
-	end,
+  callback = function()
+    vim.api.nvim_set_hl(0, "MsgArea", {
+      bg = require("core.colorscheme").colors().dark_yellow02,
+    })
+  end,
 })
 vim.api.nvim_create_autocmd({ "InsertLeave" }, {
-	callback = function()
-		vim.api.nvim_set_hl(0, "MsgArea", { bg = "None" })
-	end,
+  callback = function()
+    vim.api.nvim_set_hl(0, "MsgArea", { bg = "None" })
+  end,
 })
 
 -- update command line color in command mode
 vim.api.nvim_create_autocmd({ "CmdLineEnter" }, {
-	callback = function()
-		vim.api.nvim_set_hl(0, "MsgArea", {
-			bg = require("core.colorscheme").colors().dark_blue,
-		})
-		-- so that when I press ctrl+f in the command line it wouldn't have error
-		pcall(function()
-			vim.cmd(":TSContextDisable")
-		end)
-	end,
+  callback = function()
+    vim.api.nvim_set_hl(0, "MsgArea", {
+      bg = require("core.colorscheme").colors().dark_blue,
+    })
+    -- so that when I press ctrl+f in the command line it wouldn't have error
+    pcall(function()
+      vim.cmd(":TSContextDisable")
+    end)
+  end,
 })
 vim.api.nvim_create_autocmd({ "CmdLineLeave" }, {
-	callback = function()
-		vim.api.nvim_set_hl(0, "MsgArea", { bg = "None" })
-		pcall(function()
-			vim.cmd(":TSContextEnable")
-		end)
-	end,
+  callback = function()
+    vim.api.nvim_set_hl(0, "MsgArea", { bg = "None" })
+    pcall(function()
+      vim.cmd(":TSContextEnable")
+    end)
+  end,
 })
 
 -- search for any unsaved buffer and show it on the MsgArea
 function Search_modified_unsaved_buffers()
-	for _, buf in ipairs(vim.api.nvim_list_bufs()) do
-		if vim.api.nvim_buf_get_option(buf, "modified") then
-			vim.api.nvim_set_hl(0, "MsgArea", {
-				bg = require("core.colorscheme").colors().dark_red,
-			})
-			return
-		end
-		vim.api.nvim_set_hl(0, "MsgArea", { bg = "None" })
-	end
+  for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+    if vim.api.nvim_buf_get_option(buf, "modified") then
+      vim.api.nvim_set_hl(0, "MsgArea", {
+        bg = require("core.colorscheme").colors().dark_main4,
+      })
+      return
+    end
+    vim.api.nvim_set_hl(0, "MsgArea", { bg = "None" })
+  end
 end
 
 vim.api.nvim_create_autocmd({ "BufModifiedSet" }, {
-	callback = Search_modified_unsaved_buffers,
+  callback = Search_modified_unsaved_buffers,
 })
 vim.api.nvim_create_autocmd({ "InsertLeave" }, {
-	callback = Search_modified_unsaved_buffers,
+  callback = Search_modified_unsaved_buffers,
 })
 -- opening and closing telescope picker will also be triggered
 -- so this event is to run the function after the telescope picker is closed
 vim.api.nvim_create_autocmd({ "WinEnter" }, {
-	callback = Search_modified_unsaved_buffers,
+  callback = Search_modified_unsaved_buffers,
 })
 
 -- for trouble.nvim plugin there is no NormalNC highlight group
 -- this is a hack
 vim.api.nvim_create_autocmd({ "BufWinLeave" }, {
-	callback = function()
-		local buf_name = vim.api.nvim_buf_get_name(0)
-		local colors = require("core.colorscheme")
-		if string.find(buf_name, "/Trouble") then
-			vim.api.nvim_set_hl(0, "TroubleNormal", { bg = colors.bg_nc })
-		else
-			vim.api.nvim_set_hl(0, "TroubleNormal", { bg = colors.bg })
-		end
-	end,
+  callback = function()
+    local buf_name = vim.api.nvim_buf_get_name(0)
+    local colors = require("core.colorscheme")
+    if string.find(buf_name, "/Trouble") then
+      vim.api.nvim_set_hl(0, "TroubleNormal", { bg = colors.bg_nc })
+    else
+      vim.api.nvim_set_hl(0, "TroubleNormal", { bg = colors.bg })
+    end
+  end,
 })
 
 -- update command line color in terminal mode
 vim.api.nvim_create_autocmd({ "TermEnter" }, {
-	callback = function()
-		vim.api.nvim_set_hl(0, "MsgArea", {
-			bg = require("core.colorscheme").colors().dark_green,
-		})
-	end,
+  callback = function()
+    vim.api.nvim_set_hl(0, "MsgArea", {
+      bg = require("core.colorscheme").colors().dark_green,
+    })
+  end,
 })
 vim.api.nvim_create_autocmd({ "TermLeave" }, {
-	callback = function()
-		vim.api.nvim_set_hl(0, "MsgArea", { bg = "None" })
-	end,
+  callback = function()
+    vim.api.nvim_set_hl(0, "MsgArea", { bg = "None" })
+  end,
 })
 
 -- Stop lsp, detach gitsigns, and disable treesitter_context in diff mode
 function DoSomethingInDiffMode()
-	if vim.api.nvim_win_get_option(0, "diff") then
-		vim.lsp.stop_client(vim.lsp.get_active_clients())
-		pcall(function()
-			vim.cmd(":Gitsigns detach_all")
-		end)
-		pcall(function()
-			vim.cmd(":TSContextDisable")
-		end)
-	end
+  if vim.api.nvim_win_get_option(0, "diff") then
+    vim.lsp.stop_client(vim.lsp.get_active_clients())
+    pcall(function()
+      vim.cmd(":Gitsigns detach_all")
+    end)
+    pcall(function()
+      vim.cmd(":TSContextDisable")
+    end)
+  end
 end
 
 vim.api.nvim_create_autocmd({ "OptionSet" }, {
-	callback = DoSomethingInDiffMode,
+  callback = DoSomethingInDiffMode,
 })
 
 -- ----------------------------------------------------------------------------
@@ -261,7 +261,7 @@ vim.api.nvim_create_autocmd({ "OptionSet" }, {
 -- A user command to update quickfix list after cdo / cfdo
 -- https://vi.stackexchange.com/a/13663https://vi.stackexchange.com/a/13663
 vim.api.nvim_create_user_command("UpdateQF", function()
-	vim.cmd([[ call setqflist(map(getqflist(), 'extend(v:val, {"text":get(getbufline(v:val.bufnr, v:val.lnum),0)})')) ]])
+  vim.cmd([[ call setqflist(map(getqflist(), 'extend(v:val, {"text":get(getbufline(v:val.bufnr, v:val.lnum),0)})')) ]])
 end, {})
 
 -- Redirect the output of a Vim or external command into a scratch buffer
@@ -288,13 +288,13 @@ end, { nargs = 1, complete = 'command' })
 -- csharp
 local filetype_cs_group = vim.api.nvim_create_augroup("FileTypeCS", { clear = true })
 vim.api.nvim_create_autocmd("FileType", {
-	group = filetype_cs_group,
-	pattern = "cs",
-	callback = function()
-		vim.opt_local.tabstop = 4
-		vim.opt_local.shiftwidth = 4
-		vim.opt_local.expandtab = true
-	end,
+  group = filetype_cs_group,
+  pattern = "cs",
+  callback = function()
+    vim.opt_local.tabstop = 4
+    vim.opt_local.shiftwidth = 4
+    vim.opt_local.expandtab = true
+  end,
 })
 
 -- ---------------------------------------------------------------------------- 

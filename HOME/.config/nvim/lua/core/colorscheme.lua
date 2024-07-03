@@ -41,6 +41,7 @@ M.colors = function()
     bright_brown = "#ffdfcd",
     -- Dark
     dark_yellow = "#5b4d08",
+    dark_yellow02 = "#3f3505",
     dark_green = "#263730",
     dark_red = "#3f0f13",
     dark_blue = "#081923",
