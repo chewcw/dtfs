@@ -72,6 +72,11 @@ M.colors = function()
     blue02 = "#141c22",
     -- Special
     none = "NONE",
+    -- Diagnostic virtual text
+    diagnostic_virtual_text_error = "#361818",
+    diagnostic_virtual_text_warn = "#493d06",
+    diagnostic_virtual_text_info = "#222222",
+    diagnostic_virtual_text_hint = "#1d1d1c",
   }
 end
 
@@ -360,10 +365,10 @@ M.setup = function()
     DiagnosticWarn = { fg = c.yellow01 },                                                                       -- base highlight group for "Warning"
     DiagnosticInfo = { fg = c.gray04 },                                                                         -- base highlight group from "Information"
     DiagnosticHint = { fg = c.gray05 },                                                                         -- base highlight group for "Hint"
-    DiagnosticVirtualTextError = { fg = c.red01, italic = true },
-    DiagnosticVirtualTextWarn = { fg = c.yellow01, italic = true },
-    DiagnosticVirtualTextInfo = { fg = c.gray04, italic = true },
-    DiagnosticVirtualTextHint = { fg = c.gray05, italic = true },
+    DiagnosticVirtualTextError = { fg = c.diagnostic_virtual_text_error, italic = true },
+    DiagnosticVirtualTextWarn = { fg = c.diagnostic_virtual_text_warn, italic = true },
+    DiagnosticVirtualTextInfo = { fg = c.diagnostic_virtual_text_info, italic = true },
+    DiagnosticVirtualTextHint = { fg = c.diagnostic_virtual_text_hint, italic = true },
     DiagnosticUnderlineError = { fg = c.red01, undercurl = true, sp = c.red01 },         -- used to underline "Error" diagnostics.
     DiagnosticUnderlineWarn = { fg = c.yellow01, undercurl = true, sp = c.yellow01 },    -- used to underline "Warning" diagnostics.
     DiagnosticUnderlineInfo = { fg = c.gray04, undercurl = true, sp = c.gray04 },        -- used to underline "Information" diagnostics.
