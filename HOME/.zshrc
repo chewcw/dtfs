@@ -192,7 +192,7 @@ alias monitor="xrandr --auto"
 
 # tmux and zsh auto-suggestion color issue
 # https://github.com/zsh-users/zsh-autosuggestions/issues/229
-# export TERM=xterm-256color
+export TERM=xterm-256color
 
 # watch
 alias watch="watch "
@@ -239,10 +239,10 @@ bindkey -M vicmd z edit-command-line
 
 # yazi
 function y() {
-	local tmp="$(mktemp -t "yazi-cwd.XXXXX")"
-	yazi "$@" --cwd-file="$tmp"
-	if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
-		cd -- "$cwd"
-	fi
-	rm -f -- "$tmp"
+  local tmp="$(mktemp -t "yazi-cwd.XXXXX")"
+  yazi "$@" --cwd-file="$tmp"
+  if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+    cd -- "$cwd"
+  fi
+  rm -f -- "$tmp"
 }

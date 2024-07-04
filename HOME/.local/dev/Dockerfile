@@ -85,8 +85,6 @@ RUN <<EOF
   else
     cd /tmp; git clone https://github.com/chewcw/nv-built-aarch64; sudo mv nv-built-aarch64/nvim /usr/local;
   fi"
-`# symlink for neovim`
-sudo ln -sf /usr/local/nvim/bin/nvim /usr/bin/nvim
 EOF
 
 # install vscode
