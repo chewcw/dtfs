@@ -308,3 +308,21 @@ vim.api.nvim_create_autocmd('TabClosed', {
     vim.cmd('tabprevious')
   end,
 })
+
+-- ---------------------------------------------------------------------------- 
+-- Don't add endofline automatically
+-- ---------------------------------------------------------------------------- 
+-- https://stackoverflow.com/a/4152785
+vim.api.nvim_create_autocmd("BufWritePre", {
+  callback = function()
+    vim.cmd("set binary")
+    vim.cmd("set noeol")
+  end,
+})
+
+vim.api.nvim_create_autocmd("BufWritePost", {
+  callback = function()
+    vim.cmd("set nobinary")
+    vim.cmd("set eol")
+  end,
+})
