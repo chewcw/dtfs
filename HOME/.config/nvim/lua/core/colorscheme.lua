@@ -453,6 +453,7 @@ M.setup = function()
     CmpItemKindKeyword = { fg = c.fg },
     CmpItemKindProperty = { fg = c.fg },
     CmpItemKindUnit = { fg = c.fg },
+    CmpGhostText = { fg = c.gray04, italic = true },
     -- Custom highlight groups for use in statusline plugins
     StatusLineNormalMode = { fg = c.black, bg = c.gray02 },
     StatusLineInsertMode = { fg = c.black, bg = c.gray03 },

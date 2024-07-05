@@ -52,7 +52,9 @@ M.options = {
     },
 
     experimental = {
-      ghost_text = true,
+      ghost_text = {
+        hl_group = "CmpGhostText",
+      },
     },
 
     -- completion = {
