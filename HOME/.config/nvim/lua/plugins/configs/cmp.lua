@@ -68,7 +68,7 @@ M.options = {
       }),
       completion = cmp.config.window.bordered({
         completeopt = "menu,menuone",
-        winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,CursorLine:PmenuSel,Search:FloatBorder",
+        -- winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,CursorLine:PmenuSel,Search:FloatBorder",
         border = border("FloatBorder"),
       }),
     },
