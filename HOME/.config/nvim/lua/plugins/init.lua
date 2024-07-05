@@ -392,7 +392,7 @@ local default_plugins = {
       vim.cmd("let g:VM_Extend_hl = 'Visual'")
       vim.cmd("let g:VM_Cursor_hl = 'Visual'")
       vim.cmd("let g:VM_Insert_hl = 'Cursor'")
-      vim.cmd("let g:VM_highlight_matches = ''")
+      vim.cmd("let g:VM_highlight_matches = 'hi! link Search VisualMultiHighlightMatches'")
     end,
     -- branch = "master",
     -- commit = "724bd53",

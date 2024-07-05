@@ -477,6 +477,8 @@ M.setup = function()
     TreesitterContextLineNumber = { fg = c.fg, bg = cfg.transparent and c.none or c.bg },
     -- Indent blankline
     IndentBlanklineScope = { fg = c.dark_yellow, bg = c.none },
+    -- visual-multi
+    VisualMultiHighlightMatches = { fg = c.red },
   }
 
   for group, parameters in pairs(groups) do
