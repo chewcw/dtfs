@@ -127,7 +127,7 @@ M.options = {
       { name = "emoji" },
     },
   },
-  cmdline = {
+  cmd = {
     mapping = {
       ["<C-j>"] = {
         c = function()
@@ -174,7 +174,7 @@ M.options = {
       ["<C-j>"] = {
         c = function()
           if cmp.visible() then
-            cmp.select_next_item()
+            cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
           else
             cmp.complete()
           end
@@ -183,7 +183,7 @@ M.options = {
       ["<C-k>"] = {
         c = function()
           if cmp.visible() then
-            cmp.select_prev_item()
+            cmp.select_prev_item({ behavior = cmp.SelectBehavior.Insert })
           else
             cmp.complete()
           end

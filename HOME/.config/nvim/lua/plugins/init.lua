@@ -205,7 +205,7 @@ local default_plugins = {
     end,
     config = function(_, opts)
       require("cmp").setup(opts.core)
-      require("cmp").setup.cmdline(":", opts.cmdline)
+      require("cmp").setup.cmdline(":", opts.cmd)
       require("cmp").setup.cmdline("/", opts.search)
     end,
     -- branch = "main",
@@ -323,8 +323,6 @@ local default_plugins = {
   --   config = function(_, opts)
   --     require("wilder").setup(opts)
   --   end,
-    -- branch = "master",
-    -- commit = "679f348",
   -- },
 
   {
