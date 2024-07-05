@@ -244,6 +244,7 @@ M.setup = function()
     SpecialComment = { fg = c.main1 },                                                                           -- special things inside a comment
     Debug = { fg = c.main4 },                                                                                    -- debugging statements
     Underlined = { fg = c.main4, bg = c.none, underline = true },                                                -- text that stands out, HTML links
+    UnderlinedOnly = { underline = true },
     Ignore = { fg = c.gray07 },                                                                                  -- left blank, hidden
     Error = { fg = c.red, bg = c.none, underline = true },                                                       -- any erroneous construct
     Todo = { fg = c.main4, bg = c.none, italic = true },                                                         -- anything that needs extra attention; mostly the keywords TODO FIXME and XXX

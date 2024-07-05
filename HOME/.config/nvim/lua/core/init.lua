@@ -255,6 +255,28 @@ vim.api.nvim_create_autocmd({ "OptionSet" }, {
   callback = DoSomethingInDiffMode,
 })
 
+-- Highlight all same words in the buffer under cursor
+vim.api.nvim_create_augroup("CursorMovedHighlight", { clear = true })
+vim.api.nvim_create_autocmd({ "CursorMoved" }, {
+  group = "CursorMovedHighlight",
+  callback = function()
+    pcall(function()
+      -- Clear existing highlights in the group
+      vim.cmd('silent! syntax clear UnderlinedHighlight')
+
+      -- Get the word under the cursor
+      local word = vim.fn.expand('<cword>')
+      if word == '' then
+        return
+      end
+
+      -- Highlight all instances of the word in the current buffer
+      vim.cmd(string.format('syntax match UnderlinedHighlight /\\<%s\\>/', word))
+      vim.cmd('highlight link UnderlinedHighlight UnderlinedOnly')
+    end)
+  end,
+})
+
 -- ----------------------------------------------------------------------------
 -- user commands
 -- ----------------------------------------------------------------------------
@@ -326,3 +348,4 @@ vim.api.nvim_create_autocmd('TabClosed', {
 --     vim.cmd("set eol")
 --   end,
 -- })
+
