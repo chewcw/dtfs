@@ -366,10 +366,10 @@ M.setup = function()
     DiagnosticWarn = { fg = c.yellow01 },                                                                       -- base highlight group for "Warning"
     DiagnosticInfo = { fg = c.gray04 },                                                                         -- base highlight group from "Information"
     DiagnosticHint = { fg = c.gray05 },                                                                         -- base highlight group for "Hint"
-    DiagnosticVirtualTextError = { fg = c.diagnostic_virtual_text_error, italic = true },
-    DiagnosticVirtualTextWarn = { fg = c.diagnostic_virtual_text_warn, italic = true },
-    DiagnosticVirtualTextInfo = { fg = c.diagnostic_virtual_text_info, italic = true },
-    DiagnosticVirtualTextHint = { fg = c.diagnostic_virtual_text_hint, italic = true },
+    DiagnosticVirtualTextError = { fg = c.diagnostic_virtual_text_error, italic = true, underline = true },
+    DiagnosticVirtualTextWarn = { fg = c.diagnostic_virtual_text_warn, italic = true, underline = true },
+    DiagnosticVirtualTextInfo = { fg = c.diagnostic_virtual_text_info, italic = true, underline = true },
+    DiagnosticVirtualTextHint = { fg = c.diagnostic_virtual_text_hint, italic = true, underline = true },
     DiagnosticUnderlineError = { fg = c.red01, undercurl = true, sp = c.red01 },         -- used to underline "Error" diagnostics.
     DiagnosticUnderlineWarn = { fg = c.yellow01, undercurl = true, sp = c.yellow01 },    -- used to underline "Warning" diagnostics.
     DiagnosticUnderlineInfo = { fg = c.gray04, undercurl = true, sp = c.gray04 },        -- used to underline "Information" diagnostics.
@@ -482,6 +482,10 @@ M.setup = function()
     IndentBlanklineScope = { fg = c.dark_yellow, bg = c.none },
     -- visual-multi
     VisualMultiHighlightMatches = { fg = c.red },
+    -- Trouble.nvim
+    TroubleNormal = { fg = c.none, bg = c.bg },
+    -- TroubleNormalNC = { fg = c.none, bg = c.bg_nc },
+    TroublePreview = { fg = c.fg, bg = c.dark_yellow },
   }
 
   for group, parameters in pairs(groups) do

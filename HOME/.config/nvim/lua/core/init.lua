@@ -212,17 +212,17 @@ vim.api.nvim_create_autocmd({ "WinEnter" }, {
 
 -- for trouble.nvim plugin there is no NormalNC highlight group
 -- this is a hack
-vim.api.nvim_create_autocmd({ "BufWinLeave" }, {
-  callback = function()
-    local buf_name = vim.api.nvim_buf_get_name(0)
-    local colors = require("core.colorscheme")
-    if string.find(buf_name, "/Trouble") then
-      vim.api.nvim_set_hl(0, "TroubleNormal", { bg = colors.bg_nc })
-    else
-      vim.api.nvim_set_hl(0, "TroubleNormal", { bg = colors.bg })
-    end
-  end,
-})
+-- vim.api.nvim_create_autocmd({ "BufWinLeave" }, {
+--   callback = function()
+--     local buf_name = vim.api.nvim_buf_get_name(0)
+--     local colors = require("core.colorscheme")
+--     if string.find(buf_name, "/Trouble") then
+--       vim.api.nvim_set_hl(0, "TroubleNormal", { bg = colors.bg_nc })
+--     else
+--       vim.api.nvim_set_hl(0, "TroubleNormal", { bg = colors.bg })
+--     end
+--   end,
+-- })
 
 -- update command line color in terminal mode
 vim.api.nvim_create_autocmd({ "TermEnter" }, {
