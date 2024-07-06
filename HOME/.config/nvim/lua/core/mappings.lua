@@ -1039,42 +1039,12 @@ M.nvim_dap = {
 
 M.trouble = {
   n = {
-    ["tr"] = {
-      function()
-        require("trouble").toggle("lsp_references")
-      end,
-      "lsp references",
-    },
-    ["ti"] = {
-      function()
-        require("trouble").toggle("lsp_implementations")
-      end,
-      "lsp implementation",
-    },
-    ["td"] = {
-      function()
-        require("trouble").toggle("lsp_definitions")
-      end,
-      "lsp definitions",
-    },
-    ["tz"] = {
-      function()
-        require("trouble").toggle("document_diagnostics")
-      end,
-      "open current buffer diagnostics",
-    },
-    ["tZ"] = {
-      function()
-        require("trouble").toggle("workspace_diagnostics")
-      end,
-      "open workspace diagnostics",
-    },
-    ["t."] = {
-      function()
-        require("trouble").toggle("quickfix")
-      end,
-      "open quickfix",
-    },
+    ["tr"] = { "<cmd> Trouble lsp_references toggle focus=false <CR>", "lsp references" },
+    ["ti"] = { "<cmd> Trouble lsp_implementations toggle focus=false <CR>", "lsp implementation" },
+    ["td"] = { "<cmd> Trouble lsp_definitions toggle focus=false <CR>", "lsp definitions", },
+    ["tz"] = { "<cmd> Trouble diagnostics toggle focus=false filter.buf=0 <CR>", "open current buffer diagnostics" },
+    ["tZ"] = { "<cmd> Trouble diagnostics toggle focus=false <CR>", "open workspace diagnostics" },
+    ["t."] = { "<cmd> Trouble quickfix toggle focus=false <CR>", "open quickfix" },
   },
 }
 
