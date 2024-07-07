@@ -653,7 +653,7 @@ M.telescope = {
       "lsp type definitions in vsplit",
     },
     ["gs"] = { "<cmd> Telescope lsp_document_symbols symbol_width=60 <CR>", "lsp document symbols" },
-    ["gS"] = { "<cmd> Telescope lsp_workspace_symbols  symbol_width=60 <CR>", "lsp workspace symbols" },
+    ["gS"] = { "<cmd> Telescope lsp_workspace_symbols symbol_width=60 <CR>", "lsp workspace symbols" },
 
     -- diagnostic
     ["gZ"] = { "<cmd> Telescope diagnostics <CR>", "open workspace diagnostics" },
@@ -1039,12 +1039,13 @@ M.nvim_dap = {
 
 M.trouble = {
   n = {
-    ["tr"] = { "<cmd> Trouble lsp_references toggle focus=false <CR>", "lsp references" },
-    ["ti"] = { "<cmd> Trouble lsp_implementations toggle focus=false <CR>", "lsp implementation" },
-    ["td"] = { "<cmd> Trouble lsp_definitions toggle focus=false <CR>", "lsp definitions", },
-    ["tz"] = { "<cmd> Trouble diagnostics toggle focus=false filter.buf=0 <CR>", "open current buffer diagnostics" },
-    ["tZ"] = { "<cmd> Trouble diagnostics toggle focus=false <CR>", "open workspace diagnostics" },
-    ["t."] = { "<cmd> Trouble quickfix toggle focus=false <CR>", "open quickfix" },
+    ["tr"] = { "<cmd> Trouble lsp_references toggle focus=true <CR>", "lsp references" },
+    ["ti"] = { "<cmd> Trouble lsp_implementations toggle focus=true <CR>", "lsp implementation" },
+    ["td"] = { "<cmd> Trouble lsp_definitions toggle focus=true <CR>", "lsp definitions", },
+    ["tz"] = { "<cmd> Trouble diagnostics toggle focus=true filter.buf=0 <CR>", "open current buffer diagnostics" },
+    ["tZ"] = { "<cmd> Trouble diagnostics toggle focus=true <CR>", "open workspace diagnostics" },
+    ["t."] = { "<cmd> Trouble quickfix toggle focus=true <CR>", "open quickfix" },
+    ["ts"] = { "<cmd> Trouble lsp_document_symbols toggle focus=true <CR>", "open document symbols" },
   },
 }
 
