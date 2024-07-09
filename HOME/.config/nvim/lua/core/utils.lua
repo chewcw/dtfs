@@ -324,4 +324,65 @@ M.close_and_focus_previous_tab = function()
   vim.api.nvim_command("tabnext " .. previous_tabpage)
 end
 
+-- https://vi.stackexchange.com/a/28607
+M.search_visual_selection = function()
+  -- because of core.utils.toggle_search_highlight function, normal search using following
+  -- mappings may not have highlights shown, because it has been toggled off, so
+  -- this make sure hlsearch will always be on
+  vim.cmd(":set hlsearch")
+
+  -- Yank the visual selection into the * register
+  vim.cmd('normal! "*y')
+
+  -- Get the yanked text from the * register
+  local searchTerm = vim.fn.escape(vim.fn.getreg('*'), '\\/'):gsub("\n", '\\n')
+  searchTerm = '\\V' .. searchTerm
+
+  -- Set the search register (@/) to the escaped searchTerm
+  vim.fn.setreg('/', searchTerm)
+
+  -- Echo the search term
+  print('/' .. searchTerm)
+
+  -- Add the search term to the search history
+  vim.fn.histadd('search', searchTerm)
+
+  -- Enable search highlighting
+  vim.o.hlsearch = true
+end
+
+-- https://vi.stackexchange.com/a/28607
+M.search_word_under_cursor = function()
+  -- because of core.utils.toggle_search_highlight function, normal search using following
+  -- mappings may not have highlights shown, because it has been toggled off, so
+  -- this make sure hlsearch will always be on
+  vim.cmd(":set hlsearch")
+
+  -- Get the word under the cursor and escape it for use in the search
+  local searchTerm = '\\v<' .. vim.fn.expand('<cword>') .. '>'
+
+  -- Set the search register (@/) to the searchTerm
+  vim.fn.setreg('/', searchTerm)
+
+  -- Echo the search term
+  print('/' .. searchTerm)
+
+  -- Add the search term to the search history
+  vim.fn.histadd('search', searchTerm)
+
+  -- Enable search highlighting
+  vim.o.hlsearch = trueend
+end
+
+-- Toggle "hls" and "nohls"
+M.toggle_search_highlight = function()
+  if vim.o.hlsearch then
+    vim.o.hlsearch = false
+    print("Search highlighting off")
+  else
+    vim.o.hlsearch = true
+    print("Search highlighting on")
+  end
+end
+
 return M

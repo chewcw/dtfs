@@ -40,7 +40,15 @@ M.general = {
   },
 
   n = {
-    ["<leader>n"] = { ":nohl <CR>", "clear highlights" },
+    ["<leader>n"] = { "<cmd> :lua require('core.utils').toggle_search_highlight() <CR>", "toggle highlights" },
+
+    -- because of core.utils.toggle_search_highlight function, normal search using following
+    -- mappings may not have highlights shown, because it has been toggled off, so
+    -- these mappings made sure hlsearch will always be on.
+    ["*"] = { '*:lua vim.o.hlsearch = true<CR>' },
+    ["#"] = { '#:lua vim.o.hlsearch = true<CR>' },
+    ["g*"] = { 'g*:lua vim.o.hlsearch = true<CR>' },
+    ["g#"] = { 'g#:lua vim.o.hlsearch = true<CR>' },
 
     ["<C-e>"] = {
       function()
@@ -314,6 +322,7 @@ M.general = {
     ["[q"] = { ":cprevious<CR>", "select previous item in the quickfix list" },
     ["]l"] = { ":lnext<CR>", "select next item in the location list" },
     ["[l"] = { ":lprevious<CR>", "select previous item in the location list" },
+    ["<CR>"] = { "<cmd> :lua require('core.utils').search_word_under_cursor() <CR>", "Search current word, but not move the cursor" },
   },
 
   v = {
@@ -336,6 +345,7 @@ M.general = {
 
     -- gf open in new tab
     ["gF"] = { "<C-w>gf", "open file in new tab" },
+    ["<CR>"] = { "<cmd> :lua require('core.utils').search_visual_selection() <CR>", "Search selected words in visual mode" },
   },
 
   x = {
