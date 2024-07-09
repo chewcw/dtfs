@@ -285,6 +285,18 @@ vim.api.nvim_create_autocmd({ "CursorMoved" }, {
   end,
 })
 
+-- because of core.utils.toggle_search_highlight function, normal search using following
+-- mappings may not have highlights shown, because it has been toggled off, so
+-- these mappings made sure hlsearch will always be on.
+vim.api.nvim_create_augroup('EnableHlsearch', { clear = true })
+vim.api.nvim_create_autocmd('CmdlineEnter', {
+  group = 'EnableHlsearch',
+  pattern = [[\/,\?]],
+  callback = function()
+    vim.o.hlsearch = true
+  end,
+})
+
 -- ----------------------------------------------------------------------------
 -- user commands
 -- ----------------------------------------------------------------------------
