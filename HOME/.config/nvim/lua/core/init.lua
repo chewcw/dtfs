@@ -261,6 +261,11 @@ vim.api.nvim_create_autocmd({ "CursorMoved" }, {
   group = "CursorMovedHighlight",
   callback = function()
     pcall(function()
+      -- ignore this in autocmd in fugitive
+      if vim.api.nvim_buf_get_name(0):match('fugitive') then
+        return
+      end
+
       -- Clear existing highlights in the group
       vim.cmd('silent! syntax clear UnderlinedHighlight')
 
@@ -270,9 +275,12 @@ vim.api.nvim_create_autocmd({ "CursorMoved" }, {
         return
       end
 
+      -- Escape the word for use in a Vim pattern
+      local escaped_word = vim.fn.escape(word, '\\/.*$^~[]')
+
       -- Highlight all instances of the word in the current buffer
-      vim.cmd(string.format('syntax match UnderlinedHighlight /\\<%s\\>/', word))
-      vim.cmd('highlight link UnderlinedHighlight UnderlinedOnly')
+      vim.cmd(string.format('syntax match UnderlinedHighlight /\\V\\<%s\\>/', escaped_word))
+      vim.cmd('highlight UnderlinedHighlight cterm=underline gui=underline')
     end)
   end,
 })
