@@ -280,7 +280,7 @@ vim.api.nvim_create_autocmd({ "CursorMoved" }, {
 
       -- Highlight all instances of the word in the current buffer
       vim.cmd(string.format('syntax match UnderlinedHighlight /\\V\\<%s\\>/', escaped_word))
-      vim.cmd('highlight UnderlinedHighlight cterm=underline gui=underline')
+      vim.cmd('highlight link UnderlinedHighlight Highlight')
     end)
   end,
 })
