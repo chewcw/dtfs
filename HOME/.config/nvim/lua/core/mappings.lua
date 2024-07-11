@@ -49,6 +49,8 @@ M.general = {
     ["#"] = { '#:lua vim.o.hlsearch = true<CR>' },
     ["g*"] = { 'g*:lua vim.o.hlsearch = true<CR>' },
     ["g#"] = { 'g#:lua vim.o.hlsearch = true<CR>' },
+    ["n"] = { 'n:lua vim.o.hlsearch = true<CR>' },
+    ["N"] = { 'N:lua vim.o.hlsearch = true<CR>' },
 
     ["<C-e>"] = {
       function()
@@ -326,6 +328,8 @@ M.general = {
 
     ["<C-w><C-h>"] = { "<C-w>h|<C-w>|<CR><C-w>_<CR>", "switch to left window and maximize it" },
     ["<C-w><C-l>"] = { "<C-w>l|<C-w>|<CR><C-w>_<CR>", "switch to right window and maximize it" },
+    ["<C-w><C-k>"] = { "<C-w>k|<C-w>|<CR><C-w>_<CR>", "switch to top window and maximize it" },
+    ["<C-w><C-j>"] = { "<C-w>j|<C-w>|<CR><C-w>_<CR>", "switch to bottom window and maximize it" },
   },
 
   v = {
