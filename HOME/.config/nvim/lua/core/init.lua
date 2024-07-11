@@ -289,11 +289,19 @@ vim.api.nvim_create_autocmd({ "CursorMoved" }, {
 -- mappings may not have highlights shown, because it has been toggled off, so
 -- these mappings made sure hlsearch will always be on.
 vim.api.nvim_create_augroup('EnableHlsearch', { clear = true })
-vim.api.nvim_create_autocmd('CmdlineEnter', {
+vim.api.nvim_create_autocmd('CmdlineLeave', {
   group = 'EnableHlsearch',
-  pattern = [[\/,\?]],
   callback = function()
-    vim.o.hlsearch = true
+    -- Get the content of the command line
+    local cmd_line_type = vim.fn.getcmdtype()
+    local cmd_line = vim.fn.getcmdline()
+
+    -- Check if the command starts with '/' or '?' and is followed by some characters
+    if cmd_line_type == "/" or cmd_line_type == "?" then
+      if string.find(cmd_line, "^.+") then
+        vim.o.hlsearch = true
+      end
+    end
   end,
 })
 
