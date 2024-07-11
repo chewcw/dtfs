@@ -323,6 +323,9 @@ M.general = {
     ["]l"] = { ":lnext<CR>", "select next item in the location list" },
     ["[l"] = { ":lprevious<CR>", "select previous item in the location list" },
     ["<CR>"] = { "<cmd> :lua require('core.utils').search_word_under_cursor() <CR>", "Search current word, but not move the cursor" },
+
+    ["<C-w><C-h>"] = { "<C-w>h|<C-w>|<CR><C-w>_<CR>", "switch to left window and maximize it" },
+    ["<C-w><C-l>"] = { "<C-w>l|<C-w>|<CR><C-w>_<CR>", "switch to right window and maximize it" },
   },
 
   v = {
