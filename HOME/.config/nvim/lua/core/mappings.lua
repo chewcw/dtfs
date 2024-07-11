@@ -330,6 +330,9 @@ M.general = {
     ["<C-w><C-l>"] = { "<C-w>l|<C-w>|<CR><C-w>_<CR>", "switch to right window and maximize it" },
     ["<C-w><C-k>"] = { "<C-w>k|<C-w>|<CR><C-w>_<CR>", "switch to top window and maximize it" },
     ["<C-w><C-j>"] = { "<C-w>j|<C-w>|<CR><C-w>_<CR>", "switch to bottom window and maximize it" },
+
+    ["<A-c>"] = { "<C-W>c", "Shorthand for <C-w>c" },
+    ["<A-q>"] = { "<C-W>q", "Shorthand for <C-w>q" },
   },
 
   v = {
