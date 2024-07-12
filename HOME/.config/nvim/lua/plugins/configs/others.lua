@@ -135,13 +135,25 @@ M.diffview = function(actions)
         winbar_info = true,
       },
       merge_tool = {
-        layout = "diff3_mixed",
+        layout = "diff4_mixed",
         winbar_info = true,
       },
       file_history = {
         layout = "diff2_horizontal",
         winbar_info = false,
       },
+    },
+    file_panel = {
+      win_config = function()
+        local c = { type = "float" }
+        local editor_width = vim.o.columns
+        local editor_height = vim.o.lines
+        c.width = math.min(100, editor_width)
+        c.height = math.min(24, editor_height)
+        c.col = math.floor(editor_width * 0.5 - c.width * 0.5)
+        c.row = math.floor(editor_height * 0.5 - c.height * 0.5)
+        return c
+      end
     },
     keymaps = {
       view ={
