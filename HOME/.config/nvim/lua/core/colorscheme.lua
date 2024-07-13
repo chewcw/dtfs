@@ -194,8 +194,8 @@ M.setup = function()
     TablineSel = { fg = c.fg, bg = c.dark_blue },
     Tabline = { fg = c.gray05 },
     Title = { fg = c.main4, bg = c.none },
-    Visual = { fg = c.none, bg = c.gray03 },
-    VisualNOS = { fg = c.none, bg = c.gray03 },
+    Visual = { fg = c.none, bg = c.gray04 },
+    VisualNOS = { fg = c.none, bg = c.gray04 },
     WarningMsg = { fg = c.yellow },
     WildMenu = { fg = c.bg, bg = c.main1 },
     CursorColumn = { fg = c.none, bg = c.bg_nc },
@@ -247,7 +247,7 @@ M.setup = function()
     Ignore = { fg = c.gray07 },                                                                                  -- left blank, hidden
     Error = { fg = c.red, bg = c.none, underline = true },                                                       -- any erroneous construct
     Todo = { fg = c.main4, bg = c.none, italic = true },                                                         -- anything that needs extra attention; mostly the keywords TODO FIXME and XXX
-    Highlight = { fg = c.none, bg = c.bg_nc },
+    Highlight = { fg = c.none, bg = c.gray01 },
     -- HTML
     htmlArg = { fg = c.fg },
     htmlBold = { fg = c.fg, bg = c.none, bold = true },
