@@ -261,8 +261,9 @@ vim.api.nvim_create_autocmd({ "CursorMoved" }, {
   group = "CursorMovedHighlight",
   callback = function()
     pcall(function()
-      -- ignore this in autocmd in fugitive
-      if vim.api.nvim_buf_get_name(0):match('fugitive') then
+      -- ignore this if no lsp_server found
+      local buf_clients = vim.lsp.get_active_clients({ bufnr = vim.api.nvim_get_current_buf() })
+      if #buf_clients == 0 then
         return
       end
 
