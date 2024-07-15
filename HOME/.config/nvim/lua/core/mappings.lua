@@ -1076,8 +1076,8 @@ M.yanky = {
     ["P"] = { "<Plug>(YankyPutBefore)", "yanky P" },
     ["gp"] = { "<Plug>(YankyGPutAfter)", "yanky gp" },
     ["gP"] = { "<Plug>(YankyGPutBefore)", "yanky gP" },
-    [">P"] = { "<Plug>(YankyNextEntry)", "yanky paste next entry from yank ring history" },
-    ["<P"] = { "<Plug>(YankyPreviousEntry)", "yanky paste previous entry from yank ring history" },
+    ["<C-p>n"] = { "<Plug>(YankyNextEntry)", "yanky paste next entry from yank ring history" },
+    ["<C-p>p"] = { "<Plug>(YankyPreviousEntry)", "yanky paste previous entry from yank ring history" },
   },
   x = {
     ["p"] = { "<Plug>(YankyPutAfter)", "yanky p" },
