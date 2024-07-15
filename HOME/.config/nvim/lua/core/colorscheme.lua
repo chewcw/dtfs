@@ -480,6 +480,8 @@ M.setup = function()
     TreesitterContextLineNumber = { fg = c.fg, bg = cfg.transparent and c.none or c.bg },
     -- Indent blankline
     IndentBlanklineScope = { fg = c.dark_yellow, bg = c.none },
+    -- visual-multi
+    VisualMultiHighlightMatches = { fg = c.red, underline = true, bold = true },
     -- Trouble.nvim
     TroubleNormal = { fg = c.none, bg = c.bg },
     -- TroubleNormalNC = { fg = c.none, bg = c.bg_nc },
