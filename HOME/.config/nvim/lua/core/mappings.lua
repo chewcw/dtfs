@@ -324,7 +324,7 @@ M.general = {
     ["[q"] = { ":cprevious<CR>", "select previous item in the quickfix list" },
     ["]l"] = { ":lnext<CR>", "select next item in the location list" },
     ["[l"] = { ":lprevious<CR>", "select previous item in the location list" },
-    ["<CR>"] = { "<cmd> :lua require('core.utils').search_word_under_cursor() <CR>", "Search current word, but not move the cursor" },
+    ["g<CR>"] = { "<cmd> :lua require('core.utils').search_word_under_cursor() <CR>", "Search current word, but not move the cursor" },
 
     ["<C-w><C-h>"] = { "<C-w>h|<C-w>|<CR><C-w>_<CR>", "switch to left window and maximize it" },
     ["<C-w><C-l>"] = { "<C-w>l|<C-w>|<CR><C-w>_<CR>", "switch to right window and maximize it" },
@@ -355,7 +355,7 @@ M.general = {
 
     -- gf open in new tab
     ["gF"] = { "<C-w>gf", "open file in new tab" },
-    ["<CR>"] = { "<cmd> :lua require('core.utils').search_visual_selection() <CR>", "Search selected words in visual mode" },
+    ["g<CR>"] = { "<cmd> :lua require('core.utils').search_visual_selection() <CR>", "Search selected words in visual mode" },
   },
 
   x = {
