@@ -130,7 +130,7 @@ M.general = {
     ["<A-[>"] = { ":vertical resize -5 <CR>", "resize vertically" },
 
     -- macro
-    ["-"] = { "@@", "repeat macro" },
+    ["|"] = { "@@", "repeat last called macro" },
 
     -- tab
     ["<A-S-t>"] = { ":tabedit <CR>", "new tab" },
