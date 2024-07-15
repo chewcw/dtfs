@@ -385,4 +385,18 @@ M.toggle_search_highlight = function()
   end
 end
 
+-- Find if this buffer is quickfix or locationlist
+M.is_quickfix_or_loclist = function(bufnr)
+  local winid = vim.fn.bufwinid(bufnr)
+  if winid == -1 then
+    return false, false -- buffer not displayed in any window
+  end
+
+  local wininfo = vim.fn.getwininfo(winid)[1]
+  local is_quickfix = wininfo.quickfix == 1
+  local is_loclist = wininfo.loclist == 1
+
+  return is_quickfix, is_loclist
+end
+
 return M
