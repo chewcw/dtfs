@@ -76,7 +76,6 @@ opt.showmatch = false
 opt.matchtime = 1
 opt.breakindent = true
 opt.completeopt = "menuone,noselect"
-opt.showtabline = 0
 
 -- vertical line
 opt.colorcolumn = "85"
@@ -101,7 +100,7 @@ opt.list = true
 opt.listchars:append("lead:·,multispace:·,trail:·,tab:⟩-")
 
 -- tabline
-opt.showtabline = 1
+opt.showtabline = 2
 
 -- virtualedit
 opt.virtualedit = "insert"
