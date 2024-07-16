@@ -204,4 +204,11 @@ lspconfig.emmet_ls.setup({
   cmd = { home .. "/.local/share/nvim/mason/bin/emmet-ls", "--stdio" },
 })
 
+-- sql
+lspconfig.sqls.setup({
+  on_attach = M.on_attach,
+  capabilities = M.capabilities,
+  cmd = { home .. "/.local/share/nvim/mason/bin/sqls" },
+})
+
 return M
