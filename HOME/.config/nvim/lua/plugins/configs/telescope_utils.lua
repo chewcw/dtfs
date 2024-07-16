@@ -101,6 +101,17 @@ M.select_window_to_open = function(prompt_bufnr)
   end
 end
 
+M.rg_args = {
+  "--follow",
+  "--color=never",
+  "--smart-case",
+  "--no-heading",
+  "--with-filename",
+  "--line-number",
+  "--column",
+  "--auto-hybrid-regex",
+}
+
 -- able to put rg's argument after the search pattern followed by two spaces
 -- in the Telescope prompt, check `rg --help` or `man rg` for more information
 -- reference: https://github.com/tjdevries/config_manager/blob/master/xdg_config/nvim/lua/tj/telescope/custom/multi_rg.lua
@@ -123,15 +134,7 @@ M.custom_rg = function(opts)
       local prompt_split = vim.split(prompt, "  ")
 
       local args = { "rg" }
-      table.insert(args, {
-        "--follow",
-        "--color=never",
-        "--smart-case",
-        "--no-heading",
-        "--with-filename",
-        "--line-number",
-        "--column",
-      })
+      table.insert(args, M.rg_args)
 
       if prompt_split[1] then
         table.insert(args, "-e")

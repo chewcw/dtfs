@@ -7,15 +7,10 @@ local picker_height = 0.45
 
 M.options = {
   defaults = {
+    -- remember to update telescope_utils file custom_rg as well
     vimgrep_arguments = {
       "rg",
-      "--follow",
-      "--smart-case",
-      "--color=never",
-      "--no-heading",
-      "--with-filename",
-      "--line-number",
-      "--column",
+      unpack(telescope_utils.rg_args),
     },
     scroll_strategy = "limit",
     prompt_prefix = "",
