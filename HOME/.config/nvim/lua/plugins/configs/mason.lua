@@ -30,6 +30,9 @@ local options = {
     -- rust
     "rust-analyzer",
     -- "corelldb", -- debugger
+
+    -- sql
+    "sqls",
   },
 
   PATH = "skip",
