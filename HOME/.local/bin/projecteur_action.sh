@@ -25,7 +25,7 @@ showCenterDot=true
 showSpotShade=true
 spotShape=spotshapes/Circle.qml
 spotOverlay=true
-spotSize=30
+spotSize=15
 
 EOF
 }
