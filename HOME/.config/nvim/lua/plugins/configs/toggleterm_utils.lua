@@ -1,17 +1,35 @@
 local M = {}
 
 M.toggle_term = function(direction)
-  if vim.g.toggle_term_direction == nil then
+  if vim.g.toggle_term_direction == nil and vim.g.toggle_term_opened == nil then
     vim.g.toggle_term_direction = direction
+    vim.g.toggle_term_opened = false
   end
+
   local count = vim.v.count or ""
-  if vim.g.toggle_term_direction == direction then
-    vim.cmd(count .. 'ToggleTerm direction=' .. direction)
-  else
-    vim.cmd("ToggleTerm") -- toggle the term
+
+  if vim.g.toggle_term_direction == direction and vim.g.toggle_term_opened == false then
+      vim.cmd(count .. "ToggleTerm direction=" .. direction)
+      vim.g.toggle_term_opened = true
+  elseif vim.g.toggle_term_direction == direction and vim.g.toggle_term_opened == true then
+    if vim.g.toggle_term_count == count then
+      vim.cmd(count .. "ToggleTerm direction=" .. direction)
+      vim.g.toggle_term_opened = false
+    else
+      vim.cmd(count .. "ToggleTerm direction=" .. direction)
+      vim.g.toggle_term_opened = true
+    end
+  elseif vim.g.toggle_term_direction ~= direction and vim.g.toggle_term_opened == false then
     vim.cmd(count .. "ToggleTerm direction=" .. direction)
+    vim.g.toggle_term_opened = true
+  elseif vim.g.toggle_term_direction ~= direction and vim.g.toggle_term_opened == true then
+    vim.cmd("ToggleTerm")
+    vim.g.toggle_term_opened = false
+    vim.cmd(count .. "ToggleTerm direction=" .. direction)
+    vim.g.toggle_term_opened = true
   end
   vim.g.toggle_term_direction = direction
+  vim.g.toggle_term_count = count
 end
 
 return M
