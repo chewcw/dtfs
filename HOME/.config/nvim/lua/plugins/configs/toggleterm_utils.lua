@@ -12,6 +12,10 @@ M.toggle_term = function(direction)
       vim.cmd(count .. "ToggleTerm direction=" .. direction)
       vim.g.toggle_term_opened = true
   elseif vim.g.toggle_term_direction == direction and vim.g.toggle_term_opened == true then
+    if count == "" then
+      vim.cmd("ToggleTerm")
+      vim.g.toggle_term_opened = false
+    end
     if vim.g.toggle_term_count == count then
       vim.cmd(count .. "ToggleTerm direction=" .. direction)
       vim.g.toggle_term_opened = false
