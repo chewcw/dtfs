@@ -509,6 +509,10 @@ mode "$mode_presentation" {
   bindsym 5 exec sh -c 'pkill boomer || boomer';
 
   bindsym $mod+F3 mode "default"; exec sh -c 'projecteur -c quit'; exec sh -c 'pkill gromit-mpx'; exec sh -c 'pkill boomer'
+
+  # printscreen mapping should work in presentation mode
+  bindsym $mod+Shift+p exec flameshot gui
+  bindsym $mod+Ctrl+p exec flameshot full -c -p $HOME/Pictures
 }
 bindsym $mod+F3 mode "$mode_presentation"; exec sh -c '$HOME/.local/bin/projecteur_action.sh default'
 
