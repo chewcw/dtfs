@@ -247,7 +247,7 @@ M.setup = function()
     Ignore = { fg = c.gray07 },                                                                                  -- left blank, hidden
     Error = { fg = c.red, bg = c.none, underline = true },                                                       -- any erroneous construct
     Todo = { fg = c.main4, bg = c.none, italic = true },                                                         -- anything that needs extra attention; mostly the keywords TODO FIXME and XXX
-    Highlight = { fg = c.none, bg = c.gray01 },
+    Highlight = { fg = c.none, bg = c.gray00 },
     -- HTML
     htmlArg = { fg = c.fg },
     htmlBold = { fg = c.fg, bg = c.none, bold = true },
