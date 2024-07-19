@@ -364,16 +364,16 @@ M.setup = function()
     -- Diagnostics
     DiagnosticError = { fg = c.red01 },                                                                         -- base highlight group for "Error"
     DiagnosticWarn = { fg = c.yellow01 },                                                                       -- base highlight group for "Warning"
-    DiagnosticInfo = { fg = c.gray04 },                                                                         -- base highlight group from "Information"
-    DiagnosticHint = { fg = c.gray05 },                                                                         -- base highlight group for "Hint"
+    DiagnosticInfo = { fg = c.gray06 },                                                                         -- base highlight group from "Information"
+    DiagnosticHint = { fg = c.gray06 },                                                                         -- base highlight group for "Hint"
     DiagnosticVirtualTextError = { fg = c.diagnostic_virtual_text_error, italic = true, underline = true },
     DiagnosticVirtualTextWarn = { fg = c.diagnostic_virtual_text_warn, italic = true, underline = true },
     DiagnosticVirtualTextInfo = { fg = c.diagnostic_virtual_text_info, italic = true, underline = true },
     DiagnosticVirtualTextHint = { fg = c.diagnostic_virtual_text_hint, italic = true, underline = true },
     DiagnosticUnderlineError = { fg = c.red01, undercurl = true, sp = c.red01 },         -- used to underline "Error" diagnostics.
     DiagnosticUnderlineWarn = { fg = c.yellow01, undercurl = true, sp = c.yellow01 },    -- used to underline "Warning" diagnostics.
-    DiagnosticUnderlineInfo = { fg = c.gray04, undercurl = true, sp = c.gray04 },        -- used to underline "Information" diagnostics.
-    DiagnosticUnderlineHint = { fg = c.gray05, undercurl = true, sp = c.gray05 },        -- used to underline "Hint" diagnostics.
+    DiagnosticUnderlineInfo = { fg = c.gray06, undercurl = true, sp = c.gray06 },        -- used to underline "Information" diagnostics.
+    DiagnosticUnderlineHint = { fg = c.gray06, undercurl = true, sp = c.gray06 },        -- used to underline "Hint" diagnostics.
     -- Diagnostics (old)
     LspDiagnosticsDefaultError = { fg = c.red },                                         -- used for "Error" diagnostic virtual text
     LspDiagnosticsSignError = { fg = c.red },                                            -- used for "Error" diagnostic signs in sign column
