@@ -267,20 +267,20 @@ vim.api.nvim_create_autocmd({ "CursorMoved" }, {
       end
 
       -- Clear existing highlights in the group
-      vim.cmd('silent! syntax clear UnderlinedHighlight')
+      vim.cmd("silent! syntax clear UnderlinedHighlight")
 
       -- Get the word under the cursor
-      local word = vim.fn.expand('<cword>')
-      if word == '' then
+      local word = vim.fn.expand("<cword>")
+      if word == "" then
         return
       end
 
       -- Escape the word for use in a Vim pattern
-      local escaped_word = vim.fn.escape(word, '\\/.*$^~[]')
+      local escaped_word = vim.fn.escape(word, "\\/.*$^~[]")
 
       -- Highlight all instances of the word in the current buffer
-      vim.cmd(string.format('syntax match UnderlinedHighlight /\\V\\<%s\\>/', escaped_word))
-      vim.cmd('highlight link UnderlinedHighlight Highlight')
+      vim.cmd(string.format("syntax match UnderlinedHighlight /\\V\\<%s\\>/", escaped_word))
+      vim.cmd("highlight link UnderlinedHighlight Highlight")
     end)
   end,
 })
@@ -288,9 +288,9 @@ vim.api.nvim_create_autocmd({ "CursorMoved" }, {
 -- because of core.utils.toggle_search_highlight function, normal search using following
 -- mappings may not have highlights shown, because it has been toggled off, so
 -- these mappings made sure hlsearch will always be on.
-vim.api.nvim_create_augroup('EnableHlsearch', { clear = true })
-vim.api.nvim_create_autocmd('CmdlineLeave', {
-  group = 'EnableHlsearch',
+vim.api.nvim_create_augroup("EnableHlsearch", { clear = true })
+vim.api.nvim_create_autocmd("CmdlineLeave", {
+  group = "EnableHlsearch",
   callback = function()
     -- Get the content of the command line
     local cmd_line_type = vim.fn.getcmdtype()
@@ -311,7 +311,9 @@ vim.api.nvim_create_autocmd('CmdlineLeave', {
 -- A user command to update quickfix list after cdo / cfdo
 -- https://vi.stackexchange.com/a/13663https://vi.stackexchange.com/a/13663
 vim.api.nvim_create_user_command("UpdateQF", function()
-  vim.cmd([[ call setqflist(map(getqflist(), 'extend(v:val, {"text":get(getbufline(v:val.bufnr, v:val.lnum),0)})')) ]])
+  vim.cmd(
+    [[ call setqflist(map(getqflist(), 'extend(v:val, {"text":get(getbufline(v:val.bufnr, v:val.lnum),0)})')) ]]
+  )
 end, {})
 
 -- Redirect the output of a Vim or external command into a scratch buffer
@@ -324,17 +326,13 @@ vim.api.nvim_create_user_command('Redirt', function(opts)
   require('core.utils_redir').nredir(opts.args, "tab")
 end, { nargs = 1, complete = 'command' })
 
-vim.api.nvim_create_user_command('Redirh', function(opts)
-  require('core.utils_redir').nredir(opts.args, "horizontal")
-end, { nargs = 1, complete = 'command' })
-
 vim.api.nvim_create_user_command('Redirv', function(opts)
   require('core.utils_redir').nredir(opts.args, "vertical")
 end, { nargs = 1, complete = 'command' })
 
--- ---------------------------------------------------------------------------- 
+-- ----------------------------------------------------------------------------
 -- set tab size for certain file type
--- ---------------------------------------------------------------------------- 
+-- ----------------------------------------------------------------------------
 -- csharp
 local filetype_cs_group = vim.api.nvim_create_augroup("FileTypeCS", { clear = true })
 vim.api.nvim_create_autocmd("FileType", {
@@ -347,21 +345,21 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
--- ---------------------------------------------------------------------------- 
+-- ----------------------------------------------------------------------------
 -- Focus left tab when tab closed
--- ---------------------------------------------------------------------------- 
+-- ----------------------------------------------------------------------------
 -- https://stackoverflow.com/a/77006146
-vim.api.nvim_create_augroup('TabClosed', { clear = true })
-vim.api.nvim_create_autocmd('TabClosed', {
-  group = 'TabClosed',
+vim.api.nvim_create_augroup("TabClosed", { clear = true })
+vim.api.nvim_create_autocmd("TabClosed", {
+  group = "TabClosed",
   callback = function()
-    vim.cmd('tabprevious')
+    vim.cmd("tabprevious")
   end,
 })
 
--- ---------------------------------------------------------------------------- 
+-- ----------------------------------------------------------------------------
 -- Don't add endofline automatically
--- ---------------------------------------------------------------------------- 
+-- ----------------------------------------------------------------------------
 -- https://stackoverflow.com/a/4152785
 -- vim.api.nvim_create_autocmd("BufWritePre", {
 --   callback = function()
@@ -376,4 +374,3 @@ vim.api.nvim_create_autocmd('TabClosed', {
 --     vim.cmd("set eol")
 --   end,
 -- })
-

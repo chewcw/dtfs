@@ -449,7 +449,15 @@ M.blank_up = function(count)
   local current_line = cursor[1]
 
   -- Insert blank lines above the current line
-  vim.api.nvim_buf_set_lines(buf, current_line - 1, current_line - 1, false, vim.tbl_map(function() return "" end, vim.fn.range(count)))
+  vim.api.nvim_buf_set_lines(
+    buf,
+    current_line - 1,
+    current_line - 1,
+    false,
+    vim.tbl_map(function()
+      return ""
+    end, vim.fn.range(count))
+  )
 
   -- Move cursor to the topmost new line
   if count > 1 then
