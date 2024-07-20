@@ -490,6 +490,9 @@ mode "$mode_printscreen" {
 }
 bindsym $mod+p mode "$mode_printscreen"
 
+# printscreen (shutter)
+bindsym Print exec shutter -s
+
 # open file explorer GUI
 bindsym $mod+Shift+f exec nautilus --no-desktop
 
@@ -513,6 +516,7 @@ mode "$mode_presentation" {
   # printscreen mapping should work in presentation mode
   bindsym $mod+Shift+p exec flameshot gui
   bindsym $mod+Ctrl+p exec flameshot full -c -p $HOME/Pictures
+  bindsym Print exec shutter -s
 }
 bindsym $mod+F3 mode "$mode_presentation"; exec sh -c '$HOME/.local/bin/projecteur_action.sh default'
 
