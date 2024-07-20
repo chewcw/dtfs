@@ -28,9 +28,6 @@ M.general = {
     ["<A-S-h>"] = { "<cmd> tabprevious <CR> <Esc>", "previous tab" },
     ["<A-S-l>"] = { "<cmd> tabnext <CR> <Esc>", "next tab" },
 
-    -- insert new line above
-    ["<A-CR>"] = { "<C-o>O" },
-
     -- ["<C-n>"] = { "" }, -- unmap this
     ["<C-]>"] = { "<Esc>", "esc" }, -- i always press the wrong key
 
@@ -204,9 +201,6 @@ M.general = {
       "toggle cursor line for window",
     },
 
-    -- insert new line above
-    ["<A-CR>"] = { "O<Esc>" },
-
     -- write comment
     ["<leader>ch"] = { utils_comment.insert_comment_with_trails, "write comment with trails" },
     ["<leader>cs"] = { utils_comment.insert_comment_with_solid_line, "write comment with solid line" },
@@ -324,6 +318,10 @@ M.general = {
     ["[q"] = { ":cprevious<CR>", "select previous item in the quickfix list" },
     ["]l"] = { ":lnext<CR>", "select next item in the location list" },
     ["[l"] = { ":lprevious<CR>", "select previous item in the location list" },
+    ["]e"] = { ":lua require('core.utils').swap_line_with_below(vim.v.count1)<CR>", "exchange the current line with [count] lines below it" },
+    ["[e"] = { ":lua require('core.utils').swap_line_with_above(vim.v.count1)<CR>", "exchange the current line with [count] lines above it" },
+    ["[<Space>"] = { ":lua require('core.utils').blank_up(vim.v.count1)<CR>", "Add [count] blank lines above the cursor" },
+    ["]<Space>"] = { ":lua require('core.utils').blank_down(vim.v.count1)<CR>", "Add [count] blank lines below the cursor" },
     ["g<CR>"] = { "<cmd> :lua require('core.utils').search_word_under_cursor() <CR>", "Search current word, but not move the cursor" },
 
     ["<C-w><C-h>"] = { "<C-w>h|<C-w>|<CR><C-w>_<CR>", "switch to left window and maximize it" },

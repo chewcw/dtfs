@@ -335,17 +335,17 @@ M.search_visual_selection = function()
   vim.cmd('normal! "*y')
 
   -- Get the yanked text from the * register
-  local searchTerm = vim.fn.escape(vim.fn.getreg('*'), '\\/'):gsub("\n", '\\n')
-  searchTerm = '\\V' .. searchTerm
+  local searchTerm = vim.fn.escape(vim.fn.getreg("*"), "\\/"):gsub("\n", "\\n")
+  searchTerm = "\\V" .. searchTerm
 
   -- Set the search register (@/) to the escaped searchTerm
-  vim.fn.setreg('/', searchTerm)
+  vim.fn.setreg("/", searchTerm)
 
   -- Echo the search term
-  print('/' .. searchTerm)
+  print("/" .. searchTerm)
 
   -- Add the search term to the search history
-  vim.fn.histadd('search', searchTerm)
+  vim.fn.histadd("search", searchTerm)
 
   -- Enable search highlighting
   vim.o.hlsearch = true
@@ -359,16 +359,16 @@ M.search_word_under_cursor = function()
   vim.cmd(":set hlsearch")
 
   -- Get the word under the cursor and escape it for use in the search
-  local searchTerm = '\\v<' .. vim.fn.expand('<cword>') .. '>'
+  local searchTerm = "\\v<" .. vim.fn.expand("<cword>") .. ">"
 
   -- Set the search register (@/) to the searchTerm
-  vim.fn.setreg('/', searchTerm)
+  vim.fn.setreg("/", searchTerm)
 
   -- Echo the search term
-  print('/' .. searchTerm)
+  print("/" .. searchTerm)
 
   -- Add the search term to the search history
-  vim.fn.histadd('search', searchTerm)
+  vim.fn.histadd("search", searchTerm)
 
   -- Enable search highlighting
   vim.o.hlsearch = trueend
@@ -397,6 +397,80 @@ M.is_quickfix_or_loclist = function(bufnr)
   local is_loclist = wininfo.loclist == 1
 
   return is_quickfix, is_loclist
+end
+
+-- swap line with below
+M.swap_line_with_below = function(count)
+  count = count or vim.v.count1 -- use vim.v.count1 to default to 1 if no count is provided
+  local buf = vim.api.nvim_get_current_buf()
+  local current_line = vim.api.nvim_win_get_cursor(0)[1]
+  local last_line = vim.api.nvim_buf_line_count(buf)
+
+  if current_line + count > last_line then
+    print("Cannot swap below, exceeds file length")
+    return
+  end
+
+  local lines = vim.api.nvim_buf_get_lines(buf, current_line - 1, current_line, false)
+  local below_lines = vim.api.nvim_buf_get_lines(buf, current_line + count - 1, current_line + count, false)
+
+  vim.api.nvim_buf_set_lines(buf, current_line - 1, current_line, false, below_lines)
+  vim.api.nvim_buf_set_lines(buf, current_line + count - 1, current_line + count, false, lines)
+
+  vim.api.nvim_win_set_cursor(0, {current_line + count, 0})
+end
+
+-- swap line with above
+M.swap_line_with_above = function(count)
+  count = count or vim.v.count1 -- use vim.v.count1 to default to 1 if no count is provided
+  local buf = vim.api.nvim_get_current_buf()
+  local current_line = vim.api.nvim_win_get_cursor(0)[1]
+
+  if current_line - count < 1 then
+    print("Cannot swap above, exceeds file length")
+    return
+  end
+
+  local lines = vim.api.nvim_buf_get_lines(buf, current_line - 1, current_line, false)
+  local above_lines = vim.api.nvim_buf_get_lines(buf, current_line - count - 1, current_line - count, false)
+
+  vim.api.nvim_buf_set_lines(buf, current_line - 1, current_line, false, above_lines)
+  vim.api.nvim_buf_set_lines(buf, current_line - count - 1, current_line - count, false, lines)
+
+  vim.api.nvim_win_set_cursor(0, {current_line - count, 0})
+end
+
+-- Adds blank lines above the current line
+M.blank_up = function(count)
+  count = count or vim.v.count1 -- use vim.v.count1 to default to 1 if no count is provided
+  local buf = vim.api.nvim_get_current_buf()
+  local win = vim.api.nvim_get_current_win()
+  local cursor = vim.api.nvim_win_get_cursor(win)
+  local current_line = cursor[1]
+
+  -- Insert blank lines above the current line
+  vim.api.nvim_buf_set_lines(buf, current_line - 1, current_line - 1, false, vim.tbl_map(function() return "" end, vim.fn.range(count)))
+
+  -- Move cursor to the topmost new line
+  if count > 1 then
+    vim.api.nvim_win_set_cursor(win, { current_line - count + count, 0 })
+  else
+    vim.api.nvim_win_set_cursor(win, { current_line - count + 1, 0 })
+  end
+end
+
+-- Adds blank lines below the current line
+M.blank_down = function(count)
+  count = count or vim.v.count1 -- use vim.v.count1 to default to 1 if no count is provided
+  local buf = vim.api.nvim_get_current_buf()
+  local win = vim.api.nvim_get_current_win()
+  local line = vim.api.nvim_win_get_cursor(win)[1]
+  local lines = {}
+  for _ = 1, count do
+    table.insert(lines, "")
+  end
+  vim.api.nvim_buf_set_lines(buf, line, line, false, lines)
+  vim.api.nvim_win_set_cursor(win, { line + count, 0 })
 end
 
 return M
