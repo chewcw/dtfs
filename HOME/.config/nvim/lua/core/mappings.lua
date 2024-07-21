@@ -307,7 +307,7 @@ M.general = {
     ["<leader>gq"] = { ":cq <CR>", "cquit" },
 
     -- gf open in new tab
-    ["gF"] = { "<C-w>gf", "open file in new tab" },
+    -- ["gF"] = { "<C-w>gf", "open file in new tab" },
 
     -- overloads
     ["<C-s>"] = { ":LspOverloadsSignature<CR>", "show function overloads" },
@@ -351,8 +351,6 @@ M.general = {
     ["<leader>gs"] = { ":diffget BASE <CR>", "diffget from base" },
     ["<leader>gq"] = { ":cq <CR>", "cquit" },
 
-    -- gf open in new tab
-    ["gF"] = { "<C-w>gf", "open file in new tab" },
     ["g<CR>"] = { "<cmd> :lua require('core.utils').search_visual_selection() <CR>", "Search selected words in visual mode" },
   },
 
