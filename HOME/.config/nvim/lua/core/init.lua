@@ -318,17 +318,17 @@ end, {})
 
 -- Redirect the output of a Vim or external command into a scratch buffer
 -- reference: https://github.com/sbulav/nredir.nvim
-vim.api.nvim_create_user_command('Redir', function(opts)
-  require('core.utils_redir').nredir(opts.args, "replace")
-end, { nargs = 1, complete = 'command' })
+vim.api.nvim_create_user_command("Redir", function(opts)
+  require("core.utils_redir").nredir(opts.args, "replace")
+end, { nargs = 1, complete = "command" })
 
-vim.api.nvim_create_user_command('Redirt', function(opts)
-  require('core.utils_redir').nredir(opts.args, "tab")
-end, { nargs = 1, complete = 'command' })
+vim.api.nvim_create_user_command("Redirt", function(opts)
+  require("core.utils_redir").nredir(opts.args, "tab")
+end, { nargs = 1, complete = "command" })
 
-vim.api.nvim_create_user_command('Redirv', function(opts)
-  require('core.utils_redir').nredir(opts.args, "vertical")
-end, { nargs = 1, complete = 'command' })
+vim.api.nvim_create_user_command("Redirv", function(opts)
+  require("core.utils_redir").nredir(opts.args, "vertical")
+end, { nargs = 1, complete = "command" })
 
 -- ----------------------------------------------------------------------------
 -- set tab size for certain file type
