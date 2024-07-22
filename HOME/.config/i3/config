@@ -517,6 +517,9 @@ mode "$mode_presentation" {
   bindsym $mod+Shift+p exec flameshot gui
   bindsym $mod+Ctrl+p exec flameshot full -c -p $HOME/Pictures
   bindsym Print exec shutter -s
+
+# enter fullscreen mode for the focused container
+  bindsym $mod+f fullscreen toggle
 }
 bindsym $mod+F3 mode "$mode_presentation"; exec sh -c '$HOME/.local/bin/projecteur_action.sh default'
 
