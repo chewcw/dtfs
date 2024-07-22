@@ -111,7 +111,7 @@ M.workspaces = {
 }
 
 M.whichkey = {
-  window = {
+  win = {
     border = "single",
   },
 }
