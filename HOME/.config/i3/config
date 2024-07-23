@@ -502,7 +502,7 @@ bindsym $mod+Shift+f exec nautilus --no-desktop
 # presentation mode
 set $mode_presentation present
 mode "$mode_presentation" {
-  bindsym 1 exec --no-startup-id sh -c 'pkill gromit-mpx || $(sleep 0.2 && gromit-mpx -a)'
+  bindsym 1 exec --no-startup-id sh -c '$HOME/.local/bin/gromit_mpx_action.sh'
   bindsym 2 exec --no-startup-id sh -c 'projecteur &'; exec --no-startup-id sh -c 'sleep 0.2 && projecteur -c spot=toggle'
   bindsym grave exec sh -c '$HOME/.local/bin/projecteur_action.sh default'; exec sh -c 'projecteur -c quit'
   bindsym Shift+3 exec sh -c '$HOME/.local/bin/projecteur_action.sh zoomIn'; exec sh -c 'projecteur -c quit'

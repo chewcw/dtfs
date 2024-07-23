@@ -236,6 +236,8 @@ echo "-------------------------------------------------------------------"
 ln -sf $pwd/HOME/.local/bin/gromit-mpx $HOME/.local/bin/gromit-mpx
 ln -sf $pwd/HOME/.config/gromit-mpx.cfg $HOME/.config/gromit-mpx.cfg
 ln -sf $pwd/HOME/.config/gromit-mpx.ini $HOME/.config/gromit-mpx.ini
+# Install symlink for gromit_mpx_action.sh (used inside i3 config)
+ln -sf $pwd/HOME/.local/bin/gromit_mpx_action.sh $HOME/.local/bin/gromit_mpx_action.sh
 
 echo "-------------------------------------------------------------------"
 echo "Setting symlink for Boomer (zoomer for linux, for presentation)"
