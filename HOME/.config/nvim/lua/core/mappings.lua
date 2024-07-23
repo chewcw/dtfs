@@ -210,7 +210,7 @@ M.general = {
     ["<A-t>"] = { ":term zsh || fish || bash <CR>", "open terminal in new buffer" },
 
     -- split window max out width and height
-    ["<C-w>f"] = { "<C-w>|<CR><C-w>_<CR>", "make split window max out width and height" },
+    ["<C-w>f"] = { "<C-w>|<C-w>_", "make split window max out width and height" },
 
     -- toggle indentation between 2 and 4 spaces
     ["g4"] = {
@@ -324,10 +324,10 @@ M.general = {
     ["]<Space>"] = { ":lua require('core.utils').blank_down(vim.v.count1)<CR>", "Add [count] blank lines below the cursor" },
     ["g<CR>"] = { "<cmd> :lua require('core.utils').search_word_under_cursor() <CR>", "Search current word, but not move the cursor" },
 
-    ["<C-w><C-h>"] = { "<C-w>h|<C-w>|<CR><C-w>_<CR>", "switch to left window and maximize it" },
-    ["<C-w><C-l>"] = { "<C-w>l|<C-w>|<CR><C-w>_<CR>", "switch to right window and maximize it" },
-    ["<C-w><C-k>"] = { "<C-w>k|<C-w>|<CR><C-w>_<CR>", "switch to top window and maximize it" },
-    ["<C-w><C-j>"] = { "<C-w>j|<C-w>|<CR><C-w>_<CR>", "switch to bottom window and maximize it" },
+    ["<C-w><C-h>"] = { "<C-w>h|<C-w>|", "switch to left window and maximize it horizontally" },
+    ["<C-w><C-l>"] = { "<C-w>l|<C-w>|", "switch to right window and maximize it horizontally" },
+    ["<C-w><C-k>"] = { "<C-w>k|<C-w>_", "switch to top window and maximize it vertically" },
+    ["<C-w><C-j>"] = { "<C-w>j|<C-w>_", "switch to bottom window and maximize it vertically" },
   },
 
   v = {
