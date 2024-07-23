@@ -456,33 +456,6 @@ local default_plugins = {
         end
         vim.cmd(cmd)
       end, { desc = "Git log with format", nargs = "*" })
-
-      vim.api.nvim_create_user_command("Gllh", function(args)
-        local cmd = [[ Git log --graph --pretty=format:"%h %Cred%an %Cblue%aI %Cred%d%Cgreen%s" ]]
-        if args["args"] then
-          cmd = cmd .. " " .. args["args"]
-        end
-        vim.cmd(cmd)
-      end, { desc = "Git log with format (horizontal)", nargs = "*" })
-
-      vim.api.nvim_create_user_command("Gllv", function(args)
-        local cmd = [[ vertical Git log --graph --pretty=format:"%h %Cred%an %Cblue%aI %Cred%d%Cgreen%s" ]]
-        if args["args"] then
-          cmd = cmd .. " " .. args["args"]
-        end
-        vim.cmd(cmd)
-      end, { desc = "Git log with format (vertical)", nargs = "*" })
-
-      vim.api.nvim_create_user_command("Gllt", function(args)
-        local cmd = [[ Git log --graph --pretty=format:"%h %Cred%an %Cblue%aI %Cred%d%Cgreen%s" ]]
-        if args["args"] then
-          cmd = cmd .. " " .. args["args"]
-        end
-        vim.cmd("tabnew") -- create new tab
-        vim.cmd(cmd)    -- show the log
-        vim.cmd("wincmd k") -- move cursor to above buffer
-        vim.cmd("wincmd q") -- close the empty buffer
-      end, { desc = "Git log with format (new tab)", nargs = "*" })
     end,
   },
 

@@ -371,6 +371,12 @@ M.general = {
       function()
         local last_command = vim.fn.getcmdline()
         local modified_command = ":vertical " .. last_command
+        if last_command:find('^' .. "Gll") ~= nil then
+          vim.cmd("vnew") -- open vsplit
+          vim.cmd(last_command)
+          vim.api.nvim_input("<Esc>")
+          return
+        end
         if not pcall(function()
               vim.cmd(modified_command)
             end) then
@@ -384,6 +390,9 @@ M.general = {
       function()
         local last_command = vim.fn.getcmdline()
         local modified_command = ":tab " .. last_command
+        if last_command:find('^' .. "Gll") ~= nil then
+          modified_command = ":tabnew | execute('" .. last_command .. "')"
+        end
         if not pcall(function()
               vim.cmd(modified_command)
             end) then
@@ -397,6 +406,9 @@ M.general = {
       function()
         local last_command = vim.fn.getcmdline()
         local modified_command = "0" .. last_command
+        if last_command:find('^' .. "Gll") ~= nil then
+          modified_command = last_command
+        end
         if not pcall(function()
               vim.cmd(modified_command)
             end) then
@@ -405,6 +417,25 @@ M.general = {
         vim.api.nvim_input("<Esc>")
       end,
       "add `0` to the beginning of the command to open in current window (useful for fugitive :Git log)",
+    },
+    ["<A-_>"] = {
+      function()
+        local last_command = vim.fn.getcmdline()
+        local modified_command = last_command
+        if last_command:find('^' .. "Gll") ~= nil then
+          vim.cmd("new") -- open split
+          vim.cmd(last_command)
+          vim.api.nvim_input("<Esc>")
+          return
+        end
+        if not pcall(function()
+              vim.cmd(modified_command)
+            end) then
+          vim.cmd(last_command)
+        end
+        vim.api.nvim_input("<Esc>")
+      end,
+      "open fugitive :Git log in horizontal split",
     },
   },
 }
