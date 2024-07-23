@@ -42,12 +42,12 @@ M.general = {
     -- because of core.utils.toggle_search_highlight function, normal search using following
     -- mappings may not have highlights shown, because it has been toggled off, so
     -- these mappings made sure hlsearch will always be on.
-    ["*"] = { '*:lua vim.o.hlsearch = true<CR>' },
-    ["#"] = { '#:lua vim.o.hlsearch = true<CR>' },
-    ["g*"] = { 'g*:lua vim.o.hlsearch = true<CR>' },
-    ["g#"] = { 'g#:lua vim.o.hlsearch = true<CR>' },
-    ["n"] = { 'n:lua vim.o.hlsearch = true<CR>' },
-    ["N"] = { 'N:lua vim.o.hlsearch = true<CR>' },
+    ["*"] = { '*:lua vim.o.hlsearch = true<CR>', "", opts = { silent = true } },
+    ["#"] = { '#:lua vim.o.hlsearch = true<CR>', "", opts = { silent = true } },
+    ["g*"] = { 'g*:lua vim.o.hlsearch = true<CR>', "", opts = { silent = true } },
+    ["g#"] = { 'g#:lua vim.o.hlsearch = true<CR>', "", opts = { silent = true } },
+    ["n"] = { 'n:lua vim.o.hlsearch = true<CR>', "", opts = { silent = true } },
+    ["N"] = { 'N:lua vim.o.hlsearch = true<CR>', "", opts = { silent = true } },
 
     ["<C-e>"] = {
       function()
