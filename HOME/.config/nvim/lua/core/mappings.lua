@@ -349,6 +349,8 @@ M.general = {
     ["<leader>gq"] = { ":cq <CR>", "cquit" },
 
     ["g<CR>"] = { "<cmd> :lua require('core.utils').search_visual_selection() <CR>", "Search selected words in visual mode" },
+
+    ["<leader>s"] = { "<Esc>/\\%V", "search in visual selection" },
   },
 
   x = {
