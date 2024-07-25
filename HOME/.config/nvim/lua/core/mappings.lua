@@ -377,6 +377,12 @@ M.general = {
           vim.api.nvim_input("<Esc>")
           return
         end
+        if last_command:find('^' .. "Redir") ~= nil then
+          local args = last_command:gsub("^Redir ", "")
+          require("core.utils_redir").nredir(args, "vertical")
+          vim.api.nvim_input("<Esc>")
+          return
+        end
         if not pcall(function()
               vim.cmd(modified_command)
             end) then
@@ -392,6 +398,12 @@ M.general = {
         local modified_command = ":tab " .. last_command
         if last_command:find('^' .. "Gll") ~= nil then
           modified_command = ":tabnew | execute('" .. last_command .. "')"
+        end
+        if last_command:find('^' .. "Redir") ~= nil then
+          local args = last_command:gsub("^Redir ", "")
+          require("core.utils_redir").nredir(args, "tab")
+          vim.api.nvim_input("<Esc>")
+          return
         end
         if not pcall(function()
               vim.cmd(modified_command)
