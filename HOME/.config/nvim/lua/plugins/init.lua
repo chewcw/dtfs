@@ -450,7 +450,7 @@ local default_plugins = {
         local buffer_utils = require("plugins.configs.buffer_utils")
         buffer_utils.delete_buffer_create_new()
 
-        local cmd = [[ 0Git log --graph --pretty=format:"%h %Cred%an %Cblue%aI %Cred%d%Cgreen%s" ]]
+        local cmd = [[ Git log --graph --pretty=format:"%h %Cred%an %Cblue%aI %Cred%d%Cgreen%s" ]]
         if args["args"] then
           cmd = cmd .. " " .. args["args"]
         end

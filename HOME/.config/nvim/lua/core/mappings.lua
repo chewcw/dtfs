@@ -375,7 +375,9 @@ M.general = {
         local modified_command = ":vertical " .. last_command
         if last_command:find('^' .. "Gll") ~= nil then
           vim.cmd("vnew") -- open vsplit
-          vim.cmd(last_command)
+          vim.cmd(modified_command)
+          vim.cmd("wincmd k")
+          vim.cmd("wincmd q")
           vim.api.nvim_input("<Esc>")
           return
         end
@@ -400,6 +402,11 @@ M.general = {
         local modified_command = ":tab " .. last_command
         if last_command:find('^' .. "Gll") ~= nil then
           modified_command = ":tabnew | execute('" .. last_command .. "')"
+          vim.cmd(modified_command)
+          vim.cmd("wincmd k")
+          vim.cmd("wincmd q")
+          vim.api.nvim_input("<Esc>")
+          return
         end
         if last_command:find('^' .. "Redir") ~= nil then
           local args = last_command:gsub("^Redir ", "")
@@ -419,9 +426,14 @@ M.general = {
     ["<A-0>"] = {
       function()
         local last_command = vim.fn.getcmdline()
-        local modified_command = "0" .. last_command
+        local modified_command = last_command
         if last_command:find('^' .. "Gll") ~= nil then
           modified_command = last_command
+          vim.cmd(modified_command)
+          vim.cmd("wincmd k")
+          vim.cmd("wincmd q")
+          vim.api.nvim_input("<Esc>")
+          return
         end
         if not pcall(function()
               vim.cmd(modified_command)
@@ -437,7 +449,6 @@ M.general = {
         local last_command = vim.fn.getcmdline()
         local modified_command = last_command
         if last_command:find('^' .. "Gll") ~= nil then
-          vim.cmd("new") -- open split
           vim.cmd(last_command)
           vim.api.nvim_input("<Esc>")
           return
