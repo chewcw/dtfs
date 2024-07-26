@@ -417,7 +417,7 @@ M.swap_line_with_below = function(count)
   vim.api.nvim_buf_set_lines(buf, current_line - 1, current_line, false, below_lines)
   vim.api.nvim_buf_set_lines(buf, current_line + count - 1, current_line + count, false, lines)
 
-  vim.api.nvim_win_set_cursor(0, {current_line + count, 0})
+  vim.api.nvim_win_set_cursor(0, { current_line + count, 0 })
 end
 
 -- swap line with above
@@ -437,7 +437,7 @@ M.swap_line_with_above = function(count)
   vim.api.nvim_buf_set_lines(buf, current_line - 1, current_line, false, above_lines)
   vim.api.nvim_buf_set_lines(buf, current_line - count - 1, current_line - count, false, lines)
 
-  vim.api.nvim_win_set_cursor(0, {current_line - count, 0})
+  vim.api.nvim_win_set_cursor(0, { current_line - count, 0 })
 end
 
 -- Adds blank lines above the current line
@@ -479,6 +479,27 @@ M.blank_down = function(count)
   end
   vim.api.nvim_buf_set_lines(buf, line, line, false, lines)
   vim.api.nvim_win_set_cursor(win, { line + count, 0 })
+end
+
+M.url_encode = function(str)
+  if str then
+    str = str:gsub("\n", "\r\n")
+    str = str:gsub("([^%w%-_%.%~ ])", function(c)
+      return string.format("%%%02X", string.byte(c))
+    end)
+    str = str:gsub(" ", "%%20")
+  end
+  return str
+end
+
+M.url_decode = function(str)
+  if str then
+    str = str:gsub("%%(%x%x)", function(h)
+      return string.char(tonumber(h, 16))
+    end)
+    str = str:gsub("\r\n", "\n")
+  end
+  return str
 end
 
 return M

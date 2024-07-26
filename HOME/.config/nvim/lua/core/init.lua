@@ -353,7 +353,65 @@ vim.api.nvim_create_autocmd("TabClosed", {
 -- Superscript and subscript
 -- ----------------------------------------------------------------------------
 -- https://vi.stackexchange.com/a/29067
-require('core.digraphs').register_digraphs()
+require("core.digraphs").register_digraphs()
+
+vim.api.nvim_create_user_command("UrlEncode", function()
+  -- Get the current visual selection range
+  local start_pos = vim.fn.getpos("'<")
+  local end_pos = vim.fn.getpos("'>")
+
+  -- Convert the positions to 0-indexed
+  local start_row = start_pos[2] - 1
+  local start_col = start_pos[3] - 1
+  local end_row = end_pos[2] - 1
+  local end_col = end_pos[3] - 1
+
+  -- Get the current buffer number
+  local buf = vim.api.nvim_get_current_buf()
+  -- Get the text from the buffer within the specified range
+  local lines = vim.api.nvim_buf_get_text(buf, start_row, start_col, end_row, end_col, {})
+  -- Join the lines into a single string (if multiple lines)
+  local text = table.concat(lines, "\n")
+  -- Delete the text within the specified range
+  vim.api.nvim_buf_set_text(buf, start_row, start_col, end_row, end_col, {})
+  -- Get the current line
+  local line = vim.api.nvim_buf_get_lines(buf, start_row, start_row + 1, false)[1]
+  -- url decoded string
+  local replacement = require("core.utils").url_encode(text)
+  -- Insert the new text at the specified column without replacing the character following
+  local new_line = line:sub(1, start_col) .. replacement .. line:sub(start_col + 1)
+  -- Set the modified line back to the buffer
+  vim.api.nvim_buf_set_lines(buf, start_row, start_row + 1, false, { new_line })
+end, { nargs = 0, range = true })
+
+vim.api.nvim_create_user_command("UrlDecode", function()
+  -- Get the current visual selection range
+  local start_pos = vim.fn.getpos("'<")
+  local end_pos = vim.fn.getpos("'>")
+
+  -- Convert the positions to 0-indexed
+  local start_row = start_pos[2] - 1
+  local start_col = start_pos[3] - 1
+  local end_row = end_pos[2] - 1
+  local end_col = end_pos[3] - 1
+
+  -- Get the current buffer number
+  local buf = vim.api.nvim_get_current_buf()
+  -- Get the text from the buffer within the specified range
+  local lines = vim.api.nvim_buf_get_text(buf, start_row, start_col, end_row, end_col, {})
+  -- Join the lines into a single string (if multiple lines)
+  local text = table.concat(lines, "\n")
+  -- Delete the text within the specified range
+  vim.api.nvim_buf_set_text(buf, start_row, start_col, end_row, end_col, {})
+  -- Get the current line
+  local line = vim.api.nvim_buf_get_lines(buf, start_row, start_row + 1, false)[1]
+  -- url decoded string
+  local replacement = require("core.utils").url_decode(text)
+  -- Insert the new text at the specified column without replacing the character following
+  local new_line = line:sub(1, start_col) .. replacement .. line:sub(start_col + 1)
+  -- Set the modified line back to the buffer
+  vim.api.nvim_buf_set_lines(buf, start_row, start_row + 1, false, { new_line })
+end, { nargs = 0, range = true })
 
 -- ----------------------------------------------------------------------------
 -- Don't add endofline automatically
