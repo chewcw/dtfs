@@ -426,7 +426,7 @@ M.general = {
     ["<A-0>"] = {
       function()
         local last_command = vim.fn.getcmdline()
-        local modified_command = last_command
+        local modified_command = "0" .. last_command
         if last_command:find('^' .. "Gll") ~= nil then
           modified_command = last_command
           vim.cmd(modified_command)
