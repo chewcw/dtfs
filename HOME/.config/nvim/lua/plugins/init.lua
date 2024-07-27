@@ -198,6 +198,12 @@ local default_plugins = {
           -- commit = "326ddf0",
           ft = "gitcommit",
         },
+        {
+          "tzachar/cmp-fuzzy-buffer",
+        },
+        {
+          "tzachar/fuzzy.nvim",
+        },
       },
     },
     opts = function()
