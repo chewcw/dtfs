@@ -10,6 +10,7 @@
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
 
 set $mod Mod4
+set $alt Mod1
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -144,14 +145,14 @@ bindsym $mod+Shift+0 move container to workspace $workspace0
 
 # if there is parent in group of containers, switch to parent before switch to other container
 # https://www.reddit.com/r/i3wm/comments/4w0otj/is_there_a_way_to_switch_to_the_next_tab/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
-bindsym $mod+Ctrl+Shift+h focus parent; focus left; focus child
-bindsym $mod+Ctrl+Shift+Left focus parent; focus left; focus child
-bindsym $mod+Ctrl+Shift+l focus parent; focus right; focus child
-bindsym $mod+Ctrl+Shift+Right focus parent; focus right; focus child
-bindsym $mod+Ctrl+Shift+j focus parent; focus down; focus child
-bindsym $mod+Ctrl+Shift+Down focus parent; focus down; focus child
-bindsym $mod+Ctrl+Shift+k focus parent; focus up; focus child
-bindsym $mod+Ctrl+Shift+Up focus parent; focus up; focus child
+bindsym $mod+$alt+h focus parent; focus left; focus child
+bindsym $mod+$alt+Left focus parent; focus left; focus child
+bindsym $mod+$alt+l focus parent; focus right; focus child
+bindsym $mod+$alt+Right focus parent; focus right; focus child
+bindsym $mod+$alt+j focus parent; focus down; focus child
+bindsym $mod+$alt+Down focus parent; focus down; focus child
+bindsym $mod+$alt+k focus parent; focus up; focus child
+bindsym $mod+$alt+Up focus parent; focus up; focus child
 
 # Assign app to workspace
 # assign [class="Brave-browser"] $workspace3
