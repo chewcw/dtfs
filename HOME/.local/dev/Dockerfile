@@ -119,9 +119,9 @@ WORKDIR /workspace
 # EOF
 
 # install alacritty terminfo so that neovim can show undercurl
-RUN wget https://github.com/alacritty/alacritty/releases/download/v0.12.0/alacritty.info -O /tmp/alacritty.info && \
-    sudo tic -xe alacritty,alacritty-direct /tmp/alacritty.info && \
-    rm -rf /tmp/alacritty.info
+# RUN wget https://github.com/alacritty/alacritty/releases/download/v0.12.0/alacritty.info -O /tmp/alacritty.info && \
+#     sudo tic -xe alacritty,alacritty-direct /tmp/alacritty.info && \
+#     rm -rf /tmp/alacritty.info
 
 # zshrc
 RUN <<EOF cat > /home/ccw/.zshrc
