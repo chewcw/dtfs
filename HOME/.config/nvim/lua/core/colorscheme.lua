@@ -362,18 +362,18 @@ M.setup = function()
     LspReferenceRead = { fg = c.bg, bg = c.magenta },                                                           -- used for highlighting "read" references
     LspReferenceWrite = { fg = c.bg, bg = c.magenta },                                                          -- used for highlighting "write" references
     -- Diagnostics
-    DiagnosticError = { fg = c.red01 },                                                                         -- base highlight group for "Error"
-    DiagnosticWarn = { fg = c.yellow01 },                                                                       -- base highlight group for "Warning"
-    DiagnosticInfo = { fg = c.gray06 },                                                                         -- base highlight group from "Information"
-    DiagnosticHint = { fg = c.gray06 },                                                                         -- base highlight group for "Hint"
-    DiagnosticVirtualTextError = { fg = c.diagnostic_virtual_text_error, italic = true, underline = true },
-    DiagnosticVirtualTextWarn = { fg = c.diagnostic_virtual_text_warn, italic = true, underline = true },
-    DiagnosticVirtualTextInfo = { fg = c.diagnostic_virtual_text_info, italic = true, underline = true },
-    DiagnosticVirtualTextHint = { fg = c.diagnostic_virtual_text_hint, italic = true, underline = true },
-    DiagnosticUnderlineError = { fg = c.red01, undercurl = true, sp = c.red01 },         -- used to underline "Error" diagnostics.
-    DiagnosticUnderlineWarn = { fg = c.yellow01, undercurl = true, sp = c.yellow01 },    -- used to underline "Warning" diagnostics.
-    DiagnosticUnderlineInfo = { fg = c.gray06, undercurl = true, sp = c.gray06 },        -- used to underline "Information" diagnostics.
-    DiagnosticUnderlineHint = { fg = c.gray06, undercurl = true, sp = c.gray06 },        -- used to underline "Hint" diagnostics.
+    DiagnosticError = { bg = c.none, fg = c.red01 },                                                                         -- base highlight group for "Error"
+    DiagnosticWarn = { bg = c.none, fg = c.yellow01 },                                                                       -- base highlight group for "Warning"
+    DiagnosticInfo = { bg = c.none, fg = c.gray06 },                                                                         -- base highlight group from "Information"
+    DiagnosticHint = { bg = c.none, fg = c.gray06 },                                                                         -- base highlight group for "Hint"
+    DiagnosticVirtualTextError = { bg = c.none, fg = c.diagnostic_virtual_text_error, italic = true, underline = true },
+    DiagnosticVirtualTextWarn = { bg = c.none, fg = c.diagnostic_virtual_text_warn, italic = true, underline = true },
+    DiagnosticVirtualTextInfo = { bg = c.none, fg = c.diagnostic_virtual_text_info, italic = true, underline = true },
+    DiagnosticVirtualTextHint = { bg = c.none, fg = c.diagnostic_virtual_text_hint, italic = true, underline = true },
+    DiagnosticUnderlineError = { bg = c.none, fg = c.red01, undercurl = true, sp = c.red01 },         -- used to underline "Error" diagnostics.
+    DiagnosticUnderlineWarn = { bg = c.none, fg = c.yellow01, undercurl = true, sp = c.yellow01 },    -- used to underline "Warning" diagnostics.
+    DiagnosticUnderlineInfo = { bg = c.none, fg = c.gray06, undercurl = true, sp = c.gray06 },        -- used to underline "Information" diagnostics.
+    DiagnosticUnderlineHint = { bg = c.none, fg = c.gray06, undercurl = true, sp = c.gray06 },        -- used to underline "Hint" diagnostics.
     -- Diagnostics (old)
     LspDiagnosticsDefaultError = { fg = c.red },                                         -- used for "Error" diagnostic virtual text
     LspDiagnosticsSignError = { fg = c.red },                                            -- used for "Error" diagnostic signs in sign column
