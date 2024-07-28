@@ -159,7 +159,6 @@ M.options = {
     },
     sources = cmp.config.sources({
       { name = "async_path" },
-      { name = "fuzzy_buffer" },
     }, {
       {
         name = "cmdline",
