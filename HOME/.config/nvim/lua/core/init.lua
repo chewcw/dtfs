@@ -338,6 +338,20 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 -- ----------------------------------------------------------------------------
+-- set file type for certain file type
+-- ----------------------------------------------------------------------------
+-- razor file
+vim.api.nvim_create_autocmd({"BufRead", "BufNewFile"}, {
+  pattern = "*.razor",
+  callback = function()
+    vim.bo.filetype = "html"
+    vim.opt_local.tabstop = 4
+    vim.opt_local.shiftwidth = 4
+    vim.opt_local.expandtab = true
+  end,
+})
+
+-- ----------------------------------------------------------------------------
 -- Focus left tab when tab closed
 -- ----------------------------------------------------------------------------
 -- https://stackoverflow.com/a/77006146
