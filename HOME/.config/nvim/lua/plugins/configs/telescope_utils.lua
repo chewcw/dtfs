@@ -287,6 +287,13 @@ M.open_new_split_and_select_buffer = function(split_type)
   vim.cmd("let g:find_files_type='normal' | Telescope find_files follow=true")
 end
 
+M.open_new_tab_and_select_buffer = function()
+  vim.cmd("tabnew")
+
+  -- Open find files
+  vim.cmd("let g:find_files_type='normal' | Telescope find_files follow=true")
+end
+
 -- Don't preview binary file
 -- https://github.com/nvim-telescope/telescope.nvim/wiki/Configuration-Recipes#dont-preview-binaries
 M.dont_preview_binaries = function()

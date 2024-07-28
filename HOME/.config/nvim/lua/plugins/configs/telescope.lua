@@ -68,7 +68,7 @@ M.options = {
         ["<C-k>"] = require("telescope.actions").move_selection_previous,
         ["<A-\\>"] = require("telescope.actions").select_vertical,
         ["<A-_>"] = require("telescope.actions").select_horizontal,
-        ["<A-a>"] = require("telescope.actions").select_tab,
+        ["<A-e>"] = require("telescope.actions").select_tab,
         ["<C-A-l>"] = require("telescope.actions").preview_scrolling_right,
         ["<C-A-h>"] = require("telescope.actions").preview_scrolling_left,
         ["<C-A-d>"] = require("telescope.actions").preview_scrolling_down,
@@ -100,7 +100,7 @@ M.options = {
         ["<C-n>"] = function() end,
         ["<A-\\>"] = require("telescope.actions").select_vertical,
         ["<A-_>"] = require("telescope.actions").select_horizontal,
-        ["<A-a>"] = require("telescope.actions").select_tab,
+        ["<A-e>"] = require("telescope.actions").select_tab,
         -- toggle all
         ["<C-a>"] = require("telescope.actions").toggle_all,
         ["q"] = require("telescope.actions").close,

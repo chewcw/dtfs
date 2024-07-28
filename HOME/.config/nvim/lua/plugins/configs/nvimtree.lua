@@ -85,7 +85,7 @@ local options = {
 		end
 		vim.keymap.set("n", "<A-\\>", api.node.open.vertical, opts("open in vertical split"))
 		vim.keymap.set("n", "<A-_>", api.node.open.horizontal, opts("open in horizontal split"))
-		vim.keymap.set("n", "<A-a>", api.node.open.tab, opts("open in new tab"))
+		vim.keymap.set("n", "<A-e>", api.node.open.tab, opts("open in new tab"))
 		vim.keymap.set("n", "h", api.node.navigate.parent_close, opts("navigate up"))
 		vim.keymap.set("n", "l", api.node.open.edit, opts("open"))
 		vim.keymap.set("n", "p", api.fs.paste, opts("paste"))
