@@ -206,9 +206,6 @@ M.general = {
     ["<leader>cs"] = { utils_comment.insert_comment_with_solid_line, "write comment with solid line" },
     ["<leader>cH"] = { utils_comment.insert_comment_with_header, "write comment with header" },
 
-    -- open terminal in new buffer not using toggleterm
-    ["<A-t>"] = { ":term zsh || fish || bash <CR>", "open terminal in new buffer" },
-
     -- split window max out width and height
     ["<C-w>f"] = { "<C-w>|<C-w>_", "make split window max out width and height" },
 
@@ -692,6 +689,8 @@ M.telescope = {
 
     -- terminal switcher
     ["<leader>tt"] = { "<cmd> TermSelect <CR>", "select terminal" },
+    -- open terminal in new buffer not using toggleterm
+    ["<leader>tn"] = { ":term zsh || fish || bash <CR>", "open terminal in new buffer" },
 
     -- workspaces
     ["<leader>fw"] = { "<cmd> Telescope workspaces <CR>", "list workspaces" },
