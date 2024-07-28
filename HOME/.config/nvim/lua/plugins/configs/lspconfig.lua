@@ -150,12 +150,12 @@ lspconfig.omnisharp.setup({
   },
   settings = {
     FormattingOptions = {
-      EnableEditorConfigSupport = true,
-      OrganizeImports = true,
+      EnableEditorConfigSupport = false,
+      OrganizeImports = false,
     },
     RoslynExtensionsOptions = {
-      EnableAnalyzersSupport = true,
-      EnableImportCompletion = true,
+      EnableAnalyzersSupport = false,
+      EnableImportCompletion = false,
       AnalyzeOpenDocumentsOnly = nil,
     },
     Sdk = {
