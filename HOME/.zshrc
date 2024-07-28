@@ -192,7 +192,7 @@ alias monitor="xrandr --auto"
 
 # tmux and zsh auto-suggestion color issue
 # https://github.com/zsh-users/zsh-autosuggestions/issues/229
-export TERM=xterm-256color
+export TERM=xterm-kitty
 
 # watch
 alias watch="watch "
