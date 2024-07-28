@@ -49,13 +49,13 @@ M.general = {
     ["n"] = { 'n:lua vim.o.hlsearch = true<CR>', "", opts = { silent = true } },
     ["N"] = { 'N:lua vim.o.hlsearch = true<CR>', "", opts = { silent = true } },
 
-    ["<C-e>"] = {
-      function()
-        local result = vim.treesitter.get_captures_at_cursor(0)
-        print(vim.inspect(result))
-      end,
-      "get highlight group under cursor",
-    },
+    -- ["<C-e>"] = {
+    --   function()
+    --     local result = vim.treesitter.get_captures_at_cursor(0)
+    --     print(vim.inspect(result))
+    --   end,
+    --   "get highlight group under cursor",
+    -- },
 
     -- switch between windows
     ["<C-h>"] = { "<C-w>h", "window left" },
@@ -130,15 +130,20 @@ M.general = {
     ["|"] = { "@@", "repeat last called macro" },
 
     -- tab
-    ["<A-S-a>"] = { ":tabedit <CR>", "new tab" },
+    ["<A-S-e>"] = { ":tabedit <CR>", "new tab" },
     -- ["<A-S-w>"] = { "<cmd> bprevious|bdelete!#<CR> <cmd> tabclose <CR> <Esc>", "delete buffer from buffer list and close tab" },
     -- ["<A-S-d>"] = { "<cmd> :lua require('plugins.configs.telescope_utils').delete_and_select_old_buffer() <CR>", "delete the buffer and select the old buffer" },
     ["<A-S-h>"] = { ":tabprevious <CR>", "previous tab" },
     ["<A-S-l>"] = { ":tabnext <CR>", "next tab" },
     -- normally if I run :tabclose, next tab will be focused, this keymap overrides
     -- it and focus on previous tab instead
-    ["<C-a>c"] = { "<cmd> :lua require('core.utils').close_and_focus_previous_tab() <CR>", "close current tab" },
-    ["<C-a>o"] = { ":tabonly <CR>", "close other tab" },
+    ["<C-e>c"] = { "<cmd> :lua require('core.utils').close_and_focus_previous_tab() <CR>", "close current tab" },
+    ["<C-e>o"] = { ":tabonly <CR>", "close other tab" },
+    -- open new tab and select buffer
+    ["<C-A-e>"] = {
+      "<cmd> :lua require('plugins.configs.telescope_utils').open_new_tab_and_select_buffer('vertical') <CR>",
+      "open new tab",
+    },
 
     -- link
     ["gx"] = { ":execute '!xdg-open ' .. shellescape(expand('<cfile>'), v:true)<CR><CR>", "open link" },
@@ -393,7 +398,7 @@ M.general = {
       end,
       "add `vertical` to the beginning of the command to open in vertical mode",
     },
-    ["<A-a>"] = {
+    ["<A-e>"] = {
       function()
         local last_command = vim.fn.getcmdline()
         local modified_command = ":tab " .. last_command
