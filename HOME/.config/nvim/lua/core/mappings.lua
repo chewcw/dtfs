@@ -130,15 +130,15 @@ M.general = {
     ["|"] = { "@@", "repeat last called macro" },
 
     -- tab
-    ["<A-S-t>"] = { ":tabedit <CR>", "new tab" },
+    ["<A-S-a>"] = { ":tabedit <CR>", "new tab" },
     -- ["<A-S-w>"] = { "<cmd> bprevious|bdelete!#<CR> <cmd> tabclose <CR> <Esc>", "delete buffer from buffer list and close tab" },
     -- ["<A-S-d>"] = { "<cmd> :lua require('plugins.configs.telescope_utils').delete_and_select_old_buffer() <CR>", "delete the buffer and select the old buffer" },
     ["<A-S-h>"] = { ":tabprevious <CR>", "previous tab" },
     ["<A-S-l>"] = { ":tabnext <CR>", "next tab" },
     -- normally if I run :tabclose, next tab will be focused, this keymap overrides
     -- it and focus on previous tab instead
-    ["<C-T>c"] = { "<cmd> :lua require('core.utils').close_and_focus_previous_tab() <CR>", "close current tab" },
-    ["<C-T>o"] = { ":tabonly <CR>", "close other tab" },
+    ["<C-a>c"] = { "<cmd> :lua require('core.utils').close_and_focus_previous_tab() <CR>", "close current tab" },
+    ["<C-a>o"] = { ":tabonly <CR>", "close other tab" },
 
     -- link
     ["gx"] = { ":execute '!xdg-open ' .. shellescape(expand('<cfile>'), v:true)<CR><CR>", "open link" },
@@ -396,7 +396,7 @@ M.general = {
       end,
       "add `vertical` to the beginning of the command to open in vertical mode",
     },
-    ["<A-t>"] = {
+    ["<A-a>"] = {
       function()
         local last_command = vim.fn.getcmdline()
         local modified_command = ":tab " .. last_command
