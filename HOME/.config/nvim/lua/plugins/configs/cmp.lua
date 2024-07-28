@@ -158,7 +158,7 @@ M.options = {
       },
     },
     sources = cmp.config.sources({
-      -- { name = "async_path" },
+      { name = "async_path" },
       { name = "fuzzy_buffer" },
     }, {
       {
@@ -201,7 +201,7 @@ M.options = {
       },
     },
     sources = {
-      -- { name = "buffer" },
+      { name = "buffer" },
       { name = "fuzzy_buffer" },
     },
     formatting = { fields = { "abbr" } },
