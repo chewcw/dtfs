@@ -210,6 +210,10 @@ M.delete_and_select_buffer = function()
             vim.api.nvim_command("buffer " .. next_bufnr)
             require("telescope.actions").close()
           end)
+          map("n", "q", function() -- not selecting buffer, just close the window
+            vim.cmd("q!") -- close the telescope picker
+            vim.cmd("wincmd c") -- close the window
+          end)
           return true
         end,
       })
@@ -241,7 +245,20 @@ M.delete_and_select_old_buffer = function()
     buffer_utils.delete_buffer_create_new()
 
     -- Open oldfiles
-    vim.cmd("Telescope oldfiles ignore_current_buffer=true cwd_only=true")
+    -- vim.cmd("Telescope oldfiles ignore_current_buffer=true cwd_only=true")
+    require("telescope.builtin").oldfiles({
+      cwd_only = true,
+      ignore_current_buffer = true,
+      attach_mappings = function(_, map)
+        map("n", "q", function() -- not selecting old file, just close the window
+          pcall(function()
+            vim.cmd("q!") -- close the telescope picker
+            vim.cmd("wincmd c") -- close the window
+          end)
+        end)
+        return true
+      end,
+    })
   else
     -- If it's the last buffer, create a new blank buffer
     vim.cmd("enew")
@@ -284,14 +301,38 @@ M.open_new_split_and_select_buffer = function(split_type)
   end
 
   -- Open find files
-  vim.cmd("let g:find_files_type='normal' | Telescope find_files follow=true")
+  vim.cmd("let g:find_files_type='normal'")
+  require("telescope.builtin").find_files({
+    follow = true,
+    attach_mappings = function(_, map)
+      map("n", "q", function() -- not selecting file, just close the window
+        pcall(function ()
+          vim.cmd("q!") -- close the telescope picker
+          vim.cmd("wincmd c") -- close the window
+        end)
+      end)
+      return true
+    end,
+  })
 end
 
 M.open_new_tab_and_select_buffer = function()
   vim.cmd("tabnew")
 
   -- Open find files
-  vim.cmd("let g:find_files_type='normal' | Telescope find_files follow=true")
+  vim.cmd("let g:find_files_type='normal'")
+  require("telescope.builtin").find_files({
+    follow = true,
+    attach_mappings = function(_, map)
+      map("n", "q", function() -- not selecting file, just close the window
+        pcall(function ()
+          vim.cmd("q!") -- close the telescope picker
+          vim.cmd("tabclose") -- close the tab
+        end)
+      end)
+      return true
+    end,
+  })
 end
 
 -- Don't preview binary file
