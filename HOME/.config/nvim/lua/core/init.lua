@@ -300,6 +300,8 @@ vim.api.nvim_create_autocmd("CmdlineLeave", {
     if cmd_line_type == "/" or cmd_line_type == "?" then
       if string.find(cmd_line, "^.+") then
         vim.o.hlsearch = true
+      else
+        vim.o.hlsearch = false
       end
     end
   end,
