@@ -27,6 +27,8 @@ M.general = {
     -- },
     ["<A-S-h>"] = { "<cmd> tabprevious <CR> <Esc>", "previous tab" },
     ["<A-S-l>"] = { "<cmd> tabnext <CR> <Esc>", "next tab" },
+    ["<A-S-j>"] = { "<cmd> :lua require('plugins.configs.buffer_utils').switch_to_next_buffer_in_cwd() <CR>", "previous buffer" },
+    ["<A-S-k>"] = { "<cmd> :lua require('plugins.configs.buffer_utils').switch_to_previous_buffer_in_cwd() <CR>", "next previous" },
 
     -- ["<C-n>"] = { "" }, -- unmap this
     ["<C-]>"] = { "<Esc>", "esc" }, -- i always press the wrong key
@@ -135,6 +137,8 @@ M.general = {
     -- ["<A-S-d>"] = { "<cmd> :lua require('plugins.configs.telescope_utils').delete_and_select_old_buffer() <CR>", "delete the buffer and select the old buffer" },
     ["<A-S-h>"] = { ":tabprevious <CR>", "previous tab" },
     ["<A-S-l>"] = { ":tabnext <CR>", "next tab" },
+    ["<A-S-j>"] = { "<cmd> :lua require('plugins.configs.buffer_utils').switch_to_next_buffer_in_cwd() <CR>", "previous buffer" },
+    ["<A-S-k>"] = { "<cmd> :lua require('plugins.configs.buffer_utils').switch_to_previous_buffer_in_cwd() <CR>", "next previous" },
     -- normally if I run :tabclose, next tab will be focused, this keymap overrides
     -- it and focus on previous tab instead
     ["<C-e>c"] = { "<cmd> :lua require('core.utils').close_and_focus_previous_tab() <CR>", "close current tab" },

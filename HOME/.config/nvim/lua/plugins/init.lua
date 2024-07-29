@@ -633,7 +633,7 @@ local default_plugins = {
     dependencies = {
       {
         "inkarkat/vim-ingo-library",
-      }
+      },
     },
   },
 
