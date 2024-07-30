@@ -83,14 +83,14 @@ end
 local function get_buffers_in_cwd()
   local cwd = vim.fn.getcwd()
   local buffers = {}
-  for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
-    if vim.api.nvim_buf_is_loaded(bufnr) then
-      local bufname = vim.api.nvim_buf_get_name(bufnr)
-      if vim.startswith(bufname, cwd) then
-        table.insert(buffers, bufnr)
-      end
+
+  for _, bufinfo in ipairs(vim.fn.getbufinfo({ buflisted = 1 })) do
+    local bufname = bufinfo.name
+    if bufname ~= "" and vim.startswith(bufname, cwd) then
+      table.insert(buffers, bufinfo.bufnr)
     end
   end
+
   return buffers
 end
 
