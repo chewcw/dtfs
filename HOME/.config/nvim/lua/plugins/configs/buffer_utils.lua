@@ -81,49 +81,55 @@ M.toggle_newline_symbol = function()
 end
 
 local function get_buffers_in_cwd()
-    local cwd = vim.fn.getcwd()
-    local buffers = {}
-    for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
-        if vim.api.nvim_buf_is_loaded(bufnr) then
-            local bufname = vim.api.nvim_buf_get_name(bufnr)
-            if vim.startswith(bufname, cwd) then
-                table.insert(buffers, bufnr)
-            end
-        end
+  local cwd = vim.fn.getcwd()
+  local buffers = {}
+  for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
+    if vim.api.nvim_buf_is_loaded(bufnr) then
+      local bufname = vim.api.nvim_buf_get_name(bufnr)
+      if vim.startswith(bufname, cwd) then
+        table.insert(buffers, bufnr)
+      end
     end
-    return buffers
+  end
+  return buffers
 end
 
 M.switch_to_next_buffer_in_cwd = function()
-    local buffers = get_buffers_in_cwd()
-    local current_bufnr = vim.api.nvim_get_current_buf()
-    local current_index = nil
-    for i, bufnr in ipairs(buffers) do
-        if bufnr == current_bufnr then
-            current_index = i
-            break
-        end
+  if not vim.o.hlsearch then
+    vim.cmd("noh")
+  end
+  local buffers = get_buffers_in_cwd()
+  local current_bufnr = vim.api.nvim_get_current_buf()
+  local current_index = nil
+  for i, bufnr in ipairs(buffers) do
+    if bufnr == current_bufnr then
+      current_index = i
+      break
     end
-    if current_index then
-        local next_index = (current_index % #buffers) + 1
-        vim.api.nvim_set_current_buf(buffers[next_index])
-    end
+  end
+  if current_index then
+    local next_index = (current_index % #buffers) + 1
+    vim.api.nvim_set_current_buf(buffers[next_index])
+  end
 end
 
 M.switch_to_previous_buffer_in_cwd = function()
-    local buffers = get_buffers_in_cwd()
-    local current_bufnr = vim.api.nvim_get_current_buf()
-    local current_index = nil
-    for i, bufnr in ipairs(buffers) do
-        if bufnr == current_bufnr then
-            current_index = i
-            break
-        end
+  if not vim.o.hlsearch then
+    vim.cmd("noh")
+  end
+  local buffers = get_buffers_in_cwd()
+  local current_bufnr = vim.api.nvim_get_current_buf()
+  local current_index = nil
+  for i, bufnr in ipairs(buffers) do
+    if bufnr == current_bufnr then
+      current_index = i
+      break
     end
-    if current_index then
-        local previous_index = (current_index - 2) % #buffers + 1
-        vim.api.nvim_set_current_buf(buffers[previous_index])
-    end
+  end
+  if current_index then
+    local previous_index = (current_index - 2) % #buffers + 1
+    vim.api.nvim_set_current_buf(buffers[previous_index])
+  end
 end
 
 return M
