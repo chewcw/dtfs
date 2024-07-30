@@ -27,8 +27,14 @@ M.general = {
     -- },
     ["<A-S-h>"] = { "<cmd> tabprevious <CR> <Esc>", "previous tab" },
     ["<A-S-l>"] = { "<cmd> tabnext <CR> <Esc>", "next tab" },
-    ["<A-S-j>"] = { "<cmd> :lua require('plugins.configs.buffer_utils').switch_to_next_buffer_in_cwd() <CR>", "previous buffer" },
-    ["<A-S-k>"] = { "<cmd> :lua require('plugins.configs.buffer_utils').switch_to_previous_buffer_in_cwd() <CR>", "next previous" },
+    ["<A-S-j>"] = {
+      "<cmd> :lua require('plugins.configs.buffer_utils').switch_to_next_buffer_in_cwd() <CR>",
+      "previous buffer",
+    },
+    ["<A-S-k>"] = {
+      "<cmd> :lua require('plugins.configs.buffer_utils').switch_to_previous_buffer_in_cwd() <CR>",
+      "next previous",
+    },
 
     -- ["<C-n>"] = { "" }, -- unmap this
     ["<C-]>"] = { "<Esc>", "esc" }, -- i always press the wrong key
@@ -44,12 +50,12 @@ M.general = {
     -- because of core.utils.toggle_search_highlight function, normal search using following
     -- mappings may not have highlights shown, because it has been toggled off, so
     -- these mappings made sure hlsearch will always be on.
-    ["*"] = { '*:lua vim.o.hlsearch = true<CR>', "", opts = { silent = true } },
-    ["#"] = { '#:lua vim.o.hlsearch = true<CR>', "", opts = { silent = true } },
-    ["g*"] = { 'g*:lua vim.o.hlsearch = true<CR>', "", opts = { silent = true } },
-    ["g#"] = { 'g#:lua vim.o.hlsearch = true<CR>', "", opts = { silent = true } },
-    ["n"] = { 'n:lua vim.o.hlsearch = true<CR>', "", opts = { silent = true } },
-    ["N"] = { 'N:lua vim.o.hlsearch = true<CR>', "", opts = { silent = true } },
+    ["*"] = { "*:lua vim.o.hlsearch = true<CR>", "", opts = { silent = true } },
+    ["#"] = { "#:lua vim.o.hlsearch = true<CR>", "", opts = { silent = true } },
+    ["g*"] = { "g*:lua vim.o.hlsearch = true<CR>", "", opts = { silent = true } },
+    ["g#"] = { "g#:lua vim.o.hlsearch = true<CR>", "", opts = { silent = true } },
+    ["n"] = { "n:lua vim.o.hlsearch = true<CR>", "", opts = { silent = true } },
+    ["N"] = { "N:lua vim.o.hlsearch = true<CR>", "", opts = { silent = true } },
 
     -- ["<C-e>"] = {
     --   function()
@@ -137,8 +143,14 @@ M.general = {
     -- ["<A-S-d>"] = { "<cmd> :lua require('plugins.configs.telescope_utils').delete_and_select_old_buffer() <CR>", "delete the buffer and select the old buffer" },
     ["<A-S-h>"] = { ":tabprevious <CR>", "previous tab" },
     ["<A-S-l>"] = { ":tabnext <CR>", "next tab" },
-    ["<A-S-j>"] = { "<cmd> :lua require('plugins.configs.buffer_utils').switch_to_next_buffer_in_cwd() <CR>", "previous buffer" },
-    ["<A-S-k>"] = { "<cmd> :lua require('plugins.configs.buffer_utils').switch_to_previous_buffer_in_cwd() <CR>", "next previous" },
+    ["<A-S-j>"] = {
+      "<cmd> :lua require('plugins.configs.buffer_utils').switch_to_next_buffer_in_cwd() <CR>",
+      "previous buffer",
+    },
+    ["<A-S-k>"] = {
+      "<cmd> :lua require('plugins.configs.buffer_utils').switch_to_previous_buffer_in_cwd() <CR>",
+      "next previous",
+    },
     -- normally if I run :tabclose, next tab will be focused, this keymap overrides
     -- it and focus on previous tab instead
     ["<C-e>c"] = { "<cmd> :lua require('core.utils').close_and_focus_previous_tab() <CR>", "close current tab" },
@@ -276,12 +288,12 @@ M.general = {
     ["<leader>s"] = { "/\\%V", "search in last visual selection" },
     ["<leader>e"] = { ":e! <CR>", "e!" },
     ["<leader>q"] = { ":q! <CR>", "q!" },
-    ["<C-A-l>"] = { ":tabmove +1 <CR>" };
+    ["<C-A-l>"] = { ":tabmove +1 <CR>" },
     -- ["<C-A-l>"] = {
     --   "<cmd> :lua require('plugins.configs.buffer_utils').navigate_to_next_buffer() <CR>",
     --   "goto previous buffer",
     -- },
-    ["<C-A-h>"] = { ":tabmove -1 <CR>" };
+    ["<C-A-h>"] = { ":tabmove -1 <CR>" },
     -- ["<C-A-h>"] = {
     --   "<cmd> :lua require('plugins.configs.buffer_utils').navigate_to_previous_buffer() <CR>",
     --   "goto next buffer",
@@ -324,11 +336,26 @@ M.general = {
     ["[q"] = { ":cprevious<CR>", "select previous item in the quickfix list" },
     ["]l"] = { ":lnext<CR>", "select next item in the location list" },
     ["[l"] = { ":lprevious<CR>", "select previous item in the location list" },
-    ["]e"] = { ":lua require('core.utils').swap_line_with_below(vim.v.count1)<CR>", "exchange the current line with [count] lines below it" },
-    ["[e"] = { ":lua require('core.utils').swap_line_with_above(vim.v.count1)<CR>", "exchange the current line with [count] lines above it" },
-    ["[<Space>"] = { ":lua require('core.utils').blank_up(vim.v.count1)<CR>", "Add [count] blank lines above the cursor" },
-    ["]<Space>"] = { ":lua require('core.utils').blank_down(vim.v.count1)<CR>", "Add [count] blank lines below the cursor" },
-    ["g<CR>"] = { "<cmd> :lua require('core.utils').search_word_under_cursor() <CR>", "Search current word, but not move the cursor" },
+    ["]e"] = {
+      ":lua require('core.utils').swap_line_with_below(vim.v.count1)<CR>",
+      "exchange the current line with [count] lines below it",
+    },
+    ["[e"] = {
+      ":lua require('core.utils').swap_line_with_above(vim.v.count1)<CR>",
+      "exchange the current line with [count] lines above it",
+    },
+    ["[<Space>"] = {
+      ":lua require('core.utils').blank_up(vim.v.count1)<CR>",
+      "Add [count] blank lines above the cursor",
+    },
+    ["]<Space>"] = {
+      ":lua require('core.utils').blank_down(vim.v.count1)<CR>",
+      "Add [count] blank lines below the cursor",
+    },
+    ["g<CR>"] = {
+      "<cmd> :lua require('core.utils').search_word_under_cursor() <CR>",
+      "Search current word, but not move the cursor",
+    },
 
     ["<C-w><C-h>"] = { "<C-w>h|<C-w>|", "switch to left window and maximize it horizontally" },
     ["<C-w><C-l>"] = { "<C-w>l|<C-w>|", "switch to right window and maximize it horizontally" },
@@ -354,7 +381,10 @@ M.general = {
     ["<leader>gs"] = { ":diffget BASE <CR>", "diffget from base" },
     ["<leader>gq"] = { ":cq <CR>", "cquit" },
 
-    ["g<CR>"] = { "<cmd> :lua require('core.utils').search_visual_selection() <CR>", "Search selected words in visual mode" },
+    ["g<CR>"] = {
+      "<cmd> :lua require('core.utils').search_visual_selection() <CR>",
+      "Search selected words in visual mode",
+    },
 
     ["<leader>s"] = { "<Esc>/\\%V", "search in visual selection" },
   },
@@ -379,7 +409,7 @@ M.general = {
       function()
         local last_command = vim.fn.getcmdline()
         local modified_command = ":vertical " .. last_command
-        if last_command:find('^' .. "Gll") ~= nil then
+        if last_command:find("^" .. "Gll") ~= nil then
           vim.cmd("vnew") -- open vsplit
           vim.cmd(modified_command)
           vim.cmd("wincmd k")
@@ -387,7 +417,7 @@ M.general = {
           vim.api.nvim_input("<Esc>")
           return
         end
-        if last_command:find('^' .. "Redir") ~= nil then
+        if last_command:find("^" .. "Redir") ~= nil then
           local args = last_command:gsub("^Redir ", "")
           require("core.utils_redir").nredir(args, "vertical")
           vim.api.nvim_input("<Esc>")
@@ -406,7 +436,7 @@ M.general = {
       function()
         local last_command = vim.fn.getcmdline()
         local modified_command = ":tab " .. last_command
-        if last_command:find('^' .. "Gll") ~= nil then
+        if last_command:find("^" .. "Gll") ~= nil then
           modified_command = ":tabnew | execute('" .. last_command .. "')"
           vim.cmd(modified_command)
           vim.cmd("wincmd k")
@@ -414,7 +444,7 @@ M.general = {
           vim.api.nvim_input("<Esc>")
           return
         end
-        if last_command:find('^' .. "Redir") ~= nil then
+        if last_command:find("^" .. "Redir") ~= nil then
           local args = last_command:gsub("^Redir ", "")
           require("core.utils_redir").nredir(args, "tab")
           vim.api.nvim_input("<Esc>")
@@ -433,7 +463,7 @@ M.general = {
       function()
         local last_command = vim.fn.getcmdline()
         local modified_command = "0" .. last_command
-        if last_command:find('^' .. "Gll") ~= nil then
+        if last_command:find("^" .. "Gll") ~= nil then
           modified_command = last_command
           vim.cmd(modified_command)
           vim.cmd("wincmd k")
@@ -454,7 +484,7 @@ M.general = {
       function()
         local last_command = vim.fn.getcmdline()
         local modified_command = last_command
-        if last_command:find('^' .. "Gll") ~= nil then
+        if last_command:find("^" .. "Gll") ~= nil then
           vim.cmd(last_command)
           vim.api.nvim_input("<Esc>")
           return
@@ -1118,7 +1148,7 @@ M.trouble = {
   n = {
     ["tr"] = { "<cmd> Trouble lsp_references toggle focus=true <CR>", "lsp references" },
     ["ti"] = { "<cmd> Trouble lsp_implementations toggle focus=true <CR>", "lsp implementation" },
-    ["td"] = { "<cmd> Trouble lsp_definitions toggle focus=true <CR>", "lsp definitions", },
+    ["td"] = { "<cmd> Trouble lsp_definitions toggle focus=true <CR>", "lsp definitions" },
     ["tz"] = { "<cmd> Trouble diagnostics toggle focus=true filter.buf=0 <CR>", "open current buffer diagnostics" },
     ["tZ"] = { "<cmd> Trouble diagnostics toggle focus=true <CR>", "open workspace diagnostics" },
     ["t."] = { "<cmd> Trouble quickfix toggle focus=true <CR>", "open quickfix" },

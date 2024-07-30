@@ -582,8 +582,8 @@ local default_plugins = {
   {
     "rmagatti/auto-session",
     lazy = false,
-    init = function ()
-      vim.o.sessionoptions="blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
+    init = function()
+      vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
     end,
     opts = function()
       return {
