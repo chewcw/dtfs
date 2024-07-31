@@ -636,6 +636,9 @@ local default_plugins = {
     -- branch = "master",
     -- commit = "84df0d7",
     event = "BufEnter",
+    config = function()
+      require("core.utils").load_mappings("enhancedJumps")
+    end,
     dependencies = {
       {
         "inkarkat/vim-ingo-library",

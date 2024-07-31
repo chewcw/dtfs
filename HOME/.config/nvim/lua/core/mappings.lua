@@ -1174,4 +1174,12 @@ M.yanky = {
   },
 }
 
+M.enhancedJumps = {
+  plugin = true,
+  n = {
+    ["g;"] = { "g;" }, -- the EnhancedJumps version of this command seems weird, map this to original version
+    ["g,"] = { "g," }, -- the EnhancedJumps version of this command seems weird, map this to original version
+  },
+}
+
 return M
