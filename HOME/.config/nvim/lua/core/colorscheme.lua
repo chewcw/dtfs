@@ -38,7 +38,7 @@ M.colors = function()
     bright_magenta = "#ac82bd",
     bright_cyan = "#deeee7",
     bright_white = "#eaeaea",
-    bright_brown = "#ffdfcd",
+    bright_brown = "#b29c8f",
     -- Dark
     dark_yellow = "#5b4d08",
     dark_yellow02 = "#3f3505",
