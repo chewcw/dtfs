@@ -103,7 +103,7 @@ opt.listchars:append("lead:·,multispace:·,trail:·,tab:»¯")
 opt.showtabline = 2
 
 -- virtualedit
-opt.virtualedit = "insert"
+opt.virtualedit = "insert,block"
 
 -- disable some default providers
 for _, provider in ipairs({ "node", "perl", "python3", "ruby" }) do
