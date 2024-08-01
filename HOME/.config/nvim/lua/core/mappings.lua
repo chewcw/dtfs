@@ -21,19 +21,31 @@ M.general = {
     --   "<cmd> bprevious|bdelete!#<CR> <cmd> tabclose <CR> <Esc>",
     --   "delete buffer from buffer list and close tab",
     -- },
+    ["<A-S-w>"] = {
+      ":lua require('plugins.configs.buffer_utils').delete_buffer_create_new() <CR>",
+      "delete the buffer",
+      opts = { silent = true },
+    },
+    ["<A-S-d>"] = {
+      ":lua require('plugins.configs.buffer_utils').delete_buffer_create_new() <CR>",
+      "delete the buffer",
+      opts = { silent = true },
+    },
     -- ["<A-S-d>"] = {
     --   "<cmd> :lua require('plugins.configs.telescope_utils').delete_and_select_old_buffer() <CR>",
     --   "delete the buffer and select the old buffer",
     -- },
-    ["<A-S-h>"] = { "<cmd> tabprevious <CR> <Esc>", "previous tab" },
-    ["<A-S-l>"] = { "<cmd> tabnext <CR> <Esc>", "next tab" },
+    ["<A-S-h>"] = { "<cmd> tabprevious <CR> <Esc>", "previous tab", opts = { silent = true } },
+    ["<A-S-l>"] = { "<cmd> tabnext <CR> <Esc>", "next tab", opts = { silent = true } },
     ["<A-S-j>"] = {
       "<cmd> :lua require('plugins.configs.buffer_utils').switch_to_next_buffer_in_cwd() <CR>",
       "previous buffer",
+      opts = { silent = true },
     },
     ["<A-S-k>"] = {
       "<cmd> :lua require('plugins.configs.buffer_utils').switch_to_previous_buffer_in_cwd() <CR>",
       "next previous",
+      opts = { silent = true },
     },
 
     -- ["<C-n>"] = { "" }, -- unmap this
@@ -141,8 +153,18 @@ M.general = {
     ["<A-S-e>"] = { ":tabedit <CR>", "new tab" },
     -- ["<A-S-w>"] = { "<cmd> bprevious|bdelete!#<CR> <cmd> tabclose <CR> <Esc>", "delete buffer from buffer list and close tab" },
     -- ["<A-S-d>"] = { "<cmd> :lua require('plugins.configs.telescope_utils').delete_and_select_old_buffer() <CR>", "delete the buffer and select the old buffer" },
-    ["<A-S-h>"] = { ":tabprevious <CR>", "previous tab" },
-    ["<A-S-l>"] = { ":tabnext <CR>", "next tab" },
+    ["<A-S-w>"] = {
+      ":lua require('plugins.configs.buffer_utils').delete_buffer_create_new() <CR>",
+      "delete the buffer",
+      opts = { silent = true },
+    },
+    ["<A-S-d>"] = {
+      ":lua require('plugins.configs.buffer_utils').delete_buffer_create_new() <CR>",
+      "delete the buffer",
+      opts = { silent = true },
+    },
+    ["<A-S-h>"] = { ":tabprevious <CR>", "previous tab", opts = { silent = true } },
+    ["<A-S-l>"] = { ":tabnext <CR>", "next tab", opts = { silent = true } },
     ["<A-S-j>"] = {
       "<cmd> :lua require('plugins.configs.buffer_utils').switch_to_next_buffer_in_cwd() <CR>",
       "previous buffer",
@@ -288,12 +310,12 @@ M.general = {
     ["<leader>s"] = { "/\\%V", "search in last visual selection" },
     ["<leader>e"] = { ":e! <CR>", "e!" },
     ["<leader>q"] = { ":q! <CR>", "q!" },
-    ["<C-A-l>"] = { ":tabmove +1 <CR>" },
+    ["<C-A-l>"] = { ":tabmove +1 <CR>", opts = { silent = true } },
     -- ["<C-A-l>"] = {
     --   "<cmd> :lua require('plugins.configs.buffer_utils').navigate_to_next_buffer() <CR>",
     --   "goto previous buffer",
     -- },
-    ["<C-A-h>"] = { ":tabmove -1 <CR>" },
+    ["<C-A-h>"] = { ":tabmove -1 <CR>", opts = { silent = true } },
     -- ["<C-A-h>"] = {
     --   "<cmd> :lua require('plugins.configs.buffer_utils').navigate_to_previous_buffer() <CR>",
     --   "goto next buffer",
@@ -301,11 +323,13 @@ M.general = {
     ["<C-A-w>"] = {
       "<cmd> :lua require('plugins.configs.telescope_utils').delete_and_select_buffer() <CR>",
       "delete the buffer from buffer list",
+      opts = { silent = true },
     },
     -- ["<C-A-d>"] = { "<cmd> bwipeout! <CR>", "wipe out the buffer from buffer list" },
     ["<C-A-d>"] = {
       "<cmd> :lua require('plugins.configs.telescope_utils').delete_and_select_old_buffer() <CR>",
       "delete the buffer and select the old buffer",
+      opts = { silent = true },
     },
 
     -- https://vim.fandom.com/wiki/Swapping_characters,_words_and_lines
@@ -407,94 +431,111 @@ M.general = {
     ["<A-b>"] = { "<C-Left>", "move previous word" },
     ["<A-\\>"] = {
       function()
-        local last_command = vim.fn.getcmdline()
-        local modified_command = ":vertical " .. last_command
-        if last_command:find("^" .. "Gll") ~= nil then
-          vim.cmd("vnew") -- open vsplit
-          vim.cmd(modified_command)
-          vim.cmd("wincmd k")
-          vim.cmd("wincmd q")
-          vim.api.nvim_input("<Esc>")
-          return
-        end
-        if last_command:find("^" .. "Redir") ~= nil then
-          local args = last_command:gsub("^Redir ", "")
-          require("core.utils_redir").nredir(args, "vertical")
-          vim.api.nvim_input("<Esc>")
-          return
-        end
-        if not pcall(function()
+        pcall(function ()
+          local last_command = vim.fn.getcmdline()
+          local modified_command = ":vertical " .. last_command
+          if last_command:find("^" .. "Gll") ~= nil then
+            pcall(function ()
+              vim.cmd("vnew") -- open vsplit
               vim.cmd(modified_command)
-            end) then
-          vim.cmd(last_command)
-        end
-        vim.api.nvim_input("<Esc>")
+              vim.cmd("wincmd k")
+              vim.cmd("wincmd q")
+              vim.api.nvim_input("<Esc>")
+            end)
+            return
+          end
+          if last_command:find("^" .. "Redir") ~= nil then
+            local args = last_command:gsub("^Redir ", "")
+            require("core.utils_redir").nredir(args, "vertical")
+            vim.api.nvim_input("<Esc>")
+            return
+          end
+          if not pcall(function()
+                vim.cmd(modified_command)
+              end) then
+            vim.cmd(last_command)
+          end
+          vim.api.nvim_input("<Esc>")
+        end)
       end,
       "add `vertical` to the beginning of the command to open in vertical mode",
     },
     ["<A-e>"] = {
       function()
-        local last_command = vim.fn.getcmdline()
-        local modified_command = ":tab " .. last_command
-        if last_command:find("^" .. "Gll") ~= nil then
-          modified_command = ":tabnew | execute('" .. last_command .. "')"
-          vim.cmd(modified_command)
-          vim.cmd("wincmd k")
-          vim.cmd("wincmd q")
-          vim.api.nvim_input("<Esc>")
-          return
-        end
-        if last_command:find("^" .. "Redir") ~= nil then
-          local args = last_command:gsub("^Redir ", "")
-          require("core.utils_redir").nredir(args, "tab")
-          vim.api.nvim_input("<Esc>")
-          return
-        end
-        if not pcall(function()
+        pcall(function ()
+          local last_command = vim.fn.getcmdline()
+          local modified_command = ":tab " .. last_command
+          if last_command:find("^" .. "Gll") ~= nil then
+            pcall(function ()
+              modified_command = ":tabnew | execute('" .. last_command .. "')"
               vim.cmd(modified_command)
-            end) then
-          vim.cmd(last_command)
-        end
-        vim.api.nvim_input("<Esc>")
+              vim.cmd("wincmd k")
+              vim.cmd("wincmd q")
+              vim.api.nvim_input("<Esc>")
+            end)
+            return
+          end
+          if last_command:find("^" .. "Redir") ~= nil then
+            local args = last_command:gsub("^Redir ", "")
+            require("core.utils_redir").nredir(args, "tab")
+            vim.api.nvim_input("<Esc>")
+            return
+          end
+          if not pcall(function()
+                vim.cmd(modified_command)
+              end) then
+            vim.cmd(last_command)
+          end
+          vim.api.nvim_input("<Esc>")
+        end)
       end,
       "add `tab` to the beginning of the command to open in new tab",
     },
     ["<A-0>"] = {
       function()
-        local last_command = vim.fn.getcmdline()
-        local modified_command = "0" .. last_command
-        if last_command:find("^" .. "Gll") ~= nil then
-          modified_command = last_command
-          vim.cmd(modified_command)
-          vim.cmd("wincmd k")
-          vim.cmd("wincmd q")
-          vim.api.nvim_input("<Esc>")
-          return
-        end
-        if not pcall(function()
+        pcall(function()
+          local last_command = vim.fn.getcmdline()
+          local modified_command = "0" .. last_command
+          if last_command:find("^" .. "Gll") ~= nil then
+            pcall(function()
+              modified_command = last_command
+              vim.cmd("enew")
               vim.cmd(modified_command)
-            end) then
-          vim.cmd(last_command)
-        end
-        vim.api.nvim_input("<Esc>")
+              vim.cmd("wincmd k")
+              vim.cmd("wincmd q")
+              vim.api.nvim_input("<Esc>")
+            end)
+            return
+          end
+          if not pcall(function()
+                vim.cmd(modified_command)
+              end) then
+            vim.cmd(last_command)
+          end
+          vim.api.nvim_input("<Esc>")
+        end)
       end,
       "add `0` to the beginning of the command to open in current window (useful for fugitive :Git log)",
     },
     ["<A-_>"] = {
       function()
-        local last_command = vim.fn.getcmdline()
-        local modified_command = last_command
-        if last_command:find("^" .. "Gll") ~= nil then
-          vim.cmd(last_command)
+        pcall(function()
+          local last_command = vim.fn.getcmdline()
+          local modified_command = last_command
+          if last_command:find("^" .. "Gll") ~= nil then
+            pcall(function()
+              vim.cmd(last_command)
+              vim.api.nvim_input("<Esc>")
+            end)
+            return
+          end
+          if not pcall(function()
+                vim.cmd(modified_command)
+              end) then
+            vim.cmd(last_command)
+          end
           vim.api.nvim_input("<Esc>")
-          return
-        end
-        if not pcall(function()
-              vim.cmd(modified_command)
-            end) then
-          vim.cmd(last_command)
-        end
-        vim.api.nvim_input("<Esc>")
+        end)
       end,
       "open fugitive :Git log in horizontal split",
     },
