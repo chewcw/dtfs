@@ -156,7 +156,8 @@ M.options = {
   extensions = {
     file_browser = {
       path = "%:p:h",
-      cwd = vim.fn.expand("%:p:h"),
+      -- cwd = vim.fn.expand("%:p:h"),
+      -- cwd_to_path = true,
       grouped = true,
       hijack_netrw = false,
       hidden = true,
@@ -273,6 +274,22 @@ M.options = {
           -- ["t"] = require("telescope").extensions.file_browser.actions.change_cwd,
           ["f"] = require("telescope").extensions.file_browser.actions.toggle_browser,
           -- ["h"] = require("telescope").extensions.file_browser.actions.toggle_hidden,
+          ["g<Space>"] = function(prompt_bufnr)
+            -- Prompt for the path input
+            local input = vim.fn.input("Enter absolute path: ")
+            if input then
+              local expanded_input = vim.fn.expand(input) -- to handle something like "~"
+              if vim.fn.isdirectory(expanded_input) == 1 then
+                -- Close the current picker
+                require("telescope.actions").close(prompt_bufnr)
+                -- Open file_browser with the specified path
+                local fb = require("telescope").extensions.file_browser
+                fb.file_browser({ path = input })
+              else
+                print("Not directory entered")
+              end
+            end
+          end,
         },
       },
     },
