@@ -131,17 +131,17 @@ M.options = {
           local selected_entry = require("telescope.actions.state").get_selected_entry()
           local file_path = selected_entry.path or selected_entry[1]
 
-          vim.ui.input({ prompt = 'Enter tab number: ' }, function(input)
+          vim.ui.input({ prompt = "Enter tab number: " }, function(input)
             if input then
               local tabnr = tonumber(input)
-              if tabnr and tabnr > 0 and tabnr <= vim.fn.tabpagenr('$') then
-                vim.api.nvim_command('tabnext ' .. tabnr)
-                vim.api.nvim_command('edit ' .. file_path)
+              if tabnr and tabnr > 0 and tabnr <= vim.fn.tabpagenr("$") then
+                vim.api.nvim_command("tabnext " .. tabnr)
+                vim.api.nvim_command("edit " .. file_path)
               else
-                print('Invalid tab number: ' .. input)
+                print("Invalid tab number: " .. input)
               end
             else
-              print('Input canceled')
+              print("Input canceled")
             end
           end)
         end,
@@ -289,10 +289,11 @@ M.options = {
     live_grep = {
       mappings = {
         i = {
-          ["<C-f>"] = telescope_utils.ts_select_dir_for_grep_or_find_files(true),
+          ["<C-f>"] = telescope_utils.ts_select_dir_for_grep_or_find_files("live_grep"),
         },
         n = {
-          ["<C-f>"] = telescope_utils.ts_select_dir_for_grep_or_find_files(true),
+          ["<C-f>"] = telescope_utils.ts_select_dir_for_grep_or_find_files("live_grep"),
+          ["<C-w>"] = telescope_utils.set_temporary_cwd_from_file_browser("live_grep"),
         },
       },
     },
@@ -300,10 +301,11 @@ M.options = {
     find_files = {
       mappings = {
         i = {
-          ["<C-f>"] = telescope_utils.ts_select_dir_for_grep_or_find_files(false),
+          ["<C-f>"] = telescope_utils.ts_select_dir_for_grep_or_find_files("find_files"),
         },
         n = {
-          ["<C-f>"] = telescope_utils.ts_select_dir_for_grep_or_find_files(false),
+          ["<C-f>"] = telescope_utils.ts_select_dir_for_grep_or_find_files("find_files"),
+          ["<C-w>"] = telescope_utils.set_temporary_cwd_from_file_browser("find_files"),
         },
       },
     },
@@ -334,6 +336,7 @@ M.options = {
               end
             end)
           end,
+          ["<C-w>"] = telescope_utils.set_temporary_cwd_from_file_browser("buffers"),
         },
       },
     },
@@ -346,6 +349,14 @@ M.options = {
       mappings = {
         n = {
           ["<leader>ow"] = telescope_utils.select_window_to_open,
+        },
+      },
+    },
+
+    oldfiles = {
+      mappings = {
+        n = {
+          ["<C-w>"] = telescope_utils.set_temporary_cwd_from_file_browser("file_files"),
         },
       },
     },
