@@ -135,7 +135,7 @@ M.diffview = function(actions)
         winbar_info = true,
       },
       merge_tool = {
-        layout = "diff4_mixed",
+        layout = "diff3_mixed",
         winbar_info = true,
       },
       file_history = {
