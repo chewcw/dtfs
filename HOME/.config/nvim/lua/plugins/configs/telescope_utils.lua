@@ -1,4 +1,7 @@
 local utils_window = require("core.utils_window")
+local builtin = require("telescope.builtin")
+local actions = require("telescope.actions")
+local action_state = require("telescope.actions.state")
 
 local M = {}
 
@@ -23,7 +26,7 @@ end
 -- this function can let us select the folder as working direcotory
 -- so that the picker can show all files or folders under that directory
 -- reference https://github.com/nvim-telescope/telescope.nvim/issues/2201#issuecomment-1284691502
-M.ts_select_dir_for_grep_or_find_files = function(grep)
+M.ts_select_dir_for_grep_or_find_files = function(picker_name)
   local select_cwd = function(_)
     -- this global variable is set in mappings
     -- to identify this is a "all" search - including .gitignore files
@@ -33,13 +36,16 @@ M.ts_select_dir_for_grep_or_find_files = function(grep)
       no_ignore = true
     end
 
-    local action_state = require("telescope.actions.state")
     local fb = require("telescope").extensions.file_browser
     -- this is live grep or find_files?
     -- local grep_or_find_files = require("telescope.builtin").live_grep
-    local grep_or_find_files = M.custom_rg
-    if not grep then
+    local grep_or_find_files
+    if picker_name == "find_files" then
       grep_or_find_files = require("telescope.builtin").find_files
+    elseif picker_name == "live_grep" then
+      grep_or_find_files = M.custom_rg
+    else
+      print("Unsupported picker name")
     end
     local current_line = action_state.get_current_line()
 
@@ -60,6 +66,12 @@ M.ts_select_dir_for_grep_or_find_files = function(grep)
             default_text = current_line,
             no_ignore = no_ignore,
             follow = true,
+            attach_mappings = function(_, map)
+              map("n", "<C-w>", function()
+                M.set_temporary_cwd_from_file_browser("live_grep_custom")
+              end)
+              return true
+            end
           })
         end)
         return true
@@ -160,8 +172,9 @@ M.custom_rg = function(opts)
         previewer = conf.values.grep_previewer(opts),
         sorter = require("telescope.sorters").empty(),
         attach_mappings = function(_, map)
-          map("i", "<C-f>", M.ts_select_dir_for_grep_or_find_files(true))
-          map("n", "<C-f>", M.ts_select_dir_for_grep_or_find_files(true))
+          map("i", "<C-f>", M.ts_select_dir_for_grep_or_find_files("live_grep"))
+          map("n", "<C-f>", M.ts_select_dir_for_grep_or_find_files("live_grep"))
+          map("n", "<C-w>", M.set_temporary_cwd_from_file_browser("live_grep_custom"))
           return true
         end,
       })
@@ -211,7 +224,7 @@ M.delete_and_select_buffer = function()
             require("telescope.actions").close()
           end)
           map("n", "q", function() -- not selecting buffer, just close the window
-            vim.cmd("q!") -- close the telescope picker
+            vim.cmd("q!")     -- close the telescope picker
             vim.cmd("wincmd c") -- close the window
           end)
           return true
@@ -252,7 +265,7 @@ M.delete_and_select_old_buffer = function()
       attach_mappings = function(_, map)
         map("n", "q", function() -- not selecting old file, just close the window
           pcall(function()
-            vim.cmd("q!") -- close the telescope picker
+            vim.cmd("q!")    -- close the telescope picker
             vim.cmd("wincmd c") -- close the window
           end)
         end)
@@ -306,8 +319,8 @@ M.open_new_split_and_select_buffer = function(split_type)
     follow = true,
     attach_mappings = function(_, map)
       map("n", "q", function() -- not selecting file, just close the window
-        pcall(function ()
-          vim.cmd("q!") -- close the telescope picker
+        pcall(function()
+          vim.cmd("q!")     -- close the telescope picker
           vim.cmd("wincmd c") -- close the window
         end)
       end)
@@ -325,8 +338,8 @@ M.open_new_tab_and_select_buffer = function()
     follow = true,
     attach_mappings = function(_, map)
       map("n", "q", function() -- not selecting file, just close the window
-        pcall(function ()
-          vim.cmd("q!") -- close the telescope picker
+        pcall(function()
+          vim.cmd("q!")     -- close the telescope picker
           vim.cmd("tabclose") -- close the tab
         end)
       end)
@@ -366,25 +379,69 @@ M.dont_preview_binaries = function()
         end
 
         previewers.buffer_previewer_maker(filepath, bufnr, opts)
-      end
+      end,
     }):sync()
   end
   return new_maker
 end
 
 M.force_delete_buffer = function(prompt_bufnr)
-  local action_state = require('telescope.actions.state')
-  local actions = require('telescope.actions')
   local current_picker = action_state.get_current_picker(prompt_bufnr)
   local selected_entry = action_state.get_selected_entry()
 
   if selected_entry then
-    vim.api.nvim_buf_delete(selected_entry.bufnr, {force = true})
+    vim.api.nvim_buf_delete(selected_entry.bufnr, { force = true })
     current_picker:refresh(current_picker.finder, { reset_prompt = true })
     vim.schedule(function()
-      actions._close(prompt_bufnr, true) -- Close the current Telescope window
-      require('telescope.builtin').buffers() -- Reopen the buffer picker
+      actions._close(prompt_bufnr, true)  -- Close the current Telescope window
+      require("telescope.builtin").buffers() -- Reopen the buffer picker
     end)
+  end
+end
+
+-- Say i am opening live_grep or find_files in a cwd called A, i want to search files
+-- in another directory B, i call this function to temporarily select another cwd, to
+-- search the files I want, and open it.
+M.set_temporary_cwd_from_file_browser = function(picker_name)
+  return function(prompt_bufnr)
+    -- Open the file_browser picker
+    local fb = require("telescope").extensions.file_browser
+    fb.file_browser({
+      prompt_title = "Select temporary cwd",
+      attach_mappings = function(_, map)
+        -- Replace the default select action with custom behavior
+        map("i", "<CR>", function()
+          local selection = action_state.get_selected_entry()
+          local selected_path = selection.path
+
+          if vim.fn.isdirectory(selected_path) == 1 then
+            -- Replace default action to open picker with new cwd
+            actions.select_default:replace(function()
+              -- Open the specified picker with the selected cwd
+              if picker_name == "find_files" then
+                builtin.find_files({ cwd = selected_path })
+              elseif picker_name == "live_grep" then
+                builtin.live_grep({ cwd = selected_path })
+              elseif picker_name == "buffers" then
+                builtin.buffers({ cwd = selected_path })
+              elseif picker_name == "live_grep_custom" then
+                M.custom_rg({
+                  cwd = selected_path,
+                })
+              else
+                print("Unsupported picker name")
+              end
+            end)
+
+            -- Trigger the replaced action
+            actions.select_default(prompt_bufnr)
+          else
+            print("Selected item is not a directory")
+          end
+        end)
+        return true
+      end,
+    })
   end
 end
 
