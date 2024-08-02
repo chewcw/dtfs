@@ -126,6 +126,25 @@ M.options = {
         end)(),
         -- select window (which split) to open
         ["<leader>ow"] = telescope_utils.select_window_to_open,
+        -- open the selected file to exisiting tab by specifying the tabnr
+        ["<leader>ot"] = function()
+          local selected_entry = require("telescope.actions.state").get_selected_entry()
+          local file_path = selected_entry.path or selected_entry[1]
+
+          vim.ui.input({ prompt = 'Enter tab number: ' }, function(input)
+            if input then
+              local tabnr = tonumber(input)
+              if tabnr and tabnr > 0 and tabnr <= vim.fn.tabpagenr('$') then
+                vim.api.nvim_command('tabnext ' .. tabnr)
+                vim.api.nvim_command('edit ' .. file_path)
+              else
+                print('Invalid tab number: ' .. input)
+              end
+            else
+              print('Input canceled')
+            end
+          end)
+        end,
         -- toggle preview
         ["<C-p>"] = require("telescope.actions.layout").toggle_preview,
       },
