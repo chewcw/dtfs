@@ -132,4 +132,35 @@ M.switch_to_previous_buffer_in_cwd = function()
   end
 end
 
+M.open_buffer_in_tab = function(tabnr, bufnr)
+  -- Get the list of tab pages
+  local tabpages = vim.api.nvim_list_tabpages()
+  -- Check if the specified tab exists
+  if tabnr < 1 or tabnr > #tabpages then
+    print("Invalid tab number: " .. tabnr)
+    return
+  end
+
+  -- Get the list of buffers
+  local buffers = vim.api.nvim_list_bufs()
+  -- Check if the specified buffer exists
+  local buffer_exists = false
+  for _, b in ipairs(buffers) do
+    if b == bufnr then
+      buffer_exists = true
+      break
+    end
+  end
+
+  if not buffer_exists then
+    print("Invalid buffer number: " .. bufnr)
+    return
+  end
+
+  -- Switch to the specified tab
+  vim.api.nvim_set_current_tabpage(tabpages[tabnr])
+  -- Open the specified buffer in the current window of the specified tab
+  vim.api.nvim_set_current_buf(bufnr)
+end
+
 return M

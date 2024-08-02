@@ -1,4 +1,5 @@
 local telescope_utils = require("plugins.configs.telescope_utils")
+local buffer_utils = require("plugins.configs.buffer_utils")
 
 local M = {}
 
@@ -124,7 +125,7 @@ M.options = {
           return insert_mode
         end)(),
         -- select window (which split) to open
-        ["<BS>"] = telescope_utils.select_window_to_open,
+        ["<leader>ow"] = telescope_utils.select_window_to_open,
         -- toggle preview
         ["<C-p>"] = require("telescope.actions.layout").toggle_preview,
       },
@@ -170,7 +171,7 @@ M.options = {
           ["<C-f>"] = require("telescope").extensions.file_browser.actions.toggle_browser,
           -- ["<C-h>"] = require("telescope").extensions.file_browser.actions.toggle_hidden,
           ["<C-a>"] = require("telescope").extensions.file_browser.actions.toggle_all,
-          ["<bs>"] = require("telescope").extensions.file_browser.actions.backspace,
+          ["<BS>"] = require("telescope").extensions.file_browser.actions.backspace,
           ["<C-h>"] = function()
             local keys = vim.api.nvim_replace_termcodes("<C-h>", false, false, true)
             vim.api.nvim_feedkeys(keys, "n", {})
@@ -193,22 +194,16 @@ M.options = {
             vim.cmd("tcd " .. finder.path)
 
             fb_utils.redraw_border_title(current_picker)
-            current_picker:refresh(
-              finder,
-              {
-                new_prefix = fb_utils.relative_path_prefix(finder),
-                reset_prompt = true,
-                multi = current_picker._multi,
-              }
-            )
-            fb_utils.notify(
-              "action.change_cwd",
-              {
-                msg = "Set the current working directory for this tab!",
-                level = "INFO",
-                quiet = finder.quiet,
-              }
-            )
+            current_picker:refresh(finder, {
+              new_prefix = fb_utils.relative_path_prefix(finder),
+              reset_prompt = true,
+              multi = current_picker._multi,
+            })
+            fb_utils.notify("action.change_cwd", {
+              msg = "Set the current working directory for this tab!",
+              level = "INFO",
+              quiet = finder.quiet,
+            })
           end,
           ["T"] = require("telescope").extensions.file_browser.actions.goto_cwd,
           ["n"] = require("telescope").extensions.file_browser.actions.create_from_prompt,
@@ -238,7 +233,9 @@ M.options = {
           ["<C-y>"] = function()
             local entry = require("telescope.actions.state").get_selected_entry()
             local cb_opts = vim.opt.clipboard:get()
-            if vim.tbl_contains(cb_opts, "unnamed") then vim.fn.setreg("*", entry.path) end
+            if vim.tbl_contains(cb_opts, "unnamed") then
+              vim.fn.setreg("*", entry.path)
+            end
             if vim.tbl_contains(cb_opts, "unnamedplus") then
               vim.fn.setreg("+", entry.path)
             end
@@ -300,6 +297,24 @@ M.options = {
           -- close the buffer
           ["d"] = require("telescope.actions").delete_buffer,
           ["D"] = telescope_utils.force_delete_buffer,
+          -- open the selected buffer to exisiting tab by specifying the tabnr
+          ["<leader>ot"] = function()
+            local selected_entry = require("telescope.actions.state").get_selected_entry()
+            local buffer_number = selected_entry.bufnr
+
+            vim.ui.input({ prompt = "Enter tab number: " }, function(input)
+              if input then
+                local tabnr = tonumber(input)
+                if tabnr and tabnr > 0 and tabnr <= vim.fn.tabpagenr("$") then
+                  buffer_utils.open_buffer_in_tab(tabnr, buffer_number)
+                else
+                  print("Invalid tab number: " .. input)
+                end
+              else
+                print("Input canceled")
+              end
+            end)
+          end,
         },
       },
     },
@@ -311,7 +326,7 @@ M.options = {
     git_status = {
       mappings = {
         n = {
-          ["<BS>"] = telescope_utils.select_window_to_open,
+          ["<leader>ow"] = telescope_utils.select_window_to_open,
         },
       },
     },
