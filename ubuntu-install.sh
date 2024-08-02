@@ -245,6 +245,11 @@ echo "-------------------------------------------------------------------"
 # https://github.com/tsoding/boomer
 ln -sf $pwd/HOME/.local/bin/boomer $HOME/.local/bin/boomer
 
+echo "-------------------------------------------------------------------"
+echo "Setting symlink for date command
+echo "-------------------------------------------------------------------"
+ln -sf $pwd/HOME/.local/bin/date.sh $HOME/.local/bin/date.sh
+
 # Install i3-gaps
 # sudo add-apt-repository -y ppa:regolith-linux/release
 # sudo apt update
