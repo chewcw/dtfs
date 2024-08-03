@@ -343,7 +343,7 @@ vim.api.nvim_create_autocmd("FileType", {
 -- set file type for certain file type
 -- ----------------------------------------------------------------------------
 -- razor file
-vim.api.nvim_create_autocmd({"BufRead", "BufNewFile"}, {
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
   pattern = "*.razor",
   callback = function()
     vim.bo.filetype = "html"
@@ -371,6 +371,9 @@ vim.api.nvim_create_autocmd("TabClosed", {
 -- https://vi.stackexchange.com/a/29067
 require("core.digraphs").register_digraphs()
 
+-- ----------------------------------------------------------------------------
+-- URL encode and decode
+-- ----------------------------------------------------------------------------
 vim.api.nvim_create_user_command("UrlEncode", function()
   -- Get the current visual selection range
   local start_pos = vim.fn.getpos("'<")
@@ -429,6 +432,14 @@ vim.api.nvim_create_user_command("UrlDecode", function()
   vim.api.nvim_buf_set_lines(buf, start_row, start_row + 1, false, { new_line })
 end, { nargs = 0, range = true })
 
+-- ---------------------------------------------------------------------------- 
+-- Toggle tab's cwd
+-- ---------------------------------------------------------------------------- 
+vim.api.nvim_create_user_command("ToggleTabCwd", function()
+  vim.g.toggle_tab_cwd = not vim.g.toggle_tab_cwd
+  vim.o.tabline = "%!v:lua.MyTabLine()"
+end, { nargs = 0 })
+ 
 -- ----------------------------------------------------------------------------
 -- Don't add endofline automatically
 -- ----------------------------------------------------------------------------

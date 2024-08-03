@@ -13,7 +13,7 @@ function MyTabLine()
 
     local win_num = vim.fn.tabpagewinnr(tabnr)
     local working_directory = vim.fn.getcwd(win_num, tabnr)
-    local project_name = vim.fn.fnamemodify(working_directory, ":t")
+    local cwd_name = vim.fn.fnamemodify(working_directory, ":t")
 
     -- Get the name of the open buffer
     local bufnr = vim.fn.tabpagebuflist(tabnr)[vim.fn.tabpagewinnr(tabnr)]
@@ -23,7 +23,11 @@ function MyTabLine()
     -- Check if the buffer is modified
     local is_modified = vim.fn.getbufvar(bufnr, "&modified") == 1 and "[+]" or ""
 
-    tabline = tabline .. " 🗎 " .. "<" .. tabnr .. ">" .. buffer_name .. is_modified .. " "
+    if vim.g.toggle_tab_cwd then -- show tab's cwd (see user command "ToggleTabCwd")
+      tabline = tabline .. " 🗎 " .. "<" .. tabnr .. ">" .. " [" .. cwd_name .. "] " .. buffer_name .. is_modified .. " "
+    else
+      tabline = tabline .. " 🗎 " .. "<" .. tabnr .. ">" .. buffer_name .. is_modified .. " "
+    end
   end
 
   return tabline .. "%#TabLineFill#%T"
