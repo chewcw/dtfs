@@ -22,13 +22,13 @@ M.general = {
     --   "delete buffer from buffer list and close tab",
     -- },
     ["<A-S-w>"] = {
-      ":lua require('plugins.configs.buffer_utils').delete_buffer_create_new() <CR>",
-      "delete the buffer",
+      ":lua require('plugins.configs.buffer_utils').close_buffer_create_new() <CR>",
+      "close the buffer but keep the window",
       opts = { silent = true },
     },
     ["<A-S-d>"] = {
-      ":lua require('plugins.configs.buffer_utils').delete_buffer_create_new() <CR>",
-      "delete the buffer",
+      ":lua require('plugins.configs.buffer_utils').close_buffer_create_new() <CR>",
+      "close the buffer but keep the window",
       opts = { silent = true },
     },
     -- ["<A-S-d>"] = {
@@ -154,12 +154,12 @@ M.general = {
     -- ["<A-S-w>"] = { "<cmd> bprevious|bdelete!#<CR> <cmd> tabclose <CR> <Esc>", "delete buffer from buffer list and close tab" },
     -- ["<A-S-d>"] = { "<cmd> :lua require('plugins.configs.telescope_utils').delete_and_select_old_buffer() <CR>", "delete the buffer and select the old buffer" },
     ["<A-S-w>"] = {
-      ":lua require('plugins.configs.buffer_utils').delete_buffer_create_new() <CR>",
+      ":lua require('plugins.configs.buffer_utils').force_delete_buffer_create_new() <CR>",
       "delete the buffer",
       opts = { silent = true },
     },
     ["<A-S-d>"] = {
-      ":lua require('plugins.configs.buffer_utils').delete_buffer_create_new() <CR>",
+      ":lua require('plugins.configs.buffer_utils').force_delete_buffer_create_new() <CR>",
       "delete the buffer",
       opts = { silent = true },
     },
