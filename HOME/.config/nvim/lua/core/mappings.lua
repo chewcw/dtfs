@@ -118,7 +118,7 @@ M.general = {
     ["<Up>"] = { '(v:count > 1 ? "m\'" . v:count : "") . "k"', "move up", opts = { expr = true } },
 
     -- new buffer
-    ["<leader>bb"] = { "<cmd> enew <CR>", "new buffer" },
+    ["<leader>bn"] = { "<cmd> enew <CR>", "new buffer" },
     ["<leader>b\\"] = { "<cmd> vnew <CR>", "new buffer" },
     ["<leader>b_"] = { "<cmd> new <CR>", "new buffer" },
 
