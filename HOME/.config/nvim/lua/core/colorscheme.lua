@@ -486,6 +486,8 @@ M.setup = function()
     TroubleNormal = { fg = c.none, bg = c.bg },
     -- TroubleNormalNC = { fg = c.none, bg = c.bg_nc },
     TroublePreview = { fg = c.fg, bg = c.dark_yellow },
+    -- Codeium
+    CodeiumSuggestion = { fg = c.gray07, bg = c.dark_brown, italic = true },
   }
 
   for group, parameters in pairs(groups) do
