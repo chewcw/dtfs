@@ -129,21 +129,40 @@ M.options = {
         -- open the selected file to exisiting tab by specifying the tabnr
         ["<leader>ot"] = function()
           local selected_entry = require("telescope.actions.state").get_selected_entry()
-          local file_path = selected_entry.path or selected_entry[1]
+          local file_path = selected_entry.path or selected_entry[1] or selected_entry.filename
+
+          -- selected_entry.filename and row, col are for something like
+          -- lsp_definitions, with filename and specific cursor position
+          local row = selected_entry.lnum or 1
+          local col = selected_entry.col or 1
+
+          if not file_path or file_path == "" then
+            print("Invalid file path")
+            return
+          end
+
+          -- show tab's cwd
+          vim.g.toggle_tab_cwd = true
 
           vim.ui.input({ prompt = "Enter tab number: " }, function(input)
-            if input then
-              local tabnr = tonumber(input)
-              if tabnr and tabnr > 0 and tabnr <= vim.fn.tabpagenr("$") then
-                vim.api.nvim_command("tabnext " .. tabnr)
-                vim.api.nvim_command("edit " .. file_path)
+            pcall(function()
+              if input then
+                local tabnr = tonumber(input)
+                if tabnr and tabnr > 0 and tabnr <= vim.fn.tabpagenr("$") then
+                  vim.api.nvim_command("tabnext " .. tabnr)
+                  vim.api.nvim_command("edit " .. file_path)
+                  vim.fn.cursor(row, col)
+                else
+                  print("Invalid tab number: " .. input)
+                end
               else
-                print("Invalid tab number: " .. input)
+                print("Input canceled")
               end
-            else
-              print("Input canceled")
-            end
+              vim.g.toggle_tab_cwd = false
+            end)
           end)
+
+          vim.g.toggle_tab_cwd = false
         end,
         -- toggle preview
         ["<C-p>"] = require("telescope.actions.layout").toggle_preview,
