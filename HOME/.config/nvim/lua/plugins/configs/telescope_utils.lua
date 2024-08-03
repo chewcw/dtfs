@@ -196,7 +196,10 @@ M.delete_and_select_buffer = function()
   local num_buffers = vim.fn.bufnr("$")
   if num_buffers > 1 or vim.fn.buflisted(current_bufnr) == 0 then
     -- Delete the current buffer
-    buffer_utils.delete_buffer_create_new()
+    local deleted = buffer_utils.force_delete_buffer_create_new()
+    if not deleted then
+      return
+    end
 
     -- Get a list of buffer names after deletion
     local buffer_names_after = vim.fn.getbufinfo({ buflisted = 1 })
@@ -236,7 +239,7 @@ M.delete_and_select_buffer = function()
     vim.cmd("enew")
 
     -- Delete the original buffer without closing the window
-    buffer_utils.delete_buffer_create_new()
+    buffer_utils.force_delete_buffer_create_new()
   end
 end
 
@@ -255,7 +258,10 @@ M.delete_and_select_old_buffer = function()
   local num_buffers = vim.fn.bufnr("$")
   if num_buffers > 1 or vim.fn.buflisted(current_bufnr) == 0 then
     -- Delete the current buffer
-    buffer_utils.delete_buffer_create_new()
+    local deleted = buffer_utils.force_delete_buffer_create_new()
+    if not deleted then
+      return
+    end
 
     -- Open oldfiles
     -- vim.cmd("Telescope oldfiles ignore_current_buffer=true cwd_only=true")
@@ -277,7 +283,7 @@ M.delete_and_select_old_buffer = function()
     vim.cmd("enew")
 
     -- Delete the original buffer without closing the window
-    buffer_utils.delete_buffer_create_new()
+    buffer_utils.force_delete_buffer_create_new()
   end
 end
 

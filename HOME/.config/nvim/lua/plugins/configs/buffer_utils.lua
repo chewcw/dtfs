@@ -1,5 +1,38 @@
 M = {}
 
+-- Function to force delete buffer and show new buffer
+M.force_delete_buffer_create_new = function()
+  pcall(function()
+    local current_bufnr = vim.fn.bufnr("%") -- Get the buffer number of the current buffer
+
+    -- If modified ask for permission
+    if vim.bo[current_bufnr].modified then
+      local choice = vim.fn.confirm("Buffer is modified. Do you want to delete it?")
+      if choice == 1 then
+        -- Delete the current buffer
+        local bufname = vim.api.nvim_buf_get_name(0) -- Get the name of the current buffer
+        if bufname == "" then
+          return
+        end
+        --
+        vim.cmd("enew")
+        vim.cmd("bdelete!" .. current_bufnr)
+        return true
+      end
+    else
+    -- Buffer is not modified, just delete it
+      local bufname = vim.api.nvim_buf_get_name(0) -- Get the name of the current buffer
+      if bufname == "" then
+        return
+      end
+      vim.cmd("enew")
+      vim.cmd("bdelete!" .. current_bufnr)
+      return true
+    end
+    return false
+  end)
+end
+
 -- Function to delete buffer and show new buffer
 M.delete_buffer_create_new = function()
   -- Delete the current buffer
@@ -10,7 +43,7 @@ M.delete_buffer_create_new = function()
       return
     end
     vim.cmd("enew")
-    vim.cmd("bdelete!" .. current_bufnr)
+    vim.cmd("bdelete" .. current_bufnr)
   end)
 end
 
