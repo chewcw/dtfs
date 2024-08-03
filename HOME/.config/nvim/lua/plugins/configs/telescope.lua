@@ -340,6 +340,9 @@ M.options = {
             local selected_entry = require("telescope.actions.state").get_selected_entry()
             local buffer_number = selected_entry.bufnr
 
+            -- show tab's cwd
+            vim.g.toggle_tab_cwd = true
+
             vim.ui.input({ prompt = "Enter tab number: " }, function(input)
               if input then
                 local tabnr = tonumber(input)
@@ -352,6 +355,9 @@ M.options = {
                 print("Input canceled")
               end
             end)
+
+            vim.g.toggle_tab_cwd = false
+
           end,
           ["<C-w>"] = telescope_utils.set_temporary_cwd_from_file_browser("buffers"),
         },
