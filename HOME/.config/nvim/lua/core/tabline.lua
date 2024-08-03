@@ -24,9 +24,9 @@ function MyTabLine()
     local is_modified = vim.fn.getbufvar(bufnr, "&modified") == 1 and "[+]" or ""
 
     if vim.g.toggle_tab_cwd then -- show tab's cwd (see user command "ToggleTabCwd")
-      tabline = tabline .. " 🗎 " .. "<" .. tabnr .. ">" .. " [" .. cwd_name .. "] " .. buffer_name .. is_modified .. " "
+      tabline = tabline .. " 🗎 " .. "<" .. tabnr .. "> " .. "[" .. cwd_name .. "] " .. buffer_name .. is_modified .. " "
     else
-      tabline = tabline .. " 🗎 " .. "<" .. tabnr .. ">" .. buffer_name .. is_modified .. " "
+      tabline = tabline .. " 🗎 " .. "<" .. tabnr .. "> " .. buffer_name .. is_modified .. " "
     end
   end
 
