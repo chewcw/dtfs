@@ -366,7 +366,7 @@ M.options = {
               if input then
                 local tabnr = tonumber(input)
                 if tabnr and tabnr > 0 and tabnr <= vim.fn.tabpagenr("$") then
-                  buffer_utils.open_buffer_in_tab(tabnr, buffer_number)
+                  buffer_utils.open_buffer_in_specific_tab(tabnr, buffer_number)
                 else
                   print("Invalid tab number: " .. input)
                 end
