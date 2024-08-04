@@ -643,11 +643,6 @@ local default_plugins = {
     },
   },
 
-  {
-    "wsdjeg/vim-fetch",
-    lazy = false,
-  },
-
   -- Only load whichkey after all the gui
   {
     "folke/which-key.nvim",

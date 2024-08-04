@@ -806,10 +806,21 @@ M.telescope = {
     -- diagnostic
     ["gZ"] = { "<cmd> Telescope diagnostics <CR>", "open workspace diagnostics" },
     ["gz"] = { "<cmd> Telescope diagnostics bufnr=0 <CR>", "open current buffer diagnostics" },
+
+    -- this is just a note, this is to open file (like gf), but take consideration of
+    -- the row and col appended to the filename, see core.utils_vimfetch
+      ["<leader>of"] = { ":lua require('plugins.configs.buffer_utils').open_file_in_current_window(false, vim.v.count) <CR>", "open file in current window" },
+      ["<leader>oF"] = { ":lua require('plugins.configs.buffer_utils').open_file_in_new_tab(false, vim.v.count) <CR>", "open file in new tab" },
+      ["<leader>ot"] = { ":lua require('plugins.configs.buffer_utils').open_file_in_specific_tab(false, vim.v.count) <CR>", "open file in specific tab" },
   },
 
   v = {
     ["<leader>f*"] = { "<cmd> Telescope grep_string <CR>", "search for string under cursor in cwd" },
+    -- this is just a note, this is to open file (like gf), but take consideration of
+    -- the row and col appended to the filename, see core.utils_vimfetch
+    ["<leader>of"] = { ":lua require('plugins.configs.buffer_utils').open_file_in_current_window(true, vim.v.count) <CR>", "open file in current window" },
+    ["<leader>oF"] = { ":lua require('plugins.configs.buffer_utils').open_file_in_new_tab(true, vim.v.count) <CR>", "open file in new tab" },
+    ["<leader>ot"] = { ":lua require('plugins.configs.buffer_utils').open_file_in_specific_tab(true, vim.v.count) <CR>", "open file in specific tab" },
   },
 }
 

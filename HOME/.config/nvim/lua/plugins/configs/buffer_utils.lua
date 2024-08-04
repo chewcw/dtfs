@@ -20,7 +20,7 @@ M.force_delete_buffer_create_new = function()
         return true
       end
     else
-    -- Buffer is not modified, just delete it
+      -- Buffer is not modified, just delete it
       local bufname = vim.api.nvim_buf_get_name(0) -- Get the name of the current buffer
       if bufname == "" then
         return
@@ -165,7 +165,7 @@ M.switch_to_previous_buffer_in_cwd = function()
   end
 end
 
-M.open_buffer_in_tab = function(tabnr, bufnr)
+M.open_buffer_in_specific_tab = function(tabnr, bufnr)
   -- Get the list of tab pages
   local tabpages = vim.api.nvim_list_tabpages()
   -- Check if the specified tab exists
@@ -194,6 +194,79 @@ M.open_buffer_in_tab = function(tabnr, bufnr)
   vim.api.nvim_set_current_tabpage(tabpages[tabnr])
   -- Open the specified buffer in the current window of the specified tab
   vim.api.nvim_set_current_buf(bufnr)
+end
+
+M.open_file_in_current_window = function(is_visual, count)
+  local vimfetch = require("core.utils_vimfetch")
+  local file
+  if is_visual then
+    file = vimfetch.fetch_visual(count)
+  else
+    file = vimfetch.fetch_cfile(count)
+  end
+
+  if file and file[1] then
+    vim.api.nvim_command("edit " .. file[1])
+    vim.fn.cursor(file[2], file[3])
+  end
+end
+
+M.open_file_in_new_tab = function(is_visual, count)
+  local vimfetch = require("core.utils_vimfetch")
+  local file
+  if is_visual then
+    file = vimfetch.fetch_visual(count)
+  else
+    file = vimfetch.fetch_cfile(count)
+  end
+
+  if file and file[1] then
+    vim.api.nvim_command("tabnew " .. file[1])
+    vim.fn.cursor(file[2], file[3])
+  end
+end
+
+M.open_file_in_specific_tab = function(is_visual, count)
+  local vimfetch = require("core.utils_vimfetch")
+
+  local file
+  if is_visual then
+    file = vimfetch.fetch_visual(count)
+  else
+    file = vimfetch.fetch_cfile(count)
+  end
+
+  -- show tab's cwd
+  vim.g.toggle_tab_cwd = true
+
+  vim.ui.input({ prompt = "Enter tab number: " }, function(input)
+    if input then
+      local tabnr = tonumber(input)
+      if tabnr and tabnr > 0 and tabnr <= vim.fn.tabpagenr("$") then
+        -- Get the list of tab pages
+        local tabpages = vim.api.nvim_list_tabpages()
+        -- Check if the specified tab exists
+        if tabnr < 1 or tabnr > #tabpages then
+          print("Invalid tab number: " .. tabnr)
+          return
+        end
+
+        -- Switch to the specified tab
+        vim.cmd("tabn " .. tabnr)
+        -- Open the file in the current window of the specified tab
+        if file and file[1] then
+          vim.cmd("edit " .. file[1])
+          vim.fn.cursor(file[2], file[3])
+        end
+      else
+        print("Invalid tab number: " .. input)
+      end
+    else
+      print("Input canceled")
+    end
+  end)
+
+  vim.g.toggle_tab_cwd = false
 end
 
 return M
