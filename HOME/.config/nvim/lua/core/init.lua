@@ -143,11 +143,11 @@ vim.api.nvim_create_autocmd({ "BufWinLeave" }, {
   desc = "save view (folds), when closing file",
   command = "mkview",
 })
-vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
-  pattern = { "*.*" },
-  desc = "load view (folds), when opening file",
-  command = "silent! loadview",
-})
+-- vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
+--   pattern = { "*.*" },
+--   desc = "load view (folds), when opening file",
+--   command = "silent! loadview",
+-- })
 
 -- update command line color in insert mode
 vim.api.nvim_create_autocmd({ "InsertEnter" }, {
