@@ -440,6 +440,45 @@ M.swap_line_with_above = function(count)
   vim.api.nvim_win_set_cursor(0, { current_line - count, 0 })
 end
 
+-- Function to move the current line up or down
+  -- Default count to 1 if not provided
+M.move_line = function(count, direction)
+  count = count or 1
+  -- Ensure count is a positive number
+  count = math.abs(count)
+
+  -- Validate direction
+  direction = direction:lower()
+  if direction ~= "up" and direction ~= "down" then
+    print("Invalid direction. Use 'up' or 'down'.")
+    return
+  end
+
+  -- Get the current line number
+  local current_line = vim.fn.line(".")
+
+  -- Get the total number of lines in the buffer
+  local total_lines = vim.fn.line("$")
+
+  if direction == "up" then
+    -- Move the line up
+    if current_line > 1 then
+      -- Calculate the new position
+      local new_line = math.max(1, current_line - count - 1)
+      -- Move the line
+      vim.cmd("move " .. new_line)
+    end
+  elseif direction == "down" then
+    -- Move the line down
+    if current_line < total_lines then
+      -- Calculate the new position
+      local new_line = math.min(total_lines - 1, current_line + count)
+      -- Move the line
+      vim.cmd("move " .. new_line)
+    end
+  end
+end
+
 -- Adds blank lines above the current line
 M.blank_up = function(count)
   count = count or vim.v.count1 -- use vim.v.count1 to default to 1 if no count is provided

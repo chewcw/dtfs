@@ -368,6 +368,14 @@ M.general = {
       ":lua require('core.utils').swap_line_with_above(vim.v.count1)<CR>",
       "exchange the current line with [count] lines above it",
     },
+    ["]w"] = {
+      ":lua require('core.utils').move_line(vim.v.count1, 'down')<CR>",
+      "move the current line with [count] lines below it",
+    },
+    ["[w"] = {
+      ":lua require('core.utils').move_line(vim.v.count1, 'up')<CR>",
+      "move the current line with [count] lines above it",
+    },
     ["[<Space>"] = {
       ":lua require('core.utils').blank_up(vim.v.count1)<CR>",
       "Add [count] blank lines above the cursor",
