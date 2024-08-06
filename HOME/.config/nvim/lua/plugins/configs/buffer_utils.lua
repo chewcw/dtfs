@@ -12,9 +12,11 @@ M.force_delete_buffer_create_new = function()
         -- Delete the current buffer
         local bufname = vim.api.nvim_buf_get_name(0) -- Get the name of the current buffer
         if bufname == "" then
-          return
+          vim.cmd("enew")
+          vim.cmd("bdelete!" .. current_bufnr)
+          return true
         end
-        --
+
         vim.cmd("enew")
         vim.cmd("bdelete!" .. current_bufnr)
         return true
@@ -23,7 +25,9 @@ M.force_delete_buffer_create_new = function()
       -- Buffer is not modified, just delete it
       local bufname = vim.api.nvim_buf_get_name(0) -- Get the name of the current buffer
       if bufname == "" then
-        return
+        vim.cmd("enew")
+        vim.cmd("bdelete!" .. current_bufnr)
+        return true
       end
       vim.cmd("enew")
       vim.cmd("bdelete!" .. current_bufnr)
