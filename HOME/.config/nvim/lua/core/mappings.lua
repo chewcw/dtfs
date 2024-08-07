@@ -817,9 +817,9 @@ M.telescope = {
 
     -- this is just a note, this is to open file (like gf), but take consideration of
     -- the row and col appended to the filename, see core.utils_vimfetch
-      ["<leader>of"] = { ":lua require('plugins.configs.buffer_utils').open_file_in_current_window(false, vim.v.count) <CR>", "open file in current window" },
-      ["<leader>oF"] = { ":lua require('plugins.configs.buffer_utils').open_file_in_new_tab(false, vim.v.count) <CR>", "open file in new tab" },
-      ["<leader>ot"] = { ":lua require('plugins.configs.buffer_utils').open_file_in_specific_tab(false, vim.v.count) <CR>", "open file in specific tab" },
+    ["<leader>of"] = { ":lua require('plugins.configs.buffer_utils').open_file_in_current_window(false, vim.v.count) <CR>", "open file in current window" },
+    ["<leader>oF"] = { ":lua require('plugins.configs.buffer_utils').open_file_in_new_tab(false, vim.v.count) <CR>", "open file in new tab" },
+    ["<leader>ot"] = { ":lua require('plugins.configs.buffer_utils').open_file_in_specific_tab(false, vim.v.count) <CR>", "open file in specific tab" },
   },
 
   v = {
