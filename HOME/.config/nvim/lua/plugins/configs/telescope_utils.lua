@@ -71,7 +71,7 @@ M.ts_select_dir_for_grep_or_find_files = function(picker_name)
                 M.set_temporary_cwd_from_file_browser("live_grep_custom")
               end)
               return true
-            end
+            end,
           })
         end)
         return true
