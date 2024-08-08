@@ -724,20 +724,20 @@ M.telescope = {
 
   n = {
     -- file browser
-    ["<leader>fs"] = { "<cmd> Telescope file_browser <CR>", "file browser" },
+    ["<leader>fs"] = { "<cmd> let g:telescope_picker_temporary_cwd_from_file_browser='false' | Telescope file_browser <CR>", "file browser" },
 
     -- find
     -- set global variable here so that the telescope picker knows this is a normal finder
     -- see telescope config file for more information
     ["<leader>ff"] = {
-      "<cmd> let g:find_files_type='normal' | Telescope find_files follow=true <CR>",
+      "<cmd> let g:find_files_type='normal' | let g:telescope_picker_type='find_files' | Telescope find_files follow=true <CR>",
       "find files",
     },
     ["<leader>fa"] = {
-      "<cmd> let g:find_files_type='all' | Telescope find_files follow=true no_ignore=true hidden=true <CR>",
+      "<cmd> let g:find_files_type='all' | let g:telescope_picker_type='find_files' | Telescope find_files follow=true no_ignore=true hidden=true <CR>",
       "find all",
     },
-    ["<leader>fG"] = { "<cmd> Telescope live_grep <CR>", "live grep" },
+    ["<leader>fG"] = { "<cmd> let g:telescope_picker_type='live_grep' | Telescope live_grep <CR>", "live grep" },
     ["<leader>fg"] = {
       "<cmd> :lua require('plugins.configs.telescope_utils').custom_rg() <CR>",
       "live grep (custom)",
