@@ -41,13 +41,19 @@ M.ts_select_dir_for_grep_or_find_files = function(picker_name)
     -- local grep_or_find_files = require("telescope.builtin").live_grep
     local grep_or_find_files
     if picker_name == "find_files" then
+      vim.g.telescope_picker_type = "find_files"
       grep_or_find_files = require("telescope.builtin").find_files
     elseif picker_name == "live_grep" then
+      vim.g.telescope_picker_type = "live_grep_custom"
       grep_or_find_files = M.custom_rg
     else
       print("Unsupported picker name")
     end
     local current_line = action_state.get_current_line()
+
+    -- this function is opening the default file_browser
+    -- so set below to false
+    vim.g.telescope_picker_temporary_cwd_from_file_browser = false
 
     fb.file_browser({
       files = false,
@@ -136,6 +142,8 @@ M.custom_rg = function(opts)
 
   opts = opts or {}
   opts.cwd = opts.cwd and vim.fn.expand(opts.cwd) or vim.loop.cwd()
+
+  vim.g.telescope_picker_type = "live_grep_custom"
 
   local custom_grep = finders.new_async_job({
     command_generator = function(prompt)
@@ -321,6 +329,7 @@ M.open_new_split_and_select_buffer = function(split_type)
 
   -- Open find files
   vim.cmd("let g:find_files_type='normal'")
+  vim.g.telescope_picker_type = "find_files"
   require("telescope.builtin").find_files({
     follow = true,
     attach_mappings = function(_, map)
@@ -340,6 +349,7 @@ M.open_new_tab_and_select_buffer = function()
 
   -- Open find files
   vim.cmd("let g:find_files_type='normal'")
+  vim.g.telescope_picker_type = "find_files"
   require("telescope.builtin").find_files({
     follow = true,
     attach_mappings = function(_, map)
@@ -408,11 +418,20 @@ end
 -- Say i am opening live_grep or find_files in a cwd called A, i want to search files
 -- in another directory B, i call this function to temporarily select another cwd, to
 -- search the files I want, and open it.
-M.set_temporary_cwd_from_file_browser = function(picker_name)
+M.set_temporary_cwd_from_file_browser = function(picker_name, path)
   return function(prompt_bufnr)
     -- Open the file_browser picker
     local fb = require("telescope").extensions.file_browser
+    -- below global variable is set because of this scenario:
+    -- 1. do global grep
+    -- 2. <C-w> to open this temporary cwd file browser
+    -- 3. g<Space> to go to other direcotory
+    -- 4. should go back to this temporary cwd file browser instead of normal file
+    -- browser
+    vim.g.telescope_picker_temporary_cwd_from_file_browser = true
+
     fb.file_browser({
+      path = path,
       prompt_title = "Select temporary cwd",
       attach_mappings = function(_, map)
         -- Replace the default select action with custom behavior
