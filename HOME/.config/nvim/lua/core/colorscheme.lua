@@ -198,7 +198,7 @@ M.setup = function()
     VisualNOS = { fg = c.none, bg = c.gray04 },
     WarningMsg = { fg = c.yellow },
     WildMenu = { fg = c.bg, bg = c.main1 },
-    CursorColumn = { fg = c.none, bg = c.bg_nc },
+    CursorColumn = { fg = c.none, bg = c.dark_blue },
     CursorLine = { fg = c.none, bg = c.dark_blue },
     ToolbarLine = { fg = c.fg, bg = c.gray01 },
     ToolbarButton = { fg = c.fg, bg = c.none },
