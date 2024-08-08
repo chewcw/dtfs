@@ -191,7 +191,7 @@ M.setup = function()
     StatusLineTerm = { link = "StatusLine" },
     StatusLineTermNC = { link = "StatusLineNC" },
     TabLineFill = { fg = c.gray05, bg = c.none },
-    TablineSel = { fg = c.fg, bg = c.dark_blue },
+    TablineSel = { fg = c.fg, bg = c.dark_yellow02 },
     Tabline = { fg = c.gray05 },
     Title = { fg = c.main4, bg = c.none },
     Visual = { fg = c.none, bg = c.gray04 },
