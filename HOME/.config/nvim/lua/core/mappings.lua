@@ -452,6 +452,14 @@ M.general = {
             end)
             return
           end
+          if last_command:find("^" .. "Redir G") ~= nil then
+            local args = last_command:gsub("^Redir ", "")
+            require("core.utils_redir").nredir(args, "vertical")
+            vim.cmd("wincmd k")
+            vim.cmd("wincmd q")
+            vim.api.nvim_input("<Esc>")
+            return
+          end
           if last_command:find("^" .. "Redir") ~= nil then
             local args = last_command:gsub("^Redir ", "")
             require("core.utils_redir").nredir(args, "vertical")
@@ -481,6 +489,14 @@ M.general = {
               vim.cmd("wincmd q")
               vim.api.nvim_input("<Esc>")
             end)
+            return
+          end
+          if last_command:find("^" .. "Redir G") ~= nil then
+            local args = last_command:gsub("^Redir ", "")
+            require("core.utils_redir").nredir(args, "tab")
+            vim.cmd("wincmd k")
+            vim.cmd("wincmd q")
+            vim.api.nvim_input("<Esc>")
             return
           end
           if last_command:find("^" .. "Redir") ~= nil then
@@ -515,6 +531,16 @@ M.general = {
             end)
             return
           end
+          if last_command:find("^" .. "Redir G") ~= nil then
+            pcall(function()
+              local args = last_command:gsub("^Redir ", "")
+              require("core.utils_redir").nredir(args, "horizontal")
+              vim.cmd("wincmd k")
+              vim.cmd("wincmd q")
+              vim.api.nvim_input("<Esc>")
+            end)
+            return
+          end
           if not pcall(function()
                 vim.cmd(modified_command)
               end) then
@@ -535,6 +561,20 @@ M.general = {
               vim.cmd(last_command)
               vim.api.nvim_input("<Esc>")
             end)
+            return
+          end
+          if last_command:find("^" .. "Redir G") ~= nil then
+            local args = last_command:gsub("^Redir ", "")
+            require("core.utils_redir").nredir(args, "horizontal")
+            vim.cmd("wincmd k")
+            vim.cmd("wincmd q")
+            vim.api.nvim_input("<Esc>")
+            return
+          end
+          if last_command:find("^" .. "Redir") ~= nil then
+            local args = last_command:gsub("^Redir ", "")
+            require("core.utils_redir").nredir(args, "horizontal")
+            vim.api.nvim_input("<Esc>")
             return
           end
           if not pcall(function()
