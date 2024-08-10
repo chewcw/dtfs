@@ -287,10 +287,11 @@ local default_plugins = {
   },
 
   {
-    "tpope/vim-surround",
-    keys = { "v", "cs", "S", "ds", "ysiw" },
-    -- branch = "master",
-    -- commit = "3d188ed",
+    "kylechui/nvim-surround",
+    lazy = false,
+    config = function()
+      require("nvim-surround").setup({})
+    end,
   },
 
   {
