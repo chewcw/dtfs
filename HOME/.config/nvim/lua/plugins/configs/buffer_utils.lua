@@ -242,7 +242,7 @@ M.open_file_in_specific_tab = function(is_visual, count)
 
   -- show tab's cwd
   local original_tab_cwd_visibility = vim.g.toggle_tab_cwd
-  vim.g.toggle_tab_cwd = true
+  vim.g.toggle_tab_cwd = "1"
 
   vim.ui.input({ prompt = "Enter tab number: " }, function(input)
     if input then
@@ -271,8 +271,8 @@ M.open_file_in_specific_tab = function(is_visual, count)
     end
   end)
 
-  if not original_tab_cwd_visibility then
-    vim.g.toggle_tab_cwd = false
+  if original_tab_cwd_visibility ~= "1" then
+    vim.g.toggle_tab_cwd = original_tab_cwd_visibility
   end
 end
 

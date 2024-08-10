@@ -435,11 +435,16 @@ end, { nargs = 0, range = true })
 -- ---------------------------------------------------------------------------- 
 -- Toggle tab's cwd
 -- ---------------------------------------------------------------------------- 
-vim.api.nvim_create_user_command("ToggleTabCwd", function()
-  vim.g.toggle_tab_cwd = not vim.g.toggle_tab_cwd
+vim.api.nvim_create_user_command("ToggleTabCwd", function(args)
+  if args == nil then
+    vim.g.toggle_tab_cwd = "1"
+    vim.o.tabline = "%!v:lua.MyTabLine()"
+    return
+  end
+  vim.g.toggle_tab_cwd = args.args
   vim.o.tabline = "%!v:lua.MyTabLine()"
-end, { nargs = 0 })
- 
+end, { nargs = '*' })
+
 -- ----------------------------------------------------------------------------
 -- Don't add endofline automatically
 -- ----------------------------------------------------------------------------

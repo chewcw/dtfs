@@ -143,7 +143,7 @@ M.options = {
 
           -- show tab's cwd
           local original_tab_cwd_visibility = vim.g.toggle_tab_cwd
-          vim.g.toggle_tab_cwd = true
+          vim.g.toggle_tab_cwd = "1"
 
           vim.ui.input({ prompt = "Enter tab number: " }, function(input)
             pcall(function()
@@ -162,8 +162,8 @@ M.options = {
             end)
           end)
 
-          if not original_tab_cwd_visibility then
-            vim.g.toggle_tab_cwd = false
+          if original_tab_cwd_visibility ~= "1" then
+            vim.g.toggle_tab_cwd = original_tab_cwd_visibility
           end
         end,
         -- toggle preview
@@ -374,7 +374,7 @@ M.options = {
 
             -- show tab's cwd
             local original_tab_cwd_visibility = vim.g.toggle_tab_cwd
-            vim.g.toggle_tab_cwd = true
+            vim.g.toggle_tab_cwd = "1"
 
             vim.ui.input({ prompt = "Enter tab number: " }, function(input)
               if input then
@@ -389,8 +389,8 @@ M.options = {
               end
             end)
 
-            if not original_tab_cwd_visibility then
-              vim.g.toggle_tab_cwd = false
+            if original_tab_cwd_visibility ~= "1" then
+              vim.g.toggle_tab_cwd = original_tab_cwd_visibility
             end
           end,
           ["<C-w>"] = telescope_utils.set_temporary_cwd_from_file_browser("buffers"),
