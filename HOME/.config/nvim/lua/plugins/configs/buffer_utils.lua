@@ -210,6 +210,13 @@ M.open_file_in_current_window = function(is_visual, count)
   end
 
   if file and file[1] then
+    -- if this is toggleterm then close it first
+    local buf_nr = vim.api.nvim_get_current_buf()
+    local buf_name = vim.api.nvim_buf_get_name(buf_nr)
+    if buf_name:lower():find("toggleterm") then
+      vim.cmd("wincmd q")
+    end
+
     vim.api.nvim_command("edit " .. file[1])
     vim.fn.cursor(file[2], file[3])
   end
