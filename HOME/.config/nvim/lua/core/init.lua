@@ -366,6 +366,26 @@ vim.api.nvim_create_autocmd("TabClosed", {
 })
 
 -- ----------------------------------------------------------------------------
+-- Set buffer's parent directory as cwd when new tab entered
+-- See all functions which setting vim.g.new_tab_buf_cwd
+-- ----------------------------------------------------------------------------
+vim.g.toggle_tab_auto_cwd = true
+vim.api.nvim_create_user_command("ToggleTabAutoCwd", function()
+  vim.g.toggle_tab_auto_cwd = not vim.g.toggle_tab_auto_cwd
+end, { nargs = 0 })
+
+vim.api.nvim_create_autocmd("TabNewEntered", {
+  callback = function()
+    if vim.g.toggle_tab_auto_cwd then
+      if vim.g.new_tab_buf_cwd ~= nil and vim.g.new_tab_buf_cwd ~= "" then
+        vim.api.nvim_set_current_dir(vim.g.new_tab_buf_cwd)
+        vim.g.new_tab_buf_cwd = ""
+      end
+    end
+  end,
+})
+
+-- ----------------------------------------------------------------------------
 -- Superscript and subscript
 -- ----------------------------------------------------------------------------
 -- https://vi.stackexchange.com/a/29067
@@ -432,9 +452,9 @@ vim.api.nvim_create_user_command("UrlDecode", function()
   vim.api.nvim_buf_set_lines(buf, start_row, start_row + 1, false, { new_line })
 end, { nargs = 0, range = true })
 
--- ---------------------------------------------------------------------------- 
+-- ----------------------------------------------------------------------------
 -- Toggle tab's cwd
--- ---------------------------------------------------------------------------- 
+-- ----------------------------------------------------------------------------
 vim.api.nvim_create_user_command("ToggleTabCwd", function(args)
   if args == nil then
     vim.g.toggle_tab_cwd = "1"
@@ -443,7 +463,7 @@ vim.api.nvim_create_user_command("ToggleTabCwd", function(args)
   end
   vim.g.toggle_tab_cwd = args.args
   vim.o.tabline = "%!v:lua.MyTabLine()"
-end, { nargs = '*' })
+end, { nargs = "*" })
 
 -- ----------------------------------------------------------------------------
 -- Don't add endofline automatically

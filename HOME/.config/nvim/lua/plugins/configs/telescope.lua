@@ -69,7 +69,32 @@ M.options = {
         ["<C-k>"] = require("telescope.actions").move_selection_previous,
         ["<A-\\>"] = require("telescope.actions").select_vertical,
         ["<A-_>"] = require("telescope.actions").select_horizontal,
-        ["<A-e>"] = require("telescope.actions").select_tab,
+        ["<A-e>"] = function(prompt_bufnr)
+          local selection = require("telescope.actions.state").get_selected_entry()
+          if not selection then
+            require("telescope.actions").select_tab(prompt_bufnr)
+            return
+          end
+
+          if selection.value then
+            local file_path = selection.value
+            if file_path then
+              local parent_dir = vim.fn.fnamemodify(file_path, ":h")
+              if parent_dir then
+                vim.g.new_tab_buf_cwd = parent_dir
+              end
+            end
+            require("telescope.actions").select_tab(prompt_bufnr)
+            return
+          end
+
+          if selection.bufnr then
+            local bufnr = selection.bufnr
+            local bufname = vim.api.nvim_buf_get_name(bufnr)
+            vim.g.new_tab_buf_cwd = vim.fn.fnamemodify(bufname, ":p:h")
+            require("telescope.actions").select_tab(prompt_bufnr)
+          end
+        end,
         ["<C-A-l>"] = require("telescope.actions").preview_scrolling_right,
         ["<C-A-h>"] = require("telescope.actions").preview_scrolling_left,
         ["<C-A-d>"] = require("telescope.actions").preview_scrolling_down,
@@ -101,7 +126,42 @@ M.options = {
         ["<C-n>"] = function() end,
         ["<A-\\>"] = require("telescope.actions").select_vertical,
         ["<A-_>"] = require("telescope.actions").select_horizontal,
-        ["<A-e>"] = require("telescope.actions").select_tab,
+        ["<A-e>"] = function(prompt_bufnr)
+          local selection = require("telescope.actions.state").get_selected_entry()
+          if not selection then
+            require("telescope.actions").select_tab(prompt_bufnr)
+            return
+          end
+
+          if selection.value then
+            if selection.value["filename"] then
+              local file_path = selection.value["filename"]
+              if file_path then
+                local parent_dir = vim.fn.fnamemodify(file_path, ":h")
+                if parent_dir then
+                  vim.g.new_tab_buf_cwd = parent_dir
+                end
+              end
+            else
+              local file_path = selection.value
+              if file_path then
+                local parent_dir = vim.fn.fnamemodify(file_path, ":h")
+                if parent_dir then
+                  vim.g.new_tab_buf_cwd = parent_dir
+                end
+              end
+            end
+            require("telescope.actions").select_tab(prompt_bufnr)
+            return
+          end
+
+          if selection.bufnr then
+            local bufnr = selection.bufnr
+            local bufname = vim.api.nvim_buf_get_name(bufnr)
+            vim.g.new_tab_buf_cwd = vim.fn.fnamemodify(bufname, ":p:h")
+            require("telescope.actions").select_tab(prompt_bufnr)
+          end
+        end,
         -- toggle all
         ["<C-a>"] = require("telescope.actions").toggle_all,
         ["q"] = require("telescope.actions").close,
@@ -130,6 +190,13 @@ M.options = {
         ["<leader>ot"] = function()
           local selected_entry = require("telescope.actions.state").get_selected_entry()
           local file_path = selected_entry.path or selected_entry[1] or selected_entry.filename
+
+          if file_path then
+            local parent_dir = vim.fn.fnamemodify(file_path, ":h")
+            if parent_dir then
+              vim.g.new_tab_buf_cwd = parent_dir
+            end
+          end
 
           -- selected_entry.filename and row, col are for something like
           -- lsp_definitions, with filename and specific cursor position
@@ -371,6 +438,11 @@ M.options = {
           ["<leader>ot"] = function()
             local selected_entry = require("telescope.actions.state").get_selected_entry()
             local buffer_number = selected_entry.bufnr
+
+            if buffer_number then
+              local bufname = vim.api.nvim_buf_get_name(buffer_number)
+              vim.g.new_tab_buf_cwd = vim.fn.fnamemodify(bufname, ":p:h")
+            end
 
             -- show tab's cwd
             local original_tab_cwd_visibility = vim.g.toggle_tab_cwd

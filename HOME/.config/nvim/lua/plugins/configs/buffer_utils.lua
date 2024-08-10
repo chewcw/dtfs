@@ -232,6 +232,11 @@ M.open_file_in_new_tab = function(is_visual, count)
   end
 
   if file and file[1] then
+    local parent_dir = vim.fn.fnamemodify(file[1], ":h")
+    if parent_dir then
+      vim.g.new_tab_buf_cwd = parent_dir
+    end
+
     vim.api.nvim_command("tabnew " .. file[1])
     vim.fn.cursor(file[2], file[3])
   end
@@ -267,6 +272,11 @@ M.open_file_in_specific_tab = function(is_visual, count)
         vim.cmd("tabn " .. tabnr)
         -- Open the file in the current window of the specified tab
         if file and file[1] then
+          local parent_dir = vim.fn.fnamemodify(file[1], ":h")
+          if parent_dir then
+            vim.g.new_tab_buf_cwd = parent_dir
+          end
+
           vim.cmd("edit " .. file[1])
           vim.fn.cursor(file[2], file[3])
         end
