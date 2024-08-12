@@ -275,7 +275,7 @@ M.options = {
           ["<C-o>"] = require("telescope").extensions.file_browser.actions.open,
           ["<C-g>"] = require("telescope").extensions.file_browser.actions.goto_parent_dir,
           ["<C-e>"] = require("telescope").extensions.file_browser.actions.goto_home_dir,
-          ["<C-w>"] = require("telescope").extensions.file_browser.actions.goto_cwd,
+          ["W"] = require("telescope").extensions.file_browser.actions.goto_cwd,
           ["<C-f>"] = require("telescope").extensions.file_browser.actions.toggle_browser,
           -- ["<C-h>"] = require("telescope").extensions.file_browser.actions.toggle_hidden,
           ["<C-a>"] = require("telescope").extensions.file_browser.actions.toggle_all,
@@ -406,10 +406,11 @@ M.options = {
       mappings = {
         i = {
           ["<C-f>"] = telescope_utils.ts_select_dir_for_grep_or_find_files("live_grep"),
+          ["<A-w>"] = telescope_utils.set_temporary_cwd_from_file_browser("live_grep"),
         },
         n = {
           ["<C-f>"] = telescope_utils.ts_select_dir_for_grep_or_find_files("live_grep"),
-          ["<C-w>"] = telescope_utils.set_temporary_cwd_from_file_browser("live_grep"),
+          ["W"] = telescope_utils.set_temporary_cwd_from_file_browser("live_grep"),
         },
       },
     },
@@ -418,10 +419,11 @@ M.options = {
       mappings = {
         i = {
           ["<C-f>"] = telescope_utils.ts_select_dir_for_grep_or_find_files("find_files"),
+          ["<A-w>"] = telescope_utils.set_temporary_cwd_from_file_browser("find_files"),
         },
         n = {
           ["<C-f>"] = telescope_utils.ts_select_dir_for_grep_or_find_files("find_files"),
-          ["<C-w>"] = telescope_utils.set_temporary_cwd_from_file_browser("find_files"),
+          ["W"] = telescope_utils.set_temporary_cwd_from_file_browser("find_files"),
         },
       },
     },
@@ -430,6 +432,9 @@ M.options = {
       sort_lastused = true,
       sort_mru = true,
       mappings = {
+        i = {
+          ["<A-w>"] = telescope_utils.set_temporary_cwd_from_file_browser("buffers"),
+        },
         n = {
           -- close the buffer
           ["d"] = require("telescope.actions").delete_buffer,
@@ -465,7 +470,7 @@ M.options = {
               vim.g.toggle_tab_cwd = original_tab_cwd_visibility
             end
           end,
-          ["<C-w>"] = telescope_utils.set_temporary_cwd_from_file_browser("buffers"),
+          ["W"] = telescope_utils.set_temporary_cwd_from_file_browser("buffers"),
         },
       },
     },
@@ -484,8 +489,11 @@ M.options = {
 
     oldfiles = {
       mappings = {
+        i = {
+          ["<A-w>"] = telescope_utils.set_temporary_cwd_from_file_browser("file_files"),
+        },
         n = {
-          ["<C-w>"] = telescope_utils.set_temporary_cwd_from_file_browser("file_files"),
+          ["W"] = telescope_utils.set_temporary_cwd_from_file_browser("file_files"),
         },
       },
     },
