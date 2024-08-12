@@ -12,29 +12,52 @@ M.force_delete_buffer_create_new = function()
         -- Delete the current buffer
         local bufname = vim.api.nvim_buf_get_name(0) -- Get the name of the current buffer
         if bufname == "" then
-          vim.cmd("enew")
-          vim.cmd("bdelete!" .. current_bufnr)
+          M.force_delete_buffer_keep_tab(current_bufnr)
           return true
         end
 
-        vim.cmd("enew")
-        vim.cmd("bdelete!" .. current_bufnr)
+        M.force_delete_buffer_keep_tab(current_bufnr)
         return true
       end
     else
       -- Buffer is not modified, just delete it
       local bufname = vim.api.nvim_buf_get_name(0) -- Get the name of the current buffer
       if bufname == "" then
-        vim.cmd("enew")
-        vim.cmd("bdelete!" .. current_bufnr)
+        M.force_delete_buffer_keep_tab(current_bufnr)
         return true
       end
-      vim.cmd("enew")
-      vim.cmd("bdelete!" .. current_bufnr)
+      M.force_delete_buffer_keep_tab(current_bufnr)
       return true
     end
     return false
   end)
+end
+
+M.force_delete_buffer_keep_tab = function(bufnr)
+  -- Check if the buffer number is valid
+  if not bufnr or bufnr == 0 then
+    print("Invalid buffer number.")
+    return
+  end
+
+  -- Check if the buffer is empty
+  local lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
+  local is_empty = true
+  for _, line in ipairs(lines) do
+    if line ~= "" then
+      is_empty = false
+      break
+    end
+  end
+
+  -- If this is not empty buffer, safely delete the buffer,
+  -- otherwise don't delete, to prevent delete the tab accidentally.
+  if not is_empty then
+    vim.cmd("enew")
+    vim.cmd("bdelete! " .. bufnr)
+  else
+    print("This buffer is empty, not deleting.")
+  end
 end
 
 -- Function to delete buffer and show new buffer
