@@ -430,40 +430,43 @@ M.set_temporary_cwd_from_file_browser = function(picker_name, path)
     -- browser
     vim.g.telescope_picker_temporary_cwd_from_file_browser = true
 
+    local select_tmp_cwd = function()
+      local selection = action_state.get_selected_entry()
+      local selected_path = selection.path
+
+      if vim.fn.isdirectory(selected_path) == 1 then
+        -- Replace default action to open picker with new cwd
+        actions.select_default:replace(function()
+          -- Open the specified picker with the selected cwd
+          if picker_name == "find_files" then
+            builtin.find_files({ cwd = selected_path })
+          elseif picker_name == "live_grep" then
+            builtin.live_grep({ cwd = selected_path })
+          elseif picker_name == "buffers" then
+            builtin.buffers({ cwd = selected_path })
+          elseif picker_name == "live_grep_custom" then
+            M.custom_rg({
+              cwd = selected_path,
+            })
+          else
+            print("Unsupported picker name")
+          end
+        end)
+
+        -- Trigger the replaced action
+        actions.select_default(prompt_bufnr)
+      else
+        print("Selected item is not a directory")
+      end
+    end
+
     fb.file_browser({
       path = path,
       prompt_title = "Select temporary cwd",
       attach_mappings = function(_, map)
         -- Replace the default select action with custom behavior
-        map("i", "<CR>", function()
-          local selection = action_state.get_selected_entry()
-          local selected_path = selection.path
-
-          if vim.fn.isdirectory(selected_path) == 1 then
-            -- Replace default action to open picker with new cwd
-            actions.select_default:replace(function()
-              -- Open the specified picker with the selected cwd
-              if picker_name == "find_files" then
-                builtin.find_files({ cwd = selected_path })
-              elseif picker_name == "live_grep" then
-                builtin.live_grep({ cwd = selected_path })
-              elseif picker_name == "buffers" then
-                builtin.buffers({ cwd = selected_path })
-              elseif picker_name == "live_grep_custom" then
-                M.custom_rg({
-                  cwd = selected_path,
-                })
-              else
-                print("Unsupported picker name")
-              end
-            end)
-
-            -- Trigger the replaced action
-            actions.select_default(prompt_bufnr)
-          else
-            print("Selected item is not a directory")
-          end
-        end)
+        map("i", "<A-CR>", select_tmp_cwd)
+        map("n", "<A-CR>", select_tmp_cwd)
         return true
       end,
     })
