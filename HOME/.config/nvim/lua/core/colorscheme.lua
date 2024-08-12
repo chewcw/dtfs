@@ -149,7 +149,7 @@ M.setup = function()
     Conceal = { fg = c.gray05 },
     Cursor = { bg = c.none, fg = c.none, reverse = false }, -- set both guifg and guibg to none to let the terminal emulator to render the color of cursor and text underneath
     CursorIM = { bg = c.bright_yellow, fg = c.black, reverse = false },
-    CurSearch = { bg = c.bright_green, fg = c.black, reverse = false },
+    CurSearch = { bg = c.magenta, fg = c.white, reverse = false },
     Directory = { fg = c.main1, bg = c.none },
 
     DiffAdd = { fg = c.pink, bg = c.none, bold = true, italic = true },
