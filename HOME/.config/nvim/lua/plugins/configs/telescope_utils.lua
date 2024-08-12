@@ -73,7 +73,7 @@ M.ts_select_dir_for_grep_or_find_files = function(picker_name)
             no_ignore = no_ignore,
             follow = true,
             attach_mappings = function(_, map)
-              map("n", "<C-w>", function()
+              map("n", "W", function()
                 M.set_temporary_cwd_from_file_browser("live_grep_custom")
               end)
               return true
@@ -182,7 +182,7 @@ M.custom_rg = function(opts)
         attach_mappings = function(_, map)
           map("i", "<C-f>", M.ts_select_dir_for_grep_or_find_files("live_grep"))
           map("n", "<C-f>", M.ts_select_dir_for_grep_or_find_files("live_grep"))
-          map("n", "<C-w>", M.set_temporary_cwd_from_file_browser("live_grep_custom"))
+          map("n", "W", M.set_temporary_cwd_from_file_browser("live_grep_custom"))
           return true
         end,
       })
@@ -424,7 +424,7 @@ M.set_temporary_cwd_from_file_browser = function(picker_name, path)
     local fb = require("telescope").extensions.file_browser
     -- below global variable is set because of this scenario:
     -- 1. do global grep
-    -- 2. <C-w> to open this temporary cwd file browser
+    -- 2. W to open this temporary cwd file browser
     -- 3. g<Space> to go to other direcotory
     -- 4. should go back to this temporary cwd file browser instead of normal file
     -- browser
