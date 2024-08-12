@@ -22,12 +22,12 @@ M.general = {
     --   "delete buffer from buffer list and close tab",
     -- },
     ["<A-S-w>"] = {
-      ":lua require('plugins.configs.buffer_utils').close_buffer_create_new() <CR>",
+      ":lua require('plugins.configs.buffer_utils').force_delete_buffer_create_new() <CR>",
       "close the buffer but keep the window",
       opts = { silent = true },
     },
     ["<A-S-d>"] = {
-      ":lua require('plugins.configs.buffer_utils').close_buffer_create_new() <CR>",
+      ":lua require('plugins.configs.buffer_utils').force_delete_buffer_create_new() <CR>",
       "close the buffer but keep the window",
       opts = { silent = true },
     },
