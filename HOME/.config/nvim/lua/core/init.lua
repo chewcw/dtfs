@@ -458,11 +458,11 @@ end, { nargs = 0, range = true })
 vim.api.nvim_create_user_command("ToggleTabCwd", function(args)
   if args == nil then
     vim.g.toggle_tab_cwd = "1"
-    vim.o.tabline = "%!v:lua.MyTabLine()"
+    -- vim.o.tabline = "%!v:lua.MyTabLine()"
     return
   end
   vim.g.toggle_tab_cwd = args.args
-  vim.o.tabline = "%!v:lua.MyTabLine()"
+  -- vim.o.tabline = "%!v:lua.MyTabLine()"
 end, { nargs = "*" })
 
 -- ----------------------------------------------------------------------------

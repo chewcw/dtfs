@@ -644,6 +644,17 @@ local default_plugins = {
     },
   },
 
+  {
+    "akinsho/bufferline.nvim",
+    lazy = false,
+    opts = function()
+      return require("plugins.configs.bufferline").setup
+    end,
+    config = function(_, opts)
+      require("bufferline").setup(opts)
+    end,
+  },
+
   -- Only load whichkey after all the gui
   {
     "folke/which-key.nvim",
