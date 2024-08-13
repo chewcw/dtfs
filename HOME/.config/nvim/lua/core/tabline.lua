@@ -29,6 +29,20 @@ function MyTabLine()
       tabline = tabline .. tabnr .. is_modified .. " "
     elseif vim.g.toggle_tab_cwd == "3" then
       tabline = tabline .. " 🖿  " .. cwd_name .. is_modified .. " "
+    elseif vim.g.toggle_tab_cwd == "4" then
+      if tabnr == vim.fn.tabpagenr() then
+        tabline = tabline .. " 🗎 " .. is_modified .. " "
+      else
+        tabline = tabline .. " 🖿  " .. cwd_name .. is_modified .. " "
+      end
+    elseif vim.g.toggle_tab_cwd == "5" then
+      if tabnr == vim.fn.tabpagenr() then
+        tabline = tabline .. " 🗎 " .. is_modified .. " "
+      else
+        tabline = tabline .. " 🖿  " .. cwd_name .. "/" .. buffer_name .. is_modified .. " "
+      end
+    elseif vim.g.toggle_tab_cwd == "6" then
+      tabline = tabline .. " 🖿  " .. cwd_name .. "/" .. buffer_name .. is_modified .. " "
     else
       tabline = tabline .. " 🗎 " .. buffer_name .. is_modified .. " "
     end
