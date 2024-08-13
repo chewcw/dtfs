@@ -212,23 +212,33 @@ M.options = {
           local original_tab_cwd_visibility = vim.g.toggle_tab_cwd
           vim.g.toggle_tab_cwd = "1"
 
-          vim.ui.input({ prompt = "Enter tab number: " }, function(input)
-            pcall(function()
-              if input then
-                local tabnr = tonumber(input)
-                local tabnr_ordinal = vim.api.nvim_tabpage_get_number(tabnr)
-                if tabnr_ordinal and tabnr_ordinal > 0 and tabnr_ordinal <= vim.fn.tabpagenr("$") then
-                  vim.api.nvim_command("tabnext " .. tabnr_ordinal)
-                  vim.api.nvim_command("edit " .. file_path)
-                  vim.fn.cursor(row, col)
-                else
-                  print("Invalid tab number: " .. input)
-                end
-              else
-                print("Input canceled")
-              end
-            end)
-          end)
+          -- vim.ui.input({ prompt = "Enter tab number: " }, function(input)
+          --   pcall(function()
+          --     if input then
+          --       local tabnr = tonumber(input)
+          --       local tabnr_ordinal = vim.api.nvim_tabpage_get_number(tabnr)
+          --       if tabnr_ordinal and tabnr_ordinal > 0 and tabnr_ordinal <= vim.fn.tabpagenr("$") then
+          --         vim.api.nvim_command("tabnext " .. tabnr_ordinal)
+          --         vim.api.nvim_command("edit " .. file_path)
+          --         vim.fn.cursor(row, col)
+          --       else
+          --         print("Invalid tab number: " .. input)
+          --       end
+          --     else
+          --       print("Input canceled")
+          --     end
+          --   end)
+          -- end)
+
+          require("plugins.configs.telescope_tabs").list_tabs({
+            title = "Open in tab",
+            on_open = function(tid)
+              local tabnr_ordinal = vim.api.nvim_tabpage_get_number(tid)
+              vim.api.nvim_command("tabnext " .. tabnr_ordinal)
+              vim.api.nvim_command("edit " .. file_path)
+              vim.fn.cursor(row, col)
+            end,
+          })
 
           if original_tab_cwd_visibility ~= "1" then
             vim.g.toggle_tab_cwd = original_tab_cwd_visibility
@@ -240,7 +250,7 @@ M.options = {
     },
   },
 
-  extensions_list = { "file_browser", "workspaces", "ui-select", "telescope-tabs", "fzf" },
+  extensions_list = { "file_browser", "workspaces", "ui-select", "fzf" },
 
   extensions = {
     file_browser = {
@@ -478,19 +488,27 @@ M.options = {
             local original_tab_cwd_visibility = vim.g.toggle_tab_cwd
             vim.g.toggle_tab_cwd = "1"
 
-            vim.ui.input({ prompt = "Enter tab number: " }, function(input)
-              if input then
-                local tabnr = tonumber(input)
-                local tabnr_ordinal = vim.api.nvim_tabpage_get_number(tabnr)
-                if tabnr_ordinal and tabnr_ordinal > 0 and tabnr_ordinal <= vim.fn.tabpagenr("$") then
-                  buffer_utils.open_buffer_in_specific_tab(tabnr_ordinal, buffer_number)
-                else
-                  print("Invalid tab number: " .. input)
-                end
-              else
-                print("Input canceled")
-              end
-            end)
+            -- vim.ui.input({ prompt = "Enter tab number: " }, function(input)
+            --   if input then
+            --     local tabnr = tonumber(input)
+            --     local tabnr_ordinal = vim.api.nvim_tabpage_get_number(tabnr)
+            --     if tabnr_ordinal and tabnr_ordinal > 0 and tabnr_ordinal <= vim.fn.tabpagenr("$") then
+            --       buffer_utils.open_buffer_in_specific_tab(tabnr_ordinal, buffer_number)
+            --     else
+            --       print("Invalid tab number: " .. input)
+            --     end
+            --   else
+            --     print("Input canceled")
+            --   end
+            -- end)
+
+            require("plugins.configs.telescope_tabs").list_tabs({
+              title = "Open in tab",
+              on_open = function(tid)
+                local tabnr_ordinal = vim.api.nvim_tabpage_get_number(tid)
+                buffer_utils.open_buffer_in_specific_tab(tabnr_ordinal, buffer_number)
+              end,
+            })
 
             if original_tab_cwd_visibility ~= "1" then
               vim.g.toggle_tab_cwd = original_tab_cwd_visibility

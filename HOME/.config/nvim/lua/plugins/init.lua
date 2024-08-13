@@ -257,11 +257,6 @@ local default_plugins = {
         -- branch = "master",
         -- commit = "6e51d7d",
       },
-      {
-        "LukasPietzschmann/telescope-tabs",
-        -- branch = "master",
-        -- commit = "a38c8fe",
-      },
     },
     init = function()
       -- put this before loading mappings because
