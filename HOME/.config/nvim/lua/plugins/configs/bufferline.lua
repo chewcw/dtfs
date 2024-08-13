@@ -29,27 +29,27 @@ M.setup = {
       local cwd_name = vim.fn.fnamemodify(working_directory, ":t")
 
       if vim.g.toggle_tab_cwd == "1" then -- show tab's cwd (see user command "ToggleTabCwd")
-        return buf.tabnr .. " 🖿  " .. cwd_name
+        return buf.tabnr .. "🖿 " .. cwd_name
       elseif vim.g.toggle_tab_cwd == "2" then
         return tostring(buf.tabnr)
       elseif vim.g.toggle_tab_cwd == "3" then
-        return " 🖿  " .. cwd_name
+        return "🖿  " .. cwd_name
       elseif vim.g.toggle_tab_cwd == "4" then
         if tabnr_ordinal == vim.fn.tabpagenr() then
-          return " 🗎 "
+          return "🗎 "
         else
-          return " 🖿  " .. cwd_name
+          return "🖿 " .. cwd_name
         end
       elseif vim.g.toggle_tab_cwd == "5" then
         if tabnr_ordinal == vim.fn.tabpagenr() then
-          return " 🗎 "
+          return "🗎 "
         else
-          return " 🖿  " .. cwd_name .. "/" .. buf.name
+          return "🖿 " .. cwd_name .. "/" .. buf.name
         end
       elseif vim.g.toggle_tab_cwd == "6" then
-        return " 🖿  " .. cwd_name .. "/" .. buf.name
+        return "🖿 " .. cwd_name .. "/" .. buf.name
       else
-        return " 🗎 " .. buf.name
+        return "🗎 " .. buf.name
       end
     end,
     offsets = {
