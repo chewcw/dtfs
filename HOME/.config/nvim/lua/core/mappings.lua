@@ -126,6 +126,7 @@ M.general = {
     -- use inkarkat/vim-EnhancedJumps
     -- see https://github.com/inkarkat/vim-EnhancedJumps
     -- ["<A-p>"] = { "<C-6>", "toggle last opened buffer" },
+    ["<S-Tab>"] = { "<C-6>", "toggle last opened buffer" },
 
     -- marks
     ["<leader>m"] = { ':delmarks a-zA-Z0-9"^.[] <CR>', "delete all marks" },
@@ -395,6 +396,11 @@ M.general = {
     ["<C-w><C-j>"] = { "<C-w>j|<C-w>_", "switch to bottom window and maximize it vertically" },
 
     ["<A-p>"] = { "<cmd> BufferLinePick <CR>", "bufferline pick" },
+    ["<A-Tab>"] = {
+      ":lua require('plugins.configs.telescope_tabs').go_to_previous() <CR>",
+      "go to previous opened tab",
+      opts = { silent = true },
+    },
   },
 
   v = {
