@@ -216,8 +216,9 @@ M.options = {
             pcall(function()
               if input then
                 local tabnr = tonumber(input)
-                if tabnr and tabnr > 0 and tabnr <= vim.fn.tabpagenr("$") then
-                  vim.api.nvim_command("tabnext " .. tabnr)
+                local tabnr_ordinal = vim.api.nvim_tabpage_get_number(tabnr)
+                if tabnr_ordinal and tabnr_ordinal > 0 and tabnr_ordinal <= vim.fn.tabpagenr("$") then
+                  vim.api.nvim_command("tabnext " .. tabnr_ordinal)
                   vim.api.nvim_command("edit " .. file_path)
                   vim.fn.cursor(row, col)
                 else
@@ -480,8 +481,9 @@ M.options = {
             vim.ui.input({ prompt = "Enter tab number: " }, function(input)
               if input then
                 local tabnr = tonumber(input)
-                if tabnr and tabnr > 0 and tabnr <= vim.fn.tabpagenr("$") then
-                  buffer_utils.open_buffer_in_specific_tab(tabnr, buffer_number)
+                local tabnr_ordinal = vim.api.nvim_tabpage_get_number(tabnr)
+                if tabnr_ordinal and tabnr_ordinal > 0 and tabnr_ordinal <= vim.fn.tabpagenr("$") then
+                  buffer_utils.open_buffer_in_specific_tab(tabnr_ordinal, buffer_number)
                 else
                   print("Invalid tab number: " .. input)
                 end

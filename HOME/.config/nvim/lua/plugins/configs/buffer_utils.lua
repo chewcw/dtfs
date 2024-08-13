@@ -282,17 +282,18 @@ M.open_file_in_specific_tab = function(is_visual, count)
   vim.ui.input({ prompt = "Enter tab number: " }, function(input)
     if input then
       local tabnr = tonumber(input)
-      if tabnr and tabnr > 0 and tabnr <= vim.fn.tabpagenr("$") then
+      local tabnr_ordinal = vim.api.nvim_tabpage_get_number(tabnr)
+      if tabnr_ordinal and tabnr_ordinal > 0 and tabnr_ordinal <= vim.fn.tabpagenr("$") then
         -- Get the list of tab pages
         local tabpages = vim.api.nvim_list_tabpages()
         -- Check if the specified tab exists
-        if tabnr < 1 or tabnr > #tabpages then
-          print("Invalid tab number: " .. tabnr)
+        if tabnr_ordinal < 1 or tabnr_ordinal > #tabpages then
+          print("Invalid tab number: " .. tabnr_ordinal)
           return
         end
 
         -- Switch to the specified tab
-        vim.cmd("tabn " .. tabnr)
+        vim.cmd("tabn " .. tabnr_ordinal)
         -- Open the file in the current window of the specified tab
         if file and file[1] then
           local parent_dir = vim.fn.fnamemodify(file[1], ":h")
