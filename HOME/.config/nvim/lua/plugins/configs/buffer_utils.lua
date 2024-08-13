@@ -279,40 +279,60 @@ M.open_file_in_specific_tab = function(is_visual, count)
   local original_tab_cwd_visibility = vim.g.toggle_tab_cwd
   vim.g.toggle_tab_cwd = "1"
 
-  vim.ui.input({ prompt = "Enter tab number: " }, function(input)
-    if input then
-      local tabnr = tonumber(input)
-      local tabnr_ordinal = vim.api.nvim_tabpage_get_number(tabnr)
-      if tabnr_ordinal and tabnr_ordinal > 0 and tabnr_ordinal <= vim.fn.tabpagenr("$") then
-        -- Get the list of tab pages
-        local tabpages = vim.api.nvim_list_tabpages()
-        -- Check if the specified tab exists
-        if tabnr_ordinal < 1 or tabnr_ordinal > #tabpages then
-          print("Invalid tab number: " .. tabnr_ordinal)
-          return
+  -- vim.ui.input({ prompt = "Enter tab number: " }, function(input)
+  --   if input then
+  --     local tabnr = tonumber(input)
+  --     local tabnr_ordinal = vim.api.nvim_tabpage_get_number(tabnr)
+  --     if tabnr_ordinal and tabnr_ordinal > 0 and tabnr_ordinal <= vim.fn.tabpagenr("$") then
+  --       -- Get the list of tab pages
+  --       local tabpages = vim.api.nvim_list_tabpages()
+  --       -- Check if the specified tab exists
+  --       if tabnr_ordinal < 1 or tabnr_ordinal > #tabpages then
+  --         print("Invalid tab number: " .. tabnr_ordinal)
+  --         return
+  --       end
+  --
+  --       -- Switch to the specified tab
+  --       vim.cmd("tabn " .. tabnr_ordinal)
+  --       -- Open the file in the current window of the specified tab
+  --       if file and file[1] then
+  --         local parent_dir = vim.fn.fnamemodify(file[1], ":h")
+  --         if parent_dir then
+  --           vim.g.new_tab_buf_cwd = parent_dir
+  --         end
+  --
+  --         vim.cmd("edit " .. file[1])
+  --         vim.fn.cursor(file[2], file[3])
+  --       end
+  --     else
+  --       print("Invalid tab number: " .. input)
+  --     end
+  --   else
+  --     print("Input canceled")
+  --   end
+  -- end)
+
+  require("plugins.configs.telescope_tabs").list_tabs({
+    title = "Open in tab",
+    on_open = function(tid)
+      local tabnr_ordinal = vim.api.nvim_tabpage_get_number(tid)
+      -- Switch to the specified tab
+      vim.cmd("tabn " .. tabnr_ordinal)
+      -- Open the file in the current window of the specified tab
+      if file and file[1] then
+        local parent_dir = vim.fn.fnamemodify(file[1], ":h")
+        if parent_dir then
+          vim.g.new_tab_buf_cwd = parent_dir
         end
 
-        -- Switch to the specified tab
-        vim.cmd("tabn " .. tabnr_ordinal)
-        -- Open the file in the current window of the specified tab
-        if file and file[1] then
-          local parent_dir = vim.fn.fnamemodify(file[1], ":h")
-          if parent_dir then
-            vim.g.new_tab_buf_cwd = parent_dir
-          end
-
-          vim.cmd("edit " .. file[1])
-          vim.fn.cursor(file[2], file[3])
-        end
-      else
-        print("Invalid tab number: " .. input)
+        vim.cmd("edit " .. file[1])
+        vim.fn.cursor(file[2], file[3])
       end
-    else
-      print("Input canceled")
-    end
-  end)
+    end,
+  })
 
   if original_tab_cwd_visibility ~= "1" then
+
     vim.g.toggle_tab_cwd = original_tab_cwd_visibility
   end
 end
