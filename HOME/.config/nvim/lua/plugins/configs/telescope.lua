@@ -420,10 +420,34 @@ M.options = {
         i = {
           ["<C-f>"] = telescope_utils.ts_select_dir_for_grep_or_find_files("find_files"),
           ["<A-w>"] = telescope_utils.set_temporary_cwd_from_file_browser("find_files"),
+          ["<CR>"] = function(prompt_bufnr)
+            telescope_utils.open_multiple_files_in_find_files_picker(prompt_bufnr, "edit")
+          end,
+          ["<A-e>"] = function(prompt_bufnr)
+            telescope_utils.open_multiple_files_in_find_files_picker(prompt_bufnr, "tabe")
+          end,
+          ["<A-_>"] = function(prompt_bufnr)
+            telescope_utils.open_multiple_files_in_find_files_picker(prompt_bufnr, "split")
+          end,
+          ["<A-\\>"] = function(prompt_bufnr)
+            telescope_utils.open_multiple_files_in_find_files_picker(prompt_bufnr, "vsplit")
+          end,
         },
         n = {
           ["<C-f>"] = telescope_utils.ts_select_dir_for_grep_or_find_files("find_files"),
           ["W"] = telescope_utils.set_temporary_cwd_from_file_browser("find_files"),
+          ["<CR>"] = function(prompt_bufnr)
+            telescope_utils.open_multiple_files_in_find_files_picker(prompt_bufnr, "edit")
+          end,
+          ["<A-e>"] = function(prompt_bufnr)
+            telescope_utils.open_multiple_files_in_find_files_picker(prompt_bufnr, "tabe")
+          end,
+          ["<A-_>"] = function(prompt_bufnr)
+            telescope_utils.open_multiple_files_in_find_files_picker(prompt_bufnr, "split")
+          end,
+          ["<A-\\>"] = function(prompt_bufnr)
+            telescope_utils.open_multiple_files_in_find_files_picker(prompt_bufnr, "vsplit")
+          end,
         },
       },
     },
