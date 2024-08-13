@@ -45,22 +45,36 @@ local M = {
 }
 
 local default_conf = {
-  entry_formatter = function(tab_id, buffer_ids, file_names, file_paths, is_current, cwd_name)
-    local entry_string = table.concat(file_names, ", ")
-    return string.format(
-      "%s: 🖿 %s 🗎 %s %s",
-      tostring(tab_id),
-      cwd_name,
-      entry_string,
-      is_current and " <" or ""
-    )
+  entry_formatter = function(tab_id, buffer_ids, file_names, file_paths, is_current, cwd_name, buffers_in_cwd)
+    if vim.g.toggle_tab_auto_cwd then
+      local buffers_in_cwd_string = table.concat(buffers_in_cwd, ", ")
+      return string.format(
+        "%s: %s 🖿  %s 🗎 %s",
+        tostring(tab_id),
+        is_current and " >" or "",
+        cwd_name,
+        buffers_in_cwd_string
+      )
+    else
+      local file_names_string = table.concat(file_names, ", ")
+      return string.format(
+        "%s: %s 🖿  %s 🗎 %s",
+        tostring(tab_id),
+        is_current and " >" or "",
+        cwd_name,
+        file_names_string
+      )
+    end
   end,
   -- this is where we can search
-  entry_ordinal = function(tab_id, buffer_ids, file_names, file_paths, is_current, cwd_name)
-    local concat_file_names = table.concat(file_names, " ")
-    return concat_file_names .. " " .. cwd_name .. " " .. tab_id
+  entry_ordinal = function(tab_id, buffer_ids, file_names, file_paths, is_current, cwd_name, buffers_in_cwd)
+    if vim.g.toggle_tab_auto_cwd then
+      return table.concat(buffers_in_cwd, " ") .. " " .. cwd_name .. " " .. tab_id
+    else
+      return table.concat(file_names, " ") .. tab_id
+    end
   end,
-  show_preview = true,
+  show_preview = false,
   close_tab_shortcut_i = "<C-d>",
   close_tab_shortcut_n = "D",
 }
@@ -109,6 +123,21 @@ M.list_tabs = function(opts)
     local win_num = vim.fn.tabpagewinnr(tabnr_ordinal)
     local working_directory = vim.fn.getcwd(win_num, tabnr_ordinal)
     local cwd_name = vim.fn.fnamemodify(working_directory, ":t")
+    local full_cwd_name = vim.fn.fnamemodify(working_directory, ":p:h")
+
+    local buffers_in_cwd = {}
+    local buf_list = vim.api.nvim_list_bufs() -- Get a list of all buffer IDs
+    for _, buf_id in ipairs(buf_list) do
+      -- Check if the buffer is valid and has a file path
+      if vim.api.nvim_buf_is_valid(buf_id) and vim.api.nvim_buf_get_name(buf_id) ~= "" then
+        local file_path = vim.api.nvim_buf_get_name(buf_id)
+        local parent_folder = vim.fn.fnamemodify(file_path, ":p:h")
+        local buffer_name = vim.fn.fnamemodify(file_path, ":t")
+        if parent_folder == full_cwd_name then
+          table.insert(buffers_in_cwd, buffer_name)
+        end
+      end
+    end
 
     for _, wid in ipairs(vim.api.nvim_tabpage_list_wins(tid)) do
       -- Only consider the normal windows and ignore the floating windows
@@ -125,7 +154,7 @@ M.list_tabs = function(opts)
     if is_current then
       current_tab.index = index
     end
-    table.insert(res, { file_names, file_paths, file_ids, window_ids, tid, is_current, cwd_name })
+    table.insert(res, { file_names, file_paths, file_ids, window_ids, tid, is_current, cwd_name, buffers_in_cwd })
   end
   pickers
       .new(opts, {
@@ -134,9 +163,9 @@ M.list_tabs = function(opts)
           results = res,
           entry_maker = function(entry)
             local entry_string =
-                opts.entry_formatter(entry[5], entry[3], entry[1], entry[2], entry[6], entry[7])
+                opts.entry_formatter(entry[5], entry[3], entry[1], entry[2], entry[6], entry[7], entry[8])
             local ordinal_string =
-                opts.entry_ordinal(entry[5], entry[3], entry[1], entry[2], entry[6], entry[7])
+                opts.entry_ordinal(entry[5], entry[3], entry[1], entry[2], entry[6], entry[7], entry[8])
             return {
               value = entry,
               path = entry[2][1],
