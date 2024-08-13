@@ -9,7 +9,8 @@ if not vim.loop.fs_stat(lazypath) then
 	require("core.bootstrap").lazy(lazypath)
 end
 
-vim.opt.rtp:prepend(lazypath)
-require("plugins")
 
 require("core.colorscheme").setup()
+
+vim.opt.rtp:prepend(lazypath)
+require("plugins")
