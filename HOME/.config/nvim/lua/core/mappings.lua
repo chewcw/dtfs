@@ -393,6 +393,8 @@ M.general = {
     ["<C-w><C-l>"] = { "<C-w>l|<C-w>|", "switch to right window and maximize it horizontally" },
     ["<C-w><C-k>"] = { "<C-w>k|<C-w>_", "switch to top window and maximize it vertically" },
     ["<C-w><C-j>"] = { "<C-w>j|<C-w>_", "switch to bottom window and maximize it vertically" },
+
+    ["<A-p>"] = { "<cmd> BufferLinePick <CR>", "bufferline pick" },
   },
 
   v = {
@@ -439,11 +441,11 @@ M.general = {
     ["<A-b>"] = { "<C-Left>", "move previous word" },
     ["<A-\\>"] = {
       function()
-        pcall(function ()
+        pcall(function()
           local last_command = vim.fn.getcmdline()
           local modified_command = ":vertical " .. last_command
           if last_command:find("^" .. "Gll") ~= nil then
-            pcall(function ()
+            pcall(function()
               vim.cmd("vnew") -- open vsplit
               vim.cmd(modified_command)
               vim.cmd("wincmd k")
@@ -478,11 +480,11 @@ M.general = {
     },
     ["<A-e>"] = {
       function()
-        pcall(function ()
+        pcall(function()
           local last_command = vim.fn.getcmdline()
           local modified_command = ":tab " .. last_command
           if last_command:find("^" .. "Gll") ~= nil then
-            pcall(function ()
+            pcall(function()
               modified_command = ":tabnew | execute('" .. last_command .. "')"
               vim.cmd(modified_command)
               vim.cmd("wincmd k")
@@ -764,7 +766,10 @@ M.telescope = {
 
   n = {
     -- file browser
-    ["<leader>fs"] = { "<cmd> let g:telescope_picker_temporary_cwd_from_file_browser='false' | Telescope file_browser <CR>", "file browser" },
+    ["<leader>fs"] = {
+      "<cmd> let g:telescope_picker_temporary_cwd_from_file_browser='false' | Telescope file_browser <CR>",
+      "file browser",
+    },
 
     -- find
     -- set global variable here so that the telescope picker knows this is a normal finder
@@ -857,18 +862,36 @@ M.telescope = {
 
     -- this is just a note, this is to open file (like gf), but take consideration of
     -- the row and col appended to the filename, see core.utils_vimfetch
-    ["<leader>of"] = { ":lua require('plugins.configs.buffer_utils').open_file_in_current_window(false, vim.v.count) <CR>", "open file in current window" },
-    ["<leader>oF"] = { ":lua require('plugins.configs.buffer_utils').open_file_in_new_tab(false, vim.v.count) <CR>", "open file in new tab" },
-    ["<leader>ot"] = { ":lua require('plugins.configs.buffer_utils').open_file_in_specific_tab(false, vim.v.count) <CR>", "open file in specific tab" },
+    ["<leader>of"] = {
+      ":lua require('plugins.configs.buffer_utils').open_file_in_current_window(false, vim.v.count) <CR>",
+      "open file in current window",
+    },
+    ["<leader>oF"] = {
+      ":lua require('plugins.configs.buffer_utils').open_file_in_new_tab(false, vim.v.count) <CR>",
+      "open file in new tab",
+    },
+    ["<leader>ot"] = {
+      ":lua require('plugins.configs.buffer_utils').open_file_in_specific_tab(false, vim.v.count) <CR>",
+      "open file in specific tab",
+    },
   },
 
   v = {
     ["<leader>f*"] = { "<cmd> Telescope grep_string <CR>", "search for string under cursor in cwd" },
     -- this is just a note, this is to open file (like gf), but take consideration of
     -- the row and col appended to the filename, see core.utils_vimfetch
-    ["<leader>of"] = { ":lua require('plugins.configs.buffer_utils').open_file_in_current_window(true, vim.v.count) <CR>", "open file in current window" },
-    ["<leader>oF"] = { ":lua require('plugins.configs.buffer_utils').open_file_in_new_tab(true, vim.v.count) <CR>", "open file in new tab" },
-    ["<leader>ot"] = { ":lua require('plugins.configs.buffer_utils').open_file_in_specific_tab(true, vim.v.count) <CR>", "open file in specific tab" },
+    ["<leader>of"] = {
+      ":lua require('plugins.configs.buffer_utils').open_file_in_current_window(true, vim.v.count) <CR>",
+      "open file in current window",
+    },
+    ["<leader>oF"] = {
+      ":lua require('plugins.configs.buffer_utils').open_file_in_new_tab(true, vim.v.count) <CR>",
+      "open file in new tab",
+    },
+    ["<leader>ot"] = {
+      ":lua require('plugins.configs.buffer_utils').open_file_in_specific_tab(true, vim.v.count) <CR>",
+      "open file in specific tab",
+    },
   },
 }
 

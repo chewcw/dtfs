@@ -52,4 +52,4 @@ function MyTabLine()
 end
 
 -- Set the custom tabline
-vim.o.tabline = "%!v:lua.MyTabLine()"
+-- vim.o.tabline = "%!v:lua.MyTabLine()"
