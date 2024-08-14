@@ -183,6 +183,7 @@ M.custom_rg = function(opts)
           map("i", "<C-f>", M.ts_select_dir_for_grep_or_find_files("live_grep"))
           map("n", "<C-f>", M.ts_select_dir_for_grep_or_find_files("live_grep"))
           map("n", "W", M.set_temporary_cwd_from_file_browser("live_grep_custom"))
+          map("n", "<A-e>", M.open_file_in_specifc_tab_and_set_cwd)
           return true
         end,
       })
@@ -440,14 +441,25 @@ M.set_temporary_cwd_from_file_browser = function(picker_name, path)
           -- Open the specified picker with the selected cwd
           if picker_name == "find_files" then
             builtin.find_files({ cwd = selected_path })
+            -- this global variable is for this scenario
+            -- 1. do global grep
+            -- 2. W to open this temporary cwd file browser
+            -- 3. select a temporary cwd
+            -- 4. open a file in new tab
+            -- 5. the new tab should use the selected_path parent as its cwd instead
+            -- of the global grep's cwd
+            vim.g.temp_cwd = selected_path
           elseif picker_name == "live_grep" then
             builtin.live_grep({ cwd = selected_path })
+            vim.g.temp_cwd = selected_path
           elseif picker_name == "buffers" then
             builtin.buffers({ cwd = selected_path })
+            vim.g.temp_cwd = selected_path
           elseif picker_name == "live_grep_custom" then
             M.custom_rg({
               cwd = selected_path,
             })
+            vim.g.temp_cwd = selected_path
           else
             print("Unsupported picker name")
           end
@@ -494,6 +506,45 @@ M.open_multiple_files_in_find_files_picker = function(prompt_bufnr, open_cmd)
     vim.cmd("tabclose")
   elseif open_cmd == "vsplit" or open_cmd == "split" then
     vim.cmd("wincmd q")
+  end
+end
+
+M.open_file_in_specifc_tab_and_set_cwd = function(prompt_bufnr)
+  local selection = require("telescope.actions.state").get_selected_entry()
+  if not selection then
+    require("telescope.actions").select_tab(prompt_bufnr)
+    return
+  end
+
+  if selection.value then
+    local file_path = selection.value
+    -- the selection is done after selecting a temporary cwd
+    if vim.g.temp_cwd ~= nil then
+      local parent_dir = vim.fn.fnamemodify(vim.g.temp_cwd, ":p:h")
+      if parent_dir then
+        vim.g.new_tab_buf_cwd = parent_dir
+        vim.g.temp_cwd = ""
+      end
+      require("telescope.actions").select_tab(prompt_bufnr)
+      return
+    end
+
+    if file_path then
+      local parent_dir = vim.fn.fnamemodify(file_path, ":p:h")
+      if parent_dir then
+        vim.g.new_tab_buf_cwd = parent_dir
+      end
+    end
+    require("telescope.actions").select_tab(prompt_bufnr)
+    return
+  end
+
+  if selection.bufnr then
+    local bufnr = selection.bufnr
+    local bufname = vim.api.nvim_buf_get_name(bufnr)
+    vim.g.new_tab_buf_cwd = vim.fn.fnamemodify(bufname, ":p:h")
+    require("telescope.actions").select_tab(prompt_bufnr)
+    return
   end
 end
 
