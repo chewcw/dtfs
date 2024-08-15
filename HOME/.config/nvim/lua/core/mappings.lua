@@ -805,7 +805,7 @@ M.telescope = {
     },
     ["<leader>fO"] = { "<cmd> Telescope oldfiles <CR>", "find oldfiles" },
     ["<leader>fz"] = { "<cmd> Telescope current_buffer_fuzzy_find <CR>", "find in current buffer" },
-    ["<leader>f*"] = { "<cmd> Telescope grep_string <CR>", "search for string under cursor in cwd" },
+    ["<leader>f*"] = { ":lua require('plugins.configs.telescope_utils').grep_string_custom({}) <CR>", "search for string under cursor in cwd" },
     ["<leader>ft"] = { ":lua require('plugins.configs.telescope_tabs').list_tabs() <CR>", "list tabs" },
     ["<leader>fj"] = { "<cmd> Telescope jumplist <CR>", "list jumplist" },
 
@@ -883,7 +883,10 @@ M.telescope = {
   },
 
   v = {
-    ["<leader>f*"] = { "<cmd> Telescope grep_string <CR>", "search for string under cursor in cwd" },
+    ["<leader>f*"] = {
+      ":lua require('plugins.configs.telescope_utils').grep_string_custom({}) <CR>",
+      "search for string under cursor in cwd",
+    },
     -- this is just a note, this is to open file (like gf), but take consideration of
     -- the row and col appended to the filename, see core.utils_vimfetch
     ["<leader>of"] = {

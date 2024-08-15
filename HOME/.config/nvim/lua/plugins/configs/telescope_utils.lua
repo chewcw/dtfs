@@ -474,11 +474,16 @@ M.set_temporary_cwd_from_file_browser = function(picker_name, path)
           elseif picker_name == "oldfiles" then
             builtin.oldfiles({ cwd = selected_path })
             vim.g.temp_cwd = selected_path
-            -- TODO: this is not working
-            -- Need to get the selected word and put it into the search opt below
-            -- elseif picker_name == "grep_string" then
-            --   builtin.grep_string({ cwd = selected_path, search = "" })
-            --   vim.g.temp_cwd = selected_path
+          elseif picker_name == "grep_string" then
+            builtin.grep_string({ cwd = selected_path })
+            vim.g.temp_cwd = selected_path
+          elseif picker_name == "grep_string_custom" then
+            M.grep_string_custom({ cwd = selected_path, search = vim.g.cwd_grep_string_search })
+            vim.g.temp_cwd = selected_path
+            -- set these global variable back to nil after done, so that it wouldn't
+            -- have side effect in next grep_string_custom
+            vim.g.cwd_grep_string_search = nil
+            vim.g.cwd_grep_string_word = nil
           else
             print("Unsupported picker name")
           end
@@ -565,6 +570,213 @@ M.open_file_in_specifc_tab_and_set_cwd = function(prompt_bufnr)
     require("telescope.actions").select_tab(prompt_bufnr)
     return
   end
+end
+
+-- This is partially (most) copied from Telescope's grep_string function
+-- The reason to have this function is, say scenario:
+-- I am currently in directory A, i want to grep string for another directory B.
+-- 1. grep_string on any word
+-- 2. W to change to another temporary cwd
+-- 3. select the temporary cwd B
+-- 4. continue to grep string in directory B
+--
+-- If i use original Telescope grep_string, i wouldn't know the text being grep-ed
+-- after switched to the temporary cwd picker, so in this function i will need to set
+-- the global variable vim.g.cwd_grep_string_search to the original searched text.
+M.grep_string_custom = function(opts)
+  local finders = require("telescope.finders")
+  local make_entry = require("telescope.make_entry")
+  local pickers = require("telescope.pickers")
+  local utils = require("telescope.utils")
+  local filter = vim.tbl_filter
+  local Path = require("plenary.path")
+  local conf = require("telescope.config").values
+
+  local has_rg_program = function(picker_name, program)
+    if vim.fn.executable(program) == 1 then
+      return true
+    end
+
+    utils.notify(picker_name, {
+      msg = string.format(
+        "'ripgrep', or similar alternative, is a required dependency for the %s picker. "
+        .. "Visit https://github.com/BurntSushi/ripgrep#installation for installation instructions.",
+        picker_name
+      ),
+      level = "ERROR",
+    })
+    return false
+  end
+
+  local escape_chars = function(string)
+    return string.gsub(string, "[%(|%)|\\|%[|%]|%-|%{%}|%?|%+|%*|%^|%$|%.]", {
+      ["\\"] = "\\\\",
+      ["-"] = "\\-",
+      ["("] = "\\(",
+      [")"] = "\\)",
+      ["["] = "\\[",
+      ["]"] = "\\]",
+      ["{"] = "\\{",
+      ["}"] = "\\}",
+      ["?"] = "\\?",
+      ["+"] = "\\+",
+      ["*"] = "\\*",
+      ["^"] = "\\^",
+      ["$"] = "\\$",
+      ["."] = "\\.",
+    })
+  end
+
+  local opts_contain_invert = function(args)
+    local invert = false
+    local files_with_matches = false
+
+    for _, v in ipairs(args) do
+      if v == "--invert-match" then
+        invert = true
+      elseif v == "--files-with-matches" or v == "--files-without-match" then
+        files_with_matches = true
+      end
+
+      if #v >= 2 and v:sub(1, 1) == "-" and v:sub(2, 2) ~= "-" then
+        local non_option = false
+        for i = 2, #v do
+          local vi = v:sub(i, i)
+          if vi == "=" then -- ignore option -g=xxx
+            break
+          elseif vi == "g" or vi == "f" or vi == "m" or vi == "e" or vi == "r" or vi == "t" or vi == "T" then
+            non_option = true
+          elseif non_option == false and vi == "v" then
+            invert = true
+          elseif non_option == false and vi == "l" then
+            files_with_matches = true
+          end
+        end
+      end
+    end
+    return invert, files_with_matches
+  end
+
+  local get_open_filelist = function(grep_open_files, cwd)
+    if not grep_open_files then
+      return nil
+    end
+
+    local bufnrs = filter(function(b)
+      if 1 ~= vim.fn.buflisted(b) then
+        return false
+      end
+      return true
+    end, vim.api.nvim_list_bufs())
+    if not next(bufnrs) then
+      return
+    end
+
+    local filelist = {}
+    for _, bufnr in ipairs(bufnrs) do
+      local file = vim.api.nvim_buf_get_name(bufnr)
+      table.insert(filelist, Path:new(file):make_relative(cwd))
+    end
+    return filelist
+  end
+
+  local vimgrep_arguments = vim.F.if_nil(opts.vimgrep_arguments, conf.vimgrep_arguments)
+  if not has_rg_program("grep_string", vimgrep_arguments[1]) then
+    return
+  end
+  local word
+  local visual = vim.fn.mode() == "v"
+
+  if visual == true then
+    local saved_reg = vim.fn.getreg("v")
+    vim.cmd([[noautocmd sil norm! "vy]])
+    local sele = vim.fn.getreg("v")
+    vim.fn.setreg("v", saved_reg)
+    word = vim.F.if_nil(opts.search, sele)
+  else
+    -- ----------------------------------------------------------------------------
+    -- if vim.g.cwd_grep_string_word already has content, just use it.
+    -- ----------------------------------------------------------------------------
+    if vim.g.cwd_grep_string_word == nil then
+      word = vim.F.if_nil(opts.search, vim.fn.expand("<cword>"))
+    else
+      word = vim.g.cwd_grep_string_word
+    end
+  end
+  local search = opts.use_regex and word or escape_chars(word)
+
+  local additional_args = {}
+  if opts.additional_args ~= nil then
+    if type(opts.additional_args) == "function" then
+      additional_args = opts.additional_args(opts)
+    elseif type(opts.additional_args) == "table" then
+      additional_args = opts.additional_args
+    end
+  end
+
+  if opts.file_encoding then
+    additional_args[#additional_args + 1] = "--encoding=" .. opts.file_encoding
+  end
+
+  if search == "" then
+    search = { "-v", "--", "^[[:space:]]*$" }
+  else
+    search = { "--", search }
+  end
+
+  local args
+  if visual == true then
+    args = utils.flatten({
+      vimgrep_arguments,
+      additional_args,
+      search,
+    })
+  else
+    args = utils.flatten({
+      vimgrep_arguments,
+      additional_args,
+      opts.word_match,
+      search,
+    })
+  end
+
+  opts.__inverted, opts.__matches = opts_contain_invert(args)
+
+  if opts.grep_open_files then
+    for _, file in ipairs(get_open_filelist(opts.grep_open_files, opts.cwd)) do
+      table.insert(args, file)
+    end
+  elseif opts.search_dirs then
+    for _, path in ipairs(opts.search_dirs) do
+      table.insert(args, utils.path_expand(path))
+    end
+  end
+
+  opts.entry_maker = opts.entry_maker or make_entry.gen_from_vimgrep(opts)
+
+  -- ----------------------------------------------------------------------------
+  -- Set the global variable
+  -- ----------------------------------------------------------------------------
+  vim.g.cwd_grep_string_search = search
+  vim.g.cwd_grep_string_word = word
+
+  -- ----------------------------------------------------------------------------
+  -- Attach mappings to the new picker
+  -- ----------------------------------------------------------------------------
+  pickers
+      .new(opts, {
+        prompt_title = "Find Word (" .. word:gsub("\n", "\\n") .. ")",
+        finder = finders.new_oneshot_job(args, opts),
+        previewer = conf.grep_previewer(opts),
+        sorter = conf.generic_sorter(opts),
+        push_cursor_on_edit = true,
+        attach_mappings = function(_, map)
+          map("i", "<A-w>", M.set_temporary_cwd_from_file_browser("grep_string_custom"))
+          map("n", "W", M.set_temporary_cwd_from_file_browser("grep_string_custom"))
+          return true
+        end,
+      })
+      :find()
 end
 
 return M
