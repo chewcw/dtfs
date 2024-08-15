@@ -441,7 +441,17 @@ M.set_temporary_cwd_from_file_browser = function(picker_name, path)
         actions.select_default:replace(function()
           -- Open the specified picker with the selected cwd
           if picker_name == "find_files" then
-            builtin.find_files({ cwd = selected_path })
+            if vim.g.find_files_type == "all" then
+              builtin.find_files({
+                prompt_title = "Find Files (no ignore)",
+                cwd = selected_path,
+                follow = true,
+                no_ignore = true,
+                hidden = true,
+              })
+            else
+              builtin.find_files({ prompt_title = "Find Files", cwd = selected_path, follow = true })
+            end
             -- this global variable is for this kind of scenario:
             -- 1. do global grep
             -- 2. W to open this temporary cwd file browser

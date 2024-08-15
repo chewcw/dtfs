@@ -226,7 +226,6 @@ M.options = {
           ["<C-o>"] = require("telescope").extensions.file_browser.actions.open,
           ["<C-g>"] = require("telescope").extensions.file_browser.actions.goto_parent_dir,
           ["<C-e>"] = require("telescope").extensions.file_browser.actions.goto_home_dir,
-          ["W"] = require("telescope").extensions.file_browser.actions.goto_cwd,
           ["<C-f>"] = require("telescope").extensions.file_browser.actions.toggle_browser,
           -- ["<C-h>"] = require("telescope").extensions.file_browser.actions.toggle_hidden,
           ["<C-a>"] = require("telescope").extensions.file_browser.actions.toggle_all,
