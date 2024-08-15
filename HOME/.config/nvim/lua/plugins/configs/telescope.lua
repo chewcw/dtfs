@@ -324,6 +324,7 @@ M.options = {
                 if vim.g.telescope_picker_temporary_cwd_from_file_browser then
                   -- just precaution
                   if vim.g.telescope_picker_type == nil then
+                    print("`vim.g.telescope_picker_type` is not set, use default value: find_files")
                     vim.g.telescope_picker_type = "find_files"
                   end
                   telescope_utils.set_temporary_cwd_from_file_browser(
@@ -474,10 +475,21 @@ M.options = {
     oldfiles = {
       mappings = {
         i = {
-          ["<A-w>"] = telescope_utils.set_temporary_cwd_from_file_browser("file_files"),
+          ["<A-w>"] = telescope_utils.set_temporary_cwd_from_file_browser("oldfiles"),
         },
         n = {
-          ["W"] = telescope_utils.set_temporary_cwd_from_file_browser("file_files"),
+          ["W"] = telescope_utils.set_temporary_cwd_from_file_browser("oldfiles"),
+        },
+      },
+    },
+
+    grep_string = {
+      mappings = {
+        i = {
+          ["<A-w>"] = telescope_utils.set_temporary_cwd_from_file_browser("grep_string"),
+        },
+        n = {
+          ["W"] = telescope_utils.set_temporary_cwd_from_file_browser("grep_string"),
         },
       },
     },

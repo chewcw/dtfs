@@ -417,8 +417,8 @@ M.force_delete_buffer = function(prompt_bufnr)
 end
 
 -- Say i am opening live_grep or find_files in a cwd called A, i want to search files
--- in another directory B, i call this function to temporarily select another cwd, to
--- search the files I want, and open it.
+-- in another directory B, i call this function to temporarily select another cwd to
+-- B, to search the files I want in B, and then open it.
 M.set_temporary_cwd_from_file_browser = function(picker_name, path)
   return function(prompt_bufnr)
     -- Open the file_browser picker
@@ -430,6 +430,7 @@ M.set_temporary_cwd_from_file_browser = function(picker_name, path)
     -- 4. should go back to this temporary cwd file browser instead of normal file
     -- browser
     vim.g.telescope_picker_temporary_cwd_from_file_browser = true
+    vim.g.telescope_picker_type = picker_name
 
     local select_tmp_cwd = function()
       local selection = action_state.get_selected_entry()
@@ -441,7 +442,7 @@ M.set_temporary_cwd_from_file_browser = function(picker_name, path)
           -- Open the specified picker with the selected cwd
           if picker_name == "find_files" then
             builtin.find_files({ cwd = selected_path })
-            -- this global variable is for this scenario
+            -- this global variable is for this kind of scenario:
             -- 1. do global grep
             -- 2. W to open this temporary cwd file browser
             -- 3. select a temporary cwd
@@ -460,6 +461,14 @@ M.set_temporary_cwd_from_file_browser = function(picker_name, path)
               cwd = selected_path,
             })
             vim.g.temp_cwd = selected_path
+          elseif picker_name == "oldfiles" then
+            builtin.oldfiles({ cwd = selected_path })
+            vim.g.temp_cwd = selected_path
+            -- TODO: this is not working
+            -- Need to get the selected word and put it into the search opt below
+            -- elseif picker_name == "grep_string" then
+            --   builtin.grep_string({ cwd = selected_path, search = "" })
+            --   vim.g.temp_cwd = selected_path
           else
             print("Unsupported picker name")
           end
