@@ -287,7 +287,7 @@ local default_plugins = {
     config = function()
       require("nvim-surround").setup({
         keymaps = {
-         change = "css", -- the default `cs` somehow sometimes doesn't work
+          change = "css", -- the default `cs` somehow sometimes doesn't work
         },
       })
     end,
@@ -596,6 +596,7 @@ local default_plugins = {
         cwd_change_handling = {
           restore_upcoming_session = true,
         },
+        auto_restore_enabled = false,
       }
     end,
   },
