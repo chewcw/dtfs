@@ -332,8 +332,19 @@ M.open_file_in_specific_tab = function(is_visual, count)
   })
 
   if original_tab_cwd_visibility ~= "1" then
-
     vim.g.toggle_tab_cwd = original_tab_cwd_visibility
+  end
+end
+
+-- Run Gll custom user command when the buffer name matches
+M.run_gll_when_the_buffer_name_match = function()
+  local buf_path = vim.api.nvim_buf_get_name(0)
+  if buf_path:match("^/tmp/nvim%.ccw/") then
+    vim.cmd(":Gll")
+    vim.cmd("wincmd k")
+    vim.cmd("wincmd q")
+  else
+    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<C-r>", true, false, true), "n", true)
   end
 end
 
