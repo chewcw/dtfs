@@ -540,6 +540,18 @@ M.open_file_in_specifc_tab_and_set_cwd = function(prompt_bufnr)
     return
   end
 
+  if selection.filename then
+    local file_path = selection.filename
+    if file_path then
+      local parent_dir = vim.fn.fnamemodify(file_path, ":p:h")
+      if parent_dir then
+        vim.g.new_tab_buf_cwd = parent_dir
+      end
+    end
+    require("telescope.actions").select_tab(prompt_bufnr)
+    return
+  end
+
   if selection.value then
     local file_path = selection.value
     -- the selection is done after selecting a temporary cwd
