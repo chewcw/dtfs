@@ -285,7 +285,11 @@ local default_plugins = {
     "kylechui/nvim-surround",
     lazy = false,
     config = function()
-      require("nvim-surround").setup({})
+      require("nvim-surround").setup({
+        keymaps = {
+         change = "css", -- the default `cs` somehow sometimes doesn't work
+        },
+      })
     end,
   },
 
