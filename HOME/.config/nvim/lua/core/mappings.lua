@@ -401,6 +401,12 @@ M.general = {
       "go to previous opened tab",
       opts = { silent = true },
     },
+
+    ["<C-r>"] = {
+      ":lua require('plugins.configs.buffer_utils').run_gll_when_the_buffer_name_match() <CR>",
+      "Reload Gll",
+      opts = { silent = true },
+    },
   },
 
   v = {
@@ -805,7 +811,10 @@ M.telescope = {
     },
     ["<leader>fO"] = { "<cmd> Telescope oldfiles <CR>", "find oldfiles" },
     ["<leader>fz"] = { "<cmd> Telescope current_buffer_fuzzy_find <CR>", "find in current buffer" },
-    ["<leader>f*"] = { ":lua require('plugins.configs.telescope_utils').grep_string_custom({}) <CR>", "search for string under cursor in cwd" },
+    ["<leader>f*"] = {
+      ":lua require('plugins.configs.telescope_utils').grep_string_custom({}) <CR>",
+      "search for string under cursor in cwd",
+    },
     ["<leader>ft"] = { ":lua require('plugins.configs.telescope_tabs').list_tabs() <CR>", "list tabs" },
     ["<leader>fj"] = { "<cmd> Telescope jumplist <CR>", "list jumplist" },
 
