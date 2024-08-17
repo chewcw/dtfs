@@ -452,13 +452,64 @@ local default_plugins = {
     init = function()
       -- my own command, may need to remove this user command if later vim-fugitive
       -- was uninstalled
+      vim.g.gll_records = {}
+      vim.g.fugitive_ran = false
       vim.api.nvim_create_user_command("Gll", function(args)
         local cmd = [[ Git log --graph --pretty=format:"%h %Cred%an %Cblue%aI %Cred%d%Cgreen%s" ]]
         if args["args"] then
           cmd = cmd .. " " .. args["args"]
         end
+
         vim.cmd(cmd)
+
+        -- record the args in the buffer name
+        local buf = vim.api.nvim_get_current_buf()
+        -- have to do this temporary variable thing, see https://github.com/nanotee/nvim-lua-guide#caveats-3
+        local x = vim.g.gll_records
+        x = x or {}
+        x[tostring(buf)] = { is_gll = true, args = args["args"] }
+        vim.g.gll_records = x
       end, { desc = "Git log with format", nargs = "*" })
+
+      -- when the buffer enters, if the buffer name is starts with `GLL`, reload it
+      -- automatically
+      vim.api.nvim_create_autocmd("WinEnter", {
+        pattern = "*",
+        callback = function()
+          local buf = vim.api.nvim_get_current_buf()
+          local buf_name = vim.api.nvim_buf_get_name(buf)
+          -- find the fugitive related buffer
+          if buf_name:match("^/tmp/nvim.ccw/") then
+            -- have to do this temporary variable thing, see https://github.com/nanotee/nvim-lua-guide#caveats-3
+            local x = vim.g.gll_records
+            x = x or {}
+            if x[tostring(buf)] ~= nil then
+              if x[tostring(buf)].is_gll == true and vim.g.fugitive_ran then
+                -- retrieve its args if available
+                local args = x[tostring(buf)].args
+                local buf_new = vim.api.nvim_get_current_buf()
+                vim.api.nvim_buf_call(buf_new, function()
+                  pcall(function()
+                    vim.cmd(":Gll " .. args)
+                    vim.cmd("wincmd k")
+                    vim.cmd("wincmd q")
+                    vim.api.nvim_input("<Esc>")
+                    x[tostring(buf_new)] = { is_gll = true, args = args["args"] }
+                    vim.g.fugitive_ran = false
+                  end)
+                end)
+              end
+            end
+          end
+        end,
+      })
+
+      vim.api.nvim_create_autocmd("User", {
+        pattern = "FugitiveChanged",
+        callback = function()
+          vim.g.fugitive_ran = true
+        end,
+      })
     end,
   },
 
