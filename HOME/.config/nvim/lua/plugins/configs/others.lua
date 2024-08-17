@@ -177,6 +177,13 @@ M.diffview = function(actions)
         { "n", "<leader>GX",     actions.conflict_choose_all("none"),    { desc = "Delete the conflict region for the whole file" } },
       },
     },
+    hooks = {
+      diff_buf_win_enter = function(bufnr)
+        pcall(function()
+          require("gitsigns").detach(bufnr)
+        end)
+      end,
+    },
   }
 end
 
