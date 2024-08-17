@@ -432,6 +432,10 @@ M.set_temporary_cwd_from_file_browser = function(picker_name, path)
     vim.g.telescope_picker_temporary_cwd_from_file_browser = true
     vim.g.telescope_picker_type = picker_name
 
+    -- record what has been inserted, to be shown on the second stage picker after
+    -- temporary cwd selected
+    local current_line = action_state.get_current_line()
+
     local select_tmp_cwd = function()
       local selection = action_state.get_selected_entry()
       local selected_path = selection.path
@@ -448,9 +452,15 @@ M.set_temporary_cwd_from_file_browser = function(picker_name, path)
                 follow = true,
                 no_ignore = true,
                 hidden = true,
+                default_text = current_line,
               })
             else
-              builtin.find_files({ prompt_title = "Find Files", cwd = selected_path, follow = true })
+              builtin.find_files({
+                prompt_title = "Find Files",
+                cwd = selected_path,
+                follow = true,
+                default_text = current_line,
+              })
             end
             -- this global variable is for this kind of scenario:
             -- 1. do global grep
@@ -461,24 +471,29 @@ M.set_temporary_cwd_from_file_browser = function(picker_name, path)
             -- of the global grep's cwd
             vim.g.temp_cwd = selected_path
           elseif picker_name == "live_grep" then
-            builtin.live_grep({ cwd = selected_path })
+            builtin.live_grep({ cwd = selected_path, default_text = current_line })
             vim.g.temp_cwd = selected_path
           elseif picker_name == "buffers" then
-            builtin.buffers({ cwd = selected_path })
+            builtin.buffers({ cwd = selected_path, default_text = current_line })
             vim.g.temp_cwd = selected_path
           elseif picker_name == "live_grep_custom" then
             M.custom_rg({
               cwd = selected_path,
+              default_text = current_line,
             })
             vim.g.temp_cwd = selected_path
           elseif picker_name == "oldfiles" then
-            builtin.oldfiles({ cwd = selected_path })
+            builtin.oldfiles({ cwd = selected_path, default_text = current_line })
             vim.g.temp_cwd = selected_path
           elseif picker_name == "grep_string" then
-            builtin.grep_string({ cwd = selected_path })
+            builtin.grep_string({ cwd = selected_path, default_text = current_line })
             vim.g.temp_cwd = selected_path
           elseif picker_name == "grep_string_custom" then
-            M.grep_string_custom({ cwd = selected_path, search = vim.g.cwd_grep_string_search })
+            M.grep_string_custom({
+              cwd = selected_path,
+              search = vim.g.cwd_grep_string_search,
+              default_text = current_line,
+            })
             vim.g.temp_cwd = selected_path
             -- set these global variable back to nil after done, so that it wouldn't
             -- have side effect in next grep_string_custom
@@ -581,6 +596,35 @@ M.open_file_in_specifc_tab_and_set_cwd = function(prompt_bufnr)
     vim.g.new_tab_buf_cwd = vim.fn.fnamemodify(bufname, ":p:h")
     require("telescope.actions").select_tab(prompt_bufnr)
     return
+  end
+end
+
+M.go_to_directory = function()
+  return function(prompt_bufnr)
+    local current_line = action_state.get_current_line()
+    -- Prompt for the path input
+    local input = vim.fn.input("Enter absolute path: ")
+    if input then
+      local expanded_input = vim.fn.expand(input) -- to handle something like "~"
+      if vim.fn.isdirectory(expanded_input) == 1 then
+        -- Close the current picker
+        require("telescope.actions").close(prompt_bufnr)
+        if vim.g.telescope_picker_temporary_cwd_from_file_browser then
+          -- just precaution
+          if vim.g.telescope_picker_type == nil then
+            print("`vim.g.telescope_picker_type` is not set, use default value: find_files")
+            vim.g.telescope_picker_type = "find_files"
+          end
+          M.set_temporary_cwd_from_file_browser(vim.g.telescope_picker_type, input)(prompt_bufnr)
+        else
+          -- Open file_browser with the specified path
+          local fb = require("telescope").extensions.file_browser
+          fb.file_browser({ path = input, default_text = current_line })
+        end
+      else
+        print("Not directory entered")
+      end
+    end
   end
 end
 
