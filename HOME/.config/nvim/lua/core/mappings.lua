@@ -834,11 +834,6 @@ M.telescope = {
 
     ["<leader>fR"] = { "<cmd> Telescope pickers <CR>", "cache pickers" },
 
-    -- git
-    ["<leader>gc"] = { "<cmd> Telescope git_commits <CR>", "git commits" },
-    ["<leader>gt"] = { "<cmd> Telescope git_status <CR>", "git status" },
-    ["<leader>ge"] = { "<cmd> wincmd p | q <CR>", "exit gitsigns diffthis" },
-
     -- terminal switcher
     ["<leader>tt"] = { "<cmd> TermSelect <CR>", "select terminal" },
     -- open terminal in new buffer not using toggleterm
@@ -1000,47 +995,46 @@ M.gitsigns = {
       "Reset hunk",
     },
 
-    ["<leader>gp"] = {
-      function()
-        require("gitsigns").preview_hunk()
-      end,
-      "Preview hunk",
-    },
+    -- ["<leader>gp"] = {
+    --   function()
+    --     require("gitsigns").preview_hunk()
+    --   end,
+    --   "Preview hunk",
+    -- },
 
-    ["<leader>gP"] = {
-      function()
-        require("gitsigns").preview_hunk_inline()
-      end,
-      "Preview hunk",
-    },
+    -- ["<leader>gP"] = {
+    --   function()
+    --     require("gitsigns").preview_hunk_inline()
+    --   end,
+    --   "Preview hunk",
+    -- },
 
-    ["<leader>gb"] = {
-      function()
-        require("gitsigns").toggle_current_line_blame()
-      end,
-      "Toggle current line blame",
-    },
+    -- ["<leader>gb"] = {
+    --   function()
+    --     require("gitsigns").toggle_current_line_blame()
+    --   end,
+    --   "Toggle current line blame",
+    -- },
 
-    ["<leader>gB"] = {
-      function()
-        require("gitsigns").blame_line()
-      end,
-      "Current line blame",
-    },
+    -- ["<leader>gB"] = {
+    --   function()
+    --     require("gitsigns").blame_line()
+    --   end,
+    --   "Current line blame",
+    -- },
 
-    ["<leader>gd"] = {
-      function()
-        require("gitsigns").toggle_deleted()
-      end,
-      "Toggle deleted",
-    },
+    ["<leader>gdd"] = { ":lua require('gitsigns').toggle_deleted()", "Toggle deleted" },
 
-    ["<leader>gD"] = {
-      function()
-        require("gitsigns").diffthis()
-      end,
-      "Diff this",
-    },
+    ["<leader>gdv"] = { ":Gvdiffsplit <CR>", "Diff this (vertical)" },
+    ["<leader>gdh"] = { ":Gdiffsplit <CR>", "Diff this (horizontal)" },
+    ["<leader>gb"] = { ":G blame <CR> | :lua vim.api.nvim_input('C')<CR>", "Open git blame and only show commit hash" },
+
+    -- ["<leader>gD"] = {
+    --   function()
+    --     require("gitsigns").diffthis()
+    --   end,
+    --   "Diff this",
+    -- },
   },
 }
 
