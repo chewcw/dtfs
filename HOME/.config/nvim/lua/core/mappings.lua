@@ -326,14 +326,14 @@ M.general = {
     --   "goto next buffer",
     -- },
     ["<C-A-w>"] = {
-      "<cmd> :lua require('plugins.configs.telescope_utils').delete_and_select_buffer() <CR>",
-      "delete the buffer from buffer list",
+      ":lua require('plugins.configs.buffer_utils').force_delete_buffer_create_new() <CR>",
+      "close the buffer but keep the window",
       opts = { silent = true },
     },
     -- ["<C-A-d>"] = { "<cmd> bwipeout! <CR>", "wipe out the buffer from buffer list" },
     ["<C-A-d>"] = {
-      "<cmd> :lua require('plugins.configs.telescope_utils').delete_and_select_old_buffer() <CR>",
-      "delete the buffer and select the old buffer",
+      ":lua require('plugins.configs.buffer_utils').force_delete_buffer_create_new() <CR>",
+      "close the buffer but keep the window",
       opts = { silent = true },
     },
 
