@@ -342,14 +342,24 @@ vim.api.nvim_create_autocmd("FileType", {
 -- ----------------------------------------------------------------------------
 -- set file type for certain file type
 -- ----------------------------------------------------------------------------
--- razor file
+-- razor or html file
 vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
-  pattern = "*.razor",
+  pattern = { "*.razor", "*.html" },
   callback = function()
     vim.bo.filetype = "html"
     vim.opt_local.tabstop = 4
     vim.opt_local.shiftwidth = 4
     vim.opt_local.expandtab = true
+    vim.opt.textwidth = 0
+  end,
+})
+
+-- markdown
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+  pattern = { "*.md" },
+  callback = function()
+    vim.bo.filetype = "markdown"
+    vim.opt.textwidth = 0
   end,
 })
 
