@@ -479,28 +479,32 @@ local default_plugins = {
           local buf = vim.api.nvim_get_current_buf()
           local buf_name = vim.api.nvim_buf_get_name(buf)
           -- find the fugitive related buffer
-          if buf_name:match("^/tmp/nvim.ccw/") then
-            -- have to do this temporary variable thing, see https://github.com/nanotee/nvim-lua-guide#caveats-3
-            local x = vim.g.gll_records
-            x = x or {}
-            if x[tostring(buf)] ~= nil then
-              if x[tostring(buf)].is_gll == true and vim.g.fugitive_ran then
+          vim.defer_fn(function()
+            if
+                buf_name:match("^/tmp/nvim%.ccw/")
+                and not buf_name:match("%.sh$")
+                and not buf_name:match("%.edit$")
+                and not buf_name:match("%.exit$")
+            then
+              -- have to do this temporary variable thing, see https://github.com/nanotee/nvim-lua-guide#caveats-3
+              local x = vim.g.gll_records
+              x = x or {}
+              if x[tostring(buf)] ~= nil and x[tostring(buf)].is_gll == true and vim.g.fugitive_ran then
                 -- retrieve its args if available
                 local args = x[tostring(buf)].args
                 local buf_new = vim.api.nvim_get_current_buf()
                 vim.api.nvim_buf_call(buf_new, function()
-                  pcall(function()
-                    vim.cmd(":Gll " .. args)
-                    vim.cmd("wincmd k")
-                    vim.cmd("wincmd q")
-                    vim.api.nvim_input("<Esc>")
-                    x[tostring(buf_new)] = { is_gll = true, args = args["args"] }
-                    vim.g.fugitive_ran = false
-                  end)
+                  vim.cmd(":Gll " .. args)
+                  vim.cmd("wincmd k")
+                  vim.cmd("wincmd q")
+                  x[tostring(buf)] = nil
+                  vim.api.nvim_input("<Esc>")
+                  x[tostring(buf_new)] = { is_gll = true, args = args["args"] }
+                  vim.g.fugitive_ran = false
                 end)
               end
             end
-          end
+          end, 200)
         end,
       })
 
@@ -508,6 +512,13 @@ local default_plugins = {
         pattern = "FugitiveChanged",
         callback = function()
           vim.g.fugitive_ran = true
+        end,
+      })
+
+      vim.api.nvim_create_autocmd("User", {
+        pattern = "FugitiveEditor",
+        callback = function()
+          vim.g.fugitive_ran = false
         end,
       })
     end,
