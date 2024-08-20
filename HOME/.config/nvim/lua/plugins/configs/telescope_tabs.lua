@@ -45,12 +45,13 @@ local M = {
 }
 
 local default_conf = {
-  entry_formatter = function(tab_id, buffer_ids, file_names, file_paths, is_current, cwd_name, buffers_in_cwd)
+  entry_formatter = function(tab_id, buffer_ids, file_names, file_paths, is_current, cwd_name, buffers_in_cwd, tab_char)
     if vim.g.toggle_tab_auto_cwd then
       local buffers_in_cwd_string = table.concat(buffers_in_cwd, ", ")
       return string.format(
-        "%s: %s 🖿  %s 🗎 %s",
+        "%s %s: %s 🖿  %s 🗎 %s",
         tostring(tab_id),
+        tab_char,
         is_current and " >" or "",
         cwd_name,
         buffers_in_cwd_string
@@ -58,8 +59,9 @@ local default_conf = {
     else
       local file_names_string = table.concat(file_names, ", ")
       return string.format(
-        "%s: %s 🖿  %s 🗎 %s",
+        "%s %s: %s 🖿  %s 🗎 %s",
         tostring(tab_id),
+        tab_char,
         is_current and " >" or "",
         cwd_name,
         file_names_string
@@ -140,7 +142,8 @@ M.list_tabs = function(opts)
     if is_current then
       current_tab.index = index
     end
-    table.insert(res, { file_names, file_paths, file_ids, window_ids, tid, is_current, cwd_name, buffers_in_cwd })
+    local tab_char = string.char(96 + index) -- 96 is char `a`
+    table.insert(res, { file_names, file_paths, file_ids, window_ids, tid, is_current, cwd_name, buffers_in_cwd, tab_char })
   end
   pickers
       .new(opts, {
@@ -149,7 +152,7 @@ M.list_tabs = function(opts)
           results = res,
           entry_maker = function(entry)
             local entry_string =
-                opts.entry_formatter(entry[5], entry[3], entry[1], entry[2], entry[6], entry[7], entry[8])
+                opts.entry_formatter(entry[5], entry[3], entry[1], entry[2], entry[6], entry[7], entry[8], entry[9])
             local ordinal_string =
                 opts.entry_ordinal(entry[5], entry[3], entry[1], entry[2], entry[6], entry[7], entry[8])
             return {
