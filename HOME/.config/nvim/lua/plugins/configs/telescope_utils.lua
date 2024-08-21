@@ -177,10 +177,17 @@ M.custom_rg = function(opts)
     cwd = opts.cwd,
   })
 
+  local prompt_title = "Live Grep (custom)"
+  if opts.cwd and not opts.search_dirs then
+    prompt_title = prompt_title .. " in " .. vim.fn.fnamemodify(opts.cwd, ":t")
+  elseif opts.search_dirs then
+    prompt_title = prompt_title .. " in nested search"
+  end
+
   pickers
       .new(opts, {
         debounce = 100,
-        prompt_title = "Live Grep (custom)",
+        prompt_title = prompt_title,
         finder = custom_grep,
         previewer = conf.values.grep_previewer(opts),
         sorter = require("telescope.sorters").empty(),
