@@ -798,7 +798,7 @@ M.telescope = {
       "<cmd> let g:find_files_type='all' | let g:telescope_picker_type='find_files' | Telescope find_files follow=true no_ignore=true hidden=true <CR>",
       "find all",
     },
-    ["<leader>fG"] = { "<cmd> let g:telescope_picker_type='live_grep' | Telescope live_grep <CR>", "live grep" },
+    -- ["<leader>fG"] = { "<cmd> let g:telescope_picker_type='live_grep' | Telescope live_grep <CR>", "live grep" },
     ["<leader>fg"] = {
       "<cmd> :lua require('plugins.configs.telescope_utils').custom_rg() <CR>",
       "live grep (custom)",

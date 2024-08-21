@@ -142,6 +142,11 @@ M.custom_rg = function(opts)
 
   opts = opts or {}
   opts.cwd = opts.cwd and vim.fn.expand(opts.cwd) or vim.loop.cwd()
+  if opts.search_dirs then
+    for i, path in ipairs(opts.search_dirs) do
+      opts.search_dirs[i] = vim.fn.expand(path)
+    end
+  end
 
   vim.g.telescope_picker_type = "live_grep_custom"
 
@@ -166,7 +171,7 @@ M.custom_rg = function(opts)
         table.insert(args, prompt_split2_split)
       end
 
-      return flatten({ args })
+      return flatten({ args, opts.search_dirs })
     end,
     entry_maker = make_entry.gen_from_vimgrep(opts),
     cwd = opts.cwd,
@@ -184,6 +189,7 @@ M.custom_rg = function(opts)
           map("n", "<C-f>", M.ts_select_dir_for_grep_or_find_files("live_grep"))
           map("n", "W", M.set_temporary_cwd_from_file_browser("live_grep_custom"))
           map("n", "<A-e>", M.open_file_in_specifc_tab_and_set_cwd)
+          map("n", "<C-g>", M.nested_grep())
           return true
         end,
       })
@@ -833,6 +839,93 @@ M.grep_string_custom = function(opts)
         end,
       })
       :find()
+end
+
+M.buffer_with_cwd_picker = function(opts)
+  local pickers = require("telescope.pickers")
+  local finders = require("telescope.finders")
+  local conf = require("telescope.config").values
+  local entry_display = require("telescope.pickers.entry_display")
+  local Path = require("plenary.path")
+
+  local function get_buffer_info()
+    local buffers = {}
+    for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+      if vim.api.nvim_buf_is_loaded(buf) then
+        local buf_name = vim.api.nvim_buf_get_name(buf)
+        local cwd = vim.fn.fnamemodify(Path:new(buf_name):parent():absolute(), ":t")
+        table.insert(buffers, {
+          buf = buf,
+          name = buf_name,
+          cwd = cwd,
+        })
+      end
+    end
+    return buffers
+  end
+
+  opts = opts or {}
+  local buffers = get_buffer_info()
+  print(vim.inspect(buffers))
+
+  local displayer = entry_display.create({
+    separator = " ",
+    items = {
+      { width = 4 },     -- Buffer number
+      { remaining = true }, -- Buffer name
+      { remaining = true }, -- CWD
+    },
+  })
+
+  local function make_display(entry)
+    return displayer({
+      entry.buf,
+      entry.name,
+      entry.cwd,
+    })
+  end
+
+  pickers
+      .new(opts, {
+        prompt_title = "Buffers with CWD",
+        finder = finders.new_table({
+          results = buffers,
+          entry_maker = function(entry)
+            return {
+              value = entry.buf,
+              display = make_display,
+              ordinal = entry.name .. " " .. entry.cwd,
+              buf = entry.buf,
+            }
+          end,
+        }),
+        sorter = conf.generic_sorter(opts),
+        attach_mappings = function(_, map)
+          map("i", "<CR>", actions.select_default + actions.center)
+          return true
+        end,
+      })
+      :find()
+end
+
+-- https://stackoverflow.com/a/77985695
+-- grep in search result
+M.nested_grep = function()
+  return function(prompt_bufnr)
+    require("telescope.actions").send_to_qflist(prompt_bufnr)
+    local qflist = vim.fn.getqflist()
+    local paths = {}
+    local hash = {}
+    for k in pairs(qflist) do
+      local path = vim.fn.bufname(qflist[k]["bufnr"])
+      if not hash[path] then
+        paths[#paths + 1] = path
+        hash[path] = true
+      end
+    end
+    vim.notify("Grep in ..\n  " .. table.concat(paths, "\n  "))
+    require("plugins.configs.telescope_utils").custom_rg({ search_dirs = paths })
+  end
 end
 
 return M
