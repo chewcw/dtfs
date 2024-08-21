@@ -843,30 +843,30 @@ M.telescope = {
     ["<leader>fw"] = { "<cmd> Telescope workspaces <CR>", "list workspaces" },
 
     -- lsp
-    ["gi"] = { "<cmd> Telescope lsp_implementations show_line=false <CR>", "lsp implementation" },
-    ["gI"] = {
-      "<cmd> Telescope lsp_implementations show_line=false jump_type=never <CR>",
-      "lsp implementation in vsplit",
-    },
-    ["gr"] = { "<cmd> Telescope lsp_references show_line=false <CR>", "lsp references" },
-    ["gR"] = { "<cmd> Telescope lsp_references show_line=false jump_type=never <CR>", "lsp references in vsplit" },
+    ["gi"] = { "<cmd> Telescope lsp_implementations show_line=false jump_type=never <CR>", "lsp implementation" },
+    -- ["gI"] = {
+    --   "<cmd> Telescope lsp_implementations show_line=false jump_type=never <CR>",
+    --   "lsp implementation in vsplit",
+    -- },
+    ["gr"] = { "<cmd> Telescope lsp_references show_line=false jump_type=never <CR>", "lsp references" },
+    -- ["gR"] = { "<cmd> Telescope lsp_references show_line=false jump_type=never <CR>", "lsp references in vsplit" },
     -- ["gd"] = { "<cmd> Telescope lsp_definitions show_line=false <CR>", "lsp definitions" },
-    ["gd"] = {
-      "<cmd> :lua require('plugins.configs.telescope_utils').open_lsp_definitions_conditional({show_line=false}) <CR>",
+    ["gd"] = { -- TODO: warn before go to a remote buffer
+      "<cmd> :lua require('plugins.configs.telescope_utils').open_lsp_definitions_conditional({show_line='false', jump_type='never'}) <CR>",
     },
     -- ["gD"] = {
     --   "<cmd> Telescope lsp_definitions show_line=false jump_type=never <CR>",
     --   "lsp definitions in vsplit",
     -- },
-    ["gD"] = {
-      "<cmd> :lua require('plugins.configs.telescope_utils').open_lsp_definitions_conditional({show_line=false, jump_type='never'}) <CR>",
-      "lsp definitions in vsplit",
-    },
-    ["gt"] = { "<cmd> Telescope lsp_type_definitions show_line=false <CR>", "lsp type definitions" },
-    ["gT"] = {
-      "<cmd> Telescope lsp_type_definitions show_line=false jump_type=never <CR>",
-      "lsp type definitions in vsplit",
-    },
+    -- ["gD"] = {
+    --   "<cmd> :lua require('plugins.configs.telescope_utils').open_lsp_definitions_conditional({show_line=false, jump_type='never'}) <CR>",
+    --   "lsp definitions in vsplit",
+    -- },
+    ["gt"] = { "<cmd> Telescope lsp_type_definitions show_line=false jump_type=never <CR>", "lsp type definitions" },
+    -- ["gT"] = {
+    --   "<cmd> Telescope lsp_type_definitions show_line=false jump_type=never <CR>",
+    --   "lsp type definitions in vsplit",
+    -- },
     ["gs"] = { "<cmd> Telescope lsp_document_symbols symbol_width=60 <CR>", "lsp document symbols" },
     ["gS"] = { "<cmd> Telescope lsp_workspace_symbols symbol_width=60 <CR>", "lsp workspace symbols" },
 
