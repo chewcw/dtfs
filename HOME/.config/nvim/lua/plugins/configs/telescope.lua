@@ -4,7 +4,7 @@ local buffer_utils = require("plugins.configs.buffer_utils")
 local M = {}
 
 local picker_width = vim.o.columns
-local picker_height = 0.45
+local picker_height = 0.85
 
 M.options = {
   defaults = {
