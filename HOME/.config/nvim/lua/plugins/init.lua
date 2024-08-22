@@ -718,6 +718,20 @@ local default_plugins = {
     end,
   },
 
+  {
+    "brenoprata10/nvim-highlight-colors",
+    cmd = { "HighlightColors" },
+    opts = function()
+      return {
+        render = "virtual",
+        virtual_symbol = "🎔 ",
+      }
+    end,
+    config = function(_, opts)
+      require("nvim-highlight-colors").setup(opts)
+    end,
+  },
+
   -- Only load whichkey after all the gui
   {
     "folke/which-key.nvim",
