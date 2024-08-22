@@ -197,6 +197,7 @@ M.custom_rg = function(opts)
           map("n", "W", M.set_temporary_cwd_from_file_browser("live_grep_custom"))
           map("n", "<A-e>", M.open_file_in_specifc_tab_and_set_cwd)
           map("n", "<C-g>", M.nested_grep())
+          map("n", "<A-y>", M.copy_absolute_file_path_in_picker())
           return true
         end,
       })
@@ -943,6 +944,35 @@ M.nested_grep = function()
     end
     vim.notify("Grep in ..\n  " .. table.concat(paths, "\n  "))
     require("plugins.configs.telescope_utils").custom_rg({ search_dirs = paths })
+  end
+end
+
+-- Copy absolute file path
+-- https://github.com/nvim-telescope/telescope-file-browser.nvim/issues/327#issuecomment-1793591898
+M.copy_absolute_file_path_in_picker = function()
+  return function()
+    local entry = require("telescope.actions.state").get_selected_entry()
+    local cb_opts = vim.opt.clipboard:get()
+    if vim.tbl_contains(cb_opts, "unnamed") then
+      if entry.path then
+        vim.fn.setreg("*", entry.path)
+      elseif entry.filename then
+        vim.fn.setreg("*", entry.filename)
+      end
+    end
+    if vim.tbl_contains(cb_opts, "unnamedplus") then
+      if entry.path then
+        vim.fn.setreg("+", entry.path)
+      elseif entry.filename then
+        vim.fn.setreg("*", entry.filename)
+      end
+    end
+    if entry.path then
+      vim.fn.setreg("", entry.path)
+    elseif entry.filename then
+      vim.fn.setreg("*", entry.filename)
+    end
+    vim.notify("Absolute path copied to clipboard")
   end
 end
 
