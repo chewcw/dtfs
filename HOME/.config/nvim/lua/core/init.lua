@@ -379,10 +379,14 @@ vim.api.nvim_create_autocmd("TabClosed", {
 -- Set buffer's parent directory as cwd when new tab entered
 -- See all functions which setting vim.g.new_tab_buf_cwd
 -- ----------------------------------------------------------------------------
-vim.g.toggle_tab_auto_cwd = true
 vim.api.nvim_create_user_command("ToggleTabAutoCwd", function()
-  vim.g.toggle_tab_auto_cwd = not vim.g.toggle_tab_auto_cwd
-end, { nargs = 0 })
+  if vim.g.toggle_tab_auto_cwd == nil or not vim.g.toggle_tab_auto_cwd then
+    vim.g.toggle_tab_auto_cwd = true
+  else
+    vim.g.toggle_tab_auto_cwd = false
+  end
+  vim.notify("toggle_tab_auto_cwd is now " .. tostring(vim.g.toggle_tab_auto_cwd))
+end, { nargs = "*" })
 
 vim.api.nvim_create_autocmd("TabNewEntered", {
   callback = function()
@@ -478,6 +482,7 @@ end, { nargs = "*" })
 vim.api.nvim_create_autocmd("VimEnter", {
   callback = function()
     vim.g.toggle_tab_cwd = "3"
+    vim.g.toggle_tab_auto_cwd = true
   end,
 })
 
