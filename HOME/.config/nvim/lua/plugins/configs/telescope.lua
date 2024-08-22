@@ -188,6 +188,8 @@ M.options = {
         ["<C-p>"] = require("telescope.actions.layout").toggle_preview,
         -- copy absolute path
         ["<A-y>"] = require("plugins.configs.telescope_utils").copy_absolute_file_path_in_picker(),
+        -- open previous picker
+        ["<Backspace>"] = require("plugins.configs.telescope_utils").resume_with_cache,
       },
     },
   },
