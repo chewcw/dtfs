@@ -176,6 +176,7 @@ M.list_tabs = function(opts)
           end)
           map("i", opts.close_tab_shortcut_i, close_tab)
           map("n", opts.close_tab_shortcut_n, close_tab)
+          map("n", "<Backspace>", require("plugins.configs.telescope_utils").resume_with_cache)
           return true
         end,
         previewer = opts.show_preview and conf.file_previewer({}) or nil,
