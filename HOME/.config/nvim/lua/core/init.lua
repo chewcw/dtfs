@@ -475,6 +475,12 @@ vim.api.nvim_create_user_command("ToggleTabCwd", function(args)
   -- vim.o.tabline = "%!v:lua.MyTabLine()"
 end, { nargs = "*" })
 
+vim.api.nvim_create_autocmd("VimEnter", {
+  callback = function()
+    vim.g.toggle_tab_cwd = "3"
+  end,
+})
+
 -- ----------------------------------------------------------------------------
 -- Watch opened tab (for switching to previous opened tab)
 -- ----------------------------------------------------------------------------
