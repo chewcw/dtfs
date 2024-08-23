@@ -732,6 +732,14 @@ local default_plugins = {
     end,
   },
 
+  {
+    "uga-rosa/ccc.nvim",
+    cmd = { "CccPick" },
+    config = function()
+      require("ccc").setup({})
+    end,
+  },
+
   -- Only load whichkey after all the gui
   {
     "folke/which-key.nvim",
