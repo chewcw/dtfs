@@ -724,7 +724,7 @@ local default_plugins = {
     opts = function()
       return {
         render = "virtual",
-        virtual_symbol = "🎔 ",
+        virtual_symbol = "🟓 ",
       }
     end,
     config = function(_, opts)
