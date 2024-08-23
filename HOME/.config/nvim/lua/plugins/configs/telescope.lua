@@ -303,7 +303,26 @@ M.options = {
           -- ["t"] = require("telescope").extensions.file_browser.actions.change_cwd,
           ["f"] = require("telescope").extensions.file_browser.actions.toggle_browser,
           -- ["h"] = require("telescope").extensions.file_browser.actions.toggle_hidden,
-          ["g<Space>"] = require("plugins.configs.telescope_utils").go_to_directory(),
+          ["g<Space>"] = require("plugins.configs.telescope_utils").go_to_directory(
+            function(input, prompt_bufnr, current_line)
+              -- Close the current picker
+              require("telescope.actions").close(prompt_bufnr)
+              if vim.g.telescope_picker_temporary_cwd_from_file_browser then
+                -- just precaution
+                if vim.g.telescope_picker_type == nil then
+                  print("`vim.g.telescope_picker_type` is not set, use default value: find_files")
+                  vim.g.telescope_picker_type = "find_files"
+                end
+                telescope_utils.set_temporary_cwd_from_file_browser(vim.g.telescope_picker_type, input)(
+                  prompt_bufnr
+                )
+              else
+                -- Open file_browser with the specified path
+                local fb = require("telescope").extensions.file_browser
+                fb.file_browser({ path = input, default_text = current_line })
+              end
+            end
+          ),
         },
       },
     },
