@@ -441,7 +441,7 @@ M.swap_line_with_above = function(count)
 end
 
 -- Function to move the current line up or down
-  -- Default count to 1 if not provided
+-- Default count to 1 if not provided
 M.move_line = function(count, direction)
   count = count or 1
   -- Ensure count is a positive number
@@ -539,6 +539,19 @@ M.url_decode = function(str)
     str = str:gsub("\r\n", "\n")
   end
   return str
+end
+
+M.table_contains = function(table_to_search, value_to_search)
+  if next(table_to_search) == nil then
+    return false
+  else
+    for i = 1, #table_to_search do
+      if table_to_search[i] == value_to_search then
+        return true
+      end
+    end
+    return false
+  end
 end
 
 return M
