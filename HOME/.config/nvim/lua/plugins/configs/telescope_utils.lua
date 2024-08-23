@@ -624,7 +624,7 @@ M.open_file_in_specifc_tab_and_set_cwd = function(prompt_bufnr)
   end
 end
 
-M.go_to_directory = function()
+M.go_to_directory = function(callback)
   return function(prompt_bufnr)
     local current_line = action_state.get_current_line()
     -- Prompt for the path input
@@ -632,20 +632,7 @@ M.go_to_directory = function()
     if input then
       local expanded_input = vim.fn.expand(input) -- to handle something like "~"
       if vim.fn.isdirectory(expanded_input) == 1 then
-        -- Close the current picker
-        require("telescope.actions").close(prompt_bufnr)
-        if vim.g.telescope_picker_temporary_cwd_from_file_browser then
-          -- just precaution
-          if vim.g.telescope_picker_type == nil then
-            print("`vim.g.telescope_picker_type` is not set, use default value: find_files")
-            vim.g.telescope_picker_type = "find_files"
-          end
-          M.set_temporary_cwd_from_file_browser(vim.g.telescope_picker_type, input)(prompt_bufnr)
-        else
-          -- Open file_browser with the specified path
-          local fb = require("telescope").extensions.file_browser
-          fb.file_browser({ path = input, default_text = current_line })
-        end
+        callback(input, prompt_bufnr, current_line)
       else
         print("Not directory entered")
       end

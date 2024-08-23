@@ -148,7 +148,8 @@ M.toggle_term = function(target_direction)
     end
   end
 
-  local select_path_for_toggle_term = function(callback)
+  local select_path_for_toggle_term
+  select_path_for_toggle_term = function(callback, path)
     local select_path = function(prompt_bufnr)
       local selection = require("telescope.actions.state").get_selected_entry()
       local selected_path = selection.path
@@ -162,12 +163,19 @@ M.toggle_term = function(target_direction)
 
     local fb = require("telescope").extensions.file_browser
     fb.file_browser({
-      path = "",
+      path = path or "",
       prompt_title = "Select terminal workdir",
       select_dirs = true,
       attach_mappings = function(_, map)
         map("i", "<A-CR>", select_path)
         map("n", "<A-CR>", select_path)
+        map(
+          "n",
+          "g<Space>",
+          require("plugins.configs.telescope_utils").go_to_directory(function(input, _, _)
+            select_path_for_toggle_term(callback, input)
+          end)
+        )
         map("n", "q", function(prompt_bufnr)
           -- nothing selected, then just proceed without specifying the path
           require("telescope.actions").close(prompt_bufnr)
