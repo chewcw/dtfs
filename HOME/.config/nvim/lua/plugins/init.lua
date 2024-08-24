@@ -525,12 +525,12 @@ local default_plugins = {
     end,
   },
 
-  {
-    "junegunn/gv.vim",
-    lazy = false,
-    -- branch = "master",
-    -- commit = "b6bb666",
-  },
+  -- {
+  --   "junegunn/gv.vim",
+  --   lazy = false,
+  --   -- branch = "master",
+  --   -- commit = "b6bb666",
+  -- },
 
   -- {
   --   "NeogitOrg/neogit",
