@@ -8,24 +8,24 @@ default() {
   cat <<EOF > "$CONFIG_FILE"
 # Function in \$HOME/.local/bin/projecteur_action.sh will overwrite this file
 [General]
-borderColor=@Variant(\\0\\0\\0\\x43\\x1\\xff\\xffss\\xd2\\xd2\\x16\\x16\\0\\0)
+borderColor=@Variant(\0\0\0\x43\x1\xff\xffss\xd2\xd2\x16\x16\0\0)
 borderOpacity=1
 borderSize=3
 cursor=13
-dotColor=@Variant(\\0\\0\\0\\x43\\x1\\xff\\xff\\xff\\xff\\0\\0\\0\\0\\0\\0)
+dotColor=@Variant(\0\0\0\x43\x1\xff\xff\xff\xff\0\0\0\0\0\0)
 dotOpacity=0.7
 dotSize=10
 enableZoom=false
-zoomFactor=1.5
 multiScreenOverlay=false
-shadeColor=@Variant(\\0\\0\\0\\x43\\x1\\xff\\xff\\0\\0\\0\\0\\0\\0\\0\\0)
-shadeOpacity=0.8
-showBorder=true
-showCenterDot=true
+shadeColor=@Variant(\0\0\0\x43\x1\xff\xff\0\0\0\0\0\0\0\0)
+shadeOpacity=0.9
+showBorder=false
+showCenterDot=false
 showSpotShade=true
-spotShape=spotshapes/Circle.qml
 spotOverlay=true
+spotShape=spotshapes/Circle.qml
 spotSize=15
+zoomFactor=1.5
 
 EOF
 }
