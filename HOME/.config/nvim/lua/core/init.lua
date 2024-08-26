@@ -260,6 +260,10 @@ vim.api.nvim_create_autocmd({ "CursorMoved" }, {
   group = "CursorMovedHighlight",
   callback = function()
     pcall(function()
+      if vim.g.toggle_cursor_move_highlight then
+        return
+      end
+
       -- ignore this if no lsp_server found
       local buf_clients = vim.lsp.get_active_clients({ bufnr = vim.api.nvim_get_current_buf() })
       if #buf_clients == 0 then
@@ -323,6 +327,12 @@ end, {})
 vim.api.nvim_create_user_command("Redir", function(opts)
   require("core.utils_redir").nredir(opts.args, "replace")
 end, { nargs = 1, complete = "command" })
+
+-- Toggle cursor move highlight
+vim.g.toggle_cursor_move_highlight = false
+vim.api.nvim_create_user_command("ToggleCursorMoveHighlight", function()
+  vim.g.toggle_cursor_move_highlight = not vim.g.toggle_cursor_move_highlight
+end, { nargs = 0 })
 
 -- ----------------------------------------------------------------------------
 -- set tab size for certain file type
