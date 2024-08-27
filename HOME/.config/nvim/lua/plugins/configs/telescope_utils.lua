@@ -595,7 +595,7 @@ M.open_file_in_new_tab_and_set_cwd = function(prompt_bufnr)
   local selection_metatable = getmetatable(selection)
   if selection_metatable ~= nil and selection_metatable.cwd ~= nil then
     parent_dir = selection_metatable.cwd
-  elseif selection.value then
+  elseif type(selection.value) == "string" then
     parent_dir = vim.fn.fnamemodify(selection.value, ":p:h")
   elseif selection.filename then
     parent_dir = vim.fn.fnamemodify(selection.filename, ":p:h")
