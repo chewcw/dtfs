@@ -402,7 +402,7 @@ vim.api.nvim_create_autocmd("TabNewEntered", {
   callback = function()
     if vim.g.toggle_tab_auto_cwd then
       if vim.g.new_tab_buf_cwd ~= nil and vim.g.new_tab_buf_cwd ~= "" then
-        vim.api.nvim_set_current_dir(vim.g.new_tab_buf_cwd)
+        vim.cmd("tcd " .. vim.g.new_tab_buf_cwd)
         vim.g.new_tab_buf_cwd = ""
       end
     end

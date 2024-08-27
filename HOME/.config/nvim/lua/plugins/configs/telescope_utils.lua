@@ -487,20 +487,10 @@ M.set_temporary_cwd_from_file_browser = function(picker_name, path)
                 default_text = current_line,
               })
             end
-            -- this global variable is for this kind of scenario:
-            -- 1. do global grep
-            -- 2. W to open this temporary cwd file browser
-            -- 3. select a temporary cwd
-            -- 4. open a file in new tab
-            -- 5. the new tab should use the selected_path parent as its cwd instead
-            -- of the global grep's cwd
-            vim.g.temp_cwd = selected_path
           elseif picker_name == "live_grep" then
             builtin.live_grep({ cwd = selected_path, default_text = current_line })
-            vim.g.temp_cwd = selected_path
           elseif picker_name == "buffers" then
             builtin.buffers({ cwd = selected_path, default_text = current_line })
-            vim.g.temp_cwd = selected_path
           elseif picker_name == "live_grep_custom" then
             M.custom_rg({
               cwd = selected_path,
@@ -509,17 +499,14 @@ M.set_temporary_cwd_from_file_browser = function(picker_name, path)
             vim.g.temp_cwd = selected_path
           elseif picker_name == "oldfiles" then
             builtin.oldfiles({ cwd = selected_path, default_text = current_line })
-            vim.g.temp_cwd = selected_path
           elseif picker_name == "grep_string" then
             builtin.grep_string({ cwd = selected_path, default_text = current_line })
-            vim.g.temp_cwd = selected_path
           elseif picker_name == "grep_string_custom" then
             M.grep_string_custom({
               cwd = selected_path,
               search = vim.g.cwd_grep_string_search,
               default_text = current_line,
             })
-            vim.g.temp_cwd = selected_path
             -- set these global variable back to nil after done, so that it wouldn't
             -- have side effect in next grep_string_custom
             vim.g.cwd_grep_string_search = nil
@@ -598,53 +585,28 @@ end
 
 M.open_file_in_new_tab_and_set_cwd = function(prompt_bufnr)
   local selection = require("telescope.actions.state").get_selected_entry()
-  print(vim.inspect(selection))
   if not selection then
     require("telescope.actions").select_tab(prompt_bufnr)
     return
   end
 
-  -- the selection is done after selecting a temporary cwd
-  if vim.g.temp_cwd ~= nil then
-    local parent_dir = vim.fn.fnamemodify(vim.g.temp_cwd, ":p:h")
-    if parent_dir then
-      vim.g.new_tab_buf_cwd = parent_dir
-      vim.g.temp_cwd = ""
-    end
-    require("telescope.actions").select_tab(prompt_bufnr)
-    return
-  end
+  local parent_dir = ""
 
-
-  if selection.filename then
-    if selection.filename then
-      local parent_dir = vim.fn.fnamemodify(selection.filename, ":p:h")
-      if parent_dir then
-        vim.g.new_tab_buf_cwd = parent_dir
-      end
-    end
-    require("telescope.actions").select_tab(prompt_bufnr)
-    return
-  end
-
-  if selection.value then
-    if selection.value then
-      local parent_dir = vim.fn.fnamemodify(selection.value, ":p:h")
-      if parent_dir then
-        vim.g.new_tab_buf_cwd = parent_dir
-      end
-    end
-    require("telescope.actions").select_tab(prompt_bufnr)
-    return
-  end
-
-  if selection.bufnr then
+  local selection_metatable = getmetatable(selection)
+  if selection_metatable ~= nil and selection_metatable.cwd ~= nil then
+    parent_dir = selection_metatable.cwd
+  elseif selection.value then
+    parent_dir = vim.fn.fnamemodify(selection.value, ":p:h")
+  elseif selection.filename then
+    parent_dir = vim.fn.fnamemodify(selection.filename, ":p:h")
+  elseif selection.bufnr then
     local bufnr = selection.bufnr
     local bufname = vim.api.nvim_buf_get_name(bufnr)
-    vim.g.new_tab_buf_cwd = vim.fn.fnamemodify(bufname, ":p:h")
-    require("telescope.actions").select_tab(prompt_bufnr)
-    return
+    parent_dir = vim.fn.fnamemodify(bufname, ":p:h")
   end
+
+  vim.g.new_tab_buf_cwd = parent_dir
+  require("telescope.actions").select_tab(prompt_bufnr)
 end
 
 M.go_to_directory = function(callback)
