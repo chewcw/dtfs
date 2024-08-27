@@ -573,6 +573,29 @@ M.open_multiple_files_in_find_files_picker = function(prompt_bufnr, open_cmd)
   end
 end
 
+-- Open multiple files at once, this function is the modification of the open_multiple_files_in_find_files_picker,
+-- if new tabs were selected, then set their cwd accordingly
+M.open_multiple_files_in_find_files_picker_and_set_cwd = function(prompt_bufnr, open_cmd)
+  local picker = action_state.get_current_picker(prompt_bufnr)
+  local num_selections = #picker:get_multi_selection()
+  if not num_selections or num_selections <= 1 then
+    actions.add_selection(prompt_bufnr)
+  end
+  actions.send_selected_to_qflist(prompt_bufnr)
+  -- do open_cmd for each quickfix list item
+  for _, buffer in ipairs(vim.fn.getqflist()) do
+    local buffer_name = vim.api.nvim_buf_get_name(buffer.bufnr)
+    if open_cmd == "tabe" then
+      vim.g.new_tab_buf_cwd = vim.fn.fnamemodify(buffer_name, ":p:h")
+      vim.cmd("tabnew " .. buffer_name)
+    elseif open_cmd == "vsplit" then
+      vim.cmd("vsplit " .. buffer_name)
+    elseif open_cmd == "split" then
+      vim.cmd("split " .. buffer_name)
+    end
+  end
+end
+
 M.open_file_in_specifc_tab_and_set_cwd = function(prompt_bufnr)
   local selection = require("telescope.actions.state").get_selected_entry()
   if not selection then

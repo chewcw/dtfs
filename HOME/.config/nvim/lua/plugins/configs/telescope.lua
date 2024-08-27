@@ -358,7 +358,7 @@ M.options = {
             telescope_utils.open_multiple_files_in_find_files_picker(prompt_bufnr, "edit")
           end,
           ["<A-e>"] = function(prompt_bufnr)
-            telescope_utils.open_multiple_files_in_find_files_picker(prompt_bufnr, "tabe")
+            telescope_utils.open_multiple_files_in_find_files_picker_and_set_cwd(prompt_bufnr, "tabe")
           end,
           ["<A-_>"] = function(prompt_bufnr)
             telescope_utils.open_multiple_files_in_find_files_picker(prompt_bufnr, "split")
@@ -374,7 +374,7 @@ M.options = {
             telescope_utils.open_multiple_files_in_find_files_picker(prompt_bufnr, "edit")
           end,
           ["<A-e>"] = function(prompt_bufnr)
-            telescope_utils.open_multiple_files_in_find_files_picker(prompt_bufnr, "tabe")
+            telescope_utils.open_multiple_files_in_find_files_picker_and_set_cwd(prompt_bufnr, "tabe")
           end,
           ["<A-_>"] = function(prompt_bufnr)
             telescope_utils.open_multiple_files_in_find_files_picker(prompt_bufnr, "split")
