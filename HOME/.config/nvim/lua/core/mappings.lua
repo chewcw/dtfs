@@ -1037,7 +1037,7 @@ M.gitsigns = {
     --   "Current line blame",
     -- },
 
-    ["<leader>gdd"] = { ":lua require('gitsigns').toggle_deleted()", "Toggle deleted" },
+    ["<leader>gdd"] = { ":lua require('gitsigns').toggle_deleted() <CR>", "Toggle deleted" },
 
     ["<leader>gdv"] = { ":Gvdiffsplit <CR>", "Diff this (vertical)" },
     ["<leader>gdh"] = { ":Gdiffsplit <CR>", "Diff this (horizontal)" },
