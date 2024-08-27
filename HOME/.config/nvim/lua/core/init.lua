@@ -350,7 +350,7 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 -- ----------------------------------------------------------------------------
--- set file type for certain file type
+-- do certain thing for certain file type
 -- ----------------------------------------------------------------------------
 -- razor or html file
 vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
@@ -369,6 +369,16 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
   pattern = { "*.md" },
   callback = function()
     vim.bo.filetype = "markdown"
+    vim.opt.textwidth = 0
+  end,
+})
+
+-- fugitive related
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+  pattern = { "fugitive://*", "/tmp/nvim.ccw/*" },
+  callback = function()
+    vim.opt.colorcolumn = "0"
+    vim.opt.cursorline = true
     vim.opt.textwidth = 0
   end,
 })
