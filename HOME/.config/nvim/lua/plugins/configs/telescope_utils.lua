@@ -195,7 +195,7 @@ M.custom_rg = function(opts)
           map("i", "<C-f>", M.ts_select_dir_for_grep_or_find_files("live_grep"))
           map("n", "<C-f>", M.ts_select_dir_for_grep_or_find_files("live_grep"))
           map("n", "W", M.set_temporary_cwd_from_file_browser("live_grep_custom"))
-          map("n", "<A-e>", M.open_file_in_specifc_tab_and_set_cwd)
+          map("n", "<A-e>", M.open_file_in_new_tab_and_set_cwd)
           map("n", "<C-g>", M.nested_grep())
           map("n", "<A-y>", M.copy_absolute_file_path_in_picker())
           return true
@@ -596,17 +596,29 @@ M.open_multiple_files_in_find_files_picker_and_set_cwd = function(prompt_bufnr, 
   end
 end
 
-M.open_file_in_specifc_tab_and_set_cwd = function(prompt_bufnr)
+M.open_file_in_new_tab_and_set_cwd = function(prompt_bufnr)
   local selection = require("telescope.actions.state").get_selected_entry()
+  print(vim.inspect(selection))
   if not selection then
     require("telescope.actions").select_tab(prompt_bufnr)
     return
   end
 
+  -- the selection is done after selecting a temporary cwd
+  if vim.g.temp_cwd ~= nil then
+    local parent_dir = vim.fn.fnamemodify(vim.g.temp_cwd, ":p:h")
+    if parent_dir then
+      vim.g.new_tab_buf_cwd = parent_dir
+      vim.g.temp_cwd = ""
+    end
+    require("telescope.actions").select_tab(prompt_bufnr)
+    return
+  end
+
+
   if selection.filename then
-    local file_path = selection.filename
-    if file_path then
-      local parent_dir = vim.fn.fnamemodify(file_path, ":p:h")
+    if selection.filename then
+      local parent_dir = vim.fn.fnamemodify(selection.filename, ":p:h")
       if parent_dir then
         vim.g.new_tab_buf_cwd = parent_dir
       end
@@ -616,20 +628,8 @@ M.open_file_in_specifc_tab_and_set_cwd = function(prompt_bufnr)
   end
 
   if selection.value then
-    local file_path = selection.value
-    -- the selection is done after selecting a temporary cwd
-    if vim.g.temp_cwd ~= nil then
-      local parent_dir = vim.fn.fnamemodify(vim.g.temp_cwd, ":p:h")
-      if parent_dir then
-        vim.g.new_tab_buf_cwd = parent_dir
-        vim.g.temp_cwd = ""
-      end
-      require("telescope.actions").select_tab(prompt_bufnr)
-      return
-    end
-
-    if file_path then
-      local parent_dir = vim.fn.fnamemodify(file_path, ":p:h")
+    if selection.value then
+      local parent_dir = vim.fn.fnamemodify(selection.value, ":p:h")
       if parent_dir then
         vim.g.new_tab_buf_cwd = parent_dir
       end
