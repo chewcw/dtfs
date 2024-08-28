@@ -81,8 +81,8 @@ M.options = {
           local keys = vim.api.nvim_replace_termcodes("<C-h>", false, false, true)
           vim.api.nvim_feedkeys(keys, "n", {})
         end,
-        ["<C-l>"] = function()
-          vim.fn.feedkeys("\r")
+        ["<C-l>"] = function(prompt_bufnr)
+          telescope_utils.open_multiple_files_in_find_files_picker(prompt_bufnr, "edit")
         end,
       },
       n = {
@@ -109,8 +109,8 @@ M.options = {
           vim.cmd("undo")
         end,
         ["<Esc>"] = function() end, -- don't do anything
-        ["<C-l>"] = function()
-          vim.fn.feedkeys("\r")
+        ["<C-l>"] = function(prompt_bufnr)
+          telescope_utils.open_multiple_files_in_find_files_picker(prompt_bufnr, "edit")
         end,
         ["i"] = (function()
           local insert_mode = function()
@@ -238,8 +238,8 @@ M.options = {
             local keys = vim.api.nvim_replace_termcodes("<C-h>", false, false, true)
             vim.api.nvim_feedkeys(keys, "n", {})
           end,
-          ["<C-l>"] = function()
-            vim.fn.feedkeys("\r")
+          ["<C-l>"] = function(prompt_bufnr)
+            telescope_utils.open_multiple_files_in_find_files_picker(prompt_bufnr, "edit")
           end,
         },
         n = {
@@ -279,8 +279,8 @@ M.options = {
           end,
           ["<C-h>"] = require("telescope").extensions.file_browser.actions.goto_parent_dir,
           ["<C-l>"] = (function()
-            local enter = function()
-              vim.fn.feedkeys("\r")
+            local enter = function(prompt_bufnr)
+              telescope_utils.open_multiple_files_in_find_files_picker(prompt_bufnr, "edit")
             end
             return enter
           end)(),
