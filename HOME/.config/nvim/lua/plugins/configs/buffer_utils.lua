@@ -156,7 +156,7 @@ end
 
 M.switch_to_next_buffer_in_cwd = function()
   if not vim.o.hlsearch then
-    vim.cmd("noh")
+    vim.cmd("nohlsearch")
   end
   local buffers = get_buffers_in_cwd()
   local current_bufnr = vim.api.nvim_get_current_buf()
@@ -168,14 +168,21 @@ M.switch_to_next_buffer_in_cwd = function()
     end
   end
   if current_index then
-    local next_index = (current_index % #buffers) + 1
-    vim.api.nvim_set_current_buf(buffers[next_index])
+    pcall(function()
+      local next_index = (current_index % #buffers) + 1
+        vim.api.nvim_set_current_buf(buffers[next_index])
+    end)
+  else
+    pcall(function()
+      local next_index = #buffers
+      vim.api.nvim_set_current_buf(buffers[next_index])
+    end)
   end
 end
 
 M.switch_to_previous_buffer_in_cwd = function()
   if not vim.o.hlsearch then
-    vim.cmd("noh")
+    vim.cmd("nohlsearch")
   end
   local buffers = get_buffers_in_cwd()
   local current_bufnr = vim.api.nvim_get_current_buf()
@@ -187,8 +194,15 @@ M.switch_to_previous_buffer_in_cwd = function()
     end
   end
   if current_index then
-    local previous_index = (current_index - 2) % #buffers + 1
-    vim.api.nvim_set_current_buf(buffers[previous_index])
+    pcall(function()
+      local previous_index = (current_index - 2) % #buffers + 1
+      vim.api.nvim_set_current_buf(buffers[previous_index])
+    end)
+  else
+    pcall(function()
+      local previous_index = 1
+      vim.api.nvim_set_current_buf(buffers[previous_index])
+    end)
   end
 end
 
