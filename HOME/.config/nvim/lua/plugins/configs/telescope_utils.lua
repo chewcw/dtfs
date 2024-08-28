@@ -540,23 +540,31 @@ end
 -- https://github.com/nvim-telescope/telescope.nvim/issues/1048#issuecomment-993956937
 M.open_multiple_files_in_find_files_picker = function(prompt_bufnr, open_cmd)
   local picker = action_state.get_current_picker(prompt_bufnr)
-  local num_selections = #picker:get_multi_selection()
-  if not num_selections or num_selections <= 1 then
-    actions.add_selection(prompt_bufnr)
-  end
-  actions.send_selected_to_qflist(prompt_bufnr)
-  if open_cmd == "tabe" then
-    vim.cmd("tabnew")
-  elseif open_cmd == "vsplit" then
-    vim.cmd("vsplit")
-  elseif open_cmd == "split" then
-    vim.cmd("split")
-  end
-  vim.cmd("cfdo " .. open_cmd)
-  if open_cmd == "tabe" then
-    vim.cmd("tabclose")
-  elseif open_cmd == "vsplit" or open_cmd == "split" then
-    vim.cmd("wincmd q")
+  local entry = action_state.get_selected_entry()
+  -- Telescope picker could be not file selection, like tab switcher, workdir, etc.
+  -- that's why i need this condition
+  local is_files_condition = (entry.lstat and not entry.is_dir) or entry.filename
+  if is_files_condition then
+    local num_selections = #picker:get_multi_selection()
+    if not num_selections or num_selections <= 1 then
+      actions.add_selection(prompt_bufnr)
+    end
+    actions.send_selected_to_qflist(prompt_bufnr)
+    if open_cmd == "tabe" then
+      vim.cmd("tabnew")
+    elseif open_cmd == "vsplit" then
+      vim.cmd("vsplit")
+    elseif open_cmd == "split" then
+      vim.cmd("split")
+    end
+    vim.cmd("cfdo " .. open_cmd)
+    if open_cmd == "tabe" then
+      vim.cmd("tabclose")
+    elseif open_cmd == "vsplit" or open_cmd == "split" then
+      vim.cmd("wincmd q")
+    end
+  else
+    require("telescope.actions").select_default(prompt_bufnr)
   end
 end
 
