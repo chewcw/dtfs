@@ -479,6 +479,15 @@ local default_plugins = {
         callback = function()
           local buf = vim.api.nvim_get_current_buf()
           local buf_name = vim.api.nvim_buf_get_name(buf)
+          -- this is here to prevent this scenario:
+          -- 1. Reload the Gll manually
+          -- 2. The Gll outputs
+          -- 3. This autocmd runs
+          -- 4. Once again the Gll outputs
+          -- causing 2 buffers were created
+          vim.defer_fn(function()
+            vim.g.gll_reload_manually = false
+          end, 500)
           -- find the fugitive related buffer
           vim.defer_fn(function()
             if
@@ -486,6 +495,7 @@ local default_plugins = {
                 and not buf_name:match("%.sh$")
                 and not buf_name:match("%.edit$")
                 and not buf_name:match("%.exit$")
+                and not vim.g.gll_reload_manually
             then
               -- have to do this temporary variable thing, see https://github.com/nanotee/nvim-lua-guide#caveats-3
               local x = vim.g.gll_records
