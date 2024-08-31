@@ -1,5 +1,10 @@
 M = {}
 
+M.force_delete_buffer_switch_to_previous = function()
+  M.force_delete_buffer_create_new()
+  M.switch_to_previous_buffer_in_cwd()
+end
+
 -- Function to force delete buffer and show new buffer
 M.force_delete_buffer_create_new = function()
   pcall(function()
@@ -170,7 +175,7 @@ M.switch_to_next_buffer_in_cwd = function()
   if current_index then
     pcall(function()
       local next_index = (current_index % #buffers) + 1
-        vim.api.nvim_set_current_buf(buffers[next_index])
+      vim.api.nvim_set_current_buf(buffers[next_index])
     end)
   else
     pcall(function()
