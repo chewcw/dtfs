@@ -359,6 +359,7 @@ end
 M.run_gll_when_the_buffer_name_match = function()
   local buf_path = vim.api.nvim_buf_get_name(0)
   if buf_path:match("^/tmp/nvim%.ccw/") then
+    vim.g.gll_reload_manually = true
     vim.cmd(":Gll")
     vim.cmd("wincmd k")
     vim.cmd("wincmd q")
