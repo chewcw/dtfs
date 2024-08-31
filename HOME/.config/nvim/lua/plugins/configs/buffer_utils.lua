@@ -294,6 +294,14 @@ M.open_file_in_specific_tab = function(is_visual, count)
     file = vimfetch.fetch_cfile(count)
   end
 
+  if file == nil or #file == 0 then
+    return
+  end
+
+  local file_path = file[1]
+  local row = file[2] or 1
+  local col = file[3] or 1
+
   -- show tab's cwd
   local original_tab_cwd_visibility = vim.g.toggle_tab_cwd
   vim.g.toggle_tab_cwd = "1"
@@ -338,14 +346,14 @@ M.open_file_in_specific_tab = function(is_visual, count)
       -- Switch to the specified tab
       vim.cmd("tabn " .. tabnr_ordinal)
       -- Open the file in the current window of the specified tab
-      if file and file[1] then
+      if file and file_path then
         local parent_dir = vim.fn.fnamemodify(file[1], ":h")
         if parent_dir then
           vim.g.new_tab_buf_cwd = parent_dir
         end
 
-        vim.cmd("edit " .. file[1])
-        vim.fn.cursor(file[2], file[3])
+        vim.cmd("edit " .. file_path)
+        vim.fn.cursor(row, col)
       end
     end,
   })
@@ -353,6 +361,63 @@ M.open_file_in_specific_tab = function(is_visual, count)
   if original_tab_cwd_visibility ~= "1" then
     vim.g.toggle_tab_cwd = original_tab_cwd_visibility
   end
+end
+
+M.open_file_in_tab = function(is_visual, count)
+  local vimfetch = require("core.utils_vimfetch")
+
+  local file
+  if is_visual then
+    file = vimfetch.fetch_visual(count)
+  else
+    file = vimfetch.fetch_cfile(count)
+  end
+
+  if file == nil or #file == 0 then
+    return
+  end
+
+  local command = ""
+  local found_tab = false
+  local file_path = file[1]
+  local row = file[2] or 1
+  local col = file[3] or 1
+
+  if file_path then
+    local parent_dir = vim.fn.fnamemodify(file_path, ":h")
+    if parent_dir then
+      -- find all tabs
+      for _, tid in ipairs(vim.api.nvim_list_tabpages()) do
+        local tabnr_ordinal = vim.api.nvim_tabpage_get_number(tid)
+        local win_num = vim.fn.tabpagewinnr(tabnr_ordinal)
+        local working_directory = vim.fn.getcwd(win_num, tabnr_ordinal)
+        local cwd_name = vim.fn.fnamemodify(working_directory, ":p:h")
+        if cwd_name == parent_dir then
+          if
+              vim.g.toggle_term_opened
+              and (vim.g.toggle_term_direction == "float" or vim.g.toggle_term_direction == "tab")
+          then
+            command = ":q | " -- first need to close this floating or tab toggleterm first
+          end
+          command = command .. "tabnext" .. tabnr_ordinal .. " | edit " .. file_path
+          found_tab = true
+          vim.g.new_tab_buf_cwd = parent_dir
+          break
+        end
+      end
+      if not found_tab then
+        command = "tabnew " .. file_path
+      end
+      vim.g.new_tab_buf_cwd = parent_dir
+    end
+  end
+
+  if not file_path or file_path == "" then
+    print("Invalid file path")
+    return
+  end
+  vim.api.nvim_command(command)
+  vim.fn.cursor(row, col)
 end
 
 -- Run Gll custom user command when the buffer name matches

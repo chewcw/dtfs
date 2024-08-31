@@ -893,14 +893,22 @@ M.telescope = {
     ["<leader>of"] = {
       ":lua require('plugins.configs.buffer_utils').open_file_in_current_window(false, vim.v.count) <CR>",
       "open file in current window",
+      opts = { silent = true },
     },
     ["<leader>oF"] = {
       ":lua require('plugins.configs.buffer_utils').open_file_in_new_tab(false, vim.v.count) <CR>",
       "open file in new tab",
+      opts = { silent = true },
     },
-    ["<leader>ot"] = {
+    ["<leader>oT"] = {
       ":lua require('plugins.configs.buffer_utils').open_file_in_specific_tab(false, vim.v.count) <CR>",
       "open file in specific tab",
+      opts = { silent = true },
+    },
+    ["<leader>ot"] = {
+      ":lua require('plugins.configs.buffer_utils').open_file_in_tab(false, vim.v.count) <CR>",
+      "open file in specific tab",
+      opts = { silent = true },
     },
   },
 
@@ -914,14 +922,22 @@ M.telescope = {
     ["<leader>of"] = {
       ":lua require('plugins.configs.buffer_utils').open_file_in_current_window(true, vim.v.count) <CR>",
       "open file in current window",
+      opts = { silent = true },
     },
     ["<leader>oF"] = {
       ":lua require('plugins.configs.buffer_utils').open_file_in_new_tab(true, vim.v.count) <CR>",
       "open file in new tab",
+      opts = { silent = true },
     },
-    ["<leader>ot"] = {
+    ["<leader>oT"] = {
       ":lua require('plugins.configs.buffer_utils').open_file_in_specific_tab(true, vim.v.count) <CR>",
       "open file in specific tab",
+      opts = { silent = true },
+    },
+    ["<leader>ot"] = {
+      ":lua require('plugins.configs.buffer_utils').open_file_in_tab(true, vim.v.count) <CR>",
+      "open file in specific tab",
+      opts = { silent = true },
     },
   },
 }
