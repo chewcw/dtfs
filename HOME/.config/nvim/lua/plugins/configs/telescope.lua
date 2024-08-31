@@ -126,63 +126,11 @@ M.options = {
         end)(),
         -- select window (which split) to open
         ["<leader>ow"] = telescope_utils.select_window_to_open,
-        -- open the selected file to exisiting tab by specifying the tabnr
+        ["<leader>oT"] = function()
+          telescope_utils.open_telescope_file_in_specfic_tab()
+        end,
         ["<leader>ot"] = function()
-          local selected_entry = require("telescope.actions.state").get_selected_entry()
-          local file_path = selected_entry.path or selected_entry[1] or selected_entry.filename
-
-          if file_path then
-            local parent_dir = vim.fn.fnamemodify(file_path, ":h")
-            if parent_dir then
-              vim.g.new_tab_buf_cwd = parent_dir
-            end
-          end
-
-          -- selected_entry.filename and row, col are for something like
-          -- lsp_definitions, with filename and specific cursor position
-          local row = selected_entry.lnum or 1
-          local col = selected_entry.col or 1
-
-          if not file_path or file_path == "" then
-            print("Invalid file path")
-            return
-          end
-
-          -- show tab's cwd
-          local original_tab_cwd_visibility = vim.g.toggle_tab_cwd
-          vim.g.toggle_tab_cwd = "1"
-
-          -- vim.ui.input({ prompt = "Enter tab number: " }, function(input)
-          --   pcall(function()
-          --     if input then
-          --       local tabnr = tonumber(input)
-          --       local tabnr_ordinal = vim.api.nvim_tabpage_get_number(tabnr)
-          --       if tabnr_ordinal and tabnr_ordinal > 0 and tabnr_ordinal <= vim.fn.tabpagenr("$") then
-          --         vim.api.nvim_command("tabnext " .. tabnr_ordinal)
-          --         vim.api.nvim_command("edit " .. file_path)
-          --         vim.fn.cursor(row, col)
-          --       else
-          --         print("Invalid tab number: " .. input)
-          --       end
-          --     else
-          --       print("Input canceled")
-          --     end
-          --   end)
-          -- end)
-
-          require("plugins.configs.telescope_tabs").list_tabs({
-            title = "Open in tab",
-            on_open = function(tid)
-              local tabnr_ordinal = vim.api.nvim_tabpage_get_number(tid)
-              vim.api.nvim_command("tabnext " .. tabnr_ordinal)
-              vim.api.nvim_command("edit " .. file_path)
-              vim.fn.cursor(row, col)
-            end,
-          })
-
-          if original_tab_cwd_visibility ~= "1" then
-            vim.g.toggle_tab_cwd = original_tab_cwd_visibility
-          end
+          telescope_utils.open_telescope_file_in_tab()
         end,
         -- toggle preview
         ["<C-p>"] = require("telescope.actions.layout").toggle_preview,
@@ -397,45 +345,11 @@ M.options = {
           -- close the buffer
           ["d"] = require("telescope.actions").delete_buffer,
           ["D"] = telescope_utils.force_delete_buffer,
-          -- open the selected buffer to exisiting tab by specifying the tabnr
+          ["<leader>oT"] = function()
+            telescope_utils.open_telescope_file_in_specfic_tab()
+          end,
           ["<leader>ot"] = function()
-            local selected_entry = require("telescope.actions.state").get_selected_entry()
-            local buffer_number = selected_entry.bufnr
-
-            if buffer_number then
-              local bufname = vim.api.nvim_buf_get_name(buffer_number)
-              vim.g.new_tab_buf_cwd = vim.fn.fnamemodify(bufname, ":p:h")
-            end
-
-            -- show tab's cwd
-            local original_tab_cwd_visibility = vim.g.toggle_tab_cwd
-            vim.g.toggle_tab_cwd = "1"
-
-            -- vim.ui.input({ prompt = "Enter tab number: " }, function(input)
-            --   if input then
-            --     local tabnr = tonumber(input)
-            --     local tabnr_ordinal = vim.api.nvim_tabpage_get_number(tabnr)
-            --     if tabnr_ordinal and tabnr_ordinal > 0 and tabnr_ordinal <= vim.fn.tabpagenr("$") then
-            --       buffer_utils.open_buffer_in_specific_tab(tabnr_ordinal, buffer_number)
-            --     else
-            --       print("Invalid tab number: " .. input)
-            --     end
-            --   else
-            --     print("Input canceled")
-            --   end
-            -- end)
-
-            require("plugins.configs.telescope_tabs").list_tabs({
-              title = "Open in tab",
-              on_open = function(tid)
-                local tabnr_ordinal = vim.api.nvim_tabpage_get_number(tid)
-                buffer_utils.open_buffer_in_specific_tab(tabnr_ordinal, buffer_number)
-              end,
-            })
-
-            if original_tab_cwd_visibility ~= "1" then
-              vim.g.toggle_tab_cwd = original_tab_cwd_visibility
-            end
+            telescope_utils.open_telescope_file_in_tab()
           end,
           ["W"] = telescope_utils.set_temporary_cwd_from_file_browser("buffers"),
         },

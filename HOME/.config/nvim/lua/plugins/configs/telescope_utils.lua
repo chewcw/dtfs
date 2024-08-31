@@ -956,4 +956,117 @@ M.copy_absolute_file_path_in_picker = function()
   end
 end
 
+M.open_telescope_file_in_specfic_tab = function()
+  local selected_entry = require("telescope.actions.state").get_selected_entry()
+  local file_path = selected_entry.path or selected_entry[1] or selected_entry.filename
+  local current_tab_tabnr_ordinal = vim.api.nvim_tabpage_get_number(0)
+
+  if file_path then
+    local parent_dir = vim.fn.fnamemodify(file_path, ":h")
+    if parent_dir then
+      vim.g.new_tab_buf_cwd = parent_dir
+    end
+  end
+
+  -- selected_entry.filename and row, col are for something like
+  -- lsp_definitions, with filename and specific cursor position
+  local row = selected_entry.lnum or 1
+  local col = selected_entry.col or 1
+
+  if not file_path or file_path == "" then
+    print("Invalid file path")
+    return
+  end
+
+  -- show tab's cwd
+  local original_tab_cwd_visibility = vim.g.toggle_tab_cwd
+  vim.g.toggle_tab_cwd = "1"
+
+  -- vim.ui.input({ prompt = "Enter tab number: " }, function(input)
+  --   pcall(function()
+  --     if input then
+  --       local tabnr = tonumber(input)
+  --       local tabnr_ordinal = vim.api.nvim_tabpage_get_number(tabnr)
+  --       if tabnr_ordinal and tabnr_ordinal > 0 and tabnr_ordinal <= vim.fn.tabpagenr("$") then
+  --         vim.api.nvim_command("tabnext " .. tabnr_ordinal)
+  --         vim.api.nvim_command("edit " .. file_path)
+  --         vim.fn.cursor(row, col)
+  --       else
+  --         print("Invalid tab number: " .. input)
+  --       end
+  --     else
+  --       print("Input canceled")
+  --     end
+  --   end)
+  -- end)
+
+  require("plugins.configs.telescope_tabs").list_tabs({
+    title = "Open in tab",
+    on_open = function(tid)
+      local tabnr_ordinal = vim.api.nvim_tabpage_get_number(tid)
+      if current_tab_tabnr_ordinal == tabnr_ordinal then
+        vim.api.nvim_command(":q!")
+      end
+      vim.api.nvim_command("tabnext " .. tabnr_ordinal)
+      vim.api.nvim_command("edit " .. file_path)
+      vim.fn.cursor(row, col)
+    end,
+  })
+
+  if original_tab_cwd_visibility ~= "1" then
+    vim.g.toggle_tab_cwd = original_tab_cwd_visibility
+  end
+end
+
+-- open the selected file to exisiting tab automatically
+-- by finding the selected file's cwd, if no opened tab was opened,
+-- create a new tab with the cwd
+M.open_telescope_file_in_tab = function()
+  local selected_entry = require("telescope.actions.state").get_selected_entry()
+  local file_path = selected_entry.path or selected_entry[1] or selected_entry.filename
+  local command = ""
+  local found_tab = false
+  local current_tab_tabnr_ordinal = vim.api.nvim_tabpage_get_number(0)
+
+  if file_path then
+    local parent_dir = vim.fn.fnamemodify(file_path, ":h")
+    if parent_dir then
+      -- find all tabs
+      for _, tid in ipairs(vim.api.nvim_list_tabpages()) do
+        local tabnr_ordinal = vim.api.nvim_tabpage_get_number(tid)
+        local win_num = vim.fn.tabpagewinnr(tabnr_ordinal)
+        local working_directory = vim.fn.getcwd(win_num, tabnr_ordinal)
+        local cwd_name = vim.fn.fnamemodify(working_directory, ":p:h")
+        if cwd_name == parent_dir then
+          if current_tab_tabnr_ordinal == tabnr_ordinal then
+            command = ":q! |"
+          end
+          command = command .. "tabnext" .. tabnr_ordinal .. "| edit " .. file_path
+          found_tab = true
+          vim.g.new_tab_buf_cwd = parent_dir
+          break
+        end
+      end
+      if not found_tab then
+        command = "tabnew " .. file_path
+      end
+      vim.g.new_tab_buf_cwd = parent_dir
+    end
+  end
+
+  -- selected_entry.filename and row, col are for something like
+  -- lsp_definitions, with filename and specific cursor position
+  local row = selected_entry.lnum or 1
+  local col = selected_entry.col or 1
+
+  if not file_path or file_path == "" then
+    print("Invalid file path")
+    return
+  end
+  pcall(function()
+    vim.api.nvim_command(command)
+    vim.fn.cursor(row, col)
+  end)
+end
+
 return M
