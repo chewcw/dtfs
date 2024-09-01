@@ -30,6 +30,12 @@ local options = {
   winbar = {
     enabled = true,
   },
+  on_open = function(term)
+    vim.opt_local.colorcolumn = "0"
+    vim.opt_local.cursorline = true
+    vim.opt_local.cursorlineopt = "both"
+    vim.opt_local.textwidth = 0
+  end,
   on_exit = function(term, job, exit_code, name)
     -- more information in plugins/configs/toggleterm_utils.lua
     local utils = require("core.utils")
