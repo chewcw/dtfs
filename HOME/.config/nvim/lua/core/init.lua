@@ -357,11 +357,12 @@ vim.api.nvim_create_autocmd("FileType", {
 vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
   pattern = { "*.razor", "*.html" },
   callback = function()
-    vim.bo.filetype = "html"
+    vim.opt_local.filetype = "html"
     vim.opt_local.tabstop = 4
     vim.opt_local.shiftwidth = 4
     vim.opt_local.expandtab = true
-    vim.opt.textwidth = 0
+    vim.opt_local.textwidth = 0
+    vim.opt_local.colorcolumn = "0"
   end,
 })
 
@@ -369,8 +370,8 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
 vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
   pattern = { "*.md" },
   callback = function()
-    vim.bo.filetype = "markdown"
-    vim.opt.textwidth = 0
+    vim.opt_local.filetype = "markdown"
+    vim.opt_local.textwidth = 0
   end,
 })
 
@@ -378,9 +379,9 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
 vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
   pattern = { "fugitive://*", "/tmp/nvim.ccw/*" },
   callback = function()
-    vim.opt.colorcolumn = "0"
-    vim.opt.cursorline = true
-    vim.opt.textwidth = 0
+    vim.opt_local.colorcolumn = "0"
+    vim.opt_local.cursorline = true
+    vim.opt_local.textwidth = 0
   end,
 })
 
