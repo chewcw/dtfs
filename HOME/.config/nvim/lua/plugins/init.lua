@@ -505,11 +505,9 @@ local default_plugins = {
                 local args = x[tostring(buf)].args
                 local buf_new = vim.api.nvim_get_current_buf()
                 vim.api.nvim_buf_call(buf_new, function()
-                  vim.cmd(":Gll " .. args)
-                  vim.cmd("wincmd k")
-                  vim.cmd("wincmd q")
-                  x[tostring(buf)] = nil
+                  require('plugins.configs.buffer_utils').run_gll_when_the_buffer_name_match()
                   vim.api.nvim_input("<Esc>")
+                  x[tostring(buf)] = nil
                   x[tostring(buf_new)] = { is_gll = true, args = args["args"] }
                   vim.g.fugitive_ran = false
                 end)

@@ -545,6 +545,7 @@ M.general = {
               vim.cmd(modified_command)
               vim.cmd("wincmd k")
               vim.cmd("wincmd q")
+              vim.cmd("wincmd p") -- make sure to focus on the Gll window
               vim.api.nvim_input("<Esc>")
             end)
             return
