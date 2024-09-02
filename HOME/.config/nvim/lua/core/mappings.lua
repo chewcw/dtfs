@@ -344,8 +344,8 @@ M.general = {
     },
 
     -- https://stackoverflow.com/a/1269631
-    ["<C-w>th"] = { "<C-w>t<C-w>K", "switch from vertical split to horizontal split" },
-    ["<C-w>tv"] = { "<C-w>t<C-w>H", "switch from horizontal split to vertical split" },
+    -- ["<C-w>th"] = { "<C-w>K", "switch from vertical split to horizontal split" },
+    -- ["<C-w>tv"] = { "<C-w>H", "switch from horizontal split to vertical split" },
 
     -- for Git related nvimdiff
     ["<leader>gl"] = { ":diffget LOCAL <CR>", "diffget from local" },
