@@ -428,6 +428,7 @@ M.run_gll_when_the_buffer_name_match = function()
     vim.cmd(":Gll")
     vim.cmd("wincmd k")
     vim.cmd("wincmd q")
+    vim.cmd("wincmd p") -- make sure to focus on the Gll window
   else
     vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<C-r>", true, false, true), "n", true)
   end
