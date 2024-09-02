@@ -1029,7 +1029,7 @@ M.open_telescope_file_in_tab = function()
   local current_tab_tabnr_ordinal = vim.api.nvim_tabpage_get_number(0)
 
   if file_path then
-    local parent_dir = vim.fn.fnamemodify(file_path, ":h")
+    local parent_dir = vim.fn.fnamemodify(file_path, ":p:h")
     if parent_dir then
       -- find all tabs
       for _, tid in ipairs(vim.api.nvim_list_tabpages()) do
@@ -1043,14 +1043,14 @@ M.open_telescope_file_in_tab = function()
           end
           command = command .. "tabnext" .. tabnr_ordinal .. "| edit " .. file_path
           found_tab = true
-          vim.g.new_tab_buf_cwd = parent_dir
+          vim.g.new_tab_buf_cwd = vim.fn.fnamemodify(file_path, ":h")
           break
         end
       end
       if not found_tab then
         command = "tabnew " .. file_path
       end
-      vim.g.new_tab_buf_cwd = parent_dir
+      vim.g.new_tab_buf_cwd = vim.fn.fnamemodify(file_path, ":h")
     end
   end
 
