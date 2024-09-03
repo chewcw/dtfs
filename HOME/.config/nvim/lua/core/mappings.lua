@@ -407,7 +407,7 @@ M.general = {
     },
 
     ["<C-r>"] = {
-      ":lua require('plugins.configs.buffer_utils').run_gll_when_the_buffer_name_match() <CR>",
+      ":lua require('plugins.configs.buffer_utils').run_git_related_when_the_buffer_name_matches() <CR>",
       "Reload Gll",
       opts = { silent = true },
     },
