@@ -420,15 +420,21 @@ M.open_file_in_tab = function(is_visual, count)
   vim.fn.cursor(row, col)
 end
 
--- Run Gll custom user command when the buffer name matches
-M.run_gll_when_the_buffer_name_match = function()
+-- Run Git custom user command when the buffer name matches
+M.run_git_related_when_the_buffer_name_matches = function()
   local buf_path = vim.api.nvim_buf_get_name(0)
   if buf_path:match("^/tmp/nvim%.ccw/") then
     vim.g.gll_reload_manually = true
-    vim.cmd(":Gll")
+    vim.api.nvim_command(":Gll")
     vim.cmd("wincmd k")
     vim.cmd("wincmd q")
     vim.cmd("wincmd p") -- make sure to focus on the Gll window
+  elseif buf_path:match("^fugitive://") then
+    pcall(function()
+      vim.notify("Fetching remote...")
+      vim.api.nvim_command("Git fetch")
+      vim.notify("Done fetching remote.")
+    end)
   else
     vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<C-r>", true, false, true), "n", true)
   end
