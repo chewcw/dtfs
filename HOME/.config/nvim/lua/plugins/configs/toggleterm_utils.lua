@@ -166,6 +166,7 @@ M.toggle_term = function(target_direction)
       path = path or "",
       prompt_title = "Select terminal workdir",
       select_dirs = true,
+      select_buffer = true,
       attach_mappings = function(_, map)
         map("i", "<A-CR>", select_path)
         map("n", "<A-CR>", select_path)

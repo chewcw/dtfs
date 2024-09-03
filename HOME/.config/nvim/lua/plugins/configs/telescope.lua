@@ -153,6 +153,7 @@ M.options = {
       hijack_netrw = false,
       hidden = true,
       initial_mode = "normal",
+      select_buffer = true,
       layout_config = {
         horizontal = {
           prompt_position = "top",
