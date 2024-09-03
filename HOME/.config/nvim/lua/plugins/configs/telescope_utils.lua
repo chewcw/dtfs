@@ -60,6 +60,7 @@ M.ts_select_dir_for_grep_or_find_files = function(picker_name)
       depth = true,
       hidden = false,
       cwd = vim.fn.getcwd(),
+      select_buffer = true,
       attach_mappings = function(_)
         require("telescope.actions").select_default:replace(function()
           local entry_path = action_state.get_selected_entry().Path
@@ -526,6 +527,7 @@ M.set_temporary_cwd_from_file_browser = function(picker_name, path)
     fb.file_browser({
       path = path,
       prompt_title = "Select temporary cwd",
+      select_buffer = true,
       attach_mappings = function(_, map)
         -- Replace the default select action with custom behavior
         map("i", "<A-CR>", select_tmp_cwd)
