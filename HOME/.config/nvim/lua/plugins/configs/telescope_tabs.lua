@@ -110,6 +110,7 @@ M.list_tabs = function(opts)
     local tabnr_ordinal = vim.api.nvim_tabpage_get_number(tid)
     local win_num = vim.fn.tabpagewinnr(tabnr_ordinal)
     local working_directory = vim.fn.getcwd(win_num, tabnr_ordinal)
+    local cwd_parent = vim.fn.fnamemodify(working_directory, ":h:t")
     local cwd_name = vim.fn.fnamemodify(working_directory, ":t")
     local full_cwd_name = vim.fn.fnamemodify(working_directory, ":p:h")
 
@@ -143,7 +144,7 @@ M.list_tabs = function(opts)
       current_tab.index = index
     end
     local tab_char = string.char(96 + index) -- 96 is char `a`
-    table.insert(res, { file_names, file_paths, file_ids, window_ids, tid, is_current, cwd_name, buffers_in_cwd, tab_char })
+    table.insert(res, { file_names, file_paths, file_ids, window_ids, tid, is_current, cwd_parent .. "/" .. cwd_name, buffers_in_cwd, tab_char })
   end
   pickers
       .new(opts, {
