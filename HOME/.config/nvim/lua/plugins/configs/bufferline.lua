@@ -12,7 +12,7 @@ M.setup = {
     show_close_icon = false,
     show_tab_indicators = false,
     show_duplicate_prefix = false,
-    duplicates_across_groups = true,
+    duplicates_across_groups = false,
     modified_icon = "[+]",
     separator_style = "none",
     truncate_names = false,
@@ -26,28 +26,30 @@ M.setup = {
       local tabnr_ordinal = vim.api.nvim_tabpage_get_number(buf.tabnr)
       local win_num = vim.fn.tabpagewinnr(tabnr_ordinal)
       local working_directory = vim.fn.getcwd(win_num, tabnr_ordinal)
-      local cwd_name = vim.fn.fnamemodify(working_directory, ":t")
+
+      local cwd_parent = vim.fn.fnamemodify(working_directory, ":h:t")
+      local cwd_name = vim.fn.fnamemodify(working_directory, ":t:r")
 
       if vim.g.toggle_tab_cwd == "1" then -- show tab's cwd (see user command "ToggleTabCwd")
-        return buf.tabnr .. "🖿 " .. cwd_name
+        return buf.tabnr .. "🖿 " .. cwd_parent .. "/" .. cwd_name
       elseif vim.g.toggle_tab_cwd == "2" then
         return tostring(buf.tabnr)
       elseif vim.g.toggle_tab_cwd == "3" then
-        return "🖿 " .. cwd_name
+        return "🖿 " .. cwd_parent .. "/" .. cwd_name
       elseif vim.g.toggle_tab_cwd == "4" then
         if tabnr_ordinal == vim.fn.tabpagenr() then
           return "🗎 " .. buf.name
         else
-          return "🖿 " .. cwd_name
+          return "🖿 " .. cwd_parent .. "/" .. cwd_name
         end
       elseif vim.g.toggle_tab_cwd == "5" then
         if tabnr_ordinal == vim.fn.tabpagenr() then
           return "🗎 " .. buf.name
         else
-          return "🖿 " .. cwd_name .. " 🗎 " .. buf.name
+          return "🖿 " .. cwd_parent .. "/" .. cwd_name .. " 🗎 " .. buf.name
         end
       elseif vim.g.toggle_tab_cwd == "6" then
-        return "🖿 " .. cwd_name .. " 🗎 " .. buf.name
+        return "🖿 " .. cwd_parent .. "/" .. cwd_name .. " 🗎 " .. buf.name
       else
         return "🗎 " .. buf.name
       end
