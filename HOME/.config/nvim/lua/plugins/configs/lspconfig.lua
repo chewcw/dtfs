@@ -204,4 +204,11 @@ lspconfig.emmet_ls.setup({
   cmd = { home .. "/.local/share/nvim/mason/bin/emmet-ls", "--stdio" },
 })
 
+-- css-lsp
+lspconfig.cssls.setup({
+  on_attach = M.on_attach,
+  capabilities = M.capabilities,
+  cmd = { home .. "/.local/share/nvim/mason/bin/vscode-css-language-server", "--stdio" },
+})
+
 return M
