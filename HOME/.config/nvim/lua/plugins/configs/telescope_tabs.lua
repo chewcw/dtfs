@@ -45,13 +45,28 @@ local M = {
 }
 
 local default_conf = {
-  entry_formatter = function(tab_id, buffer_ids, file_names, file_paths, is_current, cwd_name, buffers_in_cwd, tab_char)
+  entry_formatter = function(
+      tab_id,
+      buffer_ids,
+      file_names,
+      file_paths,
+      is_current,
+      cwd_name,
+      buffers_in_cwd,
+      tab_char,
+      is_modified
+  )
+    local modified = ""
+    if is_modified then
+      modified = "[+]"
+    end
     if vim.g.toggle_tab_auto_cwd then
       local buffers_in_cwd_string = table.concat(buffers_in_cwd, ", ")
       return string.format(
-        "%s %s: %s 🖿  %s 🗎 %s",
+        "%s %s: %s %s 🖿  %s 🗎 %s",
         tostring(tab_id),
         tab_char,
+        modified,
         is_current and " >" or "",
         cwd_name,
         buffers_in_cwd_string
@@ -59,9 +74,10 @@ local default_conf = {
     else
       local file_names_string = table.concat(file_names, ", ")
       return string.format(
-        "%s %s: %s 🖿  %s 🗎 %s",
+        "%s %s: %s %s 🖿  %s 🗎 %s",
         tostring(tab_id),
         tab_char,
+        modified,
         is_current and " >" or "",
         cwd_name,
         file_names_string
@@ -105,6 +121,7 @@ M.list_tabs = function(opts)
     local file_paths = {}
     local file_ids = {}
     local window_ids = {}
+    local is_modifieds = {}
     local is_current = current_tab.number == vim.api.nvim_tabpage_get_number(tid)
 
     local tabnr_ordinal = vim.api.nvim_tabpage_get_number(tid)
@@ -134,6 +151,8 @@ M.list_tabs = function(opts)
         local bid = vim.api.nvim_win_get_buf(wid)
         local path = vim.api.nvim_buf_get_name(bid)
         local file_name = vim.fn.fnamemodify(path, ":t")
+        local modified = vim.fn.getbufvar(bid, "&modified")
+        table.insert(is_modifieds, modified)
         table.insert(file_names, file_name)
         table.insert(file_paths, path)
         table.insert(file_ids, bid)
@@ -144,7 +163,26 @@ M.list_tabs = function(opts)
       current_tab.index = index
     end
     local tab_char = string.char(96 + index) -- 96 is char `a`
-    table.insert(res, { file_names, file_paths, file_ids, window_ids, tid, is_current, cwd_parent .. "/" .. cwd_name, buffers_in_cwd, tab_char })
+    local is_modified = false
+    for _, changed in ipairs(is_modifieds) do
+      if changed == 1 then
+        is_modified = true
+        break
+      end
+    end
+    print(is_modified)
+    table.insert(res, {
+      file_names,
+      file_paths,
+      file_ids,
+      window_ids,
+      tid,
+      is_current,
+      cwd_parent .. "/" .. cwd_name,
+      buffers_in_cwd,
+      tab_char,
+      is_modified,
+    })
   end
   pickers
       .new(opts, {
@@ -152,8 +190,17 @@ M.list_tabs = function(opts)
         finder = finders.new_table({
           results = res,
           entry_maker = function(entry)
-            local entry_string =
-                opts.entry_formatter(entry[5], entry[3], entry[1], entry[2], entry[6], entry[7], entry[8], entry[9])
+            local entry_string = opts.entry_formatter(
+              entry[5],
+              entry[3],
+              entry[1],
+              entry[2],
+              entry[6],
+              entry[7],
+              entry[8],
+              entry[9],
+              entry[10]
+            )
             local ordinal_string =
                 opts.entry_ordinal(entry[5], entry[3], entry[1], entry[2], entry[6], entry[7], entry[8])
             return {
