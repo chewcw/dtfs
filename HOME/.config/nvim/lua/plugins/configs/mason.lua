@@ -11,6 +11,7 @@ local options = {
     "typescript-language-server",
     "prettierd",
     "emmet-ls",
+    "css-lsp",
 
     -- golang
     "gopls",
