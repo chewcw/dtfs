@@ -424,7 +424,7 @@ end
 M.run_git_related_when_the_buffer_name_matches = function()
   local buf_path = vim.api.nvim_buf_get_name(0)
   if buf_path:match("^/tmp/nvim%.ccw/") then
-    vim.g.gll_reload_manually = true
+    vim.g.gll_reload_manually_or_open_new = true
     vim.api.nvim_command(":Gll")
     vim.cmd("wincmd k")
     vim.cmd("wincmd q")

@@ -462,6 +462,7 @@ M.general = {
           local modified_command = ":vertical " .. last_command
           if last_command:find("^" .. "Gll") ~= nil then
             pcall(function()
+              vim.g.gll_reload_manually_or_open_new = true
               vim.cmd("vnew") -- open vsplit
               vim.cmd(modified_command)
               vim.cmd("wincmd k")
@@ -501,6 +502,7 @@ M.general = {
           local modified_command = ":tab " .. last_command
           if last_command:find("^" .. "Gll") ~= nil then
             pcall(function()
+              vim.g.gll_reload_manually_or_open_new = true
               modified_command = ":tabnew | execute('" .. last_command .. "')"
               vim.cmd(modified_command)
               vim.cmd("wincmd k")
@@ -540,6 +542,20 @@ M.general = {
           local modified_command = "0" .. last_command
           if last_command:find("^" .. "Gll") ~= nil then
             pcall(function()
+              -- current buf before running the command
+              local current_buf = vim.api.nvim_get_current_buf()
+              -- see if there is any record for the current buffer
+              -- have to do this temporary variable thing, see https://github.com/nanotee/nvim-lua-guide#caveats-3
+              local x = vim.g.gll_records
+              x = x or {}
+              if x[tostring(current_buf)] ~= nil and x[tostring(current_buf)].is_gll == true then
+                -- clear the record, as this command that we are running now is going to
+                -- replace the current buffer
+                x[tostring(current_buf)] = nil
+                vim.g.gll_records = x
+              end
+              -- then run the Gll command
+              vim.g.gll_reload_manually_or_open_new = true
               modified_command = last_command
               vim.cmd("enew")
               vim.cmd(modified_command)
@@ -577,6 +593,7 @@ M.general = {
           local modified_command = last_command
           if last_command:find("^" .. "Gll") ~= nil then
             pcall(function()
+              vim.g.gll_reload_manually_or_open_new = true
               vim.cmd(last_command)
               vim.api.nvim_input("<Esc>")
             end)

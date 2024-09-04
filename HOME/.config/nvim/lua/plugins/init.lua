@@ -456,6 +456,7 @@ local default_plugins = {
       vim.g.gll_records = {}
       vim.g.fugitive_ran = false
       vim.api.nvim_create_user_command("Gll", function(args)
+        -- the custom command
         local cmd = [[ Git log --graph --pretty=format:"%h %Cred%an %Cblue%aI %Cred%d%Cgreen%s" ]]
         if args["args"] then
           cmd = cmd .. " " .. args["args"]
@@ -463,17 +464,17 @@ local default_plugins = {
 
         vim.cmd(cmd)
 
+        -- new buf after ran the command
+        local new_buf = vim.api.nvim_get_current_buf()
         -- record the args in the buffer name
-        local buf = vim.api.nvim_get_current_buf()
         -- have to do this temporary variable thing, see https://github.com/nanotee/nvim-lua-guide#caveats-3
         local x = vim.g.gll_records
         x = x or {}
-        x[tostring(buf)] = { is_gll = true, args = args["args"] }
+        x[tostring(new_buf)] = { is_gll = true, args = args["args"] }
         vim.g.gll_records = x
       end, { desc = "Git log with format", nargs = "*" })
 
-      -- when the buffer enters, if the buffer name is starts with `GLL`, reload it
-      -- automatically
+      -- when the buffer enters, reload the Gll related window automatically
       vim.api.nvim_create_autocmd("WinEnter", {
         pattern = "*",
         callback = function()
@@ -486,7 +487,7 @@ local default_plugins = {
           -- 4. Once again the Gll outputs
           -- causing 2 buffers were created
           vim.defer_fn(function()
-            vim.g.gll_reload_manually = false
+            vim.g.gll_reload_manually_or_open_new = false
           end, 500)
           -- find the fugitive related buffer
           vim.defer_fn(function()
@@ -495,7 +496,7 @@ local default_plugins = {
                 and not buf_name:match("%.sh$")
                 and not buf_name:match("%.edit$")
                 and not buf_name:match("%.exit$")
-                and not vim.g.gll_reload_manually
+                and not vim.g.gll_reload_manually_or_open_new
             then
               -- have to do this temporary variable thing, see https://github.com/nanotee/nvim-lua-guide#caveats-3
               local x = vim.g.gll_records
@@ -503,21 +504,54 @@ local default_plugins = {
               if x[tostring(buf)] ~= nil and x[tostring(buf)].is_gll == true and vim.g.fugitive_ran then
                 -- retrieve its args if available
                 local args = x[tostring(buf)].args
-                local buf_new = vim.api.nvim_get_current_buf()
-                vim.api.nvim_buf_call(buf_new, function()
-                  vim.g.gll_reload_manually = true
-                  vim.api.nvim_command(":Gll")
-                  vim.cmd("wincmd k")
-                  vim.cmd("wincmd q")
-                  vim.cmd("wincmd p") -- make sure to focus on the Gll window
-                  vim.api.nvim_input("<Esc>")
-                  x[tostring(buf)] = nil
-                  x[tostring(buf_new)] = { is_gll = true, args = args["args"] }
-                  vim.g.fugitive_ran = false
-                end)
+                -- this behavior should be same as the keymapping <A-0>
+                -- current buf before running the command
+                local current_buf = vim.api.nvim_get_current_buf()
+                -- see if there is any record for the current buffer
+                -- have to do this temporary variable thing, see https://github.com/nanotee/nvim-lua-guide#caveats-3
+                if x[tostring(current_buf)] ~= nil and x[tostring(current_buf)].is_gll == true then
+                  -- clear the record, as this reloading is going to replace current
+                  -- bufer
+                  x[tostring(current_buf)] = nil
+                  vim.g.gll_records = x
+                end
+                -- then run the Gll command
+                vim.g.gll_reload_manually_or_open_new = true
+                vim.cmd("enew")
+                vim.cmd("Gll " .. args)
+                vim.cmd("wincmd k")
+                vim.cmd("wincmd q")
+                vim.cmd("wincmd p") -- make sure to focus on the Gll window
+                vim.api.nvim_input("<Esc>")
+                vim.g.fugitive_ran = false
               end
             end
           end, 200)
+        end,
+      })
+
+      -- when the buffer deleted, if it's a Gll window, clear the Gll records
+      -- accordingly
+      vim.api.nvim_create_autocmd("BufDelete", {
+        pattern = "*",
+        callback = function()
+          local buf = vim.api.nvim_get_current_buf()
+          local buf_name = vim.api.nvim_buf_get_name(buf)
+
+          if
+              buf_name:match("^/tmp/nvim%.ccw/")
+              and not buf_name:match("%.sh$")
+              and not buf_name:match("%.edit$")
+              and not buf_name:match("%.exit$")
+          then
+            -- have to do this temporary variable thing, see https://github.com/nanotee/nvim-lua-guide#caveats-3
+            local x = vim.g.gll_records
+            x = x or {}
+            if x[tostring(buf)] and x[tostring(buf)].is_gll == true then
+              x[tostring(buf)] = nil
+              vim.g.gll_records = x
+            end
+          end
         end,
       })
 
