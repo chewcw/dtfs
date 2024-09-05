@@ -145,14 +145,14 @@ bindsym $mod+Shift+0 move container to workspace $workspace0
 
 # if there is parent in group of containers, switch to parent before switch to other container
 # https://www.reddit.com/r/i3wm/comments/4w0otj/is_there_a_way_to_switch_to_the_next_tab/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
-bindsym $mod+$alt+h focus parent; focus left; focus child
-bindsym $mod+$alt+Left focus parent; focus left; focus child
-bindsym $mod+$alt+l focus parent; focus right; focus child
-bindsym $mod+$alt+Right focus parent; focus right; focus child
-bindsym $mod+$alt+j focus parent; focus down; focus child
-bindsym $mod+$alt+Down focus parent; focus down; focus child
-bindsym $mod+$alt+k focus parent; focus up; focus child
-bindsym $mod+$alt+Up focus parent; focus up; focus child
+bindsym $mod+Ctrl+h focus parent; focus left; focus child
+bindsym $mod+Ctrl+Left focus parent; focus left; focus child
+bindsym $mod+Ctrl+l focus parent; focus right; focus child
+bindsym $mod+Ctrl+Right focus parent; focus right; focus child
+bindsym $mod+Ctrl+j focus parent; focus down; focus child
+bindsym $mod+Ctrl+Down focus parent; focus down; focus child
+bindsym $mod+Ctrl+k focus parent; focus up; focus child
+bindsym $mod+Ctrl+Up focus parent; focus up; focus child
 
 # Assign app to workspace
 # assign [class="Brave-browser"] $workspace3
@@ -347,8 +347,8 @@ floating_minimum_size 300 x 300
 floating_maximum_size 1800 x 1000
 
 # move workspace to another monitor
-bindsym $mod+Ctrl+h move workspace to output left
-bindsym $mod+Ctrl+l move workspace to output right
+bindsym $mod+$alt+h move workspace to output left
+bindsym $mod+$alt+l move workspace to output right
 
 # Pulse Audio controls
 bindsym $mod+plus exec "amixer -D pulse sset Master 1%+"
