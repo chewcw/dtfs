@@ -345,7 +345,7 @@ M.open_lsp_implementation_conditional = function(opts)
 end
 -- ----------------------------------------------------------------------------
 
--- Function to open new split and prompt for the oldfiles using Telescope
+-- Function to open new split and prompt for the find_files using Telescope
 M.open_new_split_and_select_buffer = function(split_type)
   -- Split type
   if split_type == "vertical" then
@@ -353,6 +353,7 @@ M.open_new_split_and_select_buffer = function(split_type)
   else
     vim.cmd("new")
   end
+  vim.g.new_split_blank_buffer = vim.api.nvim_get_current_buf()
 
   -- Open find files
   vim.cmd("let g:find_files_type='normal'")
@@ -363,7 +364,9 @@ M.open_new_split_and_select_buffer = function(split_type)
       map("n", "q", function() -- not selecting file, just close the window
         pcall(function()
           vim.cmd("q!")     -- close the telescope picker
+          local buf_nr = vim.api.nvim_get_current_buf()
           vim.cmd("wincmd c") -- close the window
+          vim.cmd("bdelete! " .. buf_nr)
         end)
       end)
       return true
@@ -555,15 +558,19 @@ M.open_multiple_files_in_find_files_picker = function(prompt_bufnr, open_cmd)
     if open_cmd == "tabe" then
       vim.cmd("tabnew")
     elseif open_cmd == "vsplit" then
-      vim.cmd("vsplit")
+      vim.cmd("vnew")
     elseif open_cmd == "split" then
-      vim.cmd("split")
+      vim.cmd("new")
     end
     vim.cmd("cfdo " .. open_cmd)
     if open_cmd == "tabe" then
       vim.cmd("tabclose")
     elseif open_cmd == "vsplit" or open_cmd == "split" then
       vim.cmd("wincmd q")
+    end
+    if vim.g.new_split_blank_buffer ~= nil then
+      vim.cmd("bdelete! " .. vim.g.new_split_blank_buffer)
+      vim.g.new_split_blank_buffer = nil
     end
   else
     require("telescope.actions").select_default(prompt_bufnr)
