@@ -517,7 +517,6 @@ local default_plugins = {
                 end
                 -- then run the Gll command
                 vim.g.gll_reload_manually_or_open_new = true
-                vim.cmd("enew")
                 vim.cmd("Gll " .. args)
                 vim.cmd("wincmd k")
                 vim.cmd("wincmd q")
