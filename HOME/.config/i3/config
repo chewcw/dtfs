@@ -330,6 +330,9 @@ mode "$mode_gaps_left" {
 gaps outer 0
 gaps inner 5
 
+# default orientation
+workspace_layout tabbed
+
 # desktop background
 exec feh --bg-fill ~/Pictures/wallpaper.jpg
 
