@@ -466,8 +466,10 @@ M.general = {
               vim.cmd("vnew") -- open vsplit
               vim.cmd(modified_command)
               vim.cmd("wincmd k")
+              local dummy_bufnr = vim.api.nvim_get_current_buf()
               vim.cmd("wincmd q")
               vim.api.nvim_input("<Esc>")
+              vim.cmd("bdelete! " .. dummy_bufnr)
             end)
             return
           end
@@ -475,8 +477,10 @@ M.general = {
             local args = last_command:gsub("^Redir ", "")
             require("core.utils_redir").nredir(args, "vertical")
             vim.cmd("wincmd k")
+            local dummy_bufnr = vim.api.nvim_get_current_buf()
             vim.cmd("wincmd q")
             vim.api.nvim_input("<Esc>")
+            vim.cmd("bdelete! " .. dummy_bufnr)
             return
           end
           if last_command:find("^" .. "Redir") ~= nil then
@@ -557,7 +561,6 @@ M.general = {
               -- then run the Gll command
               vim.g.gll_reload_manually_or_open_new = true
               modified_command = last_command
-              vim.cmd("enew")
               vim.cmd(modified_command)
               vim.cmd("wincmd k")
               vim.cmd("wincmd q")
@@ -603,8 +606,10 @@ M.general = {
             local args = last_command:gsub("^Redir ", "")
             require("core.utils_redir").nredir(args, "horizontal")
             vim.cmd("wincmd k")
+            local dummy_bufnr = vim.api.nvim_get_current_buf()
             vim.cmd("wincmd q")
             vim.api.nvim_input("<Esc>")
+            vim.cmd("bdelete! " .. dummy_bufnr)
             return
           end
           if last_command:find("^" .. "Redir") ~= nil then
