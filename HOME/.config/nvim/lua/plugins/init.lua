@@ -475,7 +475,7 @@ local default_plugins = {
       end, { desc = "Git log with format", nargs = "*" })
 
       -- when the buffer enters, reload the Gll related window automatically
-      vim.api.nvim_create_autocmd("WinEnter", {
+      vim.api.nvim_create_autocmd("BufEnter", {
         pattern = "*",
         callback = function()
           local buf = vim.api.nvim_get_current_buf()
