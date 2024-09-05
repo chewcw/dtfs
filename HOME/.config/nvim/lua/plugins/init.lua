@@ -360,6 +360,8 @@ local default_plugins = {
     "Exafunction/codeium.vim",
     cmd = { "CodeiumEnable" },
     init = function()
+      vim.g.codeium_no_map_tab = false
+      vim.g.codeium_idle_delay = 75
       require("core.utils").load_mappings("codeium")
     end,
     -- branch = "main",

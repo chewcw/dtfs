@@ -1156,27 +1156,35 @@ M.codeium = {
   i = {
     ["<A-]>"] = {
       function()
-        return vim.fn["codeium#CycleCompletions"](1)
+        pcall(function()
+          return vim.fn["codeium#CycleCompletions"](1)
+        end)
       end,
-      opts = { expr = true },
+      opts = { silent = true, expr = true },
     },
     ["<A-[>"] = {
       function()
-        return vim.fn["codeium#CycleCompletions"](-1)
+        pcall(function()
+          return vim.fn["codeium#CycleCompletions"](-1)
+        end)
       end,
-      opts = { expr = true },
+      opts = { silent = true, expr = true },
     },
     ["<A-Tab>"] = {
       function()
-        return vim.fn["codeium#Accept"]()
+        if vim.fn["codeium#Accept"] then
+          return vim.fn["codeium#Accept"]()
+        end
       end,
-      opts = { expr = true },
+      opts = { silent = true, expr = true },
     },
     ["<A-q>"] = {
       function()
-        return vim.fn["codeium#Clear"]()
+        pcall(function()
+          return vim.fn["codeium#Clear"]()
+        end)
       end,
-      opts = { expr = true },
+      opts = { silent = true, expr = true },
     },
   },
 }
