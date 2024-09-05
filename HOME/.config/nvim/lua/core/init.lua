@@ -154,10 +154,11 @@ autocmd("FileType", {
 vim.api.nvim_create_autocmd({ "InsertEnter" }, {
   callback = function()
     vim.api.nvim_set_hl(0, "MsgArea", {
-      bg = require("core.colorscheme").colors().dark_yellow02,
+      bg = require("core.colorscheme").colors().dark_red,
     })
   end,
 })
+
 vim.api.nvim_create_autocmd({ "InsertLeave" }, {
   callback = function()
     vim.api.nvim_set_hl(0, "MsgArea", { bg = "None" })
@@ -190,7 +191,7 @@ function Search_modified_unsaved_buffers()
   for _, buf in ipairs(vim.api.nvim_list_bufs()) do
     if vim.api.nvim_buf_get_option(buf, "modified") then
       vim.api.nvim_set_hl(0, "MsgArea", {
-        bg = require("core.colorscheme").colors().dark_main4,
+        bg = require("core.colorscheme").colors().dark_red,
       })
       return
     end
