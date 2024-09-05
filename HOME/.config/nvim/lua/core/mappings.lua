@@ -1074,7 +1074,7 @@ M.gitsigns = {
     ["<leader>gdd"] = { ":lua require('gitsigns').toggle_deleted() <CR>", "Toggle deleted" },
 
     ["<leader>gdv"] = { ":Gvdiffsplit <CR>", "Diff this (vertical)" },
-    ["<leader>gdh"] = { ":Gdiffsplit <CR>", "Diff this (horizontal)" },
+    ["<leader>gdh"] = { ":Ghdiffsplit <CR>", "Diff this (horizontal)" },
     ["<leader>gb"] = {
       ":G blame <CR> | :lua vim.api.nvim_input('C')<CR>",
       "Open git blame and only show commit hash",
