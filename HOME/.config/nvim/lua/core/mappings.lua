@@ -924,13 +924,13 @@ M.telescope = {
       opts = { silent = true },
     },
     ["<leader>oT"] = {
-      ":lua require('plugins.configs.buffer_utils').open_file_in_specific_tab(false, vim.v.count) <CR>",
+      ":lua require('plugins.configs.buffer_utils').open_file_or_buffer_in_specific_tab(false, vim.v.count) <CR>",
       "open file in specific tab",
       opts = { silent = true },
     },
     ["<leader>ot"] = {
-      ":lua require('plugins.configs.buffer_utils').open_file_in_tab(false, vim.v.count) <CR>",
-      "open file in specific tab",
+      ":lua require('plugins.configs.buffer_utils').open_file_or_buffer_in_tab(false, vim.v.count) <CR>",
+      "open file in tab",
       opts = { silent = true },
     },
   },

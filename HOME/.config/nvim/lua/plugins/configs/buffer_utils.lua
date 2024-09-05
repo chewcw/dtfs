@@ -284,7 +284,7 @@ M.open_file_in_new_tab = function(is_visual, count)
   end
 end
 
-M.open_file_in_specific_tab = function(is_visual, count)
+M.open_file_or_buffer_in_specific_tab = function(is_visual, count)
   local vimfetch = require("core.utils_vimfetch")
 
   local file
@@ -294,8 +294,33 @@ M.open_file_in_specific_tab = function(is_visual, count)
     file = vimfetch.fetch_cfile(count)
   end
 
+  local current_buf_nr = vim.api.nvim_get_current_buf()
+  local current_win_id = vim.fn.bufwinid(current_buf_nr)
+
   if file == nil or #file == 0 then
-    return
+    -- if no path on the cursor, then record current buffer to the file variable
+    file = {}
+    local buf_name = vim.api.nvim_buf_get_name(current_buf_nr)
+
+    -- ignore if this is a term
+    if buf_name:match("^term:") then
+      return
+    end
+
+    -- ignore if this is fugitive
+    if buf_name:match("^fugitive:") then
+      return
+    end
+
+    -- ignore if this is Gll related
+    if buf_name:match("/tmp/nvim.ccw/*") then
+      return
+    end
+
+    file[1] = vim.fn.fnamemodify(buf_name, ":p")
+    file[2], file[3] = vim.api.nvim_win_get_cursor(0)
+    -- close current window as we are opening current buffer in new tab anyway
+    vim.api.nvim_win_close(current_win_id, false)
   end
 
   local file_path = file[1]
@@ -363,7 +388,7 @@ M.open_file_in_specific_tab = function(is_visual, count)
   end
 end
 
-M.open_file_in_tab = function(is_visual, count)
+M.open_file_or_buffer_in_tab = function(is_visual, count)
   local vimfetch = require("core.utils_vimfetch")
 
   local file
@@ -373,12 +398,36 @@ M.open_file_in_tab = function(is_visual, count)
     file = vimfetch.fetch_cfile(count)
   end
 
-  if file == nil or #file == 0 then
-    return
-  end
-
   local command = ""
   local found_tab = false
+  local current_buf_nr = vim.api.nvim_get_current_buf()
+  local current_win_id = vim.fn.bufwinid(current_buf_nr)
+
+  if file == nil or #file == 0 then
+    -- if no path on the cursor, then record current buffer to the file variable
+    file = {}
+    local buf_name = vim.api.nvim_buf_get_name(current_buf_nr)
+    -- ignore if this is a term
+    if buf_name:match("^term:") then
+      return
+    end
+
+    -- ignore if this is fugitive
+    if buf_name:match("^fugitive:") then
+      return
+    end
+
+    -- ignore if this is Gll related
+    if buf_name:match("/tmp/nvim.ccw/*") then
+      return
+    end
+
+    file[1] = vim.fn.fnamemodify(buf_name, ":p")
+    file[2], file[3] = vim.api.nvim_win_get_cursor(0)
+    -- close current window as we are opening current buffer in new tab anyway
+    vim.api.nvim_win_close(current_win_id, false)
+  end
+
   local file_path = file[1]
   local row = file[2] or 1
   local col = file[3] or 1
@@ -393,12 +442,10 @@ M.open_file_in_tab = function(is_visual, count)
         local working_directory = vim.fn.getcwd(win_num, tabnr_ordinal)
         local cwd_name = vim.fn.fnamemodify(working_directory, ":p:h")
         if cwd_name == parent_dir then
-          if
-              vim.g.toggle_term_opened
-              and (vim.g.toggle_term_direction == "float" or vim.g.toggle_term_direction == "tab")
-          then
-            command = ":q | " -- first need to close this floating or tab toggleterm first
+          if vim.g.toggle_term_opened then
+            command = ":q | " -- first need to close this toggleterm
           end
+
           command = command .. "tabnext" .. tabnr_ordinal .. " | edit " .. file_path
           found_tab = true
           vim.g.new_tab_buf_cwd = vim.fn.fnamemodify(file_path, ":h")
