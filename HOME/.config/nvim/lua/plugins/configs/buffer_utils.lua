@@ -1,5 +1,10 @@
 M = {}
 
+M.force_delete_buffer_switch_to_next = function()
+  M.force_delete_buffer_create_new()
+  M.switch_to_next_buffer_in_cwd()
+end
+
 M.force_delete_buffer_switch_to_previous = function()
   M.force_delete_buffer_create_new()
   M.switch_to_previous_buffer_in_cwd()
@@ -58,11 +63,30 @@ M.force_delete_buffer_keep_tab = function(bufnr)
   -- If this is not empty buffer, safely delete the buffer,
   -- otherwise don't delete, to prevent delete the tab accidentally.
   if not is_empty then
-    vim.cmd("enew")
+    local blank_buffers = M.get_blank_buffers()
+    -- If there is any other blank buffer, if yes use that blank buffer.
+    -- This is to prevent too many blank buffer opened.
+    if blank_buffers ~= nil and #blank_buffers >= 1 then
+      vim.api.nvim_set_current_buf(blank_buffers[1])
+    else
+      -- If none blank buffer, create new one.
+      vim.cmd("enew")
+    end
     vim.cmd("bdelete! " .. bufnr)
   else
     print("This buffer is empty, not deleting.")
   end
+end
+
+M.get_blank_buffers = function()
+  local blank_buffers = {}
+  for _, bufinfo in ipairs(vim.fn.getbufinfo({ buflisted = 1 })) do
+    local bufname = bufinfo.name
+    if bufname == "" then
+      table.insert(blank_buffers, bufinfo.bufnr)
+    end
+  end
+  return blank_buffers
 end
 
 -- Function to delete buffer and show new buffer
