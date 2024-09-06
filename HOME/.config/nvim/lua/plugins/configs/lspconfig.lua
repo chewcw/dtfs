@@ -173,7 +173,7 @@ lspconfig.pyright.setup({
 })
 
 -- javascript / typescript
-lspconfig.tsserver.setup({
+lspconfig.ts_ls.setup({
   on_attach = M.on_attach,
   capabilities = M.capabilities,
   cmd = { home .. "/.local/share/nvim/mason/bin/typescript-language-server", "--stdio" },
