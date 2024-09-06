@@ -569,7 +569,9 @@ M.open_multiple_files_in_find_files_picker = function(prompt_bufnr, open_cmd)
       vim.cmd("wincmd q")
     end
     if vim.g.new_split_blank_buffer ~= nil then
-      vim.cmd("bdelete! " .. vim.g.new_split_blank_buffer)
+      pcall(function()
+        vim.cmd("bdelete! " .. vim.g.new_split_blank_buffer)
+      end)
       vim.g.new_split_blank_buffer = nil
     end
   else
@@ -1076,6 +1078,16 @@ M.open_telescope_file_in_tab = function()
     vim.api.nvim_command(command)
     vim.fn.cursor(row, col)
   end)
+end
+
+M.select_direction = function(direction)
+  return function(prompt_bufnr)
+    if direction == "vertical" then
+      require("telescope.actions").select_vertical(prompt_bufnr)
+      return
+    end
+    require("telescope.actions").select_horizontal(prompt_bufnr)
+  end
 end
 
 return M

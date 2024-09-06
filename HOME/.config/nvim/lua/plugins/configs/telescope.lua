@@ -67,41 +67,66 @@ M.options = {
       i = {
         ["<C-j>"] = require("telescope.actions").move_selection_next,
         ["<C-k>"] = require("telescope.actions").move_selection_previous,
-        ["<A-\\>"] = require("telescope.actions").select_vertical,
-        ["<A-_>"] = require("telescope.actions").select_horizontal,
-        ["<A-e>"] = require("plugins.configs.telescope_utils").open_file_in_new_tab_and_set_cwd,
-        ["<C-A-l>"] = require("telescope.actions").preview_scrolling_right,
-        ["<C-A-h>"] = require("telescope.actions").preview_scrolling_left,
-        ["<C-A-d>"] = require("telescope.actions").preview_scrolling_down,
-        ["<C-A-u>"] = require("telescope.actions").preview_scrolling_up,
+        ["<C-A-\\>"] = function(prompt_bufnr)
+          telescope_utils.open_multiple_files_in_find_files_picker(prompt_bufnr, "vsplit")
+        end,
+        ["<A-\\>"] = telescope_utils.select_direction("vertical"),
+        ["<C-A-_>"] = function(prompt_bufnr)
+          telescope_utils.open_multiple_files_in_find_files_picker(prompt_bufnr, "split")
+        end,
+        ["<A-_>"] = telescope_utils.select_direction("horizontal"),
+        ["<C-A-e>"] = function(prompt_bufnr)
+          telescope_utils.open_multiple_files_in_find_files_picker_and_set_cwd(prompt_bufnr, "tabe")
+        end,
+        ["<A-e>"] = function()
+          telescope_utils.open_telescope_file_in_tab()
+        end,
+        ["<A-[>"] = require("telescope.actions").preview_scrolling_left,
+        ["<A-]>"] = require("telescope.actions").preview_scrolling_right,
+        ["<A-u>"] = require("telescope.actions").preview_scrolling_up,
+        ["<A-d>"] = require("telescope.actions").preview_scrolling_down,
         ["<C-u>"] = require("telescope.actions").results_scrolling_up,
         ["<C-d>"] = require("telescope.actions").results_scrolling_down,
+        ["<A-{>"] = require("telescope.actions").results_scrolling_left,
+        ["<A-}>"] = require("telescope.actions").results_scrolling_right,
         ["<C-t>"] = require("trouble.sources.telescope").open,
         ["<C-h>"] = function()
           local keys = vim.api.nvim_replace_termcodes("<C-h>", false, false, true)
           vim.api.nvim_feedkeys(keys, "n", {})
         end,
-        ["<C-l>"] = function(prompt_bufnr)
+        ["<C-A-l>"] = function(prompt_bufnr)
           telescope_utils.open_multiple_files_in_find_files_picker(prompt_bufnr, "edit")
         end,
+        ["<C-l>"] = require("telescope.actions").select_default,
       },
       n = {
         ["<C-j>"] = require("telescope.actions").move_selection_next,
         ["<C-k>"] = require("telescope.actions").move_selection_previous,
-        ["<C-A-l>"] = require("telescope.actions").preview_scrolling_right,
-        ["<C-A-h>"] = require("telescope.actions").preview_scrolling_left,
-        ["<C-A-d>"] = require("telescope.actions").preview_scrolling_down,
-        ["<C-A-u>"] = require("telescope.actions").preview_scrolling_up,
+        ["<A-[>"] = require("telescope.actions").preview_scrolling_left,
+        ["<A-]>"] = require("telescope.actions").preview_scrolling_right,
+        ["<A-u>"] = require("telescope.actions").preview_scrolling_up,
+        ["<A-d>"] = require("telescope.actions").preview_scrolling_down,
         ["<C-u>"] = require("telescope.actions").results_scrolling_up,
         ["<C-d>"] = require("telescope.actions").results_scrolling_down,
+        ["{"] = require("telescope.actions").results_scrolling_left,
+        ["}"] = require("telescope.actions").results_scrolling_right,
         ["<C-t>"] = require("trouble.sources.telescope").open,
-        ["]"] = require("telescope.actions").results_scrolling_right,
-        ["["] = require("telescope.actions").results_scrolling_left,
         -- do nothing, to prevent open nvim_tree accidentally
         ["<C-n>"] = function() end,
-        ["<A-\\>"] = require("telescope.actions").select_vertical,
-        ["<A-_>"] = require("telescope.actions").select_horizontal,
-        ["<A-e>"] = require("plugins.configs.telescope_utils").open_file_in_new_tab_and_set_cwd,
+        ["<A-\\>"] = telescope_utils.select_direction("vertical"),
+        ["<C-A-\\>"] = function(prompt_bufnr)
+          telescope_utils.open_multiple_files_in_find_files_picker(prompt_bufnr, "vsplit")
+        end,
+        ["<A-_>"] = telescope_utils.select_direction("horizontal"),
+        ["<C-A-_>"] = function(prompt_bufnr)
+          telescope_utils.open_multiple_files_in_find_files_picker(prompt_bufnr, "split")
+        end,
+        ["<C-A-e>"] = function(prompt_bufnr)
+          telescope_utils.open_multiple_files_in_find_files_picker_and_set_cwd(prompt_bufnr, "tabe")
+        end,
+        ["<A-e>"] = function()
+          telescope_utils.open_telescope_file_in_tab()
+        end,
         -- toggle all
         ["<C-a>"] = require("telescope.actions").toggle_all,
         ["q"] = require("telescope.actions").close,
@@ -109,9 +134,10 @@ M.options = {
           vim.cmd("undo")
         end,
         ["<Esc>"] = function() end, -- don't do anything
-        ["<C-l>"] = function(prompt_bufnr)
+        ["<C-A-l>"] = function(prompt_bufnr)
           telescope_utils.open_multiple_files_in_find_files_picker(prompt_bufnr, "edit")
         end,
+        ["<C-l>"] = require("telescope.actions").select_default,
         ["i"] = (function()
           local insert_mode = function()
             vim.cmd("startinsert")
@@ -138,6 +164,9 @@ M.options = {
         ["<A-y>"] = require("plugins.configs.telescope_utils").copy_absolute_file_path_in_picker(),
         -- open previous picker
         ["<Backspace>"] = require("plugins.configs.telescope_utils").resume_with_cache,
+        ["<C-A-d>"] = function() end,
+        ["<A-S-d>"] = function() end,
+        ["<A-k>"] = function() end,
       },
     },
   },
@@ -175,7 +204,7 @@ M.options = {
           ["<A-r>"] = require("telescope").extensions.file_browser.actions.rename,
           ["<A-m>"] = require("telescope").extensions.file_browser.actions.move,
           ["<A-y>"] = require("telescope").extensions.file_browser.actions.copy,
-          ["<A-d>"] = require("telescope").extensions.file_browser.actions.remove,
+          -- ["<A-d>"] = require("telescope").extensions.file_browser.actions.remove,
           ["<C-o>"] = require("telescope").extensions.file_browser.actions.open,
           ["<C-g>"] = require("telescope").extensions.file_browser.actions.goto_parent_dir,
           ["<C-e>"] = require("telescope").extensions.file_browser.actions.goto_home_dir,
@@ -187,9 +216,10 @@ M.options = {
             local keys = vim.api.nvim_replace_termcodes("<C-h>", false, false, true)
             vim.api.nvim_feedkeys(keys, "n", {})
           end,
-          ["<C-l>"] = function(prompt_bufnr)
+          ["<C-A-l>"] = function(prompt_bufnr)
             telescope_utils.open_multiple_files_in_find_files_picker(prompt_bufnr, "edit")
           end,
+          ["<C-l>"] = require("telescope.actions").select_default,
         },
         n = {
           ["q"] = require("telescope.actions").close,
@@ -227,7 +257,14 @@ M.options = {
             vim.api.nvim_feedkeys(keys, "n", {})
           end,
           ["<C-h>"] = require("telescope").extensions.file_browser.actions.goto_parent_dir,
-          ["<C-l>"] = (function()
+          ["<C-l>"] = require("telescope.actions").select_default,
+          ["<C-A-\\>"] = function(prompt_bufnr)
+            telescope_utils.open_multiple_files_in_find_files_picker(prompt_bufnr, "vsplit")
+          end,
+          ["<C-A-_>"] = function(prompt_bufnr)
+            telescope_utils.open_multiple_files_in_find_files_picker(prompt_bufnr, "split")
+          end,
+          ["<C-A-l>"] = (function()
             local enter = function(prompt_bufnr)
               telescope_utils.open_multiple_files_in_find_files_picker(prompt_bufnr, "edit")
             end
@@ -245,8 +282,8 @@ M.options = {
           ["m"] = require("telescope").extensions.file_browser.actions.move,
           ["y"] = require("telescope").extensions.file_browser.actions.copy,
           ["d"] = require("telescope").extensions.file_browser.actions.remove,
-          ["o"] = require("telescope").extensions.file_browser.actions.open,
-          ["g"] = require("telescope").extensions.file_browser.actions.goto_parent_dir,
+          ["o"] = function() end,
+          ["g"] = function() end,
           ["e"] = require("telescope").extensions.file_browser.actions.goto_home_dir,
           ["w"] = require("telescope").extensions.file_browser.actions.goto_cwd,
           -- ["t"] = require("telescope").extensions.file_browser.actions.change_cwd,
@@ -303,32 +340,39 @@ M.options = {
         i = {
           ["<C-f>"] = telescope_utils.ts_select_dir_for_grep_or_find_files("find_files"),
           ["<A-w>"] = telescope_utils.set_temporary_cwd_from_file_browser("find_files"),
-          ["<CR>"] = function(prompt_bufnr)
+          ["<C-A-l>"] = function(prompt_bufnr)
             telescope_utils.open_multiple_files_in_find_files_picker(prompt_bufnr, "edit")
           end,
-          ["<A-e>"] = function(prompt_bufnr)
+          ["<C-A-e>"] = function(prompt_bufnr)
             telescope_utils.open_multiple_files_in_find_files_picker_and_set_cwd(prompt_bufnr, "tabe")
           end,
-          ["<A-_>"] = function(prompt_bufnr)
+          ["<A-e>"] = function()
+            telescope_utils.open_telescope_file_in_tab()
+          end,
+          ["<C-A-_>"] = function(prompt_bufnr)
             telescope_utils.open_multiple_files_in_find_files_picker(prompt_bufnr, "split")
           end,
-          ["<A-\\>"] = function(prompt_bufnr)
+          ["<C-A-\\>"] = function(prompt_bufnr)
             telescope_utils.open_multiple_files_in_find_files_picker(prompt_bufnr, "vsplit")
           end,
         },
         n = {
           ["<C-f>"] = telescope_utils.ts_select_dir_for_grep_or_find_files("find_files"),
           ["W"] = telescope_utils.set_temporary_cwd_from_file_browser("find_files"),
-          ["<CR>"] = function(prompt_bufnr)
+          ["<C-A-l>"] = function(prompt_bufnr)
             telescope_utils.open_multiple_files_in_find_files_picker(prompt_bufnr, "edit")
           end,
-          ["<A-e>"] = function(prompt_bufnr)
+          ["<C-l>"] = require("telescope.actions").select_default,
+          ["<C-A-e>"] = function(prompt_bufnr)
             telescope_utils.open_multiple_files_in_find_files_picker_and_set_cwd(prompt_bufnr, "tabe")
           end,
-          ["<A-_>"] = function(prompt_bufnr)
+          ["<A-e>"] = function()
+            telescope_utils.open_telescope_file_in_tab()
+          end,
+          ["<C-A-_>"] = function(prompt_bufnr)
             telescope_utils.open_multiple_files_in_find_files_picker(prompt_bufnr, "split")
           end,
-          ["<A-\\>"] = function(prompt_bufnr)
+          ["<C-A-\\>"] = function(prompt_bufnr)
             telescope_utils.open_multiple_files_in_find_files_picker(prompt_bufnr, "vsplit")
           end,
         },
@@ -353,6 +397,12 @@ M.options = {
             telescope_utils.open_telescope_file_in_tab()
           end,
           ["W"] = telescope_utils.set_temporary_cwd_from_file_browser("buffers"),
+          ["<C-A-\\>"] = function(prompt_bufnr)
+            telescope_utils.open_multiple_files_in_find_files_picker(prompt_bufnr, "vsplit")
+          end,
+          ["<C-A-_>"] = function(prompt_bufnr)
+            telescope_utils.open_multiple_files_in_find_files_picker(prompt_bufnr, "split")
+          end,
         },
       },
     },
