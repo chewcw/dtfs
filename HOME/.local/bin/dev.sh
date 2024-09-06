@@ -6,7 +6,7 @@
 set -e
 
 DOCKER=$(which docker)
-IMAGE=chewcw/development:1.0.9
+IMAGE=chewcw/development:latest
 TERM=$TERM
 DISPLAY=$DISPLAY
 
