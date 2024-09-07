@@ -554,4 +554,20 @@ M.table_contains = function(table_to_search, value_to_search)
   end
 end
 
+M.insert_mode_movement_disable_auto_completions = function(key)
+  local has_cmp = pcall(require, "cmp")
+  if has_cmp then
+    -- close the cmp suggestion window
+    require("cmp").close()
+  end
+  local has_codeium = pcall(vim.fn["codeium#Clear"])
+  print(has_codeium)
+  if has_codeium then
+    -- clear the codeium suggestion
+    vim.fn["codeium#Clear"]()
+  end
+
+  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<" .. key .. ">", true, false, true), "i", false)
+end
+
 return M
