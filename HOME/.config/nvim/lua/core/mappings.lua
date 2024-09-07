@@ -9,42 +9,42 @@ M.general = {
     -- navigate within insert mode
     ["<A-h>"] = {
       function()
-        require('core.utils').insert_mode_movement_disable_auto_completions('Left')
+        require("core.utils").insert_mode_movement_disable_auto_completions("Left")
       end,
       "move left",
       opts = { silent = true },
     },
     ["<A-l>"] = {
       function()
-        require('core.utils').insert_mode_movement_disable_auto_completions('Right')
+        require("core.utils").insert_mode_movement_disable_auto_completions("Right")
       end,
       "move right",
       opts = { silent = true },
     },
     ["<A-j>"] = {
       function()
-          require('core.utils').insert_mode_movement_disable_auto_completions('Down')
+        require("core.utils").insert_mode_movement_disable_auto_completions("Down")
       end,
       "move down",
       opts = { silent = true },
     },
     ["<A-k>"] = {
       function()
-        require('core.utils').insert_mode_movement_disable_auto_completions('Up')
+        require("core.utils").insert_mode_movement_disable_auto_completions("Up")
       end,
       "move up",
       opts = { silent = true },
     },
     ["<A-w>"] = {
       function()
-          require('core.utils').insert_mode_movement_disable_auto_completions('C-Right')
+        require("core.utils").insert_mode_movement_disable_auto_completions("C-Right")
       end,
       "move next word",
       opts = { silent = true },
     },
     ["<A-b>"] = {
       function()
-        require('core.utils').insert_mode_movement_disable_auto_completions('C-Left')
+        require("core.utils").insert_mode_movement_disable_auto_completions("C-Left")
       end,
       "move previous word",
       opts = { silent = true },
@@ -1230,24 +1230,38 @@ M.vm = {
   plugin = true,
 
   init = function()
-    vim.cmd("let g:VM_default_mappings = 0")
-    vim.cmd("let g:VM_maps = {}")
-    vim.cmd("let g:VM_mouse_mappings = 1")
-    vim.cmd('let g:VM_maps["Find Under"] = "gb"')
-    vim.cmd('let g:VM_maps["Find Subword Under"] = "gb"')
-    vim.cmd('let g:VM_maps["Select All"] = "<M-C-n>"')
-    vim.cmd('let g:VM_maps["Select Cursor Down"] = "<M-C-j>"')
-    vim.cmd('let g:VM_maps["Select Cursor Up"] = "<M-C-k>"')
-    vim.cmd('let g:VM_maps["Skip Region"] = "q"')
-    vim.cmd('let g:VM_maps["Remove Region"] = "Q"')
-    vim.cmd('let g:VM_maps["Invert Direction"] = "o"')
-    vim.cmd('let g:VM_maps["Goto Next"] = "]"')
-    vim.cmd('let g:VM_maps["Goto Prev"] = "["')
-    vim.cmd('let g:VM_maps["Surround"] = "S"')
-    vim.cmd('let g:VM_maps["Undo"] = "u"')
-    vim.cmd('let g:VM_maps["Redo"] = "<C-r>"')
-    vim.cmd("let g:VM_set_statusline = 1")
-    vim.cmd("let g:VM_silent_exit = 0")
+    vim.g.VM_default_mappings = 0
+    vim.g.VM_maps = {}
+    vim.g.VM_mouse_mappings = 1
+    vim.g.VM_set_statusline = 1
+    vim.g.VM_silent_exit = 0
+    vim.g.VM_persistent_registers = true
+    vim.g.VM_add_cursor_at_pos_no_mappings = 1
+    vim.g.VM_custom_remaps = {
+      ["<leader>vv"] = "<Tab>",
+      ["<C-k>"] = "<Up>",
+      ["<C-j>"] = "<Down>",
+      ["<C-h>"] = "<Left>",
+      ["<C-l>"] = "<Right>",
+    }
+    vim.g.VM_maps = {
+      ["Find Under"] = "<leader>vb",
+      ["Find Subword Under"] = "<leader>vb",
+      ["Select All"] = "<M-C-n>",
+      ["Select Cursor Down"] = "<M-C-j>",
+      ["Select Cursor Up"] = "<M-C-k>",
+      ["Skip Region"] = "q",
+      ["Remove Region"] = "Q",
+      ["Invert Direction"] = "o",
+      ["Goto Next"] = "]",
+      ["Goto Prev"] = "[",
+      ["Surround"] = "S",
+      ["Undo"] = "u",
+      ["Redo"] = "<C-r>",
+      ["Reselect Last"] = "<leader>vgv",
+      ["Add Cursor At Pos"] = "<leader>vc",
+      ["Toggle Mappings"] = "<leader>vs",
+    }
   end,
 }
 
