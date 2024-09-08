@@ -1090,4 +1090,19 @@ M.select_direction = function(direction)
   end
 end
 
+-- If the sort_mru is enabled, when searching should keep the initial sorting instead of
+-- sorting basd on matches.
+-- https://github.com/nvim-telescope/telescope.nvim/issues/3078#issuecomment-2079989253
+M.keep_initial_sorting_sorter = function()
+	local sorter = require("telescope.sorters").get_fzy_sorter()
+	local fn = sorter.scoring_function
+
+	sorter.scoring_function = function(_, prompt, line)
+		local score = fn(_, prompt, line)
+		return score > 0 and 1 or -1
+	end
+
+	return sorter
+end
+
 return M
