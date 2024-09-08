@@ -43,7 +43,7 @@ M.options = {
     file_sorter = require("telescope.sorters").get_fuzzy_file,
     file_ignore_patterns = {},
     generic_sorter = require("telescope.sorters").get_generic_fuzzy_sorter,
-    path_display = { "truncate" },
+    path_display = { "filename_first" },
     winblend = 0,
     border = true,
     borderchars = { "─", "│", "─", "│", "┌", "┐", "┘", "└" },
@@ -382,6 +382,7 @@ M.options = {
     buffers = {
       sort_lastused = true,
       sort_mru = true,
+      sorter = telescope_utils.keep_initial_sorting_sorter(),
       mappings = {
         i = {
           ["<A-w>"] = telescope_utils.set_temporary_cwd_from_file_browser("buffers"),
@@ -420,6 +421,12 @@ M.options = {
     },
 
     oldfiles = {
+      sort_lastused = true,
+      sort_mru = true,
+      sorter = telescope_utils.keep_initial_sorting_sorter(),
+      tiebreak = function(current_entry, existing_entry, _)
+        return current_entry.index > existing_entry.index
+      end,
       mappings = {
         i = {
           ["<A-w>"] = telescope_utils.set_temporary_cwd_from_file_browser("oldfiles"),
