@@ -19,16 +19,18 @@ M.colors = function()
     main2 = "#FBC687",
     main3 = "#F4F7C5",
     main4 = "#AACDBE",
+    main5 = "#C19D68",
     black = "#010507",
     red = "#aa4e4e",
     green = "#618b79",
     yellow = "#e5c114",
     magenta = "#8a50a2",
     cyan = "#94c9b2",
-    white = "#F9F9F9",
+    white = "#dfdfdf",
     brown = "#FFBF9B",
     blue = "#1d2831",
     pink = "#c082a1",
+    khaki = "#c0c082",
     -- Bright
     bright_black = "#4c4c4b",
     bright_red = "#ffafa5",
@@ -152,16 +154,16 @@ M.setup = function()
     CurSearch = { bg = c.magenta, fg = c.white, reverse = false },
     Directory = { fg = c.main1, bg = c.none },
 
-    DiffAdd = { fg = c.pink, bg = c.none, bold = true, italic = true },
-    DiffAdded = { fg = c.pink, bg = c.none, bold = true, italic = true },
-    DiffChange = { fg = c.bright_magenta, bg = c.none, bold = true, italic = true },
-    DiffChanged = { fg = c.bright_magenta, bg = c.none, bold = true, italic = true },
-    DiffChangeDelete = { fg = c.magenta, bg = c.none, bold = true, italic = true },
-    DiffDelete = { fg = c.red, bg = c.none, bold = true, italic = true },
-    DiffRemoved = { fg = c.red, bg = c.none, bold = true, italic = true },
-    DiffText = { fg = c.bright_green, bg = c.none, bold = true, italic = true },
-    DiffModified = { fg = c.bright_magenta, bg = c.none, bold = true, italic = true },
-    DiffNewFile = { fg = c.pink, bg = c.none, bold = true, italic = true },
+    DiffAdd = { fg = c.black, bg = c.pink, bold = false, italic = false },
+    DiffAdded = { fg = c.black, bg = c.pink, bold = false, italic = false },
+    DiffChange = { fg = c.black, bg = c.bright_magenta, bold = false, italic = false },
+    DiffChanged = { fg = c.black, bg = c.bright_magenta, bold = false, italic = false },
+    DiffChangeDelete = { fg = c.black, bg = c.khaki, bold = false, italic = false },
+    DiffDelete = { fg = c.black, bg = c.red, bold = false, italic = false },
+    DiffRemoved = { fg = c.black, bg = c.red, bold = false, italic = false },
+    DiffText = { fg = c.black, bg = c.bright_green, bold = false, italic = false },
+    DiffModified = { fg = c.black, bg = c.bright_magenta, bold = false, italic = false },
+    DiffNewFile = { fg = c.black, bg = c.pink, bold = false, italic = false },
 
     ErrorMsg = { fg = c.red },
     Folded = { fg = c.gray05, bg = c.gray00 },
@@ -223,7 +225,7 @@ M.setup = function()
     Boolean = { fg = c.main4, bg = c.none, bold = cfg.boolean_style.bold, italic = cfg.boolean_style.italic },   -- true , false
     Function = { fg = c.main3, bg = c.none, bold = cfg.function_style.bold, italic = cfg.function_style.italic },
     Identifier = { fg = c.main1, bg = c.none },                                                                  -- any variable name
-    String = { fg = c.main4, bg = c.none },                                                                      -- Any string
+    String = { fg = c.main5, bg = c.none },                                                                      -- Any string
     Character = { fg = c.main4 },                                                                                -- any character constant: 'c', '\n'
     Number = { fg = c.main4 },                                                                                   -- a number constant: 5
     Float = { fg = c.main4 },                                                                                    -- a floating point constant: 2.3e10
@@ -366,10 +368,10 @@ M.setup = function()
     DiagnosticWarn = { bg = c.none, fg = c.yellow01 },                                                                       -- base highlight group for "Warning"
     DiagnosticInfo = { bg = c.none, fg = c.gray06 },                                                                         -- base highlight group from "Information"
     DiagnosticHint = { bg = c.none, fg = c.gray06 },                                                                         -- base highlight group for "Hint"
-    DiagnosticVirtualTextError = { bg = c.none, fg = c.diagnostic_virtual_text_error, italic = true, underline = true },
-    DiagnosticVirtualTextWarn = { bg = c.none, fg = c.diagnostic_virtual_text_warn, italic = true, underline = true },
-    DiagnosticVirtualTextInfo = { bg = c.none, fg = c.diagnostic_virtual_text_info, italic = true, underline = true },
-    DiagnosticVirtualTextHint = { bg = c.none, fg = c.diagnostic_virtual_text_hint, italic = true, underline = true },
+    DiagnosticVirtualTextError = { bg = c.none, fg = c.diagnostic_virtual_text_error, bold = true, underline = false },
+    DiagnosticVirtualTextWarn = { bg = c.none, fg = c.diagnostic_virtual_text_warn, bold = true, underline = false },
+    DiagnosticVirtualTextInfo = { bg = c.none, fg = c.diagnostic_virtual_text_info, bold = true, underline = false },
+    DiagnosticVirtualTextHint = { bg = c.none, fg = c.diagnostic_virtual_text_hint, bold = true, underline = false },
     DiagnosticUnderlineError = { bg = c.none, fg = c.red01, undercurl = true, sp = c.red01 },         -- used to underline "Error" diagnostics.
     DiagnosticUnderlineWarn = { bg = c.none, fg = c.yellow01, undercurl = true, sp = c.yellow01 },    -- used to underline "Warning" diagnostics.
     DiagnosticUnderlineInfo = { bg = c.none, fg = c.gray06, undercurl = true, sp = c.gray06 },        -- used to underline "Information" diagnostics.
@@ -456,7 +458,7 @@ M.setup = function()
     CmpItemKindKeyword = { fg = c.fg, bg = c.none },
     CmpItemKindProperty = { fg = c.fg, bg = c.none },
     CmpItemMenu = { fg = c.fg, bg = c.none },
-    CmpGhostText = { fg = c.gray04, italic = true },
+    CmpGhostText = { fg = c.gray04, italic = false },
 
     -- Custom highlight groups for use in statusline plugins
     StatusLineNormalMode = { fg = c.black, bg = c.gray02 },
@@ -487,7 +489,7 @@ M.setup = function()
     -- TroubleNormalNC = { fg = c.none, bg = c.bg_nc },
     TroublePreview = { fg = c.fg, bg = c.dark_yellow },
     -- Codeium
-    CodeiumSuggestion = { fg = c.gray07, bg = c.dark_brown, italic = true },
+    CodeiumSuggestion = { fg = c.gray07, bg = c.dark_brown, italic = false },
   }
 
   for group, parameters in pairs(groups) do
@@ -495,8 +497,9 @@ M.setup = function()
   end
 
   -- additional
-  highlight("@variable", { fg = c.bright_cyan })
-  highlight("@method", { fg = c.bright_brown })
+  highlight("@variable", { fg = c.main5 })
+  highlight("@method", { fg = c.main3 })
+  highlight("keyword", { fg = c.brown })
 
   -- Neogit
   highlight("NeogitDiffAdd", { fg = get_highlight("DiffAdd", "background") })
@@ -513,9 +516,9 @@ M.setup = function()
   vim.cmd([[ highlight! NeogitHunkHeader cterm=NONE guifg=NONE guibg=NONE ]])
 
   -- GitSigns (used in statusline)
-  highlight("GitSignsAdd", { fg = get_highlight("DiffAdd", "foreground"), bold = true })
-  highlight("GitSignsChange", { fg = get_highlight("DiffChange", "foreground"), bold = true })
-  highlight("GitSignsDelete", { fg = get_highlight("DiffDelete", "foreground"), bold = true })
+  highlight("GitSignsAdd", { fg = get_highlight("DiffAdd", "background"), bold = true })
+  highlight("GitSignsChange", { fg = get_highlight("DiffChange", "background"), bold = true })
+  highlight("GitSignsDelete", { fg = get_highlight("DiffDelete", "background"), bold = true })
 
   -- Markology
   vim.cmd([[ highlight! MarkologyHLl cterm=bold ctermfg=10 ctermbg=NONE guifg=Green guibg=NONE ]])
