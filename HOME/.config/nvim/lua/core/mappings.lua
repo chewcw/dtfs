@@ -664,6 +664,12 @@ M.general = {
       end,
       "open fugitive :Git log in horizontal split",
     },
+
+    ["<C-r><C-k>"] = {
+      [[<C-r>=line('.')<CR>]],
+      "Echo current line number",
+      opts = { silent = true, noremap = true },
+    },
   },
 }
 
