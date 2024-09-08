@@ -869,10 +869,10 @@ M.telescope = {
       "live grep (custom)",
     },
     ["<leader>fb"] = {
-      "<cmd> Telescope buffers cwd_only=true <CR>",
+      "<cmd> Telescope buffers ignore_current_buffer=true cwd_only=true <CR>",
       "find buffers for current working directory",
     },
-    ["<leader>fB"] = { "<cmd> Telescope buffers <CR>", "find buffers" },
+    ["<leader>fB"] = { "<cmd> Telescope buffers ignore_current_buffer=true <CR>", "find buffers" },
     ["<leader>fh"] = { "<cmd> Telescope help_tags <CR>", "help page" },
     ["<leader>fo"] = {
       "<cmd> Telescope oldfiles cwd_only=true <CR>",
