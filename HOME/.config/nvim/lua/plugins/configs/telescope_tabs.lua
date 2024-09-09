@@ -105,6 +105,15 @@ end
 
 M.go_to_previous = function()
   local last_tab_id = vim.g.last_tab_id
+
+  -- if this is toggleterm then close it first
+  local buf_nr = vim.api.nvim_get_current_buf()
+  local buf_name = vim.api.nvim_buf_get_name(buf_nr)
+  if buf_name:lower():find("toggleterm") then
+    vim.cmd("wincmd q")
+    vim.g.toggle_term_opened = false
+  end
+
   if last_tab_id then
     vim.api.nvim_set_current_tabpage(last_tab_id)
   else

@@ -281,6 +281,7 @@ M.open_file_in_current_window = function(is_visual, count)
     local buf_name = vim.api.nvim_buf_get_name(buf_nr)
     if buf_name:lower():find("toggleterm") then
       vim.cmd("wincmd q")
+      vim.g.toggle_term_opened = false
     end
 
     vim.api.nvim_command("edit " .. file[1])
