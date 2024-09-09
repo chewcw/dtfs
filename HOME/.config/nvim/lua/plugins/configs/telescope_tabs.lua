@@ -115,7 +115,7 @@ M.go_to_previous = function()
   end
 
   if last_tab_id then
-    vim.api.nvim_set_current_tabpage(last_tab_id)
+    pcall(vim.api.nvim_set_current_tabpage, last_tab_id)
   else
     print("No previous tab found.")
   end
