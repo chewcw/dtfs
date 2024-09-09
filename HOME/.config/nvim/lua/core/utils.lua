@@ -418,6 +418,10 @@ M.swap_line_with_below = function(count)
   vim.api.nvim_buf_set_lines(buf, current_line + count - 1, current_line + count, false, lines)
 
   vim.api.nvim_win_set_cursor(0, { current_line + count, 0 })
+
+  -- Indent
+  vim.cmd(current_line .. "normal ==")
+  vim.cmd(current_line + count .. "normal ==")
 end
 
 -- swap line with above
@@ -438,6 +442,10 @@ M.swap_line_with_above = function(count)
   vim.api.nvim_buf_set_lines(buf, current_line - count - 1, current_line - count, false, lines)
 
   vim.api.nvim_win_set_cursor(0, { current_line - count, 0 })
+
+  -- Indent
+  vim.cmd(current_line .. "normal ==")
+  vim.cmd(current_line - count .. "normal ==")
 end
 
 -- Function to move the current line up or down
@@ -467,6 +475,8 @@ M.move_line = function(count, direction)
       local new_line = math.max(1, current_line - count - 1)
       -- Move the line
       vim.cmd("move " .. new_line)
+      local actual_new_line = new_line + 1
+      vim.cmd(actual_new_line .. "normal ==")
     end
   elseif direction == "down" then
     -- Move the line down
@@ -475,6 +485,8 @@ M.move_line = function(count, direction)
       local new_line = math.min(total_lines - 1, current_line + count)
       -- Move the line
       vim.cmd("move " .. new_line)
+      -- Indent
+      vim.cmd(new_line .. "normal ==")
     end
   end
 end
