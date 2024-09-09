@@ -172,6 +172,9 @@ M.list_tabs = function(opts)
       current_tab.index = index
     end
     local tab_char = string.char(96 + index) -- 96 is char `a`
+    if index >= 14 then -- skip `n`, somehow buffer_line doesn't use `n` as its tab jump id?
+      tab_char = string.char(96 + index + 1)
+    end
     local is_modified = false
     for _, changed in ipairs(is_modifieds) do
       if changed == 1 then
