@@ -182,7 +182,6 @@ M.list_tabs = function(opts)
         break
       end
     end
-    print(is_modified)
     table.insert(res, {
       file_names,
       file_paths,
