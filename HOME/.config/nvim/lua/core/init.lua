@@ -319,9 +319,9 @@ vim.api.nvim_create_autocmd("CmdlineLeave", {
 -- A user command to copy buffer file path
 -- https://www.reddit.com/r/neovim/comments/u221as/comment/i5y9zy2/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
 vim.api.nvim_create_user_command("CopyPath", function()
-	local path = vim.fn.expand("%:p")
-	vim.fn.setreg("+", path)
-	vim.notify('Copied "' .. path .. '" to the clipboard!')
+  local path = vim.fn.expand("%:p")
+  vim.fn.setreg("+", path)
+  vim.notify('Copied "' .. path .. '" to the clipboard!')
 end, {})
 
 -- A user command to update quickfix list after cdo / cfdo
@@ -362,9 +362,24 @@ vim.api.nvim_create_autocmd("FileType", {
 -- ----------------------------------------------------------------------------
 -- do certain thing for certain file type
 -- ----------------------------------------------------------------------------
--- razor or html file
+-- razor file
 vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
-  pattern = { "*.razor", "*.html" },
+  pattern = { "*.razor" },
+  callback = function()
+    if vim.bo.filetype ~= "cs" then
+      vim.opt_local.filetype = "html"
+      vim.opt_local.tabstop = 4
+      vim.opt_local.shiftwidth = 4
+      vim.opt_local.expandtab = true
+      vim.opt_local.textwidth = 0
+      vim.opt_local.colorcolumn = "0"
+    end
+  end,
+})
+
+-- html file
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+  pattern = { "*.html" },
   callback = function()
     vim.opt_local.filetype = "html"
     vim.opt_local.tabstop = 4
