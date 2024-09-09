@@ -908,6 +908,19 @@ M.telescope = {
     -- workspaces
     ["<leader>fw"] = { "<cmd> Telescope workspaces <CR>", "list workspaces" },
 
+    -- modified buffers
+    ["<leader>fm"] = {
+      ":lua require('plugins.configs.telescope_utils').get_modified_buffers(false) <CR>",
+      "list modified buffers in current cwd",
+      opts = { silent = true },
+    },
+    ["<leader>fM"] = {
+      ":lua require('plugins.configs.telescope_utils').get_modified_buffers(true) <CR>",
+      "list modified buffers ",
+      opts = { silent = true },
+    },
+
+
     -- lsp
     ["gi"] = {
       ":lua require('plugins.configs.telescope_utils').open_lsp_implementation_conditional({show_line='false', jump_type='never', reuse_win='true'}) <CR>",

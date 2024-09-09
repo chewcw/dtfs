@@ -1094,15 +1094,52 @@ end
 -- sorting basd on matches.
 -- https://github.com/nvim-telescope/telescope.nvim/issues/3078#issuecomment-2079989253
 M.keep_initial_sorting_sorter = function()
-	local sorter = require("telescope.sorters").get_fzy_sorter()
-	local fn = sorter.scoring_function
+  local sorter = require("telescope.sorters").get_fzy_sorter()
+  local fn = sorter.scoring_function
 
-	sorter.scoring_function = function(_, prompt, line)
-		local score = fn(_, prompt, line)
-		return score > 0 and 1 or -1
-	end
+  sorter.scoring_function = function(_, prompt, line)
+    local score = fn(_, prompt, line)
+    return score > 0 and 1 or -1
+  end
 
-	return sorter
+  return sorter
+end
+
+M.get_modified_buffers = function(global)
+  local modified_buffers = {}
+  if global then
+    for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
+      if vim.api.nvim_get_option_value("modified", { buf = bufnr }) then
+        local bufname = vim.api.nvim_buf_get_name(bufnr)
+        table.insert(modified_buffers, bufname)
+      end
+    end
+  else
+    local cwd = vim.fn.getcwd()
+    for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
+      if vim.api.nvim_get_option_value("modified", { buf = bufnr }) then
+        local bufname = vim.api.nvim_buf_get_name(bufnr)
+        if vim.startswith(bufname, cwd) then
+          table.insert(modified_buffers, bufname)
+        end
+      end
+    end
+  end
+
+  local prompt_title = "Modified buffers"
+  if not global then
+    prompt_title = prompt_title .. " in " .. vim.fn.getcwd()
+  end
+
+  require("telescope.pickers")
+      .new({}, {
+        prompt_title = prompt_title,
+        finder = require("telescope.finders").new_table({
+          results = modified_buffers,
+        }),
+        sorter = require("telescope.config").values.generic_sorter({}),
+      })
+      :find()
 end
 
 return M
