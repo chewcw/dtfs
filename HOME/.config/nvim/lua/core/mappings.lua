@@ -486,12 +486,48 @@ M.general = {
 
   c = {
     -- navigate within command mode
-    ["<A-h>"] = { "<Left>", "move left" },
-    ["<A-l>"] = { "<Right>", "move right" },
-    ["<A-j>"] = { "<Down>", "move down" },
-    ["<A-k>"] = { "<Up>", "move up" },
-    ["<A-w>"] = { "<C-Right>", "move next word" },
-    ["<A-b>"] = { "<C-Left>", "move previous word" },
+    ["<A-h>"] = {
+      function()
+        require("core.utils").insert_mode_movement_disable_auto_completions("Left")
+      end,
+      "move left",
+      opts = { silent = true },
+    },
+    ["<A-l>"] = {
+      function()
+        require("core.utils").insert_mode_movement_disable_auto_completions("Right")
+      end,
+      "move right",
+      opts = { silent = true },
+    },
+    ["<A-j>"] = {
+      function()
+        require("core.utils").insert_mode_movement_disable_auto_completions("Down")
+      end,
+      "move down",
+      opts = { silent = true },
+    },
+    ["<A-k>"] = {
+      function()
+        require("core.utils").insert_mode_movement_disable_auto_completions("Up")
+      end,
+      "move up",
+      opts = { silent = true },
+    },
+    ["<A-w>"] = {
+      function()
+        require("core.utils").insert_mode_movement_disable_auto_completions("C-Right")
+      end,
+      "move next word",
+      opts = { silent = true },
+    },
+    ["<A-b>"] = {
+      function()
+        require("core.utils").insert_mode_movement_disable_auto_completions("C-Left")
+      end,
+      "move previous word",
+      opts = { silent = true },
+    },
     ["<A-\\>"] = {
       function()
         pcall(function()
