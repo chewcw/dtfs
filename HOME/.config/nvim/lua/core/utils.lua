@@ -582,4 +582,29 @@ M.insert_mode_movement_disable_auto_completions = function(key)
   vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<" .. key .. ">", true, false, true), "i", false)
 end
 
+M.search_modified_unsaved_buffers = function()
+  -- ignore Telescope picker
+  local bufnr = vim.api.nvim_get_current_buf()
+  local info = {}
+  info.modifiable = vim.api.nvim_get_option_value("modifiable", { buf = bufnr })
+  info.modified = vim.api.nvim_get_option_value("modified", { buf = bufnr })
+  info.readonly = vim.api.nvim_get_option_value("readonly", { buf = bufnr })
+  info.filetype = vim.api.nvim_get_option_value("filetype", { buf = bufnr })
+  info.buftype = vim.api.nvim_get_option_value("buftype", { buf = bufnr })
+  info.buflisted = vim.api.nvim_get_option_value("buflisted", { buf = bufnr })
+  if info.filetype == "TelescopePrompt" then
+    return
+  end
+
+  for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+    if vim.api.nvim_get_option_value("modified", { buf = buf }) then
+      vim.api.nvim_set_hl(0, "MsgArea", {
+        bg = require("core.colorscheme").colors().dark_red,
+      })
+      return
+    end
+    vim.api.nvim_set_hl(0, "MsgArea", { bg = "None" })
+  end
+end
+
 return M
