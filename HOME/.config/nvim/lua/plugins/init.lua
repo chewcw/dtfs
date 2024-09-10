@@ -214,7 +214,7 @@ local default_plugins = {
     config = function(_, opts)
       require("cmp").setup(opts.core)
       require("cmp").setup.cmdline(":", opts.cmd)
-      require("cmp").setup.cmdline("/", opts.search)
+      require("cmp").setup.cmdline({ "/", "?" }, opts.search)
     end,
     -- branch = "main",
     -- commit = "a110e12",
