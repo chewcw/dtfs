@@ -598,7 +598,7 @@ M.search_modified_unsaved_buffers = function()
   for _, buf in ipairs(vim.api.nvim_list_bufs()) do
     if vim.api.nvim_get_option_value("modified", { buf = buf }) then
       vim.api.nvim_set_hl(0, "MsgArea", {
-        bg = require("core.colorscheme").colors().dark_red,
+        bg = require("core.colorscheme").colors().modified_msg_area,
       })
       return
     end

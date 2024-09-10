@@ -79,6 +79,11 @@ M.colors = function()
     diagnostic_virtual_text_warn = "#493d06",
     diagnostic_virtual_text_info = "#222222",
     diagnostic_virtual_text_hint = "#1d1d1c",
+    -- msg area
+    insert_mode_msg_area = "#3f0f13",
+    modified_msg_area = "#462b24",
+    cmdline_msg_area = "#081923",
+    term_msg_area = "#263730",
   }
 end
 

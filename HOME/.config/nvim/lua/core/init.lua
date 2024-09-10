@@ -153,21 +153,8 @@ autocmd("FileType", {
 -- update command line color in insert mode
 vim.api.nvim_create_autocmd({ "InsertEnter" }, {
   callback = function()
-    -- ignore Telescope picker
-    local bufnr = vim.api.nvim_get_current_buf()
-    local info = {}
-    info.modifiable = vim.api.nvim_get_option_value("modifiable", { buf = bufnr })
-    info.modified = vim.api.nvim_get_option_value("modified", { buf = bufnr })
-    info.readonly = vim.api.nvim_get_option_value("readonly", { buf = bufnr })
-    info.filetype = vim.api.nvim_get_option_value("filetype", { buf = bufnr })
-    info.buftype = vim.api.nvim_get_option_value("buftype", { buf = bufnr })
-    info.buflisted = vim.api.nvim_get_option_value("buflisted", { buf = bufnr })
-    if info.filetype == "TelescopePrompt" then
-      return
-    end
-
     vim.api.nvim_set_hl(0, "MsgArea", {
-      bg = require("core.colorscheme").colors().dark_red,
+      bg = require("core.colorscheme").colors().insert_mode_msg_area,
     })
   end,
 })
@@ -182,7 +169,7 @@ vim.api.nvim_create_autocmd({ "InsertLeave" }, {
 vim.api.nvim_create_autocmd({ "CmdLineEnter" }, {
   callback = function()
     vim.api.nvim_set_hl(0, "MsgArea", {
-      bg = require("core.colorscheme").colors().dark_blue,
+      bg = require("core.colorscheme").colors().cmdline_msg_area,
     })
     -- so that when I press ctrl+f in the command line it wouldn't have error
     pcall(function()
@@ -230,7 +217,7 @@ vim.api.nvim_create_autocmd({ "WinEnter" }, {
 vim.api.nvim_create_autocmd({ "TermEnter" }, {
   callback = function()
     vim.api.nvim_set_hl(0, "MsgArea", {
-      bg = require("core.colorscheme").colors().dark_green,
+      bg = require("core.colorscheme").colors().term_msg_area,
     })
   end,
 })
