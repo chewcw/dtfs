@@ -83,7 +83,11 @@ M.options = {
           nvim_lsp = "[LSP]",
           luasnip = "[LuaSnip]",
           nvim_lua = "[Lua]",
-          latex_symbols = "[LaTeX]",
+          async_path = "[Async_Path]",
+          gitmoji = "[Gitmoji]",
+          emoji = "[Emoji]",
+          cmdline = "[CmdLine]",
+          fuzzy_buffer = "[FuzzyBuffer]",
         })[entry.source.name]
         return vim_item
       end,
@@ -119,7 +123,7 @@ M.options = {
 
     sources = {
       { name = "nvim_lsp" },
-      { name = "luasnip" },
+      -- { name = "luasnip" },
       { name = "buffer" },
       { name = "nvim_lua" },
       { name = "async_path" },
@@ -167,7 +171,7 @@ M.options = {
         },
       },
     }),
-    formatting = { fields = { "abbr" } },
+    formatting = { fields = { "abbr", "kind", "menu" } },
   },
   search = {
     mapping = {
@@ -203,7 +207,7 @@ M.options = {
       { name = "buffer" },
       { name = "fuzzy_buffer" },
     },
-    formatting = { fields = { "abbr" } },
+    formatting = { fields = { "abbr", "kind", "menu" } },
   },
 }
 
