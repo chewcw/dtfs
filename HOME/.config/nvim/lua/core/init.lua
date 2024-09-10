@@ -595,3 +595,12 @@ vim.api.nvim_create_autocmd("CmdwinEnter", {
     end
   end,
 })
+
+-- ----------------------------------------------------------------------------
+-- Go into insert mode right after command window opened
+-- ----------------------------------------------------------------------------
+vim.api.nvim_create_autocmd("CmdwinEnter", {
+  callback = function()
+    vim.cmd("startinsert")
+  end,
+})
