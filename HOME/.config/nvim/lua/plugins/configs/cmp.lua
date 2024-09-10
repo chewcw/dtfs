@@ -160,6 +160,9 @@ M.options = {
       ["<C-e>"] = {
         c = cmp.mapping.close(),
       },
+      ["<C-Space>"] = {
+        c = cmp.mapping.complete(),
+      },
     },
     sources = cmp.config.sources({
       { name = "async_path" },
@@ -201,6 +204,9 @@ M.options = {
       },
       ["<C-e>"] = {
         c = cmp.mapping.close(),
+      },
+      ["<C-Space>"] = {
+        c = cmp.mapping.complete(),
       },
     },
     sources = {
