@@ -153,6 +153,19 @@ autocmd("FileType", {
 -- update command line color in insert mode
 vim.api.nvim_create_autocmd({ "InsertEnter" }, {
   callback = function()
+    -- ignore Telescope picker
+    local bufnr = vim.api.nvim_get_current_buf()
+    local info = {}
+    info.modifiable = vim.api.nvim_get_option_value("modifiable", { buf = bufnr })
+    info.modified = vim.api.nvim_get_option_value("modified", { buf = bufnr })
+    info.readonly = vim.api.nvim_get_option_value("readonly", { buf = bufnr })
+    info.filetype = vim.api.nvim_get_option_value("filetype", { buf = bufnr })
+    info.buftype = vim.api.nvim_get_option_value("buftype", { buf = bufnr })
+    info.buflisted = vim.api.nvim_get_option_value("buflisted", { buf = bufnr })
+    if info.filetype == "TelescopePrompt" then
+      return
+    end
+
     vim.api.nvim_set_hl(0, "MsgArea", {
       bg = require("core.colorscheme").colors().dark_red,
     })
@@ -187,28 +200,16 @@ vim.api.nvim_create_autocmd({ "CmdLineLeave" }, {
 })
 
 -- search for any unsaved buffer and show it on the MsgArea
-function Search_modified_unsaved_buffers()
-  for _, buf in ipairs(vim.api.nvim_list_bufs()) do
-    if vim.api.nvim_buf_get_option(buf, "modified") then
-      vim.api.nvim_set_hl(0, "MsgArea", {
-        bg = require("core.colorscheme").colors().dark_red,
-      })
-      return
-    end
-    vim.api.nvim_set_hl(0, "MsgArea", { bg = "None" })
-  end
-end
-
 vim.api.nvim_create_autocmd({ "BufModifiedSet" }, {
-  callback = Search_modified_unsaved_buffers,
+  callback = require("core.utils").search_modified_unsaved_buffers,
 })
 vim.api.nvim_create_autocmd({ "InsertLeave" }, {
-  callback = Search_modified_unsaved_buffers,
+  callback = require("core.utils").search_modified_unsaved_buffers,
 })
 -- opening and closing telescope picker will also be triggered
 -- so this event is to run the function after the telescope picker is closed
 vim.api.nvim_create_autocmd({ "WinEnter" }, {
-  callback = Search_modified_unsaved_buffers,
+  callback = require("core.utils").search_modified_unsaved_buffers,
 })
 
 -- for trouble.nvim plugin there is no NormalNC highlight group
