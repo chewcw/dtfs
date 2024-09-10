@@ -1264,6 +1264,11 @@ M.vm = {
       ["<C-h>"] = "<Left>",
       ["<C-l>"] = "<Right>",
     }
+    vim.g.VM_custom_noremaps = {
+      ["=="] = "==",
+      ["<<"] = "<<",
+      [">>"] = ">>",
+    }
     vim.g.VM_maps = {
       ["Find Under"] = "<leader>vb",
       ["Find Subword Under"] = "<leader>vb",
