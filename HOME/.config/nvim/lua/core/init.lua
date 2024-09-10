@@ -583,3 +583,15 @@ vim.api.nvim_create_autocmd("WinLeave", {
     end
   end,
 })
+
+-- ----------------------------------------------------------------------------
+-- Disable cmp suggestion window once right after command window opened
+-- ----------------------------------------------------------------------------
+vim.api.nvim_create_autocmd("CmdwinEnter", {
+  callback = function()
+    local has_cmp = pcall(require, "cmp")
+    if has_cmp then
+      require("cmp").close()
+    end
+  end,
+})
