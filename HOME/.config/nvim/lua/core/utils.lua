@@ -573,7 +573,6 @@ M.insert_mode_movement_disable_auto_completions = function(key)
     require("cmp").close()
   end
   local has_codeium = pcall(vim.fn["codeium#Clear"])
-  print(has_codeium)
   if has_codeium then
     -- clear the codeium suggestion
     vim.fn["codeium#Clear"]()
