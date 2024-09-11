@@ -46,17 +46,17 @@ RUN <<EOF
 cd /tmp;
 wget https://dot.net/v1/dotnet-install.sh -O dotnet-install.sh;
 sudo chmod +x dotnet-install.sh;
-./dotnet-install.sh --channel 8.0;
+./dotnet-install.sh --channel 8.0 --azure-feed;
 rm -rf /tmp/dotnet-install.sh;
 sudo ln -s $HOME/.dotnet/dotnet /usr/local/bin/dotnet;
 `# https://learn.microsoft.com/en-us/dotnet/core/install/linux-debian#dependencies`
 sudo apt install -y libicu72;
 
-`# golang 1.22.1`
+`# golang 1.23.1`
 sudo mkdir -p /usr/local/go;
-wget "https://go.dev/dl/go1.22.1.linux-${TARGETARCH}.tar.gz" -O "/tmp/go1.22.1.linux-${TARGETARCH}.tar.gz";
-sudo tar -xzf "/tmp/go1.22.1.linux-${TARGETARCH}.tar.gz" -C /usr/local;
-rm -rf "/tmp/go1.22.1.linux-${TARGETARCH}.tar.gz";
+wget "https://go.dev/dl/go1.23.1.linux-${TARGETARCH}.tar.gz" -O "/tmp/go1.23.1.linux-${TARGETARCH}.tar.gz";
+sudo tar -xzf "/tmp/go1.23.1.linux-${TARGETARCH}.tar.gz" -C /usr/local;
+rm -rf "/tmp/go1.23.1.linux-${TARGETARCH}.tar.gz";
 sudo ln -s /usr/local/go/bin/go /usr/local/bin/go;
 
 `# FNM (Fast Node Manager)`
