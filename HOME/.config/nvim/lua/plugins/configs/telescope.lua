@@ -386,6 +386,14 @@ M.options = {
       mappings = {
         i = {
           ["<A-w>"] = telescope_utils.set_temporary_cwd_from_file_browser("buffers"),
+          ["<A-[>"] = require("telescope.actions").preview_scrolling_left,
+          ["<A-]>"] = require("telescope.actions").preview_scrolling_right,
+          ["<A-u>"] = require("telescope.actions").preview_scrolling_up,
+          ["<A-d>"] = require("telescope.actions").preview_scrolling_down,
+          ["<C-u>"] = require("telescope.actions").results_scrolling_up,
+          ["<C-d>"] = require("telescope.actions").results_scrolling_down,
+          ["<A-{>"] = require("telescope.actions").results_scrolling_left,
+          ["<A-}>"] = require("telescope.actions").results_scrolling_right,
         },
         n = {
           -- close the buffer
@@ -404,6 +412,14 @@ M.options = {
           ["<C-A-_>"] = function(prompt_bufnr)
             telescope_utils.open_multiple_files_in_find_files_picker(prompt_bufnr, "split")
           end,
+          ["<A-[>"] = require("telescope.actions").preview_scrolling_left,
+          ["<A-]>"] = require("telescope.actions").preview_scrolling_right,
+          ["<A-u>"] = require("telescope.actions").preview_scrolling_up,
+          ["<A-d>"] = require("telescope.actions").preview_scrolling_down,
+          ["<C-u>"] = require("telescope.actions").results_scrolling_up,
+          ["<C-d>"] = require("telescope.actions").results_scrolling_down,
+          ["<A-{>"] = require("telescope.actions").results_scrolling_left,
+          ["<A-}>"] = require("telescope.actions").results_scrolling_right,
         },
       },
     },
