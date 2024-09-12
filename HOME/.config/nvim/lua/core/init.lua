@@ -419,7 +419,9 @@ vim.api.nvim_create_user_command("ToggleTabAutoCwd", function()
   else
     vim.g.toggle_tab_auto_cwd = false
   end
-  vim.notify("toggle_tab_auto_cwd is now " .. tostring(vim.g.toggle_tab_auto_cwd))
+  vim.defer_fn(function()
+    vim.notify("toggle_tab_auto_cwd is now " .. tostring(vim.g.toggle_tab_auto_cwd))
+  end, 50)
 end, { nargs = "*" })
 
 vim.api.nvim_create_autocmd("TabNewEntered", {
