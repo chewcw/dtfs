@@ -349,6 +349,12 @@ M.search_visual_selection = function()
 
   -- Enable search highlighting
   vim.o.hlsearch = true
+
+  -- refresh minimap if available
+  pcall(function()
+    vim.cmd("MinimapRescan")
+    vim.cmd("MinimapRefresh")
+  end)
 end
 
 -- https://vi.stackexchange.com/a/28607
@@ -371,16 +377,36 @@ M.search_word_under_cursor = function()
   vim.fn.histadd("search", searchTerm)
 
   -- Enable search highlighting
-  vim.o.hlsearch = trueend
+  vim.o.hlsearch = true
+
+  -- refresh minimap if available
+  pcall(function()
+    vim.cmd("MinimapRescan")
+    vim.cmd("MinimapRefresh")
+  end)
 end
 
 -- Toggle "hls" and "nohls"
 M.toggle_search_highlight = function()
   if vim.o.hlsearch then
     vim.o.hlsearch = false
+
+    -- refresh minimap if available
+    pcall(function()
+      vim.cmd("MinimapRescan")
+      vim.cmd("MinimapRefresh")
+    end)
+
     print("Search highlighting off")
   else
     vim.o.hlsearch = true
+
+    -- refresh minimap if available
+    pcall(function()
+      vim.cmd("MinimapRescan")
+      vim.cmd("MinimapRefresh")
+    end)
+
     print("Search highlighting on")
   end
 end

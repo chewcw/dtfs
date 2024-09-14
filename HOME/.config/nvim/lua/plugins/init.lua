@@ -789,6 +789,22 @@ local default_plugins = {
     end,
   },
 
+  {
+    "wfxr/minimap.vim",
+    lazy = false,
+    build = "cargo install --locked code-minimap",
+    init = function()
+      vim.g.minimap_auto_start = 0
+      vim.g.minimap_git_colors = 1
+      vim.g.minimap_highlight_search = 1
+      vim.g.minimap_highlight_range = 0
+      vim.g.minimap_diffadd_color = "DiffAdd"
+      vim.g.minimap_diffremove_color = "DiffRemoved"
+      vim.g.minimap_cursor_diffadd_color = "DiffAdd"
+      vim.g.minimap_cursor_diffremove_color = "DiffRemoved"
+    end,
+  },
+
   -- Only load whichkey after all the gui
   {
     "folke/which-key.nvim",
