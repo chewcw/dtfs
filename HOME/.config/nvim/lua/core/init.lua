@@ -20,7 +20,7 @@ opt.smartindent = true
 
 opt.fillchars = {
   eob = "~",
-  -- vert = "│",
+  vert = "╏",
   -- horiz = "―",
   -- vertright = " ",
   -- vertleft = "
