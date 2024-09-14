@@ -196,7 +196,7 @@ M.custom_rg = function(opts)
           map("i", "<C-f>", M.ts_select_dir_for_grep_or_find_files("live_grep"))
           map("n", "<C-f>", M.ts_select_dir_for_grep_or_find_files("live_grep"))
           map("n", "W", M.set_temporary_cwd_from_file_browser("live_grep_custom"))
-          map("n", "<A-e>", M.open_file_in_new_tab_and_set_cwd)
+          map("n", "<A-e>", M.open_telescope_file_in_tab)
           map("n", "<C-g>", M.nested_grep())
           map("n", "<A-y>", M.copy_absolute_file_path_in_picker())
           return true
@@ -592,7 +592,9 @@ M.open_multiple_files_in_find_files_picker_and_set_cwd = function(prompt_bufnr, 
   for _, buffer in ipairs(vim.fn.getqflist()) do
     local buffer_name = vim.api.nvim_buf_get_name(buffer.bufnr)
     if open_cmd == "tabe" then
-      vim.g.new_tab_buf_cwd = vim.fn.fnamemodify(buffer_name, ":p:h")
+      if vim.g.toggle_tab_auto_cwd then
+        vim.g.new_tab_buf_cwd = vim.fn.fnamemodify(buffer_name, ":p:h")
+      end
       vim.cmd("tabnew " .. buffer_name)
     elseif open_cmd == "vsplit" then
       vim.cmd("vsplit " .. buffer_name)
@@ -967,12 +969,18 @@ M.copy_absolute_file_path_in_picker = function()
   end
 end
 
-M.open_telescope_file_in_specfic_tab = function()
+M.open_telescope_file_in_specfic_tab = function(prompt_bufnr)
   local selected_entry = require("telescope.actions.state").get_selected_entry()
   local file_path = selected_entry.path or selected_entry[1] or selected_entry.filename
   local current_tab_tabnr_ordinal = vim.api.nvim_tabpage_get_number(0)
 
   if file_path then
+    -- special case, omnisharp_extended file
+    if file_path:match("%$metadata%$") then
+      require("telescope.actions").select_tab(prompt_bufnr)
+      return
+    end
+
     local parent_dir = vim.fn.fnamemodify(file_path, ":h")
     if parent_dir then
       vim.g.new_tab_buf_cwd = parent_dir
@@ -1032,7 +1040,7 @@ end
 -- open the selected file to exisiting tab automatically
 -- by finding the selected file's cwd, if no opened tab was opened,
 -- create a new tab with the cwd
-M.open_telescope_file_in_tab = function()
+M.open_telescope_file_in_tab = function(prompt_bufnr)
   local selected_entry = require("telescope.actions.state").get_selected_entry()
   local file_path = selected_entry.path or selected_entry[1] or selected_entry.filename
   local command = ""
@@ -1040,6 +1048,12 @@ M.open_telescope_file_in_tab = function()
   local current_tab_tabnr_ordinal = vim.api.nvim_tabpage_get_number(0)
 
   if file_path then
+    -- special case, omnisharp_extended file
+    if file_path:match("%$metadata%$") then
+      require("telescope.actions").select_tab(prompt_bufnr)
+      return
+    end
+
     -- auto cwd, open file in new tab with its cwd
     if vim.g.toggle_tab_auto_cwd then
       local parent_dir = vim.fn.fnamemodify(file_path, ":p:h")
