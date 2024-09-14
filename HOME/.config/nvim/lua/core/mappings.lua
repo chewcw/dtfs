@@ -448,6 +448,23 @@ M.general = {
       "Reload Gll",
       opts = { silent = true },
     },
+
+    ["<leader>M"] = {
+      function()
+        local buf_nr = vim.api.nvim_get_current_buf()
+        local buf_name = vim.api.nvim_buf_get_name(buf_nr)
+        if buf_name:match("MINIMAP") then
+          pcall(function()
+            vim.cmd("MinimapClose")
+          end)
+        else
+          pcall(function()
+            vim.cmd("MinimapToggle")
+          end)
+        end
+      end,
+      "Toggle minimap",
+    },
   },
 
   v = {
@@ -955,7 +972,6 @@ M.telescope = {
       "list modified buffers ",
       opts = { silent = true },
     },
-
 
     -- lsp
     ["gi"] = {
