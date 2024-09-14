@@ -46,7 +46,7 @@ RUN <<EOF
 cd /tmp;
 wget https://dot.net/v1/dotnet-install.sh -O dotnet-install.sh;
 sudo chmod +x dotnet-install.sh;
-./dotnet-install.sh --channel 8.0 --azure-feed;
+./dotnet-install.sh --channel 8.0 --azure-feed --install-dir=$HOME/.dotnet;
 rm -rf /tmp/dotnet-install.sh;
 sudo ln -s $HOME/.dotnet/dotnet /usr/local/bin/dotnet;
 `# https://learn.microsoft.com/en-us/dotnet/core/install/linux-debian#dependencies`
