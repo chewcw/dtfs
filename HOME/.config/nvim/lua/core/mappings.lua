@@ -465,6 +465,11 @@ M.general = {
       end,
       "Toggle minimap",
     },
+
+    ["<A-w>"] = {
+      ":lua require('plugins.configs.buffer_utils').focus_window_by_selecting_it() <CR>",
+      "Focus window by selecting it",
+    },
   },
 
   v = {
