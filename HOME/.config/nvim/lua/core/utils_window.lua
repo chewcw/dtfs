@@ -231,7 +231,7 @@ M.open = function(filename, line_number, column_number)
   set_current_win_no_autocmd(target_winid, { "BufEnter" })
 
   pcall(vim.cmd, cmd)
-  pcall(vim.api.nvim_win_set_cursor, target_winid, { line_number, column_number })
+  vim.fn.cursor(line_number, column_number)
   set_target_win()
 end
 
