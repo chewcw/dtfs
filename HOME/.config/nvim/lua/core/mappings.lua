@@ -436,7 +436,7 @@ M.general = {
     ["<C-w><C-k>"] = { "<C-w>k|<C-w>_", "switch to top window and maximize it vertically" },
     ["<C-w><C-j>"] = { "<C-w>j|<C-w>_", "switch to bottom window and maximize it vertically" },
 
-    ["<A-p>"] = { "<cmd> BufferLinePick <CR>", "bufferline pick" },
+    ["<A-e>"] = { "<cmd> BufferLinePick <CR>", "bufferline pick" },
     ["<A-Tab>"] = {
       ":lua require('plugins.configs.telescope_tabs').go_to_previous() <CR>",
       "go to previous opened tab",
