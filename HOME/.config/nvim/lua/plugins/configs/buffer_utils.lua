@@ -522,4 +522,53 @@ M.focus_window_by_selecting_it = function()
   vim.api.nvim_set_current_win(target_winid)
 end
 
+M.open_file_or_buffer_in_window = function(is_visual, count)
+  local vimfetch = require("core.utils_vimfetch")
+
+  local file
+  if is_visual then
+    file = vimfetch.fetch_visual(count)
+  else
+    file = vimfetch.fetch_cfile(count)
+  end
+
+  local current_buf_nr = vim.api.nvim_get_current_buf()
+
+  if file == nil or #file == 0 then
+    -- if no path on the cursor, then record current buffer to the file variable
+    file = {}
+    local buf_name = vim.api.nvim_buf_get_name(current_buf_nr)
+    -- ignore if this is a term
+    if buf_name:match("^term:") then
+      return
+    end
+
+    -- ignore if this is fugitive
+    if buf_name:match("^fugitive:") then
+      return
+    end
+
+    -- ignore if this is Gll related
+    if buf_name:match("/tmp/nvim.ccw/*") then
+      return
+    end
+
+    file[1] = vim.fn.fnamemodify(buf_name, ":p")
+    file[2], file[3] = vim.api.nvim_win_get_cursor(0)
+  end
+
+  local file_path = file[1]
+  local row = file[2] or 1
+  local col = file[3] or 1
+
+  if file_path then
+    utils_window.open(file_path, row, col)
+  end
+
+  if not file_path or file_path == "" then
+    print("Invalid file path")
+    return
+  end
+end
+
 return M
