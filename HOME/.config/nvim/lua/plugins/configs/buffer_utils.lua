@@ -1,3 +1,5 @@
+local utils_window = require("core.utils_window")
+
 M = {}
 
 M.force_delete_buffer_switch_to_next = function()
@@ -510,6 +512,14 @@ M.run_git_related_when_the_buffer_name_matches = function()
   else
     vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<C-r>", true, false, true), "n", true)
   end
+end
+
+M.focus_window_by_selecting_it = function()
+  local target_winid = utils_window.get_target_winid()
+  if not target_winid then
+    return
+  end
+  vim.api.nvim_set_current_win(target_winid)
 end
 
 return M

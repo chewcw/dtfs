@@ -12,6 +12,11 @@ local window_picker = {
     filetype = { "notify", "packer", "qf", "diff", "fugitive", "fugitiveblame" },
     buftype = { "nofile", "terminal", "help", "TelescopePrompt", "TelescopeResults", "prompt" },
   },
+  -- if the buffer fulfill above exclude criteria, but its buffer name also fulfill
+  -- include criteria below, then should include this buffer into the list
+  include_bufname = {
+    "-MINIMAP-",
+  },
 }
 
 local function clear_prompt()
@@ -26,9 +31,15 @@ local function usable_win_ids()
 
   local filter = vim.tbl_filter(function(id)
     local bufid = vim.api.nvim_win_get_buf(id)
-    for option, v in pairs(window_picker.exclude) do
-      local ok, option_value = pcall(vim.api.nvim_buf_get_option, bufid, option)
-      if ok and vim.tbl_contains(v, option_value) then
+    local bufname = vim.api.nvim_buf_get_name(bufid)
+    for exclude_option, v in pairs(window_picker.exclude) do
+      local ok, buf_option_value = pcall(vim.api.nvim_get_option_value, exclude_option, { buf = bufid })
+      if ok and vim.tbl_contains(v, buf_option_value) then
+        for _, include_bufname in pairs(window_picker.include_bufname) do
+          if ok and bufname:match(include_bufname) then
+            return true
+          end
+        end
         return false
       end
     end
@@ -149,7 +160,7 @@ local function pick_win_id()
   return win_map[resp]
 end
 
-local function get_target_winid()
+M.get_target_winid = function()
   -- pick a window
   target_winid = pick_win_id()
 
@@ -209,7 +220,7 @@ M.open = function(filename, line_number, column_number)
     vim.bo.bufhidden = ""
   end
 
-  target_winid = get_target_winid()
+  target_winid = M.get_target_winid()
   if not target_winid then
     return
   end
