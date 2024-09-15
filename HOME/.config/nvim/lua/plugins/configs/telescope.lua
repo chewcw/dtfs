@@ -313,6 +313,11 @@ M.options = {
       override_file_sorter = true,
       case_mode = "smart_case",
     },
+
+    workspaces = {
+      keep_insert = false,
+      path_hl = "String",
+    },
   },
 
   pickers = {
