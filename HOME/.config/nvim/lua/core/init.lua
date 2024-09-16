@@ -559,7 +559,11 @@ vim.api.nvim_create_autocmd("TabLeave", {
 -- If don't do this, the toggleterm state will become weird 🤔
 vim.api.nvim_create_autocmd("TabLeave", {
   callback = function()
-    if vim.g.toggle_term_opened and vim.g.toggle_term_direction ~= "float" then
+    if
+        vim.g.toggle_term_opened
+        and vim.g.toggle_term_direction ~= "float"
+        and vim.g.toggle_term_direction ~= "tab"
+    then
       require("plugins.configs.toggleterm_utils").toggle_term(vim.g.toggle_term_direction)
     end
   end,
