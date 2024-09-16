@@ -30,6 +30,14 @@ M.setup = {
       local cwd_parent = vim.fn.fnamemodify(working_directory, ":h:t")
       local cwd_name = vim.fn.fnamemodify(working_directory, ":t:r")
 
+      if buf.name:match("toggleterm") then
+        return "ToggleTerm"
+      end
+
+      if buf.name:match("zsh") then
+        return "Term"
+      end
+
       if vim.g.toggle_tab_cwd == "1" then -- show tab's cwd (see user command "ToggleTabCwd")
         return buf.tabnr .. "🖿 " .. cwd_parent .. "/" .. cwd_name
       elseif vim.g.toggle_tab_cwd == "2" then
