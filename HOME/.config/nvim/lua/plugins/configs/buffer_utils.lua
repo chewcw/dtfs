@@ -346,8 +346,11 @@ M.open_file_or_buffer_in_specific_tab = function(is_visual, count)
 
     file[1] = vim.fn.fnamemodify(buf_name, ":p")
     file[2], file[3] = vim.api.nvim_win_get_cursor(0)
+    -- if there are multiple windows in current screen,
     -- close current window as we are opening current buffer in new tab anyway
-    vim.api.nvim_win_close(current_win_id, false)
+    if vim.fn.winnr("$") > 1 then
+      vim.api.nvim_win_close(current_win_id, false)
+    end
   end
 
   local file_path = file[1]
@@ -451,45 +454,54 @@ M.open_file_or_buffer_in_tab = function(is_visual, count)
 
     file[1] = vim.fn.fnamemodify(buf_name, ":p")
     file[2], file[3] = vim.api.nvim_win_get_cursor(0)
+    -- if there are multiple windows in current screen,
     -- close current window as we are opening current buffer in new tab anyway
-    vim.api.nvim_win_close(current_win_id, false)
+    if vim.fn.winnr("$") > 1 then
+      vim.api.nvim_win_close(current_win_id, false)
+    end
   end
 
   local file_path = file[1]
   local row = file[2] or 1
   local col = file[3] or 1
 
-  if file_path then
+  if file_path and file_path ~= "" then
     local parent_dir = vim.fn.fnamemodify(file_path, ":p:h")
-    if parent_dir then
-      -- find all tabs
-      for _, tid in ipairs(vim.api.nvim_list_tabpages()) do
-        local tabnr_ordinal = vim.api.nvim_tabpage_get_number(tid)
-        local win_num = vim.fn.tabpagewinnr(tabnr_ordinal)
-        local working_directory = vim.fn.getcwd(win_num, tabnr_ordinal)
-        local cwd_name = vim.fn.fnamemodify(working_directory, ":p:h")
-        if cwd_name == parent_dir then
-          if vim.g.toggle_term_opened then
-            command = ":q | " -- first need to close this toggleterm
+    if vim.g.toggle_tab_auto_cwd then
+      if parent_dir then
+        -- find all tabs
+        for _, tid in ipairs(vim.api.nvim_list_tabpages()) do
+          local tabnr_ordinal = vim.api.nvim_tabpage_get_number(tid)
+          local win_num = vim.fn.tabpagewinnr(tabnr_ordinal)
+          local working_directory = vim.fn.getcwd(win_num, tabnr_ordinal)
+          local cwd_name = vim.fn.fnamemodify(working_directory, ":p:h")
+          if cwd_name == parent_dir then
+            if vim.g.toggle_term_opened then
+              command = ":q | " -- first need to close this toggleterm
+            end
+
+            command = command .. "tabnext" .. tabnr_ordinal .. " | edit " .. file_path
+            found_tab = true
+            vim.g.new_tab_buf_cwd = vim.fn.fnamemodify(file_path, ":h")
+            break
           end
-
-          command = command .. "tabnext" .. tabnr_ordinal .. " | edit " .. file_path
-          found_tab = true
-          vim.g.new_tab_buf_cwd = vim.fn.fnamemodify(file_path, ":h")
-          break
         end
+        if not found_tab then
+          command = "tabnew " .. file_path
+        end
+        vim.g.new_tab_buf_cwd = vim.fn.fnamemodify(file_path, ":h")
+      else
+        print("Parent dir not found")
+        return
       end
-      if not found_tab then
-        command = "tabnew " .. file_path
-      end
-      vim.g.new_tab_buf_cwd = vim.fn.fnamemodify(file_path, ":h")
+    else
+      command = "tabnew " .. file_path
     end
-  end
-
-  if not file_path or file_path == "" then
+  else
     print("Invalid file path")
     return
   end
+
   vim.api.nvim_command(command)
   vim.fn.cursor(row, col)
 end
