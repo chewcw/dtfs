@@ -1054,8 +1054,8 @@ M.open_telescope_file_in_tab = function(prompt_bufnr)
       return
     end
 
-    -- auto cwd, open file in new tab with its cwd
     if vim.g.toggle_tab_auto_cwd then
+      -- auto cwd, open file in new tab with its cwd
       local parent_dir = vim.fn.fnamemodify(file_path, ":p:h")
       if parent_dir then
         -- find all tabs
@@ -1079,8 +1079,8 @@ M.open_telescope_file_in_tab = function(prompt_bufnr)
         end
         vim.g.new_tab_buf_cwd = vim.fn.fnamemodify(file_path, ":h")
       end
-      -- not auto cwd, just open the file in new tab
     else
+      -- not auto cwd, just open the file in new tab
       command = "tabnew " .. file_path
     end
   end
