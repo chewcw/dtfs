@@ -617,18 +617,25 @@ M.search_modified_unsaved_buffers = function()
   info.filetype = vim.api.nvim_get_option_value("filetype", { buf = bufnr })
   info.buftype = vim.api.nvim_get_option_value("buftype", { buf = bufnr })
   info.buflisted = vim.api.nvim_get_option_value("buflisted", { buf = bufnr })
-  if info.filetype == "TelescopePrompt" then
+  if info.filetype == "TelescopePrompt" and vim.fn.mode() == "n" then
+    vim.api.nvim_set_hl(0, "MsgArea", { bg = "None" })
     return
   end
 
-  for _, buf in ipairs(vim.api.nvim_list_bufs()) do
-    if vim.api.nvim_get_option_value("modified", { buf = buf }) then
-      vim.api.nvim_set_hl(0, "MsgArea", {
-        bg = require("core.colorscheme").colors().modified_msg_area,
-      })
-      return
+  if vim.fn.mode() ~= "n" then -- still in insert mode, return
+    return
+  else
+    for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+      -- only change color to modified if it's in normal mode, while typing (insert
+      -- mode) no need to update the color
+      if vim.api.nvim_get_option_value("modified", { buf = buf }) then
+        vim.api.nvim_set_hl(0, "MsgArea", {
+          bg = require("core.colorscheme").colors().modified_msg_area,
+        })
+        return
+      end
+      vim.api.nvim_set_hl(0, "MsgArea", { bg = "None" })
     end
-    vim.api.nvim_set_hl(0, "MsgArea", { bg = "None" })
   end
 end
 

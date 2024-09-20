@@ -159,12 +159,6 @@ vim.api.nvim_create_autocmd({ "InsertEnter" }, {
   end,
 })
 
-vim.api.nvim_create_autocmd({ "InsertLeave" }, {
-  callback = function()
-    vim.api.nvim_set_hl(0, "MsgArea", { bg = "None" })
-  end,
-})
-
 -- update command line color in command mode
 vim.api.nvim_create_autocmd({ "CmdLineEnter" }, {
   callback = function()
@@ -187,12 +181,10 @@ vim.api.nvim_create_autocmd({ "CmdLineLeave" }, {
 })
 
 -- search for any unsaved buffer and show it on the MsgArea
-vim.api.nvim_create_autocmd({ "BufModifiedSet" }, {
+vim.api.nvim_create_autocmd({ "BufModifiedSet", "InsertLeave" }, {
   callback = require("core.utils").search_modified_unsaved_buffers,
 })
-vim.api.nvim_create_autocmd({ "InsertLeave" }, {
-  callback = require("core.utils").search_modified_unsaved_buffers,
-})
+
 -- opening and closing telescope picker will also be triggered
 -- so this event is to run the function after the telescope picker is closed
 vim.api.nvim_create_autocmd({ "WinEnter" }, {
