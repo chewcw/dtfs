@@ -1,2 +1,2 @@
 colorscheme evening
-:set guifont=IosevkaCcw2NerdFont\ 12
+:set guifont=IosevkaTermNerdFont\ 12
