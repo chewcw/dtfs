@@ -878,7 +878,6 @@ M.buffer_with_cwd_picker = function(opts)
 
   opts = opts or {}
   local buffers = get_buffer_info()
-  print(vim.inspect(buffers))
 
   local displayer = entry_display.create({
     separator = " ",
