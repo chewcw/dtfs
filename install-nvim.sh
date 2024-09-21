@@ -36,6 +36,8 @@ parse_args() {
 install_dependency() {
   echo "installing dependencies"
 
+  sudo apt update
+
   # ripgrep
   [ ! $(command -v rg) ] && sudo apt install -y ripgrep || true
   # xclip and xsel
@@ -44,6 +46,10 @@ install_dependency() {
   sudo apt install -y build-essential || true
   # python3-venv
   sudo apt install -y python3-venv || true
+  # fzf
+  sudo apt install -y fzf || true
+  # file
+  sudo apt install -y file || true
 }
 
 install_nodejs() {
