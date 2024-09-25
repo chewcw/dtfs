@@ -847,6 +847,13 @@ M.grep_string_custom = function(opts)
         attach_mappings = function(_, map)
           map("i", "<A-w>", M.set_temporary_cwd_from_file_browser("grep_string_custom"))
           map("n", "W", M.set_temporary_cwd_from_file_browser("grep_string_custom"))
+          map("n", "q", function(prompt_bufnr)
+            -- set these global variable back to nil after done, so that it wouldn't
+            -- have side effect in next grep_string_custom
+            vim.g.cwd_grep_string_search = nil
+            vim.g.cwd_grep_string_word = nil
+            actions.close(prompt_bufnr)
+          end)
           return true
         end,
       })
