@@ -6,7 +6,7 @@ local config = require("core.utils").load_config()
 opt.laststatus = 2 -- global statusline
 opt.showmode = true
 
-opt.clipboard = "unnamedplus"
+opt.clipboard = ""
 opt.cursorline = true
 opt.cursorlineopt = "number"
 
