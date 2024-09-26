@@ -1204,8 +1204,8 @@ M.gitsigns = {
     ["<leader>gdv"] = { ":Gvdiffsplit <CR>", "Diff this (vertical)" },
     ["<leader>gdh"] = { ":Ghdiffsplit <CR>", "Diff this (horizontal)" },
     ["<leader>gb"] = {
-      ":G blame <CR> | :lua vim.api.nvim_input('C')<CR>",
-      "Open git blame and only show commit hash",
+      ":G blame <CR>",
+      "Open git blame",
       opts = { silent = true },
     },
 
