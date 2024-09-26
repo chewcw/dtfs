@@ -229,11 +229,25 @@ M.general = {
 
     -- wrap
     ["<leader>lw"] = { ":set wrap! <CR>", "toggle line wrapping" },
-    ["<leader>lW"] = { ":windo set wrap! <CR>", "toggle line wrapping in this window" },
+    ["<leader>lW"] = {
+      function()
+        local current_win = vim.api.nvim_get_current_win()
+        vim.cmd([[ windo set wrap! ]])
+        vim.api.nvim_set_current_win(current_win)
+      end,
+      "toggle line wrapping in this window",
+    },
 
     -- cursor column
     ["<leader>ls"] = { ":set cursorcolumn! <CR>", "toggle cursor column" },
-    ["<leader>lS"] = { ":windo set cursorcolumn! <CR>", "toggle cursor column in this window" },
+    ["<leader>lS"] = {
+      function()
+        local current_win = vim.api.nvim_get_current_win()
+        vim.cmd([[ windo set cursorcolumn! ]])
+        vim.api.nvim_set_current_win(current_win)
+      end,
+      "toggle cursor column in this window",
+    },
 
     -- undotree
     ["<leader>uu"] = { ":UndotreeToggle <CR> :UndotreeFocus <CR>", "toggle undotree" },
@@ -252,16 +266,19 @@ M.general = {
     },
     ["<leader>lM"] = {
       function()
+        local current_win = vim.api.nvim_get_current_win()
         if vim.opt.colorcolumn:get()[1] == "85" then
           vim.cmd([[windo set colorcolumn=0]])
         else
           vim.cmd([[windo set colorcolumn=85]])
         end
+        vim.api.nvim_set_current_win(current_win)
       end,
       "toggle color column for window",
     },
     ["<leader>lc"] = {
       function()
+        local current_win = vim.api.nvim_get_current_win()
         if vim.opt.cursorlineopt._value ~= "both" then
           vim.cmd([[set cursorline]])
           vim.cmd([[set cursorlineopt=both]])
@@ -269,11 +286,13 @@ M.general = {
           vim.cmd([[set cursorline]])
           vim.cmd([[set cursorlineopt=number]])
         end
+        vim.api.nvim_set_current_win(current_win)
       end,
       "toggle cursor line",
     },
     ["<leader>lC"] = {
       function()
+        local current_win = vim.api.nvim_get_current_win()
         if vim.opt.cursorlineopt._value ~= "both" then
           vim.cmd([[windo set cursorline]])
           vim.cmd([[windo set cursorlineopt=both]])
@@ -281,6 +300,7 @@ M.general = {
           vim.cmd([[windo set cursorline]])
           vim.cmd([[windo set cursorlineopt=number]])
         end
+        vim.api.nvim_set_current_win(current_win)
       end,
       "toggle cursor line for window",
     },
@@ -296,19 +316,23 @@ M.general = {
     -- toggle indentation between 2 and 4 spaces
     ["g4"] = {
       function()
+        local current_win = vim.api.nvim_get_current_win()
         vim.cmd([[windo set shiftwidth=4]])
         vim.cmd([[windo set tabstop=4]])
         vim.cmd([[windo set softtabstop=4]])
         print("tab is 4 spaces now")
+        vim.api.nvim_set_current_win(current_win)
       end,
       "indentation 4 spaces",
     },
     ["g2"] = {
       function()
+        local current_win = vim.api.nvim_get_current_win()
         vim.cmd([[windo set shiftwidth=2]])
         vim.cmd([[windo set tabstop=2]])
         vim.cmd([[windo set softtabstop=2]])
         print("tab is 2 spaces now")
+        vim.api.nvim_set_current_win(current_win)
       end,
       "indentation 2 spaces",
     },
