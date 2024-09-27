@@ -411,8 +411,10 @@ vim.api.nvim_create_autocmd("TabClosed", {
 vim.api.nvim_create_user_command("ToggleTabAutoCwd", function()
   if vim.g.toggle_tab_auto_cwd == nil or not vim.g.toggle_tab_auto_cwd then
     vim.g.toggle_tab_auto_cwd = true
+    vim.g.toggle_tab_cwd = "3"
   else
     vim.g.toggle_tab_auto_cwd = false
+    vim.g.toggle_tab_cwd = "7"
   end
   vim.defer_fn(function()
     vim.notify("toggle_tab_auto_cwd is now " .. tostring(vim.g.toggle_tab_auto_cwd))
