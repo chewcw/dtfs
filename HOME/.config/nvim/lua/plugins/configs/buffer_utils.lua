@@ -495,7 +495,23 @@ M.open_file_or_buffer_in_tab = function(is_visual, count)
         return
       end
     else
-      command = "tabnew " .. file_path
+      -- not auto cwd, find if there is tab opening that file
+      for _, tid in ipairs(vim.api.nvim_list_tabpages()) do
+        local tabnr_ordinal = vim.api.nvim_tabpage_get_number(tid)
+        local win_id = vim.api.nvim_tabpage_get_win(tid)
+        -- Get the buffer in the active window
+        local buf_id = vim.api.nvim_win_get_buf(win_id)
+        -- Get the name of the buffer
+        local buf_name = vim.api.nvim_buf_get_name(buf_id)
+        if file_path == buf_name then
+          command = command .. "tabnext" .. tabnr_ordinal .. "| edit " .. file_path
+          found_tab = true
+          break
+        end
+      end
+      if not found_tab then
+        command = "tabnew " .. file_path
+      end
     end
   else
     print("Invalid file path")
