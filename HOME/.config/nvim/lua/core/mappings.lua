@@ -231,9 +231,11 @@ M.general = {
     ["<leader>lw"] = { ":set wrap! <CR>", "toggle line wrapping" },
     ["<leader>lW"] = {
       function()
-        local current_win = vim.api.nvim_get_current_win()
-        vim.cmd([[ windo set wrap! ]])
-        vim.api.nvim_set_current_win(current_win)
+        require("core.utils_window").save_window_sizes_and_restore(function()
+          local current_win = vim.api.nvim_get_current_win()
+          vim.cmd([[ windo set wrap! ]])
+          vim.api.nvim_set_current_win(current_win)
+        end)
       end,
       "toggle line wrapping in this window",
     },
@@ -242,9 +244,11 @@ M.general = {
     ["<leader>ls"] = { ":set cursorcolumn! <CR>", "toggle cursor column" },
     ["<leader>lS"] = {
       function()
-        local current_win = vim.api.nvim_get_current_win()
-        vim.cmd([[ windo set cursorcolumn! ]])
-        vim.api.nvim_set_current_win(current_win)
+        require("core.utils_window").save_window_sizes_and_restore(function()
+          local current_win = vim.api.nvim_get_current_win()
+          vim.cmd([[ windo set cursorcolumn! ]])
+          vim.api.nvim_set_current_win(current_win)
+        end)
       end,
       "toggle cursor column in this window",
     },
@@ -266,41 +270,47 @@ M.general = {
     },
     ["<leader>lM"] = {
       function()
-        local current_win = vim.api.nvim_get_current_win()
-        if vim.opt.colorcolumn:get()[1] == "85" then
-          vim.cmd([[windo set colorcolumn=0]])
-        else
-          vim.cmd([[windo set colorcolumn=85]])
-        end
-        vim.api.nvim_set_current_win(current_win)
+        require("core.utils_window").save_window_sizes_and_restore(function()
+          local current_win = vim.api.nvim_get_current_win()
+          if vim.opt.colorcolumn:get()[1] == "85" then
+            vim.cmd([[windo set colorcolumn=0]])
+          else
+            vim.cmd([[windo set colorcolumn=85]])
+          end
+          vim.api.nvim_set_current_win(current_win)
+        end)
       end,
       "toggle color column for window",
     },
     ["<leader>lc"] = {
       function()
-        local current_win = vim.api.nvim_get_current_win()
-        if vim.opt.cursorlineopt._value ~= "both" then
-          vim.cmd([[set cursorline]])
-          vim.cmd([[set cursorlineopt=both]])
-        else
-          vim.cmd([[set cursorline]])
-          vim.cmd([[set cursorlineopt=number]])
-        end
-        vim.api.nvim_set_current_win(current_win)
+        require("core.utils_window").save_window_sizes_and_restore(function()
+          local current_win = vim.api.nvim_get_current_win()
+          if vim.opt.cursorlineopt._value ~= "both" then
+            vim.cmd([[set cursorline]])
+            vim.cmd([[set cursorlineopt=both]])
+          else
+            vim.cmd([[set cursorline]])
+            vim.cmd([[set cursorlineopt=number]])
+          end
+          vim.api.nvim_set_current_win(current_win)
+        end)
       end,
       "toggle cursor line",
     },
     ["<leader>lC"] = {
       function()
-        local current_win = vim.api.nvim_get_current_win()
-        if vim.opt.cursorlineopt._value ~= "both" then
-          vim.cmd([[windo set cursorline]])
-          vim.cmd([[windo set cursorlineopt=both]])
-        else
-          vim.cmd([[windo set cursorline]])
-          vim.cmd([[windo set cursorlineopt=number]])
-        end
-        vim.api.nvim_set_current_win(current_win)
+        require("core.utils_window").save_window_sizes_and_restore(function()
+          local current_win = vim.api.nvim_get_current_win()
+          if vim.opt.cursorlineopt._value ~= "both" then
+            vim.cmd([[windo set cursorline]])
+            vim.cmd([[windo set cursorlineopt=both]])
+          else
+            vim.cmd([[windo set cursorline]])
+            vim.cmd([[windo set cursorlineopt=number]])
+          end
+          vim.api.nvim_set_current_win(current_win)
+        end)
       end,
       "toggle cursor line for window",
     },
@@ -316,23 +326,27 @@ M.general = {
     -- toggle indentation between 2 and 4 spaces
     ["g4"] = {
       function()
-        local current_win = vim.api.nvim_get_current_win()
-        vim.cmd([[windo set shiftwidth=4]])
-        vim.cmd([[windo set tabstop=4]])
-        vim.cmd([[windo set softtabstop=4]])
-        print("tab is 4 spaces now")
-        vim.api.nvim_set_current_win(current_win)
+        require("core.utils_window").save_window_sizes_and_restore(function()
+          local current_win = vim.api.nvim_get_current_win()
+          vim.cmd([[windo set shiftwidth=4]])
+          vim.cmd([[windo set tabstop=4]])
+          vim.cmd([[windo set softtabstop=4]])
+          print("tab is 4 spaces now")
+          vim.api.nvim_set_current_win(current_win)
+        end)
       end,
       "indentation 4 spaces",
     },
     ["g2"] = {
       function()
-        local current_win = vim.api.nvim_get_current_win()
-        vim.cmd([[windo set shiftwidth=2]])
-        vim.cmd([[windo set tabstop=2]])
-        vim.cmd([[windo set softtabstop=2]])
-        print("tab is 2 spaces now")
-        vim.api.nvim_set_current_win(current_win)
+        require("core.utils_window").save_window_sizes_and_restore(function()
+          local current_win = vim.api.nvim_get_current_win()
+          vim.cmd([[windo set shiftwidth=2]])
+          vim.cmd([[windo set tabstop=2]])
+          vim.cmd([[windo set softtabstop=2]])
+          print("tab is 2 spaces now")
+          vim.api.nvim_set_current_win(current_win)
+        end)
       end,
       "indentation 2 spaces",
     },

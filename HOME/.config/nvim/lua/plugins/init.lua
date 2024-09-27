@@ -519,30 +519,16 @@ local default_plugins = {
                   x[tostring(current_buf)] = nil
                   vim.g.gll_records = x
                 end
-                -- Save window size
-                local win_widths = {}
-                local win_heights = {}
-                -- Iterate through each window and store their sizes
-                for i = 1, vim.fn.winnr('$') do
-                  local win_id = vim.fn.win_getid(i)
-                  win_widths[win_id] = vim.api.nvim_win_get_width(win_id)
-                  win_heights[win_id] = vim.api.nvim_win_get_height(win_id)
-                end
-                -- then run the Gll command
-                vim.g.gll_reload_manually_or_open_new = true
-                vim.cmd("Gll " .. args)
-                vim.cmd("wincmd k")
-                vim.cmd("wincmd q")
-                vim.cmd("wincmd p") -- make sure to focus on the Gll window
-                vim.api.nvim_input("<Esc>")
-                vim.g.fugitive_ran = false
-                -- Restore the window sizes
-                for win_id, width in pairs(win_widths) do
-                  if vim.api.nvim_win_is_valid(win_id) then
-                    vim.api.nvim_win_set_width(win_id, width)
-                    vim.api.nvim_win_set_height(win_id, win_heights[win_id])
-                  end
-                end
+                require("core.utils_window").save_window_sizes_and_restore(function()
+                  -- run the Gll command
+                  vim.g.gll_reload_manually_or_open_new = true
+                  vim.cmd("Gll " .. args)
+                  vim.cmd("wincmd k")
+                  vim.cmd("wincmd q")
+                  vim.cmd("wincmd p") -- make sure to focus on the Gll window
+                  vim.api.nvim_input("<Esc>")
+                  vim.g.fugitive_ran = false
+                end)
               end
             end
           end, 200)
