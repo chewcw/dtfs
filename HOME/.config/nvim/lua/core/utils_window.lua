@@ -235,4 +235,28 @@ M.open = function(filename, line_number, column_number)
   set_target_win()
 end
 
+M.save_window_sizes_and_restore = function(callback)
+  if callback ~= nil then
+    -- Save window size
+    local win_widths = {}
+    local win_heights = {}
+    -- Iterate through each window and store their sizes
+    for i = 1, vim.fn.winnr("$") do
+      local win_id = vim.fn.win_getid(i)
+      win_widths[win_id] = vim.api.nvim_win_get_width(win_id)
+      win_heights[win_id] = vim.api.nvim_win_get_height(win_id)
+    end
+
+    callback()
+
+    -- Restore the window sizes
+    for win_id, width in pairs(win_widths) do
+      if vim.api.nvim_win_is_valid(win_id) then
+        vim.api.nvim_win_set_width(win_id, width)
+        vim.api.nvim_win_set_height(win_id, win_heights[win_id])
+      end
+    end
+  end
+end
+
 return M
