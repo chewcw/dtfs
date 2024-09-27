@@ -38,25 +38,25 @@ M.setup = {
         return "Term"
       end
 
-      if vim.g.toggle_tab_cwd == "1" then -- show tab's cwd (see user command "ToggleTabCwd")
+      if vim.g.ToggleTabCwd == "1" then -- show tab's cwd (see user command "ToggleTabCwd")
         return buf.tabnr .. "🖿 " .. cwd_parent .. "/" .. cwd_name
-      elseif vim.g.toggle_tab_cwd == "2" then
+      elseif vim.g.ToggleTabCwd == "2" then
         return tostring(buf.tabnr)
-      elseif vim.g.toggle_tab_cwd == "3" then
+      elseif vim.g.ToggleTabCwd == "3" then
         return "🖿 " .. cwd_parent .. "/" .. cwd_name
-      elseif vim.g.toggle_tab_cwd == "4" then
+      elseif vim.g.ToggleTabCwd == "4" then
         if tabnr_ordinal == vim.fn.tabpagenr() then
           return "🗎 " .. buf.name
         else
           return "🖿 " .. cwd_parent .. "/" .. cwd_name
         end
-      elseif vim.g.toggle_tab_cwd == "5" then
+      elseif vim.g.ToggleTabCwd == "5" then
         if tabnr_ordinal == vim.fn.tabpagenr() then
           return "🗎 " .. buf.name
         else
           return "🖿 " .. cwd_parent .. "/" .. cwd_name .. " 🗎 " .. buf.name
         end
-      elseif vim.g.toggle_tab_cwd == "6" then
+      elseif vim.g.ToggleTabCwd == "6" then
         return "🖿 " .. cwd_parent .. "/" .. cwd_name .. " 🗎 " .. buf.name
       else
         return "🗎 " .. buf.name

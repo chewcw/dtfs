@@ -23,25 +23,25 @@ function MyTabLine()
     -- Check if the buffer is modified
     local is_modified = vim.fn.getbufvar(bufnr, "&modified") == 1 and "[+]" or ""
 
-    if vim.g.toggle_tab_cwd == "1" then -- show tab's cwd (see user command "ToggleTabCwd")
+    if vim.g.ToggleTabCwd == "1" then -- show tab's cwd (see user command "ToggleTabCwd")
       tabline = tabline .. tabnr .. " 🖿  " .. cwd_name .. is_modified .. " "
-    elseif vim.g.toggle_tab_cwd == "2" then
+    elseif vim.g.ToggleTabCwd == "2" then
       tabline = tabline .. tabnr .. is_modified .. " "
-    elseif vim.g.toggle_tab_cwd == "3" then
+    elseif vim.g.ToggleTabCwd == "3" then
       tabline = tabline .. " 🖿  " .. cwd_name .. is_modified .. " "
-    elseif vim.g.toggle_tab_cwd == "4" then
+    elseif vim.g.ToggleTabCwd == "4" then
       if tabnr == vim.fn.tabpagenr() then
         tabline = tabline .. " 🗎 " .. is_modified .. " "
       else
         tabline = tabline .. " 🖿  " .. cwd_name .. is_modified .. " "
       end
-    elseif vim.g.toggle_tab_cwd == "5" then
+    elseif vim.g.ToggleTabCwd == "5" then
       if tabnr == vim.fn.tabpagenr() then
         tabline = tabline .. " 🗎 " .. is_modified .. " "
       else
         tabline = tabline .. " 🖿  " .. cwd_name .. "/" .. buffer_name .. is_modified .. " "
       end
-    elseif vim.g.toggle_tab_cwd == "6" then
+    elseif vim.g.ToggleTabCwd == "6" then
       tabline = tabline .. " 🖿  " .. cwd_name .. "/" .. buffer_name .. is_modified .. " "
     else
       tabline = tabline .. " 🗎 " .. buffer_name .. is_modified .. " "

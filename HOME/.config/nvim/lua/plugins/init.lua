@@ -693,9 +693,6 @@ local default_plugins = {
   {
     "rmagatti/auto-session",
     lazy = false,
-    init = function()
-      vim.o.sessionoptions = "blank,buffers,curdir,help,tabpages,winsize,winpos,localoptions"
-    end,
     opts = function()
       return {
         log_level = "error",
