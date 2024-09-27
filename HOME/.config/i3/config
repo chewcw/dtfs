@@ -338,7 +338,7 @@ mode "$mode_gaps_left" {
 }
 
 gaps outer 0
-gaps inner 5
+gaps inner 0
 
 # default orientation
 workspace_layout tabbed
