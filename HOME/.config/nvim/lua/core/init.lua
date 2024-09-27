@@ -106,6 +106,9 @@ opt.showtabline = 2
 -- virtualedit
 opt.virtualedit = "insert,block"
 
+-- sessions
+opt.sessionoptions = "blank,buffers,curdir,help,tabpages,winsize,winpos,localoptions,globals"
+
 -- disable some default providers
 for _, provider in ipairs({ "node", "perl", "python3", "ruby" }) do
   vim.g["loaded_" .. provider .. "_provider"] = 0
@@ -150,9 +153,9 @@ autocmd("FileType", {
 --   command = "silent! loadview",
 -- })
 
--- ---------------------------------------------------------------------------- 
+-- ----------------------------------------------------------------------------
 -- Update status bar MsgArea color
--- ---------------------------------------------------------------------------- 
+-- ----------------------------------------------------------------------------
 -- update command line color in insert mode
 vim.api.nvim_create_autocmd({ "InsertEnter" }, {
   callback = function()
@@ -409,21 +412,21 @@ vim.api.nvim_create_autocmd("TabClosed", {
 -- See all functions which setting vim.g.new_tab_buf_cwd
 -- ----------------------------------------------------------------------------
 vim.api.nvim_create_user_command("ToggleTabAutoCwd", function()
-  if vim.g.toggle_tab_auto_cwd == nil or not vim.g.toggle_tab_auto_cwd then
-    vim.g.toggle_tab_auto_cwd = true
-    vim.g.toggle_tab_cwd = "3"
+  if vim.g.ToggleTabAutoCwd == nil or not vim.g.ToggleTabAutoCwd then
+    vim.g.ToggleTabAutoCwd = true
+    vim.g.ToggleTabCwd = "3"
   else
-    vim.g.toggle_tab_auto_cwd = false
-    vim.g.toggle_tab_cwd = "7"
+    vim.g.ToggleTabAutoCwd = false
+    vim.g.ToggleTabCwd = "7"
   end
   vim.defer_fn(function()
-    vim.notify("toggle_tab_auto_cwd is now " .. tostring(vim.g.toggle_tab_auto_cwd))
+    vim.notify("ToggleTabAutoCwd is now " .. tostring(vim.g.ToggleTabAutoCwd))
   end, 50)
 end, { nargs = "*" })
 
 vim.api.nvim_create_autocmd("TabNewEntered", {
   callback = function()
-    if vim.g.toggle_tab_auto_cwd then
+    if vim.g.ToggleTabAutoCwd then
       if vim.g.new_tab_buf_cwd ~= nil and vim.g.new_tab_buf_cwd ~= "" then
         pcall(function()
           vim.cmd("tcd " .. vim.g.new_tab_buf_cwd)
@@ -506,18 +509,18 @@ end, { nargs = 0, range = true })
 -- ----------------------------------------------------------------------------
 vim.api.nvim_create_user_command("ToggleTabCwd", function(args)
   if args == nil then
-    vim.g.toggle_tab_cwd = "1"
+    vim.g.ToggleTabCwd = "1"
     -- vim.o.tabline = "%!v:lua.MyTabLine()"
     return
   end
-  vim.g.toggle_tab_cwd = args.args
+  vim.g.ToggleTabCwd = args.args
   -- vim.o.tabline = "%!v:lua.MyTabLine()"
 end, { nargs = "*" })
 
 vim.api.nvim_create_autocmd("VimEnter", {
   callback = function()
-    vim.g.toggle_tab_cwd = "3"
-    vim.g.toggle_tab_auto_cwd = true
+    vim.g.ToggleTabCwd = "3"
+    vim.g.ToggleTabAutoCwd = true
   end,
 })
 

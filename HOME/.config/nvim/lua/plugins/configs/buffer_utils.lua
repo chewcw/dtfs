@@ -358,8 +358,8 @@ M.open_file_or_buffer_in_specific_tab = function(is_visual, count)
   local col = file[3] or 1
 
   -- show tab's cwd
-  local original_tab_cwd_visibility = vim.g.toggle_tab_cwd
-  vim.g.toggle_tab_cwd = "1"
+  local original_tab_cwd_visibility = vim.g.ToggleTabCwd
+  vim.g.ToggleTabCwd = "1"
 
   -- vim.ui.input({ prompt = "Enter tab number: " }, function(input)
   --   if input then
@@ -414,7 +414,7 @@ M.open_file_or_buffer_in_specific_tab = function(is_visual, count)
   })
 
   if original_tab_cwd_visibility ~= "1" then
-    vim.g.toggle_tab_cwd = original_tab_cwd_visibility
+    vim.g.ToggleTabCwd = original_tab_cwd_visibility
   end
 end
 
@@ -467,7 +467,7 @@ M.open_file_or_buffer_in_tab = function(is_visual, count)
 
   if file_path and file_path ~= "" then
     local parent_dir = vim.fn.fnamemodify(file_path, ":p:h")
-    if vim.g.toggle_tab_auto_cwd then
+    if vim.g.ToggleTabAutoCwd then
       if parent_dir then
         -- find all tabs
         for _, tid in ipairs(vim.api.nvim_list_tabpages()) do

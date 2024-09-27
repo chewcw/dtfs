@@ -60,7 +60,7 @@ local default_conf = {
     if is_modified then
       modified = "[+]"
     end
-    if vim.g.toggle_tab_auto_cwd then
+    if vim.g.ToggleTabAutoCwd then
       local buffers_in_cwd_string = table.concat(buffers_in_cwd, ", ")
       return string.format(
         "%s %s: %s %s 🖿  %s 🗎 %s",
@@ -86,7 +86,7 @@ local default_conf = {
   end,
   -- this is where we can search
   entry_ordinal = function(tab_id, buffer_ids, file_names, file_paths, is_current, cwd_name, buffers_in_cwd)
-    if vim.g.toggle_tab_auto_cwd then
+    if vim.g.ToggleTabAutoCwd then
       return table.concat(buffers_in_cwd, " ") .. " " .. cwd_name .. " " .. tab_id
     else
       return table.concat(file_names, " ") .. tab_id
