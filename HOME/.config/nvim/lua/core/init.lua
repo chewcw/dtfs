@@ -150,6 +150,9 @@ autocmd("FileType", {
 --   command = "silent! loadview",
 -- })
 
+-- ---------------------------------------------------------------------------- 
+-- Update status bar MsgArea color
+-- ---------------------------------------------------------------------------- 
 -- update command line color in insert mode
 vim.api.nvim_create_autocmd({ "InsertEnter" }, {
   callback = function()
