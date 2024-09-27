@@ -207,7 +207,13 @@ bar {
 # system try to be shown on the primary monitor
 # https://i3wm.org/docs/userguide.html#_tray_output
     tray_output primary
+# https://i3wm.org/docs/userguide.html#_display_mode
+# by default the bar is dock mode
+# see $HOME/.local/bin/toggle_i3_bar.sh file to toggle the bar mode
+    mode dock
 }
+
+bindsym $mod+b exec --no-startup-id sh -c '$HOME/.local/bin/toggle_i3_bar.sh'
 
 # i3-gap
 set $mode_gaps Gaps: (o)uter, (i)nner, (h)orizontal, (v)ertical, (t)op, (r)ight, (b)ottom, (l)eft
