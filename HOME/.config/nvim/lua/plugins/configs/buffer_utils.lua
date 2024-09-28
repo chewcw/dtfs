@@ -271,6 +271,11 @@ M.open_buffer_in_specific_tab = function(tabnr, bufnr)
     return
   end
 
+  if vim.g.toggle_term_opened then
+    vim.cmd("wincmd q") -- first need to close this toggleterm
+    vim.g.toggle_term_opened = false
+  end
+
   -- Switch to the specified tab
   vim.api.nvim_set_current_tabpage(tabpages[tabnr])
   -- Open the specified buffer in the current window of the specified tab
@@ -496,6 +501,9 @@ M.open_file_or_buffer_in_tab = function(is_visual, count)
           end
         end
         if not found_tab then
+          if vim.g.toggle_term_opened then
+            command = ":q | " -- first need to close this toggleterm
+          end
           command = "tabnew " .. file_path
         end
         vim.g.new_tab_buf_cwd = vim.fn.fnamemodify(file_path, ":h")
@@ -513,12 +521,18 @@ M.open_file_or_buffer_in_tab = function(is_visual, count)
         -- Get the name of the buffer
         local buf_name = vim.api.nvim_buf_get_name(buf_id)
         if file_path == buf_name then
+          if vim.g.toggle_term_opened then
+            command = ":q | " -- first need to close this toggleterm
+          end
           command = command .. "tabnext" .. tabnr_ordinal .. "| edit " .. file_path
           found_tab = true
           break
         end
       end
       if not found_tab then
+        if vim.g.toggle_term_opened then
+          command = ":q | " -- first need to close this toggleterm
+        end
         command = "tabnew " .. file_path
       end
     end
@@ -528,6 +542,7 @@ M.open_file_or_buffer_in_tab = function(is_visual, count)
   end
 
   vim.api.nvim_command(command)
+  vim.g.toggle_term_opened = false
   vim.fn.cursor(row, col)
 end
 
