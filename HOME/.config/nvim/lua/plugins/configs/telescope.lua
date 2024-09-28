@@ -447,6 +447,7 @@ M.options = {
     },
 
     grep_string = {
+      sorter = telescope_utils.keep_initial_sorting_sorter(),
       mappings = {
         i = {
           ["<A-w>"] = telescope_utils.set_temporary_cwd_from_file_browser("grep_string"),
@@ -456,6 +457,14 @@ M.options = {
         },
       },
     },
+
+    lsp_document_symbols = {
+      sorter = telescope_utils.keep_initial_sorting_sorter(),
+    },
+
+    lsp_workspace_symbols = {
+      sorter = telescope_utils.keep_initial_sorting_sorter(),
+    }
   },
 }
 

@@ -842,7 +842,7 @@ M.grep_string_custom = function(opts)
         prompt_title = "Find Word (" .. word:gsub("\n", "\\n") .. ")",
         finder = finders.new_oneshot_job(args, opts),
         previewer = conf.grep_previewer(opts),
-        sorter = conf.generic_sorter(opts),
+        sorter = M.keep_initial_sorting_sorter(),
         push_cursor_on_edit = true,
         attach_mappings = function(_, map)
           map("i", "<A-w>", M.set_temporary_cwd_from_file_browser("grep_string_custom"))
