@@ -592,7 +592,7 @@ M.open_multiple_files_in_find_files_picker_and_set_cwd = function(prompt_bufnr, 
   for _, buffer in ipairs(vim.fn.getqflist()) do
     local buffer_name = vim.api.nvim_buf_get_name(buffer.bufnr)
     if open_cmd == "tabe" then
-      if vim.g.ToggleTabAutoCwd then
+      if vim.g.TabAutoCwd then
         vim.g.new_tab_buf_cwd = vim.fn.fnamemodify(buffer_name, ":p:h")
       end
       vim.cmd("tabnew " .. buffer_name)
@@ -1004,8 +1004,8 @@ M.open_telescope_file_in_specfic_tab = function(prompt_bufnr)
   end
 
   -- show tab's cwd
-  local original_tab_cwd_visibility = vim.g.ToggleTabCwd
-  vim.g.ToggleTabCwd = "1"
+  local original_tab_cwd_visibility = vim.g.TabCwd
+  vim.g.TabCwd = "1"
 
   -- vim.ui.input({ prompt = "Enter tab number: " }, function(input)
   --   pcall(function()
@@ -1039,7 +1039,7 @@ M.open_telescope_file_in_specfic_tab = function(prompt_bufnr)
   })
 
   if original_tab_cwd_visibility ~= "1" then
-    vim.g.ToggleTabCwd = original_tab_cwd_visibility
+    vim.g.TabCwd = original_tab_cwd_visibility
   end
 end
 
@@ -1060,7 +1060,7 @@ M.open_telescope_file_in_tab = function(prompt_bufnr)
       return
     end
 
-    if vim.g.ToggleTabAutoCwd then
+    if vim.g.TabAutoCwd then
       -- auto cwd, open file in new tab with its cwd
       local parent_dir = vim.fn.fnamemodify(file_path, ":p:h")
       if parent_dir then
