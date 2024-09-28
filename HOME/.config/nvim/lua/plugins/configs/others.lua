@@ -112,8 +112,8 @@ M.wilder = {
 M.workspaces = {
   hooks = {
     open_pre = {
-      "ToggleTabAutoCwd", -- if using workspaces, don't need auto cwd
-      "ToggleTabCwd 7", -- if using workspaces, the tab show the buffer name
+      "TabAutoCwd", -- if using workspaces, don't need auto cwd
+      "TabCwd 7", -- if using workspaces, the tab show the buffer name
     },
     -- open = {
     --   "Telescope find_files",

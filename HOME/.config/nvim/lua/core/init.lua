@@ -411,22 +411,22 @@ vim.api.nvim_create_autocmd("TabClosed", {
 -- Set buffer's parent directory as cwd when new tab entered
 -- See all functions which setting vim.g.new_tab_buf_cwd
 -- ----------------------------------------------------------------------------
-vim.api.nvim_create_user_command("ToggleTabAutoCwd", function()
-  if vim.g.ToggleTabAutoCwd == nil or not vim.g.ToggleTabAutoCwd then
-    vim.g.ToggleTabAutoCwd = true
-    vim.g.ToggleTabCwd = "3"
+vim.api.nvim_create_user_command("TabAutoCwd", function()
+  if vim.g.TabAutoCwd == nil or not vim.g.TabAutoCwd then
+    vim.g.TabAutoCwd = true
+    vim.g.TabCwd = "3"
   else
-    vim.g.ToggleTabAutoCwd = false
-    vim.g.ToggleTabCwd = "7"
+    vim.g.TabAutoCwd = false
+    vim.g.TabCwd = "7"
   end
   vim.defer_fn(function()
-    vim.notify("ToggleTabAutoCwd is now " .. tostring(vim.g.ToggleTabAutoCwd))
+    vim.notify("TabAutoCwd is now " .. tostring(vim.g.TabAutoCwd))
   end, 50)
 end, { nargs = "*" })
 
 vim.api.nvim_create_autocmd("TabNewEntered", {
   callback = function()
-    if vim.g.ToggleTabAutoCwd then
+    if vim.g.TabAutoCwd then
       if vim.g.new_tab_buf_cwd ~= nil and vim.g.new_tab_buf_cwd ~= "" then
         pcall(function()
           vim.cmd("tcd " .. vim.g.new_tab_buf_cwd)
@@ -507,20 +507,20 @@ end, { nargs = 0, range = true })
 -- ----------------------------------------------------------------------------
 -- Toggle tab's cwd
 -- ----------------------------------------------------------------------------
-vim.api.nvim_create_user_command("ToggleTabCwd", function(args)
+vim.api.nvim_create_user_command("TabCwd", function(args)
   if args == nil then
-    vim.g.ToggleTabCwd = "1"
+    vim.g.TabCwd = "1"
     -- vim.o.tabline = "%!v:lua.MyTabLine()"
     return
   end
-  vim.g.ToggleTabCwd = args.args
+  vim.g.TabCwd = args.args
   -- vim.o.tabline = "%!v:lua.MyTabLine()"
 end, { nargs = "*" })
 
 vim.api.nvim_create_autocmd("VimEnter", {
   callback = function()
-    vim.g.ToggleTabCwd = "3"
-    vim.g.ToggleTabAutoCwd = true
+    vim.g.TabCwd = "3"
+    vim.g.TabAutoCwd = true
   end,
 })
 
