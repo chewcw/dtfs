@@ -154,10 +154,19 @@ end
 
 -- Function to dynamically show listchars
 M.toggle_listchars_symbol = function()
-  if vim.o.list then
-    vim.o.list = false
-  else
-    vim.o.list = true
+  local current_win = vim.api.nvim_get_current_win()
+  -- Get the current window's list setting
+  local list = vim.api.nvim_get_option_value("list", { win = current_win })
+  -- Iterate over all tabpages
+  for _, tabpage in ipairs(vim.api.nvim_list_tabpages()) do
+    -- Iterate over all windows in the current tabpage
+    for _, win in ipairs(vim.api.nvim_tabpage_list_wins(tabpage)) do
+      -- Get the current window's list setting
+      local win_list = vim.api.nvim_get_option_value("list", { win = win })
+      if win_list == list then
+        vim.api.nvim_set_option_value("list", not win_list, { win = win })
+      end
+    end
   end
 end
 
