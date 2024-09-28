@@ -228,91 +228,291 @@ M.general = {
     ["gx"] = { ":execute '!xdg-open ' .. shellescape(expand('<cfile>'), v:true)<CR><CR>", "open link" },
 
     -- wrap
-    ["<leader>lw"] = { ":set wrap! <CR>", "toggle line wrapping" },
-    ["<leader>lW"] = {
+    ["<leader>lww"] = {
+      function()
+        local current_win = vim.api.nvim_get_current_win()
+        local wrap = vim.api.nvim_get_option_value("wrap", { win = current_win })
+        vim.api.nvim_set_option_value("wrap", not wrap, { win = current_win })
+        -- Notification
+        local onoff = vim.api.nvim_get_option_value("wrap", { win = current_win })
+        vim.notify("Wrap for current window is now " .. tostring(onoff))
+      end,
+      "toggle line wrapping",
+    },
+    ["<leader>lwt"] = {
       function()
         require("core.utils_window").save_window_sizes_and_restore(function()
           local current_win = vim.api.nvim_get_current_win()
-          vim.cmd([[ windo set wrap! ]])
+          -- Get the current window's wrap setting
+          local wrap = vim.api.nvim_get_option_value("wrap", { win = current_win })
+          -- Get the current tabpage
+          local current_tabpage = vim.api.nvim_get_current_tabpage()
+          -- Iterate over all windows in current tab
+          for _, win in ipairs(vim.api.nvim_tabpage_list_wins(current_tabpage)) do
+            -- Get the iterated window's wrap setting
+            local win_wrap = vim.api.nvim_get_option_value("wrap", { win = win })
+            if win_wrap == wrap then
+              vim.api.nvim_set_option_value("wrap", not win_wrap, { win = win })
+            end
+          end
+          -- Notification
+          local onoff = vim.api.nvim_get_option_value("wrap", { win = current_win })
+          vim.notify("Wrap for all windows is now " .. tostring(onoff))
           vim.api.nvim_set_current_win(current_win)
         end)
       end,
-      "toggle line wrapping in this window",
+      "toggle line wrapping for all windows in this tab",
+    },
+    ["<leader>lwa"] = {
+      function()
+        require("core.utils_window").save_window_sizes_and_restore(function()
+          local current_win = vim.api.nvim_get_current_win()
+          -- Get the current window's wrap setting
+          local wrap = vim.api.nvim_get_option_value("wrap", { win = current_win })
+          -- Iterate over all tabpages
+          for _, tabpage in ipairs(vim.api.nvim_list_tabpages()) do
+            -- Iterate over all windows in the current tabpage
+            for _, win in ipairs(vim.api.nvim_tabpage_list_wins(tabpage)) do
+              -- Get the current window's wrap setting
+              local win_wrap = vim.api.nvim_get_option_value("wrap", { win = win })
+              if win_wrap == wrap then
+                vim.api.nvim_set_option_value("wrap", not win_wrap, { win = win })
+              end
+            end
+          end
+          -- Notification
+          local onoff = vim.api.nvim_get_option_value("wrap", { win = current_win })
+          vim.notify("Wrap for all windows in all tabs is now " .. tostring(onoff))
+          vim.api.nvim_set_current_win(current_win)
+        end)
+      end,
+      "toggle line wrapping for all windows in all tabs",
     },
 
     -- cursor column
-    ["<leader>ls"] = { ":set cursorcolumn! <CR>", "toggle cursor column" },
-    ["<leader>lS"] = {
+    ["<leader>lsw"] = {
+      function()
+        local current_win = vim.api.nvim_get_current_win()
+        local cursor_column = vim.api.nvim_get_option_value("cursorcolumn", { win = current_win })
+        vim.api.nvim_set_option_value("cursorcolumn", not cursor_column, { win = current_win })
+        -- Notification
+        local onoff = vim.api.nvim_get_option_value("cursorline", { win = current_win })
+        vim.notify("Cursorcolumn for this window is now " .. tostring(onoff))
+      end,
+      "toggle cursor column",
+    },
+    ["<leader>lst"] = {
       function()
         require("core.utils_window").save_window_sizes_and_restore(function()
           local current_win = vim.api.nvim_get_current_win()
-          vim.cmd([[ windo set cursorcolumn! ]])
+          -- Get the current window's cursorcolumn setting
+          local cursorcolumn = vim.api.nvim_get_option_value("cursorcolumn", { win = current_win })
+          -- Get the current tabpage
+          local current_tabpage = vim.api.nvim_get_current_tabpage()
+          -- Iterate over all windows in current tab
+          for _, win in ipairs(vim.api.nvim_tabpage_list_wins(current_tabpage)) do
+            -- Get the iterated window's cursorcolumn setting
+            local win_cursorcolumn = vim.api.nvim_get_option_value("cursorcolumn", { win = win })
+            if win_cursorcolumn == cursorcolumn then
+              vim.api.nvim_set_option_value("cursorcolumn", not win_cursorcolumn, { win = win })
+            end
+          end
+          -- Notification
+          local onoff = vim.api.nvim_get_option_value("cursorcolumn", { win = current_win })
+          vim.notify("Cursorcolumn for all windows is now " .. tostring(onoff))
           vim.api.nvim_set_current_win(current_win)
         end)
       end,
-      "toggle cursor column in this window",
+      "toggle cursorcolumn for all windows in this tab",
+    },
+    ["<leader>lsa"] = {
+      function()
+        require("core.utils_window").save_window_sizes_and_restore(function()
+          local current_win = vim.api.nvim_get_current_win()
+          -- Get the current window's cursorcolumn setting
+          local cursorcolumn = vim.api.nvim_get_option_value("cursorcolumn", { win = current_win })
+          -- Iterate over all tabpages
+          for _, tabpage in ipairs(vim.api.nvim_list_tabpages()) do
+            -- Iterate over all windows in the current tabpage
+            for _, win in ipairs(vim.api.nvim_tabpage_list_wins(tabpage)) do
+              -- Get the current window's cursorcolumn setting
+              local win_cursorcolumn = vim.api.nvim_get_option_value("cursorcolumn", { win = win })
+              if win_cursorcolumn == cursorcolumn then
+                vim.api.nvim_set_option_value("cursorcolumn", not win_cursorcolumn, { win = win })
+              end
+            end
+          end
+          -- Notification
+          local onoff = vim.api.nvim_get_option_value("cursorcolumn", { win = current_win })
+          vim.notify("Cursorcolumn for all windows in all tabs is now " .. tostring(onoff))
+          vim.api.nvim_set_current_win(current_win)
+        end)
+      end,
+      "toggle cursorcolumn for all windows in all tabs",
     },
 
     -- undotree
     ["<leader>uu"] = { ":UndotreeToggle <CR> :UndotreeFocus <CR>", "toggle undotree" },
     ["<leader>uf"] = { ":UndotreeFocus <CR>", "focus undotree" },
 
-    -- toggle color column
-    ["<leader>lm"] = {
+    -- color column
+    ["<leader>lmw"] = {
       function()
-        if vim.opt.colorcolumn:get()[1] == "85" then
-          vim.cmd([[set colorcolumn=0]])
+        local current_win = vim.api.nvim_get_current_win()
+        local colorcolumn = vim.api.nvim_get_option_value("colorcolumn", { win = current_win })
+        if colorcolumn == "0" then
+          vim.api.nvim_set_option_value("colorcolumn", "85", { win = current_win })
         else
-          vim.cmd([[set colorcolumn=85]])
+          vim.api.nvim_set_option_value("colorcolumn", "0", { win = current_win })
         end
+        -- Notification
+        local onoff = vim.api.nvim_get_option_value("colorcolumn", { win = current_win })
+        vim.notify("Colorcolumn for current window is now " .. onoff)
       end,
-      "toggle color column",
+      "toggle colorcolumn for this window",
     },
-    ["<leader>lM"] = {
+    ["<leader>lmt"] = {
       function()
         require("core.utils_window").save_window_sizes_and_restore(function()
           local current_win = vim.api.nvim_get_current_win()
-          if vim.opt.colorcolumn:get()[1] == "85" then
-            vim.cmd([[windo set colorcolumn=0]])
-          else
-            vim.cmd([[windo set colorcolumn=85]])
+          -- Get the current window's colorcolumn setting
+          local colorcolumn = vim.api.nvim_get_option_value("colorcolumn", { win = current_win })
+          -- Get the current tabpage
+          local current_tabpage = vim.api.nvim_get_current_tabpage()
+          -- Iterate over all windows in current tab
+          for _, win in ipairs(vim.api.nvim_tabpage_list_wins(current_tabpage)) do
+            -- Get the iterated window's colorcolumn setting
+            local win_colorcolumn = vim.api.nvim_get_option_value("colorcolumn", { win = win })
+            if win_colorcolumn == colorcolumn then
+              if colorcolumn == "0" then
+                vim.api.nvim_set_option_value("colorcolumn", "85", { win = win })
+              else
+                vim.api.nvim_set_option_value("colorcolumn", "0", { win = win })
+              end
+            end
           end
+          -- Notification
+          local onoff = vim.api.nvim_get_option_value("colorcolumn", { win = current_win })
+          vim.notify("Colorcolumn for all windows is now " .. tostring(onoff))
           vim.api.nvim_set_current_win(current_win)
         end)
       end,
-      "toggle color column for window",
+      "toggle colorcolumn for all windows in this tab",
     },
-    ["<leader>lc"] = {
+    ["<leader>lma"] = {
       function()
         require("core.utils_window").save_window_sizes_and_restore(function()
           local current_win = vim.api.nvim_get_current_win()
-          if vim.opt.cursorlineopt._value ~= "both" then
-            vim.cmd([[set cursorline]])
-            vim.cmd([[set cursorlineopt=both]])
-          else
-            vim.cmd([[set cursorline]])
-            vim.cmd([[set cursorlineopt=number]])
+          -- Get the current window's colorcolumn setting
+          local colorcolumn = vim.api.nvim_get_option_value("colorcolumn", { win = current_win })
+          -- Iterate over all tabpages
+          for _, tabpage in ipairs(vim.api.nvim_list_tabpages()) do
+            -- Iterate over all windows in the current tabpage
+            for _, win in ipairs(vim.api.nvim_tabpage_list_wins(tabpage)) do
+              -- Get the iterated window's colorcolumn setting
+              local win_colorcolumn = vim.api.nvim_get_option_value("colorcolumn", { win = win })
+              if win_colorcolumn == colorcolumn then
+                if colorcolumn == "0" then
+                  vim.api.nvim_set_option_value("colorcolumn", "85", { win = win })
+                else
+                  vim.api.nvim_set_option_value("colorcolumn", "0", { win = win })
+                end
+              end
+            end
           end
+          -- Notification
+          local onoff = vim.api.nvim_get_option_value("colorcolumn", { win = current_win })
+          vim.notify("Colorcolumn for all windows is now " .. tostring(onoff))
           vim.api.nvim_set_current_win(current_win)
         end)
       end,
-      "toggle cursor line",
+      "toggle colorcolumn for all windows in all tabs",
     },
-    ["<leader>lC"] = {
+
+    -- cursor line
+    ["<leader>lcw"] = {
       function()
         require("core.utils_window").save_window_sizes_and_restore(function()
           local current_win = vim.api.nvim_get_current_win()
-          if vim.opt.cursorlineopt._value ~= "both" then
-            vim.cmd([[windo set cursorline]])
-            vim.cmd([[windo set cursorlineopt=both]])
+          -- Get the current window's cursorlineopt setting
+          local cursorlineopt = vim.api.nvim_get_option_value("cursorlineopt", { win = current_win })
+          if cursorlineopt == "both" then
+            vim.api.nvim_set_option_value("cursorline", true, { win = current_win })
+            vim.api.nvim_set_option_value("cursorlineopt", "number", { win = current_win })
           else
-            vim.cmd([[windo set cursorline]])
-            vim.cmd([[windo set cursorlineopt=number]])
+            vim.api.nvim_set_option_value("cursorline", true, { win = current_win })
+            vim.api.nvim_set_option_value("cursorlineopt", "both", { win = current_win })
           end
+          -- Notification
+          local onoff = vim.api.nvim_get_option_value("cursorlineopt", { win = current_win })
+          vim.notify("Cursorline for this window is now " .. onoff)
           vim.api.nvim_set_current_win(current_win)
         end)
       end,
-      "toggle cursor line for window",
+      "toggle cursorline for this window",
+    },
+    ["<leader>lct"] = {
+      function()
+        require("core.utils_window").save_window_sizes_and_restore(function()
+          local current_win = vim.api.nvim_get_current_win()
+          -- Get the current window's cursorlineopt setting
+          local cursorlineopt = vim.api.nvim_get_option_value("cursorlineopt", { win = current_win })
+          -- Get the current tabpage
+          local current_tabpage = vim.api.nvim_get_current_tabpage()
+          -- Iterate over all windows in current tab
+          for _, win in ipairs(vim.api.nvim_tabpage_list_wins(current_tabpage)) do
+            -- Get the iterated window's cursorlineopt setting
+            local win_cursorlineopt = vim.api.nvim_get_option_value("cursorlineopt", { win = win })
+            if win_cursorlineopt == cursorlineopt then
+              if cursorlineopt == "both" then
+                vim.api.nvim_set_option_value("cursorline", true, { win = win })
+                vim.api.nvim_set_option_value("cursorlineopt", "number", { win = win })
+              else
+                vim.api.nvim_set_option_value("cursorline", true, { win = win })
+                vim.api.nvim_set_option_value("cursorlineopt", "both", { win = win })
+              end
+            end
+          end
+          -- Notification
+          local onoff = vim.api.nvim_get_option_value("cursorlineopt", { win = current_win })
+          vim.notify("Cursorline for all windows is now " .. onoff)
+          vim.api.nvim_set_current_win(current_win)
+        end)
+      end,
+      "toggle cursorline all windows in this tab",
+    },
+    ["<leader>lca"] = {
+      function()
+        require("core.utils_window").save_window_sizes_and_restore(function()
+          local current_win = vim.api.nvim_get_current_win()
+          -- Get the current window's cursorlineopt setting
+          local cursorlineopt = vim.api.nvim_get_option_value("cursorlineopt", { win = current_win })
+          -- Get the current tabpage
+          local current_tabpage = vim.api.nvim_get_current_tabpage()
+          -- Iterate over all tabpages
+          for _, tabpage in ipairs(vim.api.nvim_list_tabpages()) do
+            -- Iterate over all windows in the current tabpage
+            for _, win in ipairs(vim.api.nvim_tabpage_list_wins(tabpage)) do
+              -- Get the iterated window's cursorlineopt setting
+              local win_cursorlineopt = vim.api.nvim_get_option_value("cursorlineopt", { win = win })
+              if win_cursorlineopt == cursorlineopt then
+                if cursorlineopt == "both" then
+                  vim.api.nvim_set_option_value("cursorline", true, { win = win })
+                  vim.api.nvim_set_option_value("cursorlineopt", "number", { win = win })
+                else
+                  vim.api.nvim_set_option_value("cursorline", true, { win = win })
+                  vim.api.nvim_set_option_value("cursorlineopt", "both", { win = win })
+                end
+              end
+            end
+          end
+          -- Notification
+          local onoff = vim.api.nvim_get_option_value("cursorlineopt", { win = current_win })
+          vim.notify("Cursorline for all windows in all tabs is now " .. onoff)
+          vim.api.nvim_set_current_win(current_win)
+        end)
+      end,
+      "toggle cursorline for all windows in all tabs",
     },
 
     -- write comment
