@@ -174,7 +174,7 @@ M.setup = function()
     DiffNewFile = { fg = c.none, bg = c.dark_green, bold = false, italic = false },
 
     ErrorMsg = { fg = c.red },
-    Folded = { fg = c.gray05, bg = c.gray00 },
+    Folded = { fg = c.gray04, bg = c.none, italic = true },
     FoldColumn = { fg = c.gray04 },
     IncSearch = { bg = c.bright_green, fg = c.black },
     LineNr = { fg = c.gray05 },
