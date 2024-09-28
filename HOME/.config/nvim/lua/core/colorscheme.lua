@@ -85,6 +85,8 @@ M.colors = function()
     modified_msg_area = "#462b24",
     cmdline_msg_area = "#081923",
     term_msg_area = "#263730",
+    -- visual
+    visual = "#12363b",
   }
 end
 
@@ -202,8 +204,8 @@ M.setup = function()
     TablineSel = { fg = c.fg, bg = c.dark_yellow02 },
     Tabline = { fg = c.gray05 },
     Title = { fg = c.main4, bg = c.none },
-    Visual = { fg = c.none, bg = c.gray04 },
-    VisualNOS = { fg = c.none, bg = c.gray04 },
+    Visual = { fg = c.none, bg = c.visual },
+    VisualNOS = { fg = c.none, bg = c.visual },
     WarningMsg = { fg = c.yellow },
     WildMenu = { fg = c.bg, bg = c.main1 },
     CursorColumn = { fg = c.none, bg = c.dark_blue },
@@ -212,7 +214,7 @@ M.setup = function()
     ToolbarButton = { fg = c.fg, bg = c.none },
     NormalMode = { fg = c.main4, bg = c.none, reverse = true },
     InsertMode = { fg = c.main2, bg = c.none, reverse = true },
-    VisualMode = { fg = c.main4, bg = c.none, reverse = true },
+    VisualMode = { fg = c.visual, bg = c.none, reverse = true },
     VertSplit = { fg = c.gray04 },
     WinSeparator = { fg = c.gray04 },
     CommandMode = { fg = c.gray05, bg = c.none, reverse = true },
