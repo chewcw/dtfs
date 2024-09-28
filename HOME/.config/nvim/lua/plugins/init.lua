@@ -267,6 +267,26 @@ local default_plugins = {
       -- or sort.
       require("telescope")
       require("core.utils").load_mappings("telescope")
+
+      -- https://github.com/nvim-telescope/telescope.nvim?tab=readme-ov-file#previewers
+      vim.api.nvim_create_autocmd("User", {
+        pattern = "TelescopePreviewerLoaded",
+        callback = function(args)
+          -- Set wrap
+          -- The logic is if one of the window in this tab is wrap, then wrap the previewer
+          local wins = vim.api.nvim_tabpage_list_wins(vim.api.nvim_get_current_tabpage())
+          local win_wrap = vim.api.nvim_get_option_value("wrap", { win = wins[1] })
+          if win_wrap == true then
+            vim.wo.wrap = true
+          else
+            vim.wo.wrap = false
+          end
+          -- Show line number
+          if args.data.filetype ~= "help" then
+            vim.wo.number = true
+          end
+        end,
+      })
     end,
     opts = function()
       return require("plugins.configs.telescope").options
