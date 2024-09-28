@@ -1315,7 +1315,7 @@ M.telescope = {
     },
     ["<leader>ot"] = {
       ":lua require('plugins.configs.buffer_utils').open_file_in_new_tab(true, vim.v.count) <CR>",
-      "open file in specific tab",
+      "open file in tab",
       opts = { silent = true },
     },
     ["<leader>ow"] = {
