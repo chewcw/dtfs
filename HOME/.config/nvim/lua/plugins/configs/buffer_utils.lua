@@ -467,7 +467,7 @@ M.open_file_or_buffer_in_tab = function(is_visual, count)
 
   if file_path and file_path ~= "" then
     local parent_dir = vim.fn.fnamemodify(file_path, ":p:h")
-    if vim.g.TabAutoCwd then
+    if vim.g.TabAutoCwd == "1" then
       if parent_dir then
         -- find all tabs
         for _, tid in ipairs(vim.api.nvim_list_tabpages()) do

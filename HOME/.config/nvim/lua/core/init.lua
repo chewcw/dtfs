@@ -412,21 +412,25 @@ vim.api.nvim_create_autocmd("TabClosed", {
 -- See all functions which setting vim.g.new_tab_buf_cwd
 -- ----------------------------------------------------------------------------
 vim.api.nvim_create_user_command("TabAutoCwd", function()
-  if vim.g.TabAutoCwd == nil or not vim.g.TabAutoCwd then
-    vim.g.TabAutoCwd = true
+  if vim.g.TabAutoCwd == nil or vim.g.TabAutoCwd == "0" then
+    vim.g.TabAutoCwd = "1"
     vim.g.TabCwd = "3"
   else
-    vim.g.TabAutoCwd = false
+    vim.g.TabAutoCwd = "0"
     vim.g.TabCwd = "7"
   end
   vim.defer_fn(function()
-    vim.notify("TabAutoCwd is now " .. tostring(vim.g.TabAutoCwd))
+    local onoff = "off"
+    if vim.g.TabAutoCwd == "1" then
+      onoff = "on"
+    end
+    vim.notify("TabAutoCwd is now " .. onoff)
   end, 50)
 end, { nargs = "*" })
 
 vim.api.nvim_create_autocmd("TabNewEntered", {
   callback = function()
-    if vim.g.TabAutoCwd then
+    if vim.g.TabAutoCwd == "1" then
       if vim.g.new_tab_buf_cwd ~= nil and vim.g.new_tab_buf_cwd ~= "" then
         pcall(function()
           vim.cmd("tcd " .. vim.g.new_tab_buf_cwd)
@@ -520,7 +524,7 @@ end, { nargs = "*" })
 vim.api.nvim_create_autocmd("VimEnter", {
   callback = function()
     vim.g.TabCwd = "3"
-    vim.g.TabAutoCwd = true
+    vim.g.TabAutoCwd = "1"
   end,
 })
 
