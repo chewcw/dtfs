@@ -170,9 +170,10 @@ M.options = {
   extensions = {
     file_browser = {
       path = "%:p:h",
+      prompt_title = "File Browser",
       -- cwd = vim.fn.expand("%:p:h"),
       -- cwd_to_path = true,
-      grouped = true,
+      grouped = false,
       hijack_netrw = false,
       hidden = true,
       initial_mode = "normal",
@@ -335,6 +336,7 @@ M.options = {
     },
 
     find_files = {
+      prompt_title = "Find Files in " .. vim.fn.fnamemodify(vim.loop.cwd(), ":p"),
       mappings = {
         i = {
           ["<C-f>"] = telescope_utils.ts_select_dir_for_grep_or_find_files("find_files"),
