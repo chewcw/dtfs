@@ -180,7 +180,7 @@ M.custom_rg = function(opts)
 
   local prompt_title = "Live Grep (custom)"
   if opts.cwd and not opts.search_dirs then
-    prompt_title = prompt_title .. " in " .. vim.fn.fnamemodify(opts.cwd, ":t")
+    prompt_title = prompt_title .. " in " .. vim.fn.fnamemodify(opts.cwd, ":p")
   elseif opts.search_dirs then
     prompt_title = prompt_title .. " in nested search"
   end
@@ -476,7 +476,7 @@ M.set_temporary_cwd_from_file_browser = function(picker_name, path)
           if picker_name == "find_files" then
             if vim.g.find_files_type == "all" then
               builtin.find_files({
-                prompt_title = "Find Files (no ignore)",
+                prompt_title = "Find All Files in " .. selected_path,
                 cwd = selected_path,
                 follow = true,
                 no_ignore = true,
@@ -485,7 +485,7 @@ M.set_temporary_cwd_from_file_browser = function(picker_name, path)
               })
             else
               builtin.find_files({
-                prompt_title = "Find Files",
+                prompt_title = "Find Files in " .. selected_path,
                 cwd = selected_path,
                 follow = true,
                 default_text = current_line,
@@ -1181,6 +1181,28 @@ M.get_modified_buffers = function(global)
         sorter = require("telescope.config").values.generic_sorter({}),
       })
       :find()
+end
+
+M.find_files = function(opts)
+  opts = opts or {}
+  opts.cwd = opts.cwd and vim.fn.expand(opts.cwd) or vim.loop.cwd()
+
+  require("telescope.builtin").find_files({
+    prompt_title = "Find Files in " .. vim.fn.fnamemodify(opts.cwd, ":p"),
+    follow = true,
+  })
+end
+
+M.find_all_files = function(opts)
+  opts = opts or {}
+  opts.cwd = opts.cwd and vim.fn.expand(opts.cwd) or vim.loop.cwd()
+
+  require("telescope.builtin").find_files({
+    prompt_title = "Find All Files in " .. vim.fn.fnamemodify(opts.cwd, ":p"),
+    follow = true,
+    no_ignore = true,
+    hidden = true,
+  })
 end
 
 return M

@@ -1153,11 +1153,19 @@ M.telescope = {
     -- set global variable here so that the telescope picker knows this is a normal finder
     -- see telescope config file for more information
     ["<leader>ff"] = {
-      "<cmd> let g:find_files_type='normal' | let g:telescope_picker_type='find_files' | Telescope find_files follow=true <CR>",
+      function()
+        vim.g.find_files_type = "normal"
+        vim.g.telescope_picker_type = "find_files"
+        require("plugins.configs.telescope_utils").find_files()
+      end,
       "find files",
     },
     ["<leader>fa"] = {
-      "<cmd> let g:find_files_type='all' | let g:telescope_picker_type='find_files' | Telescope find_files follow=true no_ignore=true hidden=true <CR>",
+      function()
+        vim.g.find_files_type = "all"
+        vim.g.telescope_picker_type = "find_files"
+        require("plugins.configs.telescope_utils").find_all_files()
+      end,
       "find all",
     },
     -- ["<leader>fG"] = { "<cmd> let g:telescope_picker_type='live_grep' | Telescope live_grep <CR>", "live grep" },
