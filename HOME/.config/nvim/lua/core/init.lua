@@ -104,7 +104,7 @@ opt.listchars:append("lead:·,multispace:·,trail:·,tab:»¯")
 opt.showtabline = 2
 
 -- virtualedit
-opt.virtualedit = "insert,block"
+opt.virtualedit = "insert,block" -- see also the mapping for cursorcolumn that will change this
 
 -- sessions
 opt.sessionoptions = "blank,buffers,curdir,help,tabpages,winsize,winpos,localoptions,globals"

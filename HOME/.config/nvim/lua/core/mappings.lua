@@ -295,6 +295,13 @@ M.general = {
         local current_win = vim.api.nvim_get_current_win()
         local cursor_column = vim.api.nvim_get_option_value("cursorcolumn", { win = current_win })
         vim.api.nvim_set_option_value("cursorcolumn", not cursor_column, { win = current_win })
+        -- set virtualedit
+        local cursor_column = vim.api.nvim_get_option_value("cursorcolumn", { win = current_win })
+        if cursor_column then
+          vim.opt.virtualedit = "all"
+        else
+          vim.opt.virtualedit = "insert,block"
+        end
         -- Notification
         local onoff = vim.api.nvim_get_option_value("cursorline", { win = current_win })
         vim.notify("Cursorcolumn for this window is now " .. tostring(onoff))
@@ -316,6 +323,13 @@ M.general = {
             if win_cursorcolumn == cursorcolumn then
               vim.api.nvim_set_option_value("cursorcolumn", not win_cursorcolumn, { win = win })
             end
+          end
+          -- set virtualedit
+          local cursor_column = vim.api.nvim_get_option_value("cursorcolumn", { win = current_win })
+          if cursor_column then
+            vim.opt.virtualedit = "all"
+          else
+            vim.opt.virtualedit = "insert,block"
           end
           -- Notification
           local onoff = vim.api.nvim_get_option_value("cursorcolumn", { win = current_win })
@@ -341,6 +355,13 @@ M.general = {
                 vim.api.nvim_set_option_value("cursorcolumn", not win_cursorcolumn, { win = win })
               end
             end
+          end
+          -- set virtualedit
+          local cursor_column = vim.api.nvim_get_option_value("cursorcolumn", { win = current_win })
+          if cursor_column then
+            vim.opt.virtualedit = "all"
+          else
+            vim.opt.virtualedit = "insert,block"
           end
           -- Notification
           local onoff = vim.api.nvim_get_option_value("cursorcolumn", { win = current_win })
