@@ -559,7 +559,7 @@ M.run_git_related_when_the_buffer_name_matches = function()
     elseif buf_path:match("^fugitive://") then
       pcall(function()
         vim.notify("Fetching remote...")
-        vim.api.nvim_command("Git fetch")
+        vim.api.nvim_command("Git fetch --all")
         vim.notify("Done fetching remote.")
       end)
     else
