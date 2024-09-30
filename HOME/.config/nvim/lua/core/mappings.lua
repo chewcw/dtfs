@@ -685,6 +685,15 @@ M.general = {
       ":lua require('core.utils').blank_down(vim.v.count1)<CR>",
       "Add [count] blank lines below the cursor",
     },
+    ["[t"] = {
+      function()
+        if pcall(require, "treesitter-context") then
+          require("treesitter-context").go_to_context(vim.v.count1)
+        end
+      end,
+      "Jump to treesitter context (upwards)",
+      { opts = { silent = true } },
+    },
     ["g<CR>"] = {
       "<cmd> :lua require('core.utils').search_word_under_cursor() <CR>",
       "Search current word, but not move the cursor",
