@@ -824,6 +824,23 @@ local default_plugins = {
     end,
   },
 
+  {
+    "echasnovski/mini.align",
+    version = "*",
+    lazy = false,
+    opts = function()
+      return {
+        mappings = {
+          start = '<leader>aa',
+          start_with_preview = '<leader>aA',
+        },
+      }
+    end,
+    config = function(_, opts)
+      require("mini.align").setup(opts)
+    end
+  },
+
   -- Only load whichkey after all the gui
   {
     "folke/which-key.nvim",
