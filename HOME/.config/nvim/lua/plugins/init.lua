@@ -841,6 +841,15 @@ local default_plugins = {
     end
   },
 
+
+  {
+    "dhruvasagar/vim-table-mode",
+    cmd = "TableModeToggle",
+    init = function()
+      vim.g.table_mode_corner = "|"
+    end,
+  },
+
   -- Only load whichkey after all the gui
   {
     "folke/which-key.nvim",
