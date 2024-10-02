@@ -717,7 +717,7 @@ M.general = {
       opts = { silent = true },
     },
 
-    ["<leader>M"] = {
+    ["<leader>MM"] = {
       function()
         local buf_nr = vim.api.nvim_get_current_buf()
         local buf_name = vim.api.nvim_buf_get_name(buf_nr)
@@ -732,6 +732,14 @@ M.general = {
         end
       end,
       "Toggle minimap",
+    },
+    ["<leader>MR"] = {
+      function()
+        pcall(function()
+          vim.cmd("MinimapRefresh")
+        end)
+      end,
+      "Refresh Minimap",
     },
 
     ["<A-w>"] = {
