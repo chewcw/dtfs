@@ -1206,10 +1206,17 @@ M.telescope = {
       "live grep (custom)",
     },
     ["<leader>fb"] = {
-      "<cmd> Telescope buffers ignore_current_buffer=true cwd_only=true <CR>",
+      function()
+        require("plugins.configs.telescope_utils").buffers()
+      end,
       "find buffers for current working directory",
     },
-    ["<leader>fB"] = { "<cmd> Telescope buffers ignore_current_buffer=true <CR>", "find buffers" },
+    ["<leader>fB"] = {
+      function()
+        require("plugins.configs.telescope_utils").all_buffers()
+      end,
+      "find buffers",
+    },
     ["<leader>fh"] = { "<cmd> Telescope help_tags <CR>", "help page" },
     ["<leader>fo"] = {
       "<cmd> Telescope oldfiles cwd_only=true <CR>",

@@ -1205,4 +1205,25 @@ M.find_all_files = function(opts)
   })
 end
 
+M.buffers = function(opts)
+  opts = opts or {}
+  opts.cwd = opts.cwd and vim.fn.expand(opts.cwd) or vim.loop.cwd()
+
+  require("telescope.builtin").buffers({
+    prompt_title = "Buffers in " .. vim.fn.fnamemodify(opts.cwd, ":p"),
+    cwd_only = true,
+    ignore_current_buffer = true,
+  })
+end
+
+M.all_buffers = function(opts)
+  opts = opts or {}
+
+  require("telescope.builtin").buffers({
+    prompt_title = "All buffers",
+    cwd_only = false,
+    ignore_current_buffer = true,
+  })
+end
+
 return M
