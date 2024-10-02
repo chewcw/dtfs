@@ -922,13 +922,15 @@ M.general = {
                 vim.g.gll_records = x
               end
               -- then run the Gll command
-              vim.g.gll_reload_manually_or_open_new = true
-              modified_command = last_command
-              vim.cmd(modified_command)
-              vim.cmd("wincmd k")
-              vim.cmd("wincmd q")
-              vim.cmd("wincmd p") -- make sure to focus on the Gll window
-              vim.api.nvim_input("<Esc>")
+              require("core.utils_window").save_window_sizes_and_restore(function()
+                vim.g.gll_reload_manually_or_open_new = true
+                modified_command = last_command
+                vim.cmd(modified_command)
+                vim.cmd("wincmd k")
+                vim.cmd("wincmd q")
+                vim.cmd("wincmd p") -- make sure to focus on the Gll window
+                vim.api.nvim_input("<Esc>")
+              end)
             end)
             return
           end
