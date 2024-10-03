@@ -65,16 +65,35 @@ M.force_delete_buffer_keep_tab = function(bufnr)
   -- If this is not empty buffer, safely delete the buffer,
   -- otherwise don't delete, to prevent delete the tab accidentally.
   if not is_empty then
-    local blank_buffers = M.get_blank_buffers()
-    -- If there is any other blank buffer, if yes use that blank buffer.
-    -- This is to prevent too many blank buffer opened.
-    if blank_buffers ~= nil and #blank_buffers >= 1 then
-      vim.api.nvim_set_current_buf(blank_buffers[1])
-    else
-      -- If none blank buffer, create new one.
-      vim.cmd("enew")
+    -- Iterate through all tab pages
+    for _, tabpage in ipairs(vim.api.nvim_list_tabpages()) do
+      -- Get all windows in the tab
+      local windows = vim.api.nvim_tabpage_list_wins(tabpage)
+      for _, win in ipairs(windows) do
+        -- Check if the window is displaying the buffer to delete
+        if vim.api.nvim_win_get_buf(win) == bufnr then
+          -- Get all scratch buffers
+          local scratch_buffers = M.get_scratch_buffers()
+          -- If there is any other scratch buffer, if yes use that scratch buffer.
+          -- This is to prevent too many scratch buffer opened.
+          if scratch_buffers ~= nil and #scratch_buffers >= 1 then
+            -- Set the buffer to the first scratch buffer in the list
+            vim.api.nvim_win_set_buf(win, scratch_buffers[1])
+            -- There are none scratch buffers in the memory
+          else
+            -- Create new scratch buffer
+            local new_scratch_buffer = vim.api.nvim_create_buf(false, true)
+            vim.api.nvim_set_option_value("buftype", "nofile", { buf = new_scratch_buffer })
+            vim.api.nvim_set_option_value("bufhidden", "wipe", { buf = new_scratch_buffer })
+            vim.api.nvim_set_option_value("swapfile", false, { buf = new_scratch_buffer })
+            -- Set the buffer to that scratch buffer
+            vim.api.nvim_win_set_buf(win, scratch_buffers[1])
+          end
+        end
+      end
     end
-    vim.cmd("bdelete! " .. bufnr)
+
+    vim.api.nvim_buf_delete(bufnr, { force = true })
   else
     print("This buffer is empty, not deleting.")
   end
@@ -89,6 +108,20 @@ M.get_blank_buffers = function()
     end
   end
   return blank_buffers
+end
+
+M.get_scratch_buffers = function()
+  local scratch_buffers = {}
+  -- Get a list of all buffers
+  local buffers = vim.api.nvim_list_bufs()
+  -- Iterate over each buffer and check if it's a scratch buffer
+  for _, buf in ipairs(buffers) do
+    -- Check if the buffer is a scratch buffer
+    if vim.api.nvim_get_option_value("buftype", { buf = buf }) == "nofile" then
+      table.insert(scratch_buffers, buf)
+    end
+  end
+  return scratch_buffers
 end
 
 -- Function to delete buffer and show new buffer
