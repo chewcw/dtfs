@@ -311,11 +311,29 @@ vim.api.nvim_create_user_command("CopyPath", function()
 end, {})
 
 -- A user command to update quickfix list after cdo / cfdo
--- https://vi.stackexchange.com/a/13663https://vi.stackexchange.com/a/13663
-vim.api.nvim_create_user_command("UpdateQF", function()
+-- https://vi.stackexchange.com/a/13663
+vim.api.nvim_create_user_command("UpdateQf", function()
   vim.cmd(
     [[ call setqflist(map(getqflist(), 'extend(v:val, {"text":get(getbufline(v:val.bufnr, v:val.lnum),0)})')) ]]
   )
+end, {})
+
+-- Clear the quickfix list
+vim.api.nvim_create_user_command("ClearQf", function()
+  vim.cmd([[ call setqflist([]) ]])
+end, {})
+
+-- Update location list
+vim.api.nvim_create_user_command("UpdateLoc", function()
+  local current_win = vim.api.nvim_get_current_win()
+  local command = [[call setloclist( ]] .. current_win .. [[, map(getloclist( ]] .. current_win .. [[), 'extend(v:val, {"text":get(getbufline(v:val.bufnr, v:val.lnum),0)})')) ]]
+  vim.cmd(command)
+end, {})
+
+-- Clear the location list for current window
+vim.api.nvim_create_user_command("ClearLoc", function()
+  local current_win = vim.api.nvim_get_current_win()
+  vim.cmd("call setloclist(" .. current_win .. ", [])")
 end, {})
 
 -- Redirect the output of a Vim or external command into a scratch buffer
