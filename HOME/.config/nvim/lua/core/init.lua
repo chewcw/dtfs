@@ -326,7 +326,11 @@ end, {})
 -- Update location list
 vim.api.nvim_create_user_command("UpdateLoc", function()
   local current_win = vim.api.nvim_get_current_win()
-  local command = [[call setloclist( ]] .. current_win .. [[, map(getloclist( ]] .. current_win .. [[), 'extend(v:val, {"text":get(getbufline(v:val.bufnr, v:val.lnum),0)})')) ]]
+  local command = [[call setloclist( ]]
+      .. current_win
+      .. [[, map(getloclist( ]]
+      .. current_win
+      .. [[), 'extend(v:val, {"text":get(getbufline(v:val.bufnr, v:val.lnum),0)})')) ]]
   vim.cmd(command)
 end, {})
 
