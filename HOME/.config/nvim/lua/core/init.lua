@@ -168,9 +168,9 @@ vim.api.nvim_create_autocmd({ "InsertEnter" }, {
 -- update command line color in command mode
 vim.api.nvim_create_autocmd({ "CmdLineEnter" }, {
   callback = function()
-    vim.api.nvim_set_hl(0, "MsgArea", {
-      bg = require("core.colorscheme").colors().cmdline_msg_area,
-    })
+    -- vim.api.nvim_set_hl(0, "MsgArea", {
+    -- bg = require("core.colorscheme").colors().cmdline_msg_area,
+    -- })
     -- so that when I press ctrl+f in the command line it wouldn't have error
     pcall(function()
       vim.cmd(":TSContextDisable")
@@ -179,10 +179,10 @@ vim.api.nvim_create_autocmd({ "CmdLineEnter" }, {
 })
 vim.api.nvim_create_autocmd({ "CmdLineLeave" }, {
   callback = function()
-    vim.api.nvim_set_hl(0, "MsgArea", { bg = "None" })
     pcall(function()
       vim.cmd(":TSContextEnable")
     end)
+    -- vim.api.nvim_set_hl(0, "MsgArea", { bg = "None" })
   end,
 })
 
