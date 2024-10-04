@@ -3,6 +3,10 @@ local function bufnr()
 end
 
 local function filepath()
+  if vim.bo.buftype == "nofile" then
+    return ""
+  end
+
   local fpath = vim.fn.fnamemodify(vim.fn.expand "%", ":~:.:h")
   if fpath == "" or fpath == "." then
       return " "
@@ -12,11 +16,15 @@ local function filepath()
 end
 
 local function filename()
-  local fname = vim.fn.expand "%:t"
-  if fname == "" then
-      return ""
+  if vim.bo.buftype == "nofile" then
+    return "[Scratch]"
+  else
+    local fname = vim.fn.expand "%:t"
+    if fname == "" then
+        return ""
+    end
+    return fname
   end
-  return fname
 end
 
 local function modified()

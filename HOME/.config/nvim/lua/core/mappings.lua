@@ -158,9 +158,41 @@ M.general = {
     ["<Up>"] = { '(v:count > 1 ? "m\'" . v:count : "") . "k"', "move up", opts = { expr = true } },
 
     -- new buffer
-    ["<leader>bn"] = { "<cmd> enew <CR>", "new buffer" },
-    ["<leader>b\\"] = { "<cmd> vnew <CR>", "new buffer" },
-    ["<leader>b_"] = { "<cmd> new <CR>", "new buffer" },
+    ["<leader>bn"] = { "<cmd> enew <CR>", "new buffer replacing current window" },
+    ["<leader>b\\"] = { "<cmd> vnew <CR>", "new buffer in vertical split" },
+    ["<leader>b_"] = { "<cmd> new <CR>", "new buffer in horizontal split" },
+    ["<leader>bsn"] = {
+      function()
+        local buf = vim.api.nvim_create_buf(false, true)
+        vim.bo[buf].buftype = "nofile"
+        vim.bo[buf].bufhidden = "hide"
+        vim.bo[buf].swapfile = false
+        vim.api.nvim_win_set_buf(0, buf)
+      end,
+      "new scratch buffer replacing current window"
+    },
+    ["<leader>bs\\"] = {
+      function()
+        local buf = vim.api.nvim_create_buf(false, true)
+        vim.bo[buf].buftype = "nofile"
+        vim.bo[buf].bufhidden = "hide"
+        vim.bo[buf].swapfile = false
+        vim.cmd("vsplit")
+        vim.api.nvim_win_set_buf(0, buf)
+      end,
+      "new scratch buffer in vertical split"
+    },
+    ["<leader>bs_"] = {
+      function()
+        local buf = vim.api.nvim_create_buf(false, true)
+        vim.bo[buf].buftype = "nofile"
+        vim.bo[buf].bufhidden = "hide"
+        vim.bo[buf].swapfile = false
+        vim.cmd("split")
+        vim.api.nvim_win_set_buf(0, buf)
+      end,
+      "new scratch buffer in horizontal split"
+    },
 
     -- toggle last opened buffer
     -- use inkarkat/vim-EnhancedJumps
