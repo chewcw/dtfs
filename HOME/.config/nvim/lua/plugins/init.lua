@@ -728,6 +728,9 @@ local default_plugins = {
           restore_upcoming_session = true,
         },
         auto_restore_enabled = false,
+        auto_save = false,
+        auto_restore = false,
+        auto_create = false,
       }
     end,
   },
