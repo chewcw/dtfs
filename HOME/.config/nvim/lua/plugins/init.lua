@@ -731,6 +731,14 @@ local default_plugins = {
         auto_save = false,
         auto_restore = false,
         auto_create = false,
+        session_lens = {
+          theme_conf = {
+            layout_config = {
+              width = vim.o.columns,
+              height = vim.o.lines,
+            },
+          },
+        },
       }
     end,
   },
@@ -834,16 +842,15 @@ local default_plugins = {
     opts = function()
       return {
         mappings = {
-          start = '<leader>aa',
-          start_with_preview = '<leader>aA',
+          start = "<leader>aa",
+          start_with_preview = "<leader>aA",
         },
       }
     end,
     config = function(_, opts)
       require("mini.align").setup(opts)
-    end
+    end,
   },
-
 
   {
     "dhruvasagar/vim-table-mode",
