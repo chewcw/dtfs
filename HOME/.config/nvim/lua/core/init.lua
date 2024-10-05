@@ -627,3 +627,32 @@ vim.api.nvim_create_autocmd("CmdwinEnter", {
     vim.cmd("startinsert")
   end,
 })
+
+-- ----------------------------------------------------------------------------
+-- Run SessionSearch after VimEnter
+-- ----------------------------------------------------------------------------
+vim.api.nvim_create_autocmd("VimEnter", {
+  callback = function()
+    if vim.fn.argc() == 0 then
+      pcall(function()
+        vim.cmd("SessionSearch")
+      end)
+    end
+  end,
+})
+
+-- ----------------------------------------------------------------------------
+-- Run SessionSave on VimLeavePre
+-- ----------------------------------------------------------------------------
+vim.api.nvim_create_autocmd("VimLeavePre", {
+  callback = function()
+    pcall(function()
+      local user_input = vim.fn.input("Saving session (Leave blank to quit without saving): ")
+
+      if user_input ~= "" then
+        vim.cmd("SessionSave " .. user_input)
+      end
+    end)
+  end,
+})
+
