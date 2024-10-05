@@ -47,11 +47,12 @@ M.colors = function()
     dark_green = "#12412c",
     dark_red = "#3f0f13",
     dark_blue = "#081923",
-    dark_magenta = "#56415e",
+    dark_magenta = "#3d2e43",
     dark_brown = "#462b24",
     dark_cyan = "#4a6459",
     dark_main4 = "#111413",
     dark_pink = "#552b40",
+    dark_purple = "#3e0e52",
     -- Grays
     gray00 = "#1b1b1a",
     gray01 = "#222221",
@@ -169,7 +170,7 @@ M.setup = function()
     DiffChangeDelete = { fg = c.none, bg = c.khaki, bold = false, italic = false },
     DiffDelete = { fg = c.none, bg = c.dark_red, bold = false, italic = false },
     DiffRemoved = { fg = c.none, bg = c.dark_red, bold = false, italic = false },
-    DiffText = { fg = c.none, bg = c.dark_pink, bold = false, italic = false },
+    DiffText = { fg = c.none, bg = c.dark_purple, bold = false, italic = false },
     DiffModified = { fg = c.none, bg = c.dark_magenta, bold = false, italic = false },
     DiffNewFile = { fg = c.none, bg = c.dark_green, bold = false, italic = false },
 
