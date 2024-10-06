@@ -656,9 +656,22 @@ vim.api.nvim_create_autocmd("VimLeavePre", {
   end,
 })
 
--- ---------------------------------------------------------------------------- 
+-- ----------------------------------------------------------------------------
+-- Enable Treesitter Context
+-- ----------------------------------------------------------------------------
+vim.api.nvim_create_autocmd("WinEnter", {
+  callback = function()
+    if pcall(require, "treesitter-context") then
+      if require("treesitter-context").enabled() then
+        vim.cmd("TSContextEnable")
+      end
+    end
+  end,
+})
+
+-- ----------------------------------------------------------------------------
 -- Load ext.lua file if available
--- ---------------------------------------------------------------------------- 
+-- ----------------------------------------------------------------------------
 -- Load external lua file, only for customization done for each
 -- neovim environment, for example my own docker container.
 local home = os.getenv("HOME")
