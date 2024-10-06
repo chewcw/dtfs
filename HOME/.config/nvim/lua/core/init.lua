@@ -656,3 +656,11 @@ vim.api.nvim_create_autocmd("VimLeavePre", {
   end,
 })
 
+-- ---------------------------------------------------------------------------- 
+-- Load ext.lua file if available
+-- ---------------------------------------------------------------------------- 
+-- Load external lua file, only for customization done for each
+-- neovim environment, for example my own docker container.
+local home = os.getenv("HOME")
+package.path = package.path .. ";" .. home .. "/?.lua"
+pcall(require, "ext")
