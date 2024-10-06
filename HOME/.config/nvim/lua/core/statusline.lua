@@ -7,22 +7,21 @@ local function filepath()
     return ""
   end
 
-  local fpath = vim.fn.fnamemodify(vim.fn.expand "%", ":~:.:h")
+  local fpath = vim.fn.fnamemodify(vim.fn.expand("%"), ":~:.:h")
   if fpath == "" or fpath == "." then
-      return " "
+    return " "
   end
 
   return string.format(" %%<%s/", fpath)
 end
 
 local function filename()
-  if vim.bo.buftype == "nofile" then
+  local fname = vim.fn.expand("%:t")
+  if fname ~= "" and vim.bo.buftype == "nofile" then
+    return fname .. " [Scratch]"
+  elseif fname == "" and vim.bo.buftype == "nofile" then
     return "[Scratch]"
   else
-    local fname = vim.fn.expand "%:t"
-    if fname == "" then
-        return ""
-    end
     return fname
   end
 end
@@ -109,14 +108,14 @@ local vcs = function()
   if git_info.removed == 0 then
     removed = ""
   end
-  return table.concat {
-     git_info.head,
-     " ",
-     added,
-     changed,
-     removed,
-     " ",
-  }
+  return table.concat({
+    git_info.head,
+    " ",
+    added,
+    changed,
+    removed,
+    " ",
+  })
 end
 
 local cwd = function()
@@ -138,7 +137,7 @@ end
 Statusline = {}
 
 Statusline.active = function()
-  return table.concat {
+  return table.concat({
     "%#StatusLineText#",
     bufnr(),
     " ",
@@ -160,7 +159,7 @@ Statusline.active = function()
     encoding(),
     fileformat(),
     lineinfo(),
-  }
+  })
 end
 
 function Statusline.inactive()
@@ -176,7 +175,8 @@ function Statusline.short()
   return ""
 end
 
-vim.api.nvim_exec([[
+vim.cmd(
+  [[
   augroup Statusline
   au!
   au WinEnter,BufEnter * setlocal statusline=%!v:lua.Statusline.active()
@@ -184,4 +184,6 @@ vim.api.nvim_exec([[
   au WinEnter,BufEnter,FileType NvimTree_1 setlocal statusline=%!v:lua.Statusline.short()
   au WinLeave,BufLeave,FileType NvimTree_1 setlocal statusline=%!v:lua.Statusline.short()
   augroup END
-]], false)
+]],
+  false
+)
