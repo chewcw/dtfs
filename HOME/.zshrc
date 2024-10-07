@@ -206,7 +206,7 @@ alias watch="watch "
 
 # specific to LXQT lubuntu
 export XCURSOR_SIZE=35
-alias audio=pavucontrol-qt
+alias audio=pavucontrol
 alias network=nm-connection-editor
 
 export PATH=$PATH:/usr/local/go/bin
