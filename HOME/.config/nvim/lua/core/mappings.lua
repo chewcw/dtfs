@@ -785,7 +785,7 @@ M.general = {
   v = {
     ["<Up>"] = { 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', "move up", opts = { expr = true } },
     ["<Down>"] = { 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', "move down", opts = { expr = true } },
-    ["<leader>r"] = { ":s/\\%V", "replace in visual mode" },
+    ["<leader>r"] = { ":s/", "replace in visual mode" },
     -- https://vim.fandom.com/wiki/Swapping_characters,_words_and_lines
     ["<C-x>"] = { '<Esc>`.``gv"*d"-P``"*P' },
     -- switch between windows
