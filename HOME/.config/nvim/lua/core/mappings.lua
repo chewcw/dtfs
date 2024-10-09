@@ -249,7 +249,7 @@ M.general = {
     -- normally if I run :tabclose, next tab will be focused, this keymap overrides
     -- it and focus on previous tab instead
     ["<C-e>c"] = { "<cmd> :lua require('core.utils').close_and_focus_previous_tab() <CR>", "close current tab" },
-    ["<C-e>o"] = { ":tabonly <CR>", "close other tab" },
+    ["<C-e>o"] = { "<cmd> :lua require('core.utils').close_other_tabs() <CR>", "close other tab" },
     -- open new tab and select buffer
     ["<C-A-e>"] = {
       "<cmd> :lua require('plugins.configs.telescope_utils').open_new_tab_and_select_buffer('vertical') <CR>",

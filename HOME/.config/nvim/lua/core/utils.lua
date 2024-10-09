@@ -639,4 +639,19 @@ M.search_modified_unsaved_buffers = function()
   end
 end
 
+-- Functionality same with tabonly, but somehow tabonly doesn't work for me, that's
+-- why need to create this function
+M.close_other_tabs = function()
+  local current_tab = { number = vim.api.nvim_tabpage_get_number(0), index = nil }
+  for _, tid in ipairs(vim.api.nvim_list_tabpages()) do
+    local is_current = current_tab.number == vim.api.nvim_tabpage_get_number(tid)
+    local tabnr_ordinal = vim.api.nvim_tabpage_get_number(tid)
+    if not is_current then
+      pcall(function()
+        vim.cmd("tabclose " .. tabnr_ordinal)
+      end)
+    end
+  end
+end
+
 return M
