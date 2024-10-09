@@ -58,13 +58,13 @@ M.general = {
     --   "delete buffer from buffer list and close tab",
     -- },
     ["<A-S-w>"] = {
-      ":lua require('plugins.configs.buffer_utils').force_delete_buffer_switch_to_previous() <CR>",
-      "close the buffer but keep the window",
+      ":lua require('plugins.configs.buffer_utils').force_delete_buffer_create_new() <CR>",
+      "wipe the buffer",
       opts = { silent = true },
     },
     ["<A-S-d>"] = {
       ":lua require('plugins.configs.buffer_utils').force_delete_buffer_switch_to_previous() <CR>",
-      "close the buffer but keep the window",
+      "wipe the buffer and switch to previous buffer in same cwd",
       opts = { silent = true },
     },
     -- ["<A-S-d>"] = {
@@ -169,7 +169,7 @@ M.general = {
         vim.bo[buf].swapfile = false
         vim.api.nvim_win_set_buf(0, buf)
       end,
-      "new scratch buffer replacing current window"
+      "new scratch buffer replacing current window",
     },
     ["<leader>bs\\"] = {
       function()
@@ -180,7 +180,7 @@ M.general = {
         vim.cmd("vsplit")
         vim.api.nvim_win_set_buf(0, buf)
       end,
-      "new scratch buffer in vertical split"
+      "new scratch buffer in vertical split",
     },
     ["<leader>bs_"] = {
       function()
@@ -191,7 +191,7 @@ M.general = {
         vim.cmd("split")
         vim.api.nvim_win_set_buf(0, buf)
       end,
-      "new scratch buffer in horizontal split"
+      "new scratch buffer in horizontal split",
     },
 
     -- toggle last opened buffer
@@ -227,13 +227,13 @@ M.general = {
     -- ["<A-S-w>"] = { "<cmd> bprevious|bdelete!#<CR> <cmd> tabclose <CR> <Esc>", "delete buffer from buffer list and close tab" },
     -- ["<A-S-d>"] = { "<cmd> :lua require('plugins.configs.telescope_utils').delete_and_select_old_buffer() <CR>", "delete the buffer and select the old buffer" },
     ["<A-S-w>"] = {
-      ":lua require('plugins.configs.buffer_utils').force_delete_buffer_switch_to_previous() <CR>",
-      "delete the buffer",
+      ":lua require('plugins.configs.buffer_utils').force_delete_buffer_create_new() <CR>",
+      "wipe the buffer",
       opts = { silent = true },
     },
     ["<A-S-d>"] = {
       ":lua require('plugins.configs.buffer_utils').force_delete_buffer_switch_to_previous() <CR>",
-      "delete the buffer",
+      "wipe the buffer and switch to previous buffer in same cwd",
       opts = { silent = true },
     },
     ["<A-S-h>"] = { ":tabprevious <CR>", "previous tab", opts = { silent = true } },
@@ -653,14 +653,14 @@ M.general = {
     --   "goto next buffer",
     -- },
     ["<C-A-w>"] = {
-      ":lua require('plugins.configs.buffer_utils').force_delete_buffer_switch_to_previous() <CR>",
-      "close the buffer but keep the window",
+      ":lua require('plugins.configs.buffer_utils').force_delete_buffer_create_new() <CR>",
+      "wipe the buffer",
       opts = { silent = true },
     },
     -- ["<C-A-d>"] = { "<cmd> bwipeout! <CR>", "wipe out the buffer from buffer list" },
     ["<C-A-d>"] = {
       ":lua require('plugins.configs.buffer_utils').force_delete_buffer_switch_to_previous() <CR>",
-      "close the buffer but keep the window",
+      "wipe the buffer and switch to previous buffer in same cwd",
       opts = { silent = true },
     },
 
