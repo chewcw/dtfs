@@ -644,13 +644,62 @@ vim.api.nvim_create_autocmd("VimEnter", {
 -- ----------------------------------------------------------------------------
 -- Run SessionSave on VimLeavePre
 -- ----------------------------------------------------------------------------
+function _G.autosession_quitpre_completion_list(ArgLead, _, _)
+  if pcall(require, "auto-session") then
+    local autosession = require("auto-session")
+    local session_dir = autosession.get_root_dir()
+    local session_files = vim.fn.glob(session_dir .. "*", true, true)
+    local session_names = {}
+
+    local is_session_file = function(session_path)
+      -- if it's a directory, don't include
+      if vim.fn.isdirectory(session_path) ~= 0 then
+        return false
+      end
+
+      -- if it's a file that doesn't end in x.vim, include
+      if not string.find(session_path, "x.vim$") then
+        return true
+      end
+
+      -- the file ends in x.vim, make sure it has SessionLoad on the first line
+      local file = io.open(session_path, "r")
+      if not file then
+        return false
+      end
+
+      local first_line = file:read("*line")
+      file:close()
+
+      return first_line and string.find(first_line, "SessionLoad") ~= nil
+    end
+
+    for _, path in ipairs(session_files) do
+      -- don't include extra user command files, aka *x.vim
+      local file_name = vim.fn.fnamemodify(path, ":t:r")
+      if is_session_file(session_dir .. file_name) then
+        table.insert(session_names, file_name)
+      end
+    end
+
+    return vim.tbl_filter(function(item)
+      return item:match("^" .. ArgLead)
+    end, session_names)
+  end
+  return {}
+end
+
 vim.api.nvim_create_autocmd("VimLeavePre", {
   callback = function()
     pcall(function()
-      local user_input = vim.fn.input("Saving session (Leave blank to quit without saving): ")
+      local user_input = vim.fn.input({
+        prompt = "Saving session (Leave blank to quit without saving): ",
+        completion = "customlist,v:lua.autosession_quitpre_completion_list",
+      })
 
-      if user_input ~= "" then
-        vim.cmd("SessionSave " .. user_input)
+      local input = user_input:match("^%s*(.-)%s*$") or user_input
+      if input ~= "" then
+        vim.cmd("SessionSave " .. input)
       end
     end)
   end,
