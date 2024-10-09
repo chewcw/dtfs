@@ -57,12 +57,12 @@ M.general = {
     --   "<cmd> bprevious|bdelete!#<CR> <cmd> tabclose <CR> <Esc>",
     --   "delete buffer from buffer list and close tab",
     -- },
-    ["<A-S-w>"] = {
+    ["<A-S-d>"] = {
       ":lua require('plugins.configs.buffer_utils').force_delete_buffer_create_new() <CR>",
       "wipe the buffer",
       opts = { silent = true },
     },
-    ["<A-S-d>"] = {
+    ["<A-S-w>"] = {
       ":lua require('plugins.configs.buffer_utils').force_delete_buffer_switch_to_previous() <CR>",
       "wipe the buffer and switch to previous buffer in same cwd",
       opts = { silent = true },
@@ -226,12 +226,12 @@ M.general = {
     ["<A-S-e>"] = { ":tabedit <CR>", "new tab" },
     -- ["<A-S-w>"] = { "<cmd> bprevious|bdelete!#<CR> <cmd> tabclose <CR> <Esc>", "delete buffer from buffer list and close tab" },
     -- ["<A-S-d>"] = { "<cmd> :lua require('plugins.configs.telescope_utils').delete_and_select_old_buffer() <CR>", "delete the buffer and select the old buffer" },
-    ["<A-S-w>"] = {
+    ["<A-S-d>"] = {
       ":lua require('plugins.configs.buffer_utils').force_delete_buffer_create_new() <CR>",
       "wipe the buffer",
       opts = { silent = true },
     },
-    ["<A-S-d>"] = {
+    ["<A-S-w>"] = {
       ":lua require('plugins.configs.buffer_utils').force_delete_buffer_switch_to_previous() <CR>",
       "wipe the buffer and switch to previous buffer in same cwd",
       opts = { silent = true },
@@ -652,13 +652,13 @@ M.general = {
     --   "<cmd> :lua require('plugins.configs.buffer_utils').navigate_to_previous_buffer() <CR>",
     --   "goto next buffer",
     -- },
-    ["<C-A-w>"] = {
+    ["<C-A-d>"] = {
       ":lua require('plugins.configs.buffer_utils').force_delete_buffer_create_new() <CR>",
       "wipe the buffer",
       opts = { silent = true },
     },
     -- ["<C-A-d>"] = { "<cmd> bwipeout! <CR>", "wipe out the buffer from buffer list" },
-    ["<C-A-d>"] = {
+    ["<C-A-w>"] = {
       ":lua require('plugins.configs.buffer_utils').force_delete_buffer_switch_to_previous() <CR>",
       "wipe the buffer and switch to previous buffer in same cwd",
       opts = { silent = true },
