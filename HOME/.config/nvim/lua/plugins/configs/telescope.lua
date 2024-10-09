@@ -215,32 +215,12 @@ M.options = {
             telescope_utils.open_multiple_files_in_find_files_picker(prompt_bufnr, "edit")
           end,
           ["<C-l>"] = require("telescope.actions").select_default,
+          ["<A-CR>"] = telescope_utils.file_browser_set_cwd,
         },
         n = {
           ["q"] = require("telescope.actions").close,
-          ["t"] = function(prompt_bufnr)
-            -- https://github.com/nvim-telescope/telescope-file-browser.nvim/blob/master/lua/telescope/_extensions/file_browser/actions.lua
-            local action_state = require("telescope.actions.state")
-            local current_picker = action_state.get_current_picker(prompt_bufnr)
-            local finder = current_picker.finder
-            local entry_path = action_state.get_selected_entry().Path
-            local fb_utils = require("telescope._extensions.file_browser.utils")
-            finder.path = entry_path:is_dir() and entry_path:absolute() or entry_path:parent():absolute()
-            finder.cwd = finder.path
-            vim.cmd("tcd " .. finder.path)
-
-            fb_utils.redraw_border_title(current_picker)
-            current_picker:refresh(finder, {
-              new_prefix = fb_utils.relative_path_prefix(finder),
-              reset_prompt = true,
-              multi = current_picker._multi,
-            })
-            fb_utils.notify("action.change_cwd", {
-              msg = "Set the current working directory for this tab!",
-              level = "INFO",
-              quiet = finder.quiet,
-            })
-          end,
+          ["t"] = telescope_utils.file_browser_set_cwd,
+          ["<A-CR>"] = telescope_utils.file_browser_set_cwd,
           ["T"] = require("telescope").extensions.file_browser.actions.goto_cwd,
           ["n"] = require("telescope").extensions.file_browser.actions.create_from_prompt,
           ["h"] = function()
@@ -466,7 +446,7 @@ M.options = {
 
     lsp_workspace_symbols = {
       sorter = telescope_utils.keep_initial_sorting_sorter(),
-    }
+    },
   },
 }
 
