@@ -417,6 +417,7 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
     vim.opt_local.colorcolumn = "0"
     vim.opt_local.cursorline = true
     vim.opt_local.textwidth = 0
+    vim.opt.foldmethod = "syntax"
   end,
 })
 
