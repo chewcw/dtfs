@@ -593,6 +593,16 @@ local default_plugins = {
           vim.g.fugitive_ran = false
         end,
       })
+
+      vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+        pattern = { "fugitive://*", "/tmp/nvim.ccw/*" },
+        callback = function()
+          vim.opt_local.colorcolumn = "0"
+          vim.opt_local.cursorline = true
+          vim.opt_local.textwidth = 0
+          vim.opt.foldmethod = "syntax"
+        end,
+      })
     end,
   },
 

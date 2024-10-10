@@ -410,17 +410,6 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
   end,
 })
 
--- fugitive related
-vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
-  pattern = { "fugitive://*", "/tmp/nvim.ccw/*" },
-  callback = function()
-    vim.opt_local.colorcolumn = "0"
-    vim.opt_local.cursorline = true
-    vim.opt_local.textwidth = 0
-    vim.opt.foldmethod = "syntax"
-  end,
-})
-
 -- ----------------------------------------------------------------------------
 -- Focus left tab when tab closed
 -- ----------------------------------------------------------------------------
