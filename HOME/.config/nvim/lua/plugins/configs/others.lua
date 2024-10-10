@@ -92,7 +92,7 @@ M.gitsigns = {
   },
   signs_staged_enable = true,
   on_attach = function(bufnr)
-    utils.load_mappings("gitsigns", { buffer = bufnr })
+    utils.load_mappings("gitsigns", { buffer = bufnr, silent = true })
   end,
 }
 
