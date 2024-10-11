@@ -10,7 +10,7 @@ local window_picker = {
   chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890",
   exclude = {
     filetype = { "notify", "packer", "qf", "diff", "fugitive", "fugitiveblame" },
-    buftype = { "nofile", "terminal", "help", "TelescopePrompt", "TelescopeResults", "prompt" },
+    buftype = { "terminal", "help", "TelescopePrompt", "TelescopeResults", "prompt" },
   },
   -- if the buffer fulfill above exclude criteria, but its buffer name also fulfill
   -- include criteria below, then should include this buffer into the list
