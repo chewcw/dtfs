@@ -64,6 +64,10 @@ end
 ---       invalid window was picked / user canceled, return nil. If there are
 ---       no selectable windows, return -1.
 local function pick_win_id()
+  if vim.g.pick_win_id_is_telescope_picker == true then
+    vim.cmd("q!") -- close the telescope picker
+  end
+
   local selectable = usable_win_ids()
 
   -- If there are no selectable windows: return. If there's only 1, return it without picking.
