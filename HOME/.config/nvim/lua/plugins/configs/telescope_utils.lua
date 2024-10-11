@@ -353,6 +353,10 @@ M.open_new_split_and_select_buffer = function(split_type)
   else
     vim.cmd("new")
   end
+  local buf_nr = vim.api.nvim_get_current_buf()
+  vim.api.nvim_set_option_value("buftype", "nofile", { buf = buf_nr })
+  vim.api.nvim_set_option_value("bufhidden", "wipe", { buf = buf_nr })
+  vim.api.nvim_set_option_value("swapfile", false, { buf = buf_nr })
   vim.g.new_split_blank_buffer = vim.api.nvim_get_current_buf()
 
   -- Open find files
@@ -364,7 +368,6 @@ M.open_new_split_and_select_buffer = function(split_type)
       map("n", "q", function() -- not selecting file, just close the window
         pcall(function()
           vim.cmd("q!")     -- close the telescope picker
-          local buf_nr = vim.api.nvim_get_current_buf()
           vim.cmd("wincmd c") -- close the window
           vim.cmd("bdelete! " .. buf_nr)
         end)
