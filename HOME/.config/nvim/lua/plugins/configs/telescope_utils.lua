@@ -96,17 +96,22 @@ M.select_window_to_open = function(prompt_bufnr)
   -- new file
   if type(entry[1]) == "string" and entry.lnum == nil and entry.col == nil and getmetatable(entry) == nil then
     utils_window.open(entry[1], 0, 0)
-    -- find_files
+    -- oldfiles and find_files
   elseif
       type(entry[1]) == "string"
       and entry.lnum == nil
       and entry.col == nil
-      and getmetatable(entry) ~= nil
-      and getmetatable(entry).cwd ~= nil
+      and entry.index ~= nil
+      and entry.cwd ~= nil
   then
-    local file_name = entry[1]
-    local cwd = getmetatable(entry).cwd
-    utils_window.open(cwd .. "/" .. file_name, 1, 0)
+    local filename = entry[1]
+    -- relative path
+    if filename:sub(1, 1) ~= "/" and not filename:match("^[a-zA-Z]:\\") then
+      local cwd = getmetatable(entry).cwd
+      filename = cwd .. "/" .. filename
+    end
+
+    utils_window.open(filename, 1, 0)
     -- live grep
   elseif
       type(entry[1]) == "string"
