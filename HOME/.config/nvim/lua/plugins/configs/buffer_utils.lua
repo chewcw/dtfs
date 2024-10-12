@@ -62,6 +62,8 @@ M.force_delete_buffer_keep_tab = function(bufnr)
     end
   end
 
+  local scratch
+
   -- If this is not empty buffer, safely delete the buffer,
   -- otherwise don't delete, to prevent delete the tab accidentally.
   if not is_empty then
@@ -78,22 +80,34 @@ M.force_delete_buffer_keep_tab = function(bufnr)
           -- This is to prevent too many scratch buffer opened.
           if scratch_buffers ~= nil and #scratch_buffers >= 1 then
             -- Set the buffer to the first scratch buffer in the list
-            vim.api.nvim_win_set_buf(win, scratch_buffers[1])
+            scratch = scratch_buffers[1]
+            vim.api.nvim_win_set_buf(win, scratch)
             -- There are none scratch buffers in the memory
           else
             -- Create new scratch buffer
-            local new_scratch_buffer = vim.api.nvim_create_buf(false, true)
-            vim.api.nvim_set_option_value("buftype", "nofile", { buf = new_scratch_buffer })
-            vim.api.nvim_set_option_value("bufhidden", "wipe", { buf = new_scratch_buffer })
-            vim.api.nvim_set_option_value("swapfile", false, { buf = new_scratch_buffer })
+            scratch = vim.api.nvim_create_buf(false, true)
+            vim.api.nvim_set_option_value("buftype", "nofile", { buf = scratch })
+            vim.api.nvim_set_option_value("bufhidden", "wipe", { buf = scratch })
+            vim.api.nvim_set_option_value("swapfile", false, { buf = scratch })
             -- Set the buffer to that scratch buffer
-            vim.api.nvim_win_set_buf(win, scratch_buffers[1])
+            vim.api.nvim_win_set_buf(win, scratch)
           end
         end
       end
     end
 
-    vim.api.nvim_buf_delete(bufnr, { force = true })
+    if not vim.api.nvim_buf_is_valid(scratch) then
+      scratch = vim.api.nvim_create_buf(false, true)
+    end
+
+    -- Open the scratch
+    -- So that the window wouldn't be closed
+    vim.cmd("buffer " .. scratch)
+
+    -- Delete the buffer
+    -- The purpose of using `bdelete` is to keep the buffer in the oldfiles record,
+    -- and remove the buffer from the buffer list
+    vim.cmd("bdelete " .. bufnr)
   else
     print("This buffer is empty, not deleting.")
   end
