@@ -806,6 +806,25 @@ M.general = {
     },
 
     ["<leader>s"] = { "<Esc>/\\%V", "search in visual selection" },
+
+    ["<leader>S"] = {
+      function()
+        local selected_text
+        vim.cmd('noau normal! "vy"')
+        local text = vim.fn.getreg("v")
+        vim.fn.setreg("v", {})
+
+        text = string.gsub(text, "\n", "")
+        if #text > 0 then
+          selected_text = text
+        else
+          selected_text = ""
+        end
+
+        vim.fn.system({ "xdg-open", "https://google.com/search?q=" .. selected_text })
+      end,
+      "Search the word selected",
+    },
   },
 
   x = {
