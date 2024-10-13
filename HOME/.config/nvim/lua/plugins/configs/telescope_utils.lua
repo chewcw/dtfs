@@ -219,6 +219,30 @@ M.custom_rg = function(opts)
           map("n", "<A-e>", M.open_telescope_file_in_tab)
           map("n", "<C-g>", M.nested_grep())
           map("n", "<A-y>", M.copy_absolute_file_path_in_picker())
+          map("n", "\\.", function(prompt_bufnr)
+            -- search for ignore files
+            local current_picker = action_state.get_current_picker(prompt_bufnr)
+            local prompt = current_picker:_get_prompt()
+            local spaces = (string.sub(prompt, -2) == "  " and "") or "  "
+            local new_prompt = prompt .. spaces .. "-uu"
+            current_picker:set_prompt(new_prompt)
+          end)
+          map("n", "\\i", function(prompt_bufnr)
+            -- append --iglob to search for certain directories non case sensitively
+            local current_picker = action_state.get_current_picker(prompt_bufnr)
+            local prompt = current_picker:_get_prompt()
+            local spaces = (string.sub(prompt, -2) == "  " and "") or "  "
+            local new_prompt = prompt .. spaces .. "--iglob"
+            current_picker:set_prompt(new_prompt)
+          end)
+          map("n", "\\C", function(prompt_bufnr)
+            -- append --case-sensitive to search case sensitively
+            local current_picker = action_state.get_current_picker(prompt_bufnr)
+            local prompt = current_picker:_get_prompt()
+            local spaces = (string.sub(prompt, -2) == "  " and "") or "  "
+            local new_prompt = prompt .. spaces .. "--case-sensitive"
+            current_picker:set_prompt(new_prompt)
+          end)
           return true
         end,
       })
