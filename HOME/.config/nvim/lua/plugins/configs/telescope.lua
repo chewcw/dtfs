@@ -1,5 +1,4 @@
 local telescope_utils = require("plugins.configs.telescope_utils")
-local buffer_utils = require("plugins.configs.buffer_utils")
 
 local M = {}
 
@@ -352,6 +351,35 @@ M.options = {
           ["<C-A-\\>"] = function(prompt_bufnr)
             telescope_utils.open_multiple_files_in_find_files_picker(prompt_bufnr, "vsplit")
           end,
+          ["."] = function(prompt_bufnr)
+            if vim.g.find_files_type == "all" then
+              vim.g.find_files_type = "normal"
+              vim.g.telescope_picker_type = "find_files"
+              require("plugins.configs.telescope_utils").find_files({
+                default_text = require("telescope.actions.state").get_current_line(),
+              })
+            else
+              vim.g.find_files_type = "all"
+              vim.g.telescope_picker_type = "find_files"
+              require("plugins.configs.telescope_utils").find_all_files({
+                default_text = require("telescope.actions.state").get_current_line(),
+              })
+            end
+          end,
+          -- ["<leader>fa"] = function(prompt_bufnr)
+          --   vim.g.find_files_type = "all"
+          --   vim.g.telescope_picker_type = "find_files"
+          --   require("plugins.configs.telescope_utils").find_all_files({
+          --     default_text = require("telescope.actions.state").get_current_line(),
+          --   })
+          -- end,
+          -- ["<leader>ff"] = function(prompt_bufnr)
+          --   vim.g.find_files_type = "normal"
+          --   vim.g.telescope_picker_type = "find_files"
+          --   require("plugins.configs.telescope_utils").find_files({
+          --     default_text = require("telescope.actions.state").get_current_line(),
+          --   })
+          -- end,
         },
       },
     },

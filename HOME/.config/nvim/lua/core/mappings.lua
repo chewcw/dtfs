@@ -821,7 +821,7 @@ M.general = {
           selected_text = ""
         end
 
-        vim.fn.system({ "xdg-open", "https://google.com/search?q=" .. selected_text })
+        vim.system({ "xdg-open", "https://google.com/search?q=" .. selected_text })
       end,
       "Search the word selected",
     },

@@ -200,10 +200,10 @@ M.custom_rg = function(opts)
 
   local prompt_title = "Live Grep (custom)"
   if opts.cwd and not opts.search_dirs then
-    prompt_title = prompt_title .. " in " .. vim.fn.fnamemodify(opts.cwd, ":p")
+      prompt_title = prompt_title .. " in " .. vim.fn.fnamemodify(opts.cwd, ":p")
   elseif opts.search_dirs then
-    prompt_title = prompt_title .. " in nested search"
-  end
+      prompt_title = prompt_title .. " in nested search"
+    end
 
   pickers
       .new(opts, {
