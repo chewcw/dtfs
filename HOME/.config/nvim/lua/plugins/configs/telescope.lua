@@ -267,7 +267,7 @@ M.options = {
             function(input, prompt_bufnr, current_line)
               -- Close the current picker
               require("telescope.actions").close(prompt_bufnr)
-              if vim.g.telescope_picker_temporary_cwd_from_file_browser then
+              if vim.g.telescope_picker_temporary_cwd_from_file_browser == true then
                 -- just precaution
                 if vim.g.telescope_picker_type == nil then
                   print("`vim.g.telescope_picker_type` is not set, use default value: find_files")
@@ -279,7 +279,7 @@ M.options = {
               else
                 -- Open file_browser with the specified path
                 local fb = require("telescope").extensions.file_browser
-                fb.file_browser({ path = input, default_text = current_line })
+                fb.file_browser({ path = input, default_text = current_line, prompt_title = "File Browser" })
               end
             end
           ),
