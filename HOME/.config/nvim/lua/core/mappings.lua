@@ -1385,6 +1385,29 @@ M.telescope = {
       ":lua require('plugins.configs.telescope_utils').grep_string_custom({}, 'v') <CR>",
       "search for string under cursor in cwd",
     },
+    ["<leader>ff"] = {
+      function()
+        -- https://github.com/nvim-telescope/telescope.nvim/issues/2497#issuecomment-1676551193
+        local selected_text
+        vim.cmd('noau normal! "vy"')
+        local text = vim.fn.getreg("v")
+        vim.fn.setreg("v", {})
+
+        text = string.gsub(text, "\n", "")
+        if #text > 0 then
+          selected_text = text
+        else
+          selected_text = ""
+        end
+
+        vim.g.find_files_type = "normal"
+        vim.g.telescope_picker_type = "find_files"
+        require("plugins.configs.telescope_utils").find_files({
+          default_text = selected_text,
+        })
+      end,
+      "find files",
+    },
     -- this is just a note, this is to open file (like gf), but take consideration of
     -- the row and col appended to the filename, see core.utils_vimfetch
     ["<leader>of"] = {
