@@ -94,6 +94,7 @@ M.general = {
     ["<C-n>"] = { "" },
     -- This seems like autocomplete, disable this
     ["<C-p>"] = { "" },
+    ["<A-e>"] = { "" },
   },
 
   n = {
