@@ -218,11 +218,11 @@ local function get_win_buf_from_path(path)
 end
 
 M.open = function(filename, line_number, column_number)
-  local found_win = get_win_buf_from_path(filename)
-  if found_win then
-    vim.api.nvim_set_current_win(found_win)
-    vim.bo.bufhidden = ""
-  end
+  -- local found_win = get_win_buf_from_path(filename)
+  -- if found_win then
+  --   vim.api.nvim_set_current_win(found_win)
+  --   vim.bo.bufhidden = ""
+  -- end
 
   target_winid = M.get_target_winid()
   if not target_winid then
