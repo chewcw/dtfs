@@ -244,7 +244,7 @@ M.options = {
             end
             return enter
           end)(),
-          ["."] = require("telescope").extensions.file_browser.actions.toggle_hidden,
+          ["\\."] = require("telescope").extensions.file_browser.actions.toggle_hidden,
           ["<C-a>"] = require("telescope").extensions.file_browser.actions.toggle_all,
           ["s"] = function()
             local keys = vim.api.nvim_replace_termcodes("s", false, false, true)
@@ -351,7 +351,7 @@ M.options = {
           ["<C-A-\\>"] = function(prompt_bufnr)
             telescope_utils.open_multiple_files_in_find_files_picker(prompt_bufnr, "vsplit")
           end,
-          ["."] = function(prompt_bufnr)
+          ["\\."] = function(prompt_bufnr)
             if vim.g.find_files_type == "all" then
               vim.g.find_files_type = "normal"
               vim.g.telescope_picker_type = "find_files"
