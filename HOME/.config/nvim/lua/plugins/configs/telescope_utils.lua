@@ -1216,6 +1216,7 @@ M.find_files = function(opts)
 
   require("telescope.builtin").find_files({
     prompt_title = "Find Files in " .. vim.fn.fnamemodify(opts.cwd, ":p"),
+    default_text = opts.default_text,
     follow = true,
   })
 end
@@ -1226,6 +1227,7 @@ M.find_all_files = function(opts)
 
   require("telescope.builtin").find_files({
     prompt_title = "Find All Files in " .. vim.fn.fnamemodify(opts.cwd, ":p"),
+    default_text = opts.default_text,
     follow = true,
     no_ignore = true,
     hidden = true,
