@@ -1382,7 +1382,7 @@ M.telescope = {
 
   v = {
     ["<leader>f*"] = {
-      ":lua require('plugins.configs.telescope_utils').grep_string_custom({}) <CR>",
+      ":lua require('plugins.configs.telescope_utils').grep_string_custom({}, 'v') <CR>",
       "search for string under cursor in cwd",
     },
     -- this is just a note, this is to open file (like gf), but take consideration of

@@ -654,4 +654,28 @@ M.close_other_tabs = function()
   end
 end
 
+-- Function to get the last selected text in visual mode
+M.get_last_visual_selection = function()
+  -- Get the start and end positions of the visual selection
+  local _, line_start, col_start, _ = unpack(vim.fn.getpos("'<"))
+  local _, line_end, col_end, _ = unpack(vim.fn.getpos("'>"))
+
+  -- Get the selected lines between the start and end positions
+  local lines = vim.fn.getline(line_start, line_end)
+
+  -- If the selection is within a single line, trim it to the exact columns
+  if #lines == 1 then
+    lines[1] = string.sub(lines[1], col_start, col_end)
+  else
+    -- Trim the first line from the start column and the last line to the end column
+    lines[1] = string.sub(lines[1], col_start)
+    lines[#lines] = string.sub(lines[#lines], 1, col_end)
+  end
+
+  -- Join the lines and print the selected text
+  local selected_text = table.concat(lines, "\n")
+
+  return selected_text
+end
+
 return M

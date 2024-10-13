@@ -680,7 +680,7 @@ end
 -- If i use original Telescope grep_string, i wouldn't know the text being grep-ed
 -- after switched to the temporary cwd picker, so in this function i will need to set
 -- the global variable vim.g.cwd_grep_string_search to the original searched text.
-M.grep_string_custom = function(opts)
+M.grep_string_custom = function(opts, mode)
   local finders = require("telescope.finders")
   local make_entry = require("telescope.make_entry")
   local pickers = require("telescope.pickers")
@@ -782,13 +782,17 @@ M.grep_string_custom = function(opts)
     return
   end
   local word
-  local visual = vim.fn.mode() == "v"
+  local visual = mode == "v"
 
+  -- ----------------------------------------------------------------------------
+  -- Should work in visual mode
+  -- ----------------------------------------------------------------------------
   if visual == true then
-    local saved_reg = vim.fn.getreg("v")
-    vim.cmd([[noautocmd sil norm! "vy]])
-    local sele = vim.fn.getreg("v")
-    vim.fn.setreg("v", saved_reg)
+    -- local saved_reg = vim.fn.getreg("v")
+    -- vim.cmd([[noautocmd sil norm! "vy]])
+    -- local sele = vim.fn.getreg("v")
+    -- vim.fn.setreg("v", saved_reg)
+    local sele = require("core.utils").get_last_visual_selection()
     word = vim.F.if_nil(opts.search, sele)
   else
     -- ----------------------------------------------------------------------------
