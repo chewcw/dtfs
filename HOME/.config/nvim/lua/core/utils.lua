@@ -630,7 +630,7 @@ M.search_modified_unsaved_buffers = function()
       -- mode) no need to update the color
       if vim.api.nvim_get_option_value("modified", { buf = buf }) then
         vim.api.nvim_set_hl(0, "MsgArea", {
-          bg = require("core.colorscheme").colors().modified_msg_area,
+          bg = require("core.utils_colors").msg_area_colors.modified_msg_area,
         })
         return
       end

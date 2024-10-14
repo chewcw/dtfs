@@ -163,7 +163,7 @@ autocmd("FileType", {
 vim.api.nvim_create_autocmd({ "InsertEnter" }, {
   callback = function()
     vim.api.nvim_set_hl(0, "MsgArea", {
-      bg = require("core.colorscheme").colors().insert_mode_msg_area,
+      bg = require("core.utils_colors").msg_area_colors.insert_mode_msg_area,
     })
   end,
 })
@@ -218,7 +218,7 @@ vim.api.nvim_create_autocmd({ "WinEnter" }, {
 vim.api.nvim_create_autocmd({ "TermEnter" }, {
   callback = function()
     vim.api.nvim_set_hl(0, "MsgArea", {
-      bg = require("core.colorscheme").colors().term_msg_area,
+      bg = require("core.utils_colors").msg_area_colors.term_msg_area,
     })
   end,
 })
