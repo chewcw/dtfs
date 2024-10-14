@@ -888,9 +888,11 @@ M.grep_string_custom = function(opts, mode)
   -- ----------------------------------------------------------------------------
   -- Attach mappings to the new picker
   -- ----------------------------------------------------------------------------
+  local cwd = (opts ~= nil and opts.cwd ~= nil and opts.cwd) or ""
+  local cwd_string = (cwd ~= "" and " in " .. cwd) or ""
   pickers
       .new(opts, {
-        prompt_title = "Find Word (" .. word:gsub("\n", "\\n") .. ")",
+        prompt_title = "Find Word (" .. word:gsub("\n", "\\n") .. ")" .. cwd_string,
         finder = finders.new_oneshot_job(args, opts),
         previewer = conf.grep_previewer(opts),
         sorter = M.keep_initial_sorting_sorter(),
