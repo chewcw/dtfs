@@ -681,7 +681,10 @@ M.go_to_directory = function(callback)
   return function(prompt_bufnr)
     local current_line = action_state.get_current_line()
     -- Prompt for the path input
-    local input = vim.fn.input("Enter absolute path: ")
+    local input = vim.fn.input({
+      prompt = "Enter absolute path: ",
+      completion = "file",
+    })
     if input then
       local expanded_input = vim.fn.expand(input) -- to handle something like "~"
       if vim.fn.isdirectory(expanded_input) == 1 then
