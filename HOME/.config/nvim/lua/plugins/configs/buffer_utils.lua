@@ -218,8 +218,9 @@ M.toggle_listchars_symbol = function()
 end
 
 -- Function to dynamically show newline symbol
+
 M.toggle_newline_symbol = function()
-  local newline = "eol:⮒"
+  local newline = "eol:⤵"
   if vim.o.listchars:find("eol:") then
     vim.o.listchars = string.gsub(vim.o.listchars, "," .. newline, "")
   else
