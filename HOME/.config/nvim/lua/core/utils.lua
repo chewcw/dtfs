@@ -678,4 +678,14 @@ M.get_last_visual_selection = function()
   return selected_text
 end
 
+-- Function to close win and focus on previous tab
+M.close_win_and_focus_previous_tab = function()
+  local win_count = #vim.api.nvim_tabpage_list_wins(0) -- Get the number of windows in the current tab
+  if win_count == 1 then
+    M.close_and_focus_previous_tab()
+  else
+    vim.cmd("close") -- Close the current window
+  end
+end
+
 return M
