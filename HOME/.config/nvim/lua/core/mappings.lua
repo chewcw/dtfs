@@ -257,6 +257,13 @@ M.general = {
       "open new tab",
     },
 
+    -- This is to extend the original keymapping, to close the tab (if there is only
+    -- one window opened in that tab) and focus on previous tab
+    ["<C-w>c"] = {
+      "<cmd> :lua require('core.utils').close_win_and_focus_previous_tab() <CR>",
+      "close current win",
+    },
+
     -- link
     ["gx"] = { ":execute '!xdg-open ' .. shellescape(expand('<cfile>'), v:true)<CR><CR>", "open link" },
 
