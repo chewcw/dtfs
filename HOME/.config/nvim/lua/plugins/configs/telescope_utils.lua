@@ -6,18 +6,17 @@ local action_state = require("telescope.actions.state")
 local M = {}
 
 -- https://github.com/nvim-telescope/telescope.nvim/issues/2024
-local last_search = nil
 M.resume_with_cache = function()
+  vim.g.last_search = vim.g.last_search or {}
   local status1, telescope = pcall(require, "telescope.builtin")
   local status2, telescope_state = pcall(require, "telescope.state")
   if status1 and status2 then
-    if last_search == nil then
+    if vim.g.last_search == nil then
       telescope.resume()
-
       local cached_pickers = telescope_state.get_global_key("cached_pickers") or {}
-      last_search = cached_pickers[1]
+      vim.g.last_search = cached_pickers[1]
     else
-      telescope.resume({ picker = last_search })
+      telescope.resume({ picker = vim.g.last_search })
     end
   end
 end
@@ -560,8 +559,8 @@ M.set_temporary_cwd_from_file_browser = function(picker_name, path)
             })
             -- set these global variable back to nil after done, so that it wouldn't
             -- have side effect in next grep_string_custom
-            vim.g.cwd_grep_string_search = nil
-            vim.g.cwd_grep_string_word = nil
+            -- vim.g.cwd_grep_string_search = nil
+            -- vim.g.cwd_grep_string_word = nil
           else
             print("Unsupported picker name")
           end
