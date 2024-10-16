@@ -475,6 +475,14 @@ M.options = {
     lsp_workspace_symbols = {
       sorter = telescope_utils.keep_initial_sorting_sorter(),
     },
+
+    pickers = {
+      mappings = {
+        n = {
+          ["<C-l>"] = require("telescope.actions").select_default,
+        },
+      },
+    },
   },
 }
 
