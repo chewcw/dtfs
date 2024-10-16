@@ -107,7 +107,7 @@ M.force_delete_buffer_keep_tab = function(bufnr)
     -- Delete the buffer
     -- The purpose of using `bdelete` is to keep the buffer in the oldfiles record,
     -- and remove the buffer from the buffer list
-    vim.cmd("bdelete " .. bufnr)
+    vim.cmd("bdelete! " .. bufnr)
   else
     print("This buffer is empty, not deleting.")
   end
