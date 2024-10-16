@@ -871,21 +871,21 @@ local default_plugins = {
   },
 
   -- Only load whichkey after all the gui
-  {
-    "folke/which-key.nvim",
-    keys = { "<leader>", '"', "'", "`", "c", "v", "g" },
-    init = function()
-      require("core.utils").load_mappings("whichkey")
-    end,
-    opts = function()
-      return require("plugins.configs.others").whichkey
-    end,
-    config = function(_, opts)
-      require("which-key").setup(opts)
-    end,
-    -- branch = "main",
-    -- commit = "0099511",
-  },
+  -- {
+  --   "folke/which-key.nvim",
+  --   keys = { "<leader>", '"', "'", "`", "c", "v", "g" },
+  --   init = function()
+  --     require("core.utils").load_mappings("whichkey")
+  --   end,
+  --   opts = function()
+  --     return require("plugins.configs.others").whichkey
+  --   end,
+  --   config = function(_, opts)
+  --     require("which-key").setup(opts)
+  --   end,
+  --   -- branch = "main",
+  --   -- commit = "0099511",
+  -- },
 }
 
 local config = require("core.utils").load_config()
