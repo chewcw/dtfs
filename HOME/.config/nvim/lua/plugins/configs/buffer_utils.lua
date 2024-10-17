@@ -62,11 +62,21 @@ M.force_delete_buffer_keep_tab = function(bufnr)
     end
   end
 
+  -- Check the buffer type
+  local buffer_type = "nofile"
+  buffer_type = vim.api.nvim_get_option_value("buftype", { buf = bufnr })
+
   local scratch
 
-  -- If this is not empty buffer, safely delete the buffer,
+  -- If this is not empty buffer, delete the buffer,
   -- otherwise don't delete, to prevent delete the tab accidentally.
-  if not is_empty then
+  if is_empty and buffer_type == "nofile" then
+    local choice =
+        vim.fn.confirm("This buffer is empty and it's a scratch buffer, not deleting. Close the tab instead?")
+    if choice == 1 then
+      require("core.utils").close_and_focus_previous_tab()
+    end
+  else
     -- Iterate through all tab pages
     for _, tabpage in ipairs(vim.api.nvim_list_tabpages()) do
       -- Get all windows in the tab
@@ -108,8 +118,6 @@ M.force_delete_buffer_keep_tab = function(bufnr)
     -- The purpose of using `bdelete` is to keep the buffer in the oldfiles record,
     -- and remove the buffer from the buffer list
     vim.cmd("bdelete! " .. bufnr)
-  else
-    print("This buffer is empty, not deleting.")
   end
 end
 
@@ -671,6 +679,13 @@ M.open_file_or_buffer_in_window = function(is_visual, count)
     print("Invalid file path")
     return
   end
+end
+
+M.new_tab_with_scratch_buffer = function()
+  vim.cmd("tabedit")
+  vim.api.nvim_set_option_value("buftype", "nofile", { buf = 0 })
+  vim.api.nvim_set_option_value("bufhidden", "wipe", { buf = 0 })
+  vim.api.nvim_set_option_value("swapfile", false, { buf = 0 })
 end
 
 return M
