@@ -442,35 +442,56 @@ end
 
 -- Don't preview binary file
 -- https://github.com/nvim-telescope/telescope.nvim/wiki/Configuration-Recipes#dont-preview-binaries
-M.dont_preview_binaries = function()
+M.custom_previewer = function()
   local previewers = require("telescope.previewers")
   local Job = require("plenary.job")
   local new_maker = function(filepath, bufnr, opts)
     filepath = vim.fn.expand(filepath)
     Job:new({
       command = "file",
-      args = { "--mime-type", "-b", filepath },
-      on_exit = function(j)
-        local binary_mime_patterns = {
-          "application/octet-stream",
-          "image/",
-          "video/",
-          "audio/",
-          "application/zip",
-          "application/x-executable",
-          "application/vnd.microsoft.portable-executable",
-        }
+      args = { "-b", filepath },
+      on_exit = function(j1)
+        -- don't preview very large text files with very long lines (65536)
+        local text = j1:result()[1]
+        if text:match("with very long lines (65536)") or text:match("with no line terminators") then
+          vim.schedule(function()
+            vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, { "TEXT FILE WITH LONG LINES (65536)" })
+          end)
+          -- don't preview minified file
+        elseif filepath:match("%.min%.") then
+          vim.schedule(function()
+            vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, { "MINIFIED FILE" })
+          end)
+        else
+          Job:new({
+            command = "file",
+            args = { "--mime-type", "-b", filepath },
+            on_exit = function(j2)
+              local binary_mime_patterns = {
+                "application/octet-stream",
+                "image/",
+                "video/",
+                "audio/",
+                "application/zip",
+                "application/x-executable",
+                "application/x-pie-executable",
+                "application/vnd.microsoft.portable-executable",
+              }
 
-        for _, pattern in ipairs(binary_mime_patterns) do
-          if j:result()[1]:match(pattern) then
-            vim.schedule(function()
-              vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, { "BINARY" })
-            end)
-            break
-          end
+              -- don't preview binary file
+              for _, pattern in ipairs(binary_mime_patterns) do
+                if j2:result()[1]:match(pattern) then
+                  vim.schedule(function()
+                    vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, { "BINARY" })
+                  end)
+                  break
+                end
+              end
+
+              previewers.buffer_previewer_maker(filepath, bufnr, opts)
+            end,
+          }):start()
         end
-
-        previewers.buffer_previewer_maker(filepath, bufnr, opts)
       end,
     }):sync()
   end
