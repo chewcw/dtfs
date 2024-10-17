@@ -422,6 +422,9 @@ end
 
 M.open_new_tab_and_select_buffer = function()
   vim.cmd("tabnew")
+  vim.api.nvim_set_option_value("buftype", "nofile", { buf = 0 })
+  vim.api.nvim_set_option_value("bufhidden", "wipe", { buf = 0 })
+  vim.api.nvim_set_option_value("swapfile", false, { buf = 0 })
 
   -- Open find files
   vim.cmd("let g:find_files_type='normal'")
