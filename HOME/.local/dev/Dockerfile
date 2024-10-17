@@ -87,12 +87,21 @@ RUN <<EOF
   fi"
 EOF
 
+USER root
+
 # install vscode
 RUN <<EOF
-ARCH=$([ "$TARGETARCH" = "amd64" ] && echo "x64" || echo "arm64" )
-wget "https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-$ARCH" -O /tmp/code.deb;
-sudo dpkg -i /tmp/code.deb;
+`# Install vscode`
+apt update
+apt install gpg -y
+wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > /etc/apt/trusted.gpg.d/packages.microsoft.gpg
+ls -lah /etc/apt/trusted.gpg.d/
+sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list'
+apt update
+apt install code -y
 EOF
+
+USER ccw
 
 # cleanup
 RUN <<EOF
