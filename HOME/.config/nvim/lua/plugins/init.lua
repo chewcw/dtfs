@@ -870,6 +870,11 @@ local default_plugins = {
     end,
   },
 
+  {
+    "jlcrochet/vim-razor",
+    ft = { "razor", "cshtml" },
+  },
+
   -- Only load whichkey after all the gui
   -- {
   --   "folke/which-key.nvim",
