@@ -378,7 +378,7 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
   pattern = { "*.razor" },
   callback = function()
     if vim.bo.filetype ~= "cs" then
-      vim.opt_local.filetype = "html"
+      -- vim.opt_local.filetype = "html"
       vim.opt_local.tabstop = 4
       vim.opt_local.shiftwidth = 4
       vim.opt_local.expandtab = true
