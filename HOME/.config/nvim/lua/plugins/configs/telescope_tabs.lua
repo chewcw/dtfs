@@ -54,33 +54,38 @@ local default_conf = {
       cwd_name,
       buffers_in_cwd,
       tab_char,
-      is_modified
+      is_modified,
+      absolute_path
   )
     local modified = ""
     if is_modified then
       modified = "[+]"
     end
+    -- This line is just creating spaces based on the longest cwd name in the list,
+    -- so that the every absolute_path in the list would aligned with each other
     if vim.g.TabAutoCwd == "1" then
-      local buffers_in_cwd_string = table.concat(buffers_in_cwd, ", ")
+      local spaces = string.rep(" ", vim.g.telescope_tabs_longest_cwd_name_count - #cwd_name + 5)
       return string.format(
-        "%s %s: %s %s 🖿  %s 🗎 %s",
-        tostring(tab_id),
+        "%s %s: %s %s 🖿  %s%s➨ %s",
+        string.format("%02d", tab_id),
         tab_char,
         modified,
-        is_current and " >" or "",
+        is_current and "🚩" or "  ",
         cwd_name,
-        buffers_in_cwd_string
+        spaces,
+        absolute_path
       )
     else
-      local file_names_string = table.concat(file_names, ", ")
+      local spaces = string.rep(" ", vim.g.telescope_tabs_longest_file_name_count - #file_names[1] + 5)
       return string.format(
-        "%s %s: %s %s 🖿  %s 🗎 %s",
-        tostring(tab_id),
+        "%s %s: %s %s 🖿  %s%s➨ %s",
+        string.format("%02d", tab_id),
         tab_char,
         modified,
-        is_current and " >" or "",
-        cwd_name,
-        file_names_string
+        is_current and "🚩" or "  ",
+        file_names[1],
+        spaces,
+        absolute_path
       )
     end
   end,
@@ -124,9 +129,12 @@ end
 M.list_tabs = function(opts)
   opts = vim.tbl_deep_extend("force", M.conf, opts or {})
   local res = {}
+  -- This is to store the cwd name in the list
+  local cwd_names = {}
+  local file_names = {}
   local current_tab = { number = vim.api.nvim_tabpage_get_number(0), index = nil }
   for index, tid in ipairs(vim.api.nvim_list_tabpages()) do
-    local file_names = {}
+    local file_names_in_tab = {}
     local file_paths = {}
     local file_ids = {}
     local window_ids = {}
@@ -139,6 +147,12 @@ M.list_tabs = function(opts)
     local cwd_parent = vim.fn.fnamemodify(working_directory, ":h:t")
     local cwd_name = vim.fn.fnamemodify(working_directory, ":t")
     local full_cwd_name = vim.fn.fnamemodify(working_directory, ":p:h")
+    local absolute_path_exclude_cwd_name = ""
+    if vim.g.TabAutoCwd == "1" then
+      absolute_path_exclude_cwd_name = vim.fn.fnamemodify(working_directory, ":p:h:h:h")
+    else
+      absolute_path_exclude_cwd_name = vim.fn.fnamemodify(working_directory, ":p:h")
+    end
 
     local buffers_in_cwd = {}
     local buf_list = vim.api.nvim_list_bufs() -- Get a list of all buffer IDs
@@ -162,7 +176,7 @@ M.list_tabs = function(opts)
         local file_name = vim.fn.fnamemodify(path, ":t")
         local modified = vim.fn.getbufvar(bid, "&modified")
         table.insert(is_modifieds, modified)
-        table.insert(file_names, file_name)
+        table.insert(file_names_in_tab, file_name)
         table.insert(file_paths, path)
         table.insert(file_ids, bid)
         table.insert(window_ids, wid)
@@ -172,7 +186,7 @@ M.list_tabs = function(opts)
       current_tab.index = index
     end
     local tab_char = string.char(96 + index) -- 96 is char `a`
-    if index >= 14 then -- skip `n`, somehow buffer_line doesn't use `n` as its tab jump id?
+    if index >= 14 then                    -- skip `n`, somehow buffer_line doesn't use `n` as its tab jump id?
       tab_char = string.char(96 + index + 1)
     end
     local is_modified = false
@@ -183,7 +197,7 @@ M.list_tabs = function(opts)
       end
     end
     table.insert(res, {
-      file_names,
+      file_names_in_tab,
       file_paths,
       file_ids,
       window_ids,
@@ -193,8 +207,38 @@ M.list_tabs = function(opts)
       buffers_in_cwd,
       tab_char,
       is_modified,
+      absolute_path_exclude_cwd_name,
     })
+    table.insert(cwd_names, cwd_parent .. "/" .. cwd_name)
+    table.insert(file_names, file_names_in_tab[1])
   end
+
+  if vim.g.TabAutoCwd == "1" then
+    -- Find the longest count of the cwd names in the list
+    local longest = ""
+    vim.g.telescope_tabs_longest_cwd_name_count = 0
+    if cwd_names ~= nil then
+      for _, str in ipairs(cwd_names) do
+        if #str > #longest then
+          longest = str
+        end
+      end
+    end
+    vim.g.telescope_tabs_longest_cwd_name_count = #longest
+  else
+    -- Find the longest count of the file names in the list
+    local longest = ""
+    vim.g.telescope_tabs_longest_file_name_count = 0
+    if file_names ~= nil then
+      for _, str in ipairs(file_names) do
+        if #str > #longest then
+          longest = str
+        end
+      end
+    end
+    vim.g.telescope_tabs_longest_file_name_count = #longest
+  end
+
   pickers
       .new(opts, {
         prompt_title = opts.title == nil and "Tabs" or opts.title,
@@ -210,7 +254,8 @@ M.list_tabs = function(opts)
               entry[7],
               entry[8],
               entry[9],
-              entry[10]
+              entry[10],
+              entry[11]
             )
             local ordinal_string =
                 opts.entry_ordinal(entry[5], entry[3], entry[1], entry[2], entry[6], entry[7], entry[8])
