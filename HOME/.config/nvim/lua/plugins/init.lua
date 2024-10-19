@@ -516,11 +516,11 @@ local default_plugins = {
           -- find the fugitive related buffer
           vim.defer_fn(function()
             if
-                buf_name:match("^/tmp/nvim%.ccw/")
-                and not buf_name:match("%.sh$")
-                and not buf_name:match("%.edit$")
-                and not buf_name:match("%.exit$")
-                and not vim.g.gll_reload_manually_or_open_new
+              buf_name:match("^/tmp/nvim%.ccw/")
+              and not buf_name:match("%.sh$")
+              and not buf_name:match("%.edit$")
+              and not buf_name:match("%.exit$")
+              and not vim.g.gll_reload_manually_or_open_new
             then
               -- have to do this temporary variable thing, see https://github.com/nanotee/nvim-lua-guide#caveats-3
               local x = vim.g.gll_records
@@ -564,10 +564,10 @@ local default_plugins = {
           local buf_name = vim.api.nvim_buf_get_name(buf)
 
           if
-              buf_name:match("^/tmp/nvim%.ccw/")
-              and not buf_name:match("%.sh$")
-              and not buf_name:match("%.edit$")
-              and not buf_name:match("%.exit$")
+            buf_name:match("^/tmp/nvim%.ccw/")
+            and not buf_name:match("%.sh$")
+            and not buf_name:match("%.edit$")
+            and not buf_name:match("%.exit$")
           then
             -- have to do this temporary variable thing, see https://github.com/nanotee/nvim-lua-guide#caveats-3
             local x = vim.g.gll_records
@@ -873,6 +873,25 @@ local default_plugins = {
   {
     "jlcrochet/vim-razor",
     ft = { "razor", "cshtml" },
+    init = function()
+      -- When open in fugitive diff for razor file, maybe because of the syntax is set to
+      -- razor, it becomes very slow, so if it's a diff, then set the syntax to `diff`
+      vim.api.nvim_create_autocmd("WinEnter", {
+        pattern = { "*.razor", "*.cshtml" },
+        callback = function()
+          local isdiff = vim.api.nvim_get_option_value("diff", { win = 0 })
+          for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
+            if isdiff then
+              local buf = vim.api.nvim_win_get_buf(win)
+              local israzor = vim.api.nvim_get_option_value("syntax", { buf = buf }) == "razor"
+              if israzor then
+                vim.api.nvim_set_option_value("syntax", "diff", { buf = buf })
+              end
+            end
+          end
+        end,
+      })
+    end,
   },
 
   -- Only load whichkey after all the gui
