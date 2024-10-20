@@ -536,6 +536,15 @@ M.open_file_or_buffer_in_tab = function(is_visual, count)
   local col = file[3] or 1
 
   if file_path and file_path ~= "" then
+    -- special case, omnisharp_extended file
+    if file_path:match("%$metadata%$") then
+      if vim.g.toggle_term_opened then
+        command = ":q | " -- first need to close this toggleterm
+      end
+      command = "tabnew | buffer " .. current_buf_nr
+      goto continue
+    end
+
     local parent_dir = vim.fn.fnamemodify(file_path, ":p:h")
     if vim.g.TabAutoCwd == "1" then
       if parent_dir then
@@ -596,6 +605,8 @@ M.open_file_or_buffer_in_tab = function(is_visual, count)
     print("Invalid file path")
     return
   end
+
+  ::continue::
 
   vim.api.nvim_command(command)
   vim.g.toggle_term_opened = false
