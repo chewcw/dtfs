@@ -70,7 +70,7 @@ bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
 # switch to next workspace
-bindsym $mod+Tab workspace next
+bindsym $mod+Tab workspace back_and_forth
 bindsym $mod+Shift+Tab workspace prev
 
 # swap with adjacent window and maintain the original window size
