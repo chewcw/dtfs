@@ -716,3 +716,27 @@ vim.api.nvim_create_autocmd("WinEnter", {
 local home = os.getenv("HOME")
 package.path = package.path .. ";" .. home .. "/?.lua"
 pcall(require, "ext")
+
+-- ----------------------------------------------------------------------------
+-- Enable code lens
+-- ----------------------------------------------------------------------------
+vim.g.lsp_codelens_started = 1
+vim.api.nvim_create_user_command("LspCodeLensRun", function(opts)
+  if vim.g.lsp_codelens_started == 1 then
+    vim.g.lsp_codelens_started = 0
+    vim.lsp.codelens.clear()
+    vim.notify("Codelens is now off")
+  else
+    vim.g.lsp_codelens_started = 1
+    vim.lsp.codelens.refresh()
+    vim.notify("Codelens is now on")
+  end
+end, { nargs = "*" })
+
+vim.api.nvim_create_autocmd({ "CmdLineLeave", "InsertLeave" }, {
+  callback = function()
+    if vim.g.lsp_codelens_started == 1 then
+      vim.lsp.codelens.refresh() -- Refresh CodeLens on these events
+    end
+  end,
+})
