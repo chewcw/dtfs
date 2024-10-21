@@ -68,13 +68,27 @@ M.force_delete_buffer_keep_tab = function(bufnr)
 
   local scratch
 
+  -- Check if there is any split window in current tab
+  local is_split = true
+  local windows = vim.api.nvim_tabpage_list_wins(0) -- Get the list of windows in the current tab
+  is_split = #windows > 1
+
   -- If this is not empty buffer, delete the buffer,
   -- otherwise don't delete, to prevent delete the tab accidentally.
   if is_empty and buffer_type == "nofile" then
-    local choice =
-        vim.fn.confirm("This buffer is empty and it's a scratch buffer, not deleting. Close the tab instead?")
-    if choice == 1 then
-      require("core.utils").close_and_focus_previous_tab()
+    if is_split then
+      local choice = vim.fn.confirm(
+        "This buffer is empty and it's a scratch buffer, not deleting. Close the window instead?"
+      )
+      if choice == 1 then
+        vim.cmd("wincmd q")
+      end
+    else
+      local choice =
+          vim.fn.confirm("This buffer is empty and it's a scratch buffer, not deleting. Close the tab instead?")
+      if choice == 1 then
+        require("core.utils").close_and_focus_previous_tab()
+      end
     end
   else
     -- Iterate through all tab pages
