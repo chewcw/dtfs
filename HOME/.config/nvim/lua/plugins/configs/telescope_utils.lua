@@ -1153,16 +1153,16 @@ M.open_telescope_file_in_tab = function(prompt_bufnr)
             if current_tab_tabnr_ordinal == tabnr_ordinal then
               command = ":q! |"
             end
-            command = command .. "tabnext" .. tabnr_ordinal .. "| edit " .. file_path
+            command = command .. "tabnext" .. tabnr_ordinal .. " | edit " .. file_path
             found_tab = true
             vim.g.new_tab_buf_cwd = vim.fn.fnamemodify(file_path, ":h")
             break
           end
         end
         if not found_tab then
-          command = "tabnew " .. file_path
+          command = ":q! |" .. "tabnew " .. file_path
+          vim.g.new_tab_buf_cwd = vim.fn.fnamemodify(file_path, ":h")
         end
-        vim.g.new_tab_buf_cwd = vim.fn.fnamemodify(file_path, ":h")
       end
     else
       -- not auto cwd, find if there is tab opening that file
@@ -1174,13 +1174,13 @@ M.open_telescope_file_in_tab = function(prompt_bufnr)
         -- Get the name of the buffer
         local buf_name = vim.api.nvim_buf_get_name(buf_id)
         if file_path == buf_name then
-          command = command .. "tabnext" .. tabnr_ordinal .. "| edit " .. file_path
+          command = ":q! |" .. "tabnext" .. tabnr_ordinal .. "| edit " .. file_path
           found_tab = true
           break
         end
       end
       if not found_tab then
-        command = "tabnew " .. file_path
+        command = ":q! |" .. "tabnew " .. file_path
       end
     end
   end
