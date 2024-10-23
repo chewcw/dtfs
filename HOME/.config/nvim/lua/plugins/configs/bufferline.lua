@@ -31,11 +31,15 @@ M.setup = {
       local cwd_name = vim.fn.fnamemodify(working_directory, ":t:r")
 
       if buf.name:match("toggleterm") then
-        return "ToggleTerm"
+        return "⚡ToggleTerm"
       end
 
       if buf.name:match("zsh") then
-        return "Term"
+        return "⚡Term"
+      end
+
+      if buf.path:match("fugitive://") or buf.path:match("/tmp/nvim.ccw/") then
+        return " " .. vim.fn.fnamemodify(working_directory, ":t")
       end
 
       if vim.g.TabCwd == "1" then -- show tab's cwd (see user command "TabCwd")

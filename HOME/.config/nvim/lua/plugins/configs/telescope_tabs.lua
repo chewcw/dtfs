@@ -174,6 +174,10 @@ M.list_tabs = function(opts)
         local bid = vim.api.nvim_win_get_buf(wid)
         local path = vim.api.nvim_buf_get_name(bid)
         local file_name = vim.fn.fnamemodify(path, ":t")
+        -- This is fugitive related buffer
+        if path:match("fugitive://") or path:match("/tmp/nvim.ccw/") then
+          file_name = "Fugitive"
+        end
         local modified = vim.fn.getbufvar(bid, "&modified")
         table.insert(is_modifieds, modified)
         table.insert(file_names_in_tab, file_name)
