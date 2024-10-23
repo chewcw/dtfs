@@ -600,7 +600,7 @@ local default_plugins = {
           vim.opt_local.colorcolumn = "0"
           vim.opt_local.cursorline = true
           vim.opt_local.textwidth = 0
-          vim.opt.foldmethod = "syntax"
+          vim.opt_local.foldmethod = "syntax"
         end,
       })
     end,
