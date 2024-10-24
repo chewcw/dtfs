@@ -224,7 +224,10 @@ M.general = {
     ["|"] = { "@@", "repeat last called macro" },
 
     -- tab
-    ["<A-S-e>"] = { "<cmd> :lua require('plugins.configs.buffer_utils').new_tab_with_scratch_buffer() <CR>", "new tab" },
+    ["<A-S-e>"] = {
+      "<cmd> :lua require('plugins.configs.buffer_utils').new_tab_with_scratch_buffer() <CR>",
+      "new tab",
+    },
     -- ["<A-S-w>"] = { "<cmd> bprevious|bdelete!#<CR> <cmd> tabclose <CR> <Esc>", "delete buffer from buffer list and close tab" },
     -- ["<A-S-d>"] = { "<cmd> :lua require('plugins.configs.telescope_utils').delete_and_select_old_buffer() <CR>", "delete the buffer and select the old buffer" },
     ["<A-S-d>"] = {
