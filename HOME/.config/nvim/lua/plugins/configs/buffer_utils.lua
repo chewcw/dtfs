@@ -573,10 +573,17 @@ M.open_file_or_buffer_in_tab = function(is_visual, count)
               command = ":q | " -- first need to close this toggleterm
             end
 
-            command = command .. "tabnext" .. tabnr_ordinal .. " | edit " .. file_path
-            found_tab = true
-            vim.g.new_tab_buf_cwd = vim.fn.fnamemodify(file_path, ":h")
-            break
+            -- Check if the new tab is opening fugitive related buffer, if yes then
+            -- ignore that tab, open in new tab instead
+            local win_id = vim.api.nvim_tabpage_get_win(tid)
+            local buf_id = vim.api.nvim_win_get_buf(win_id)
+            local buf_name = vim.api.nvim_buf_get_name(buf_id)
+            if not buf_name:match("fugitive://") and not buf_name:match("/tmp/nvim.ccw/") then
+              command = command .. "tabnext" .. tabnr_ordinal .. " | edit " .. file_path
+              found_tab = true
+              vim.g.new_tab_buf_cwd = vim.fn.fnamemodify(file_path, ":h")
+              break
+            end
           end
         end
         if not found_tab then
