@@ -1,9 +1,11 @@
+
 general {
         colors = true
         color_good = '#26A69A'
         color_bad = '#F06292'
         color_degraded = '#FFF176'
         interval = 5
+        output_format = "i3bar"
 }
 
 order += "disk /"
@@ -14,6 +16,7 @@ order += "ethernet enp0s31f6"
 order += "battery 0"
 order += "memory"
 order += "cpu_usage"
+order += "volume mic"
 order += "volume master"
 order += "tztime eastern"
 order += "tztime local"
@@ -72,6 +75,12 @@ disk "/media/docker" {
 
 read_file uptime {
         path = "/proc/uptime"
+}
+
+volume mic {
+   format = ""
+   device = "default"
+   mixer = "Capture"
 }
 
 volume master {
