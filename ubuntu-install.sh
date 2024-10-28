@@ -264,6 +264,14 @@ sudo apt install -y i3status
 mkdir -p $HOME/.config/i3status
 ln -sf $pwd/HOME/.config/i3status/config $HOME/.config/i3status/config
 
+# Install i3status wrapper script
+echo "------------------------------------------"
+echo "Installing wrapper script (for microphone)"
+echo "------------------------------------------"
+sudo apt install -y python3-pulsectl
+# Install symlink for the wrapper script
+ln -sf $pwd/HOME/.local/bin/i3status_wrapper.py $HOME/.local/bin/i3status_wrapper.py
+
 # Install tmux plugin manager
 if [[ ! -d $HOME/.tmux/plugins/tpm ]]; then
 	echo "------------------------------------------"
