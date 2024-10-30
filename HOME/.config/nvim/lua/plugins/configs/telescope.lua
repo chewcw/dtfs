@@ -64,8 +64,8 @@ M.options = {
     buffer_previewer_maker = telescope_utils.custom_previewer(),
     mappings = {
       i = {
-        ["<C-j>"] = require("telescope.actions").move_selection_next,
-        ["<C-k>"] = require("telescope.actions").move_selection_previous,
+        ["<C-n>"] = require("telescope.actions").move_selection_next,
+        ["<C-p>"] = require("telescope.actions").move_selection_previous,
         ["<C-A-\\>"] = function(prompt_bufnr)
           telescope_utils.open_multiple_files_in_find_files_picker(prompt_bufnr, "vsplit")
         end,
@@ -95,10 +95,11 @@ M.options = {
           telescope_utils.open_multiple_files_in_find_files_picker(prompt_bufnr, "edit")
         end,
         ["<C-l>"] = require("telescope.actions").select_default,
+        ["<C-j>"] = require("telescope.actions").select_default,
       },
       n = {
-        ["<C-j>"] = require("telescope.actions").move_selection_next,
-        ["<C-k>"] = require("telescope.actions").move_selection_previous,
+        ["<C-n>"] = require("telescope.actions").move_selection_next,
+        ["<C-p>"] = require("telescope.actions").move_selection_previous,
         ["<A-[>"] = require("telescope.actions").preview_scrolling_left,
         ["<A-]>"] = require("telescope.actions").preview_scrolling_right,
         ["<A-u>"] = require("telescope.actions").preview_scrolling_up,
@@ -108,8 +109,6 @@ M.options = {
         ["{"] = require("telescope.actions").results_scrolling_left,
         ["}"] = require("telescope.actions").results_scrolling_right,
         ["<C-t>"] = require("trouble.sources.telescope").open,
-        -- do nothing, to prevent open nvim_tree accidentally
-        ["<C-n>"] = function() end,
         ["<A-\\>"] = telescope_utils.select_direction("vertical"),
         ["<C-A-\\>"] = function(prompt_bufnr)
           telescope_utils.open_multiple_files_in_find_files_picker(prompt_bufnr, "vsplit")
@@ -133,6 +132,7 @@ M.options = {
           telescope_utils.open_multiple_files_in_find_files_picker(prompt_bufnr, "edit")
         end,
         ["<C-l>"] = require("telescope.actions").select_default,
+        ["<C-j>"] = require("telescope.actions").select_default,
         ["i"] = (function()
           local insert_mode = function()
             vim.cmd("startinsert")
@@ -152,7 +152,7 @@ M.options = {
         end,
         ["<leader>ot"] = telescope_utils.open_telescope_file_in_tab,
         -- toggle preview
-        ["<C-p>"] = require("telescope.actions.layout").toggle_preview,
+        ["\\p"] = require("telescope.actions.layout").toggle_preview,
         -- copy absolute path
         ["<A-y>"] = require("plugins.configs.telescope_utils").copy_absolute_file_path_in_picker(),
         -- open previous picker

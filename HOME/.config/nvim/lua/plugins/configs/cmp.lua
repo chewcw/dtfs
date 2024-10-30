@@ -100,10 +100,8 @@ M.options = {
       disallow_prefix_unmatching = false,
     },
     mapping = {
-      ["<C-k>"] = cmp.mapping.select_prev_item(),
-      ["<C-j>"] = cmp.mapping.select_next_item(),
-      ["<A-h>"] = cmp.mapping.select_prev_item(),
-      ["<A-l>"] = cmp.mapping.select_next_item(),
+      ["<C-p>"] = cmp.mapping.select_prev_item(),
+      ["<C-n>"] = cmp.mapping.select_next_item(),
       ["<C-d>"] = cmp.mapping.scroll_docs(4),
       ["<C-u>"] = cmp.mapping.scroll_docs(-4),
       ["<C-Space>"] = cmp.mapping.complete(),
@@ -135,7 +133,7 @@ M.options = {
   },
   cmd = {
     mapping = {
-      ["<A-l>"] = {
+      ["<C-n>"] = {
         c = function()
           if cmp.visible() then
             cmp.select_next_item()
@@ -144,25 +142,7 @@ M.options = {
           end
         end,
       },
-      ["<C-j>"] = {
-        c = function()
-          if cmp.visible() then
-            cmp.select_next_item()
-          else
-            cmp.complete()
-          end
-        end,
-      },
-      ["<A-h>"] = {
-        c = function()
-          if cmp.visible() then
-            cmp.select_prev_item()
-          else
-            cmp.complete()
-          end
-        end,
-      },
-      ["<C-k>"] = {
+      ["<C-p>"] = {
         c = function()
           if cmp.visible() then
             cmp.select_prev_item()
@@ -198,7 +178,7 @@ M.options = {
   },
   search = {
     mapping = {
-      ["<C-j>"] = {
+      ["<C-n>"] = {
         c = function()
           if cmp.visible() then
             cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
@@ -207,25 +187,7 @@ M.options = {
           end
         end,
       },
-      ["<A-l>"] = {
-        c = function()
-          if cmp.visible() then
-            cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
-          else
-            cmp.complete()
-          end
-        end,
-      },
-      ["<C-k>"] = {
-        c = function()
-          if cmp.visible() then
-            cmp.select_prev_item({ behavior = cmp.SelectBehavior.Insert })
-          else
-            cmp.complete()
-          end
-        end,
-      },
-      ["<A-h>"] = {
+      ["<C-p>"] = {
         c = function()
           if cmp.visible() then
             cmp.select_prev_item({ behavior = cmp.SelectBehavior.Insert })
