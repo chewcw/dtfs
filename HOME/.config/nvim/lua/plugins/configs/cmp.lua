@@ -163,6 +163,9 @@ M.options = {
       ["<C-Space>"] = {
         c = cmp.mapping.complete(),
       },
+      ["<C-l>"] = {
+        c = cmp.mapping.confirm({ select = false}),
+      },
     },
     sources = cmp.config.sources({
       { name = "async_path" },
