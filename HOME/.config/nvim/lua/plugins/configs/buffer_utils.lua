@@ -3,11 +3,23 @@ local utils_window = require("core.utils_window")
 M = {}
 
 M.force_delete_buffer_switch_to_next = function()
+  local current_bufnr = vim.fn.bufnr("%") -- Get the buffer number of the current buffer
+  local buffer_type = vim.api.nvim_get_option_value("buftype", { buf = current_bufnr })
+  if buffer_type == 'nofile' then
+    M.switch_to_next_buffer_in_cwd()
+  end
+
   M.force_delete_buffer_create_new()
   M.switch_to_next_buffer_in_cwd()
 end
 
 M.force_delete_buffer_switch_to_previous = function()
+  local current_bufnr = vim.fn.bufnr("%") -- Get the buffer number of the current buffer
+  local buffer_type = vim.api.nvim_get_option_value("buftype", { buf = current_bufnr })
+  if buffer_type == 'nofile' then
+    M.switch_to_previous_buffer_in_cwd()
+  end
+
   M.force_delete_buffer_create_new()
   M.switch_to_previous_buffer_in_cwd()
 end
