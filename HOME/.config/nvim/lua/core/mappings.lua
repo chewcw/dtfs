@@ -93,8 +93,8 @@ M.general = {
     -- This seems like autocomplete, disable this
     ["<C-n>"] = { "" },
     -- This seems like autocomplete, disable this
-    ["<C-p>"] = { "" },
-    ["<A-e>"] = { "" },
+    -- ["<C-p>"] = { "" },
+    -- ["<A-e>"] = { "" },
   },
 
   n = {
@@ -121,7 +121,7 @@ M.general = {
     -- switch between windows
     ["<C-h>"] = { "<C-w>h", "window left" },
     ["<C-l>"] = { "<C-w>l", "window right" },
-    ["<C-j>"] = { "<C-w>j", "window down" },
+    ["<C-n>"] = { "<C-w>j", "window down" },
     ["<C-k>"] = { "<C-w>k", "window up" },
 
     -- Copy all
@@ -862,14 +862,14 @@ M.general = {
       "move right",
       opts = { silent = true },
     },
-    ["<A-j>"] = {
+    ["<A-n>"] = {
       function()
         require("core.utils").insert_mode_movement_disable_auto_completions("Down")
       end,
       "move down",
       opts = { silent = true },
     },
-    ["<A-k>"] = {
+    ["<A-p>"] = {
       function()
         require("core.utils").insert_mode_movement_disable_auto_completions("Up")
       end,
@@ -1891,8 +1891,8 @@ M.yanky = {
     ["P"] = { "<Plug>(YankyPutBefore)", "yanky P" },
     ["gp"] = { "<Plug>(YankyGPutAfter)", "yanky gp" },
     ["gP"] = { "<Plug>(YankyGPutBefore)", "yanky gP" },
-    ["<C-p>n"] = { "<Plug>(YankyNextEntry)", "yanky paste next entry from yank ring history" },
-    ["<C-p>p"] = { "<Plug>(YankyPreviousEntry)", "yanky paste previous entry from yank ring history" },
+    ["<leader>pn"] = { "<Plug>(YankyNextEntry)", "yanky paste next entry from yank ring history" },
+    ["<leader>pp"] = { "<Plug>(YankyPreviousEntry)", "yanky paste previous entry from yank ring history" },
   },
   x = {
     ["p"] = { "<Plug>(YankyPutAfter)", "yanky p" },
