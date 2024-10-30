@@ -91,7 +91,7 @@ M.general = {
     -- https://vim.fandom.com/wiki/Prevent_escape_from_moving_the_cursor_one_character_to_the_left
     -- ["<Esc>"] = { "<C-O>:stopinsert<CR>" },
     -- This seems like autocomplete, disable this
-    ["<C-n>"] = { "" },
+    -- ["<C-n>"] = { "" },
     -- This seems like autocomplete, disable this
     -- ["<C-p>"] = { "" },
     -- ["<A-e>"] = { "" },
@@ -121,7 +121,7 @@ M.general = {
     -- switch between windows
     ["<C-h>"] = { "<C-w>h", "window left" },
     ["<C-l>"] = { "<C-w>l", "window right" },
-    ["<C-n>"] = { "<C-w>j", "window down" },
+    ["<C-j>"] = { "<C-w>j", "window down" },
     ["<C-k>"] = { "<C-w>k", "window up" },
 
     -- Copy all

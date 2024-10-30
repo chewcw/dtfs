@@ -415,10 +415,10 @@ fi
 
 # Enable docker experimental mode
 echo "------------------------------------------"
-echo "Enable docker experimental mode"
+echo "Enable docker experimental mode, and detach keys"
 echo "------------------------------------------"
 mkdir -p $HOME/.docker
-echo { \"experimental\" : \"enabled\" } > $HOME/.docker/config.json
+echo { \"experimental\" : \"enabled\", \"detachKeys\" : \"ctrl-z,z\" } > $HOME/.docker/config.json
 
 # Install vlc
 echo "------------------------------------------"
