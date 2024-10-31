@@ -346,9 +346,10 @@ then
 #   echo "------------------------------------------"
 #   echo "Installing kitty"
 #   echo "------------------------------------------"
-  sudo apt install kitty -y
+  curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh
 
   ln -sf $pwd/HOME/.config/kitty/kitty.conf $HOME/.config/kitty/kitty.conf
+  sudo ln -sf $HOME/.local/kitty.app/bin/kitty /usr/local/bin/kitty
 fi
 
 # Install symlink for docker development script
