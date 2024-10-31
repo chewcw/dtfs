@@ -671,13 +671,13 @@ M.general = {
     -- ["<C-A-d>"] = { "<cmd> bwipeout! <CR>", "wipe out the buffer from buffer list" },
     ["<C-A-w>"] = {
       ":lua require('plugins.configs.buffer_utils').force_delete_buffer_switch_to_previous() <CR>",
-      "wipe the buffer and switch to previous buffer in same cwd",
+      "wipe the buffer switch to previous buffer in same cwd",
       opts = { silent = true },
     },
 
     -- https://vim.fandom.com/wiki/Swapping_characters,_words_and_lines
-    ["gL"] = { '"_yiw:s/\\(\\%#\\w\\+\\)\\(\\W\\+\\)\\(\\w\\+\\)/\\3\\2\\1/<CR>``:redraw<CR>:nohlsearch<CR>' },
-    ["gH"] = {
+    ["<leader>wl"] = { '"_yiw:s/\\(\\%#\\w\\+\\)\\(\\W\\+\\)\\(\\w\\+\\)/\\3\\2\\1/<CR>``:redraw<CR>:nohlsearch<CR>' },
+    ["<leader>wh"] = {
       '"_yiw?\\w\\+\\_W\\+\\%#<CR>:s/\\(\\%#\\w\\+\\)\\(\\_W\\+\\)\\(\\w\\+\\)/\\3\\2\\1/<CR>``:redraw<CR>:nohlsearch<CR>',
     },
 
@@ -798,7 +798,7 @@ M.general = {
     ["<Down>"] = { 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', "move down", opts = { expr = true } },
     ["<leader>r"] = { ":s/\\%V", "replace in visual mode" },
     -- https://vim.fandom.com/wiki/Swapping_characters,_words_and_lines
-    ["<C-x>"] = { '<Esc>`.``gv"*d"-P``"*P' },
+    ["<leader>wx"] = { '<Esc>`.``gv"*d"-P``"*P' },
     -- switch between windows
     ["<C-h>"] = { "<C-w>h", "window left" },
     ["<C-l>"] = { "<C-w>l", "window right" },
@@ -1336,7 +1336,7 @@ M.telescope = {
     },
 
     -- lsp
-    ["gi"] = {
+    ["gl"] = {
       ":lua require('plugins.configs.telescope_utils').open_lsp_implementation_conditional({show_line='false', jump_type='never', reuse_win='true'}) <CR>",
       "lsp implementation",
       opts = { silent = true },
@@ -1389,8 +1389,7 @@ M.telescope = {
       opts = { silent = true },
     },
     ["<leader>oF"] = {
-      ":lua require('plugins.configs.buffer_utils').open_file_in_new_tab(false, vim.v.count) <CR>",
-      "open file in new tab",
+      ":lua require('plugins.configs.buffer_utils').open_file_in_new_tab(false, vim.v.count) <CR>", "open file in new tab",
       opts = { silent = true },
     },
     ["<leader>oT"] = {
