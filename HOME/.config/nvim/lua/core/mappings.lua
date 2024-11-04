@@ -28,7 +28,21 @@ M.general = {
       "move down",
       opts = { silent = true },
     },
+    ["<A-n>"] = {
+      function()
+        require("core.utils").insert_mode_movement_disable_auto_completions("Down")
+      end,
+      "move down",
+      opts = { silent = true },
+    },
     ["<A-k>"] = {
+      function()
+        require("core.utils").insert_mode_movement_disable_auto_completions("Up")
+      end,
+      "move up",
+      opts = { silent = true },
+    },
+    ["<A-p>"] = {
       function()
         require("core.utils").insert_mode_movement_disable_auto_completions("Up")
       end,
@@ -862,11 +876,25 @@ M.general = {
       "move right",
       opts = { silent = true },
     },
+    ["<A-j>"] = {
+      function()
+        require("core.utils").insert_mode_movement_disable_auto_completions("Down")
+      end,
+      "move down",
+      opts = { silent = true },
+    },
     ["<A-n>"] = {
       function()
         require("core.utils").insert_mode_movement_disable_auto_completions("Down")
       end,
       "move down",
+      opts = { silent = true },
+    },
+    ["<A-k>"] = {
+      function()
+        require("core.utils").insert_mode_movement_disable_auto_completions("Up")
+      end,
+      "move up",
       opts = { silent = true },
     },
     ["<A-p>"] = {
