@@ -100,6 +100,8 @@ M.options = {
       disallow_prefix_unmatching = false,
     },
     mapping = {
+      ["<C-k>"] = cmp.mapping.select_prev_item(),
+      ["<C-j>"] = cmp.mapping.select_next_item(),
       ["<C-p>"] = cmp.mapping.select_prev_item(),
       ["<C-n>"] = cmp.mapping.select_next_item(),
       ["<C-d>"] = cmp.mapping.scroll_docs(4),
@@ -137,6 +139,24 @@ M.options = {
         c = function()
           if cmp.visible() then
             cmp.select_next_item()
+          else
+            cmp.complete()
+          end
+        end,
+      },
+      ["<C-j>"] = {
+        c = function()
+          if cmp.visible() then
+            cmp.select_next_item()
+          else
+            cmp.complete()
+          end
+        end,
+      },
+      ["<C-k>"] = {
+        c = function()
+          if cmp.visible() then
+            cmp.select_prev_item()
           else
             cmp.complete()
           end
@@ -181,10 +201,28 @@ M.options = {
   },
   search = {
     mapping = {
+      ["<C-j>"] = {
+        c = function()
+          if cmp.visible() then
+            cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
+          else
+            cmp.complete()
+          end
+        end,
+      },
       ["<C-n>"] = {
         c = function()
           if cmp.visible() then
             cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
+          else
+            cmp.complete()
+          end
+        end,
+      },
+      ["<C-k>"] = {
+        c = function()
+          if cmp.visible() then
+            cmp.select_prev_item({ behavior = cmp.SelectBehavior.Insert })
           else
             cmp.complete()
           end

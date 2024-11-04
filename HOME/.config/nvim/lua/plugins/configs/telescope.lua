@@ -64,6 +64,8 @@ M.options = {
     buffer_previewer_maker = telescope_utils.custom_previewer(),
     mappings = {
       i = {
+        ["<C-j>"] = require("telescope.actions").move_selection_next,
+        ["<C-k>"] = require("telescope.actions").move_selection_previous,
         ["<C-n>"] = require("telescope.actions").move_selection_next,
         ["<C-p>"] = require("telescope.actions").move_selection_previous,
         ["<C-A-\\>"] = function(prompt_bufnr)
@@ -95,9 +97,10 @@ M.options = {
           telescope_utils.open_multiple_files_in_find_files_picker(prompt_bufnr, "edit")
         end,
         ["<C-l>"] = require("telescope.actions").select_default,
-        ["<C-j>"] = require("telescope.actions").select_default,
       },
       n = {
+        ["<C-j>"] = require("telescope.actions").move_selection_next,
+        ["<C-k>"] = require("telescope.actions").move_selection_previous,
         ["<C-n>"] = require("telescope.actions").move_selection_next,
         ["<C-p>"] = require("telescope.actions").move_selection_previous,
         ["<A-[>"] = require("telescope.actions").preview_scrolling_left,
@@ -132,7 +135,6 @@ M.options = {
           telescope_utils.open_multiple_files_in_find_files_picker(prompt_bufnr, "edit")
         end,
         ["<C-l>"] = require("telescope.actions").select_default,
-        ["<C-j>"] = require("telescope.actions").select_default,
         ["i"] = (function()
           local insert_mode = function()
             vim.cmd("startinsert")
