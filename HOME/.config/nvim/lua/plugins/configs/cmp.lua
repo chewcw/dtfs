@@ -107,16 +107,18 @@ M.options = {
       ["<C-d>"] = cmp.mapping.scroll_docs(4),
       ["<C-u>"] = cmp.mapping.scroll_docs(-4),
       ["<C-Space>"] = cmp.mapping.complete(),
+      ["<C-y>"] = cmp.mapping.confirm({
+        behavior = cmp.ConfirmBehavior.Insert,
+        select = true,
+      }),
       ["<C-e>"] = cmp.mapping.close(),
       ["<C-q>"] = cmp.mapping.abort(),
       ["<CR>"] = cmp.mapping.confirm({
         behavior = cmp.ConfirmBehavior.Insert,
         select = true,
       }),
-      ["<Tab>"] = cmp.mapping.confirm({
-        behavior = cmp.ConfirmBehavior.Insert,
-        select = true,
-      }),
+      ["<Tab>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
+      ["<S-Tab>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
       ["<C-l>"] = cmp.mapping.confirm({
         behavior = cmp.ConfirmBehavior.Insert,
         select = true,
@@ -184,7 +186,28 @@ M.options = {
         c = cmp.mapping.complete(),
       },
       ["<C-l>"] = {
-        c = cmp.mapping.confirm({ select = false}),
+        c = cmp.mapping.confirm({ select = false }),
+      },
+      ["<C-y>"] = {
+        c = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Insert, select = true }),
+      },
+      ["<Tab>"] = {
+        c = function()
+          if cmp.visible() then
+            cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
+          else
+            cmp.complete()
+          end
+        end,
+      },
+      ["<S-Tab>"] = {
+        c = function()
+          if cmp.visible() then
+            cmp.select_prev_item({ behavior = cmp.SelectBehavior.Insert })
+          else
+            cmp.complete()
+          end
+        end,
       },
     },
     sources = cmp.config.sources({
@@ -248,6 +271,27 @@ M.options = {
       },
       ["<C-Space>"] = {
         c = cmp.mapping.complete(),
+      },
+      ["<C-y>"] = {
+        c = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Insert, select = true }),
+      },
+      ["<Tab>"] = {
+        c = function()
+          if cmp.visible() then
+            cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
+          else
+            cmp.complete()
+          end
+        end,
+      },
+      ["<S-Tab>"] = {
+        c = function()
+          if cmp.visible() then
+            cmp.select_prev_item({ behavior = cmp.SelectBehavior.Insert })
+          else
+            cmp.complete()
+          end
+        end,
       },
     },
     sources = {
