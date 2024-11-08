@@ -1319,10 +1319,17 @@ M.telescope = {
     },
     ["<leader>fh"] = { "<cmd> Telescope help_tags <CR>", "help page" },
     ["<leader>fo"] = {
-      "<cmd> Telescope oldfiles cwd_only=true <CR>",
+      function()
+        require("plugins.configs.telescope_utils").oldfiles()
+      end,
       "find oldfiles for current working directory",
     },
-    ["<leader>fO"] = { "<cmd> Telescope oldfiles <CR>", "find oldfiles" },
+    ["<leader>fO"] = {
+      function()
+        require("plugins.configs.telescope_utils").all_oldfiles()
+      end,
+			"find oldfiles",
+    },
     ["<leader>fz"] = { "<cmd> Telescope current_buffer_fuzzy_find <CR>", "find in current buffer" },
     ["<leader>f*"] = {
       ":lua require('plugins.configs.telescope_utils').grep_string_custom({}) <CR>",
