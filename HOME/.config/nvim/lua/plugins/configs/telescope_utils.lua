@@ -1278,6 +1278,12 @@ M.find_files = function(opts)
     prompt_title = "Find Files in " .. vim.fn.fnamemodify(opts.cwd, ":p"),
     default_text = opts.default_text,
     follow = true,
+    attach_mappings = function(_, map)
+      map("n", "\\a", function()
+        M.find_all_files({ default_text = action_state.get_current_line() })
+      end)
+      return true
+    end,
   })
 end
 
@@ -1291,6 +1297,12 @@ M.find_all_files = function(opts)
     follow = true,
     no_ignore = true,
     hidden = true,
+    attach_mappings = function(_, map)
+      map("n", "\\f", function()
+        M.find_files({ default_text = action_state.get_current_line() })
+      end)
+      return true
+    end,
   })
 end
 
@@ -1302,6 +1314,13 @@ M.buffers = function(opts)
     prompt_title = "Buffers in " .. vim.fn.fnamemodify(opts.cwd, ":p"),
     cwd_only = true,
     ignore_current_buffer = true,
+    default_text = opts.default_text or "",
+    attach_mappings = function(_, map)
+      map("n", "\\B", function()
+        M.all_buffers({ default_text = action_state.get_current_line() })
+      end)
+      return true
+    end,
   })
 end
 
@@ -1312,6 +1331,46 @@ M.all_buffers = function(opts)
     prompt_title = "All buffers",
     cwd_only = false,
     ignore_current_buffer = true,
+    default_text = opts.default_text or "",
+    attach_mappings = function(_, map)
+      map("n", "\\b", function()
+        M.buffers({ default_text = action_state.get_current_line() })
+      end)
+      return true
+    end,
+  })
+end
+
+M.oldfiles = function(opts)
+  opts = opts or {}
+  opts.cwd = opts.cwd and vim.fn.expand(opts.cwd) or vim.loop.cwd()
+
+  require("telescope.builtin").oldfiles({
+    prompt_title = "Oldfiles" .. " in " .. vim.fn.fnamemodify(opts.cwd, ":p"),
+    cwd_only = true,
+    default_text = opts.default_text or "",
+    attach_mappings = function(_, map)
+      map("n", "\\O", function()
+        M.all_oldfiles({ default_text = action_state.get_current_line() })
+      end)
+      return true
+    end,
+  })
+end
+
+M.all_oldfiles = function(opts)
+  opts = opts or {}
+
+  require("telescope.builtin").oldfiles({
+    prompt_title = "Oldfiles",
+    cwd_only = false,
+    default_text = opts.default_text or "",
+    attach_mappings = function(_, map)
+      map("n", "\\o", function()
+        M.oldfiles({ default_text = action_state.get_current_line() })
+      end)
+      return true
+    end,
   })
 end
 
