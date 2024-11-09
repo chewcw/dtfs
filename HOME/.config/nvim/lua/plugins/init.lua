@@ -516,11 +516,11 @@ local default_plugins = {
           -- find the fugitive related buffer
           vim.defer_fn(function()
             if
-              buf_name:match("^/tmp/nvim%.ccw/")
-              and not buf_name:match("%.sh$")
-              and not buf_name:match("%.edit$")
-              and not buf_name:match("%.exit$")
-              and not vim.g.gll_reload_manually_or_open_new
+                buf_name:match("^/tmp/nvim%.ccw/")
+                and not buf_name:match("%.sh$")
+                and not buf_name:match("%.edit$")
+                and not buf_name:match("%.exit$")
+                and not vim.g.gll_reload_manually_or_open_new
             then
               -- have to do this temporary variable thing, see https://github.com/nanotee/nvim-lua-guide#caveats-3
               local x = vim.g.gll_records
@@ -564,10 +564,10 @@ local default_plugins = {
           local buf_name = vim.api.nvim_buf_get_name(buf)
 
           if
-            buf_name:match("^/tmp/nvim%.ccw/")
-            and not buf_name:match("%.sh$")
-            and not buf_name:match("%.edit$")
-            and not buf_name:match("%.exit$")
+              buf_name:match("^/tmp/nvim%.ccw/")
+              and not buf_name:match("%.sh$")
+              and not buf_name:match("%.edit$")
+              and not buf_name:match("%.exit$")
           then
             -- have to do this temporary variable thing, see https://github.com/nanotee/nvim-lua-guide#caveats-3
             local x = vim.g.gll_records
@@ -891,6 +891,59 @@ local default_plugins = {
           end
         end,
       })
+    end,
+  },
+
+  {
+    "RutaTang/quicknote.nvim",
+    lazy = false,
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+    },
+    init = function()
+      vim.api.nvim_create_user_command("Quicknote", function(opts)
+        if pcall(require, "quicknote") then
+          if opts.args == "new cwd" then
+            require("quicknote").NewNoteAtCWD()
+          elseif opts.args == "open cwd" then
+            require("quicknote").OpenNoteAtCWD()
+          elseif opts.args == "delete cwd" then
+            require("quicknote").DeleteNoteAtCWD()
+          end
+
+          if opts.args == "new line" or opts.args == "new" then
+            require("quicknote").NewNoteAtCurrentLine()
+          elseif opts.args == "open line" or opts.args == "open" then
+            require("quicknote").OpenNoteAtCurrentLine()
+          elseif opts.args == "delete line" or opts.args == "delete" then
+            require("quicknote").DeleteNoteAtCurrentLine()
+          end
+
+          if opts.args == "list" then
+            require("quicknote").ListNotesForCurrentBuffer()
+          elseif opts.args == "list cwd" then
+            require("quicknote").ListNotesForCWD()
+          end
+        end
+      end, { nargs = "*" })
+
+      vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
+        callback = function()
+          require("quicknote").ShowNoteSigns()
+        end,
+      })
+    end,
+    opts = function()
+      return {
+        mode = "portable",
+        sign = "🗈",
+        filetype = "md",
+        git_branch_recognizable = true,
+      }
+    end,
+    config = function(_, opts)
+      require("core.utils").load_mappings("quicknote")
+      require("quicknote").setup(opts)
     end,
   },
 
