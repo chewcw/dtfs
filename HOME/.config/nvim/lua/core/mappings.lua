@@ -1946,4 +1946,20 @@ M.enhancedJumps = {
   },
 }
 
+M.quicknote = {
+  plugin = true,
+  n = {
+    ["]Q"] = { "<cmd> :lua require('quicknote').JumpToNextNote() <CR>", "Jump to next note" },
+    ["[Q"] = { "<cmd> :lua require('quicknote').JumpToPreviousNote() <CR>", "Jump to previous note" },
+    ["<leader>Qnl"] = { "<cmd> :lua require('quicknote').NewNoteAtCurrentLine() <CR>", "New note at current line" },
+    ["<leader>Qol"] = { "<cmd> :lua require('quicknote').OpenNoteAtCurrentLine() <CR>", "Open note at current line" },
+    ["<leader>Qdl"] = { "<cmd> :lua require('quicknote').DeleteNoteAtCurrentLine() <CR>", "Delete note at current line" },
+    ["<leader>Qnc"] = { "<cmd> :lua require('quicknote').NewNoteAtCWD() <CR>", "New note at CWD" },
+    ["<leader>Qoc"] = { "<cmd> :lua require('quicknote').OpenNoteAtCWD() <CR>", "Open note at CWD" },
+    ["<leader>Qdc"] = { "<cmd> :lua require('quicknote').DeleteNoteAtCWD() <CR>", "Delete note at CWD" },
+    ["<leader>Qlb"] = { "<cmd> :lua require('quicknote').ListNotesForCurrentBuffer() <CR>", "List notes at current buffer" },
+    ["<leader>Qlc"] = { "<cmd> :lua require('quicknote').ListNotesForCWD() <CR>", "List notes at CWD" },
+  },
+}
+
 return M

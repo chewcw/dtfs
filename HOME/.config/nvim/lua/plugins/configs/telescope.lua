@@ -166,7 +166,7 @@ M.options = {
     },
   },
 
-  extensions_list = { "file_browser", "workspaces", "ui-select", "fzf" },
+  extensions_list = { "file_browser", "workspaces", "ui-select", "fzf", "quicknote" },
 
   extensions = {
     file_browser = {
@@ -281,7 +281,11 @@ M.options = {
               else
                 -- Open file_browser with the specified path
                 local fb = require("telescope").extensions.file_browser
-                fb.file_browser({ path = input, default_text = current_line, prompt_title = "File Browser" })
+                fb.file_browser({
+                  path = input,
+                  default_text = current_line,
+                  prompt_title = "File Browser",
+                })
               end
             end
           ),
@@ -299,6 +303,10 @@ M.options = {
     workspaces = {
       keep_insert = false,
       path_hl = "String",
+    },
+
+    quicknote = {
+      defaultScope = "CWD",
     },
   },
 
