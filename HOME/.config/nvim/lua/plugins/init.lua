@@ -927,7 +927,7 @@ local default_plugins = {
         end
       end, { nargs = "*" })
 
-      vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
+      vim.api.nvim_create_autocmd({ "BufEnter" }, {
         callback = function()
           require("quicknote").ShowNoteSigns()
         end,

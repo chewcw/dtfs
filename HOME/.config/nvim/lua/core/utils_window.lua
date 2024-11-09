@@ -263,4 +263,66 @@ M.save_window_sizes_and_restore = function(callback)
   end
 end
 
+-- Function to open a floating window with text from a given lines
+M.open_float_with_file_content = function(lines)
+  if #lines == 0 then
+    return
+  end
+
+  -- Create a buffer and set its content
+  local float_buf = vim.api.nvim_create_buf(false, true)    -- Create a new empty buffer
+  vim.api.nvim_buf_set_lines(float_buf, 0, -1, false, lines) -- Set file lines into buffer
+
+  -- Calculate the window dimensions based on content
+  local max_line_length = 0
+  for _, line in ipairs(lines) do
+    if #line > max_line_length then
+      max_line_length = #line
+    end
+  end
+  local width = math.min(max_line_length + 2, math.ceil(vim.o.columns * 0.7))
+  local height = math.min(#lines + 2, math.ceil(vim.o.lines * 0.7))
+
+  -- Open the floating window with the configured dimensions
+  local win = vim.api.nvim_open_win(float_buf, false, {
+    relative = "cursor",
+    width = width,
+    height = height,
+    row = 1,
+    col = 1,
+    style = "minimal",
+    border = "rounded",
+    focusable = true,
+  })
+
+  -- Set some window options (e.g., disabling line numbers)
+  vim.api.nvim_set_option_value("number", false, { win = win })
+  vim.api.nvim_set_option_value("relativenumber", false, { win = win })
+
+  -- Make it looks like other float window
+  vim.api.nvim_set_option_value("winhighlight", "Normal:NormalFloat,FloatBorder:FloatBorder", { win = win })
+
+  -- This global variable is for focusing into the float window
+  vim.g.quicknote_float_win = win
+  -- print(vim.g.quicknote_float_win)
+
+  -- Set up autocommand to close the float on cursor movement
+  vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
+    callback = function()
+      if
+          vim.api.nvim_win_is_valid(win)      -- Valid win
+          and vim.api.nvim_get_current_win() ~= win -- Only close this win if this float win is not focused
+      then
+        vim.api.nvim_win_close(win, true)
+        -- Reset the global variable as the float window is no longer available
+        vim.g.quicknote_float_win = nil
+      end
+    end,
+    once = true,
+  })
+
+  -- Add a `q` keybinding to close the floating window if it’s focused
+  vim.api.nvim_buf_set_keymap(float_buf, "n", "q", ":close <CR> :lua vim.g.quicknote_float_win = nil <CR>", { noremap = true, silent = true })
+end
+
 return M
