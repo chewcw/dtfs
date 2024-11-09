@@ -98,16 +98,15 @@ M.general = {
       opts = { silent = true },
     },
 
-    -- ["<C-n>"] = { "" }, -- unmap this
     ["<C-]>"] = { "<Esc>", "esc" }, -- i always press the wrong key
 
     -- should I map this, this leave probably here for future reference?
     -- https://vim.fandom.com/wiki/Prevent_escape_from_moving_the_cursor_one_character_to_the_left
     -- ["<Esc>"] = { "<C-O>:stopinsert<CR>" },
     -- This seems like autocomplete, disable this
-    -- ["<C-n>"] = { "" },
+    ["<C-n>"] = { "" },
     -- This seems like autocomplete, disable this
-    -- ["<C-p>"] = { "" },
+    ["<C-p>"] = { "" },
     -- ["<A-e>"] = { "" },
   },
 
@@ -805,6 +804,9 @@ M.general = {
     },
     ["<A-p>"] = { function() end },
     ["<A-r>"] = { function() end },
+
+    -- Not using tag stack anyway
+    ["<C-t>"] = { function() end },
   },
 
   v = {

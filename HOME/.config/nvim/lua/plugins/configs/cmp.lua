@@ -117,8 +117,6 @@ M.options = {
         behavior = cmp.ConfirmBehavior.Insert,
         select = true,
       }),
-      ["<Tab>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
-      ["<S-Tab>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
       ["<C-l>"] = cmp.mapping.confirm({
         behavior = cmp.ConfirmBehavior.Insert,
         select = true,
@@ -191,24 +189,6 @@ M.options = {
       ["<C-y>"] = {
         c = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Insert, select = true }),
       },
-      ["<Tab>"] = {
-        c = function()
-          if cmp.visible() then
-            cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
-          else
-            cmp.complete()
-          end
-        end,
-      },
-      ["<S-Tab>"] = {
-        c = function()
-          if cmp.visible() then
-            cmp.select_prev_item({ behavior = cmp.SelectBehavior.Insert })
-          else
-            cmp.complete()
-          end
-        end,
-      },
     },
     sources = cmp.config.sources({
       { name = "async_path" },
@@ -274,24 +254,6 @@ M.options = {
       },
       ["<C-y>"] = {
         c = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Insert, select = true }),
-      },
-      ["<Tab>"] = {
-        c = function()
-          if cmp.visible() then
-            cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
-          else
-            cmp.complete()
-          end
-        end,
-      },
-      ["<S-Tab>"] = {
-        c = function()
-          if cmp.visible() then
-            cmp.select_prev_item({ behavior = cmp.SelectBehavior.Insert })
-          else
-            cmp.complete()
-          end
-        end,
       },
     },
     sources = {
