@@ -689,7 +689,9 @@ M.general = {
     },
 
     -- https://vim.fandom.com/wiki/Swapping_characters,_words_and_lines
-    ["<leader>wl"] = { '"_yiw:s/\\(\\%#\\w\\+\\)\\(\\W\\+\\)\\(\\w\\+\\)/\\3\\2\\1/<CR>``:redraw<CR>:nohlsearch<CR>' },
+    ["<leader>wl"] = {
+      '"_yiw:s/\\(\\%#\\w\\+\\)\\(\\W\\+\\)\\(\\w\\+\\)/\\3\\2\\1/<CR>``:redraw<CR>:nohlsearch<CR>',
+    },
     ["<leader>wh"] = {
       '"_yiw?\\w\\+\\_W\\+\\%#<CR>:s/\\(\\%#\\w\\+\\)\\(\\_W\\+\\)\\(\\w\\+\\)/\\3\\2\\1/<CR>``:redraw<CR>:nohlsearch<CR>',
     },
@@ -1330,7 +1332,7 @@ M.telescope = {
       function()
         require("plugins.configs.telescope_utils").all_oldfiles()
       end,
-			"find oldfiles",
+      "find oldfiles",
     },
     ["<leader>fz"] = { "<cmd> Telescope current_buffer_fuzzy_find <CR>", "find in current buffer" },
     ["<leader>f*"] = {
@@ -1426,7 +1428,8 @@ M.telescope = {
       opts = { silent = true },
     },
     ["<leader>oF"] = {
-      ":lua require('plugins.configs.buffer_utils').open_file_in_new_tab(false, vim.v.count) <CR>", "open file in new tab",
+      ":lua require('plugins.configs.buffer_utils').open_file_in_new_tab(false, vim.v.count) <CR>",
+      "open file in new tab",
       opts = { silent = true },
     },
     ["<leader>oT"] = {
@@ -1949,15 +1952,54 @@ M.enhancedJumps = {
 M.quicknote = {
   plugin = true,
   n = {
-    ["]Q"] = { "<cmd> :lua require('quicknote').JumpToNextNote() <CR>", "Jump to next note" },
-    ["[Q"] = { "<cmd> :lua require('quicknote').JumpToPreviousNote() <CR>", "Jump to previous note" },
+    ["]Q"] = {
+      function()
+        require("plugins.configs.quicknote_utils").jump_to_next_note()
+      end,
+      "Jump to next note",
+    },
+    ["[Q"] = {
+      function()
+        require("plugins.configs.quicknote_utils").jump_to_previous_note()
+      end,
+      "Jump to previous note",
+    },
     ["<leader>Qnl"] = { "<cmd> :lua require('quicknote').NewNoteAtCurrentLine() <CR>", "New note at current line" },
-    ["<leader>Qol"] = { "<cmd> :lua require('quicknote').OpenNoteAtCurrentLine() <CR>", "Open note at current line" },
-    ["<leader>Qdl"] = { "<cmd> :lua require('quicknote').DeleteNoteAtCurrentLine() <CR>", "Delete note at current line" },
+    ["<leader>Qpl"] = {
+      function()
+        require("plugins.configs.quicknote_utils").preview_note_at_current_line()
+      end,
+      "Open note at current line",
+    },
+    ["<leader>Qol"] = {
+      function()
+        require("plugins.configs.quicknote_utils").open_note_at_current_line()
+      end,
+      "Open note at current line",
+    },
+    ["<leader>Qdl"] = {
+      function()
+        require("plugins.configs.quicknote_utils").delete_note_at_current_line()
+      end,
+      "Delete note at current line",
+    },
     ["<leader>Qnc"] = { "<cmd> :lua require('quicknote').NewNoteAtCWD() <CR>", "New note at CWD" },
-    ["<leader>Qoc"] = { "<cmd> :lua require('quicknote').OpenNoteAtCWD() <CR>", "Open note at CWD" },
-    ["<leader>Qdc"] = { "<cmd> :lua require('quicknote').DeleteNoteAtCWD() <CR>", "Delete note at CWD" },
-    ["<leader>Qlb"] = { "<cmd> :lua require('quicknote').ListNotesForCurrentBuffer() <CR>", "List notes at current buffer" },
+    ["<leader>Qoc"] = {
+      function()
+        require("plugins.configs.quicknote_utils").open_note_at_cwd()
+      end,
+      "Open note at CWD",
+    },
+    ["<leader>Qdc"] = {
+      function()
+        require("plugins.configs.quicknote_utils").delete_note_at_cwd()
+      end,
+      "Delete note at CWD",
+    },
+    ["<leader>Qlb"] = {
+      "<cmd> :lua require('quicknote').ListNotesForCurrentBuffer() <CR>",
+      "List notes at current buffer",
+    },
     ["<leader>Qlc"] = { "<cmd> :lua require('quicknote').ListNotesForCWD() <CR>", "List notes at CWD" },
   },
 }
