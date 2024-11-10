@@ -5,7 +5,7 @@ M = {}
 M.force_delete_buffer_switch_to_next = function()
   local current_bufnr = vim.fn.bufnr("%") -- Get the buffer number of the current buffer
   local buffer_type = vim.api.nvim_get_option_value("buftype", { buf = current_bufnr })
-  if buffer_type == 'nofile' then
+  if buffer_type == "nofile" then
     M.switch_to_next_buffer_in_cwd()
   end
 
@@ -16,7 +16,7 @@ end
 M.force_delete_buffer_switch_to_previous = function()
   local current_bufnr = vim.fn.bufnr("%") -- Get the buffer number of the current buffer
   local buffer_type = vim.api.nvim_get_option_value("buftype", { buf = current_bufnr })
-  if buffer_type == 'nofile' then
+  if buffer_type == "nofile" then
     M.switch_to_previous_buffer_in_cwd()
   end
 
@@ -443,11 +443,6 @@ M.open_file_or_buffer_in_specific_tab = function(is_visual, count)
 
     file[1] = vim.fn.fnamemodify(buf_name, ":p")
     file[2], file[3] = vim.api.nvim_win_get_cursor(0)
-    -- if there are multiple windows in current screen,
-    -- close current window as we are opening current buffer in new tab anyway
-    if vim.fn.winnr("$") > 1 then
-      vim.api.nvim_win_close(current_win_id, false)
-    end
   end
 
   local file_path = file[1]
@@ -458,42 +453,14 @@ M.open_file_or_buffer_in_specific_tab = function(is_visual, count)
   local original_tab_cwd_visibility = vim.g.TabCwd
   vim.g.TabCwd = "1"
 
-  -- vim.ui.input({ prompt = "Enter tab number: " }, function(input)
-  --   if input then
-  --     local tabnr = tonumber(input)
-  --     local tabnr_ordinal = vim.api.nvim_tabpage_get_number(tabnr)
-  --     if tabnr_ordinal and tabnr_ordinal > 0 and tabnr_ordinal <= vim.fn.tabpagenr("$") then
-  --       -- Get the list of tab pages
-  --       local tabpages = vim.api.nvim_list_tabpages()
-  --       -- Check if the specified tab exists
-  --       if tabnr_ordinal < 1 or tabnr_ordinal > #tabpages then
-  --         print("Invalid tab number: " .. tabnr_ordinal)
-  --         return
-  --       end
-  --
-  --       -- Switch to the specified tab
-  --       vim.cmd("tabn " .. tabnr_ordinal)
-  --       -- Open the file in the current window of the specified tab
-  --       if file and file[1] then
-  --         local parent_dir = vim.fn.fnamemodify(file[1], ":h")
-  --         if parent_dir then
-  --           vim.g.new_tab_buf_cwd = parent_dir
-  --         end
-  --
-  --         vim.cmd("edit " .. file[1])
-  --         vim.fn.cursor(file[2], file[3])
-  --       end
-  --     else
-  --       print("Invalid tab number: " .. input)
-  --     end
-  --   else
-  --     print("Input canceled")
-  --   end
-  -- end)
-
   require("plugins.configs.telescope_tabs").list_tabs({
     title = "Open in tab",
     on_open = function(tid)
+      -- if there are multiple windows in current screen,
+      -- close current window as we are opening current buffer in new tab anyway
+      if vim.fn.winnr("$") > 1 then
+        vim.api.nvim_win_close(current_win_id, false)
+      end
       local tabnr_ordinal = vim.api.nvim_tabpage_get_number(tid)
       -- Switch to the specified tab
       vim.cmd("tabn " .. tabnr_ordinal)
