@@ -1,5 +1,5 @@
 local function bufnr()
-  return "[%n]"
+  return "%n:"
 end
 
 local function filepath()
@@ -16,7 +16,7 @@ local function filepath()
 end
 
 local function filename()
-  local fname = vim.fn.expand("%:t")
+  local fname = vim.fn.expand("%:p")
   if fname ~= "" and vim.bo.buftype == "nofile" then
     return fname .. " [Scratch]"
   elseif fname == "" and vim.bo.buftype == "nofile" then
@@ -138,11 +138,9 @@ Statusline = {}
 
 Statusline.active = function()
   return table.concat({
-    "%#StatusLineText#",
     bufnr(),
-    " ",
     "%#TablineSel#",
-    "🗁 ",
+    "",
     filepath(),
     filename(),
     modified(),
@@ -155,7 +153,6 @@ Statusline.active = function()
     "%#StatusLineText#",
     " 🖿  ",
     cwd(),
-    " 🖉 ",
     encoding(),
     fileformat(),
     lineinfo(),
