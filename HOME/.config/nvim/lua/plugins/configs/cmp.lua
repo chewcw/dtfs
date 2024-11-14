@@ -1,6 +1,7 @@
 local M = {}
 
 local cmp = require("cmp")
+local compare = require("cmp").config.compare
 
 local kind_icons = {
   Text = "",
@@ -54,6 +55,23 @@ M.options = {
     experimental = {
       ghost_text = {
         hl_group = "CmpGhostText",
+      },
+    },
+
+    sorting = {
+      priority_weight = 1.0,
+      comparators = {
+        compare.score, -- based on :  score = score + ((#sources - (source_index - 1)) * sorting.priority_weight)
+        compare.recently_used,
+        compare.locality,
+        compare.offset,
+        compare.order,
+        -- compare.scopes,
+        -- compare.score_offset,
+        -- compare.sort_text,
+        -- compare.exact,
+        -- compare.kind,
+        -- compare.length,
       },
     },
 
