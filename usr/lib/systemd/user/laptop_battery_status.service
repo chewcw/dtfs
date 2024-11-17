@@ -1,0 +1,5 @@
+[Unit]
+Description=Laptop battery status
+
+[Service]
+ExecStart=/home/ccw/.local/bin/laptop_battery_status.sh
