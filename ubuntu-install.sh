@@ -293,6 +293,12 @@ echo "------------------------------------------"
 mkdir -p $HOME/.config/i3
 ln -sf $pwd/HOME/.config/i3/config $HOME/.config/i3/config
 
+# Install notify-send
+echo "------------------------------------------"
+echo "Installing notify-send"
+echo "------------------------------------------"
+sudo apt install -y libnotify-bin
+
 # Setup dunst (notification daemon)
 echo "------------------------------------------"
 echo "Installing symlink for dunstrc"
@@ -510,12 +516,29 @@ EndSection
 EOF
 
 echo "------------------------------------------"
+echo "Installing fcitx5"
+echo "Run im-config and select fcitx5"
+echo "See https://fcitx-im.org/wiki/Setup_Fcitx_5"
+echo "------------------------------------------"
+sudo apt install -y fcitx5 fcitx5-config-qt fcitx5-pinyin fcitx5-mozc
+
+echo "------------------------------------------"
 echo "Installing some common tools"
 echo "------------------------------------------"
 # document like pdf reader
 sudo apt install -y okular
 # inkscape
 sudo apt install -y inkscape
+
+echo "------------------------------------------"
+echo "Systemd timers"
+echo "------------------------------------------"
+# Check for laptop's battery level
+ln -sf $pwd/HOME/.local/bin/laptop_battery_status.sh $HOME/.local/bin/laptop_battery_status.sh
+sudo ln -sf $pwd/usr/lib/systemd/user/laptop_battery_status.service /usr/lib/systemd/user/laptop_battery_status.service
+sudo ln -sf $pwd/usr/lib/systemd/user/laptop_battery_status.timer /usr/lib/systemd/user/laptop_battery_status.timer
+systemctl --user daemon-reload
+systemctl --user enable --now laptop_battery_status.timer
 
 # shell setup
 # ------------------------------ put below in the end

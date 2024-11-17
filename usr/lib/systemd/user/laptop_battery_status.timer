@@ -1,0 +1,8 @@
+[Unit]
+Description=Check battery status script every 10 minutes
+
+[Timer]
+OnCalendar=*:0/10
+
+[Install]
+WantedBy=timers.target
