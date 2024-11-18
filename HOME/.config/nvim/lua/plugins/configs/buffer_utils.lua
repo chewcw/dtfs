@@ -81,9 +81,8 @@ M.force_delete_buffer_keep_tab = function(bufnr)
   local scratch
 
   -- Check if there is any split window in current tab
-  local is_split = true
   local windows = vim.api.nvim_tabpage_list_wins(0) -- Get the list of windows in the current tab
-  is_split = #windows > 1
+  local is_split = #windows > 1
 
   -- If this is not empty buffer, delete the buffer,
   -- otherwise don't delete, to prevent delete the tab accidentally.
@@ -106,17 +105,17 @@ M.force_delete_buffer_keep_tab = function(bufnr)
     -- Iterate through all tab pages
     for _, tabpage in ipairs(vim.api.nvim_list_tabpages()) do
       -- Get all windows in the tab
-      local windows = vim.api.nvim_tabpage_list_wins(tabpage)
+      windows = vim.api.nvim_tabpage_list_wins(tabpage)
       for _, win in ipairs(windows) do
         -- Check if the window is displaying the buffer to delete
         if vim.api.nvim_win_get_buf(win) == bufnr then
-          -- Get all scratch buffers
-          local scratch_buffers = M.get_scratch_buffers()
+          -- Get all empty scratch buffers
+          local empty_scratch_buffers = M.get_empty_scratch_buffers()
           -- If there is any other scratch buffer, if yes use that scratch buffer.
           -- This is to prevent too many scratch buffer opened.
-          if scratch_buffers ~= nil and #scratch_buffers >= 1 then
+          if empty_scratch_buffers ~= nil and #empty_scratch_buffers >= 1 then
             -- Set the buffer to the first scratch buffer in the list
-            scratch = scratch_buffers[1]
+            scratch = empty_scratch_buffers[1]
             vim.api.nvim_win_set_buf(win, scratch)
             -- There are none scratch buffers in the memory
           else
@@ -163,10 +162,35 @@ M.get_scratch_buffers = function()
   -- Get a list of all buffers
   local buffers = vim.api.nvim_list_bufs()
   -- Iterate over each buffer and check if it's a scratch buffer
-  for _, buf in ipairs(buffers) do
+  for _, bufnr in ipairs(buffers) do
     -- Check if the buffer is a scratch buffer
-    if vim.api.nvim_get_option_value("buftype", { buf = buf }) == "nofile" then
-      table.insert(scratch_buffers, buf)
+    if vim.api.nvim_get_option_value("buftype", { buf = bufnr }) == "nofile" then
+      table.insert(scratch_buffers, bufnr)
+    end
+  end
+  return scratch_buffers
+end
+
+M.get_empty_scratch_buffers = function()
+  local scratch_buffers = {}
+  -- Get a list of all buffers
+  local buffers = vim.api.nvim_list_bufs()
+  -- Iterate over each buffer and check if it's a scratch buffer
+  for _, bufnr in ipairs(buffers) do
+    -- Check if the buffer is a scratch buffer
+    if vim.api.nvim_get_option_value("buftype", { buf = bufnr }) == "nofile" then
+      -- Check if the buffer is empty
+      local lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
+      local is_empty = true
+      for _, line in ipairs(lines) do
+        if line ~= "" then
+          is_empty = false
+          break
+        end
+      end
+      if is_empty then
+        table.insert(scratch_buffers, bufnr)
+      end
     end
   end
   return scratch_buffers
