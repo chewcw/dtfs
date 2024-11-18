@@ -1397,4 +1397,50 @@ M.file_browser_set_cwd = function(prompt_bufnr)
   })
 end
 
+M.list_scratch_buffers = function(opts)
+  opts = opts or {}
+  -- Collect scratch buffers
+  local scratch_buffers = require("plugins.configs.buffer_utils").get_scratch_buffers()
+
+  -- If no scratch buffers, notify user
+  if #scratch_buffers == 0 then
+    vim.notify("No scratch buffers found", vim.log.levels.INFO)
+    return
+  end
+
+  -- Create the Telescope picker
+  local pickers = require("telescope.pickers")
+  local finders = require("telescope.finders")
+  pickers
+      .new(opts, {
+        prompt_title = "Scratch Buffers",
+        finder = finders.new_table({
+          results = scratch_buffers,
+          entry_maker = function(entry)
+            return {
+              value = entry,
+              display = string.format("Buffer %d", tostring(entry)),
+              ordinal = tostring(entry),
+            }
+          end,
+        }),
+        sorter = require("telescope.config").values.generic_sorter({}),
+        attach_mappings = function(_, map)
+          local select = function(prompt_bufnr)
+            local selection = action_state.get_selected_entry()
+            actions.close(prompt_bufnr)
+            if selection and selection.value ~= nil then
+              vim.api.nvim_set_current_buf(selection.value)
+            end
+          end
+          -- Open the selected buffer
+          map("n", "<C-l>", select)
+          map("n", "<CR>", select)
+          map("i", "<CR>", select)
+          return true
+        end,
+      })
+      :find()
+end
+
 return M
