@@ -26,6 +26,17 @@ local function filename()
   end
 end
 
+local function file_path_absolute()
+  local fname = vim.fn.expand("%:p")
+  if fname ~= "" and vim.bo.buftype == "nofile" then
+    return fname .. " [Scratch]"
+  elseif fname == "" and vim.bo.buftype == "nofile" then
+    return "[Scratch]"
+  else
+    return fname
+  end
+end
+
 local function modified()
   return "%m"
 end
@@ -141,8 +152,7 @@ Statusline.active = function()
     bufnr(),
     "%#TablineSel#",
     "",
-    filepath(),
-    filename(),
+    file_path_absolute(),
     modified(),
     "%#StatusLineText#",
     "  ",
