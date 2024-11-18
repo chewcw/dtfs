@@ -1354,6 +1354,8 @@ M.telescope = {
 
     ["<leader>fR"] = { "<cmd> Telescope pickers <CR>", "cache pickers" },
 
+    ["<leader>fn"] = { ":lua require('plugins.configs.telescope_utils').list_scratch_buffers() <CR>", "list scratch buffers" },
+
     -- terminal switcher
     ["<leader>tt"] = { "<cmd> TermSelect <CR>", "select terminal" },
     -- open terminal in new buffer not using toggleterm
