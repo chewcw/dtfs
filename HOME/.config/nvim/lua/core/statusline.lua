@@ -1,5 +1,5 @@
 local function bufnr()
-  return "%n:"
+  return "[%n]"
 end
 
 local function filepath()
@@ -149,7 +149,6 @@ Statusline = {}
 
 Statusline.active = function()
   return table.concat({
-    bufnr(),
     "%#TablineSel#",
     "",
     file_path_absolute(),
@@ -166,6 +165,7 @@ Statusline.active = function()
     encoding(),
     fileformat(),
     lineinfo(),
+    bufnr(),
   })
 end
 
