@@ -172,9 +172,9 @@ M.general = {
     ["<Up>"] = { '(v:count > 1 ? "m\'" . v:count : "") . "k"', "move up", opts = { expr = true } },
 
     -- new buffer
-    ["<leader>bn"] = { "<cmd> enew <CR>", "new buffer replacing current window" },
-    ["<leader>b\\"] = { "<cmd> vnew <CR>", "new buffer in vertical split" },
-    ["<leader>b_"] = { "<cmd> new <CR>", "new buffer in horizontal split" },
+    ["<leader>bbn"] = { "<cmd> enew <CR>", "new buffer replacing current window" },
+    ["<leader>bb\\"] = { "<cmd> vnew <CR>", "new buffer in vertical split" },
+    ["<leader>bb_"] = { "<cmd> new <CR>", "new buffer in horizontal split" },
     ["<leader>bsn"] = {
       function()
         local buf = vim.api.nvim_create_buf(false, true)
