@@ -131,10 +131,10 @@ M.options = {
       }),
       ["<C-e>"] = cmp.mapping.close(),
       ["<C-q>"] = cmp.mapping.abort(),
-      ["<CR>"] = cmp.mapping.confirm({
-        behavior = cmp.ConfirmBehavior.Insert,
-        select = true,
-      }),
+      ["<CR>"] = (function()
+        vim.api.nvim_replace_termcodes("<CR>", false, false, true)
+        cmp.mapping.abort()
+      end)(),
       ["<C-l>"] = cmp.mapping.confirm({
         behavior = cmp.ConfirmBehavior.Insert,
         select = true,
