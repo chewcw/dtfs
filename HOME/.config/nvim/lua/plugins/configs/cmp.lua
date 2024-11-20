@@ -148,7 +148,7 @@ M.options = {
       { name = "nvim_lua" },
       { name = "async_path" },
       { name = "gitmoji" },
-      { name = "emoji" },
+      { name = "emoji", option = { insert = true } },
     },
   },
   cmd = {
