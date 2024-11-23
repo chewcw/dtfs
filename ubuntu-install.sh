@@ -521,7 +521,8 @@ echo "Run im-config and select fcitx5"
 echo "See https://fcitx-im.org/wiki/Setup_Fcitx_5"
 echo "------------------------------------------"
 sudo apt install -y fcitx5 fcitx5-config-qt fcitx5-pinyin fcitx5-mozc
-
+ln -sf $pwd/HOME/.config/fcitx5 $HOME/.config/fcitx5
+ 
 echo "------------------------------------------"
 echo "Installing some common tools"
 echo "------------------------------------------"
