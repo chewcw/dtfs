@@ -454,6 +454,10 @@ mode "mouse" {
     bindsym $mod+j exec xdotool click 5
 # Scroll up
     bindsym $mod+k exec xdotool click 4
+# Scroll left
+    bindsym $mod+Shift+j exec xdotool click 6
+# Scroll right
+    bindsym $mod+Shift+k exec xdotool click 7
 
 # return to normal keybindings -- IMPORTANT!!
     bindsym $mod+m mode "default"
