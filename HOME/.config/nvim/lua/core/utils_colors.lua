@@ -167,7 +167,7 @@ local get_groups = function(color)
       bg = color.none,
       bold = cfg.keyword_style.bold,
       italic = cfg.keyword_style.italic,
-    },                                                                                                              -- italic for, do, while, etc.
+    },
     Repeat = { fg = color.main2, bg = color.none, bold = cfg.keyword_style.bold, italic = cfg.keyword_style.italic }, -- italic any other keyword
     Boolean = {
       fg = color.main4,
@@ -182,7 +182,7 @@ local get_groups = function(color)
       italic = cfg.function_style.italic,
     },
     Identifier = { fg = color.main1, bg = color.none },                 -- any variable name
-    String = { fg = color.main5, bg = color.none },                     -- Any string
+    String = { fg = color.main4, bg = color.none },                     -- Any string
     Character = { fg = color.main4 },                                   -- any character constant: 'c', '\n'
     Number = { fg = color.main4 },                                      -- a number constant: 5
     Float = { fg = color.main4 },                                       -- a floating point constant: 2.3e10
