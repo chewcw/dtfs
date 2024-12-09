@@ -90,11 +90,11 @@ local default_conf = {
     end
   end,
   -- this is where we can search
-  entry_ordinal = function(tab_id, buffer_ids, file_names, file_paths, is_current, cwd_name, buffers_in_cwd)
+  entry_ordinal = function(tab_id, buffer_ids, file_names, file_paths, is_current, cwd_name, buffers_in_cwd, absolute_path)
     if vim.g.TabAutoCwd == "1" then
-      return table.concat(buffers_in_cwd, " ") .. " " .. cwd_name .. " " .. tab_id
+      return table.concat(buffers_in_cwd, " ") .. " " .. cwd_name .. " " .. tab_id .. " " .. absolute_path
     else
-      return table.concat(file_names, " ") .. tab_id
+      return table.concat(file_names, " ") .. tab_id .. " " .. absolute_path
     end
   end,
   show_preview = false,
@@ -262,7 +262,7 @@ M.list_tabs = function(opts)
               entry[11]
             )
             local ordinal_string =
-                opts.entry_ordinal(entry[5], entry[3], entry[1], entry[2], entry[6], entry[7], entry[8])
+                opts.entry_ordinal(entry[5], entry[3], entry[1], entry[2], entry[6], entry[7], entry[8], entry[11])
             return {
               value = entry,
               path = entry[2][1],
