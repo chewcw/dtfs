@@ -287,14 +287,14 @@ M.toggle_newline_symbol = function()
   end
 end
 
-local function get_buffers_in_cwd()
+M.get_buffers_in_cwd = function()
   local cwd = vim.fn.getcwd()
   local buffers = {}
 
   for _, bufinfo in ipairs(vim.fn.getbufinfo({ buflisted = 1 })) do
     local bufname = bufinfo.name
     if bufname ~= "" and vim.startswith(bufname, cwd) then
-      table.insert(buffers, bufinfo.bufnr)
+      table.insert(buffers, { bufinfo.bufnr, bufinfo.name })
     end
   end
 
@@ -305,11 +305,11 @@ M.switch_to_next_buffer_in_cwd = function()
   if not vim.o.hlsearch then
     vim.cmd("nohlsearch")
   end
-  local buffers = get_buffers_in_cwd()
+  local buffers = M.get_buffers_in_cwd()
   local current_bufnr = vim.api.nvim_get_current_buf()
   local current_index = nil
-  for i, bufnr in ipairs(buffers) do
-    if bufnr == current_bufnr then
+  for i, buf in ipairs(buffers) do
+    if buf[1] == current_bufnr then
       current_index = i
       break
     end
@@ -317,12 +317,12 @@ M.switch_to_next_buffer_in_cwd = function()
   if current_index then
     pcall(function()
       local next_index = (current_index % #buffers) + 1
-      vim.api.nvim_set_current_buf(buffers[next_index])
+      vim.api.nvim_set_current_buf(buffers[next_index][1])
     end)
   else
     pcall(function()
       local next_index = #buffers
-      vim.api.nvim_set_current_buf(buffers[next_index])
+      vim.api.nvim_set_current_buf(buffers[next_index][1])
     end)
   end
 end
@@ -331,11 +331,11 @@ M.switch_to_previous_buffer_in_cwd = function()
   if not vim.o.hlsearch then
     vim.cmd("nohlsearch")
   end
-  local buffers = get_buffers_in_cwd()
+  local buffers = M.get_buffers_in_cwd()
   local current_bufnr = vim.api.nvim_get_current_buf()
   local current_index = nil
-  for i, bufnr in ipairs(buffers) do
-    if bufnr == current_bufnr then
+  for i, buf in ipairs(buffers) do
+    if buf[1] == current_bufnr then
       current_index = i
       break
     end
@@ -343,12 +343,12 @@ M.switch_to_previous_buffer_in_cwd = function()
   if current_index then
     pcall(function()
       local previous_index = (current_index - 2) % #buffers + 1
-      vim.api.nvim_set_current_buf(buffers[previous_index])
+      vim.api.nvim_set_current_buf(buffers[previous_index][1])
     end)
   else
     pcall(function()
       local previous_index = 1
-      vim.api.nvim_set_current_buf(buffers[previous_index])
+      vim.api.nvim_set_current_buf(buffers[previous_index][1])
     end)
   end
 end
@@ -602,23 +602,25 @@ M.open_file_or_buffer_in_tab = function(is_visual, count)
         return
       end
     else
-      -- not auto cwd, find if there is tab opening that file
+      -- Not auto cwd, find if there is tab opening that file
       for _, tid in ipairs(vim.api.nvim_list_tabpages()) do
         local tabnr_ordinal = vim.api.nvim_tabpage_get_number(tid)
-        local win_id = vim.api.nvim_tabpage_get_win(tid)
-        -- Get the buffer in the active window
-        local buf_id = vim.api.nvim_win_get_buf(win_id)
-        -- Get the name of the buffer
-        local buf_name = vim.api.nvim_buf_get_name(buf_id)
-        if file_path == buf_name then
-          if vim.g.toggle_term_opened then
-            command = ":q | " -- first need to close this toggleterm
+        -- Temporarily switch to the tab to get its cwd
+        vim.api.nvim_set_current_tabpage(tid)
+        local buffers = M.get_buffers_in_cwd()
+        -- Iterate each buffers in that cwd
+        for _, buf in ipairs(buffers) do
+          if file_path == buf[2] then
+            if vim.g.toggle_term_opened then
+              command = ":q | " -- first need to close this toggleterm
+            end
+            command = command .. "tabnext" .. tabnr_ordinal .. "| edit " .. file_path
+            found_tab = true
+            goto next
           end
-          command = command .. "tabnext" .. tabnr_ordinal .. "| edit " .. file_path
-          found_tab = true
-          break
         end
       end
+      ::next::
       if not found_tab then
         if vim.g.toggle_term_opened then
           command = ":q | " -- first need to close this toggleterm
