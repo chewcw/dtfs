@@ -1176,19 +1176,24 @@ M.open_telescope_file_in_tab = function(prompt_bufnr)
       -- not auto cwd, find if there is tab opening that file
       for _, tid in ipairs(vim.api.nvim_list_tabpages()) do
         local tabnr_ordinal = vim.api.nvim_tabpage_get_number(tid)
-        local win_id = vim.api.nvim_tabpage_get_win(tid)
-        -- Get the buffer in the active window
-        local buf_id = vim.api.nvim_win_get_buf(win_id)
-        -- Get the name of the buffer
-        local buf_name = vim.api.nvim_buf_get_name(buf_id)
-        if file_path == buf_name then
-          command = ":q! |" .. "tabnext" .. tabnr_ordinal .. "| edit " .. file_path
-          found_tab = true
-          break
+        -- Temporarily switch to the tab to get its cwd
+        vim.api.nvim_set_current_tabpage(tid)
+        local buffers = require("plugins.configs.buffer_utils").get_buffers_in_cwd()
+        -- Iterate each buffers in that cwd
+        for _, buf in ipairs(buffers) do
+          if file_path == buf[2] then
+            if vim.g.toggle_term_opened then
+              command = ":q | " -- first need to close this toggleterm
+            end
+            command = "tabnext" .. tabnr_ordinal .. "| edit " .. file_path
+            found_tab = true
+            goto next
+          end
         end
       end
+      ::next::
       if not found_tab then
-        command = ":q! |" .. "tabnew " .. file_path
+        command = "tabnew " .. file_path
       end
     end
   end
