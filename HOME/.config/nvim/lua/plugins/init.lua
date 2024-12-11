@@ -321,6 +321,10 @@ local default_plugins = {
     event = { "BufEnter " },
     -- branch = "master",
     -- commit = "b4930f9",
+    init = function()
+      vim.cmd("let g:tcomment_maps = '0'")
+      require("core.utils").load_mappings("tcomment")
+    end,
   },
 
   -- {
