@@ -1354,7 +1354,10 @@ M.telescope = {
 
     ["<leader>fR"] = { "<cmd> Telescope pickers <CR>", "cache pickers" },
 
-    ["<leader>fn"] = { ":lua require('plugins.configs.telescope_utils').list_scratch_buffers() <CR>", "list scratch buffers" },
+    ["<leader>fn"] = {
+      ":lua require('plugins.configs.telescope_utils').list_scratch_buffers() <CR>",
+      "list scratch buffers",
+    },
 
     -- terminal switcher
     ["<leader>tt"] = { "<cmd> TermSelect <CR>", "select terminal" },
@@ -2003,6 +2006,28 @@ M.quicknote = {
       "List notes at current buffer",
     },
     ["<leader>Qlc"] = { "<cmd> :lua require('quicknote').ListNotesForCWD() <CR>", "List notes at CWD" },
+  },
+}
+
+M.tcomment = {
+  plugin = true,
+  n = {
+    ["<C-//>"] = {
+      "<cmd> :TComment <CR>",
+      "Comment out the line",
+    },
+  },
+  i = {
+    ["<C-//>"] = {
+      "<cmd> :TComment <CR>",
+      "Comment out the line",
+    },
+  },
+  v = {
+    ["<C-//>"] = {
+      "<cmd> :TComment <CR>",
+      "Comment out the line",
+    },
   },
 }
 

@@ -321,6 +321,9 @@ local default_plugins = {
     event = { "BufEnter " },
     -- branch = "master",
     -- commit = "b4930f9",
+    init = function()
+      require("core.utils").load_mappings("tcomment")
+    end,
   },
 
   -- {
