@@ -376,7 +376,7 @@ M.open_lsp_type_definition_conditional = function(opts)
     require("omnisharp_extended").telescope_lsp_type_definition(opts)
     return
   end
-  require("telescope.builtin").lsp_type_definition(opts)
+  require("telescope.builtin").lsp_type_definitions(opts)
 end
 
 M.open_lsp_implementation_conditional = function(opts)
@@ -384,7 +384,7 @@ M.open_lsp_implementation_conditional = function(opts)
     require("omnisharp_extended").telescope_lsp_implementation(opts)
     return
   end
-  require("telescope.builtin").lsp_implementation(opts)
+  require("telescope.builtin").lsp_implementations(opts)
 end
 -- ----------------------------------------------------------------------------
 
