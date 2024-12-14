@@ -477,6 +477,8 @@ local get_groups = function(color)
     TroublePreview = { fg = color.fg, bg = color.dark_yellow },
     -- Codeium
     CodeiumSuggestion = { fg = color.gray07, bg = color.dark_brown, italic = false },
+    -- toml
+    tomlDotInKey = { fg = color.fg, bg = color.none },
   }
 end
 
