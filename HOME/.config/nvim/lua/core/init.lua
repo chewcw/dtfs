@@ -430,6 +430,7 @@ vim.api.nvim_create_user_command("TabAutoCwd", function()
   if vim.g.TabAutoCwd == nil or vim.g.TabAutoCwd == "0" then
     vim.g.TabAutoCwd = "1"
     vim.g.TabCwd = "3"
+    vim.g.TabCwdByProject = "0" -- This flag only make sense if TabAutoCwd is off
   else
     vim.g.TabAutoCwd = "0"
     vim.g.TabCwd = "7"
@@ -441,6 +442,30 @@ vim.api.nvim_create_user_command("TabAutoCwd", function()
     end
     vim.notify("TabAutoCwd is now " .. onoff)
   end, 50)
+end, { nargs = "*" })
+
+-- ----------------------------------------------------------------------------
+-- Set each tab as project workspace, so that buffers from same project but
+-- different nested parent folder would be opened in same tab.
+-- Only useful when use with TabAutoCwd == off
+-- ----------------------------------------------------------------------------
+vim.api.nvim_create_user_command("TabCwdByProject", function()
+  if vim.g.TabAutoCwd == "0" then
+    if vim.g.TabCwdByProject == nil or vim.g.TabCwdByProject == "0" then
+      vim.g.TabCwdByProject = "1"
+      vim.g.TabCwd = "3"
+    else
+      vim.g.TabCwdByProject = "0"
+      vim.g.TabCwd = "7"
+    end
+    vim.defer_fn(function()
+      local onoff = "off"
+      if vim.g.TabCwdByProject == "1" then
+        onoff = "on"
+      end
+      vim.notify("TabCwdByProject is now " .. onoff)
+    end, 50)
+  end
 end, { nargs = "*" })
 
 vim.api.nvim_create_autocmd("TabNewEntered", {
@@ -540,6 +565,7 @@ vim.api.nvim_create_autocmd("VimEnter", {
   callback = function()
     vim.g.TabCwd = "3"
     vim.g.TabAutoCwd = "1"
+    vim.g.TabCwdByProject = "0"
   end,
 })
 
