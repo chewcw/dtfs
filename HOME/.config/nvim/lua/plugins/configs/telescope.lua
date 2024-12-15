@@ -289,6 +289,7 @@ M.options = {
               end
             end
           ),
+          ["<leader>ot"] = telescope_utils.open_telescope_file_in_tab,
         },
       },
     },

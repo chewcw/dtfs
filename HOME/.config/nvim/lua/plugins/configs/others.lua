@@ -104,8 +104,9 @@ M.webdevicons = {
 M.workspaces = {
   hooks = {
     open_pre = {
-      "TabAutoCwd", -- if using workspaces, don't need auto cwd
-      "TabCwd 7", -- if using workspaces, the tab show the buffer name
+      "TabAutoCwd 0", -- if using workspaces, don't need auto cwd
+      "TabCwdByProject 1", -- each tab represent each workspace selected from workspaces
+      "TabCwd 3", -- if using workspaces, the tab show the workspace name
     },
     -- open = {
     --   "Telescope find_files",
