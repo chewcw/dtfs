@@ -43,3 +43,6 @@
   stash = false
 [push]
   autoSetupRemote = false
+[rebase]
+  rebaseMerges = true
+  updateRefs = true
