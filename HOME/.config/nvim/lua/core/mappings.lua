@@ -108,6 +108,12 @@ M.general = {
     -- This seems like autocomplete, disable this
     ["<C-p>"] = { "" },
     -- ["<A-e>"] = { "" },
+    ["<C-f>"] = { "<C-o>l" }, -- Move cursor one character forward (to simulate the normal way to navigate the linux terminal)
+    ["<A-f>"] = { "<C-o>w" }, -- Move cursor one character forward (to simulate the normal way to navigate the linux terminal)
+    ["<C-b>"] = { "<C-o>h" }, -- Move cursor one character backward (to simulate the normal way to navigate the linux terminal)
+    ["<C-a>"] = { "<C-o>0" }, -- Move cursor to beginning of the line (to simulate the normal way to navigate the linux terminal)
+    ["<C-e>"] = { "<C-o>$" }, -- Move cursor to the end of the line (to simulate the normal way to navigate the linux terminal)
+    ["<A-d>"] = { "<C-o>dw" }, -- Delete the word after cursor (to simulate the normal way to navigate the linux terminal)
   },
 
   n = {
@@ -908,13 +914,6 @@ M.general = {
       "move up",
       opts = { silent = true },
     },
-    ["<A-w>"] = {
-      function()
-        require("core.utils").insert_mode_movement_disable_auto_completions("C-Right")
-      end,
-      "move next word",
-      opts = { silent = true },
-    },
     ["<A-b>"] = {
       function()
         require("core.utils").insert_mode_movement_disable_auto_completions("C-Left")
@@ -922,6 +921,13 @@ M.general = {
       "move previous word",
       opts = { silent = true },
     },
+    ["<C-a>"] = { "<C-b>" }, -- Move cursor to beginning of the line (to simulate the normal way to navigate the linux terminal)
+    ["<A-f>"] = {
+      function()
+        require("core.utils").insert_mode_movement_disable_auto_completions("C-Right")
+      end,
+      "move right",
+    }, -- Move cursor one word forward (to simulate the normal way to navigate the linux terminal)
     ["<A-\\>"] = {
       function()
         pcall(function()
