@@ -99,7 +99,7 @@ local function lineinfo()
   if vim.bo.filetype == "alpha" then
     return ""
   end
-  return " %l:%c "
+  return "%l:%c"
 end
 
 local vcs = function()
@@ -138,11 +138,19 @@ end
 -- end
 
 local fileformat = function()
-  return " %{&fileformat}"
+  return "%{&fileformat}"
 end
 
 local encoding = function()
-  return " %{&encoding}"
+  return "%{&encoding}"
+end
+
+local get_word_count = function()
+  return tostring(vim.fn.wordcount().words)
+end
+
+local get_character_count = function()
+  return tostring(vim.fn.strlen(table.concat(vim.fn.getbufline(vim.fn.bufnr(), 1, "$"), "")))
 end
 
 Statusline = {}
@@ -162,9 +170,18 @@ Statusline.active = function()
     "%#StatusLineText#",
     " 🖿  ",
     cwd(),
+    "|",
     encoding(),
+    "|",
     fileformat(),
+    "|",
     lineinfo(),
+    "|",
+    get_character_count(),
+    "c",
+    "|",
+    get_word_count(),
+    "w",
     bufnr(),
   })
 end
