@@ -398,7 +398,7 @@ M.options = {
     buffers = {
       sort_lastused = true,
       sort_mru = true,
-      sorter = telescope_utils.keep_initial_sorting_sorter(),
+      -- sorter = telescope_utils.keep_initial_sorting_sorter(),
       mappings = {
         i = {
           ["<A-w>"] = telescope_utils.set_temporary_cwd_from_file_browser("buffers"),
@@ -453,7 +453,7 @@ M.options = {
     oldfiles = {
       sort_lastused = true,
       sort_mru = true,
-      sorter = telescope_utils.keep_initial_sorting_sorter(),
+      -- sorter = telescope_utils.keep_initial_sorting_sorter(),
       tiebreak = function(current_entry, existing_entry, _)
         return current_entry.index > existing_entry.index
       end,
