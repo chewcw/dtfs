@@ -79,7 +79,7 @@ M.options = {
         ["<C-A-e>"] = function(prompt_bufnr)
           telescope_utils.open_multiple_files_in_find_files_picker_and_set_cwd(prompt_bufnr, "tabe")
         end,
-        ["<A-e>"] = telescope_utils.open_telescope_file_in_tab,
+        ["<A-e>"] = telescope_utils.open_telescope_file_in_tab(true),
         ["<A-[>"] = require("telescope.actions").preview_scrolling_left,
         ["<A-]>"] = require("telescope.actions").preview_scrolling_right,
         ["<A-u>"] = require("telescope.actions").preview_scrolling_up,
@@ -123,7 +123,7 @@ M.options = {
         ["<C-A-e>"] = function(prompt_bufnr)
           telescope_utils.open_multiple_files_in_find_files_picker_and_set_cwd(prompt_bufnr, "tabe")
         end,
-        ["<A-e>"] = telescope_utils.open_telescope_file_in_tab,
+        ["<A-e>"] = telescope_utils.open_telescope_file_in_tab(true),
         -- toggle all
         ["<C-a>"] = require("telescope.actions").toggle_all,
         ["q"] = require("telescope.actions").close,
@@ -152,7 +152,7 @@ M.options = {
         ["<leader>oT"] = function()
           telescope_utils.open_telescope_file_in_specfic_tab()
         end,
-        ["<leader>ot"] = telescope_utils.open_telescope_file_in_tab,
+        ["<leader>ot"] = telescope_utils.open_telescope_file_in_tab(false),
         -- toggle preview
         ["\\p"] = require("telescope.actions.layout").toggle_preview,
         -- copy absolute path
@@ -289,7 +289,7 @@ M.options = {
               end
             end
           ),
-          ["<leader>ot"] = telescope_utils.open_telescope_file_in_tab,
+          ["<leader>ot"] = telescope_utils.open_telescope_file_in_tab(false),
         },
       },
     },
@@ -337,7 +337,7 @@ M.options = {
           ["<C-A-e>"] = function(prompt_bufnr)
             telescope_utils.open_multiple_files_in_find_files_picker_and_set_cwd(prompt_bufnr, "tabe")
           end,
-          ["<A-e>"] = telescope_utils.open_telescope_file_in_tab,
+          ["<A-e>"] = telescope_utils.open_telescope_file_in_tab(true),
           ["<C-A-_>"] = function(prompt_bufnr)
             telescope_utils.open_multiple_files_in_find_files_picker(prompt_bufnr, "split")
           end,
@@ -355,7 +355,7 @@ M.options = {
           ["<C-A-e>"] = function(prompt_bufnr)
             telescope_utils.open_multiple_files_in_find_files_picker_and_set_cwd(prompt_bufnr, "tabe")
           end,
-          ["<A-e>"] = telescope_utils.open_telescope_file_in_tab,
+          ["<A-e>"] = telescope_utils.open_telescope_file_in_tab(true),
           ["<C-A-_>"] = function(prompt_bufnr)
             telescope_utils.open_multiple_files_in_find_files_picker(prompt_bufnr, "split")
           end,
@@ -418,7 +418,7 @@ M.options = {
           ["<leader>oT"] = function()
             telescope_utils.open_telescope_file_in_specfic_tab()
           end,
-          ["<leader>ot"] = telescope_utils.open_telescope_file_in_tab,
+          ["<leader>ot"] = telescope_utils.open_telescope_file_in_tab(false),
           ["W"] = telescope_utils.set_temporary_cwd_from_file_browser("buffers"),
           ["<C-A-\\>"] = function(prompt_bufnr)
             telescope_utils.open_multiple_files_in_find_files_picker(prompt_bufnr, "vsplit")
