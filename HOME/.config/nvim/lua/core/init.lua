@@ -411,6 +411,23 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
 })
 
 -- ----------------------------------------------------------------------------
+-- Set expandtab for all buffers
+-- ----------------------------------------------------------------------------
+vim.api.nvim_create_autocmd("BufReadPost", {
+  pattern = "*",
+  callback = function()
+    vim.bo.expandtab = true
+  end,
+})
+
+vim.api.nvim_create_autocmd("LspAttach", {
+  callback = function(args)
+    local bufnr = args.buf
+    vim.bo[bufnr].expandtab = true
+  end,
+})
+
+-- ----------------------------------------------------------------------------
 -- Focus left tab when tab closed
 -- ----------------------------------------------------------------------------
 -- https://stackoverflow.com/a/77006146
