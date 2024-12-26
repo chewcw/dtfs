@@ -147,8 +147,8 @@ M.general = {
     ["<C-A-c>"] = { "<cmd> %y+ <CR>", "copy whole file" },
 
     -- line numbers
-    ["<leader>ln"] = { "<cmd> set nu! <CR>", "toggle line number" },
-    ["<leader>lr"] = { "<cmd> set rnu! <CR>", "toggle relative number" },
+    ["<leader>lrn"] = { "<cmd> set nu! <CR>", "toggle line number" },
+    ["<leader>lrr"] = { "<cmd> set rnu! <CR>", "toggle relative number" },
 
     -- listchars symbol
     ["<leader>ll"] = {
