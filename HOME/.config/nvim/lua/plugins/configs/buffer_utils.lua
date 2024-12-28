@@ -563,8 +563,9 @@ M.open_file_or_buffer_in_tab = function(is_visual, count)
       goto continue
     end
 
-    local parent_dir = vim.fn.fnamemodify(file_path, ":p:h")
     if vim.g.TabAutoCwd == "1" then
+      -- auto cwd, open file in new tab with its cwd
+      local parent_dir = vim.fn.fnamemodify(file_path, ":p:h")
       if parent_dir then
         -- find all tabs
         for _, tid in ipairs(vim.api.nvim_list_tabpages()) do
@@ -603,7 +604,25 @@ M.open_file_or_buffer_in_tab = function(is_visual, count)
       end
     else
       -- Not auto cwd and not cwd by project, find if there is any tab opening that file
-      if vim.g.TabCwdByProject == "0" then
+      if vim.g.TabCwdByProject ~= "1" then
+        -- First, look for currently opened or active window in each tab (cwd)
+        for _, tid in ipairs(vim.api.nvim_list_tabpages()) do
+          local tabnr_ordinal = vim.api.nvim_tabpage_get_number(tid)
+          local win = vim.api.nvim_tabpage_get_win(tid)
+          local buf = vim.api.nvim_win_get_buf(win)
+          local buf_name = vim.api.nvim_buf_get_name(buf)
+          if buf_name == file_path then
+            if vim.g.toggle_term_opened then
+              command = ":q | " -- first need to close this toggleterm
+            end
+            command = command .. "tabnext " .. tabnr_ordinal .. " | edit " .. file_path
+            found_tab = true
+            goto next
+          end
+        end
+
+        -- If there is no active window opened for all tabs,
+        -- look for the all open buffers in each tab instead (cwd)
         for _, tid in ipairs(vim.api.nvim_list_tabpages()) do
           local tabnr_ordinal = vim.api.nvim_tabpage_get_number(tid)
           -- Temporarily switch to the tab to get its cwd
