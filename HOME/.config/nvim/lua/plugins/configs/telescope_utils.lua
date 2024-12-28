@@ -1179,6 +1179,26 @@ M.open_telescope_file_in_tab = function(dont_care_just_open_in_new_tab)
         end
         -- Not auto cwd and not cwd by project, find if there is any tab opening that file
         if vim.g.TabCwdByProject ~= "1" then
+          -- Close the telescope window first, because it occupy current tab
+          vim.api.nvim_command(":q!")
+          -- First, look for currently opened or active window in each tab (cwd)
+          for _, tid in ipairs(vim.api.nvim_list_tabpages()) do
+            local tabnr_ordinal = vim.api.nvim_tabpage_get_number(tid)
+            local win = vim.api.nvim_tabpage_get_win(tid)
+            local buf = vim.api.nvim_win_get_buf(win)
+            local buf_name = vim.api.nvim_buf_get_name(buf)
+            if buf_name == file_path then
+              if vim.g.toggle_term_opened then
+                command = ":q | " -- first need to close this toggleterm
+              end
+              command = command .. "tabnext " .. tabnr_ordinal .. " | edit " .. file_path
+              found_tab = true
+              goto next
+            end
+          end
+
+          -- If there is no active window opened for all tabs,
+          -- look for the all open buffers in each tab instead (cwd)
           for _, tid in ipairs(vim.api.nvim_list_tabpages()) do
             local tabnr_ordinal = vim.api.nvim_tabpage_get_number(tid)
             -- Temporarily switch to the tab to get its cwd
@@ -1190,23 +1210,12 @@ M.open_telescope_file_in_tab = function(dont_care_just_open_in_new_tab)
               if file_path == buf[2] then
                 if vim.g.toggle_term_opened then
                   command = ":q | " -- first need to close this toggleterm
-                else
-                  command = ":q! | " -- close Telescope
                 end
                 command = command .. "tabnext " .. tabnr_ordinal .. " | edit " .. file_path
                 found_tab = true
                 goto next
               end
             end
-            -- The file is in the same tab cwd, just open the file in this tab
-            if vim.g.toggle_term_opened then
-              command = ":q | " -- first need to close this toggleterm
-            else
-              command = ":q! | " -- close Telescope
-            end
-            command = command .. "tabnext " .. tabnr_ordinal .. " | edit " .. file_path
-            found_tab = true
-            goto next
           end
         else
           -- Not auto cwd but is cwd by project, find if that file is inside any of
@@ -1257,7 +1266,7 @@ M.open_telescope_file_in_tab = function(dont_care_just_open_in_new_tab)
 
         ::next::
         if not found_tab then
-          command = ":q! | " .. "tabnew " .. file_path
+          command = "tabnew " .. file_path
         end
       end
     end
