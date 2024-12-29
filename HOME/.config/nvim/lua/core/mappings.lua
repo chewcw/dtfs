@@ -815,6 +815,20 @@ M.general = {
 
     -- Not using tag stack anyway
     ["<C-t>"] = { function() end },
+
+    -- Toggle paste and no paste to turn on / off the auto indent when pasting
+    ["<leader>pa"] = {
+      function()
+        if vim.opt.paste._value then
+          vim.opt.paste = false
+          vim.notify("nopaste mode")
+        else
+          vim.opt.paste = true
+          vim.notify("paste mode")
+        end
+      end,
+      "Toggle paste and nopaste",
+    },
   },
 
   v = {
