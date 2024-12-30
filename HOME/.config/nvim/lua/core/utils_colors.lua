@@ -445,7 +445,7 @@ local get_groups = function(color)
     CmpItemKindKeyword = { fg = color.fg, bg = color.none },
     CmpItemKindProperty = { fg = color.fg, bg = color.none },
     CmpItemMenu = { fg = color.fg, bg = color.none },
-    CmpGhostText = { fg = color.gray04, italic = false },
+    CmpGhostText = { fg = color.gray01, italic = false },
 
     -- Custom highlight groups for use in statusline plugins
     StatusLineNormalMode = { fg = color.black, bg = color.gray02 },
