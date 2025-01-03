@@ -360,7 +360,11 @@ M.open_lsp_definitions_conditional = function(opts)
     require("omnisharp_extended").telescope_lsp_definitions(opts)
     return
   end
-  require("telescope.builtin").lsp_definitions(opts)
+
+  local open_telescope_picker = function()
+    require("telescope.builtin").lsp_definitions(opts)
+  end
+  require("plugins.configs.lsp_utils").go_to("definition", open_telescope_picker)
 end
 
 M.open_lsp_references_conditional = function(opts)
@@ -368,7 +372,11 @@ M.open_lsp_references_conditional = function(opts)
     require("omnisharp_extended").telescope_lsp_references(opts)
     return
   end
-  require("telescope.builtin").lsp_references(opts)
+
+  local open_telescope_picker = function()
+    require("telescope.builtin").lsp_references(opts)
+  end
+  require("plugins.configs.lsp_utils").go_to("references", open_telescope_picker)
 end
 
 M.open_lsp_type_definition_conditional = function(opts)
@@ -376,7 +384,11 @@ M.open_lsp_type_definition_conditional = function(opts)
     require("omnisharp_extended").telescope_lsp_type_definition(opts)
     return
   end
-  require("telescope.builtin").lsp_type_definitions(opts)
+
+  local open_telescope_picker = function()
+    require("telescope.builtin").lsp_type_definitions(opts)
+  end
+  require("plugins.configs.lsp_utils").go_to("typeDefinition", open_telescope_picker)
 end
 
 M.open_lsp_implementation_conditional = function(opts)
@@ -384,7 +396,11 @@ M.open_lsp_implementation_conditional = function(opts)
     require("omnisharp_extended").telescope_lsp_implementation(opts)
     return
   end
-  require("telescope.builtin").lsp_implementations(opts)
+
+  local open_telescope_picker = function()
+    require("telescope.builtin").lsp_implementations(opts)
+  end
+  require("plugins.configs.lsp_utils").go_to("implementation", open_telescope_picker)
 end
 -- ----------------------------------------------------------------------------
 
