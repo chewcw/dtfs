@@ -402,6 +402,14 @@ M.open_lsp_implementation_conditional = function(opts)
   end
   require("plugins.configs.lsp_utils").go_to("implementation", open_telescope_picker)
 end
+
+M.open_lsp_incoming_calls_conditional = function(opts)
+  require("telescope.builtin").lsp_incoming_calls(opts)
+end
+
+M.open_lsp_outgoing_calls_conditional = function(opts)
+  require("telescope.builtin").lsp_outgoing_calls(opts)
+end
 -- ----------------------------------------------------------------------------
 
 -- Function to open new split and prompt for the find_files using Telescope

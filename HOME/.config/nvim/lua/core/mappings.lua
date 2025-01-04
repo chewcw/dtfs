@@ -1441,6 +1441,18 @@ M.telescope = {
     ["gs"] = { "<cmd> Telescope lsp_document_symbols symbol_width=60 <CR>", "lsp document symbols" },
     ["gS"] = { "<cmd> Telescope lsp_workspace_symbols symbol_width=60 <CR>", "lsp workspace symbols" },
 
+    ["gI"] = {
+      ":lua require('plugins.configs.telescope_utils').open_lsp_incoming_calls_conditional({show_line='false', jump_type='never', reuse_win='true'}) <CR>",
+      "lsp incoming calls",
+      opts = { silent = true },
+    },
+
+    ["gO"] = {
+      ":lua require('plugins.configs.telescope_utils').open_lsp_outgoing_calls_conditional({show_line='false', jump_type='never', reuse_win='true'}) <CR>",
+      "lsp outgoing calls",
+      opts = { silent = true },
+    },
+
     -- diagnostic
     ["gZ"] = { "<cmd> Telescope diagnostics <CR>", "open workspace diagnostics" },
     ["gz"] = { "<cmd> Telescope diagnostics bufnr=0 <CR>", "open current buffer diagnostics" },
