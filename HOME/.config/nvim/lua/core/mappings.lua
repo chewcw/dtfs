@@ -1717,10 +1717,34 @@ M.toggleterm = {
 
   t = {
     ["<C-\\>"] = { vim.api.nvim_replace_termcodes("<C-\\><C-N>", true, true, true), "escape terminal mode" },
-    ["<A-.>"] = { "<C-\\> <cmd> ToggleTerm <CR>", "toggle term" },
-    ["<A->>"] = { "<C-\\> <cmd> ToggleTerm <CR>", "toggle term" },
-    ["<A-/>"] = { "<C-\\> <cmd> ToggleTerm <CR>", "toggle term" },
-    ["<A-,>"] = { "<C-\\> <cmd> ToggleTerm <CR>", "toggle term" },
+    -- ["<A-.>"] = { "<C-\\> <cmd> ToggleTerm <CR>", "toggle term" },
+    -- ["<A->>"] = { "<C-\\> <cmd> ToggleTerm <CR>", "toggle term" },
+    -- ["<A-/>"] = { "<C-\\> <cmd> ToggleTerm <CR>", "toggle term" },
+    -- ["<A-,>"] = { "<C-\\> <cmd> ToggleTerm <CR>", "toggle term" },
+    ["<A-.>"] = {
+      function()
+        require("plugins.configs.toggleterm_utils").toggle_term("horizontal")
+      end,
+      "toggle term in horizontal mode",
+    },
+    ["<A->>"] = {
+      function()
+        require("plugins.configs.toggleterm_utils").toggle_term("vertical")
+      end,
+      "toggle term in vertical mode",
+    },
+    ["<A-/>"] = {
+      function()
+        require("plugins.configs.toggleterm_utils").toggle_term("float")
+      end,
+      "toggle term in float mode",
+    },
+    ["<A-,>"] = {
+      function()
+        require("plugins.configs.toggleterm_utils").toggle_term("tab")
+      end,
+      "toggle term in tab mode",
+    },
     -- window navigation
     -- ["<A-h>"] = { "<C-\\><C-N> <cmd>wincmd h<CR>", "navigate left" },
     -- ["<A-j>"] = { "<C-\\><C-N> <cmd>wincmd j<CR>", "navigate down" },
