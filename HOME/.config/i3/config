@@ -33,7 +33,8 @@ font pango:DejaVu Sans Mono 10
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec kitty
+# Enable IME support in kitty terminal - https://bbs.archlinux.org/viewtopic.php?id=301432
+bindsym $mod+Return exec GLFW_IM_MODULE=ibus kitty
 
 # kill focused window
 bindsym $mod+Shift+q kill
