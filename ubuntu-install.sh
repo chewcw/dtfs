@@ -303,6 +303,7 @@ sudo apt install -y libnotify-bin
 echo "------------------------------------------"
 echo "Installing symlink for dunstrc"
 echo "------------------------------------------"
+sudo apt install dunst -y
 sudo mkdir -p /etc/xdg
 sudo mkdir -p /etc/xdg/dunst
 sudo ln -sf $pwd/etc/xdg/dunst/dunstrc /etc/xdg/dunst/dunstrc
