@@ -1,5 +1,6 @@
 -- All plugins have lazy=true by default,to load a plugin on startup just lazy=false
 -- List of all default plugins & their definitions
+local home = os.getenv("HOME")
 local default_plugins = {
 
   {
@@ -382,17 +383,17 @@ local default_plugins = {
     -- commit = "12cba0a",
   },
 
-  {
-    "Exafunction/codeium.vim",
-    cmd = { "CodeiumEnable" },
-    init = function()
-      vim.g.codeium_no_map_tab = false
-      vim.g.codeium_idle_delay = 75
-      require("core.utils").load_mappings("codeium")
-    end,
-    -- branch = "main",
-    -- commit = "9406f13",
-  },
+  -- {
+  --   "Exafunction/codeium.vim",
+  --   cmd = { "CodeiumEnable" },
+  --   init = function()
+  --     vim.g.codeium_no_map_tab = false
+  --     vim.g.codeium_idle_delay = 75
+  --     require("core.utils").load_mappings("codeium")
+  --   end,
+  --   -- branch = "main",
+  --   -- commit = "9406f13",
+  -- },
 
   {
     "natecraddock/workspaces.nvim",
@@ -948,6 +949,24 @@ local default_plugins = {
     config = function(_, opts)
       require("core.utils").load_mappings("quicknote")
       require("quicknote").setup(opts)
+    end,
+  },
+
+  {
+    "github/copilot.vim",
+    lazy = false,
+    init = function()
+      vim.g.copilot_no_map_tab = true
+      pcall(function()
+        vim.keymap.set("i", "<A-Tab>", 'copilot#Accept("\\<CR>")', {
+          expr = true,
+          replace_keycodes = false,
+          desc = "Accept suggestion",
+        })
+        vim.keymap.set("i", "<A-]>", "<Plug>(copilot-next)", { "Cycle to next suggestion" })
+        vim.keymap.set("i", "<A-[>", "<Plug>(copilot-previous)", { "Cycle to previous suggestion" })
+        vim.keymap.set("i", "<A-q>", "<Plug>(copilot-dismiss)", { "Dismiss suggestion" })
+      end)
     end,
   },
 
