@@ -805,6 +805,23 @@ M.exec_shell_command = function()
     end)
   end
 end
+
+M.open_toggleterm_and_send_selection_parent_path_to_toggleterm = function()
+  return function(prompt_bufnr)
+    local cwd = "."
+    if vim.fn.isdirectory(action_state.get_selected_entry().value) == 1 then
+      cwd = action_state.get_selected_entry().value
+    else
+      cwd = getmetatable(action_state.get_selected_entry()).cwd
+    end
+    -- Close the current picker
+    require("telescope.actions").close(prompt_bufnr)
+    pcall(function()
+      require("plugins.configs.toggleterm_utils").toggle_term("horizontal", true, cwd)
+    end)
+  end
+end
+
 -- This is partially (most) copied from Telescope's grep_string function
 -- The reason to have this function is, say scenario:
 -- I am currently in directory A, i want to grep string for another directory B.
