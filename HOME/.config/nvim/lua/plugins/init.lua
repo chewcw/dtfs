@@ -836,7 +836,7 @@ local default_plugins = {
 
   {
     "wfxr/minimap.vim",
-    lazy = false,
+    cmd = { "Minimap" },
     build = "cargo install --locked code-minimap",
     init = function()
       vim.g.minimap_auto_start = 0
@@ -852,8 +852,8 @@ local default_plugins = {
 
   {
     "echasnovski/mini.align",
+    cmd = { "Align" },
     version = "*",
-    lazy = false,
     opts = function()
       return {
         mappings = {
@@ -967,6 +967,37 @@ local default_plugins = {
         vim.keymap.set("i", "<A-[>", "<Plug>(copilot-previous)", { "Cycle to previous suggestion" })
         vim.keymap.set("i", "<A-q>", "<Plug>(copilot-dismiss)", { "Dismiss suggestion" })
       end)
+    end,
+  },
+
+  {
+    "stevearc/oil.nvim",
+    cmd = { "Oil" },
+    opts = {
+      use_default_keymaps = false,
+      keymaps = {
+        ["<A-_>"] = { "actions.select", opts = { horizontal = true } },
+        ["<A-\\>"] = { "actions.select", opts = { vertical = true } },
+        ["<A-e>"] = { "actions.select", opts = { tab = true } },
+        ["gq"] = { "actions.close", mode = "n" },
+        ["\\."] = { "actions.toggle_hidden", mode = "n" },
+        ["\\p"] = { "actions.preview" },
+        ["\\r"] = "actions.refresh",
+        -- Default keymappings
+        ["g?"] = { "actions.show_help", mode = "n" },
+        ["<CR>"] = "actions.select",
+        ["-"] = { "actions.parent", mode = "n" },
+        ["_"] = { "actions.open_cwd", mode = "n" },
+        ["`"] = { "actions.cd", mode = "n" },
+        ["~"] = { "actions.cd", opts = { scope = "tab" }, mode = "n" },
+        ["gs"] = { "actions.change_sort", mode = "n" },
+        ["gx"] = "actions.open_external",
+        ["g\\"] = { "actions.toggle_trash", mode = "n" },
+      },
+    },
+    dependencies = { { "echasnovski/mini.icons", opts = {} } },
+    config = function(_, opts)
+      require("oil").setup(opts)
     end,
   },
 
