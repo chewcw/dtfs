@@ -1,7 +1,7 @@
 # syntax = docker/dockerfile:1.4.0
 FROM debian:trixie-slim
 
-RUN apt update && apt install -y wget curl sudo git ripgrep xclip xsel build-essential python3 python3 tar unzip ncurses-bin vim pip zsh file
+RUN apt update && apt install -y wget curl sudo git ripgrep xclip xsel build-essential python3-full tar unzip ncurses-bin vim pip zsh file
 
 # fish shell
 # RUN echo 'deb http://download.opensuse.org/repositories/shells:/fish:/release:/3/Debian_11/ /' | tee /etc/apt/sources.list.d/shells:fish:release:3.list && \
@@ -20,10 +20,53 @@ EOF
 RUN passwd --delete ccw
 USER ccw
 
+# oh-my-zsh
+RUN <<EOF
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended;
+git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions || true;
+EOF
+
 # fzf
 RUN <<EOF
 git clone --depth 1 https://github.com/junegunn/fzf.git $HOME/.fzf
 sh -c "$HOME/.fzf/install --no-update-rc --completion --key-bindings"
+EOF
+
+# zshrc
+RUN <<EOF cat > /home/ccw/.zshrc
+export ZSH="\$HOME/.oh-my-zsh"
+ZSH_THEME="avit"
+DISABLE_AUTO_UPDATE="true"
+plugins=(git vi-mode zsh-autosuggestions)
+source \$ZSH/oh-my-zsh.sh
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+export FZF_DEFAULT_COMMAND="find -L"
+export FZF_ALT_C_COMMAND="find ."
+export FZF_CTRL_T_COMMAND="\$FZF_DEFAULT_COMMAND"
+export FZF_COMPLETION_TRIGGER=','
+export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#626262'
+export VI_MODE_SET_CURSOR=false
+function zle-line-init zle-keymap-select {
+    RPS1="\${\${KEYMAP/vicmd/-- NORMAL --}/(main|viins)/}"
+    RPS2=\$RPS1
+    zle reset-prompt
+}
+zle -N zle-line-init
+zle -N zle-keymap-select
+export EDITOR=nvim
+export VISUAL=nvim
+zmodload zsh/complist
+bindkey -M menuselect 'h' vi-backward-char
+bindkey -M menuselect 'k' vi-up-line-or-history
+bindkey -M menuselect 'l' vi-forward-char
+bindkey -M menuselect 'j' vi-down-line-or-history
+export LS_COLORS="di=1;36:ln=35:so=32:pi=33:ex=31:bd=34;46:cd=34;43:su=30;41:sg=30;46:tw=30;42:ow=30;43"
+zstyle ':completion:*:default' list-colors \${(s.:.)LS_COLORS}
+export PATH=\$PATH:/usr/local/go/bin
+export PATH=\$PATH:\$HOME/.local/bin
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+export LANGUAGE=en_US.UTF-8
 EOF
 
 # bash
@@ -32,49 +75,47 @@ echo "" >> /home/ccw/.bashrc;
 echo 'set -o vi' >> /home/ccw/.bashrc;
 EOF
 
-# oh-my-zsh
-RUN <<EOF
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended;
-git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions || true;
-EOF
-
 ARG TARGETARCH
 
-# install development tooling and runtime ------------------------------------------ 
+# install development tooling and runtime using asdf -------------------------- 
+# https://github.com/asdf-vm/asdf
+
+# install asdf v0.15.0
 RUN <<EOF
-`# dotnet v8.0`
-cd /tmp;
-wget https://dot.net/v1/dotnet-install.sh -O dotnet-install.sh;
-sudo chmod +x dotnet-install.sh;
-./dotnet-install.sh --channel 8.0 --azure-feed --install-dir=$HOME/.dotnet;
-rm -rf /tmp/dotnet-install.sh;
-sudo ln -s $HOME/.dotnet/dotnet /usr/local/bin/dotnet;
-`# https://learn.microsoft.com/en-us/dotnet/core/install/linux-debian#dependencies`
-sudo apt install -y libicu72;
-
-`# golang 1.23.1`
-sudo mkdir -p /usr/local/go;
-wget "https://go.dev/dl/go1.23.1.linux-${TARGETARCH}.tar.gz" -O "/tmp/go1.23.1.linux-${TARGETARCH}.tar.gz";
-sudo tar -xzf "/tmp/go1.23.1.linux-${TARGETARCH}.tar.gz" -C /usr/local;
-rm -rf "/tmp/go1.23.1.linux-${TARGETARCH}.tar.gz";
-sudo ln -s /usr/local/go/bin/go /usr/local/bin/go;
-
-`# FNM (Fast Node Manager)`
-curl -fsSL https://fnm.vercel.app/install | bash 
-
-`# rust`
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y;
-ls $HOME/.cargo/bin | awk '{print "/home/ccw/.cargo/bin/"$0}' | xargs sudo ln -s -t /usr/local/bin
+git clone https://github.com/asdf-vm/asdf.git /home/ccw/.asdf --branch v0.15.0;
+echo 'source /home/ccw/.asdf/asdf.sh' >> /home/ccw/.zshrc;
+echo 'source /home/ccw/.asdf/completions/asdf.bash' >> /home/ccw/.zshrc;
 EOF
 
-# install firefox
-RUN sudo apt install -y firefox-esr
+# development tooling
+RUN <<EOF
+`# dotnet`
+/usr/bin/zsh -c 'source /home/ccw/.asdf/asdf.sh && asdf plugin add dotnet'
+/usr/bin/zsh -c 'source /home/ccw/.asdf/asdf.sh && asdf install dotnet latest && asdf global dotnet latest'
+
+`# golang`
+/usr/bin/zsh -c 'source /home/ccw/.asdf/asdf.sh && asdf plugin add golang'
+/usr/bin/zsh -c 'source /home/ccw/.asdf/asdf.sh && asdf install golang latest && asdf global golang latest'
+
+`# NodeJS`
+/usr/bin/zsh -c 'source /home/ccw/.asdf/asdf.sh && asdf plugin add nodejs'
+/usr/bin/zsh -c 'source /home/ccw/.asdf/asdf.sh && asdf install nodejs latest && asdf global nodejs latest'
+
+`# Rust`
+/usr/bin/zsh -c 'source /home/ccw/.asdf/asdf.sh && asdf plugin add rust'
+/usr/bin/zsh -c 'source /home/ccw/.asdf/asdf.sh && asdf install rust latest && asdf global rust latest'
+EOF
+
+# ----------------------------------------------------------------------------- 
+
+# install chromium
+RUN sudo apt install -y chromium
 
 # xdg-utils
 RUN <<EOF
 sudo apt install -y xdg-utils
 `# set default web browser`
-xdg-settings set default-web-browser firefox-esr.desktop
+xdg-settings set default-web-browser chromium.desktop
 EOF
 
 # neovim
@@ -207,45 +248,6 @@ xterm-kitty|KovIdTTY,
 	setrgbf=\E[38:2:%p1%d:%p2%d:%p3%dm, smxx=\E[9m,
 EOF
 RUN sudo tic -x /tmp/kitty.info 2>/dev/null && rm /tmp/kitty.info
-
-# zshrc
-RUN <<EOF cat > /home/ccw/.zshrc
-export ZSH="\$HOME/.oh-my-zsh"
-ZSH_THEME="avit"
-DISABLE_AUTO_UPDATE="true"
-plugins=(git vi-mode zsh-autosuggestions)
-source \$ZSH/oh-my-zsh.sh
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-export FZF_DEFAULT_COMMAND="find -L"
-export FZF_ALT_C_COMMAND="find ."
-export FZF_CTRL_T_COMMAND="\$FZF_DEFAULT_COMMAND"
-export FZF_COMPLETION_TRIGGER=','
-export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#626262'
-export VI_MODE_SET_CURSOR=false
-function zle-line-init zle-keymap-select {
-    RPS1="\${\${KEYMAP/vicmd/-- NORMAL --}/(main|viins)/}"
-    RPS2=\$RPS1
-    zle reset-prompt
-}
-zle -N zle-line-init
-zle -N zle-keymap-select
-export EDITOR=nvim
-export VISUAL=nvim
-zmodload zsh/complist
-bindkey -M menuselect 'h' vi-backward-char
-bindkey -M menuselect 'k' vi-up-line-or-history
-bindkey -M menuselect 'l' vi-forward-char
-bindkey -M menuselect 'j' vi-down-line-or-history
-export LS_COLORS="di=1;36:ln=35:so=32:pi=33:ex=31:bd=34;46:cd=34;43:su=30;41:sg=30;46:tw=30;42:ow=30;43"
-zstyle ':completion:*:default' list-colors \${(s.:.)LS_COLORS}
-export PATH=\$PATH:/usr/local/go/bin
-export PATH=\$PATH:\$HOME/.local/bin
-export PATH=\$PATH:\$HOME/.local/share/fnm
-export LC_ALL=en_US.UTF-8
-export LANG=en_US.UTF-8
-export LANGUAGE=en_US.UTF-8
-eval "\$(fnm env)"
-EOF
 
 USER root
 # xdg-open in the /usr/local/bin should take precedence over /usr/bin/xdg-open
