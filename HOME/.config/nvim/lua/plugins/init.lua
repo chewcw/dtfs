@@ -952,54 +952,54 @@ local default_plugins = {
     end,
   },
 
-  -- {
-  --   "CopilotC-Nvim/CopilotChat.nvim",
-  --   dependencies = {
-  --     {
-  --       "github/copilot.vim",
-  --       lazy = false,
-  --       init = function()
-  --         vim.g.copilot_no_map_tab = true
-  --         pcall(function()
-  --           vim.keymap.set("i", "<A-Tab>", 'copilot#Accept("\\<CR>")', {
-  --             expr = true,
-  --             replace_keycodes = false,
-  --             desc = "Accept suggestion",
-  --           })
-  --           vim.keymap.set("i", "<A-]>", "<Plug>(copilot-next)", { "Cycle to next suggestion" })
-  --           vim.keymap.set("i", "<A-[>", "<Plug>(copilot-previous)", { "Cycle to previous suggestion" })
-  --           vim.keymap.set("i", "<A-q>", "<Plug>(copilot-dismiss)", { "Dismiss suggestion" })
-  --         end)
-  --       end,
-  --     },
-  --   },
-  --   build = "make tiktoken",
-  --   opts = {},
-  --   lazy = false,
-  -- },
-
   {
-    "olimorris/codecompanion.nvim",
+    "CopilotC-Nvim/CopilotChat.nvim",
+    dependencies = {
+      {
+        "github/copilot.vim",
+        lazy = false,
+        init = function()
+          vim.g.copilot_no_map_tab = true
+          pcall(function()
+            vim.keymap.set("i", "<A-Tab>", 'copilot#Accept("\\<CR>")', {
+              expr = true,
+              replace_keycodes = false,
+              desc = "Accept suggestion",
+            })
+            vim.keymap.set("i", "<A-]>", "<Plug>(copilot-next)", { "Cycle to next suggestion" })
+            vim.keymap.set("i", "<A-[>", "<Plug>(copilot-previous)", { "Cycle to previous suggestion" })
+            vim.keymap.set("i", "<A-q>", "<Plug>(copilot-dismiss)", { "Dismiss suggestion" })
+          end)
+        end,
+      },
+    },
+    build = "make tiktoken",
+    opts = {},
     lazy = false,
-    opts = function()
-      return {
-        strategies = {
-          chat = {
-            adapter = "copilot",
-          },
-          inline = {
-            adapter = "copilot",
-          },
-          agent = {
-            adapter = "copilot",
-          },
-        },
-      }
-    end,
-    config = function(_, opts)
-      require("codecompanion").setup(opts)
-    end,
   },
+
+  -- {
+  --   "olimorris/codecompanion.nvim",
+  --   lazy = false,
+  --   opts = function()
+  --     return {
+  --       strategies = {
+  --         chat = {
+  --           adapter = "copilot",
+  --         },
+  --         inline = {
+  --           adapter = "copilot",
+  --         },
+  --         agent = {
+  --           adapter = "copilot",
+  --         },
+  --       },
+  --     }
+  --   end,
+  --   config = function(_, opts)
+  --     require("codecompanion").setup(opts)
+  --   end,
+  -- },
 
   {
     "stevearc/oil.nvim",
