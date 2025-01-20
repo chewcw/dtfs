@@ -356,49 +356,49 @@ end
 
 -- Functions to open lsp using Telescope, handle special case for Omnisharp  -----
 M.open_lsp_definitions_conditional = function(opts)
-  if vim.fn.expand("%:e") == "cs" then
-    require("omnisharp_extended").telescope_lsp_definitions(opts)
-    return
-  end
-
   local open_telescope_picker = function()
     require("telescope.builtin").lsp_definitions(opts)
+  end
+  if vim.fn.expand("%:e") == "cs" then
+    open_telescope_picker = function()
+      require("omnisharp_extended").telescope_lsp_definitions(opts)
+    end
   end
   require("plugins.configs.lsp_utils").go_to("definition", open_telescope_picker)
 end
 
 M.open_lsp_references_conditional = function(opts)
-  if vim.fn.expand("%:e") == "cs" then
-    require("omnisharp_extended").telescope_lsp_references(opts)
-    return
-  end
-
   local open_telescope_picker = function()
     require("telescope.builtin").lsp_references(opts)
+  end
+  if vim.fn.expand("%:e") == "cs" then
+    open_telescope_picker = function()
+      require("omnisharp_extended").telescope_lsp_references(opts)
+    end
   end
   require("plugins.configs.lsp_utils").go_to("references", open_telescope_picker)
 end
 
 M.open_lsp_type_definition_conditional = function(opts)
-  if vim.fn.expand("%:e") == "cs" then
-    require("omnisharp_extended").telescope_lsp_type_definition(opts)
-    return
-  end
-
   local open_telescope_picker = function()
     require("telescope.builtin").lsp_type_definitions(opts)
+  end
+  if vim.fn.expand("%:e") == "cs" then
+    open_telescope_picker = function()
+      require("omnisharp_extended").telescope_lsp_type_definition(opts)
+    end
   end
   require("plugins.configs.lsp_utils").go_to("typeDefinition", open_telescope_picker)
 end
 
 M.open_lsp_implementation_conditional = function(opts)
-  if vim.fn.expand("%:e") == "cs" then
-    require("omnisharp_extended").telescope_lsp_implementation(opts)
-    return
-  end
-
   local open_telescope_picker = function()
     require("telescope.builtin").lsp_implementations(opts)
+  end
+  if vim.fn.expand("%:e") == "cs" then
+    open_telescope_picker = function()
+      require("omnisharp_extended").telescope_lsp_implementation(opts)
+    end
   end
   require("plugins.configs.lsp_utils").go_to("implementation", open_telescope_picker)
 end
