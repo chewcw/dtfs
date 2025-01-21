@@ -1278,6 +1278,7 @@ M.open_telescope_file_in_tab = function(dont_care_just_open_in_new_tab)
         end
       else
         if dont_care_just_open_in_new_tab then
+          command = ":q! | "
           goto next
         end
         -- Not auto cwd and not cwd by project, find if there is any tab opening that file
@@ -1369,7 +1370,7 @@ M.open_telescope_file_in_tab = function(dont_care_just_open_in_new_tab)
 
         ::next::
         if not found_tab then
-          command = "tabnew " .. file_path
+          command = command .. "tabnew " .. file_path
         end
       end
     end
