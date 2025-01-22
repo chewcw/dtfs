@@ -479,6 +479,9 @@ local get_groups = function(color)
     CodeiumSuggestion = { fg = color.gray07, bg = color.dark_brown, italic = false },
     -- toml
     tomlDotInKey = { fg = color.fg, bg = color.none },
+    -- render-markdown.nvim
+    RenderMarkdownCode = { bg = color.bg_nc },
+    RenderMarkdownCodeInline = { bg = color.bg_nc },
   }
 end
 
