@@ -994,6 +994,23 @@ local default_plugins = {
         height = 1,
       },
       highlight_headers = false,
+      prompts = {
+        GeneralChat = {
+          prompt = "",
+          system_prompt =
+          "You are a helpful and knowledgeable AI assistant capable of answering questions, generating text, translating languages, writing different kinds of creative content, and providing summaries on a broad range of topics.",
+          description = "General chat agent without the context",
+          selection = function() end, -- No context
+        },
+        Search = {
+          prompt = "",
+          system_prompt =
+          "You are a helpful and knowledgeable AI assistant capable of answering questions, generating text, translating languages, writing different kinds of creative content, and providing summaries on a broad range of topics.",
+          description = "General search agent without the context",
+          selection = function() end, -- No context
+          agent = "perplexityai", -- Use perplexityai
+        },
+      },
     },
     lazy = false,
   },
