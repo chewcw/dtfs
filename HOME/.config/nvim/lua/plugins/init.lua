@@ -2,7 +2,6 @@
 -- List of all default plugins & their definitions
 local home = os.getenv("HOME")
 local default_plugins = {
-
   {
     "nvim-lua/plenary.nvim",
     -- branch = "master",
@@ -986,6 +985,14 @@ local default_plugins = {
         },
         show_help = {
           normal = "g?",
+        },
+        accept_diff = {
+          normal = "<C-A-y>",
+          insert = "<C-A-y>",
+        },
+        yank_diff = {
+          normal = "gy",
+          register = "+",
         },
       },
       show_folds = true,
