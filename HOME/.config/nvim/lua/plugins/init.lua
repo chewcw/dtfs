@@ -981,11 +981,19 @@ local default_plugins = {
           insert = "<C-A-r>",
         },
         submit_prompt = {
-          normal = "<CR>",
+          normal = "<A-CR>",
           insert = "<A-CR>",
         },
+        show_help = {
+          normal = "g?",
+        },
       },
-      show_folds = false,
+      show_folds = true,
+      window = {
+        width = 0.4,
+        height = 1,
+      },
+      highlight_headers = false,
     },
     lazy = false,
   },
@@ -1046,8 +1054,10 @@ local default_plugins = {
 
   {
     "MeanderingProgrammer/render-markdown.nvim",
-    ft = "markdown",
-    opts = {},
+    ft = { "markdown", "copilot-chat" },
+    opts = {
+      file_types = { "markdown", "copilot-chat" },
+    },
   },
 
   -- Only load whichkey after all the gui
