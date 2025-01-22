@@ -829,6 +829,35 @@ M.general = {
       end,
       "Toggle paste and nopaste",
     },
+    -- CopilotChat
+    ["<leader>ccq"] = {
+      function()
+        local input = vim.fn.input("Quick Chat: ")
+        if input ~= "" then
+          require("CopilotChat").ask(input, { selection = require("CopilotChat.select").buffer })
+        end
+      end,
+      "CopilotChat - Quick chat",
+    },
+    ["<leader>cca"] = {
+      function()
+        local actions = require("CopilotChat.actions")
+        require("CopilotChat.integrations.telescope").pick(actions.prompt_actions())
+      end,
+      "CopilotChat - Prompt actions",
+    },
+    ["<leader>cct"] = {
+      function()
+        vim.cmd("CopilotChatToggle")
+      end,
+      "CopilotChat - Toggle",
+    },
+    ["<leader>ccs"] = {
+      function()
+        vim.cmd("CopilotChatStop")
+      end,
+      "CopilotChat - Stop",
+    },
   },
 
   v = {
@@ -873,6 +902,35 @@ M.general = {
         vim.system({ "xdg-open", "https://google.com/search?q=" .. selected_text })
       end,
       "Search the word selected",
+    },
+    -- CopilotChat
+    ["<leader>ccq"] = {
+      function()
+        local input = vim.fn.input("Quick Chat: ")
+        if input ~= "" then
+          require("CopilotChat").ask(input, { selection = require("CopilotChat.select").buffer })
+        end
+      end,
+      "CopilotChat - Quick chat",
+    },
+    ["<leader>cca"] = {
+      function()
+        local actions = require("CopilotChat.actions")
+        require("CopilotChat.integrations.telescope").pick(actions.prompt_actions())
+      end,
+      "CopilotChat - Prompt actions",
+    },
+    ["<leader>cct"] = {
+      function()
+        vim.cmd("CopilotChatToggle")
+      end,
+      "CopilotChat - Toggle",
+    },
+    ["<leader>ccs"] = {
+      function()
+        vim.cmd("CopilotChatStop")
+      end,
+      "CopilotChat - Stop",
     },
   },
 
@@ -1568,21 +1626,21 @@ M.blankline = {
   plugin = true,
 
   n = {
-    ["<leader>cc"] = {
-      function()
-        local ok, start = require("indent_blankline.utils").get_current_context(
-          vim.g.indent_blankline_context_patterns,
-          vim.g.indent_blankline_use_treesitter_scope
-        )
-
-        if ok then
-          vim.api.nvim_win_set_cursor(vim.api.nvim_get_current_win(), { start, 0 })
-          vim.cmd([[normal! _]])
-        end
-      end,
-
-      "Jump to current_context",
-    },
+    -- ["<leader>cc"] = {
+    --   function()
+    --     local ok, start = require("indent_blankline.utils").get_current_context(
+    --       vim.g.indent_blankline_context_patterns,
+    --       vim.g.indent_blankline_use_treesitter_scope
+    --     )
+    --
+    --     if ok then
+    --       vim.api.nvim_win_set_cursor(vim.api.nvim_get_current_win(), { start, 0 })
+    --       vim.cmd([[normal! _]])
+    --     end
+    --   end,
+    --
+    --   "Jump to current_context",
+    -- },
   },
 }
 
