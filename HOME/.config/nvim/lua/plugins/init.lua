@@ -974,7 +974,19 @@ local default_plugins = {
       },
     },
     build = "make tiktoken",
-    opts = {},
+    opts = {
+      mappings = {
+        reset = {
+          normal = "<C-A-r>",
+          insert = "<C-A-r>",
+        },
+        submit_prompt = {
+          normal = "<CR>",
+          insert = "<A-CR>",
+        },
+      },
+      show_folds = false,
+    },
     lazy = false,
   },
 
