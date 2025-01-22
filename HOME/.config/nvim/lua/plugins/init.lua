@@ -1044,6 +1044,12 @@ local default_plugins = {
     end,
   },
 
+  {
+    "MeanderingProgrammer/render-markdown.nvim",
+    ft = "markdown",
+    opts = {},
+  },
+
   -- Only load whichkey after all the gui
   -- {
   --   "folke/which-key.nvim",
