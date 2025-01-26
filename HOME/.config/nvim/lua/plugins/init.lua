@@ -973,6 +973,7 @@ local default_plugins = {
     "CopilotC-Nvim/CopilotChat.nvim",
     build = "make tiktoken",
     opts = {
+      model = "claude-3.5-sonnet",
       mappings = {
         reset = {
           normal = "<C-A-r>",
@@ -1015,6 +1016,12 @@ local default_plugins = {
           description = "General search agent without the context",
           selection = function() end, -- No context
           agent = "perplexityai", -- Use perplexityai
+        },
+        Dictionary = {
+          prompt = "Explain word with pronounciation, examples, synonym and antonym in different contexts, if available. Includes translation to chinese, japanese, also with examples.",
+          system_prompt = "You are a helpful and knowledgeable AI assistant capable of answering questions, generating text, translating languages, writing different kinds of creative content, and providing summaries on a broad range of topics.",
+          description = "Explain word",
+          selection = function() end, -- No context
         },
       },
     },
@@ -1077,9 +1084,71 @@ local default_plugins = {
 
   {
     "MeanderingProgrammer/render-markdown.nvim",
-    ft = { "markdown", "copilot-chat" },
+    ft = { "markdown", "copilot-chat", "Avante" },
     opts = {
-      file_types = { "markdown", "copilot-chat" },
+      file_types = { "markdown", "copilot-chat", "Avante" },
+    },
+  },
+
+  -- {
+  --   "HakonHarnes/img-clip.nvim",
+  --   event = "VeryLazy",
+  --   opts = {
+  --     default = {
+  --       embed_image_as_base64 = false,
+  --       prompt_for_file_name = false,
+  --       drag_and_drop = {
+  --         insert_mode = true,
+  --       },
+  --       use_absolute_path = true,
+  --     },
+  --   },
+  -- },
+
+  {
+    "yetone/avante.nvim",
+    event = "VeryLazy",
+    lazy = false,
+    version = false,
+    opts = {
+      provider = "groq",
+      vendors = {
+        groq = {
+          __inherited_from = "openai",
+          api_key_name = "GROQ_API_KEY",
+          endpoint = "https://api.groq.com/openai/v1/",
+          model = "llama-3.3-70b-versatile",
+        },
+      },
+      mappings = {
+        submit = {
+          normal = "<A-CR>",
+          insert = "<A-CR>",
+        },
+      },
+      windows = {
+        edit = {
+          start_insert = false,
+        },
+        ask = {
+          start_insert = false,
+        },
+      },
+      behavior = {
+        auto_set_keymap = false,
+      },
+      dual_boost = {
+        enabled = false,
+        first_provider = "groq",
+        second_provider = "copilot",
+        prompt = "Based on the two reference outputs below, generate a response that incorporates elements from both but reflects your own judgment and unique perspective. Do not provide any explanation, just give the response directly. Reference Output 1: [{{provider1_output}}], Reference Output 2: [{{provider2_output}}]",
+        timeout = 60000, -- Timeout in milliseconds
+      },
+    },
+    build = "make",
+    dependencies = {
+      -- "stevearc/dressing.nvim",
+      "MunifTanjim/nui.nvim",
     },
   },
 
