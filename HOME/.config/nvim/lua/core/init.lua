@@ -3,7 +3,7 @@ local g = vim.g
 local config = require("core.utils").load_config()
 
 -------------------------------------- options ------------------------------------------
-opt.laststatus = 2 -- global statusline
+opt.laststatus = 3 -- global statusline
 opt.showmode = true
 
 opt.clipboard = "unnamedplus"
@@ -79,7 +79,7 @@ opt.breakindent = true
 opt.completeopt = "menuone,noselect"
 
 -- vertical line
-opt.colorcolumn = "85"
+opt.colorcolumn = "0"
 
 -- wrap
 vim.wo.wrap = false
