@@ -952,20 +952,24 @@ local default_plugins = {
   },
 
   {
-    "github/copilot.vim",
+    "zbirenbaum/copilot.lua",
     lazy = false,
-    init = function()
-      vim.g.copilot_no_map_tab = true
-      pcall(function()
-        vim.keymap.set("i", "<A-Tab>", 'copilot#Accept("\\<CR>")', {
-          expr = true,
-          replace_keycodes = false,
-          desc = "Accept suggestion",
-        })
-        vim.keymap.set("i", "<A-]>", "<Plug>(copilot-next)", { "Cycle to next suggestion" })
-        vim.keymap.set("i", "<A-[>", "<Plug>(copilot-previous)", { "Cycle to previous suggestion" })
-        vim.keymap.set("i", "<A-q>", "<Plug>(copilot-dismiss)", { "Dismiss suggestion" })
-      end)
+    opts = function()
+      return {
+        suggestion = {
+          keymap = {
+            accept = "<A-Tab>",
+            accept_word = "<A-;>",
+            accept_line = "<A-'>",
+            dismiss = "<A-q>",
+            next = "<A-]>",
+            previous = "<A-[>",
+          },
+        },
+      }
+    end,
+    config = function(_, opts)
+      require("copilot").setup(opts)
     end,
   },
 

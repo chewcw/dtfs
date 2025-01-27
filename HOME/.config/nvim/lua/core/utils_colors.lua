@@ -482,6 +482,8 @@ local get_groups = function(color)
     -- render-markdown.nvim
     RenderMarkdownCode = { bg = color.bg_nc },
     RenderMarkdownCodeInline = { bg = color.bg_nc },
+    -- Copilot
+    CopilotSuggestion = { fg = color.dark_brown },
   }
 end
 
