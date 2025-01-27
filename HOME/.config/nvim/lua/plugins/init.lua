@@ -1018,8 +1018,10 @@ local default_plugins = {
           agent = "perplexityai", -- Use perplexityai
         },
         Dictionary = {
-          prompt = "Explain word with pronounciation, examples, synonym and antonym in different contexts, if available. Includes translation to chinese, japanese, also with examples.",
-          system_prompt = "You are a helpful and knowledgeable AI assistant capable of answering questions, generating text, translating languages, writing different kinds of creative content, and providing summaries on a broad range of topics.",
+          prompt =
+          "Explain word with pronounciation, examples, synonym and antonym in different contexts, if available. Includes translation to chinese, japanese, also with examples.",
+          system_prompt =
+          "You are a helpful and knowledgeable AI assistant capable of answering questions, generating text, translating languages, writing different kinds of creative content, and providing summaries on a broad range of topics.",
           description = "Explain word",
           selection = function() end, -- No context
         },
@@ -1134,14 +1136,15 @@ local default_plugins = {
           start_insert = false,
         },
       },
-      behavior = {
-        auto_set_keymap = false,
-      },
+      -- behaviour = {
+      -- auto_set_keymaps = true,
+      -- },
       dual_boost = {
         enabled = false,
         first_provider = "groq",
         second_provider = "copilot",
-        prompt = "Based on the two reference outputs below, generate a response that incorporates elements from both but reflects your own judgment and unique perspective. Do not provide any explanation, just give the response directly. Reference Output 1: [{{provider1_output}}], Reference Output 2: [{{provider2_output}}]",
+        prompt =
+        "Based on the two reference outputs below, generate a response that incorporates elements from both but reflects your own judgment and unique perspective. Do not provide any explanation, just give the response directly. Reference Output 1: [{{provider1_output}}], Reference Output 2: [{{provider2_output}}]",
         timeout = 60000, -- Timeout in milliseconds
       },
     },
