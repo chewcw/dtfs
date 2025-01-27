@@ -1017,14 +1017,6 @@ local default_plugins = {
           selection = function() end, -- No context
           agent = "perplexityai", -- Use perplexityai
         },
-        Dictionary = {
-          prompt =
-          "Explain word with pronounciation, examples, synonym and antonym in different contexts, if available. Includes translation to chinese, japanese, also with examples.",
-          system_prompt =
-          "You are a helpful and knowledgeable AI assistant capable of answering questions, generating text, translating languages, writing different kinds of creative content, and providing summaries on a broad range of topics.",
-          description = "Explain word",
-          selection = function() end, -- No context
-        },
       },
     },
     lazy = false,
