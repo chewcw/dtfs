@@ -858,6 +858,12 @@ M.general = {
       end,
       "CopilotChat - Stop",
     },
+    ["<leader>ccr"] = {
+      function()
+        vim.cmd("CopilotChatReset")
+      end,
+      "CopilotChat - Reset",
+    },
   },
 
   v = {
@@ -931,6 +937,12 @@ M.general = {
         vim.cmd("CopilotChatStop")
       end,
       "CopilotChat - Stop",
+    },
+    ["<leader>ccr"] = {
+      function()
+        vim.cmd("CopilotChatReset")
+      end,
+      "CopilotChat - Reset",
     },
   },
 
