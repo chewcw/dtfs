@@ -864,6 +864,14 @@ M.general = {
       end,
       "CopilotChat - Reset",
     },
+    ["<leader>ccd"] = {
+      function()
+        local input =
+        "Explain word with pronounciation, examples, synonym and antonym in different contexts, if available. Includes translation to chinese, japanese, also with examples."
+        require("CopilotChat").open()
+      end,
+      "CopilotChat - Dictionary",
+    },
   },
 
   v = {
@@ -943,6 +951,13 @@ M.general = {
         vim.cmd("CopilotChatReset")
       end,
       "CopilotChat - Reset",
+    },
+    ["<leader>ccd"] = {
+      function()
+        local input = "Explain the selected word with pronunciation, examples, synonym and antonym in different contexts, if available. Includes translation to chinese, japanese, also with examples."
+        require("CopilotChat").ask(input, { selection = require("CopilotChat.select").visual })
+      end,
+      "CopilotChat - Dictionary",
     },
   },
 
