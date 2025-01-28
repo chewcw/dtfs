@@ -957,6 +957,7 @@ local default_plugins = {
     opts = function()
       return {
         suggestion = {
+          auto_trigger = true,
           keymap = {
             accept = "<A-Tab>",
             accept_word = "<A-;>",
