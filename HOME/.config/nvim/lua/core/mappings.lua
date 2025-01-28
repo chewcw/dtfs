@@ -864,14 +864,6 @@ M.general = {
       end,
       "CopilotChat - Reset",
     },
-    ["<leader>ccd"] = {
-      function()
-        local input =
-        "Explain word with pronounciation, examples, synonym and antonym in different contexts, if available. Includes translation to chinese, japanese, also with examples."
-        require("CopilotChat").open()
-      end,
-      "CopilotChat - Dictionary",
-    },
   },
 
   v = {
@@ -954,7 +946,8 @@ M.general = {
     },
     ["<leader>ccd"] = {
       function()
-        local input = "Explain the selected word with pronunciation, examples, synonym and antonym in different contexts, if available. Includes translation to chinese, japanese, also with examples."
+        local input =
+        "Explain the selected word with pronunciation, some examples, synonym and antonym in different contexts, if available. Includes translation to chinese, japanese, also with some examples their synonym and antonym in different contexts.\n\n"
         require("CopilotChat").ask(input, { selection = require("CopilotChat.select").visual })
       end,
       "CopilotChat - Dictionary",

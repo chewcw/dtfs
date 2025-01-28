@@ -1021,6 +1021,11 @@ local default_plugins = {
           selection = function() end, -- No context
           agent = "perplexityai", -- Use perplexityai
         },
+        Dict = {
+          prompt = "Explain the selected word with pronunciation, some examples, synonym and antonym in different contexts, if available. Includes translation to chinese, japanese, also with some examples their synonym and antonym in different contexts.\n\n",
+          description = "Dictionary",
+          selection = function() end, -- No context
+        },
       },
     },
     lazy = false,
@@ -1115,7 +1120,8 @@ local default_plugins = {
           __inherited_from = "openai",
           api_key_name = "GROQ_API_KEY",
           endpoint = "https://api.groq.com/openai/v1/",
-          model = "llama-3.3-70b-versatile",
+          -- model = "llama-3.3-70b-versatile",
+          model = "deepseek-r1-distill-llama-70b",
         },
       },
       mappings = {
