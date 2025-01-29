@@ -864,6 +864,12 @@ M.general = {
       end,
       "CopilotChat - Reset",
     },
+    ["<leader>cco"] = {
+      function()
+        vim.cmd("CopilotChatOpen")
+      end,
+      "CopilotChat - Open",
+    },
   },
 
   v = {
@@ -951,6 +957,12 @@ M.general = {
         require("CopilotChat").ask(input, { selection = require("CopilotChat.select").visual })
       end,
       "CopilotChat - Dictionary",
+    },
+    ["<leader>cco"] = {
+      function()
+        vim.cmd("CopilotChatOpen")
+      end,
+      "CopilotChat - Open",
     },
   },
 
