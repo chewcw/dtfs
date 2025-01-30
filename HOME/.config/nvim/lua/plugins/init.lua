@@ -975,7 +975,7 @@ local default_plugins = {
   },
 
   {
-    "CopilotC-Nvim/CopilotChat.nvim",
+    "chewcw/CopilotChat.nvim",
     build = "make tiktoken",
     opts = {
       model = "claude-3.5-sonnet",
