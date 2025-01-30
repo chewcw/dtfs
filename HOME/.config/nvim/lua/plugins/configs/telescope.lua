@@ -147,12 +147,14 @@ M.options = {
           end
           return insert_mode
         end)(),
+        ["o"] = function() end,
         -- select window (which split) to open
         ["<leader>ow"] = telescope_utils.select_window_to_open,
         ["<leader>oT"] = function()
           telescope_utils.open_telescope_file_in_specfic_tab()
         end,
         ["<leader>ot"] = telescope_utils.open_telescope_file_in_tab(false),
+        ["ot"] = telescope_utils.open_telescope_file_in_tab(false), -- Alias to <leader>ot
         -- toggle preview
         ["\\p"] = require("telescope.actions.layout").toggle_preview,
         -- copy absolute path
@@ -221,7 +223,7 @@ M.options = {
         },
         n = {
           ["q"] = require("telescope.actions").close,
-          ["t"] = telescope_utils.file_browser_set_cwd,
+          -- ["t"] = telescope_utils.file_browser_set_cwd,
           ["<A-CR>"] = telescope_utils.file_browser_set_cwd,
           ["T"] = require("telescope").extensions.file_browser.actions.goto_cwd,
           ["n"] = require("telescope").extensions.file_browser.actions.create_from_prompt,
@@ -291,6 +293,7 @@ M.options = {
             end
           ),
           ["<leader>ot"] = telescope_utils.open_telescope_file_in_tab(false),
+          ["ot"] = telescope_utils.open_telescope_file_in_tab(false), -- Alias to <leader>ot
           ["g!"] = require("plugins.configs.telescope_utils").exec_shell_command(),
           ["g."] = require("plugins.configs.telescope_utils").open_toggleterm_and_send_selection_parent_path_to_toggleterm(),
           ["<A-e>"] = telescope_utils.open_telescope_file_in_tab(true),
@@ -423,6 +426,7 @@ M.options = {
             telescope_utils.open_telescope_file_in_specfic_tab()
           end,
           ["<leader>ot"] = telescope_utils.open_telescope_file_in_tab(false),
+          ["ot"] = telescope_utils.open_telescope_file_in_tab(false), -- Alias to <leader>ot
           ["W"] = telescope_utils.set_temporary_cwd_from_file_browser("buffers"),
           ["<C-A-\\>"] = function(prompt_bufnr)
             telescope_utils.open_multiple_files_in_find_files_picker(prompt_bufnr, "vsplit")
