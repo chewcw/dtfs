@@ -866,6 +866,7 @@ M.general = {
     },
     ["<leader>cco"] = {
       function()
+        vim.cmd("CopilotChatClose")
         vim.cmd("CopilotChatOpen")
       end,
       "CopilotChat - Open",
@@ -960,6 +961,7 @@ M.general = {
     },
     ["<leader>cco"] = {
       function()
+        vim.cmd("CopilotChatClose")
         vim.cmd("CopilotChatOpen")
       end,
       "CopilotChat - Open",
