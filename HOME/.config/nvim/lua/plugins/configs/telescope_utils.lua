@@ -1244,6 +1244,10 @@ M.open_telescope_file_in_tab = function(dont_care_just_open_in_new_tab)
       end
 
       if vim.g.TabAutoCwd == "1" then
+        if dont_care_just_open_in_new_tab then
+          command = ":q! | "
+          goto next
+        end
         -- auto cwd, open file in new tab with its cwd
         local parent_dir = vim.fn.fnamemodify(file_path, ":p:h")
         if parent_dir then
@@ -1367,11 +1371,10 @@ M.open_telescope_file_in_tab = function(dont_care_just_open_in_new_tab)
             found_tab = true
           end
         end
-
-        ::next::
-        if not found_tab then
-          command = command .. "tabnew " .. file_path
-        end
+      end
+      ::next::
+      if not found_tab then
+        command = command .. "tabnew " .. file_path
       end
     end
 
