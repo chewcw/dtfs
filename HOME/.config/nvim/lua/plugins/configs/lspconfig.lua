@@ -148,6 +148,11 @@ lspconfig.pyright.setup({
   cmd = { home .. "/.local/share/nvim/mason/bin/pyright-langserver", "--stdio" },
 })
 
+lspconfig.ruff.setup({
+  on_attach = M.on_attach,
+  capabilities = M.capabilities,
+})
+
 -- javascript / typescript
 lspconfig.ts_ls.setup({
   on_attach = M.on_attach,
