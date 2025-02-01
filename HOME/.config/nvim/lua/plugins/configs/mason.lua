@@ -25,6 +25,7 @@ local options = {
 
     -- python
     "pyright",
+    "ruff",
     -- "debugpy", -- debugger
     "black",
 
