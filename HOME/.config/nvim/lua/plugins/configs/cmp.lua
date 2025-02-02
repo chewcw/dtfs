@@ -129,8 +129,8 @@ M.options = {
         behavior = cmp.ConfirmBehavior.Insert,
         select = true,
       }),
-      ["<C-e>"] = cmp.mapping.close(),
-      ["<C-q>"] = cmp.mapping.abort(),
+      ["<C-e>"] = cmp.mapping.abort(),
+      -- ["<C-q>"] = cmp.mapping.abort(),
       ["<CR>"] = (function()
         vim.api.nvim_replace_termcodes("<CR>", false, false, true)
         cmp.mapping.abort()
@@ -148,7 +148,7 @@ M.options = {
       { name = "nvim_lua" },
       { name = "async_path" },
       { name = "gitmoji" },
-      { name = "emoji", option = { insert = true } },
+      { name = "emoji",     option = { insert = true } },
     },
   },
   cmd = {
@@ -192,11 +192,11 @@ M.options = {
       ["<S-CR>"] = {
         c = cmp.mapping.confirm({ select = false }),
       },
-      ["<C-q>"] = {
-        c = cmp.mapping.abort(),
-      },
+      -- ["<C-q>"] = {
+      -- c = cmp.mapping.abort(),
+      -- },
       ["<C-e>"] = {
-        c = cmp.mapping.close(),
+        c = cmp.mapping.abort(),
       },
       ["<C-Space>"] = {
         c = cmp.mapping.complete(),
@@ -261,11 +261,11 @@ M.options = {
       ["<S-CR>"] = {
         c = cmp.mapping.confirm({ select = false }),
       },
-      ["<C-q>"] = {
-        c = cmp.mapping.abort(),
-      },
+      -- ["<C-q>"] = {
+      -- c = cmp.mapping.abort(),
+      -- },
       ["<C-e>"] = {
-        c = cmp.mapping.close(),
+        c = cmp.mapping.abort(),
       },
       ["<C-Space>"] = {
         c = cmp.mapping.complete(),
