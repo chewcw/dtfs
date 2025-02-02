@@ -1023,12 +1023,11 @@ local default_plugins = {
           agent = "perplexityai", -- Use perplexityai
         },
         Dict = {
-          prompt =
-          "Explain the selected word with pronunciation, translations to Chinese and Japanese, along with explanations, example use cases, synonyms, antonyms in different contexts, all in English, Chinese, and Japanese.\n\n",
-          system_prompt =
-          "You are a helpful and knowledgeable AI assistant capable of answering questions, generating text, translating languages, writing different kinds of creative content, and providing summaries on a broad range of topics.",
+          prompt = "Explain the selected word with pronunciation, translations to Chinese and Japanese, along with explanations, example use cases, synonyms, antonyms in different contexts, all in English, Chinese, and Japanese.\n\n",
           description = "Dictionary",
-          selection = function() end, -- No context
+          selection = function(source)
+            return require("CopilotChat.select").visual(source)
+          end,
         },
       },
     },
