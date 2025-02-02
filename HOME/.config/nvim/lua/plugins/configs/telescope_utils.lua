@@ -1276,7 +1276,7 @@ M.open_telescope_file_in_tab = function(dont_care_just_open_in_new_tab)
             end
           end
           if not found_tab then
-            command = ":q! |" .. "tabnew " .. file_path
+            command = ":q! | "
             vim.g.new_tab_buf_cwd = vim.fn.fnamemodify(file_path, ":h")
           end
         end
