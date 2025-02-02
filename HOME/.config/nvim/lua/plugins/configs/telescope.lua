@@ -235,6 +235,7 @@ M.options = {
             local keys = vim.api.nvim_replace_termcodes("l", false, false, true)
             vim.api.nvim_feedkeys(keys, "n", {})
           end,
+          ["-"] = require("telescope").extensions.file_browser.actions.goto_parent_dir, -- This is to match Oil.nvim mapping
           ["<C-h>"] = require("telescope").extensions.file_browser.actions.goto_parent_dir,
           ["<C-l>"] = require("telescope.actions").select_default,
           ["<C-A-\\>"] = function(prompt_bufnr)
