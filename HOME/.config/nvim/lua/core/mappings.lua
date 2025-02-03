@@ -1610,6 +1610,11 @@ M.telescope = {
       "open file in window",
       opts = { silent = true },
     },
+    -- Oil
+    ["<leader>fd"] = {
+      "<cmd>Oil --float<CR>",
+      "Oil",
+    },
   },
 
   v = {
