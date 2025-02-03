@@ -38,6 +38,7 @@ M.options = {
       height = picker_height,
       preview_cutoff = 120,
     },
+    theme = "ivy",
     fname_width = 50,
     file_sorter = require("telescope.sorters").get_fuzzy_file,
     file_ignore_patterns = {},

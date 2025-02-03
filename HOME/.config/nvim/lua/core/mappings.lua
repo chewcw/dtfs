@@ -841,8 +841,10 @@ M.general = {
     },
     ["<leader>cca"] = {
       function()
+        vim.cmd("CopilotChatClose")
         local actions = require("CopilotChat.actions")
-        require("CopilotChat.integrations.telescope").pick(actions.prompt_actions())
+        local telescope_opts = require("plugins.configs.telescope").options.defaults
+        require("CopilotChat.integrations.telescope").pick(actions.prompt_actions(), telescope_opts)
       end,
       "CopilotChat - Prompt actions",
     },
@@ -870,6 +872,21 @@ M.general = {
         vim.cmd("CopilotChatOpen")
       end,
       "CopilotChat - Open",
+    },
+    ["<leader>ccc"] = {
+      function()
+        vim.cmd("CopilotChatClose")
+      end,
+      "CopilotChat - Close",
+    },
+    ["<leader>ccS"] = {
+      function()
+        local input = vim.fn.input("Save CopilotChat history: ")
+        if input ~= "" then
+          vim.cmd("CopilotChatSave " .. input)
+        end
+      end,
+      "CopilotChat - Save history",
     },
   },
 
@@ -928,8 +945,10 @@ M.general = {
     },
     ["<leader>cca"] = {
       function()
+        vim.cmd("CopilotChatClose")
         local actions = require("CopilotChat.actions")
-        require("CopilotChat.integrations.telescope").pick(actions.prompt_actions())
+        local telescope_opts = require("plugins.configs.telescope").options.defaults
+        require("CopilotChat.integrations.telescope").pick(actions.prompt_actions(), telescope_opts)
       end,
       "CopilotChat - Prompt actions",
     },
@@ -965,6 +984,21 @@ M.general = {
         vim.cmd("CopilotChatOpen")
       end,
       "CopilotChat - Open",
+    },
+    ["<leader>ccc"] = {
+      function()
+        vim.cmd("CopilotChatClose")
+      end,
+      "CopilotChat - Close",
+    },
+    ["<leader>ccS"] = {
+      function()
+        local input = vim.fn.input("Save CopilotChat history: ")
+        if input ~= "" then
+          vim.cmd("CopilotChatSave " .. input)
+        end
+      end,
+      "CopilotChat - Save history",
     },
   },
 
