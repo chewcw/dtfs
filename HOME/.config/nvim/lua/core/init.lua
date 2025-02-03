@@ -45,6 +45,10 @@ opt.ruler = false
 
 -- disable nvim intro
 opt.shortmess:append("sI")
+-- Don't show completion messages in command line
+opt.shortmess:append("c")
+opt.wildmenu = false
+opt.wildmode = ""
 
 opt.signcolumn = "yes"
 opt.splitbelow = true
