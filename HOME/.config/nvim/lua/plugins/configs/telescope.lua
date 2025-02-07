@@ -297,7 +297,10 @@ M.options = {
           ["<leader>ot"] = telescope_utils.open_telescope_file_in_tab(false),
           ["ot"] = telescope_utils.open_telescope_file_in_tab(false), -- Alias to <leader>ot
           ["g!"] = require("plugins.configs.telescope_utils").exec_shell_command(),
-          ["g."] = require("plugins.configs.telescope_utils").open_toggleterm_and_send_selection_parent_path_to_toggleterm(),
+          ["g."] = require("plugins.configs.telescope_utils").open_toggleterm_and_send_selection_parent_path_to_toggleterm("horizontal"),
+          ["g,"] = require("plugins.configs.telescope_utils").open_toggleterm_and_send_selection_parent_path_to_toggleterm("tab"),
+          ["g/"] = require("plugins.configs.telescope_utils").open_toggleterm_and_send_selection_parent_path_to_toggleterm("float"),
+          ["g>"] = require("plugins.configs.telescope_utils").open_toggleterm_and_send_selection_parent_path_to_toggleterm("vertical"),
           ["<A-e>"] = telescope_utils.open_telescope_file_in_tab(true),
         },
       },
