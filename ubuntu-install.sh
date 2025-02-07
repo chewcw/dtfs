@@ -379,6 +379,12 @@ echo "Installing symlink for init stuff"
 echo "------------------------------------------"
 ln -sf $pwd/HOME/.local/bin/init_stuff.sh $HOME/.local/bin/init_stuff.sh
 
+# Install symlink for detect keyboard
+echo "------------------------------------------"
+echo "Installing symlink for detect keyboard"
+echo "------------------------------------------"
+ln -sf $pwd/HOME/.local/bin/detect_keyboard.sh $HOME/.local/bin/detect_keyboard.sh
+
 # Install vscodium
 # if ! command -v codium &>/dev/null
 # then

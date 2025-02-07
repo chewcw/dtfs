@@ -1,6 +1,7 @@
 #!/usr/bin/bash
 
 $HOME/.local/bin/connect_monitor.sh;
+$HOME/.local/bin/detect_keyboard.sh;
 
 xset r rate 300 70;
 
