@@ -806,7 +806,7 @@ M.exec_shell_command = function()
   end
 end
 
-M.open_toggleterm_and_send_selection_parent_path_to_toggleterm = function()
+M.open_toggleterm_and_send_selection_parent_path_to_toggleterm = function(direction)
   return function(prompt_bufnr)
     local cwd = "."
     if vim.fn.isdirectory(action_state.get_selected_entry().value) == 1 then
@@ -817,7 +817,7 @@ M.open_toggleterm_and_send_selection_parent_path_to_toggleterm = function()
     -- Close the current picker
     require("telescope.actions").close(prompt_bufnr)
     pcall(function()
-      require("plugins.configs.toggleterm_utils").toggle_term("horizontal", true, cwd)
+      require("plugins.configs.toggleterm_utils").toggle_term(direction, true, cwd)
     end)
   end
 end
