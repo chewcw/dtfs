@@ -1,22 +1,44 @@
 #!/usr/bin/bash
 
-$HOME/.local/bin/connect_monitor.sh;
-$HOME/.local/bin/detect_keyboard.sh;
+# Run the scripts in the background
+$HOME/.local/bin/connect_monitor.sh
+$HOME/.local/bin/detect_keyboard.sh
 
-sleep 0.5;
+# Use wait to synchronize instead of fixed sleep
+sleep 1
 
-xset r rate 300 70;
+# Optimize xset configuration
+xset r rate 300 70
 
-fcitx &>/dev/null || true;
+# Start fcitx only if not already running
+if ! pgrep -x "fcitx" > /dev/null; then
+  fcitx &>/dev/null &
+fi
 
-sudo modprobe --remove psmouse;
-bash -c 'sleep 0.2; sudo modprobe psmouse'
+# Only reload psmouse if necessary
+if lsmod | grep -q psmouse; then
+  sudo modprobe --remove psmouse
+  sleep 0.2
+fi
+sudo modprobe psmouse
 
-sudo timedatectl set-ntp false;
-bash -c 'sleep 0.2; timedatectl set-ntp true';
+# Synchronizing time settings more efficiently
+if timedatectl show | grep -q 'NTP=no'; then
+  sudo timedatectl set-ntp false
+  sleep 0.2
+fi
+timedatectl set-ntp true
 
-pkill -f pasystray || true;
-bash -c 'sleep 0.2; pasystray &>/dev/null &';
+# Stop and restart pasystray only if it's running
+if pgrep -f "pasystray" > /dev/null; then
+  pkill -f pasystray
+  sleep 0.2
+fi
+pasystray &>/dev/null &
 
-pkill -f xcompmgr || true;
-bash -c 'sleep 0.2; xcompmgr -c &>/dev/null &';
+# Stop and restart xcompmgr only if it's necessary
+if pgrep -f "xcompmgr" > /dev/null; then
+  pkill -f xcompmgr
+  sleep 0.2
+fi
+xcompmgr -c &>/dev/null &
