@@ -3,9 +3,11 @@
 $HOME/.local/bin/connect_monitor.sh;
 $HOME/.local/bin/detect_keyboard.sh;
 
+sleep 0.5;
+
 xset r rate 300 70;
 
-fcitx &>/dev/null;
+fcitx &>/dev/null || true;
 
 sudo modprobe --remove psmouse;
 bash -c 'sleep 0.2; sudo modprobe psmouse'
