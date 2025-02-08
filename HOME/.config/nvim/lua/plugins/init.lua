@@ -1059,7 +1059,7 @@ local default_plugins = {
         ["<C-l>"] = "actions.select",
         ["-"] = { "actions.parent", mode = "n" },
         ["<C-h>"] = { "actions.parent", mode = "n" },
-        ["_"] = { "actions.open_cwd", mode = "n" },
+        ["w"] = { "actions.open_cwd", mode = "n" },
         ["`"] = {},
         ["<A-CR>"] = { "actions.cd", opts = { scope = "tab" }, mode = "n" },
         ["gs"] = { "actions.change_sort", mode = "n" },
