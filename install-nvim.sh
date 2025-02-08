@@ -62,14 +62,14 @@ install_nodejs() {
 
 install_nvim_v010() {
   if ! command -v nvim &>/dev/null; then
-    echo "installing nvim v0.10.2"
-    wget https://github.com/neovim/neovim/releases/download/v0.10.2/nvim-linux64.tar.gz -O /tmp/nvim-linux64.tar.gz
-    tar xvzf /tmp/nvim-linux64.tar.gz -C /tmp
-    sudo cp -r /tmp/nvim-linux64 /usr/local/nvim-v0-10-2
-    sudo ln -sf /usr/local/nvim-v0-10-2/bin/nvim /usr/bin/nvim
+    echo "installing nvim v0.10.4"
+    wget https://github.com/neovim/neovim/releases/download/v0.10.4/nvim-linux-x86_64.tar.gz -O /tmp/nvim-linux-x86_64.tar.gz
+    tar xvzf /tmp/nvim-linux-x86_64.tar.gz -C /tmp
+    sudo cp -r /tmp/nvim-linux-x86_64 /usr/local/nvim-v0-10-4
+    sudo ln -sf /usr/local/nvim-v0-10-4/bin/nvim /usr/bin/nvim
     sudo ln -sf /usr/bin/nvim /usr/local/bin/v
   fi
-  echo "nvim v0.10.2 is installed"
+  echo "nvim v0.10.4 is installed"
 }
 
 configure_nvim() {
