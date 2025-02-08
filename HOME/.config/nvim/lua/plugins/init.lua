@@ -1145,6 +1145,38 @@ local default_plugins = {
     },
   },
 
+  {
+    "aznhe21/actions-preview.nvim",
+    lazy = false,
+    opts = function()
+      return {
+        telescope = {
+          layout_strategy = "bottom_pane",
+          layout_config = {
+            horizontal = {
+              prompt_position = "top",
+              preview_width = 0.50,
+              results_width = 0.50,
+            },
+            vertical = {
+              mirror = false,
+            },
+            width = vim.o.columns,
+            height = 0.85,
+            preview_cutoff = 120,
+          },
+          theme = "ivy",
+          winblend = 0,
+          border = true,
+          color_devicons = true,
+        },
+      }
+    end,
+    config = function(_, opts)
+      require("actions-preview").setup(opts)
+    end,
+  },
+
   -- Only load whichkey after all the gui
   -- {
   --   "folke/which-key.nvim",

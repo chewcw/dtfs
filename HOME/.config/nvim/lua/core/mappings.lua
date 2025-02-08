@@ -1357,7 +1357,11 @@ M.lspconfig = {
 
     ["g."] = {
       function()
-        vim.lsp.buf.code_action()
+        if pcall(require, "actions-preview") then
+          require("actions-preview").code_actions()
+        else
+          vim.lsp.buf.code_action()
+        end
       end,
       "lsp code_action",
     },
