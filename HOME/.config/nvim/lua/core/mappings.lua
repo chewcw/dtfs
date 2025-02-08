@@ -1647,6 +1647,10 @@ M.telescope = {
     -- Oil
     ["<leader>fd"] = {
       "<cmd>Oil --float<CR>",
+      "Oil (float)",
+    },
+    ["<leader>fD"] = {
+      "<cmd>Oil<CR>",
       "Oil",
     },
   },
