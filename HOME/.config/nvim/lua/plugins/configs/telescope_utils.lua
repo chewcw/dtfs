@@ -745,6 +745,7 @@ end
 
 -- Execute shell command
 M.exec_shell_command = function()
+  -- Also refer to oil_utils.lua's exec_shell_command
   return function(prompt_bufnr)
     local input_buffer = ""
     local cursor_position = 0
