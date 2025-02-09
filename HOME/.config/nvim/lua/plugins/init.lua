@@ -984,6 +984,32 @@ local default_plugins = {
       require("CopilotChat").setup(opts)
     end,
     lazy = false,
+    init = function()
+      vim.api.nvim_create_autocmd("BufEnter", {
+        pattern = "copilot-*",
+        callback = function()
+          -- Normal mode mapping
+          vim.keymap.set("n", "<C-p>", function()
+            local response = require("CopilotChat").response()
+            if not response or response == "" then
+              return
+            end
+            local wrapped_response = "```" .. response .. "```\n\n"
+            vim.api.nvim_put({wrapped_response}, "c", true, true)
+          end, { buffer = true, remap = true })
+
+          -- Insert mode mapping
+          vim.keymap.set("i", "<C-p>", function()
+            local response = require("CopilotChat").response()
+            if not response or response == "" then
+              return
+            end
+            local wrapped_response = "```" .. response .. "```\n\n"
+            vim.api.nvim_put({wrapped_response}, "c", true, true)
+          end, { buffer = true, remap = true })
+        end,
+      })
+    end,
   },
 
   -- {
@@ -1065,10 +1091,30 @@ local default_plugins = {
         ["gs"] = { "actions.change_sort", mode = "n" },
         ["gx"] = "actions.open_external",
         ["g\\"] = { "actions.toggle_trash", mode = "n" },
-        ["g."] = { require("plugins.configs.oil-utils").open_toggleterm_and_send_selection_parent_path_to_toggleterm("horizontal"), mode = "n" },
-        ["g,"] = { require("plugins.configs.oil-utils").open_toggleterm_and_send_selection_parent_path_to_toggleterm("tab"), mode = "n" },
-        ["g/"] = { require("plugins.configs.oil-utils").open_toggleterm_and_send_selection_parent_path_to_toggleterm("float"), mode = "n" },
-        ["g>"] = { require("plugins.configs.oil-utils").open_toggleterm_and_send_selection_parent_path_to_toggleterm("vertical"), mode = "n" },
+        ["g."] = {
+          require("plugins.configs.oil-utils").open_toggleterm_and_send_selection_parent_path_to_toggleterm(
+            "horizontal"
+          ),
+          mode = "n",
+        },
+        ["g,"] = {
+          require("plugins.configs.oil-utils").open_toggleterm_and_send_selection_parent_path_to_toggleterm(
+            "tab"
+          ),
+          mode = "n",
+        },
+        ["g/"] = {
+          require("plugins.configs.oil-utils").open_toggleterm_and_send_selection_parent_path_to_toggleterm(
+            "float"
+          ),
+          mode = "n",
+        },
+        ["g>"] = {
+          require("plugins.configs.oil-utils").open_toggleterm_and_send_selection_parent_path_to_toggleterm(
+            "vertical"
+          ),
+          mode = "n",
+        },
       },
     },
     dependencies = { { "echasnovski/mini.icons", opts = {} } },
