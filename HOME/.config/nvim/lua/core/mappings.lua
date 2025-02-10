@@ -114,6 +114,11 @@ M.general = {
     ["<C-a>"] = { "<C-o>0" }, -- Move cursor to beginning of the line (to simulate the normal way to navigate the linux terminal)
     ["<C-e>"] = { "<C-o>$" }, -- Move cursor to the end of the line (to simulate the normal way to navigate the linux terminal)
     ["<A-d>"] = { "<C-o>dw" }, -- Delete the word after cursor (to simulate the normal way to navigate the linux terminal)
+
+    ["<C-c>"] = {
+      "<C-[>",
+      "C-c does not trigger InsertLeave, so this is the workaround, so that it performs like C-[",
+    },
   },
 
   n = {
