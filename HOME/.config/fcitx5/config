@@ -23,7 +23,7 @@ NextPage=
 TogglePreedit=
 
 [Hotkey/TriggerKeys]
-0=Control+Super+Control_L
+0=Alt+Super+Alt_R
 1=Zenkaku_Hankaku
 2=Hangul
 
