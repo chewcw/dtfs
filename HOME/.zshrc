@@ -246,3 +246,8 @@ function y() {
   fi
   rm -f -- "$tmp"
 }
+
+# local .env
+if [ -f "$HOME/.env" ]; then
+  source "$HOME/.env"
+fi
