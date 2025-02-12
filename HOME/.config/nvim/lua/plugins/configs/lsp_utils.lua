@@ -26,7 +26,7 @@ M.go_to = function(document_type, callback)
     local target = result[1] or result
     if #result > 1 then
       if #result == 2 then -- This is often the case for references
-        target = result[2]
+        target = result[1]
       else
         if callback and type(callback) == "function" then
           callback()
