@@ -1123,6 +1123,10 @@ local default_plugins = {
           require("plugins.configs.oil-utils").go_to_directory(),
           mode = "n",
         },
+        ["<A-y>"] = {
+          require("plugins.configs.oil-utils").copy_absolute_path(),
+          mode = "n",
+        },
       },
     },
     dependencies = { { "echasnovski/mini.icons", opts = {} } },
