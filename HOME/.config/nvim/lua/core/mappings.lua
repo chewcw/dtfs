@@ -1655,11 +1655,11 @@ M.telescope = {
     },
     -- Oil
     ["<leader>fd"] = {
-      "<cmd>Oil --float<CR>",
+      "<cmd>lua vim.g.oil_float_mode = '1'; vim.cmd('Oil --float')<CR>",
       "Oil (float)",
     },
     ["<leader>fD"] = {
-      "<cmd>Oil<CR>",
+      "<cmd>lua vim.g.oil_float_mode = '0'; vim.cmd('Oil')<CR>",
       "Oil",
     },
   },

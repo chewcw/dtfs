@@ -90,4 +90,36 @@ M.exec_shell_command = function()
   }
 end
 
+M.go_to_directory = function()
+  return {
+    desc = "Go to directory",
+    callback = function()
+      local oil = require("oil")
+      -- Prompt for the path input
+      local ok, input = pcall(vim.fn.input, {
+          prompt = "Enter absolute path: ",
+          completion = "file",
+      })
+      if not ok then
+        return
+      end
+      if input then
+        local expanded_input = vim.fn.expand(input) -- to handle something like "~"
+        local floatOrNot = vim.g.oil_float_mode
+        if vim.fn.isdirectory(expanded_input) == 1 then
+          if floatOrNot == "1" then
+            oil.close()
+            oil.open_float(input)
+          else
+            oil.close()
+            oil.open(input)
+          end
+        else
+          print("Not directory entered")
+        end
+      end
+    end,
+  }
+end
+
 return M
