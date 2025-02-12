@@ -6,7 +6,7 @@ local M = {}
 -- Issue: https://github.com/nvim-telescope/telescope.nvim/issues/2690
 -- document_type should be one of: definition, references, typeDefinition,
 -- implementation.
-M.go_to = function(document_type, callback)
+M.go_to = function(document_type, file_extension, callback)
   local params = vim.lsp.util.make_position_params()
   if document_type == "references" then
     params.context = { includeDeclaration = true }
@@ -26,7 +26,11 @@ M.go_to = function(document_type, callback)
     local target = result[1] or result
     if #result > 1 then
       if #result == 2 then -- This is often the case for references
-        target = result[1]
+        if file_extension == "cs" then
+          target = result[1]
+        else
+          target = result[2]
+        end
       else
         if callback and type(callback) == "function" then
           callback()
