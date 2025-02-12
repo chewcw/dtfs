@@ -1119,6 +1119,10 @@ local default_plugins = {
           require("plugins.configs.oil-utils").exec_shell_command(),
           mode = "n",
         },
+        ["g<Space>"] = {
+          require("plugins.configs.oil-utils").go_to_directory(),
+          mode = "n",
+        },
       },
     },
     dependencies = { { "echasnovski/mini.icons", opts = {} } },
