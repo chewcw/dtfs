@@ -364,7 +364,7 @@ M.open_lsp_definitions_conditional = function(opts)
       require("omnisharp_extended").telescope_lsp_definitions(opts)
     end
   end
-  require("plugins.configs.lsp_utils").go_to("definition", open_telescope_picker)
+  require("plugins.configs.lsp_utils").go_to("definition", vim.fn.expand("%:e"), open_telescope_picker)
 end
 
 M.open_lsp_references_conditional = function(opts)
@@ -376,7 +376,7 @@ M.open_lsp_references_conditional = function(opts)
       require("omnisharp_extended").telescope_lsp_references(opts)
     end
   end
-  require("plugins.configs.lsp_utils").go_to("references", open_telescope_picker)
+  require("plugins.configs.lsp_utils").go_to("references", vim.fn.expand("%:e"), open_telescope_picker)
 end
 
 M.open_lsp_type_definition_conditional = function(opts)
@@ -388,7 +388,7 @@ M.open_lsp_type_definition_conditional = function(opts)
       require("omnisharp_extended").telescope_lsp_type_definition(opts)
     end
   end
-  require("plugins.configs.lsp_utils").go_to("typeDefinition", open_telescope_picker)
+  require("plugins.configs.lsp_utils").go_to("typeDefinition", vim.fn.expand("%:e"), open_telescope_picker)
 end
 
 M.open_lsp_implementation_conditional = function(opts)
@@ -400,7 +400,7 @@ M.open_lsp_implementation_conditional = function(opts)
       require("omnisharp_extended").telescope_lsp_implementation(opts)
     end
   end
-  require("plugins.configs.lsp_utils").go_to("implementation", open_telescope_picker)
+  require("plugins.configs.lsp_utils").go_to("implementation", vim.fn.expand("%:e"), open_telescope_picker)
 end
 
 M.open_lsp_incoming_calls_conditional = function(opts)
