@@ -97,8 +97,8 @@ M.go_to_directory = function()
       local oil = require("oil")
       -- Prompt for the path input
       local ok, input = pcall(vim.fn.input, {
-          prompt = "Enter absolute path: ",
-          completion = "file",
+        prompt = "Enter absolute path: ",
+        completion = "file",
       })
       if not ok then
         return
@@ -118,6 +118,33 @@ M.go_to_directory = function()
           print("Not directory entered")
         end
       end
+    end,
+  }
+end
+
+M.copy_absolute_path = function()
+  return {
+    desc = "Copy absolute path",
+    callback = function()
+      local oil = require("oil")
+      local entry = oil.get_cursor_entry()
+      local dir = oil.get_current_dir()
+      if not entry or not dir then
+        return
+      end
+      local filename = dir .. entry.name
+      local cb_opts = vim.opt.clipboard:get()
+      if vim.tbl_contains(cb_opts, "unnamed") then
+        if filename then
+          vim.fn.setreg("*", filename)
+        end
+      end
+      if vim.tbl_contains(cb_opts, "unnamedplus") then
+        if filename then
+          vim.fn.setreg("+", filename)
+        end
+      end
+      vim.notify("Absolute path copied to clipboard")
     end,
   }
 end
