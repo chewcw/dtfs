@@ -580,7 +580,7 @@ bindsym --release $mod+t exec --no-startup-id sh -c '$HOME/.local/bin/date.sh'
 bindsym $mod+Shift+w exec arandr
 
 # initialize most of the stuff
-bindsym $mod+o exec $HOME/.local/bin/init_stuff.sh
+bindsym $mod+o exec kitty -e $HOME/.local/bin/init_stuff.sh
 
 # enable / disable caps mode (show caps mode on the i3 status bar)
 # https://faq.i3wm.org/question/1258/i3bari3status-is-it-possible-to-have-caps-lock-and-num-lock-indicator.1.html
