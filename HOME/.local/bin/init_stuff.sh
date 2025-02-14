@@ -23,10 +23,10 @@ fi
 sudo modprobe psmouse
 
 # Synchronizing time settings more efficiently
-if timedatectl show | grep -q 'NTP=no'; then
-  sudo timedatectl set-ntp false
-  sleep 0.2
-fi
+# if timedatectl show | grep -q 'NTP=no'; then
+timedatectl set-ntp false
+sleep 0.2
+# fi
 timedatectl set-ntp true
 
 # Stop and restart pasystray only if it's running
