@@ -155,6 +155,7 @@ local function pick_win_id()
     end
   end
 
+  -- Reset to original setting
   vim.o.laststatus = laststatus
 
   if not vim.tbl_contains(vim.split(window_picker.chars, ""), resp) then
@@ -322,7 +323,13 @@ M.open_float_with_file_content = function(lines)
   })
 
   -- Add a `q` keybinding to close the floating window if it’s focused
-  vim.api.nvim_buf_set_keymap(float_buf, "n", "q", ":close <CR> :lua vim.g.quicknote_float_win = nil <CR>", { noremap = true, silent = true })
+  vim.api.nvim_buf_set_keymap(
+    float_buf,
+    "n",
+    "q",
+    ":close <CR> :lua vim.g.quicknote_float_win = nil <CR>",
+    { noremap = true, silent = true }
+  )
 end
 
 return M
