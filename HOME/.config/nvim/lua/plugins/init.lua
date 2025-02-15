@@ -1085,6 +1085,8 @@ local default_plugins = {
         ["<C-l>"] = "actions.select",
         ["-"] = { "actions.parent", mode = "n" },
         ["<C-h>"] = { "actions.parent", mode = "n" },
+        ["<C-j>"] = { "j", mode = "n" },
+        ["<C-k>"] = { "k", mode = "n" },
         ["w"] = { "actions.open_cwd", mode = "n" },
         ["`"] = {},
         ["<A-CR>"] = { "actions.cd", opts = { scope = "tab" }, mode = "n" },
