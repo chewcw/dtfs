@@ -774,11 +774,12 @@ M.general = {
     ["<C-w><C-j>"] = { "<C-w>j|<C-w>_", "switch to bottom window and maximize it vertically" },
 
     ["<A-e>"] = { "<cmd> BufferLinePick <CR>", "bufferline pick" },
-    ["<A-Tab>"] = {
-      ":lua require('plugins.configs.telescope_tabs').go_to_previous() <CR>",
-      "go to previous opened tab",
-      opts = { silent = true },
-    },
+    ["<A-Tab>"] = {"<C-w>g<Tab>", "go to previous opened tab" },
+    -- ["<A-Tab>"] = {
+    --   ":lua require('plugins.configs.telescope_tabs').go_to_previous() <CR>",
+    --   "go to previous opened tab",
+    --   opts = { silent = true },
+    -- },
 
     ["<C-r>"] = {
       ":lua require('plugins.configs.buffer_utils').run_git_related_when_the_buffer_name_matches() <CR>",
