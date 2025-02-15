@@ -593,13 +593,13 @@ vim.api.nvim_create_autocmd("VimEnter", {
 -- ----------------------------------------------------------------------------
 -- Watch opened tab (for switching to previous opened tab)
 -- ----------------------------------------------------------------------------
-vim.g.last_tab_id = nil
-vim.api.nvim_create_autocmd("TabLeave", {
-  group = vim.api.nvim_create_augroup("WatchTabs", { clear = true }),
-  callback = function()
-    vim.g.last_tab_id = vim.api.nvim_get_current_tabpage()
-  end,
-})
+-- vim.g.last_tab_id = nil
+-- vim.api.nvim_create_autocmd("TabLeave", {
+--   group = vim.api.nvim_create_augroup("WatchTabs", { clear = true }),
+--   callback = function()
+--     vim.g.last_tab_id = vim.api.nvim_get_current_tabpage()
+--   end,
+-- })
 
 -- ----------------------------------------------------------------------------
 -- Don't add endofline automatically

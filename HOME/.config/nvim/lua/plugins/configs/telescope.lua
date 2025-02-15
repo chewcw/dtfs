@@ -408,7 +408,7 @@ M.options = {
     },
 
     buffers = {
-      sort_lastused = true,
+      sort_lastused = false,
       sort_mru = true,
       -- sorter = telescope_utils.keep_initial_sorting_sorter(),
       mappings = {
