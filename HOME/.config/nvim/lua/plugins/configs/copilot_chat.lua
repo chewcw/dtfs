@@ -138,6 +138,25 @@ M.opts = {
       prompt = "> #git:staged\n\nWrite commit message for the change with commitizen convention. Make sure the title has maximum 50 characters and message is wrapped at 72 characters. Wrap the whole message in code block with language gitcommit. Ask me what to be included in the commitizen commit type, if I reply `emoji`, then use gitmoji, otherwise use whatever text I reply with.",
     },
   },
+  contexts = {
+    file = {
+      input = function(callback)
+        local telescope = require("telescope.builtin")
+        local actions = require("telescope.actions")
+        local action_state = require("telescope.actions.state")
+        telescope.find_files({
+          attach_mappings = function(prompt_bufnr)
+            actions.select_default:replace(function()
+              actions.close(prompt_bufnr)
+              local selection = action_state.get_selected_entry()
+              callback(selection[1])
+            end)
+            return true
+          end,
+        })
+      end,
+    },
+  },
 }
 
 return M
