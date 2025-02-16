@@ -149,4 +149,21 @@ M.copy_absolute_path = function()
   }
 end
 
+M.select_window_to_open = function()
+  return {
+    desc = "Select window to open",
+    callback = function()
+      local utils_window = require("core.utils_window")
+      local oil = require("oil")
+      local entry = oil.get_cursor_entry()
+      local dir = oil.get_current_dir()
+      if not entry or not dir then
+        return
+      end
+      local filename = dir .. entry.name
+      utils_window.open(filename, 1, 0)
+    end,
+  }
+end
+
 return M
