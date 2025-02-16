@@ -169,7 +169,13 @@ M.toggle_term = function(target_direction, is_open_from_file_browser, cwd)
       select_buffer = true,
       attach_mappings = function(_, map)
         map("i", "<A-CR>", select_path)
+        map("i", "<C-c>", function()
+          vim.cmd("stopinsert") -- Exit insert mode
+        end)
         map("n", "<A-CR>", select_path)
+        map("n", "<C-c>", function(prompt_bufnr)
+          require("telescope.actions").close(prompt_bufnr)
+        end)
         map(
           "n",
           "g<Space>",

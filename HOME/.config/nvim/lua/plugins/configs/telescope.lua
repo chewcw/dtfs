@@ -98,6 +98,9 @@ M.options = {
           telescope_utils.open_multiple_files_in_find_files_picker(prompt_bufnr, "edit")
         end,
         ["<C-l>"] = require("telescope.actions").select_default,
+        ["<C-c>"] = function()
+          vim.cmd("stopinsert")
+        end,
       },
       n = {
         ["<C-j>"] = require("telescope.actions").move_selection_next,
@@ -165,6 +168,9 @@ M.options = {
         ["<C-A-d>"] = function() end,
         ["<A-S-d>"] = function() end,
         ["<A-k>"] = function() end,
+        ["<C-c>"] = function(prompt_bufnr)
+          require("telescope.actions").close(prompt_bufnr)
+        end,
       },
     },
   },
