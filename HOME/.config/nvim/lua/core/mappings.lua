@@ -774,7 +774,7 @@ M.general = {
     ["<C-w><C-j>"] = { "<C-w>j|<C-w>_", "switch to bottom window and maximize it vertically" },
 
     ["<A-e>"] = { "<cmd> BufferLinePick <CR>", "bufferline pick" },
-    ["<A-Tab>"] = {"<C-w>g<Tab>", "go to previous opened tab" },
+    ["<A-Tab>"] = { "<C-w>g<Tab>", "go to previous opened tab" },
     -- ["<A-Tab>"] = {
     --   ":lua require('plugins.configs.telescope_tabs').go_to_previous() <CR>",
     --   "go to previous opened tab",
@@ -840,7 +840,10 @@ M.general = {
       function()
         local input = vim.fn.input("Quick Chat: ")
         if input ~= "" then
-          require("CopilotChat").ask(input, { selection = require("CopilotChat.select").buffer })
+          require("CopilotChat").ask(
+            input,
+            { selection = require("CopilotChat.select").visual or require("CopilotChat.select").buffer }
+          )
         end
       end,
       "CopilotChat - Quick chat",
@@ -899,11 +902,60 @@ M.general = {
           local chat = require("CopilotChat")
           chat.close()
           chat.open({
-            selection = function() end,
+            selection = false,
           })
         end)
       end,
-      "CopilotChat - Open",
+      "CopilotChat - Open vertical",
+    },
+    ["<leader>cc>"] = {
+      function()
+        pcall(function()
+          local chat = require("CopilotChat")
+          chat.close()
+          chat.open({
+            window = {
+              layout = "vertical",
+            },
+            selection = false,
+          })
+        end)
+      end,
+      "CopilotChat - Open vertical",
+    },
+    ["<leader>cc."] = {
+      function()
+        pcall(function()
+          local chat = require("CopilotChat")
+          chat.close()
+          chat.open({
+            window = {
+              layout = "horizontal",
+              width = 1,
+              height = 0.3,
+            },
+            selection = false,
+          })
+        end)
+      end,
+      "CopilotChat - Open horizontal",
+    },
+    ["<leader>cc/"] = {
+      function()
+        pcall(function()
+          local chat = require("CopilotChat")
+          chat.close()
+          chat.open({
+            window = {
+              layout = "float",
+              width = 0.8,
+              height = 0.8,
+            },
+            selection = false,
+          })
+        end)
+      end,
+      "CopilotChat - Open float",
     },
     ["<leader>ccc"] = {
       function()
