@@ -30,11 +30,11 @@ sleep 0.2
 timedatectl set-ntp true
 
 # Stop and restart pasystray only if it's running
-if pgrep -f "pasystray" > /dev/null; then
-  pkill -f pasystray
-  sleep 0.2
-fi
-pasystray &>/dev/null &
+# if pgrep -f "pasystray" > /dev/null; then
+  # pkill -f pasystray
+  # sleep 0.2
+# fi
+# pasystray &>/dev/null &
 
 # Stop and restart xcompmgr only if it's necessary
 if pgrep -f "xcompmgr" > /dev/null; then
