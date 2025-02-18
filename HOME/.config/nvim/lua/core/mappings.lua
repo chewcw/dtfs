@@ -56,6 +56,13 @@ M.general = {
       "move next word",
       opts = { silent = true },
     },
+    ["<A-e>"] = {
+      function()
+        require("core.utils").insert_mode_movement_disable_auto_completions("C-Right")
+      end,
+      "move next word",
+      opts = { silent = true },
+    },
     ["<A-b>"] = {
       function()
         require("core.utils").insert_mode_movement_disable_auto_completions("C-Left")
@@ -1085,6 +1092,64 @@ M.general = {
         })
       end,
       "CopilotChat - Open",
+    },
+    ["<leader>cc>"] = {
+      function()
+        pcall(function()
+          local chat = require("CopilotChat")
+          local select = require("CopilotChat.select")
+          chat.close()
+          chat.toggle({
+            window = {
+              layout = "vertical",
+            },
+            selection = function(source)
+              return select.visual(source)
+            end,
+          })
+        end)
+      end,
+      "CopilotChat - Open vertical",
+    },
+    ["<leader>cc."] = {
+      function()
+        pcall(function()
+          local chat = require("CopilotChat")
+          local select = require("CopilotChat.select")
+          chat.close()
+          chat.toggle({
+            window = {
+              layout = "horizontal",
+              width = 1,
+              height = 0.3,
+            },
+            selection = function(source)
+              return select.visual(source)
+            end,
+          })
+        end)
+      end,
+      "CopilotChat - Open horizontal",
+    },
+    ["<leader>cc/"] = {
+      function()
+        pcall(function()
+          local chat = require("CopilotChat")
+          local select = require("CopilotChat.select")
+          chat.close()
+          chat.toggle({
+            window = {
+              layout = "float",
+              width = 0.8,
+              height = 0.8,
+            },
+            selection = function(source)
+              return select.visual(source)
+            end,
+          })
+        end)
+      end,
+      "CopilotChat - Open float",
     },
     ["<leader>ccc"] = {
       function()
