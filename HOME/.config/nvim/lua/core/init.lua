@@ -854,3 +854,12 @@ vim.api.nvim_create_autocmd("BufEnter", {
     vim.opt.colorcolumn = "0"
   end,
 })
+
+-- ----------------------------------------------------------------------------
+-- Reset fold
+-- ----------------------------------------------------------------------------
+vim.api.nvim_create_user_command("FoldReset", function()
+  vim.opt.foldmethod = "manual"
+  vim.cmd("normal! zE")
+  vim.opt.foldmethod = "indent"
+end, {})
