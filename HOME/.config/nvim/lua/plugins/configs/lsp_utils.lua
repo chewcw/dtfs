@@ -26,10 +26,10 @@ M.go_to = function(document_type, file_extension, callback)
     local target = result[1] or result
     if #result > 1 then
       if #result == 2 then -- This is often the case for references
-        if file_extension == "cs" or file_extension == "rs" then
-          target = result[1]
-        else
+        if file_extension == "lua" then
           target = result[2]
+        else
+          target = result[1]
         end
       else
         if callback and type(callback) == "function" then
