@@ -26,9 +26,16 @@ M.go_to = function(document_type, file_extension, callback)
     local target = result[1] or result
     if #result > 1 then
       if #result == 2 then -- This is often the case for references
-        if file_extension == "lua" then
+        -- Get current cursor line (1-based)
+        local current_line = vim.api.nvim_win_get_cursor(0)[1]
+        -- If there are 2 references, often one of them is the current line, and the
+        -- other is the one we are interested in. The order of 2 the results coming back
+        -- depends on which one being used first, for example if the function used before
+        -- defined, then the first result would be the caller line, if the function defined
+        -- first, then the first result would be current line.
+        if result[1].range.start.line + 1 == current_line then
           target = result[2]
-        else
+        elseif result[2].range.start.line + 1 == current_line then
           target = result[1]
         end
       else
