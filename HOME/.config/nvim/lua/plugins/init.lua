@@ -975,7 +975,7 @@ local default_plugins = {
   },
 
   {
-    "chewcw/CopilotChat.nvim",
+    "CopilotC-Nvim/CopilotChat.nvim",
     build = "make tiktoken",
     opts = function()
       return require("plugins.configs.copilot_chat").opts
