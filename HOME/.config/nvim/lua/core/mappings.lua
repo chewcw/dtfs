@@ -862,20 +862,20 @@ M.general = {
         local telescope_opts = require("plugins.configs.telescope").options.defaults
         require("CopilotChat.integrations.telescope").pick(
           actions.prompt_actions(),
-          telescope_opts,
-          function(selected)
-            local chat = require("CopilotChat")
-            local pick_actions = actions.prompt_actions()
-            if string.match(selected[1], "Commit") then
-              chat.ask(pick_actions.actions[selected[1]].prompt, pick_actions.actions[selected[1]])
-              -- Switch to left window
-              vim.cmd.wincmd("h")
-              -- Run Git commit
-              vim.cmd("Git commit")
-              -- Switch back to the CopilotChat
-              vim.cmd.wincmd("l")
-            end
-          end
+          telescope_opts
+        -- function(selected)
+        --   local chat = require("CopilotChat")
+        --   local pick_actions = actions.prompt_actions()
+        --   if string.match(selected[1], "Commit") then
+        --     chat.ask(pick_actions.actions[selected[1]].prompt, pick_actions.actions[selected[1]])
+        --     -- Switch to left window
+        --     vim.cmd.wincmd("h")
+        --     -- Run Git commit
+        --     vim.cmd("Git commit")
+        --     -- Switch back to the CopilotChat
+        --     vim.cmd.wincmd("l")
+        --   end
+        -- end
         )
       end,
       "CopilotChat - Prompt actions",
@@ -978,6 +978,17 @@ M.general = {
         end
       end,
       "CopilotChat - Save history",
+    },
+    -- Avante
+    ["<leader>avt"] = {
+      function()
+        vim.cmd("AvanteToggle")
+      end,
+    },
+    ["<leader>avr"] = {
+      function()
+        vim.cmd("AvanteClear")
+      end,
     },
     ["gQ"] = { function() end }, -- Ex mode, not useful to me
   },
