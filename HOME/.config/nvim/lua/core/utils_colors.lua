@@ -30,7 +30,7 @@ local cfg = {
 }
 
 local get_highlight = function(group, type)
-  return vim.api.nvim_get_hl_by_name(group, {})[type]
+  return vim.api.nvim_get_hl(0, { name = group, link = false })[type]
 end
 
 local get_groups = function(color)
@@ -59,9 +59,9 @@ local get_groups = function(color)
   highlight("keyword", { fg = color.brown })
 
   -- GitSigns (used in statusline)
-  highlight("GitSignsAdd", { fg = get_highlight("DiffAdd", "background"), bold = true })
-  highlight("GitSignsChange", { fg = get_highlight("DiffChange", "background"), bold = true })
-  highlight("GitSignsDelete", { fg = get_highlight("DiffDelete", "background"), bold = true })
+  highlight("GitSignsAdd", { fg = get_highlight("DiffAdd", "bg"), bold = true })
+  highlight("GitSignsChange", { fg = get_highlight("DiffChange", "bg"), bold = true })
+  highlight("GitSignsDelete", { fg = get_highlight("DiffDelete", "bg"), bold = true })
 
   -- Markology
   vim.cmd([[ highlight! MarkologyHLl cterm=bold ctermfg=10 ctermbg=NONE guifg=Green guibg=NONE ]])
@@ -76,7 +76,7 @@ local get_groups = function(color)
     NormalNC = { fg = color.fg, bg = cfg.transparent and color.none or color.bg_nc },
     SignColumn = { fg = color.fg, bg = color.none },
     EndOfBuffer = { fg = color.gray03 },
-    NormalFloat = { fg = get_highlight("FloatBorder", "foreground"), bg = get_highlight("Normal", "background") },
+    NormalFloat = { fg = get_highlight("FloatBorder", "fg"), bg = color.bg },
     FloatBorder = { fg = color.gray03, bg = color.bg },
     ColorColumn = { fg = color.none, bg = color.bg_nc },
     Conceal = { fg = color.gray05 },
@@ -457,7 +457,7 @@ local get_groups = function(color)
     StatusLineInfo = { fg = color.main1, bg = color.none },
     StatusLineWarn = { fg = color.yellow, bg = color.none },
     StatusLineError = { fg = color.red, bg = color.none },
-    StatusLineText = { fg = get_highlight("Normal", "foreground"), bg = color.none },
+    StatusLineText = { fg = get_highlight("Normal", "fg"), bg = color.none },
     -- JSON
     jsonNumber = { fg = color.yellow },
     jsonNull = { fg = color.bright_black },
