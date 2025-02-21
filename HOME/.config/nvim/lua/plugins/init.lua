@@ -1248,6 +1248,21 @@ local default_plugins = {
   -- Detect tabstop and shiftwidth automatically
   { "tpope/vim-sleuth", event = "BufRead" },
 
+  {
+    "folke/zen-mode.nvim",
+    dependencies = {
+      { "folke/twilight.nvim" },
+    },
+    cmd = { "ZenMode" },
+    opts = {
+      plugins = {
+        tmux = {
+          enabled = true,
+        },
+      },
+    },
+  },
+
   -- Only load whichkey after all the gui
   -- {
   --   "folke/which-key.nvim",
