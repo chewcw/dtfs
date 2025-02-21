@@ -472,9 +472,8 @@ local get_groups = function(color)
     -- visual-multi
     VisualMultiHighlightMatches = { fg = color.red, underline = true, bold = true },
     -- Trouble.nvim
-    TroubleNormal = { fg = color.none, bg = color.bg },
-    -- TroubleNormalNC = { fg = c.none, bg = c.bg_nc },
-    TroublePreview = { fg = color.fg, bg = color.dark_yellow },
+    TroubleNormal = { fg = color.fg, bg = color.blue02 },
+    TroubleNormalNC = { fg = color.fg, bg = color.blue02 },
     -- Codeium
     CodeiumSuggestion = { fg = color.gray07, bg = color.dark_brown, italic = false },
     -- toml
