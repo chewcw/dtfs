@@ -1051,6 +1051,7 @@ local default_plugins = {
         show_hidden = true,
       },
       skip_confirm_for_simple_edits = true,
+      delete_to_trash = true,
       float = {
         -- Padding around the floating window
         padding = 0,
