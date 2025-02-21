@@ -995,7 +995,7 @@ local default_plugins = {
               return
             end
             local wrapped_response = "```" .. response .. "```\n\n"
-            vim.api.nvim_put({wrapped_response}, "c", true, true)
+            vim.api.nvim_put({ wrapped_response }, "c", true, true)
           end, { buffer = true, remap = true })
 
           -- Insert mode mapping
@@ -1005,7 +1005,7 @@ local default_plugins = {
               return
             end
             local wrapped_response = "```" .. response .. "```\n\n"
-            vim.api.nvim_put({wrapped_response}, "c", true, true)
+            vim.api.nvim_put({ wrapped_response }, "c", true, true)
           end, { buffer = true, remap = true })
         end,
       })
@@ -1244,6 +1244,9 @@ local default_plugins = {
       require("actions-preview").setup(opts)
     end,
   },
+
+  -- Detect tabstop and shiftwidth automatically
+  { "tpope/vim-sleuth", event = "BufRead" },
 
   -- Only load whichkey after all the gui
   -- {
