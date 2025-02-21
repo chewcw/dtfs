@@ -30,7 +30,7 @@ local cfg = {
 }
 
 local get_highlight = function(group, type)
-  return vim.api.nvim_get_hl_by_name(group, {})[type]
+  return vim.api.nvim_get_hl(0, { name = group })[type]
 end
 
 local get_groups = function(color)
