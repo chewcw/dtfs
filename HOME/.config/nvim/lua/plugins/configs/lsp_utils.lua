@@ -33,9 +33,13 @@ M.go_to = function(document_type, file_extension, callback)
         -- depends on which one being used first, for example if the function used before
         -- defined, then the first result would be the caller line, if the function defined
         -- first, then the first result would be current line.
-        if result[1].range.start.line + 1 == current_line then
+        if result[1] and result[1].range and result[1].range.start.line + 1 == current_line then
           target = result[2]
-        elseif result[2].range.start.line + 1 == current_line then
+        elseif result[2] and result[2].range and result[2].range.start.line + 1 == current_line then
+          target = result[1]
+        elseif result[1] and result[1].targetRange and result[1].targetRange.start.line + 1 == current_line then
+          target = result[2]
+        elseif result[2] and result[2].targetRange and result[2].targetRange.start.line + 1 == current_line then
           target = result[1]
         end
       else
