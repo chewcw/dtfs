@@ -1147,6 +1147,13 @@ local default_plugins = {
     ft = { "markdown", "copilot-chat", "Avante" },
     opts = {
       file_types = { "markdown", "copilot-chat", "Avante" },
+      heading = {
+        icons = { " ❶ ", " ❷ ", " ❸ ", " ❹ ", " ❺ ", " ❻ " },
+        left_pad = { 0, 1, 2, 3, 4, 5, 6 },
+      },
+      sign = {
+        enabled = false,
+      },
     },
   },
 

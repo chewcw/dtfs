@@ -479,8 +479,14 @@ local get_groups = function(color)
     -- toml
     tomlDotInKey = { fg = color.fg, bg = color.none },
     -- render-markdown.nvim
-    RenderMarkdownCode = { bg = color.dark_blue },
-    RenderMarkdownCodeInline = { bg = color.dark_blue },
+    RenderMarkdownCode = { bg = color.dark_green02 },
+    RenderMarkdownCodeInline = { bg = color.dark_green02 },
+    RenderMarkdownH1Bg = { bg = color.red02 },
+    RenderMarkdownH2Bg = { bg = color.red02 },
+    RenderMarkdownH3Bg = { bg = color.red02 },
+    RenderMarkdownH4Bg = { bg = color.red02 },
+    RenderMarkdownH5Bg = { bg = color.red02 },
+    RenderMarkdownH6Bg = { bg = color.red02 },
     -- Copilot
     CopilotSuggestion = { fg = color.dark_brown },
   }
