@@ -991,6 +991,15 @@ M.general = {
       end,
     },
     ["gQ"] = { function() end }, -- Ex mode, not useful to me
+    -- Oil
+    ["<leader>fd"] = {
+      "<cmd>lua vim.g.oil_float_mode = '1'; vim.cmd('Oil --float')<CR>",
+      "Oil (float)",
+    },
+    ["<leader>fD"] = {
+      "<cmd>lua vim.g.oil_float_mode = '0'; vim.cmd('Oil')<CR>",
+      "Oil",
+    },
   },
 
   v = {
@@ -1798,15 +1807,8 @@ M.telescope = {
       "open file in window",
       opts = { silent = true },
     },
-    -- Oil
-    ["<leader>fd"] = {
-      "<cmd>lua vim.g.oil_float_mode = '1'; vim.cmd('Oil --float')<CR>",
-      "Oil (float)",
-    },
-    ["<leader>fD"] = {
-      "<cmd>lua vim.g.oil_float_mode = '0'; vim.cmd('Oil')<CR>",
-      "Oil",
-    },
+    ["<leader>fq"] = { "<cmd> Telescope quickfix <CR>", "Quickfix" },
+    ["<leader>fl"] = { "<cmd> Telescope loclist <CR>", "Location list" },
   },
 
   v = {
@@ -2302,7 +2304,8 @@ M.trouble = {
     ["td"] = { "<cmd> Trouble lsp_definitions toggle focus=true <CR>", "lsp definitions" },
     ["tz"] = { "<cmd> Trouble diagnostics toggle focus=true filter.buf=0 <CR>", "open current buffer diagnostics" },
     ["tZ"] = { "<cmd> Trouble diagnostics toggle focus=true <CR>", "open workspace diagnostics" },
-    ["t."] = { "<cmd> Trouble quickfix toggle focus=true <CR>", "open quickfix" },
+    ["tq"] = { "<cmd> Trouble quickfix toggle focus=true <CR>", "open quickfix" },
+    ["tl"] = { "<cmd> Trouble loclist toggle focus=true <CR>", "open location list" },
     ["ts"] = { "<cmd> Trouble lsp_document_symbols toggle focus=true <CR>", "open document symbols" },
   },
 }
