@@ -581,7 +581,8 @@ bindsym $mod+Shift+w exec arandr
 
 # initialize most of the stuff
 # quickfix for the pasystray not showing
-bindsym $mod+o exec kitty -e $HOME/.local/bin/init_stuff.sh; exec sh -c 'pkill -9 pasystray || true && pasystray &>/dev/null &';
+# quickfix for the xcompmgr not running
+bindsym $mod+o exec kitty -e $HOME/.local/bin/init_stuff.sh; exec sh -c 'pkill -9 pasystray || true && pasystray &>/dev/null &'; exec sh -c 'pkill -9 xcompmgr || true && xcompmgr -c &>/dev/null &'; 
 
 # enable / disable caps mode (show caps mode on the i3 status bar)
 # https://faq.i3wm.org/question/1258/i3bari3status-is-it-possible-to-have-caps-lock-and-num-lock-indicator.1.html
