@@ -341,12 +341,12 @@ M.search_visual_selection = function()
   -- Set the search register (@/) to the escaped searchTerm
   vim.fn.setreg("/", searchTerm)
 
-  -- Echo the search term
-  print("/" .. searchTerm)
-
   -- Show search count
   vim.cmd("normal! n")
   vim.cmd("normal! N")
+
+  -- Populate location list with search results
+  vim.cmd("lvimgrep /" .. searchTerm .. "/j %")
 
   -- Add the search term to the search history
   vim.fn.histadd("search", searchTerm)
@@ -374,9 +374,6 @@ M.search_word_under_cursor = function()
   -- Set the search register (@/) to the searchTerm
   vim.fn.setreg("/", searchTerm)
 
-  -- Echo the search term
-  print("/" .. searchTerm)
-
   -- Add the search term to the search history
   vim.fn.histadd("search", searchTerm)
 
@@ -386,6 +383,9 @@ M.search_word_under_cursor = function()
   -- Show search count
   vim.cmd("normal! n")
   vim.cmd("normal! N")
+
+  -- Populate location list with search results
+  vim.cmd("lvimgrep /" .. searchTerm .. "/j %")
 
   -- refresh minimap if available
   pcall(function()
