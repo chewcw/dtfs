@@ -37,8 +37,8 @@ timedatectl set-ntp true
 # pasystray &>/dev/null &
 
 # Stop and restart xcompmgr only if it's necessary
-if pgrep -f "xcompmgr" > /dev/null; then
-  pkill -f xcompmgr
-  sleep 0.2
-fi
-xcompmgr -c &>/dev/null &
+# if pgrep -f "xcompmgr" > /dev/null; then
+#   pkill -f xcompmgr
+#   sleep 0.2
+# fi
+# xcompmgr -c &>/dev/null &
