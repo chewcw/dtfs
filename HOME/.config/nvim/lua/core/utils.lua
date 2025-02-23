@@ -344,6 +344,10 @@ M.search_visual_selection = function()
   -- Echo the search term
   print("/" .. searchTerm)
 
+  -- Show search count
+  vim.cmd("normal! n")
+  vim.cmd("normal! N")
+
   -- Add the search term to the search history
   vim.fn.histadd("search", searchTerm)
 
@@ -378,6 +382,10 @@ M.search_word_under_cursor = function()
 
   -- Enable search highlighting
   vim.o.hlsearch = true
+
+  -- Show search count
+  vim.cmd("normal! n")
+  vim.cmd("normal! N")
 
   -- refresh minimap if available
   pcall(function()
