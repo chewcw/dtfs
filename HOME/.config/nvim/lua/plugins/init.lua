@@ -1259,7 +1259,6 @@ local default_plugins = {
   {
     "folke/zen-mode.nvim",
     dependencies = {
-      { "folke/twilight.nvim" },
     },
     cmd = { "ZenMode" },
     opts = {
@@ -1269,6 +1268,11 @@ local default_plugins = {
         },
       },
     },
+  },
+
+  {
+    "folke/twilight.nvim",
+    cmd = { "Twilight" },
   },
 
   {
