@@ -1271,6 +1271,11 @@ local default_plugins = {
     },
   },
 
+  {
+    "smithbm2316/centerpad.nvim",
+    cmd = { "Centerpad" },
+  },
+
   -- Only load whichkey after all the gui
   -- {
   --   "folke/which-key.nvim",
