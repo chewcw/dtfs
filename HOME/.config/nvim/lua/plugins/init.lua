@@ -1256,19 +1256,17 @@ local default_plugins = {
   -- Detect tabstop and shiftwidth automatically
   { "tpope/vim-sleuth", event = "BufRead" },
 
-  {
-    "folke/zen-mode.nvim",
-    dependencies = {
-    },
-    cmd = { "ZenMode" },
-    opts = {
-      plugins = {
-        tmux = {
-          enabled = true,
-        },
-      },
-    },
-  },
+  -- {
+  --   "folke/zen-mode.nvim",
+  --   cmd = { "ZenMode" },
+  --   opts = {
+  --     plugins = {
+  --       tmux = {
+  --         enabled = true,
+  --       },
+  --     },
+  --   },
+  -- },
 
   {
     "folke/twilight.nvim",
@@ -1276,7 +1274,7 @@ local default_plugins = {
   },
 
   {
-    "smithbm2316/centerpad.nvim",
+    "chewcw/centerpad.nvim",
     cmd = { "Centerpad" },
   },
 
