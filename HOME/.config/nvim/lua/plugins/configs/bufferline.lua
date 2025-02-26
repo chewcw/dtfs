@@ -34,7 +34,7 @@ M.setup = {
         return "⚡ToggleTerm"
       end
 
-      if buf.name:match("zsh") then
+      if buf.name == "zsh" then
         return "⚡Term"
       end
 
