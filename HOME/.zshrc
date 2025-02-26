@@ -131,7 +131,7 @@ export VISUAL=nvim
 
 alias c="code -r"
 alias dc="docker-compose"
-alias darm="docker run --rm --privileged multiarch/qemu-user-static --reset -p yes --credential yes"
+alias darm="docker run --privileged --rm tonistiigi/binfmt --install all && docker run --rm --privileged multiarch/qemu-user-static --reset -p yes --credential yes"
 alias lg="lazygit"
 alias gforeachref="git for-each-ref --sort=committerdate --format '%(refname) on %(color:bold blue)%(committerdate) %(color:bold white) by %(color:green) %(committername)%(committeremail)'"
 
