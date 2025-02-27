@@ -1188,6 +1188,9 @@ local default_plugins = {
           model = "deepseek-r1-distill-llama-70b",
         },
       },
+      copilot = {
+        model = "claude-3.7-sonnet",
+      },
       mappings = {
         submit = {
           normal = "<A-CR>",
