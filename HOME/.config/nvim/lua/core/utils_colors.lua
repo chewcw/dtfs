@@ -465,8 +465,8 @@ local get_groups = function(color)
     jsonKeyword = { fg = color.main1 },
     -- Treesitter context
     TreesitterContextSeparator = { fg = color.gray03 },
-    TreesitterContext = { fg = color.fg, bg = cfg.transparent and color.none or color.bg },
-    TreesitterContextLineNumber = { fg = color.fg, bg = cfg.transparent and color.none or color.bg },
+    TreesitterContext = { fg = color.fg, bg = color.blue02 },
+    TreesitterContextLineNumber = { fg = color.fg, bg = color.blue02 },
     -- Indent blankline
     IndentBlanklineScope = { fg = color.dark_yellow, bg = color.none },
     -- visual-multi
