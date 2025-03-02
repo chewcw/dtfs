@@ -683,7 +683,11 @@ M.open_file_or_buffer_in_tab = function(is_visual, count)
             end
           end
           if vim.g.toggle_term_opened then
-            command = ":q | " -- first need to close this toggleterm
+            if vim.g.toggle_term_direction then
+              require("configs.toggleterm_utils").toggle_term(vim.g.toggle_term_direction)
+            else
+              command = ":q | " -- first need to close this toggleterm
+            end
           end
           command = command .. "tabnext" .. target_tab_id .. "| edit " .. file_path
           found_tab = true
