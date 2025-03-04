@@ -2041,7 +2041,7 @@ M.toggleterm = {
   },
 
   t = {
-    ["<C-\\>"] = { vim.api.nvim_replace_termcodes("<C-\\><C-N>", true, true, true), "escape terminal mode" },
+    ["<C-[><C-[>"] = { vim.api.nvim_replace_termcodes("<C-\\><C-N>", true, true, true), "escape terminal mode" },
     -- ["<A-.>"] = { "<C-\\> <cmd> ToggleTerm <CR>", "toggle term" },
     -- ["<A->>"] = { "<C-\\> <cmd> ToggleTerm <CR>", "toggle term" },
     -- ["<A-/>"] = { "<C-\\> <cmd> ToggleTerm <CR>", "toggle term" },
