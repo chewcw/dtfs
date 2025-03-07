@@ -625,7 +625,14 @@ local default_plugins = {
       -- return true: if buffer is ok to be saved
       -- return false: if it's not ok to be saved
       -- if set to `nil` then no specific condition is applied
-      condition = nil,
+      condition = function(buf)
+        local filetype = vim.fn.getbufvar(buf, "&filetype")
+        -- Don't auto save for `oil`
+        if filetype == "oil" then
+          return false
+        end
+        return true
+      end,
       write_all_buffers = false, -- write all buffers when the current one meets `condition`
       noautocmd = false,      -- do not execute autocmds when saving
       lockmarks = false,      -- lock marks when saving, see `:h lockmarks` for more details
