@@ -1798,7 +1798,7 @@ M.telescope = {
       opts = { silent = true },
     },
     ["<leader>ot"] = {
-      ":lua require('plugins.configs.buffer_utils').open_file_or_buffer_in_tab(false, vim.v.count) <CR>",
+      ":lua require('plugins.configs.buffer_utils').open_file_or_buffer_in_tab(false, vim.v.count, nil, nil, nil) <CR>",
       "open file in tab",
       opts = { silent = true },
     },
@@ -1857,7 +1857,7 @@ M.telescope = {
       opts = { silent = true },
     },
     ["<leader>ot"] = {
-      ":lua require('plugins.configs.buffer_utils').open_file_or_buffer_in_tab(true, vim.v.count) <CR>",
+      ":lua require('plugins.configs.buffer_utils').open_file_or_buffer_in_tab(true, vim.v.count, nil, nil, nil) <CR>",
       "open file in tab",
       opts = { silent = true },
     },
