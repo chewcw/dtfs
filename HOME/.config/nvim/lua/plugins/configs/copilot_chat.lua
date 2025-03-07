@@ -139,7 +139,7 @@ M.opts = {
     },
     CustomCommitter = {
       prompt =
-      "> #git:staged\n\nWrite commit message for the change with commitizen convention. Make sure the title has maximum 50 characters and message is wrapped at 72 characters. Wrap the whole message in code block with language gitcommit. Ask me what to be included in the commitizen commit type, if I reply `emoji`, then use gitmoji, otherwise use whatever text I reply with.",
+        "> #gitlog\n\n> #git:staged\n\nUse gitlog as reference of the commit title format, and write the commit message for the current changes. Make sure the title has maximum 50 characters and message is wrapped at 72 characters. Wrap the whole message in code block with language gitcommit.",
     },
   },
   contexts = {
@@ -414,6 +414,28 @@ M.opts = {
         end
 
         return out
+      end,
+    },
+    gitlog = {
+      description = "Include previous 5 commits' title",
+      resolve = function(_, source)
+        local copilot_chat_utils = require("CopilotChat.utils")
+        local cwd = copilot_chat_utils.win_cwd(source.winnr)
+        local cmd = {
+          "git",
+          "--no-pager",
+          "-C",
+          cwd,
+          "log",
+          "--no-merges",
+          "-5",
+        }
+        local out = copilot_chat_utils.system(cmd)
+        return {{
+          content = out.stdout,
+          filename = "gitlog",
+          filetype = "gitcommit",
+        }}
       end,
     },
   },
