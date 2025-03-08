@@ -1186,6 +1186,15 @@ M.general = {
       end,
       "CopilotChat - Save history",
     },
+    ["[t"] = {
+      function()
+        if pcall(require, "treesitter-context") then
+          require("treesitter-context").go_to_context(vim.v.count1)
+        end
+      end,
+      "Jump to treesitter context (upwards)",
+      { opts = { silent = true } },
+    },
   },
 
   x = {
