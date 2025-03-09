@@ -1000,6 +1000,8 @@ M.general = {
       "<cmd>lua vim.g.oil_float_mode = '0'; vim.cmd('Oil')<CR>",
       "Oil",
     },
+
+    ["<A-q>"] = { "<C-w>c", "Close the window" },
   },
 
   v = {
