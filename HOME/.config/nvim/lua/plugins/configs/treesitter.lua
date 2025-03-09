@@ -16,6 +16,7 @@ local options = {
     "vimdoc",
     "query",
     "json",
+    "jsonc",
     "yaml",
     "bash",
     "c",
