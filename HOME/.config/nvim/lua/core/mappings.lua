@@ -1000,6 +1000,8 @@ M.general = {
       "<cmd>lua vim.g.oil_float_mode = '0'; vim.cmd('Oil')<CR>",
       "Oil",
     },
+
+    ["<A-q>"] = { "<cmd> :lua require('core.utils').close_win_and_focus_previous_tab() <CR>", "Close the window" },
   },
 
   v = {
