@@ -2308,14 +2308,54 @@ M.nvim_dap = {
 
 M.trouble = {
   n = {
-    ["tr"] = { "<cmd> Trouble lsp_references toggle focus=true <CR>", "lsp references" },
-    ["ti"] = { "<cmd> Trouble lsp_implementations toggle focus=true <CR>", "lsp implementation" },
-    ["td"] = { "<cmd> Trouble lsp_definitions toggle focus=true <CR>", "lsp definitions" },
-    ["tz"] = { "<cmd> Trouble diagnostics toggle focus=true filter.buf=0 <CR>", "open current buffer diagnostics" },
-    ["tZ"] = { "<cmd> Trouble diagnostics toggle focus=true <CR>", "open workspace diagnostics" },
-    ["tq"] = { "<cmd> Trouble quickfix toggle focus=true <CR>", "open quickfix" },
-    ["tl"] = { "<cmd> Trouble loclist toggle focus=true <CR>", "open location list" },
-    ["ts"] = { "<cmd> Trouble lsp_document_symbols toggle focus=true <CR>", "open document symbols" },
+    ["tr"] = {
+      function()
+        require("plugins.configs.trouble_utils").open_trouble("lsp_references")
+      end,
+      "lsp references",
+    },
+    ["ti"] = {
+      function()
+        require("plugins.configs.trouble_utils").open_trouble("lsp_implementations")
+      end,
+      "lsp implementation",
+    },
+    ["td"] = {
+      function()
+        require("plugins.configs.trouble_utils").open_trouble("lsp_definitions")
+      end,
+      "lsp definitions",
+    },
+    ["tz"] = {
+      function()
+        require("plugins.configs.trouble_utils").open_trouble("diagnostics")
+      end,
+      "open current buffer diagnostics",
+    },
+    ["tZ"] = {
+      function()
+        require("plugins.configs.trouble_utils").open_trouble("diagnostics")
+      end,
+      "open workspace diagnostics",
+    },
+    ["tq"] = {
+      function()
+        require("plugins.configs.trouble_utils").open_trouble("quickfix")
+      end,
+      "open quickfix",
+    },
+    ["tl"] = {
+      function()
+        require("plugins.configs.trouble_utils").open_trouble("loclist")
+      end,
+      "open location list",
+    },
+    ["ts"] = {
+      function()
+        require("plugins.configs.trouble_utils").open_trouble("lsp_document_symbols")
+      end,
+      "open document symbols",
+    },
   },
 }
 
