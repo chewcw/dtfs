@@ -2049,6 +2049,12 @@ M.toggleterm = {
       end,
       "toggle term in tab mode",
     },
+    ["<a-2>"] = { -- This is to match vscode's keybinding
+      function()
+        require("plugins.configs.toggleterm_utils").toggle_term()
+      end,
+      "toggle term",
+    },
   },
 
   t = {
@@ -2086,6 +2092,12 @@ M.toggleterm = {
     -- ["<A-j>"] = { "<C-\\><C-N> <cmd>wincmd j<CR>", "navigate down" },
     -- ["<A-k>"] = { "<C-\\><C-N> <cmd>wincmd k<CR>", "navigate up" },
     -- ["<A-l>"] = { "<C-\\><C-N> <cmd>wincmd l<CR>", "navigate right" },
+    ["<a-2>"] = { -- This is to match vscode's keybinding
+      function()
+        require("plugins.configs.toggleterm_utils").toggle_term()
+      end,
+      "toggle term",
+    },
   },
 }
 
