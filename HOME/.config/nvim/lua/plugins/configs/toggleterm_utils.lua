@@ -7,8 +7,15 @@ local M = {}
 -- ----------------------------------------------------------------------------
 -- ToggleTerm on demand, can select working directory for the opened term
 -- ----------------------------------------------------------------------------
-M.toggle_term = function(target_direction, is_open_from_file_browser, cwd)
+M.toggle_term = function(direction, is_open_from_file_browser, cwd)
   local count = vim.v.count or vim.g.toggle_term_count or 1
+  local target_direction = direction or vim.g.toggle_term_direction or "horizontal"
+
+  if target_direction == nil and is_open_from_file_browser == nil and cwd == nil then
+    if vim.fn.expand("%:t") == "#toggleterm" then
+      target_direction = vim.g.toggle_term_direction
+    end
+  end
 
   local main_logic = function(vcount)
     return function(dir)
