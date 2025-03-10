@@ -631,6 +631,10 @@ local default_plugins = {
         if filetype == "oil" then
           return false
         end
+        -- Don't auto save for git related
+        if filetype:match("^git") then
+          return false
+        end
         return true
       end,
       write_all_buffers = false, -- write all buffers when the current one meets `condition`
