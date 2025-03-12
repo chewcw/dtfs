@@ -29,7 +29,7 @@ M.opts = {
     },
     close = {
       normal = "gq",
-      insert = "<C-c>",
+      insert = "<A-q>",
     },
     quickfix_answers = {
       normal = "gQa",
