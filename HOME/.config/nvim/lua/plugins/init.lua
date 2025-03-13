@@ -1194,20 +1194,30 @@ local default_plugins = {
     },
   },
 
-  -- {
-  --   "HakonHarnes/img-clip.nvim",
-  --   event = "VeryLazy",
-  --   opts = {
-  --     default = {
-  --       embed_image_as_base64 = false,
-  --       prompt_for_file_name = false,
-  --       drag_and_drop = {
-  --         insert_mode = true,
-  --       },
-  --       use_absolute_path = true,
-  --     },
-  --   },
-  -- },
+  {
+    "HakonHarnes/img-clip.nvim",
+    event = "VeryLazy",
+    opts = {
+      default = {
+        embed_image_as_base64 = false,
+        drag_and_drop = {
+          insert_mode = true,
+        },
+        dir_path = "assets",
+        extension = "png",
+        file_name = "%Y-%m-%d-%H-%M-%S",
+        use_absolute_path = true,
+        relative_to_current_file = false,
+        template = "$FILE_PATH",
+        url_encode_path = false,
+        relative_template_path = true,
+        use_cursor_in_template = true,
+        insert_mode_after_paste = true,
+        prompt_for_file_name = false,
+        show_dir_path_in_prompt = false,
+      },
+    },
+  },
 
   {
     "yetone/avante.nvim",
