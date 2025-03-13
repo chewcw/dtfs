@@ -603,6 +603,7 @@ local default_plugins = {
         callback = function()
           vim.opt_local.colorcolumn = "0"
           vim.opt_local.cursorline = true
+          vim.opt_local.cursorlineopt = "both"
           vim.opt_local.textwidth = 0
           vim.opt_local.foldmethod = "syntax"
         end,
