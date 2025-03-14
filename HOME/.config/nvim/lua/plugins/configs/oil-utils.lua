@@ -166,4 +166,35 @@ M.select_window_to_open = function()
   }
 end
 
+M.select_directory_as_cwd = function(scope)
+  return {
+    desc = "Select directory as cwd",
+    callback = function()
+      local oil = require("oil")
+      local entry = oil.get_cursor_entry()
+      local current_dir = oil.get_current_dir()
+      if not entry or not current_dir then
+        return
+      end
+      local dir = current_dir .. entry.name
+      if vim.fn.isdirectory(dir) == 1 then
+        if scope == "window" then
+          vim.cmd(":q!")
+          vim.cmd({ cmd = "lcd", args = { dir }})
+        else
+          -- If other windows were using "lcd", they will not be reset to the new cwd
+          -- Therefore, iterate over all windows in the current tab
+          -- and reset their local working directory
+          vim.cmd(":q!")
+          for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
+            vim.api.nvim_win_call(win, function()
+              vim.cmd({ cmd = "cd", args = { dir }})
+            end)
+          end
+        end
+      end
+    end,
+  }
+end
+
 return M

@@ -131,6 +131,7 @@ M.options = {
         -- toggle all
         ["<C-a>"] = require("telescope.actions").toggle_all,
         ["q"] = require("telescope.actions").close,
+        ["gq"] = require("telescope.actions").close,
         ["u"] = function()
           vim.cmd("undo")
         end,
@@ -225,13 +226,15 @@ M.options = {
             telescope_utils.open_multiple_files_in_find_files_picker(prompt_bufnr, "edit")
           end,
           ["<C-l>"] = require("telescope.actions").select_default,
-          ["<A-CR>"] = telescope_utils.file_browser_set_cwd,
+          ["<A-CR>"] = telescope_utils.file_browser_set_cwd(),
+          ["w<A-CR>"] = telescope_utils.file_browser_set_cwd("window"),
           ["<A-e>"] = telescope_utils.open_telescope_file_in_tab(true),
         },
         n = {
           ["q"] = require("telescope.actions").close,
           -- ["t"] = telescope_utils.file_browser_set_cwd,
-          ["<A-CR>"] = telescope_utils.file_browser_set_cwd,
+          ["<A-CR>"] = telescope_utils.file_browser_set_cwd(),
+          ["w<A-CR>"] = telescope_utils.file_browser_set_cwd("window"),
           ["T"] = require("telescope").extensions.file_browser.actions.goto_cwd,
           ["n"] = require("telescope").extensions.file_browser.actions.create_from_prompt,
           ["h"] = function()
