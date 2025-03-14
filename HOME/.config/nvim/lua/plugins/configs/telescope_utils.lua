@@ -1414,27 +1414,40 @@ M.all_oldfiles = function(opts)
   })
 end
 
-M.file_browser_set_cwd = function(prompt_bufnr)
-  -- https://github.com/nvim-telescope/telescope-file-browser.nvim/blob/master/lua/telescope/_extensions/file_browser/actions.lua
-  local current_picker = action_state.get_current_picker(prompt_bufnr)
-  local finder = current_picker.finder
-  local entry_path = action_state.get_selected_entry().Path
-  local fb_utils = require("telescope._extensions.file_browser.utils")
-  finder.path = entry_path:is_dir() and entry_path:absolute() or entry_path:parent():absolute()
-  finder.cwd = finder.path
-  vim.cmd("tcd " .. finder.path)
-
-  fb_utils.redraw_border_title(current_picker)
-  current_picker:refresh(finder, {
-    new_prefix = fb_utils.relative_path_prefix(finder),
-    reset_prompt = true,
-    multi = current_picker._multi,
-  })
-  fb_utils.notify("action.change_cwd", {
-    msg = "Set the current working directory for this tab!",
-    level = "INFO",
-    quiet = finder.quiet,
-  })
+M.file_browser_set_cwd = function(scope)
+  return function(prompt_bufnr)
+    -- https://github.com/nvim-telescope/telescope-file-browser.nvim/blob/master/lua/telescope/_extensions/file_browser/actions.lua
+    local current_picker = action_state.get_current_picker(prompt_bufnr)
+    local finder = current_picker.finder
+    local entry_path = action_state.get_selected_entry().Path
+    local fb_utils = require("telescope._extensions.file_browser.utils")
+    finder.path = entry_path:is_dir() and entry_path:absolute() or entry_path:parent():absolute()
+    finder.cwd = finder.path
+    if scope == "window" then
+      vim.cmd("q!")     -- close the telescope picker
+      vim.cmd("lcd " .. finder.path)
+      fb_utils.notify("action.change_cwd", {
+        msg = "Set the current working directory for this window!",
+        level = "INFO",
+        quiet = finder.quiet,
+      })
+    else
+      vim.cmd("q!")     -- close the telescope picker
+      -- If other windows were using "lcd", they will not be reset to the new cwd
+      -- Therefore, iterate over all windows in the current tab
+      -- and reset their local working directory
+      for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
+        vim.api.nvim_win_call(win, function()
+          vim.cmd("cd " .. finder.path)
+        end)
+      end
+      fb_utils.notify("action.change_cwd", {
+        msg = "Set the current working directory for this tab!",
+        level = "INFO",
+        quiet = finder.quiet,
+      })
+    end
+  end
 end
 
 M.list_scratch_buffers = function(opts)
