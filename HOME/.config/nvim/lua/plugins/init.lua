@@ -1305,7 +1305,7 @@ local default_plugins = {
   },
 
   -- Detect tabstop and shiftwidth automatically
-  { "tpope/vim-sleuth", event = "BufRead" },
+  -- { "tpope/vim-sleuth", event = "BufRead" },
 
   -- {
   --   "folke/zen-mode.nvim",
