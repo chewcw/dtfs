@@ -863,3 +863,26 @@ vim.api.nvim_create_user_command("FoldReset", function()
   vim.cmd("normal! zE")
   vim.opt.foldmethod = "indent"
 end, {})
+
+-- ----------------------------------------------------------------------------
+-- Tidy up the tabs
+-- ----------------------------------------------------------------------------
+-- Close those tabs that have duplicate file names, and keep the first opened tab.
+vim.api.nvim_create_user_command("TidyTabs", function()
+  local tabs = vim.api.nvim_list_tabpages()
+  local tab_files = {}
+  for _, tab in ipairs(tabs) do
+    local tab_wins = vim.api.nvim_tabpage_list_wins(tab)
+    for _, win in ipairs(tab_wins) do
+      local buf = vim.api.nvim_win_get_buf(win)
+      local buf_name = vim.api.nvim_buf_get_name(buf)
+      if tab_files[buf_name] == nil then
+        tab_files[buf_name] = tab
+      else
+        vim.api.nvim_set_current_tabpage(tab)
+        vim.cmd("tabclose")
+        break
+      end
+    end
+  end
+end, { nargs = 0 })
