@@ -1127,49 +1127,49 @@ local default_plugins = {
         ["<C-k>"] = { "k", mode = "n" },
         ["W"] = { "actions.open_cwd", mode = "n" },
         ["`"] = {},
-        ["<A-CR>"] = { require("plugins.configs.oil-utils").select_directory_as_cwd(), mode = "n" },
-        ["w<A-CR>"] = { require("plugins.configs.oil-utils").select_directory_as_cwd("window"), mode = "n" },
+        ["<A-CR>"] = { require("plugins.configs.oil_utils").select_directory_as_cwd(), mode = "n" },
+        ["w<A-CR>"] = { require("plugins.configs.oil_utils").select_directory_as_cwd("window"), mode = "n" },
         ["gs"] = { "actions.change_sort", mode = "n" },
         ["gx"] = "actions.open_external",
         ["g\\"] = { "actions.toggle_trash", mode = "n" },
         ["g."] = {
-          require("plugins.configs.oil-utils").open_toggleterm_and_send_selection_parent_path_to_toggleterm(
+          require("plugins.configs.oil_utils").open_toggleterm_and_send_selection_parent_path_to_toggleterm(
             "horizontal"
           ),
           mode = "n",
         },
         ["g,"] = {
-          require("plugins.configs.oil-utils").open_toggleterm_and_send_selection_parent_path_to_toggleterm(
+          require("plugins.configs.oil_utils").open_toggleterm_and_send_selection_parent_path_to_toggleterm(
             "tab"
           ),
           mode = "n",
         },
         ["g/"] = {
-          require("plugins.configs.oil-utils").open_toggleterm_and_send_selection_parent_path_to_toggleterm(
+          require("plugins.configs.oil_utils").open_toggleterm_and_send_selection_parent_path_to_toggleterm(
             "float"
           ),
           mode = "n",
         },
         ["g>"] = {
-          require("plugins.configs.oil-utils").open_toggleterm_and_send_selection_parent_path_to_toggleterm(
+          require("plugins.configs.oil_utils").open_toggleterm_and_send_selection_parent_path_to_toggleterm(
             "vertical"
           ),
           mode = "n",
         },
         ["g!"] = {
-          require("plugins.configs.oil-utils").exec_shell_command(),
+          require("plugins.configs.oil_utils").exec_shell_command(),
           mode = "n",
         },
         ["g<Space>"] = {
-          require("plugins.configs.oil-utils").go_to_directory(),
+          require("plugins.configs.oil_utils").go_to_directory(),
           mode = "n",
         },
         ["<A-y>"] = {
-          require("plugins.configs.oil-utils").copy_absolute_path(),
+          require("plugins.configs.oil_utils").copy_absolute_path(),
           mode = "n",
         },
         ["<leader>ow"] = {
-          require("plugins.configs.oil-utils").select_window_to_open(),
+          require("plugins.configs.oil_utils").select_window_to_open(),
           mode = "n",
         },
       },
