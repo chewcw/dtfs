@@ -177,20 +177,22 @@ M.select_directory_as_cwd = function(scope)
         return
       end
       local dir = current_dir .. entry.name
-      if vim.fn.isdirectory(dir) == 1 then
-        if scope == "window" then
-          vim.cmd(":q!")
-          vim.cmd({ cmd = "lcd", args = { dir }})
-        else
-          -- If other windows were using "lcd", they will not be reset to the new cwd
-          -- Therefore, iterate over all windows in the current tab
-          -- and reset their local working directory
-          vim.cmd(":q!")
-          for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
-            vim.api.nvim_win_call(win, function()
-              vim.cmd({ cmd = "cd", args = { dir }})
-            end)
-          end
+      if vim.fn.isdirectory(dir) ~= 1 then
+        -- If this cwd is a file, get its parent and set to cwd
+        dir = vim.fn.fnamemodify(dir, ":h")
+      end
+      if scope == "window" then
+        vim.cmd(":q!")
+        vim.cmd({ cmd = "lcd", args = { dir } })
+      else
+        -- If other windows were using "lcd", they will not be reset to the new cwd
+        -- Therefore, iterate over all windows in the current tab
+        -- and reset their local working directory
+        vim.cmd(":q!")
+        for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
+          vim.api.nvim_win_call(win, function()
+            vim.cmd({ cmd = "cd", args = { dir } })
+          end)
         end
       end
     end,
