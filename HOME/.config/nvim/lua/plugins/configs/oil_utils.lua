@@ -199,4 +199,28 @@ M.select_directory_as_cwd = function(scope)
   }
 end
 
+M.open_file_in_tab = function(dont_care_just_open_in_new_tab)
+  return {
+    desc = "Open file in tab",
+    callback = function()
+      local oil = require("oil")
+      local entry = oil.get_cursor_entry()
+      local current_dir = oil.get_current_dir()
+      if not entry or not current_dir then
+        return
+      end
+      local selected_entry = { path = "" }
+      selected_entry.path = current_dir .. entry.name
+      print("Selected entry: " .. selected_entry.path)
+      require("plugins.configs.buffer_utils").open_file_or_buffer_in_tab(
+        nil,
+        nil,
+        dont_care_just_open_in_new_tab,
+        selected_entry,
+        nil
+      )
+    end,
+  }
+end
+
 return M
