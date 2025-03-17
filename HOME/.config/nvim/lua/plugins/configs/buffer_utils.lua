@@ -869,4 +869,38 @@ M.is_buffer_in_folder_tree = function(folder_path, buffer)
   return buffer:sub(1, #folder_path) == folder_path
 end
 
+-- Function to refresh buffer highlights
+M.refresh_buffer_highlights = function()
+  -- Get current buffer
+  local current_bufnr = vim.api.nvim_get_current_buf()
+  
+  -- Store current position
+  local current_pos = vim.api.nvim_win_get_cursor(0)
+  
+  -- Trigger a refresh of highlights by forcing a redraw
+  vim.cmd("redraw")
+  
+  -- Force Neovim to reapply highlighting
+  -- This is useful when highlighting doesn't apply correctly
+  vim.cmd("doautocmd BufEnter")
+  
+  -- Additional workaround for statusline highlighting
+  vim.cmd("let &ro=&ro")
+  
+  -- For bufferline specific highlight refresh
+  local has_bufferline, _ = pcall(require, "bufferline")
+  if has_bufferline then
+    pcall(vim.fn.execute, "BufferLineCycleNext")
+    pcall(vim.fn.execute, "BufferLineCyclePrev")
+  end
+  
+  -- Restore cursor position
+  vim.api.nvim_win_set_cursor(0, current_pos)
+  
+  -- Restore focus to original buffer if needed
+  if vim.api.nvim_get_current_buf() ~= current_bufnr then
+    vim.api.nvim_set_current_buf(current_bufnr)
+  end
+end
+
 return M
