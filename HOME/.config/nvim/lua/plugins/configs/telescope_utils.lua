@@ -549,7 +549,7 @@ M.set_temporary_cwd_from_file_browser = function(picker_name, path)
     -- below global variable is set because of this scenario:
     -- 1. do global grep
     -- 2. W to open this temporary cwd file browser
-    -- 3. g<Space> to go to other direcotory
+    -- 3. g<Space> to go to other directory
     -- 4. should go back to this temporary cwd file browser instead of normal file
     -- browser
     vim.g.telescope_picker_temporary_cwd_from_file_browser = true
@@ -569,16 +569,15 @@ M.set_temporary_cwd_from_file_browser = function(picker_name, path)
           -- Open the specified picker with the selected cwd
           if picker_name == "find_files" then
             if vim.g.find_files_type == "all" then
-              builtin.find_files({
+              M.find_files({
                 prompt_title = "Find All Files in " .. selected_path,
                 cwd = selected_path,
-                follow = true,
                 no_ignore = true,
                 hidden = true,
                 default_text = current_line,
               })
             else
-              builtin.find_files({
+              M.find_files({
                 prompt_title = "Find Files in " .. selected_path,
                 cwd = selected_path,
                 follow = true,
@@ -1313,14 +1312,25 @@ end
 M.find_files = function(opts)
   opts = opts or {}
   opts.cwd = opts.cwd and vim.fn.expand(opts.cwd) or vim.loop.cwd()
+  local cwd = vim.fn.fnamemodify(opts.cwd, ":p")
 
   require("telescope.builtin").find_files({
-    prompt_title = "Find Files in " .. vim.fn.fnamemodify(opts.cwd, ":p"),
+    prompt_title = "Find Files in " .. cwd,
+    cwd = cwd,
     default_text = opts.default_text,
     follow = true,
     attach_mappings = function(_, map)
       map("n", "\\a", function()
-        M.find_all_files({ default_text = action_state.get_current_line() })
+        M.find_all_files({
+          default_text = action_state.get_current_line(),
+          cwd = cwd or vim.fn.fnamemodify(action_state.get_current_line(), ":p:h"),
+        })
+      end)
+      map("n", "\\f", function()
+        M.find_files({
+          default_text = action_state.get_current_line(),
+          cwd = cwd or vim.fn.fnamemodify(action_state.get_current_line(), ":p:h"),
+        })
       end)
       return true
     end,
@@ -1333,13 +1343,23 @@ M.find_all_files = function(opts)
 
   require("telescope.builtin").find_files({
     prompt_title = "Find All Files in " .. vim.fn.fnamemodify(opts.cwd, ":p"),
+    cwd = opts.cwd,
     default_text = opts.default_text,
     follow = true,
     no_ignore = true,
     hidden = true,
     attach_mappings = function(_, map)
+      map("n", "\\a", function()
+        M.find_all_files({
+          default_text = action_state.get_current_line(),
+          cwd = vim.fn.fnamemodify(action_state.get_current_line(), ":p:h"),
+        })
+      end)
       map("n", "\\f", function()
-        M.find_files({ default_text = action_state.get_current_line() })
+        M.find_files({
+          default_text = action_state.get_current_line(),
+          cwd = vim.fn.fnamemodify(action_state.get_current_line(), ":p:h"),
+        })
       end)
       return true
     end,
@@ -1424,7 +1444,7 @@ M.file_browser_set_cwd = function(scope)
     finder.path = entry_path:is_dir() and entry_path:absolute() or entry_path:parent():absolute()
     finder.cwd = finder.path
     if scope == "window" then
-      vim.cmd("q!")     -- close the telescope picker
+      vim.cmd("q!") -- close the telescope picker
       vim.cmd("lcd " .. finder.path)
       fb_utils.notify("action.change_cwd", {
         msg = "Set the current working directory for this window!",
@@ -1432,7 +1452,7 @@ M.file_browser_set_cwd = function(scope)
         quiet = finder.quiet,
       })
     else
-      vim.cmd("q!")     -- close the telescope picker
+      vim.cmd("q!") -- close the telescope picker
       -- If other windows were using "lcd", they will not be reset to the new cwd
       -- Therefore, iterate over all windows in the current tab
       -- and reset their local working directory

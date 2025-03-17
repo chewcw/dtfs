@@ -1001,7 +1001,13 @@ M.general = {
       "Oil",
     },
 
-    ["<A-q>"] = { "<cmd> :lua require('core.utils').close_win_and_focus_previous_tab() <CR>", "Close the window" },
+    -- This keymapping is to align with other software's behavior
+    ["<A-q>"] = {
+      function()
+        require("core.utils").close_win_and_focus_previous_tab()
+      end,
+      "Close the window",
+    },
   },
 
   v = {
