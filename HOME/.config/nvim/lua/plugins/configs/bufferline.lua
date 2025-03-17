@@ -22,6 +22,11 @@ M.setup = {
     indicator = {
       style = "none",
     },
+    -- diagnostics = "nvim_lsp",
+    -- diagnostics_indicator = function(count, level, diagnostics_dict, context)
+    --   local icon = level:match("error") and " " or " "
+    --   return " " .. icon
+    -- end,
     name_formatter = function(buf)
       local tabnr_ordinal = vim.api.nvim_tabpage_get_number(buf.tabnr)
       local win_num = vim.fn.tabpagewinnr(tabnr_ordinal)
