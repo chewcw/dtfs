@@ -124,7 +124,7 @@ local get_groups = function(color)
     StatusLineTerm = { link = "StatusLine" },
     StatusLineTermNC = { link = "StatusLineNC" },
     TabLineFill = { fg = color.gray05, bg = color.none },
-    TablineSel = { fg = color.fg, bg = color.dark_yellow02 },
+    TablineSel = { fg = color.fg, bg = color.dark_brown },
     Tabline = { fg = color.gray05 },
     Title = { fg = color.main4, bg = color.none },
     Visual = { fg = color.none, bg = color.visual },
