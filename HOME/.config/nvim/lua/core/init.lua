@@ -132,7 +132,7 @@ require("core.abbrev")
 require("core.statusline")
 
 -- tabline
-require("core.tabline")
+-- require("core.tabline")
 
 -- ----------------------------------------------------------------------------
 -- autocmds
@@ -885,11 +885,4 @@ vim.api.nvim_create_user_command("TidyTabs", function()
       end
     end
   end
-end, { nargs = 0 })
-
--- ----------------------------------------------------------------------------
--- Refresh buffer highlights
--- ----------------------------------------------------------------------------
-vim.api.nvim_create_user_command("RefreshHighlights", function()
-  require("plugins.configs.buffer_utils").refresh_buffer_highlights()
 end, { nargs = 0 })
