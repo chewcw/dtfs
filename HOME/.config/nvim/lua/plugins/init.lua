@@ -1172,6 +1172,10 @@ local default_plugins = {
           require("plugins.configs.oil_utils").select_window_to_open(),
           mode = "n",
         },
+        ["<leader>ot"] = {
+          require("plugins.configs.oil_utils").open_file_in_tab(false),
+          mode = "n",
+        },
       },
     },
     dependencies = { { "echasnovski/mini.icons", opts = {} } },
