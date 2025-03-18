@@ -161,12 +161,13 @@ M.toggle_term = function(direction, is_open_from_file_browser, cwd)
       local selection = require("telescope.actions.state").get_selected_entry()
       local selected_path = selection.path
       if vim.fn.isdirectory(selected_path) == 1 then
+        require("telescope.actions").close(prompt_bufnr)
         callback(selected_path)
       else
+        require("telescope.actions").close(prompt_bufnr)
         selected_path = vim.fn.fnamemodify(selected_path, ":h")
+        callback(selected_path)
       end
-      require("telescope.actions").close(prompt_bufnr)
-      callback(selected_path)
     end
 
     local fb = require("telescope").extensions.file_browser
