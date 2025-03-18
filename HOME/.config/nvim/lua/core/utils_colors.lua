@@ -96,6 +96,12 @@ local get_groups = function(color)
     DiffModified = { fg = color.none, bg = color.dark_magenta, bold = false, italic = false },
     DiffNewFile = { fg = color.none, bg = color.dark_green, bold = false, italic = false },
 
+    -- diffview
+    DiffviewStatusAdded = { fg = color.green }, -- DiffAdded
+    DiffviewStatusModified = { fg = color.magenta }, -- DiffChanged
+    DiffviewFilePanelInsertions = { fg = color.green }, -- DiffAdded
+    DiffviewFilePanelDeletions = { fg = color.red }, -- DiffRemoved
+
     ErrorMsg = { fg = color.red },
     Folded = { fg = color.gray04, bg = color.none, italic = true },
     FoldColumn = { fg = color.gray04 },
