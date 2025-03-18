@@ -89,14 +89,14 @@ M.force_delete_buffer_keep_tab = function(bufnr)
   if is_empty and buffer_type == "nofile" then
     if is_split then
       local choice = vim.fn.confirm(
-        "This buffer is empty and it's a scratch buffer, not deleting. Close the window instead?"
+        "Close the window?"
       )
       if choice == 1 then
         vim.cmd("wincmd q")
       end
     else
       local choice =
-          vim.fn.confirm("This buffer is empty and it's a scratch buffer, not deleting. Close the tab instead?")
+          vim.fn.confirm("Close the tab?")
       if choice == 1 then
         require("core.utils").close_and_focus_previous_tab()
       end
@@ -120,7 +120,7 @@ M.force_delete_buffer_keep_tab = function(bufnr)
             -- There are none scratch buffers in the memory
           else
             -- Create new scratch buffer
-            scratch = vim.api.nvim_create_buf(false, true)
+            scratch = vim.api.nvim_create_buf(true, true)
             vim.api.nvim_set_option_value("buftype", "nofile", { buf = scratch })
             vim.api.nvim_set_option_value("bufhidden", "wipe", { buf = scratch })
             vim.api.nvim_set_option_value("swapfile", false, { buf = scratch })
@@ -132,7 +132,7 @@ M.force_delete_buffer_keep_tab = function(bufnr)
     end
 
     if not vim.api.nvim_buf_is_valid(scratch) then
-      scratch = vim.api.nvim_create_buf(false, true)
+      scratch = vim.api.nvim_create_buf(true, true)
     end
 
     -- Open the scratch
