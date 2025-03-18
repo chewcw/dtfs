@@ -35,7 +35,7 @@ M.setup = {
       local cwd_parent = vim.fn.fnamemodify(working_directory, ":h:t")
       local cwd_name = vim.fn.fnamemodify(working_directory, ":t:r")
 
-      if buf.name:match("toggleterm") then
+      if buf.name:match("#toggleterm#") then
         return "⚡ToggleTerm"
       end
 
