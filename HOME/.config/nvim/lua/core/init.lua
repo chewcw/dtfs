@@ -29,6 +29,7 @@ opt.fillchars = {
   verthoriz = " ",
   stl = " ",
   fold = " ",
+  diff = "╱",
   -- foldopen = "🢒",
   -- foldsep = " ",
   -- foldclose = " ",
