@@ -134,6 +134,7 @@ M.treesitter_context = {
 
 M.diffview = function(actions)
   return {
+    enhanced_diff_hl = true,
     view = {
       default = {
         layout = "diff2_horizontal",
@@ -149,112 +150,47 @@ M.diffview = function(actions)
       },
     },
     file_panel = {
-      win_config = function()
-        local c = { type = "float" }
-        local editor_width = vim.o.columns
-        local editor_height = vim.o.lines
-        c.width = math.min(100, editor_width)
-        c.height = math.min(24, editor_height)
-        c.col = math.floor(editor_width * 0.5 - c.width * 0.5)
-        c.row = math.floor(editor_height * 0.5 - c.height * 0.5)
-        return c
-      end,
+      -- win_config = function()
+      --   local c = { type = "float" }
+      --   local editor_width = vim.o.columns
+      --   local editor_height = vim.o.lines
+      --   c.width = math.min(100, editor_width)
+      --   c.height = math.min(24, editor_height)
+      --   c.col = math.floor(editor_width * 0.5 - c.width * 0.5)
+      --   c.row = math.floor(editor_height * 0.5 - c.height * 0.5)
+      --   return c
+      -- end,
+      win_config = {
+        position = "bottom",
+        height = 16,
+        win_opts = {},
+      },
     },
     keymaps = {
       view = {
-        {
-          "n",
-          "<leader>Gl",
-          actions.conflict_choose("ours"),
-          { desc = "Choose the OURS version of a conflict" },
-        },
-        {
-          "n",
-          "<leader>Gr",
-          actions.conflict_choose("theirs"),
-          { desc = "Choose the THEIRS version of a conflict" },
-        },
-        {
-          "n",
-          "<leader>Gb",
-          actions.conflict_choose("base"),
-          { desc = "Choose the BASE version of a conflict" },
-        },
-        {
-          "n",
-          "<leader>Ga",
-          actions.conflict_choose("all"),
-          { desc = "Choose all the versions of a conflict" },
-        },
-        { "n", "<leader>Gx", actions.conflict_choose("none"), { desc = "Delete the conflict region" } },
-        {
-          "n",
-          "<leader>GL",
-          actions.conflict_choose_all("ours"),
-          { desc = "Choose the OURS version of a conflict for the whole file" },
-        },
-        {
-          "n",
-          "<leader>GR",
-          actions.conflict_choose_all("theirs"),
-          { desc = "Choose the THEIRS version of a conflict for the whole file" },
-        },
-        {
-          "n",
-          "<leader>GB",
-          actions.conflict_choose_all("base"),
-          { desc = "Choose the BASE version of a conflict for the whole file" },
-        },
-        {
-          "n",
-          "<leader>GA",
-          actions.conflict_choose_all("all"),
-          { desc = "Choose all the versions of a conflict for the whole file" },
-        },
-        {
-          "n",
-          "<leader>GX",
-          actions.conflict_choose_all("none"),
-          { desc = "Delete the conflict region for the whole file" },
-        },
+        { "n", "<leader>Gl", actions.conflict_choose("ours"),       { desc = "Choose the OURS version of a conflict" } },
+        { "n", "<leader>Gr", actions.conflict_choose("theirs"),     { desc = "Choose the THEIRS version of a conflict" } },
+        { "n", "<leader>Gb", actions.conflict_choose("base"),       { desc = "Choose the BASE version of a conflict" } },
+        { "n", "<leader>Ga", actions.conflict_choose("all"),        { desc = "Choose all the versions of a conflict" } },
+        { "n", "<leader>Gx", actions.conflict_choose("none"),       { desc = "Delete the conflict region" } },
+        { "n", "<leader>GL", actions.conflict_choose_all("ours"),   { desc = "Choose the OURS version of a conflict for the whole file" } },
+        { "n", "<leader>GR", actions.conflict_choose_all("theirs"), { desc = "Choose the THEIRS version of a conflict for the whole file" } },
+        { "n", "<leader>GB", actions.conflict_choose_all("base"),   { desc = "Choose the BASE version of a conflict for the whole file" } },
+        { "n", "<leader>GA", actions.conflict_choose_all("all"),    { desc = "Choose all the versions of a conflict for the whole file" } },
+        { "n", "<leader>GX", actions.conflict_choose_all("none"),   { desc = "Delete the conflict region for the whole file" } },
+        { "n", "<leader>b",  actions.toggle_files,                  { desc = "Toggle the file panel" } },
+        { "n", "]m",         actions.select_next_entry,             { desc = "Open the diff for the next file" } },
+        { "n", "[m",         actions.select_prev_entry,             { desc = "Open the diff for the previous file" } },
       },
       file_panel = {
-        {
-          "n",
-          "u",
-          actions.toggle_stage_entry,
-          { desc = "Stage / unstage the selected entry" },
-        },
-        {
-          "n",
-          "<leader>GL",
-          actions.conflict_choose_all("ours"),
-          { desc = "Choose the OURS version of a conflict for the whole file" },
-        },
-        {
-          "n",
-          "<leader>GR",
-          actions.conflict_choose_all("theirs"),
-          { desc = "Choose the THEIRS version of a conflict for the whole file" },
-        },
-        {
-          "n",
-          "<leader>GB",
-          actions.conflict_choose_all("base"),
-          { desc = "Choose the BASE version of a conflict for the whole file" },
-        },
-        {
-          "n",
-          "<leader>GA",
-          actions.conflict_choose_all("all"),
-          { desc = "Choose all the versions of a conflict for the whole file" },
-        },
-        {
-          "n",
-          "<leader>GX",
-          actions.conflict_choose_all("none"),
-          { desc = "Delete the conflict region for the whole file" },
-        },
+        { "n", "s",          actions.toggle_stage_entry,            { desc = "Stage / unstage the selected entry" } },
+        { "n", "u",          actions.toggle_stage_entry,            { desc = "Stage / unstage the selected entry" } },
+        { "n", "<leader>GL", actions.conflict_choose_all("ours"),   { desc = "Choose the OURS version of a conflict for the whole file" } },
+        { "n", "<leader>GR", actions.conflict_choose_all("theirs"), { desc = "Choose the THEIRS version of a conflict for the whole file" } },
+        { "n", "<leader>GB", actions.conflict_choose_all("base"),   { desc = "Choose the BASE version of a conflict for the whole file" } },
+        { "n", "<leader>GA", actions.conflict_choose_all("all"),    { desc = "Choose all the versions of a conflict for the whole file" } },
+        { "n", "<leader>GX", actions.conflict_choose_all("none"),   { desc = "Delete the conflict region for the whole file" } },
+        { "n", "gq",         actions.toggle_files,                  { desc = "Toggle the file panel" } },
       },
     },
     hooks = {
