@@ -191,7 +191,7 @@ M.select_directory_as_cwd = function(scope)
         vim.cmd(":q!")
         for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
           vim.api.nvim_win_call(win, function()
-            vim.cmd({ cmd = "cd", args = { dir } })
+            vim.cmd({ cmd = "tcd", args = { dir } })
           end)
         end
       end
