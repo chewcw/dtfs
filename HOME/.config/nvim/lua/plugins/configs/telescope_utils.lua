@@ -1458,7 +1458,7 @@ M.file_browser_set_cwd = function(scope)
       -- and reset their local working directory
       for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
         vim.api.nvim_win_call(win, function()
-          vim.cmd("cd " .. finder.path)
+          vim.cmd("tcd " .. finder.path)
         end)
       end
       fb_utils.notify("action.change_cwd", {
