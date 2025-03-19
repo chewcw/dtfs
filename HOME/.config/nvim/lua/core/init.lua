@@ -260,6 +260,12 @@ vim.api.nvim_create_autocmd({ "CursorMoved" }, {
         return
       end
 
+      -- Skip for specific buffer patterns
+      local bufname = vim.api.nvim_buf_get_name(0)
+      if bufname:match("^fugitive://") or bufname:match("^/tmp/nvim%.ccw/") then
+        return
+      end
+
       -- ignore this if no lsp_server found
       local buf_clients = vim.lsp.get_active_clients({ bufnr = vim.api.nvim_get_current_buf() })
       if #buf_clients == 0 then
