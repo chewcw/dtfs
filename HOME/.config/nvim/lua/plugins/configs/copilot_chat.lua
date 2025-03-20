@@ -420,7 +420,7 @@ M.opts = {
       description = "Include previous 5 commits' title",
       resolve = function(_, source)
         local copilot_chat_utils = require("CopilotChat.utils")
-        local cwd = copilot_chat_utils.win_cwd(source.winnr)
+        local cwd = vim.loop.cwd() or vim.fn.getcwd()
         local cmd = {
           "git",
           "--no-pager",
