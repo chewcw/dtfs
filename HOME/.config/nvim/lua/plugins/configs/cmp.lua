@@ -137,7 +137,7 @@ M.options = {
       end)(),
       ["<C-l>"] = cmp.mapping.confirm({
         behavior = cmp.ConfirmBehavior.Insert,
-        select = true,
+        select = false,
       }),
     },
 
@@ -202,7 +202,7 @@ M.options = {
         c = cmp.mapping.complete(),
       },
       ["<C-l>"] = {
-        c = cmp.mapping.confirm({ select = false }),
+        c = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Insert, select = false }),
       },
       ["<C-y>"] = {
         c = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Insert, select = true }),
