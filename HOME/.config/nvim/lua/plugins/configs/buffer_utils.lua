@@ -536,7 +536,7 @@ M.open_file_or_buffer_in_tab = function(
   local file_path = ""
   local current_tab_tabnr_ordinal = vim.api.nvim_tabpage_get_number(0)
 
-  -- This is calling from a Telescope picker
+  -- This is calling from some sort of picker (could be Telescope or Oil)
   if selected_entry ~= nil then
     file_path = selected_entry.path or selected_entry[1] or selected_entry.filename
   else
@@ -629,7 +629,7 @@ M.open_file_or_buffer_in_tab = function(
           end
         end
         if not found_tab then
-          if selected_entry ~= nil then -- This is calling from Telescope picker
+          if selected_entry ~= nil then -- This is calling from some sort of picker (could be Telescope or Oil)
             command = ":q! | "
           end
           if vim.g.toggle_term_opened then

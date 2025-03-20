@@ -211,7 +211,6 @@ M.open_file_in_tab = function(dont_care_just_open_in_new_tab)
       end
       local selected_entry = { path = "" }
       selected_entry.path = current_dir .. entry.name
-      print("Selected entry: " .. selected_entry.path)
       require("plugins.configs.buffer_utils").open_file_or_buffer_in_tab(
         nil,
         nil,
