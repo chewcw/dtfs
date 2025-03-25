@@ -111,7 +111,7 @@ local get_groups = function(color)
     MatchParen = {},
     ModeMsg = { fg = color.main4 },
     MoreMsg = { fg = color.main4 },
-    NonText = { fg = color.gray01 },
+    NonText = { fg = color.gray01, bg = color.none },
     Pmenu = { bg = color.bg },
     PmenuSel = { fg = color.fg, bg = color.gray04 },
     PmenuSbar = { fg = color.fg, bg = color.gray02 },
