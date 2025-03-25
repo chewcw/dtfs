@@ -139,7 +139,7 @@ M.opts = {
     },
     CustomCommitter = {
       prompt =
-        "> #gitlog\n\n> #git:staged\n\nUse gitlog as reference of the commit title format, and write the commit message for the current changes. Make sure the title has maximum 50 characters and message is wrapped at 72 characters. Wrap the whole message in code block with language gitcommit.",
+        "> #gitlog\n\n> #git:staged\n\nUse gitlog as reference of the commit title format, if there are relevant commits found in gitlog, for example there are similar changes, please mention `correlated to commit` followed by the relevant short commit hash, and then write the commit message for the current changes. Make sure the title has maximum 50 characters and message is wrapped at 72 characters. Wrap the whole message in code block with language gitcommit.",
     },
   },
   contexts = {
@@ -417,7 +417,7 @@ M.opts = {
       end,
     },
     gitlog = {
-      description = "Include previous 5 commits' title",
+      description = "Include previous 10 commits' title",
       resolve = function(_, source)
         local copilot_chat_utils = require("CopilotChat.utils")
         local cwd = vim.loop.cwd() or vim.fn.getcwd()
@@ -428,7 +428,7 @@ M.opts = {
           cwd,
           "log",
           "--no-merges",
-          "-5",
+          "-10",
         }
         local out = copilot_chat_utils.system(cmd)
         return {{
