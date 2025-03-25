@@ -590,6 +590,11 @@ M.open_file_or_buffer_in_tab = function(
       if vim.g.toggle_term_opened then
         command = ":q | " -- first need to close this toggleterm
       end
+
+      if selected_entry ~= nil then -- This is calling from Telescope picker
+        command = ":q! | "
+      end
+
       command = "tabnew | buffer " .. current_buf_nr
       goto continue
     end
@@ -613,7 +618,7 @@ M.open_file_or_buffer_in_tab = function(
               command = ":q | " -- first need to close this toggleterm
             end
             if current_tab_tabnr_ordinal == tabnr_ordinal then
-              command = ":q! |"
+              command = ":q! | "
             end
             -- Check if the new tab is opening fugitive related buffer, if yes then
             -- ignore that tab, open in new tab instead
