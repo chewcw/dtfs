@@ -495,6 +495,8 @@ local get_groups = function(color)
     RenderMarkdownH6Bg = { bg = color.red02 },
     -- Copilot
     CopilotSuggestion = { fg = color.dark_brown },
+    -- Deadcolumn
+    WarningColorColumn = { bg = color.red },
   }
 end
 
