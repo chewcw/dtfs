@@ -640,7 +640,7 @@ local default_plugins = {
       end,
       write_all_buffers = false, -- write all buffers when the current one meets `condition`
       noautocmd = false,      -- do not execute autocmds when saving
-      lockmarks = true,      -- lock marks when saving, see `:h lockmarks` for more details
+      lockmarks = true,       -- lock marks when saving, see `:h lockmarks` for more details
       debounce_delay = 1000,  -- delay after which a pending save is executed
       -- log debug messages to 'auto-save.log' file in neovim cache directory, set to `true` to enable
       debug = false,
@@ -1331,6 +1331,24 @@ local default_plugins = {
   {
     "chewcw/centerpad.nvim",
     cmd = { "Centerpad" },
+  },
+
+  {
+    "Bekaboo/deadcolumn.nvim",
+    event = "BufEnter",
+    opts = function()
+      return {
+        modes = function(mode)
+          return mode:find("^[iRss\x13]") ~= nil
+        end,
+        warning = {
+          hlgroup = { "WarningColorColumn", "bg" },
+        },
+      }
+    end,
+    config = function(_, opts)
+      require("deadcolumn").setup(opts)
+    end,
   },
 
   -- Only load whichkey after all the gui
