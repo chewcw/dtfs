@@ -1354,6 +1354,22 @@ local default_plugins = {
   {
     "nvim-focus/focus.nvim",
     event = "BufEnter",
+    opts = {
+      ui = {
+        number = false,
+        relativenumber = false,
+        hybridnumber = false,
+        absolutenumber_unfocussed = true,
+        cursorline = false,
+        cursorcolumn = false,
+        signcolumn = false,
+        colorcolumn = {
+          enable = true,
+          list = "+1",
+        },
+        winhighlight = false,
+      },
+    },
     config = function(_, opts)
       require("focus").setup(opts)
     end,
