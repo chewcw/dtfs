@@ -1351,6 +1351,14 @@ local default_plugins = {
     end,
   },
 
+  {
+    "nvim-focus/focus.nvim",
+    event = "BufEnter",
+    config = function(_, opts)
+      require("focus").setup(opts)
+    end,
+  },
+
   -- Only load whichkey after all the gui
   -- {
   --   "folke/which-key.nvim",
