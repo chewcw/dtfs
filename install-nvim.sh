@@ -24,6 +24,10 @@ parse_args() {
       uninstall
       clean
       ;;
+    "upgrade" )
+      install_nvim_v011
+      clean
+      ;;
     * )
       install_dependency
       install_nvim_v011
@@ -103,6 +107,7 @@ uninstall() {
 
 clean() {
   sudo rm -rf $tempFilePath
+  sudo rm -rf /tmp/nvim-linux-x86_64.tar.gz
 }
 
 parse_args $1
