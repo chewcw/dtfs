@@ -170,6 +170,12 @@ M.toggle_term = function(direction, is_open_from_file_browser, cwd)
       end
     end
 
+    -- If the toggleterm is opened, close it first
+    if vim.g.toggle_term_opened then
+      vim.cmd(vim.g.toggle_term_count .. "ToggleTerm")
+      vim.g.toggle_term_opened = false
+    end
+
     local fb = require("telescope").extensions.file_browser
     fb.file_browser({
       path = path or "",
