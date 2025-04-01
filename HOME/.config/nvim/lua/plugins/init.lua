@@ -1169,7 +1169,6 @@ local default_plugins = {
         },
       },
     },
-    dependencies = { { "echasnovski/mini.icons", opts = {} } },
     config = function(_, opts)
       require("oil").setup(opts)
     end,
