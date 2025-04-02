@@ -77,9 +77,6 @@ local function lsp()
 
   local lsp_client_name = ""
   for _, client in ipairs(buf_clients) do
-    if client.name == "null-ls" then
-      goto continue
-    end
     if lsp_client_name == "" then
       lsp_client_name = client.name
     else

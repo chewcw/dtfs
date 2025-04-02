@@ -7,7 +7,7 @@ local M = {}
 -- document_type should be one of: definition, references, typeDefinition,
 -- implementation.
 M.go_to = function(document_type, file_extension, callback)
-  local params = vim.lsp.util.make_position_params()
+  local params = vim.lsp.util.make_position_params(0, 'utf-8')
   if document_type == "references" then
     params.context = { includeDeclaration = true }
   end

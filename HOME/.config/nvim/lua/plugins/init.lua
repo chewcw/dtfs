@@ -112,15 +112,6 @@ local default_plugins = {
   {
     "neovim/nvim-lspconfig",
     dependencies = {
-      --format and linting
-      {
-        "jose-elias-alvarez/null-ls.nvim",
-        config = function()
-          require("plugins.configs.null-ls")
-        end,
-        -- branch = "main",
-        -- commit = "0010ea9",
-      },
       {
         "Hoffs/omnisharp-extended-lsp.nvim",
         -- branch = "main",
