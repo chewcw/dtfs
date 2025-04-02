@@ -2,7 +2,6 @@ local options = {
   ensure_installed = {
     -- lua stuff
     "lua-language-server",
-    "stylua",
 
     -- c, c++
     "clangd",
