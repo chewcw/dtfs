@@ -77,7 +77,7 @@ local get_groups = function(color)
     SignColumn = { fg = color.fg, bg = color.none },
     EndOfBuffer = { fg = color.gray03 },
     NormalFloat = { fg = get_highlight("FloatBorder", "fg"), bg = color.bg },
-    FloatBorder = { fg = color.gray03, bg = color.bg },
+    FloatBorder = { fg = color.bright_green, bg = color.bg },
     ColorColumn = { fg = color.none, bg = color.bg_nc },
     Conceal = { fg = color.gray05 },
     Cursor = { bg = color.none, fg = color.none, reverse = false }, -- set both guifg and guibg to none to let the terminal emulator to render the color of cursor and text underneath
@@ -333,9 +333,9 @@ local get_groups = function(color)
     TSVariable = { fg = color.fg, bold = cfg.variable_style.bold, italic = cfg.variable_style.italic },          -- Any variable name that does not have another highlight.
     TSVariableBuiltin = { fg = color.yellow, bold = cfg.variable_style.bold, italic = cfg.variable_style.italic }, -- Variable names that are defined by the languages, like `this` or `self`.
     -- highlight groups for the native LSP client
-    LspReferenceText = { fg = color.bg, bg = color.magenta },                                                    -- used for highlighting "text" references
-    LspReferenceRead = { fg = color.bg, bg = color.magenta },                                                    -- used for highlighting "read" references
-    LspReferenceWrite = { fg = color.bg, bg = color.magenta },                                                   -- used for highlighting "write" references
+    LspReferenceText = { fg = color.bright_white, bg = color.dark_pink },                                                    -- used for highlighting "text" references
+    LspReferenceRead = { fg = color.bright_white, bg = color.dark_pink },                                                    -- used for highlighting "read" references
+    LspReferenceWrite = { fg = color.bright_white, bg = color.dark_pink },                                                   -- used for highlighting "write" references
     -- Diagnostics
     DiagnosticError = { bg = color.none, fg = color.red01 },                                                     -- base highlight group for "Error"
     DiagnosticWarn = { bg = color.none, fg = color.yellow01 },                                                   -- base highlight group for "Warning"
