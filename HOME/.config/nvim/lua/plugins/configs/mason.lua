@@ -8,7 +8,6 @@ local options = {
 
     -- web dev
     "typescript-language-server",
-    "prettierd",
     "emmet-ls",
     "css-lsp",
 
@@ -19,14 +18,12 @@ local options = {
 
     -- dotnet
     "omnisharp",
-    "csharpier",
     -- "netcoredbg", -- debugger
 
     -- python
     "pyright",
     "ruff",
     -- "debugpy", -- debugger
-    "black",
 
     -- rust
     "rust-analyzer",

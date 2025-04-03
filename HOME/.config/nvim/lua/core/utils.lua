@@ -276,10 +276,6 @@ M.lazy_load = function(plugin)
         if plugin ~= "nvim-treesitter" then
           vim.schedule(function()
             require("lazy").load({ plugins = plugin })
-
-            if plugin == "nvim-lspconfig" then
-              vim.cmd("silent! do FileType")
-            end
           end, 0)
         else
           require("lazy").load({ plugins = plugin })
