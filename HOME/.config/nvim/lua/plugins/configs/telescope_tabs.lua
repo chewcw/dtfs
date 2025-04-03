@@ -61,28 +61,32 @@ local default_conf = {
     if is_modified then
       modified = "[+]"
     end
+    local icon = (file_names[1]:match("Fugitive") and " ") or "🖿"
     -- This line is just creating spaces based on the longest cwd name in the list,
     -- so that the every absolute_path in the list would aligned with each other
     if vim.g.TabAutoCwd == "1" then
       local spaces = string.rep(" ", vim.g.telescope_tabs_longest_cwd_name_count - #cwd_name + 5)
       return string.format(
-        "%s %s: %s %s 🖿  %s%s➨ %s",
+        "%s %s: %s %s %s  %s%s➨ %s",
         string.format("%02d", tab_id),
         tab_char,
         modified,
         is_current and "🚩" or "  ",
-        cwd_name,
+        icon,
+        (file_names[1]:match("fugitive://") or
+          file_names[1]:match("/tmp/nvim.ccw/")) and file_names[1] or cwd_name,
         spaces,
         absolute_path
       )
     else
       local spaces = string.rep(" ", vim.g.telescope_tabs_longest_file_name_count - #file_names[1] + 5)
       return string.format(
-        "%s %s: %s %s 🖿  %s%s➨ %s",
+        "%s %s: %s %s %s  %s%s➨ %s",
         string.format("%02d", tab_id),
         tab_char,
         modified,
         is_current and "🚩" or "  ",
+        icon,
         file_names[1],
         spaces,
         absolute_path
@@ -90,7 +94,8 @@ local default_conf = {
     end
   end,
   -- this is where we can search
-  entry_ordinal = function(tab_id, buffer_ids, file_names, file_paths, is_current, cwd_name, buffers_in_cwd, absolute_path)
+  entry_ordinal = function(tab_id, buffer_ids, file_names, file_paths, is_current, cwd_name, buffers_in_cwd,
+                           absolute_path)
     if vim.g.TabAutoCwd == "1" then
       return table.concat(buffers_in_cwd, " ") .. " " .. cwd_name .. " " .. tab_id .. " " .. absolute_path
     else
@@ -190,7 +195,7 @@ M.list_tabs = function(opts)
       current_tab.index = index
     end
     local tab_char = string.char(96 + index) -- 96 is char `a`
-    if index >= 14 then                    -- skip `n`, somehow buffer_line doesn't use `n` as its tab jump id?
+    if index >= 14 then                      -- skip `n`, somehow buffer_line doesn't use `n` as its tab jump id?
       tab_char = string.char(96 + index + 1)
     end
     local is_modified = false
