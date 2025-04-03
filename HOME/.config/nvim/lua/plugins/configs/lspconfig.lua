@@ -47,14 +47,14 @@ local home = os.getenv("HOME")
 -- https://github.com/neovim/nvim-lspconfig/wiki/UI-Customization
 local function border(hl_name)
   return {
-    { "┌", hl_name },
-    { "─", hl_name },
-    { "┐", hl_name },
-    { "│", hl_name },
-    { "┘", hl_name },
-    { "─", hl_name },
-    { "└", hl_name },
-    { "│", hl_name },
+    { "╔", hl_name },
+    { "═", hl_name },
+    { "╗", hl_name },
+    { "║", hl_name },
+    { "╝", hl_name },
+    { "═", hl_name },
+    { "╚", hl_name },
+    { "║", hl_name },
   }
 end
 local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
