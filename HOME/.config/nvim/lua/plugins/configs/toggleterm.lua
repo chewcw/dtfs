@@ -11,6 +11,11 @@ local options = {
   terminal_mappings = true,
   hide_numbers = false,
   autochdir = false,
+  highlights = {
+    FloatBorder = {
+      link = "FloatBorder",
+    },
+  },
   shade_terminals = false,
   shell = function()
     if vim.fn.executable("zsh") == 1 then
@@ -24,8 +29,8 @@ local options = {
     end
   end,
   float_opts = {
-    border = "single",
-    shade_terminals = true,
+    border = "double",
+    shade_terminals = false,
   },
   winbar = {
     enabled = true,
