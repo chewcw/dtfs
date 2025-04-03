@@ -65,7 +65,7 @@ M.go_to = function(document_type, file_extension, callback)
         if client ~= nil then
           offset_encoding = client.offset_encoding
         end
-        vim.lsp.util.show_document(target, offset_encoding, { force = true })
+        vim.lsp.util.show_document(target, offset_encoding, { focus = true })
       else
         -- result in another buffer, call custom function
         if callback and type(callback) == "function" then
