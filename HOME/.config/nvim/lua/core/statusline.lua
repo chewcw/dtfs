@@ -73,7 +73,7 @@ local function lsp()
   end
 
   local this_bufnr = vim.api.nvim_get_current_buf()
-  local buf_clients = vim.lsp.get_active_clients({ bufnr = this_bufnr })
+  local buf_clients = vim.lsp.get_clients({ bufnr = this_bufnr })
 
   local lsp_client_name = ""
   for _, client in ipairs(buf_clients) do
