@@ -236,7 +236,7 @@ vim.api.nvim_create_autocmd({ "TermLeave" }, {
 -- Stop lsp, detach gitsigns, and disable treesitter_context in diff mode
 function DoSomethingInDiffMode()
   if vim.api.nvim_win_get_option(0, "diff") then
-    vim.lsp.stop_client(vim.lsp.get_active_clients())
+    vim.lsp.stop_client(vim.lsp.get_clients())
     pcall(function()
       vim.cmd(":Gitsigns detach_all")
     end)
@@ -267,7 +267,7 @@ vim.api.nvim_create_autocmd({ "CursorMoved" }, {
       end
 
       -- ignore this if no lsp_server found
-      local buf_clients = vim.lsp.get_active_clients({ bufnr = vim.api.nvim_get_current_buf() })
+      local buf_clients = vim.lsp.get_clients({ bufnr = vim.api.nvim_get_current_buf() })
       if #buf_clients == 0 then
         return
       end
