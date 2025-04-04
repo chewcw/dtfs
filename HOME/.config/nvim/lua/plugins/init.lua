@@ -1100,7 +1100,14 @@ local default_plugins = {
         ["<A-_>"] = { "actions.select", opts = { horizontal = true } },
         ["<A-\\>"] = { "actions.select", opts = { vertical = true } },
         ["<A-e>"] = { "actions.select", opts = { tab = true } },
-        ["gq"] = { "actions.close", mode = "n" },
+        -- ["gq"] = { "actions.close", mode = "n" },
+        ["gq"] = {
+          (function()
+            vim.g.oil_opened = '0'
+            return "actions.close"
+          end)(),
+          mode = "n"
+        },
         ["\\."] = { "actions.toggle_hidden", mode = "n" },
         ["\\p"] = { "actions.preview" },
         ["\\r"] = "actions.refresh",

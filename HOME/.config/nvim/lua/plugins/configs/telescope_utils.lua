@@ -293,7 +293,7 @@ M.delete_and_select_buffer = function()
             vim.api.nvim_command("buffer " .. next_bufnr)
             require("telescope.actions").close()
           end)
-          map("n", "q", function() -- not selecting buffer, just close the window
+          map("n", "gq", function() -- not selecting buffer, just close the window
             vim.cmd("q!")     -- close the telescope picker
             vim.cmd("wincmd c") -- close the window
           end)
@@ -336,7 +336,7 @@ M.delete_and_select_old_buffer = function()
       cwd_only = true,
       ignore_current_buffer = true,
       attach_mappings = function(_, map)
-        map("n", "q", function() -- not selecting old file, just close the window
+        map("n", "gq", function() -- not selecting old file, just close the window
           pcall(function()
             vim.cmd("q!")    -- close the telescope picker
             vim.cmd("wincmd c") -- close the window
@@ -432,7 +432,7 @@ M.open_new_split_and_select_buffer = function(split_type)
   require("telescope.builtin").find_files({
     follow = true,
     attach_mappings = function(_, map)
-      map("n", "q", function() -- not selecting file, just close the window
+      map("n", "gq", function() -- not selecting file, just close the window
         pcall(function()
           vim.cmd("q!")     -- close the telescope picker
           vim.cmd("wincmd c") -- close the window
@@ -456,7 +456,7 @@ M.open_new_tab_and_select_buffer = function()
   require("telescope.builtin").find_files({
     follow = true,
     attach_mappings = function(_, map)
-      map("n", "q", function() -- not selecting file, just close the window
+      map("n", "gq", function() -- not selecting file, just close the window
         pcall(function()
           vim.cmd("q!")     -- close the telescope picker
           vim.cmd("tabclose") -- close the tab
@@ -1032,7 +1032,7 @@ M.grep_string_custom = function(opts, mode)
         attach_mappings = function(_, map)
           map("i", "<A-w>", M.set_temporary_cwd_from_file_browser("grep_string_custom"))
           map("n", "W", M.set_temporary_cwd_from_file_browser("grep_string_custom"))
-          map("n", "q", function(prompt_bufnr)
+          map("n", "gq", function(prompt_bufnr)
             -- set these global variable back to nil after done, so that it wouldn't
             -- have side effect in next grep_string_custom
             vim.g.cwd_grep_string_search = nil
