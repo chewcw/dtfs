@@ -182,13 +182,13 @@ M.select_directory_as_cwd = function(scope)
         dir = vim.fn.fnamemodify(dir, ":h")
       end
       if scope == "window" then
-        vim.cmd(":q!")
+        M.close_oil_if_opened()
         vim.cmd({ cmd = "lcd", args = { dir } })
       else
         -- If other windows were using "lcd", they will not be reset to the new cwd
         -- Therefore, iterate over all windows in the current tab
         -- and reset their local working directory
-        vim.cmd(":q!")
+        M.close_oil_if_opened()
         for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
           vim.api.nvim_win_call(win, function()
             vim.cmd({ cmd = "tcd", args = { dir } })
@@ -220,6 +220,15 @@ M.open_file_in_tab = function(dont_care_just_open_in_new_tab)
       )
     end,
   }
+end
+
+M.close_oil_if_opened = function()
+  if vim.g.oil_opened == '1' then
+    vim.g.oil_opened = '0'
+    if pcall(require, "oil") then
+      require("oil").close()
+    end
+  end
 end
 
 return M

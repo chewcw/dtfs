@@ -993,11 +993,11 @@ M.general = {
     ["gQ"] = { function() end }, -- Ex mode, not useful to me
     -- Oil
     ["<leader>fd"] = {
-      "<cmd>lua vim.g.oil_float_mode = '1'; vim.cmd('Oil --float')<CR>",
+      "<cmd>lua vim.g.oil_float_mode = '1'; vim.g.oil_opened = '1'; vim.cmd('Oil --float')<CR>",
       "Oil (float)",
     },
     ["<leader>fD"] = {
-      "<cmd>lua vim.g.oil_float_mode = '0'; vim.cmd('Oil')<CR>",
+      "<cmd>lua vim.g.oil_float_mode = '0'; vim.g.oil_opened = '1'; vim.cmd('Oil')<CR>",
       "Oil",
     },
 
@@ -1641,7 +1641,11 @@ M.telescope = {
   n = {
     -- file browser
     ["<leader>fs"] = {
-      "<cmd> let g:telescope_picker_temporary_cwd_from_file_browser='false' | Telescope file_browser <CR>",
+      function()
+        require("plugins.configs.oil_utils").close_oil_if_opened()
+        vim.g.telescope_picker_temporary_cwd_from_file_browser = 'false'
+        vim.cmd("Telescope file_browser")
+      end,
       "file browser",
     },
 
@@ -1650,6 +1654,7 @@ M.telescope = {
     -- see telescope config file for more information
     ["<leader>ff"] = {
       function()
+        require("plugins.configs.oil_utils").close_oil_if_opened()
         vim.g.find_files_type = "normal"
         vim.g.telescope_picker_type = "find_files"
         require("plugins.configs.telescope_utils").find_files()
@@ -1658,6 +1663,7 @@ M.telescope = {
     },
     ["<leader>fa"] = {
       function()
+        require("plugins.configs.oil_utils").close_oil_if_opened()
         vim.g.find_files_type = "all"
         vim.g.telescope_picker_type = "find_files"
         require("plugins.configs.telescope_utils").find_all_files()
@@ -1666,44 +1672,80 @@ M.telescope = {
     },
     -- ["<leader>fG"] = { "<cmd> let g:telescope_picker_type='live_grep' | Telescope live_grep <CR>", "live grep" },
     ["<leader>fg"] = {
-      "<cmd> :lua require('plugins.configs.telescope_utils').custom_rg() <CR>",
+      function()
+        require('plugins.configs.oil_utils').close_oil_if_opened()
+        require('plugins.configs.telescope_utils').custom_rg()
+      end,
       "live grep (custom)",
     },
     ["<leader>fb"] = {
       function()
+        require("plugins.configs.oil_utils").close_oil_if_opened()
         require("plugins.configs.telescope_utils").buffers()
       end,
       "find buffers for current working directory",
     },
     ["<leader>fB"] = {
       function()
+        require("plugins.configs.oil_utils").close_oil_if_opened()
         require("plugins.configs.telescope_utils").all_buffers()
       end,
       "find buffers",
     },
-    ["<leader>fh"] = { "<cmd> Telescope help_tags <CR>", "help page" },
+    ["<leader>fh"] = {
+      function()
+        require('plugins.configs.oil_utils').close_oil_if_opened()
+        vim.cmd("Telescope help_tags")
+      end,
+      "help page",
+    },
     ["<leader>fo"] = {
       function()
+        require("plugins.configs.oil_utils").close_oil_if_opened()
         require("plugins.configs.telescope_utils").oldfiles()
       end,
       "find oldfiles for current working directory",
     },
     ["<leader>fO"] = {
       function()
+        require("plugins.configs.oil_utils").close_oil_if_opened()
         require("plugins.configs.telescope_utils").all_oldfiles()
       end,
       "find oldfiles",
     },
-    ["<leader>fz"] = { "<cmd> Telescope current_buffer_fuzzy_find <CR>", "find in current buffer" },
+    ["<leader>fz"] = {
+      function()
+        require("plugins.configs.oil_utils").close_oil_if_opened()
+        vim.cmd("Telescope current_buffer_fuzzy_find")
+      end,
+      "find in current buffer",
+    },
     ["<leader>f*"] = {
-      ":lua require('plugins.configs.telescope_utils').grep_string_custom({}) <CR>",
+      function()
+        require("plugins.configs.oil_utils").close_oil_if_opened()
+        require('plugins.configs.telescope_utils').grep_string_custom({})
+      end,
       "search for string under cursor in cwd",
     },
-    ["<leader>ft"] = { ":lua require('plugins.configs.telescope_tabs').list_tabs() <CR>", "list tabs" },
-    ["<leader>fj"] = { "<cmd> Telescope jumplist <CR>", "list jumplist" },
+    ["<leader>ft"] = {
+      function()
+        require("plugins.configs.oil_utils").close_oil_if_opened()
+        require("plugins.configs.telescope_tabs").list_tabs()
+      end,
+      "list tabs",
+    },
+    ["<leader>fj"] = {
+      function()
+        require("plugins.configs.oil_utils").close_oil_if_opened()
+        vim.cmd("Telescope jumplist")
+      end,
+      "jumplist",
+    },
+
 
     ["<leader>fr"] = {
       function()
+        require("plugins.configs.oil_utils").close_oil_if_opened()
         local status, config_telescope = pcall(require, "plugins.configs.telescope_utils")
         if status then
           config_telescope.resume_with_cache()
@@ -1712,10 +1754,19 @@ M.telescope = {
       "resume with cache",
     },
 
-    ["<leader>fR"] = { "<cmd> Telescope pickers <CR>", "cache pickers" },
+    ["<leader>fR"] = {
+      function()
+        require("plugins.configs.oil_utils").close_oil_if_opened()
+        vim.cmd("Telescope pickers")
+      end,
+      "cache pickers",
+    },
 
     ["<leader>fn"] = {
-      ":lua require('plugins.configs.telescope_utils').list_scratch_buffers() <CR>",
+      function()
+        require('plugins.configs.oil_utils').close_oil_if_opened()
+        require("plugins.configs.telescope_utils").list_scratch_buffers()
+      end,
       "list scratch buffers",
     },
 
