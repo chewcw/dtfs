@@ -98,7 +98,7 @@ local options = {
 		vim.keymap.set("n", "D", api.marks.bulk.delete, opts("bulk delete bookmarks"))
 		vim.keymap.set("n", "<Tab>", api.marks.toggle, opts("toggle bookmark"))
 		vim.keymap.set("n", "R", api.tree.reload, opts("reload tree"))
-		vim.keymap.set("n", "q", api.tree.close, opts("close tree"))
+		vim.keymap.set("n", "gq", api.tree.close, opts("close tree"))
 		vim.keymap.set("n", "?", api.tree.toggle_help, opts("toggle help"))
 		vim.keymap.set("n", "Y", api.fs.copy.absolute_path, opts("copy absolute path"))
 		vim.keymap.set("n", "x", api.fs.cut, opts("cut"))

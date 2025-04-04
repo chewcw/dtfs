@@ -130,7 +130,7 @@ M.options = {
         ["<A-e>"] = telescope_utils.open_telescope_file_in_tab(true),
         -- toggle all
         ["<C-a>"] = require("telescope.actions").toggle_all,
-        ["q"] = require("telescope.actions").close,
+        ["q"] = function() end, -- Use gq instead
         ["gq"] = require("telescope.actions").close,
         ["u"] = function()
           vim.cmd("undo")
@@ -171,6 +171,22 @@ M.options = {
         ["<A-k>"] = function() end,
         ["<C-c>"] = function(prompt_bufnr)
           require("telescope.actions").close(prompt_bufnr)
+        end,
+        ["<leader>fd"] = function(prompt_bufnr)
+          if pcall(require, "oil") then
+            require("telescope.actions").close(prompt_bufnr)
+            vim.g.oil_float_mode = '1'
+            vim.g.oil_opened = '1'
+            vim.cmd('Oil --float')
+          end
+        end,
+        ["<leader>fD"] = function(prompt_bufnr)
+          if pcall(require, "oil") then
+            require("telescope.actions").close(prompt_bufnr)
+            vim.g.oil_float_mode = '0'
+            vim.g.oil_opened = '1'
+            vim.cmd('Oil')
+          end
         end,
       },
     },
@@ -231,7 +247,8 @@ M.options = {
           ["<A-e>"] = telescope_utils.open_telescope_file_in_tab(true),
         },
         n = {
-          ["q"] = require("telescope.actions").close,
+          ["q"] = function() end, -- Use gq instead
+          ["gq"] = require("telescope.actions").close,
           -- ["t"] = telescope_utils.file_browser_set_cwd,
           ["<A-CR>"] = telescope_utils.file_browser_set_cwd(),
           ["w<A-CR>"] = telescope_utils.file_browser_set_cwd("window"),

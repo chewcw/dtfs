@@ -198,7 +198,7 @@ M.toggle_term = function(direction, is_open_from_file_browser, cwd)
             select_path_for_toggle_term(callback, input)
           end)
         )
-        map("n", "q", function(prompt_bufnr)
+        map("n", "gq", function(prompt_bufnr)
           -- nothing selected, then just proceed without specifying the path
           require("telescope.actions").close(prompt_bufnr)
           local dir = ""

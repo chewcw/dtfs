@@ -322,11 +322,11 @@ M.open_float_with_file_content = function(lines)
     once = true,
   })
 
-  -- Add a `q` keybinding to close the floating window if it’s focused
+  -- Add a `gq` keybinding to close the floating window if it’s focused
   vim.api.nvim_buf_set_keymap(
     float_buf,
     "n",
-    "q",
+    "gq",
     ":close <CR> :lua vim.g.quicknote_float_win = nil <CR>",
     { noremap = true, silent = true }
   )

@@ -223,4 +223,13 @@ M.open_file_in_tab = function(dont_care_just_open_in_new_tab)
   }
 end
 
+M.close_oil_if_opened = function()
+  if vim.g.oil_opened == '1' then
+    vim.g.oil_opened = '0'
+    if pcall(require, "oil") then
+      require("oil").close()
+    end
+  end
+end
+
 return M
