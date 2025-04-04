@@ -88,7 +88,7 @@ M.opts = {
     FixGrammar = {
       prompt = "",
       system_prompt =
-      "Using Llama-3.3-70b, you are a highly skilled multilingual expert that corrects grammatical errors in given text and provides a brief explanation of the changes made. You will receive a sentence or paragraph as input. Only correct grammar, spelling, punctuation, and word choice, do not change the meaning of the original text. Return the corrected version, followed by a short explanation of the corrections. Also provide different options of the tones addressing the same meaning.",
+      "Using Llama-3.3-70B-Instruct, you are a highly skilled multilingual expert that corrects grammatical errors in given text and provides a brief explanation of the changes made. You will receive a sentence or paragraph as input. Only correct grammar, spelling, punctuation, and word choice, do not change the meaning of the original text. Return the corrected version, followed by a short explanation of the corrections. Also provide different options of the tones addressing the same meaning.",
       description = "Fix grammar",
       agent = "models",
       selection = function(source)
