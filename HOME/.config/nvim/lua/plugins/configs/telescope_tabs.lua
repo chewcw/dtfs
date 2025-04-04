@@ -290,6 +290,9 @@ M.list_tabs = function(opts)
           map("i", opts.close_tab_shortcut_i, close_tab)
           map("n", opts.close_tab_shortcut_n, close_tab)
           map("n", "<Backspace>", require("plugins.configs.telescope_utils").resume_with_cache)
+          map("n", "<A-e>", function()
+            vim.api.nvim_command("BufferLinePick")
+          end)
           return true
         end,
         previewer = opts.show_preview and conf.file_previewer({}) or nil,
