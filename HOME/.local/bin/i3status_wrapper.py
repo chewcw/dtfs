@@ -86,7 +86,7 @@ if __name__ == '__main__':
                     #volume_percent = '%d%%' % (source.volume.value_flat*100)
                     if not muted:
                         field['full_text'] = '\uf130 mic'
-                        # field['color'] = '#000000'
+                        field['color'] = '#ffffff'
                     else:
                         field['full_text'] = '\uf131 (mute)'
                         field['color'] = '#FFFF00'
