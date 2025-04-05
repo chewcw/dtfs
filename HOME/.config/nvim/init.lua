@@ -9,9 +9,6 @@ if not vim.loop.fs_stat(lazypath) then
   require("core.bootstrap").lazy(lazypath)
 end
 
--- LSP
-require("core.lsp")
-
 vim.opt.rtp:prepend(lazypath)
 require("plugins")
 
