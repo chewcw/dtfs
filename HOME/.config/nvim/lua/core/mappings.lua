@@ -196,6 +196,7 @@ M.general = {
     ["<leader>bsn"] = {
       function()
         local buf = vim.api.nvim_create_buf(false, true)
+        vim.opt_local.textwidth = 0
         vim.bo[buf].buftype = "nofile"
         vim.bo[buf].bufhidden = "hide"
         vim.bo[buf].swapfile = false
@@ -206,6 +207,7 @@ M.general = {
     ["<leader>bs\\"] = {
       function()
         local buf = vim.api.nvim_create_buf(false, true)
+        vim.opt_local.textwidth = 0
         vim.bo[buf].buftype = "nofile"
         vim.bo[buf].bufhidden = "hide"
         vim.bo[buf].swapfile = false
@@ -217,6 +219,7 @@ M.general = {
     ["<leader>bs_"] = {
       function()
         local buf = vim.api.nvim_create_buf(false, true)
+        vim.opt_local.textwidth = 0
         vim.bo[buf].buftype = "nofile"
         vim.bo[buf].bufhidden = "hide"
         vim.bo[buf].swapfile = false

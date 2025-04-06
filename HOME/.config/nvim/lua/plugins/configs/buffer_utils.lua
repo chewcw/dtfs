@@ -863,6 +863,7 @@ end
 
 M.new_tab_with_scratch_buffer = function()
   vim.cmd("tabedit")
+  vim.opt_local.textwidth = 0
   vim.api.nvim_set_option_value("buftype", "nofile", { buf = 0 })
   vim.api.nvim_set_option_value("bufhidden", "wipe", { buf = 0 })
   vim.api.nvim_set_option_value("swapfile", false, { buf = 0 })
