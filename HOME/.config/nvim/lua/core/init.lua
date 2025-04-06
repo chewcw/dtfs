@@ -793,6 +793,13 @@ vim.api.nvim_create_autocmd("VimLeavePre", {
       -- Close CopilotChat
       vim.cmd("CopilotChatClose")
 
+      -- Close AvanteChat
+      -- Avante doesn't have a close command
+      -- Force focus the AvanteChat window, then use gq to close it (see the
+      -- keymapping to close AvanteChat)
+      vim.cmd("AvanteFocus")
+      vim.cmd("normal gq")
+
       -- Just save to the same session name when open with session
       if vim.g.autosession_session_name ~= nil then
         vim.cmd("SessionSave " .. vim.g.autosession_session_name)

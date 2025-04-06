@@ -1367,7 +1367,7 @@ local default_plugins = {
     "nvim-focus/focus.nvim",
     event = "BufEnter",
     init = function()
-      local ignore_filetypes = { "neo-tree", "trouble" }
+      local ignore_filetypes = { "neo-tree", "trouble", "AvanteInput", "Avante", "AvanteSelectedFiles" }
       local ignore_buftypes = { "nofile", "nowrite", "quickfix", "terminal" }
       local augroup = vim.api.nvim_create_augroup("FocusDisable", { clear = true })
       vim.api.nvim_create_autocmd("WinEnter", {
