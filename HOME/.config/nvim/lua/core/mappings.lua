@@ -985,6 +985,11 @@ M.general = {
         vim.cmd("AvanteToggle")
       end,
     },
+    ["<leader>avs"] = {
+      function()
+        vim.cmd("AvanteStop")
+      end,
+    },
     ["<leader>avr"] = {
       function()
         vim.cmd("AvanteClear")
@@ -1193,6 +1198,27 @@ M.general = {
         end
       end,
       "CopilotChat - Save history",
+    },
+    -- Avante
+    ["<leader>avt"] = {
+      function()
+        vim.cmd("AvanteToggle")
+      end,
+    },
+    ["<leader>avs"] = {
+      function()
+        vim.cmd("AvanteStop")
+      end,
+    },
+    ["<leader>avr"] = {
+      function()
+        vim.cmd("AvanteClear")
+      end,
+    },
+    ["<leader>ave"] = {
+      function()
+        vim.cmd("AvanteEdit")
+      end,
     },
     ["[t"] = {
       function()
