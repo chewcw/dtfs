@@ -1254,6 +1254,12 @@ local default_plugins = {
           normal = "<A-CR>",
           insert = "<A-CR>",
         },
+        sidebar = {
+          close = { "gq" },
+          close_from_input = {
+            normal = "gq",
+          },
+        },
       },
       windows = {
         edit = {
