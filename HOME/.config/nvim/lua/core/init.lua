@@ -531,6 +531,8 @@ vim.api.nvim_create_user_command("UrlEncode", function()
   local start_pos = vim.fn.getpos("'<")
   local end_pos = vim.fn.getpos("'>")
 
+  end_pos[3] = end_pos[3] + 1
+
   -- Convert the positions to 0-indexed
   local start_row = start_pos[2] - 1
   local start_col = start_pos[3] - 1
@@ -559,6 +561,8 @@ vim.api.nvim_create_user_command("UrlDecode", function()
   -- Get the current visual selection range
   local start_pos = vim.fn.getpos("'<")
   local end_pos = vim.fn.getpos("'>")
+
+  end_pos[3] = end_pos[3] + 1
 
   -- Convert the positions to 0-indexed
   local start_row = start_pos[2] - 1
