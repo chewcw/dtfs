@@ -672,6 +672,7 @@ local default_plugins = {
     cmd = { "UndotreeToggle" },
     lazy = true,
     init = function()
+      vim.cmd("let g:undotree_WindowLayout = '2'")
       require("core.utils").load_mappings("undotree")
     end,
     -- branch = "master",

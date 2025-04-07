@@ -449,41 +449,6 @@ M.general = {
       "toggle cursorcolumn for all windows in all tabs",
     },
 
-    -- undotree
-    ["<leader>uu"] = {
-      function()
-        if pcall(require, "focus") then
-          vim.cmd("FocusEqualise")
-          vim.cmd("FocusDisableBuffer")
-        end
-        -- Delay 100ms to make sure the Focus is disabled before open undotree
-        vim.defer_fn(
-          function()
-            vim.cmd("UndotreeToggle")
-            vim.cmd("UndotreeFocus")
-          end,
-          100
-        )
-      end,
-      "toggle undotree",
-    },
-    ["<leader>uf"] = {
-      function()
-        if pcall(require, "focus") then
-          vim.cmd("FocusEqualise")
-          vim.cmd("FocusDisableBuffer")
-        end
-        -- Delay 100ms to make sure the Focus is disabled before open undotree
-        vim.defer_fn(
-          function()
-            vim.cmd("UndotreeFocus")
-          end,
-          100
-        )
-      end,
-      "focus undotree",
-    },
-
     -- color column
     ["<leader>lmw"] = {
       function()
@@ -2599,33 +2564,82 @@ M.tcomment = {
 M.undotree = {
   plugin = true,
   n = {
-    ["q"] = {
+    ["<leader>uu"] = {
       function()
-        vim.cmd("UndotreeHide")
-        if pcall(require, "focus") then
-          vim.cmd("FocusAutoresize")
+        if pcall(require, "auto-save") then
+          require("auto-save").off()
         end
-        -- Delay 100ms to make sure the undotree is closed
-        vim.defer_fn(function()
-          if pcall(require, "focus") then
-            vim.cmd("FocusEnableBuffer")
-          end
-        end, 100)
+        if pcall(require, "focus") then
+          vim.cmd("FocusEqualise")
+          -- vim.cmd("FocusDisableBuffer")
+          vim.cmd("FocusDisable")
+        end
+        -- Delay 100ms to make sure the Focus is disabled before open undotree
+        vim.defer_fn(
+          function()
+            vim.cmd("UndotreeToggle")
+            vim.cmd("UndotreeFocus")
+            vim.g.UndotreeOpened = "1"
+          end,
+          100
+        )
       end,
-      "Close undotree",
+      "toggle undotree",
     },
+    ["<leader>uf"] = {
+      function()
+        if pcall(require, "auto-save") then
+          require("auto-save").off()
+        end
+        if pcall(require, "focus") then
+          vim.cmd("FocusEqualise")
+          -- vim.cmd("FocusDisableBuffer")
+          vim.cmd("FocusDisable")
+        end
+        -- Delay 100ms to make sure the Focus is disabled before open undotree
+        vim.defer_fn(
+          function()
+            vim.cmd("UndotreeFocus")
+            vim.g.UndotreeOpened = "1"
+          end,
+          100
+        )
+      end,
+      "focus undotree",
+    },
+    -- ["q"] = {
+    --   function()
+    --     vim.cmd("UndotreeHide")
+    --     if pcall(require, "focus") then
+    --       vim.cmd("FocusAutoresize")
+    --     end
+    --     -- Delay 100ms to make sure the undotree is closed
+    --     vim.defer_fn(function()
+    --       if pcall(require, "focus") then
+    --         vim.cmd("FocusEnableBuffer")
+    --       end
+    --     end, 100)
+    --   end,
+    --   "Close undotree",
+    -- },
     ["gq"] = {
       function()
-        vim.cmd("UndotreeHide")
-        if pcall(require, "focus") then
-          vim.cmd("FocusAutoresize")
-        end
-        -- Delay 100ms to make sure the undotree is closed
-        vim.defer_fn(function()
-          if pcall(require, "focus") then
-            vim.cmd("FocusEnableBuffer")
+          if vim.g.UndotreeOpened == "1" then
+          if pcall(require, "auto-save") then
+            require("auto-save").on()
           end
-        end, 100)
+          vim.cmd("UndotreeHide")
+          if pcall(require, "focus") then
+            vim.cmd("FocusAutoresize")
+          end
+          -- Delay 100ms to make sure the undotree is closed
+          vim.defer_fn(function()
+            if pcall(require, "focus") then
+              vim.cmd("FocusEnable")
+              vim.g.UndotreeOpened = "0"
+            end
+          end, 100)
+        end
       end,
       "Close undotree",
     },
