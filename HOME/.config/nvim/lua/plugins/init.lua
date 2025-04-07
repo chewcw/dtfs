@@ -671,6 +671,9 @@ local default_plugins = {
     "mbbill/undotree",
     cmd = { "UndotreeToggle" },
     lazy = true,
+    init = function()
+      require("core.utils").load_mappings("undotree")
+    end,
     -- branch = "master",
     -- commit = "36ff7ab",
   },
@@ -1367,7 +1370,7 @@ local default_plugins = {
     "nvim-focus/focus.nvim",
     event = "BufEnter",
     init = function()
-      local ignore_filetypes = { "neo-tree", "trouble", "AvanteInput", "Avante", "AvanteSelectedFiles" }
+      local ignore_filetypes = { "neo-tree", "trouble", "AvanteInput", "Avante", "AvanteSelectedFiles", "undotree" }
       local ignore_buftypes = { "nofile", "nowrite", "quickfix", "terminal" }
       local augroup = vim.api.nvim_create_augroup("FocusDisable", { clear = true })
       vim.api.nvim_create_autocmd("WinEnter", {
