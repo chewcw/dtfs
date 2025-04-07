@@ -115,11 +115,11 @@ M.general = {
     -- This seems like autocomplete, disable this
     ["<C-p>"] = { "" },
     -- ["<A-e>"] = { "" },
-    ["<C-f>"] = { "<C-o>l" }, -- Move cursor one character forward (to simulate the normal way to navigate the linux terminal)
-    ["<A-f>"] = { "<C-o>w" }, -- Move cursor one character forward (to simulate the normal way to navigate the linux terminal)
-    ["<C-b>"] = { "<C-o>h" }, -- Move cursor one character backward (to simulate the normal way to navigate the linux terminal)
-    ["<C-a>"] = { "<C-o>0" }, -- Move cursor to beginning of the line (to simulate the normal way to navigate the linux terminal)
-    ["<C-e>"] = { "<C-o>$" }, -- Move cursor to the end of the line (to simulate the normal way to navigate the linux terminal)
+    ["<C-f>"] = { "<C-o>l" },  -- Move cursor one character forward (to simulate the normal way to navigate the linux terminal)
+    ["<A-f>"] = { "<C-o>w" },  -- Move cursor one character forward (to simulate the normal way to navigate the linux terminal)
+    ["<C-b>"] = { "<C-o>h" },  -- Move cursor one character backward (to simulate the normal way to navigate the linux terminal)
+    ["<C-a>"] = { "<C-o>0" },  -- Move cursor to beginning of the line (to simulate the normal way to navigate the linux terminal)
+    ["<C-e>"] = { "<C-o>$" },  -- Move cursor to the end of the line (to simulate the normal way to navigate the linux terminal)
     ["<A-d>"] = { "<C-o>dw" }, -- Delete the word after cursor (to simulate the normal way to navigate the linux terminal)
 
     ["<C-c>"] = {
@@ -450,8 +450,39 @@ M.general = {
     },
 
     -- undotree
-    ["<leader>uu"] = { ":UndotreeToggle <CR> :UndotreeFocus <CR>", "toggle undotree" },
-    ["<leader>uf"] = { ":UndotreeFocus <CR>", "focus undotree" },
+    ["<leader>uu"] = {
+      function()
+        if pcall(require, "focus") then
+          vim.cmd("FocusEqualise")
+          vim.cmd("FocusDisableBuffer")
+        end
+        -- Delay 100ms to make sure the Focus is disabled before open undotree
+        vim.defer_fn(
+          function()
+            vim.cmd("UndotreeToggle")
+            vim.cmd("UndotreeFocus")
+          end,
+          100
+        )
+      end,
+      "toggle undotree",
+    },
+    ["<leader>uf"] = {
+      function()
+        if pcall(require, "focus") then
+          vim.cmd("FocusEqualise")
+          vim.cmd("FocusDisableBuffer")
+        end
+        -- Delay 100ms to make sure the Focus is disabled before open undotree
+        vim.defer_fn(
+          function()
+            vim.cmd("UndotreeFocus")
+          end,
+          100
+        )
+      end,
+      "focus undotree",
+    },
 
     -- color column
     ["<leader>lmw"] = {
@@ -2561,6 +2592,42 @@ M.tcomment = {
       ":'<,'>TComment <CR>",
       "Comment out the line",
       { silent = true },
+    },
+  },
+}
+
+M.undotree = {
+  plugin = true,
+  n = {
+    ["q"] = {
+      function()
+        vim.cmd("UndotreeHide")
+        if pcall(require, "focus") then
+          vim.cmd("FocusAutoresize")
+        end
+        -- Delay 100ms to make sure the undotree is closed
+        vim.defer_fn(function()
+          if pcall(require, "focus") then
+            vim.cmd("FocusEnableBuffer")
+          end
+        end, 100)
+      end,
+      "Close undotree",
+    },
+    ["gq"] = {
+      function()
+        vim.cmd("UndotreeHide")
+        if pcall(require, "focus") then
+          vim.cmd("FocusAutoresize")
+        end
+        -- Delay 100ms to make sure the undotree is closed
+        vim.defer_fn(function()
+          if pcall(require, "focus") then
+            vim.cmd("FocusEnableBuffer")
+          end
+        end, 100)
+      end,
+      "Close undotree",
     },
   },
 }
