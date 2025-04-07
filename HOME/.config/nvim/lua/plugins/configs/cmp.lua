@@ -44,6 +44,25 @@ local function border(hl_name)
   }
 end
 
+-- Helper method to return the entry_filter from nvim_lsp
+local function entry_filter(entry_name)
+  if entry_name == nil then
+    return nil
+  end
+  return {
+    config = {
+      sources = {
+        {
+          name = "nvim_lsp",
+          entry_filter = function(entry)
+            return require("cmp.types").lsp.CompletionItemKind[entry:get_kind()] == entry_name
+          end,
+        },
+      },
+    }
+  }
+end
+
 M.options = {
   core = {
     snippet = {
@@ -125,6 +144,18 @@ M.options = {
       ["<C-d>"] = cmp.mapping.scroll_docs(4),
       ["<C-u>"] = cmp.mapping.scroll_docs(-4),
       ["<C-Space>"] = cmp.mapping.complete(),
+      ["<C-x>c"] = cmp.mapping.complete(entry_filter("Class")),
+      ["<C-x>m"] = cmp.mapping.complete(entry_filter("Method")),
+      ["<C-x>f"] = cmp.mapping.complete(entry_filter("Function")),
+      ["<C-x>e"] = cmp.mapping.complete(entry_filter("Enum")),
+      ["<C-x>i"] = cmp.mapping.complete(entry_filter("Interface")),
+      ["<C-x>v"] = cmp.mapping.complete(entry_filter("Variable")),
+      ["<C-x>s"] = cmp.mapping.complete(entry_filter("Struct")),
+      ["<C-x>k"] = cmp.mapping.complete(entry_filter("Keyword")),
+      ["<C-x>t"] = cmp.mapping.complete(entry_filter("TypeParameter")),
+      ["<C-x>T"] = cmp.mapping.complete(entry_filter("Text")),
+      ["<C-x>F"] = cmp.mapping.complete(entry_filter("Field")),
+      ["<C-x>S"] = cmp.mapping.complete(entry_filter("Snippet")),
       ["<C-y>"] = cmp.mapping.confirm({
         behavior = cmp.ConfirmBehavior.Insert,
         select = true,
