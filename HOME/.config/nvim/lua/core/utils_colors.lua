@@ -58,7 +58,11 @@ local get_groups = function(color)
   highlight("@method", { fg = color.main3 })
   highlight("keyword", { fg = color.brown })
 
-  -- GitSigns (used in statusline)
+  -- GitSigns (used in tabline)
+  highlight("TablineGitSignsAdd", { bg = color.blue, fg = get_highlight("DiffAdd", "bg"), bold = true })
+  highlight("TablineGitSignsChange", { bg = color.blue, fg = get_highlight("DiffChange", "bg"), bold = true })
+  highlight("TablineGitSignsDelete", { bg = color.blue, fg = get_highlight("DiffDelete", "bg"), bold = true })
+
   highlight("GitSignsAdd", { fg = get_highlight("DiffAdd", "bg"), bold = true })
   highlight("GitSignsChange", { fg = get_highlight("DiffChange", "bg"), bold = true })
   highlight("GitSignsDelete", { fg = get_highlight("DiffDelete", "bg"), bold = true })
@@ -131,7 +135,7 @@ local get_groups = function(color)
     StatusLineTermNC = { link = "StatusLineNC" },
     TabLineFill = { fg = color.gray05, bg = color.none },
     TablineSel = { fg = color.fg, bg = color.dark_yellow02 },
-    Tabline = { fg = color.gray05 },
+    Tabline = { fg = color.fg, bg = color.dark_blue },
     Title = { fg = color.main4, bg = color.none },
     Visual = { fg = color.none, bg = color.visual },
     VisualNOS = { fg = color.none, bg = color.visual },
@@ -371,22 +375,22 @@ local get_groups = function(color)
     DiagnosticUnderlineHint = { bg = color.none, fg = color.gray06, undercurl = true, sp = color.gray06 },   -- used to underline "Hint" diagnostics.
     -- Diagnostics (old)
     LspDiagnosticsDefaultError = { fg = color.red },                                                         -- used for "Error" diagnostic virtual text
-    LspDiagnosticsSignError = { fg = color.red },                                                            -- used for "Error" diagnostic signs in sign column
+    LspDiagnosticsSignError = { bg = color.dark_blue, fg = color.red, bold = true },                                                            -- used for "Error" diagnostic signs in sign column
     LspDiagnosticsFloatingError = { fg = color.red, bold = true },                                           -- used for "Error" diagnostic messages in the diagnostics float
     LspDiagnosticsVirtualTextError = { fg = color.red, bold = true },                                        -- Virtual text "Error"
     LspDiagnosticsUnderlineError = { fg = color.red, undercurl = true, sp = color.red },                     -- used to underline "Error" diagnostics.
     LspDiagnosticsDefaultWarning = { fg = color.yellow },                                                    -- used for "Warning" diagnostic signs in sign column
-    LspDiagnosticsSignWarning = { fg = color.yellow },                                                       -- used for "Warning" diagnostic signs in sign column
+    LspDiagnosticsSignWarning = { bg = color.dark_blue, fg = color.yellow, bold = true },                                                       -- used for "Warning" diagnostic signs in sign column
     LspDiagnosticsFloatingWarning = { fg = color.yellow, bold = true },                                      -- used for "Warning" diagnostic messages in the diagnostics float
     LspDiagnosticsVirtualTextWarning = { fg = color.yellow, bold = true },                                   -- Virtual text "Warning"
     LspDiagnosticsUnderlineWarning = { fg = color.yellow, undercurl = true, sp = color.yellow },             -- used to underline "Warning" diagnostics.
     LspDiagnosticsDefaultInformation = { fg = color.main1 },                                                 -- used for "Information" diagnostic virtual text
-    LspDiagnosticsSignInformation = { fg = color.main1 },                                                    -- used for "Information" diagnostic signs in sign column
+    LspDiagnosticsSignInformation = { bg = color.dark_blue, fg = color.main1, bold = true },                                                    -- used for "Information" diagnostic signs in sign column
     LspDiagnosticsFloatingInformation = { fg = color.main1, bold = true },                                   -- used for "Information" diagnostic messages in the diagnostics float
     LspDiagnosticsVirtualTextInformation = { fg = color.main1, bold = true },                                -- Virtual text "Information"
     LspDiagnosticsUnderlineInformation = { fg = color.main1, undercurl = true, sp = color.main1 },           -- used to underline "Information" diagnostics.
     LspDiagnosticsDefaultHint = { fg = color.gray05 },                                                       -- used for "Hint" diagnostic virtual text
-    LspDiagnosticsSignHint = { fg = color.gray05 },                                                          -- used for "Hint" diagnostic signs in sign column
+    LspDiagnosticsSignHint = { bg = color.dark_blue, fg = color.gray05, bold = true },                                                          -- used for "Hint" diagnostic signs in sign column
     LspDiagnosticsFloatingHint = { fg = color.gray05, bold = true },                                         -- used for "Hint" diagnostic messages in the diagnostics float
     LspDiagnosticsVirtualTextHint = { fg = color.gray05, bold = true },                                      -- Virtual text "Hint"
     LspDiagnosticsUnderlineHint = { fg = color.gray05, undercurl = true, sp = color.main4 },                 -- used to underline "Hint" diagnostics.
@@ -497,6 +501,11 @@ local get_groups = function(color)
     CopilotSuggestion = { fg = color.dark_brown },
     -- Deadcolumn
     WarningColorColumn = { bg = color.red },
+    -- Tabline
+    TabLineGit = { fg = color.white, bg = color.blue },
+    TabLine0 = { fg = color.white, bg = color.blue },
+    TabLine1 = { fg = color.white, bg = color.dark_blue },
+    TabLine2 = { fg = color.white, bg = color.dark_green02 },
   }
 end
 
