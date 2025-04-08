@@ -88,9 +88,9 @@ M.opts = {
     FixGrammar = {
       prompt = "",
       system_prompt =
-      "You are a highly skilled multilingual expert that corrects grammatical errors in given text and provides a brief explanation of the changes made. You will receive a sentence or paragraph as input. Only correct grammar, spelling, punctuation, and word choice, do not change the meaning of the original text. Return the corrected version, followed by a short explanation of the corrections. Also provide different options of the tones addressing the same meaning.",
+      "You are a highly skilled multilingual expert that corrects grammatical errors in given text and provides a brief explanation of the changes made. You will receive a sentence or paragraph as input. Only correct grammar, spelling, punctuation, and word choice, do not change the meaning of the original text. Return the corrected version, followed by a short explanation of the corrections. Also provide different options of the tones addressing the same meaning. Wrap all corrected text including the different options in their own triple backticks with the correct language identifier, which in this case, the 'text'.",
       description = "Fix grammar",
-      model = "Meta-Llama-3.1-70B-Instruct",
+      model = "gemini-2.0-flash-001",
       selection = function(source)
         return require("CopilotChat.select").visual(source)
       end,
