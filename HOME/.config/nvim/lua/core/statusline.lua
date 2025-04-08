@@ -104,9 +104,9 @@ local vcs = function()
   if not git_info or git_info.head == "" then
     return ""
   end
-  local added = git_info.added and ("%#GitSignsAdd#+" .. git_info.added .. " ") or ""
-  local changed = git_info.changed and ("%#GitSignsChange#~" .. git_info.changed .. " ") or ""
-  local removed = git_info.removed and ("%#GitSignsDelete#-" .. git_info.removed .. " ") or ""
+  local added = git_info.added and ("%#TablineGitSignsAdd#+" .. git_info.added .. " ") or ""
+  local changed = git_info.changed and ("%#TablineGitSignsChange#~" .. git_info.changed .. " ") or ""
+  local removed = git_info.removed and ("%#TablineGitSignsDelete#-" .. git_info.removed .. " ") or ""
   if git_info.added == 0 then
     added = ""
   end
@@ -154,34 +154,51 @@ Statusline = {}
 
 Statusline.active = function()
   return table.concat({
-    "%#TablineSel#",
-    "",
+    "%#Tabline2#",
+    " ",
     file_path_absolute(),
     modified(),
-    "%#StatusLineText#",
+    " ",
+    "%#TabLineGit#",
     "  ",
     vcs(),
+    "%#StatusLine#",
     "%=%#StatusLineExtra#",
+    "%#TabLine1#",
     " 🚀 ",
     lsp(),
-    "%#TablineSel#",
+    " ",
+    "%#Tabline0#",
     " 🖿 ",
+    " ",
     cwd(),
     " ",
-    "%#StatusLineText#",
-    "|",
+    "%#TabLine1#",
+    " ",
     encoding(),
-    "|",
+    " ",
+    "%#TabLine2#",
+    " ",
     fileformat(),
-    "|",
+    " ",
+    "%#TabLine1#",
+    " ",
     lineinfo(),
-    "|",
+    " ",
+    "%#TabLine2#",
+    " ",
     get_character_count(),
     "c",
-    "|",
+    " ",
+    "%#TabLine1#",
+    " ",
     get_word_count(),
     "w",
+    " ",
+    "%#TabLine2#",
+    " ",
     bufnr(),
+    " ",
   })
 end
 
