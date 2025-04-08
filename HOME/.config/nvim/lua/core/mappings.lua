@@ -906,9 +906,9 @@ M.general = {
       function()
         pcall(function()
           local chat = require("CopilotChat")
-          chat.close()
+          -- chat.close()
           chat.open({
-            selection = false,
+            -- selection = false,
           })
         end)
       end,
@@ -918,12 +918,12 @@ M.general = {
       function()
         pcall(function()
           local chat = require("CopilotChat")
-          chat.close()
+          -- chat.close()
           chat.open({
             window = {
               layout = "vertical",
             },
-            selection = false,
+            -- selection = false,
           })
         end)
       end,
@@ -933,14 +933,14 @@ M.general = {
       function()
         pcall(function()
           local chat = require("CopilotChat")
-          chat.close()
+          -- chat.close()
           chat.open({
             window = {
               layout = "horizontal",
               width = 1,
               height = 0.3,
             },
-            selection = false,
+            -- selection = false,
           })
         end)
       end,
@@ -2624,7 +2624,7 @@ M.undotree = {
     -- },
     ["gq"] = {
       function()
-          if vim.g.UndotreeOpened == "1" then
+        if vim.g.UndotreeOpened == "1" then
           if pcall(require, "auto-save") then
             require("auto-save").on()
           end
@@ -2643,6 +2643,21 @@ M.undotree = {
       end,
       "Close undotree",
     },
+  },
+}
+
+M.focus = {
+  plugin = true,
+  n = {
+    ["<leader>Ft"] = {
+      function()
+        if pcall(require, "focus") then
+          vim.cmd("FocusAutoresize")
+          vim.cmd("FocusToggle")
+        end
+      end,
+      "Focus Toggle",
+    }
   },
 }
 

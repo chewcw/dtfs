@@ -607,11 +607,11 @@ local default_plugins = {
     version = "^1.0.0", -- see https://devhints.io/semver, alternatively use '*' to use the latest tagged release
     event = { "InsertLeave", "TextChanged" },
     opts = {
-      enabled = true,                                                      -- start auto-save when the plugin is loaded (i.e. when your package manager loads it)
-      trigger_events = {                                                   -- See :h events
+      enabled = true,                                                          -- start auto-save when the plugin is loaded (i.e. when your package manager loads it)
+      trigger_events = {                                                       -- See :h events
         immediate_save = { "BufLeave", "FocusLost", "QuitPre", "VimSuspend" }, -- vim events that trigger an immediate save
-        defer_save = { "InsertLeave", "TextChanged" },                     -- vim events that trigger a deferred save (saves after `debounce_delay`)
-        cancel_deferred_save = { "InsertEnter" },                          -- vim events that cancel a pending deferred save
+        defer_save = { "InsertLeave", "TextChanged" },                         -- vim events that trigger a deferred save (saves after `debounce_delay`)
+        cancel_deferred_save = { "InsertEnter" },                              -- vim events that cancel a pending deferred save
       },
       -- function that takes the buffer handle and determines whether to save the current buffer or not
       -- return true: if buffer is ok to be saved
@@ -630,9 +630,9 @@ local default_plugins = {
         return true
       end,
       write_all_buffers = false, -- write all buffers when the current one meets `condition`
-      noautocmd = false,      -- do not execute autocmds when saving
-      lockmarks = true,       -- lock marks when saving, see `:h lockmarks` for more details
-      debounce_delay = 1000,  -- delay after which a pending save is executed
+      noautocmd = false,         -- do not execute autocmds when saving
+      lockmarks = true,          -- lock marks when saving, see `:h lockmarks` for more details
+      debounce_delay = 1000,     -- delay after which a pending save is executed
       -- log debug messages to 'auto-save.log' file in neovim cache directory, set to `true` to enable
       debug = false,
     },
@@ -1369,33 +1369,31 @@ local default_plugins = {
 
   {
     "nvim-focus/focus.nvim",
-    event = "BufEnter",
+    cmd = { "FocusEnable" },
     init = function()
-      local ignore_filetypes = { "neo-tree", "trouble", "AvanteInput", "Avante", "AvanteSelectedFiles", "undotree" }
+      local ignore_filetypes = { "neo-tree", "trouble", "AvanteInput", "Avante", "AvanteSelectedFiles",
+        "copilot-chat" }
       local ignore_buftypes = { "nofile", "nowrite", "quickfix", "terminal" }
       local augroup = vim.api.nvim_create_augroup("FocusDisable", { clear = true })
-      vim.api.nvim_create_autocmd("WinEnter", {
+      vim.api.nvim_create_autocmd({ "BufEnter" }, {
         group = augroup,
         callback = function(_)
-          if vim.tbl_contains(ignore_buftypes, vim.bo.buftype) then
-            vim.w.focus_disable = true
+          if vim.tbl_contains(ignore_buftypes, vim.bo.buftype) or
+              vim.tbl_contains(ignore_filetypes, vim.bo.filetype) then
+            if pcall(require, "focus") then
+              vim.cmd("FocusDisable")
+            end
           else
-            vim.w.focus_disable = false
+            if pcall(require, "focus") then
+              vim.cmd("FocusAutoresize")
+            end
           end
         end,
-        desc = "Disable focus.nvim for certain buftypes",
+        desc = "Disable focus for certain buftypes or file types",
       })
-      vim.api.nvim_create_autocmd("FileType", {
-        group = augroup,
-        callback = function(_)
-          if vim.tbl_contains(ignore_filetypes, vim.bo.filetype) then
-            vim.b.focus_disable = true
-          else
-            vim.b.focus_disable = false
-          end
-        end,
-        desc = "Disable focus autoresize for FileType",
-      })
+
+      -- Load mappings
+      require("core.utils").load_mappings("focus")
     end,
     opts = {
       ui = {
