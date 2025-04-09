@@ -67,6 +67,9 @@ M.setup = {
         end
       elseif vim.g.TabCwd == "6" then
         return "🖿 " .. cwd_parent .. "/" .. cwd_name .. " 🗎 " .. buf.name
+      elseif vim.g.TabCwd == "7" then
+        local parent_folder = vim.fn.fnamemodify(buf.path, ":h:t")
+        return parent_folder .. "/" .. buf.name
       else
         return "🗎 " .. buf.name
       end
