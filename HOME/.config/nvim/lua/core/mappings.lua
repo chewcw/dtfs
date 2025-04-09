@@ -727,7 +727,18 @@ M.general = {
     -- ["gF"] = { "<C-w>gf", "open file in new tab" },
 
     -- overloads
-    ["<C-s>"] = { ":LspOverloadsSignature<CR>", "show function overloads" },
+    -- ["<C-s>"] = { ":LspOverloadsSignature<CR>", "show function overloads" },
+    -- ["<C-s>"] = {
+    --   function()
+    --     if pcall(require, "lsp_signature") then
+    --       require("lsp_signature").toggle_float_win()
+    --       return
+    --     end
+    --     vim.lsp.buf.signature_help()
+    --   end,
+    --   "show function overloads",
+    --   { opts = { silent = true } },
+    -- },
 
     ["gV"] = { "`[v`]", "select last pasted content" }, --https://stackoverflow.com/a/4313335
     ["gv"] = { "`<v`>", "select last selected content" },
@@ -1496,14 +1507,19 @@ M.lspconfig = {
 
   -- See `<cmd> :help vim.lsp.*` for documentation on any of the below functions
 
-  i = {
-    ["<C-s>"] = {
-      function()
-        vim.lsp.buf.signature_help()
-      end,
-      "lsp signature_help",
-    },
-  },
+  -- i = {
+  --   ["<C-s>"] = {
+  --     function()
+  --       if pcall(require, "lsp_signature") then
+  --         require("lsp_signature").toggle_float_win()
+  --         return
+  --       end
+  --       vim.lsp.buf.signature_help()
+  --     end,
+  --     "show function overloads",
+  --     { opts = { silent = true } },
+  --   },
+  -- },
 
   n = {
     -- ["gD"] = {
