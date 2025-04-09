@@ -733,14 +733,14 @@ local default_plugins = {
     -- commit = "f1168fe",
   },
 
-  {
-    "Issafalcon/lsp-overloads.nvim",
-    lazy = true,
-    cmd = { "LspOverloadsSignatureAutoToggle" },
-    config = true,
-    -- branch = "main",
-    -- commit = "6b02341",
-  },
+  -- {
+  --   "Issafalcon/lsp-overloads.nvim",
+  --   lazy = true,
+  --   cmd = { "LspOverloadsSignatureAutoToggle" },
+  --   config = true,
+  --   -- branch = "main",
+  --   -- commit = "6b02341",
+  -- },
 
   {
     "sindrets/diffview.nvim",
@@ -1414,6 +1414,25 @@ local default_plugins = {
     config = function(_, opts)
       require("focus").setup(opts)
     end,
+  },
+
+  {
+    "ray-x/lsp_signature.nvim",
+    event = "InsertEnter",
+    opts = {
+      bind = true,
+      hint_prefix = {
+        above = "↙ ",
+        current = "← ",
+        below = "↖ ",
+      },
+      hi_parameter = "LspReferenceTarget",
+      handler_opts = {
+        border = "double",
+      },
+      select_signature_key = "<C-n>",
+      move_cursor_key = "<C-p>",
+    },
   },
 
   -- Only load whichkey after all the gui
