@@ -2677,4 +2677,26 @@ M.focus = {
   },
 }
 
+M.copilot = {
+  plugin = true,
+  i = {
+    ["<A-/>"] = {
+      function()
+        if pcall(require, "copilot") then
+          vim.cmd("Copilot toggle")
+          -- Turn off the virtualtext (to clear the completion text)
+          vim.diagnostic.config({ virtual_text = false })
+          -- Move the cursor so that the virtual text is cleared
+          vim.cmd("normal! a")
+          vim.defer_fn(function()
+            -- Turn the virtual text back on, as other diagnostics may be present
+            vim.diagnostic.config({ virtual_text = true })
+          end, 100)
+        end
+      end,
+      "Toggle copilot completion",
+    },
+  },
+}
+
 return M
