@@ -986,6 +986,9 @@ local default_plugins = {
   {
     "zbirenbaum/copilot.lua",
     lazy = false,
+    init = function()
+      require("core.utils").load_mappings("copilot")
+    end,
     opts = function()
       return {
         suggestion = {
