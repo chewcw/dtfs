@@ -1151,7 +1151,7 @@ local default_plugins = {
 
   {
     "RutaTang/quicknote.nvim",
-    lazy = false,
+    cmd = { "Quicknote" },
     dependencies = {
       "nvim-lua/plenary.nvim",
     },
