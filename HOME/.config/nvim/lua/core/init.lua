@@ -812,6 +812,9 @@ vim.api.nvim_create_autocmd("VimLeavePre", {
       vim.cmd("AvanteFocus")
       vim.cmd("normal gq")
 
+      -- Close neo-tree
+      vim.cmd("Neotree close")
+
       -- Just save to the same session name when open with session
       if vim.g.autosession_session_name ~= nil then
         vim.cmd("SessionSave " .. vim.g.autosession_session_name)
