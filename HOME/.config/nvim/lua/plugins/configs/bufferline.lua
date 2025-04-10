@@ -82,6 +82,20 @@ M.setup = {
         separator = true, -- use a "true" to enable the default, or set your own character
       },
     },
+    custom_areas = {
+      right = function()
+        local result = {}
+        if vim.g.TabAutoCwd == "1" then
+          table.insert(result, { text = " Auto ", link = "StatusLineNormalMode" })
+        end
+
+        if vim.g.TabCwdByProject == "1" then
+          table.insert(result, { text = " Project ", link = "StatusLineNormalMode" })
+        end
+
+        return result
+      end,
+    }
   },
   highlights = {
     buffer_selected = {
