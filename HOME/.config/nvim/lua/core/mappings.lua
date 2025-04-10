@@ -1676,6 +1676,25 @@ M.nvimtree = {
   },
 }
 
+M.neotree = {
+  plugin = true,
+
+  n = {
+    ["<leader>NN"] = {
+      function()
+        vim.cmd("Neotree toggle")
+      end,
+      "Toggle neo-tree",
+    },
+    ["<leader>NF"] = {
+      function()
+        vim.cmd("Neotree focus")
+      end,
+      "Focus neo-tree",
+    },
+  },
+}
+
 M.telescope = {
   plugin = true,
 
