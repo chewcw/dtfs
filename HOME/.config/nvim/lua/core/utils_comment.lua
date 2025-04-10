@@ -28,7 +28,10 @@ M.insert_comment_with_trails = function()
       end
     end
   end)
+
+  vim.lsp.buf.format()
 end
+
 
 M.insert_comment_with_solid_line = function()
   table.unpack = table.unpack or unpack
@@ -49,12 +52,14 @@ M.insert_comment_with_solid_line = function()
     end
     comment_len = string.len(table.unpack(vim.api.nvim_buf_get_lines(0, row - 1, row, {})))
   end
+
+  vim.lsp.buf.format()
 end
 
 M.insert_comment_with_header = function()
   table.unpack = table.unpack or unpack
 
-  vim.ui.input({ prompt = "Insert comment: " }, function(input)
+  vim.ui.input({ prompt = "Insert header comment: " }, function(input)
     if input ~= nil then
       vim.cmd("normal O")
       vim.cmd("normal j")
@@ -74,6 +79,8 @@ M.insert_comment_with_header = function()
       vim.cmd.TComment()
     end
   end)
+
+  vim.lsp.buf.format()
 end
 
 return M
