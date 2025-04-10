@@ -1654,6 +1654,7 @@ local default_plugins = {
       },
       select_signature_key = "<C-n>",
       move_cursor_key = "<C-p>",
+      toggle_key = "<C-z>",
     },
   },
 
