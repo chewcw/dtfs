@@ -200,7 +200,7 @@ end
 M.delete_buffer_create_new = function()
   -- Delete the current buffer
   pcall(function()
-    local current_bufnr = vim.fn.bufnr("%")    -- Get the buffer number of the current buffer
+    local current_bufnr = vim.fn.bufnr("%")      -- Get the buffer number of the current buffer
     local bufname = vim.api.nvim_buf_get_name(0) -- Get the name of the current buffer
     if bufname == "" then
       return
@@ -211,7 +211,7 @@ M.delete_buffer_create_new = function()
 end
 
 M.navigate_to_previous_buffer = function()
-  local current_bufnr = vim.fn.bufnr("%")         -- Get the buffer number of the current buffer
+  local current_bufnr = vim.fn.bufnr("%")          -- Get the buffer number of the current buffer
   local current_directory = vim.fn.expand("%:p:h") -- Get the directory of the current buffer
   local previous_bufnr
 
@@ -234,7 +234,7 @@ end
 
 -- Function to navigate to the next buffer in the same working directory
 M.navigate_to_next_buffer = function()
-  local current_bufnr = vim.fn.bufnr("%")         -- Get the buffer number of the current buffer
+  local current_bufnr = vim.fn.bufnr("%")          -- Get the buffer number of the current buffer
   local current_directory = vim.fn.expand("%:p:h") -- Get the directory of the current buffer
   local next_bufnr
 
@@ -550,6 +550,7 @@ M.open_file_or_buffer_in_tab = function(
     if file == nil or #file == 0 then
       -- if no path on the cursor, then record current buffer to the file variable
       file = {}
+
       local buf_name = vim.api.nvim_buf_get_name(current_buf_nr)
       -- ignore if this is a term
       if buf_name:match("^term:") then
@@ -568,11 +569,6 @@ M.open_file_or_buffer_in_tab = function(
 
       file[1] = vim.fn.fnamemodify(buf_name, ":p")
       file[2], file[3] = vim.api.nvim_win_get_cursor(0)
-      -- if there are multiple windows in current screen,
-      -- close current window as we are opening current buffer in new tab anyway
-      if vim.fn.winnr("$") > 1 then
-        vim.api.nvim_win_close(current_win_id, false)
-      end
     end
 
     file_path = file[1]
@@ -599,8 +595,7 @@ M.open_file_or_buffer_in_tab = function(
       goto continue
     end
 
-    if vim.g.TabAutoCwd == "1" then
-      -- auto cwd, open file in new tab with its cwd
+    if vim.g.TabAutoCwd == "1" and vim.g.TabCwdByProject == "0" then -- Auto CWD, open file in new tab with its cwd
       local parent_dir = vim.fn.fnamemodify(file_path, ":p:h")
       if dont_care_just_open_in_new_tab then
         command = ":q! | "
@@ -647,114 +642,120 @@ M.open_file_or_buffer_in_tab = function(
         print("Parent dir not found")
         return
       end
-
-      ::next::
-      if not found_tab then
-        command = ":q! | tabnew " .. file_path
-      end
-    else
+    elseif vim.g.TabAutoCwd == "0" and vim.g.TabCwdByProject == "1" then -- Auto CWD by project
       if dont_care_just_open_in_new_tab then
         command = ":q! | "
         goto next
       end
-      -- Not auto cwd and not cwd by project, find if there is any tab opening that file
-      if vim.g.TabCwdByProject ~= "1" then
-        if selected_entry ~= nil then -- This is calling from Telescope picker
-          vim.api.nvim_command(":q!")
+      -- Not auto cwd but is cwd by project, find if that file is inside any of
+      -- the tab's cwd folder tree or not
+      local matched_tab_working_dirs = {}
+      local matched_tab_ids = {}
+      -- Get working directory of current window in current tab
+      local original_tabpage = vim.api.nvim_get_current_tabpage()
+      for _, tid in ipairs(vim.api.nvim_list_tabpages()) do
+        local tabnr_ordinal = vim.api.nvim_tabpage_get_number(tid)
+        -- Temporarily switch to the tab to get its cwd
+        vim.api.nvim_set_current_tabpage(tid)
+
+        local win_num = vim.fn.tabpagewinnr(tabnr_ordinal)
+        local working_directory = vim.fn.getcwd(win_num, tabnr_ordinal)
+        local file_path_is_inside_folder_tree = M.is_buffer_in_folder_tree(working_directory, file_path)
+        if file_path_is_inside_folder_tree then
+          -- The reason to not return from this loop immediately is because, say I
+          -- have tab 1 working directory: A/B/C, tab 2 working directory: A/B, and I
+          -- open a file in the A/B/C/ working directory, I want the file to be opened in the closest
+          -- parent directory tab, which is tab 1, to do that, I need to iterate every
+          -- tab and record its working directory, and do the next step after this
+          -- iteration, if I don't do so, the file might get opened in tab 2.
+          table.insert(matched_tab_working_dirs, working_directory)
+          table.insert(matched_tab_ids, tabnr_ordinal)
         end
-        -- First, look for currently opened or active window in each tab (cwd)
-        for _, tid in ipairs(vim.api.nvim_list_tabpages()) do
-          local tabnr_ordinal = vim.api.nvim_tabpage_get_number(tid)
-          local win = vim.api.nvim_tabpage_get_win(tid)
-          local buf = vim.api.nvim_win_get_buf(win)
-          local buf_name = vim.api.nvim_buf_get_name(buf)
-          if buf_name == file_path then
-            if vim.g.toggle_term_opened then
-              command = ":q | " -- first need to close this toggleterm
-            end
-            command = command .. "tabnext " .. tabnr_ordinal .. " | edit " .. file_path
-            found_tab = true
-            goto next
+      end
+      -- Restore original tab
+      vim.api.nvim_set_current_tabpage(original_tabpage)
+
+      if #matched_tab_working_dirs > 0 and #matched_tab_ids > 0 then
+        local longest_directory_name = ""
+        local target_tab_id = 1
+        for i, matched_tab_working_dir in ipairs(matched_tab_working_dirs) do
+          if #matched_tab_working_dir > #longest_directory_name then
+            longest_directory_name = matched_tab_working_dir
+            target_tab_id = matched_tab_ids[i]
           end
         end
-
-        -- If there is no active window opened for all tabs,
-        -- look for the all open buffers in each tab instead (cwd)
-        -- for _, tid in ipairs(vim.api.nvim_list_tabpages()) do
-        --   local tabnr_ordinal = vim.api.nvim_tabpage_get_number(tid)
-        --   -- Temporarily switch to the tab to get its cwd
-        --   vim.api.nvim_set_current_tabpage(tid)
-        --
-        --   local buffers = require("plugins.configs.buffer_utils").get_buffers_in_cwd()
-        --   -- Iterate each buffers in that cwd
-        --   for _, buf in ipairs(buffers) do
-        --     if file_path == buf[2] then
-        --       if vim.g.toggle_term_opened then
-        --         command = ":q | " -- first need to close this toggleterm
-        --       end
-        --       command = "tabnext" .. tabnr_ordinal .. "| edit " .. file_path
-        --       found_tab = true
-        --       goto next
-        --     end
-        --   end
-        --   -- The file is in the same tab cwd, just open the file in this tab
-        --   if vim.g.toggle_term_opened then
-        --     command = ":q | " -- first need to close this toggleterm
-        --   end
-        --   command = command .. "tabnext" .. tabnr_ordinal .. "| edit " .. file_path
-        --   found_tab = true
-        --   goto next
-        -- end
-      else
-        -- Not auto cwd but is cwd by project, find if that file is inside any of
-        -- the tab's cwd folder tree or not
-        local matched_tab_working_dirs = {}
-        local matched_tab_ids = {}
-        for _, tid in ipairs(vim.api.nvim_list_tabpages()) do
-          local tabnr_ordinal = vim.api.nvim_tabpage_get_number(tid)
-          -- Temporarily switch to the tab to get its cwd
-          vim.api.nvim_set_current_tabpage(tid)
-
-          local win_num = vim.fn.tabpagewinnr(tabnr_ordinal)
-          local working_directory = vim.fn.getcwd(win_num, tabnr_ordinal)
-          local file_path_is_inside_folder_tree =
-              require("plugins.configs.buffer_utils").is_buffer_in_folder_tree(working_directory, file_path)
-          if file_path_is_inside_folder_tree then
-            -- The reason to not return from this loop immediately is because, say I
-            -- have tab 1 working directory: A/B/C, tab 2 working directory: A/B, and I
-            -- open a file in A/B/C/file, I want the file to be opened in the closest
-            -- parent directory tab, which is tab 1, to do that, I need to iterate every
-            -- tab and record its working directory.
-            table.insert(matched_tab_working_dirs, working_directory)
-            table.insert(matched_tab_ids, tabnr_ordinal)
+        if vim.g.toggle_term_opened then
+          if vim.g.toggle_term_direction then
+            require("configs.toggleterm_utils").toggle_term(vim.g.toggle_term_direction)
+          else
+            command = ":q | " -- first need to close this toggleterm
           end
         end
-
-        if #matched_tab_working_dirs > 0 and #matched_tab_ids > 0 then
-          local longest_directory_name = ""
-          local target_tab_id = 1
-          for i, matched_tab_working_dir in ipairs(matched_tab_working_dirs) do
-            if #matched_tab_working_dir > #longest_directory_name then
-              longest_directory_name = matched_tab_working_dir
-              target_tab_id = matched_tab_ids[i]
-            end
-          end
+        -- If the current tab page has multiple windows, close the current window,
+        -- beause we are opening the file in new tab anyway
+        local window_count_in_current_tab = vim.fn.tabpagewinnr(vim.fn.tabpagenr(), "$")
+        print(window_count_in_current_tab)
+        if window_count_in_current_tab > 1 then
+          command = ":q! | "
+        end
+        command = command .. "tabnext" .. target_tab_id .. "| edit " .. file_path
+        found_tab = true
+      end
+    else -- Not auto cwd and not cwd by project, find if there is any tab that is opening that file currently
+      if dont_care_just_open_in_new_tab then
+        command = ":q! | "
+        goto next
+      end
+      if selected_entry ~= nil then -- This is calling from Telescope picker
+        vim.api.nvim_command(":q!")
+      end
+      -- First, look for currently opened or active window in each tab (cwd)
+      for _, tid in ipairs(vim.api.nvim_list_tabpages()) do
+        local tabnr_ordinal = vim.api.nvim_tabpage_get_number(tid)
+        local win = vim.api.nvim_tabpage_get_win(tid)
+        local buf = vim.api.nvim_win_get_buf(win)
+        local buf_name = vim.api.nvim_buf_get_name(buf)
+        if buf_name == file_path then
           if vim.g.toggle_term_opened then
-            if vim.g.toggle_term_direction then
-              require("configs.toggleterm_utils").toggle_term(vim.g.toggle_term_direction)
-            else
-              command = ":q | " -- first need to close this toggleterm
-            end
+            command = ":q | " -- first need to close this toggleterm
           end
-          command = command .. "tabnext" .. target_tab_id .. "| edit " .. file_path
+          command = command .. "tabnext " .. tabnr_ordinal .. " | edit " .. file_path
           found_tab = true
+          goto next
         end
       end
 
-      ::next::
-      if not found_tab then
-        command = "tabnew " .. file_path
-      end
+      -- If there is no active window opened for all tabs,
+      -- look for the all open buffers in each tab instead (cwd)
+      -- for _, tid in ipairs(vim.api.nvim_list_tabpages()) do
+      --   local tabnr_ordinal = vim.api.nvim_tabpage_get_number(tid)
+      --   -- Temporarily switch to the tab to get its cwd
+      --   vim.api.nvim_set_current_tabpage(tid)
+      --
+      --   local buffers = require("plugins.configs.buffer_utils").get_buffers_in_cwd()
+      --   -- Iterate each buffers in that cwd
+      --   for _, buf in ipairs(buffers) do
+      --     if file_path == buf[2] then
+      --       if vim.g.toggle_term_opened then
+      --         command = ":q | " -- first need to close this toggleterm
+      --       end
+      --       command = "tabnext" .. tabnr_ordinal .. "| edit " .. file_path
+      --       found_tab = true
+      --       goto next
+      --     end
+      --   end
+      --   -- The file is in the same tab cwd, just open the file in this tab
+      --   if vim.g.toggle_term_opened then
+      --     command = ":q | " -- first need to close this toggleterm
+      --   end
+      --   command = command .. "tabnext" .. tabnr_ordinal .. "| edit " .. file_path
+      --   found_tab = true
+      --   goto next
+      -- end
+    end
+    ::next::
+    if not found_tab then
+      command = "tabnew " .. file_path
     end
   else
     print("Invalid file path")
