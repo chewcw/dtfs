@@ -486,6 +486,10 @@ end, { nargs = "*" })
 -- Only useful when use with TabAutoCwd == off
 -- ----------------------------------------------------------------------------
 vim.api.nvim_create_user_command("TabCwdByProject", function()
+  if vim.g.TabAutoCwd == "1" then
+    vim.g.TabAutoCwd = "0" -- This TabCwdByProject only make sense if TabAutoCwd is off
+  end
+
   if vim.g.TabAutoCwd == "0" then
     if vim.g.TabCwdByProject == nil or vim.g.TabCwdByProject == "0" then
       vim.g.TabCwdByProject = "1"
