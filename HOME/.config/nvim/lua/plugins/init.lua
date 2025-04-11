@@ -1151,32 +1151,41 @@ local default_plugins = {
 
   {
     "RutaTang/quicknote.nvim",
-    cmd = { "Quicknote" },
+    lazy = true,
+    cmd = { "QuicknoteEnable" },
     dependencies = {
       "nvim-lua/plenary.nvim",
     },
-    init = function()
-      vim.api.nvim_create_user_command("Quicknote", function(opts)
+    opts = function()
+      return {
+        mode = "portable",
+        sign = "🗈",
+        filetype = "md",
+        git_branch_recognizable = true,
+      }
+    end,
+    config = function(_, opts)
+      vim.api.nvim_create_user_command("Quicknote", function(o)
         if pcall(require, "quicknote") then
-          if opts.args == "new cwd" then
+          if o.args == "new cwd" then
             require("quicknote").NewNoteAtCWD()
-          elseif opts.args == "open cwd" then
+          elseif o.args == "open cwd" then
             require("quicknote").OpenNoteAtCWD()
-          elseif opts.args == "delete cwd" then
+          elseif o.args == "delete cwd" then
             require("quicknote").DeleteNoteAtCWD()
           end
 
-          if opts.args == "new line" or opts.args == "new" then
+          if o.args == "new line" or o.args == "new" then
             require("quicknote").NewNoteAtCurrentLine()
-          elseif opts.args == "open line" or opts.args == "open" then
+          elseif o.args == "open line" or o.args == "open" then
             require("quicknote").OpenNoteAtCurrentLine()
-          elseif opts.args == "delete line" or opts.args == "delete" then
+          elseif o.args == "delete line" or o.args == "delete" then
             require("quicknote").DeleteNoteAtCurrentLine()
           end
 
-          if opts.args == "list" then
+          if o.args == "list" then
             require("quicknote").ListNotesForCurrentBuffer()
-          elseif opts.args == "list cwd" then
+          elseif o.args == "list cwd" then
             require("quicknote").ListNotesForCWD()
           end
         end
@@ -1187,16 +1196,7 @@ local default_plugins = {
           require("quicknote").ShowNoteSigns()
         end,
       })
-    end,
-    opts = function()
-      return {
-        mode = "portable",
-        sign = "🗈",
-        filetype = "md",
-        git_branch_recognizable = true,
-      }
-    end,
-    config = function(_, opts)
+
       require("core.utils").load_mappings("quicknote")
       require("quicknote").setup(opts)
     end,
