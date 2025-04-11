@@ -1023,6 +1023,14 @@ M.general = {
       end,
       "Close the window",
     },
+
+    ["<leader>Q"] = {
+      function()
+        -- The noautocmd is to skip the session save prompt, see VimLeavePre autocmd implementation
+        vim.cmd("noautocmd qa!")
+      end,
+      "Get me out of here QUICKLY!",
+    },
   },
 
   v = {
