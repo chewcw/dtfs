@@ -139,7 +139,7 @@ M.opts = {
     },
     CustomCommitter = {
       prompt =
-        "> #gitlog\n\n> #git:staged\n\nUse gitlog as reference of the commit title format, if there are relevant commits found in gitlog, for example there are similar changes, please mention `correlated to commit` followed by the relevant short commit hash, and then write the commit message for the current changes. Make sure the title has maximum 50 characters and message is wrapped at 72 characters. Wrap the whole message in code block with language gitcommit.",
+        "> #gitlog\n\n> #git:staged\n\nUse gitlog as reference of the commit title format, if there are relevant commits found in gitlog, for example there are similar changes, please mention `correlated to commit` followed by the relevant short commit hash, if none found, just omit it, and then write the commit message for the current changes. Make sure the title has maximum 50 characters and message is wrapped at 72 characters. Wrap the whole message in code block with language gitcommit.",
     },
   },
   contexts = {
