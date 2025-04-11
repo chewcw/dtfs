@@ -513,6 +513,16 @@ M.open_file_or_buffer_in_tab = function(
     selected_entry,
     telescope_callback
 )
+  -- Ignore if this is certain file type or buffer type
+  local file_type = vim.api.nvim_get_option_value("filetype", { buf = 0 })
+  local buf_type = vim.api.nvim_get_option_value("buftype", { buf = 0 })
+  if file_type == "copilot-chat" then
+    return
+  end
+  if buf_type == "nofile" then
+    return
+  end
+
   local vimfetch = require("core.utils_vimfetch")
 
   if dont_care_just_open_in_new_tab == nil then
