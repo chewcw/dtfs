@@ -44,7 +44,7 @@ M.setup = {
       end
 
       if buf.path:match("fugitive://") or buf.path:match("/tmp/nvim.ccw/") then
-        return " " .. vim.fn.fnamemodify(working_directory, ":t")
+        return " " .. cwd_parent .. "/" .. cwd_name
       end
 
       if vim.g.TabCwd == "1" then -- show tab's cwd (see user command "TabCwd")
