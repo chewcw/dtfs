@@ -532,9 +532,13 @@ M.open_file_or_buffer_in_tab = function(
   local col = 0
   local found_tab = false
   local current_buf_nr = vim.api.nvim_get_current_buf()
-  local current_win_id = vim.fn.bufwinid(current_buf_nr)
   local file_path = ""
   local current_tab_tabnr_ordinal = vim.api.nvim_tabpage_get_number(0)
+
+  -- If the CopilotChat is installed
+  if pcall(require, "CopilotChat") then
+    vim.api.nvim_command("CopilotChatClose")
+  end
 
   -- This is calling from a Telescope picker
   if selected_entry ~= nil then
