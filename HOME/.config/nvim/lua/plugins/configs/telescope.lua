@@ -192,7 +192,7 @@ M.options = {
     },
   },
 
-  extensions_list = { "file_browser", "workspaces", "ui-select", "fzf", "quicknote" },
+  extensions_list = { "file_browser", "workspaces", "ui-select", "fzf" },
 
   extensions = {
     file_browser = {
@@ -356,9 +356,9 @@ M.options = {
       path_hl = "String",
     },
 
-    quicknote = {
-      defaultScope = "CWD",
-    },
+    -- quicknote = {
+    --   defaultScope = "CWD",
+    -- },
   },
 
   pickers = {
