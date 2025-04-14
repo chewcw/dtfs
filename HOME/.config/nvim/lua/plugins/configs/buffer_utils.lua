@@ -114,11 +114,33 @@ M.force_delete_buffer_keep_tab = function(bufnr)
           -- If there is any other scratch buffer, if yes use that scratch buffer.
           -- This is to prevent too many scratch buffer opened.
           if empty_scratch_buffers ~= nil and #empty_scratch_buffers >= 1 then
-            -- Set the buffer to the first scratch buffer in the list
-            scratch = empty_scratch_buffers[1]
-            vim.api.nvim_win_set_buf(win, scratch)
-            -- There are none scratch buffers in the memory
-          else
+            -- Check if any scratch buffer is empty, if yes use that scratch buffer, otherwise create a new one
+            for _, scratch_bufnr in ipairs(empty_scratch_buffers) do
+              -- Check if the buffer is empty
+              lines = vim.api.nvim_buf_get_lines(scratch_bufnr, 0, -1, false)
+              is_empty = true
+              for _, line in ipairs(lines) do
+                if line ~= "" then
+                  is_empty = false
+                  break
+                end
+              end
+
+              if is_empty then
+                scratch = scratch_bufnr
+                -- Set the buffer to that empty scratch buffer
+                vim.api.nvim_win_set_buf(win, scratch)
+                break
+              else -- Create new scratch buffer
+                scratch = vim.api.nvim_create_buf(true, true)
+                vim.api.nvim_set_option_value("buftype", "nofile", { buf = scratch })
+                vim.api.nvim_set_option_value("bufhidden", "wipe", { buf = scratch })
+                vim.api.nvim_set_option_value("swapfile", false, { buf = scratch })
+                -- Set the buffer to that scratch buffer
+                vim.api.nvim_win_set_buf(win, scratch)
+              end
+            end
+          else -- There are none scratch buffers in the memory
             -- Create new scratch buffer
             scratch = vim.api.nvim_create_buf(true, true)
             vim.api.nvim_set_option_value("buftype", "nofile", { buf = scratch })
