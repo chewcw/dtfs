@@ -685,6 +685,18 @@ local default_plugins = {
   },
 
   {
+    "nvim-treesitter/nvim-treesitter-textobjects",
+    lazy = false,
+    opts = function()
+      return require("plugins.configs.others").treesitter_textobjects
+    end,
+    config = function(_, opts)
+      require("core.utils").load_mappings("nvim_treesitter_textobjects")
+      require("nvim-treesitter.configs").setup(opts)
+    end
+  },
+
+  {
     "tpope/vim-fugitive",
     lazy = false,
     -- branch = "master",
@@ -943,7 +955,6 @@ local default_plugins = {
     "folke/trouble.nvim",
     lazy = false,
     init = function()
-      require("core.utils").load_mappings("trouble")
     end,
     opts = function()
       return require("plugins.configs.others").trouble
