@@ -2726,4 +2726,68 @@ M.copilot = {
   },
 }
 
+M.nvim_treesitter_textobjects = {
+  plugin = true,
+  -- https://github.com/nvim-treesitter/nvim-treesitter-textobjects
+  -- Make the movements repeateable like `;` and `,`
+  n = {
+    -- [";"] = {
+    --   function()
+    --     local ts_repeat_move = require("nvim-treesitter.textobjects.repeatable_move")
+    --     if ts_repeat_move then
+    --       return ts_repeat_move.repeat_last_move_next()
+    --     end
+    --   end,
+    -- },
+    -- [","] = {
+    --   function()
+    --     local ts_repeat_move = require("nvim-treesitter.textobjects.repeatable_move")
+    --     if ts_repeat_move then
+    --       return ts_repeat_move.repeat_last_move_previous()
+    --     end
+    --   end,
+    -- },
+    -- ["f"] = {
+    --   function()
+    --     local ts_repeat_move = require("nvim-treesitter.textobjects.repeatable_move")
+    --     if ts_repeat_move then
+    --       return ts_repeat_move.builtin_f_expr()
+    --     end
+    --   end,
+    --   "",
+    --   { expr = true }
+    -- },
+    -- ["F"] = {
+    --   function()
+    --     local ts_repeat_move = require("nvim-treesitter.textobjects.repeatable_move")
+    --     if ts_repeat_move then
+    --       return ts_repeat_move.builtin_F_expr()
+    --     end
+    --   end,
+    --   "",
+    --   { expr = true }
+    -- },
+    -- ["t"] = {
+    --   function()
+    --     local ts_repeat_move = require("nvim-treesitter.textobjects.repeatable_move")
+    --     if ts_repeat_move then
+    --       return ts_repeat_move.builtin_t_expr()
+    --     end
+    --   end,
+    --   "",
+    --   { expr = true }
+    -- },
+    -- ["T"] = {
+    --   function()
+    --     local ts_repeat_move = require("nvim-treesitter.textobjects.repeatable_move")
+    --     if ts_repeat_move then
+    --       return ts_repeat_move.builtin_T_expr()
+    --     end
+    --   end,
+    --   "",
+    --   { expr = true }
+    -- },
+  },
+}
+
 return M
