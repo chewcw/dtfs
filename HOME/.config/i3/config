@@ -74,9 +74,11 @@ bindsym $mod+Shift+Right move right
 bindsym $mod+Tab workspace back_and_forth
 bindsym $mod+Shift+Tab workspace prev
 
-# swap with adjacent window and maintain the original window size
+# swap with adjacent window (left right) and maintain the original window size
 bindsym $mod+a mark A; focus left; swap container with mark A; unmark A;
 bindsym $mod+s mark A; focus right; swap container with mark A; unmark A;
+# swap with adjacent window (up down) and maintain the original window size
+bindsym $mod+x mark A; focus down; swap container with mark A; unmark A;
 
 # split in horizontal orientation
 # bindsym $mod+b split h
