@@ -32,6 +32,8 @@ local function file_path_absolute()
     return fname .. " [Scratch]"
   elseif fname == "" and vim.bo.buftype == "nofile" then
     return "[Scratch]"
+  elseif fname:match("^fugitive://", 1) then
+    return fname .. " [Fugitive]"
   else
     return fname
   end
