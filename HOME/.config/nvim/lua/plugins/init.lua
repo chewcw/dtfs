@@ -239,25 +239,28 @@ local default_plugins = {
     opts = {
       mappings = {
         ["<space>"] = {
-            "toggle_node",
-            nowait = false, -- disable `nowait` if you have existing combos starting with this char that you want to use
+          "toggle_node",
+          nowait = false,   -- disable `nowait` if you have existing combos starting with this char that you want to use
         },
         ["<2-LeftMouse>"] = "open",
         ["<cr>"] = "open",
         ["L"] = "open",
         -- ["<cr>"] = { "open", config = { expand_nested_files = true } }, -- expand nested file takes precedence
         ["<esc>"] = "cancel", -- close preview or floating neo-tree window
-        ["\\p"] = { "toggle_preview", config = {
-          use_float = true,
-          use_image_nvim = false,
-          -- title = "Neo-tree Preview", -- You can define a custom title for the preview floating window.
-        } },
+        ["\\p"] = {
+          "toggle_preview",
+          config = {
+            use_float = true,
+            use_image_nvim = false,
+            -- title = "Neo-tree Preview", -- You can define a custom title for the preview floating window.
+          }
+        },
         -- ["<C-f>"] = { "scroll_preview", config = {direction = -10} },
         -- ["<C-b>"] = { "scroll_preview", config = {direction = 10} },
         ["<C-f>"] = {},
         ["<C-b>"] = {},
-        ["<A-d>"] = { "scroll_preview", config = {direction = -10} },
-        ["<A-u>"] = { "scroll_preview", config = {direction = 10} },
+        ["<A-d>"] = { "scroll_preview", config = { direction = -10 } },
+        ["<A-u>"] = { "scroll_preview", config = { direction = 10 } },
         ["<Tab>"] = "focus_preview",
         -- ["l"] = "focus_preview",
         -- ["S"] = "open_split",
@@ -339,7 +342,7 @@ local default_plugins = {
             -- ["b"] = "rename_basename",
             ["b"] = {},
             -- ["o"] = { "show_help", nowait=false, config = { title = "Order by", prefix_key = "o" }},
-            ["g?"] = { "show_help", nowait=false, config = { title = "Order by", prefix_key = "o" }},
+            ["g?"] = { "show_help", nowait = false, config = { title = "Order by", prefix_key = "o" } },
             -- ["oc"] = { "order_by_created", nowait = false },
             -- ["od"] = { "order_by_diagnostics", nowait = false },
             -- ["og"] = { "order_by_git_status", nowait = false },
@@ -365,74 +368,77 @@ local default_plugins = {
             ["gq"] = "close_window",
             ["L"] = "open",
             ["H"] = "close_node",
-          ["<space>"] = {
+            ["<space>"] = {
               "toggle_node",
               nowait = false, -- disable `nowait` if you have existing combos starting with this char that you want to use
-          },
-          ["<2-LeftMouse>"] = "open",
-          ["<cr>"] = "open",
-          -- ["<cr>"] = { "open", config = { expand_nested_files = true } }, -- expand nested file takes precedence
-          ["<esc>"] = "cancel", -- close preview or floating neo-tree window
-          ["\\p"] = { "toggle_preview", config = {
-            use_float = true,
-            use_image_nvim = false,
-            -- title = "Neo-tree Preview", -- You can define a custom title for the preview floating window.
-          } },
-          -- ["<C-f>"] = { "scroll_preview", config = {direction = -10} },
-          -- ["<C-b>"] = { "scroll_preview", config = {direction = 10} },
-          ["<C-f>"] = {},
-          ["<C-b>"] = {},
-          ["<A-d>"] = { "scroll_preview", config = {direction = -10} },
-          ["<A-u>"] = { "scroll_preview", config = {direction = 10} },
-          ["<Tab>"] = "focus_preview",
-          -- ["l"] = "focus_preview",
-          -- ["S"] = "open_split",
-          ["l"] = {},
-          ["S"] = {},
-          ["<A-S-_>"] = "open_split",
-          -- ["S"] = "split_with_window_picker",
-          -- ["s"] = "open_vsplit",
-          ["s"] = {},
-          ["<A-S-\\>"] = "open_vsplit",
-          -- ["sr"] = "open_rightbelow_vs",
-          -- ["sl"] = "open_leftabove_vs",
-          -- ["s"] = "vsplit_with_window_picker",
-          -- ["t"] = "open_tabnew",
-          ["sr"] = {},
-          ["sl"] = {},
-          ["t"] = {},
-          ["<A-e>"] = "open_tabnew",
-          -- ["<cr>"] = "open_drop",
-          -- ["t"] = "open_tab_drop",
-          -- ["w"] = "open_with_window_picker",
-          -- ["C"] = "close_node",
-          ["w"] = {},
-          ["C"] = {},
-          -- ["z"] = "close_all_nodes",
-          --["Z"] = "expand_all_nodes",
-          ["z"] = {},
-          ["Z"] = {},
-          ["R"] = "refresh",
-          ["a"] = {
-            "add",
-            -- some commands may take optional config options, see `:h neo-tree-mappings` for details
-            config = {
-              show_path = "none", -- "none", "relative", "absolute"
-            }
-          },
-          ["A"] = "add_directory", -- also accepts the config.show_path and config.insert_as options.
-          ["d"] = "delete",
-          ["r"] = "rename",
-          ["y"] = "copy_to_clipboard",
-          ["x"] = "cut_to_clipboard",
-          ["p"] = "paste_from_clipboard",
-          ["c"] = "copy", -- takes text input for destination, also accepts the config.show_path and config.insert_as options
-          ["m"] = "move", -- takes text input for destination, also accepts the config.show_path and config.insert_as options
-          ["e"] = "toggle_auto_expand_width",
-          -- ["q"] = "close_window",
-          ["?"] = "show_help",
-          ["<"] = "prev_source",
-          [">"] = "next_source",
+            },
+            ["<2-LeftMouse>"] = "open",
+            ["<cr>"] = "open",
+            -- ["<cr>"] = { "open", config = { expand_nested_files = true } }, -- expand nested file takes precedence
+            ["<esc>"] = "cancel", -- close preview or floating neo-tree window
+            ["\\p"] = {
+              "toggle_preview",
+              config = {
+                use_float = true,
+                use_image_nvim = false,
+                -- title = "Neo-tree Preview", -- You can define a custom title for the preview floating window.
+              }
+            },
+            -- ["<C-f>"] = { "scroll_preview", config = {direction = -10} },
+            -- ["<C-b>"] = { "scroll_preview", config = {direction = 10} },
+            ["<C-f>"] = {},
+            ["<C-b>"] = {},
+            ["<A-d>"] = { "scroll_preview", config = { direction = -10 } },
+            ["<A-u>"] = { "scroll_preview", config = { direction = 10 } },
+            ["<Tab>"] = "focus_preview",
+            -- ["l"] = "focus_preview",
+            -- ["S"] = "open_split",
+            ["l"] = {},
+            ["S"] = {},
+            ["<A-S-_>"] = "open_split",
+            -- ["S"] = "split_with_window_picker",
+            -- ["s"] = "open_vsplit",
+            ["s"] = {},
+            ["<A-S-\\>"] = "open_vsplit",
+            -- ["sr"] = "open_rightbelow_vs",
+            -- ["sl"] = "open_leftabove_vs",
+            -- ["s"] = "vsplit_with_window_picker",
+            -- ["t"] = "open_tabnew",
+            ["sr"] = {},
+            ["sl"] = {},
+            ["t"] = {},
+            ["<A-e>"] = "open_tabnew",
+            -- ["<cr>"] = "open_drop",
+            -- ["t"] = "open_tab_drop",
+            -- ["w"] = "open_with_window_picker",
+            -- ["C"] = "close_node",
+            ["w"] = {},
+            ["C"] = {},
+            -- ["z"] = "close_all_nodes",
+            --["Z"] = "expand_all_nodes",
+            ["z"] = {},
+            ["Z"] = {},
+            ["R"] = "refresh",
+            ["a"] = {
+              "add",
+              -- some commands may take optional config options, see `:h neo-tree-mappings` for details
+              config = {
+                show_path = "none", -- "none", "relative", "absolute"
+              }
+            },
+            ["A"] = "add_directory", -- also accepts the config.show_path and config.insert_as options.
+            ["d"] = "delete",
+            ["r"] = "rename",
+            ["y"] = "copy_to_clipboard",
+            ["x"] = "cut_to_clipboard",
+            ["p"] = "paste_from_clipboard",
+            ["c"] = "copy", -- takes text input for destination, also accepts the config.show_path and config.insert_as options
+            ["m"] = "move", -- takes text input for destination, also accepts the config.show_path and config.insert_as options
+            ["e"] = "toggle_auto_expand_width",
+            -- ["q"] = "close_window",
+            ["?"] = "show_help",
+            ["<"] = "prev_source",
+            [">"] = "next_source",
           },
           fuzzy_finder_mappings = { -- define keymaps for filter popup window in fuzzy_finder_mode
             ["<down>"] = "move_cursor_down",
@@ -1496,6 +1502,7 @@ local default_plugins = {
           close_from_input = {
             normal = "gq",
           },
+          remove_file = "<S-d>",
         },
       },
       windows = {
