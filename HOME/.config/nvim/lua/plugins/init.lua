@@ -1505,9 +1505,14 @@ local default_plugins = {
         ask = {
           start_insert = false,
         },
+        sidebar_header = {
+          rounded = false,
+          align = "left",
+        },
       },
       behaviour = {
         auto_set_keymaps = false,
+        auto_set_highlight_group = false,
       },
       hints = { enabled = false },
       dual_boost = {
@@ -1519,6 +1524,14 @@ local default_plugins = {
         timeout = 60000, -- Timeout in milliseconds
       },
     },
+    init = function()
+      if pcall(require, "avante") then
+        -- Hack, not sure if can be achieved through config, I don't want to show the icons in the title
+        require("avante.utils").icons_enabled = function()
+          return false
+        end
+      end
+    end,
     build = "make",
     dependencies = {
       "MunifTanjim/nui.nvim",
