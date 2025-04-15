@@ -145,6 +145,8 @@ M.treesitter_textobjects = {
         ["af"] = "@function.outer",
         ["if"] = "@function.inner",
         ["ac"] = "@class.outer",
+        ["i,"] = "@parameter.inner",
+        ["a,"] = "@parameter.outer",
         -- You can optionally set descriptions to the mappings (used in the desc parameter of
         -- nvim_buf_set_keymap) which plugins like which-key display
         ["ic"] = { query = "@class.inner", desc = "Select inner part of a class region" },
@@ -177,6 +179,15 @@ M.treesitter_textobjects = {
       -- * selection_mode: eg 'v'
       -- and should return true or false
       include_surrounding_whitespace = true,
+    },
+    swap = {
+      enable = true,
+      swap_next = {
+        ["<leader>wa"] = "@parameter.inner",
+      },
+      swap_previous = {
+        ["<leader>wA"] = "@parameter.inner",
+      },
     },
     move = {
       enable = true,
