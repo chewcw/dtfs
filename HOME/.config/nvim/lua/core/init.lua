@@ -429,6 +429,14 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
   end,
 })
 
+-- AvanteInput filetype
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "AvanteInput",
+  callback = function()
+    vim.opt_local.textwidth = 0
+  end,
+})
+
 -- ----------------------------------------------------------------------------
 -- Set expandtab for all buffers
 -- ----------------------------------------------------------------------------
