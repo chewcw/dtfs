@@ -198,7 +198,7 @@ M.general = {
         local buf = vim.api.nvim_create_buf(false, true)
         vim.opt_local.textwidth = 0
         vim.bo[buf].buftype = "nofile"
-        vim.bo[buf].bufhidden = "hide"
+        vim.bo[buf].bufhidden = "wipe"
         vim.bo[buf].swapfile = false
         vim.api.nvim_win_set_buf(0, buf)
       end,
@@ -209,7 +209,7 @@ M.general = {
         local buf = vim.api.nvim_create_buf(false, true)
         vim.opt_local.textwidth = 0
         vim.bo[buf].buftype = "nofile"
-        vim.bo[buf].bufhidden = "hide"
+        vim.bo[buf].bufhidden = "wipe"
         vim.bo[buf].swapfile = false
         vim.cmd("vsplit")
         vim.api.nvim_win_set_buf(0, buf)
@@ -221,7 +221,7 @@ M.general = {
         local buf = vim.api.nvim_create_buf(false, true)
         vim.opt_local.textwidth = 0
         vim.bo[buf].buftype = "nofile"
-        vim.bo[buf].bufhidden = "hide"
+        vim.bo[buf].bufhidden = "wipe"
         vim.bo[buf].swapfile = false
         vim.cmd("split")
         vim.api.nvim_win_set_buf(0, buf)
