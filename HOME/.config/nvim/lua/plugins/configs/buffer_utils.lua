@@ -667,6 +667,7 @@ M.open_file_or_buffer_in_tab = function(
             command = ":q | " -- first need to close this toggleterm
           end
           command = command .. "tabnew " .. file_path
+          goto continue
         end
         vim.g.new_tab_buf_cwd = vim.fn.fnamemodify(file_path, ":h")
       else
