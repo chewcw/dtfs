@@ -45,11 +45,6 @@ M.force_delete_buffer_create_new = function()
       end
     else
       -- Buffer is not modified, just delete it
-      local bufname = vim.api.nvim_buf_get_name(0) -- Get the name of the current buffer
-      if bufname == "" then
-        M.force_delete_buffer_keep_tab(current_bufnr)
-        return true
-      end
       M.force_delete_buffer_keep_tab(current_bufnr)
       return true
     end
@@ -648,9 +643,9 @@ M.open_file_or_buffer_in_tab = function(
             if vim.g.toggle_term_opened then
               command = ":q | " -- first need to close this toggleterm
             end
-            if current_tab_tabnr_ordinal == tabnr_ordinal then
-              command = ":q! | "
-            end
+            -- if current_tab_tabnr_ordinal == tabnr_ordinal then
+            --   command = ":q! | "
+            -- end
             -- Check if the new tab is opening fugitive related buffer, if yes then
             -- ignore that tab, open in new tab instead
             local win_id = vim.api.nvim_tabpage_get_win(tid)
@@ -730,7 +725,6 @@ M.open_file_or_buffer_in_tab = function(
         -- If the current tab page has multiple windows, close the current window,
         -- beause we are opening the file in new tab anyway
         local window_count_in_current_tab = vim.fn.tabpagewinnr(vim.fn.tabpagenr(), "$")
-        print(window_count_in_current_tab)
         if window_count_in_current_tab > 1 then
           command = ":q! | "
         end
