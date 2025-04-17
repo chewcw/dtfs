@@ -129,7 +129,7 @@ M.force_delete_buffer_keep_tab = function(bufnr)
               else -- Create new scratch buffer
                 scratch = vim.api.nvim_create_buf(true, true)
                 vim.api.nvim_set_option_value("buftype", "nofile", { buf = scratch })
-                vim.api.nvim_set_option_value("bufhidden", "wipe", { buf = scratch })
+                vim.api.nvim_set_option_value("bufhidden", "unload", { buf = scratch })
                 vim.api.nvim_set_option_value("swapfile", false, { buf = scratch })
                 -- Set the buffer to that scratch buffer
                 vim.api.nvim_win_set_buf(win, scratch)
@@ -139,7 +139,7 @@ M.force_delete_buffer_keep_tab = function(bufnr)
             -- Create new scratch buffer
             scratch = vim.api.nvim_create_buf(true, true)
             vim.api.nvim_set_option_value("buftype", "nofile", { buf = scratch })
-            vim.api.nvim_set_option_value("bufhidden", "wipe", { buf = scratch })
+            vim.api.nvim_set_option_value("bufhidden", "unload", { buf = scratch })
             vim.api.nvim_set_option_value("swapfile", false, { buf = scratch })
             -- Set the buffer to that scratch buffer
             vim.api.nvim_win_set_buf(win, scratch)
@@ -896,7 +896,7 @@ M.new_tab_with_scratch_buffer = function()
   vim.cmd("tabedit")
   vim.opt_local.textwidth = 0
   vim.api.nvim_set_option_value("buftype", "nofile", { buf = 0 })
-  vim.api.nvim_set_option_value("bufhidden", "wipe", { buf = 0 })
+  vim.api.nvim_set_option_value("bufhidden", "unload", { buf = 0 })
   vim.api.nvim_set_option_value("swapfile", false, { buf = 0 })
 end
 
