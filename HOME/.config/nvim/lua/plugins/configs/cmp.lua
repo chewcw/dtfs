@@ -148,6 +148,7 @@ M.options = {
       ["<C-x>m"] = cmp.mapping.complete(entry_filter("Method")),
       ["<C-x>f"] = cmp.mapping.complete(entry_filter("Function")),
       ["<C-x>e"] = cmp.mapping.complete(entry_filter("Enum")),
+      ["<C-x>E"] = cmp.mapping.complete(entry_filter("EnumMember")),
       ["<C-x>i"] = cmp.mapping.complete(entry_filter("Interface")),
       ["<C-x>v"] = cmp.mapping.complete(entry_filter("Variable")),
       ["<C-x>s"] = cmp.mapping.complete(entry_filter("Struct")),
