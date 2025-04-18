@@ -294,8 +294,8 @@ M.delete_and_select_buffer = function()
             require("telescope.actions").close()
           end)
           map("n", "gq", function() -- not selecting buffer, just close the window
-            vim.cmd("q!")     -- close the telescope picker
-            vim.cmd("wincmd c") -- close the window
+            vim.cmd("q!")           -- close the telescope picker
+            vim.cmd("wincmd c")     -- close the window
           end)
           return true
         end,
@@ -338,8 +338,8 @@ M.delete_and_select_old_buffer = function()
       attach_mappings = function(_, map)
         map("n", "gq", function() -- not selecting old file, just close the window
           pcall(function()
-            vim.cmd("q!")    -- close the telescope picker
-            vim.cmd("wincmd c") -- close the window
+            vim.cmd("q!")         -- close the telescope picker
+            vim.cmd("wincmd c")   -- close the window
           end)
         end)
         return true
@@ -434,8 +434,8 @@ M.open_new_split_and_select_buffer = function(split_type)
     attach_mappings = function(_, map)
       map("n", "gq", function() -- not selecting file, just close the window
         pcall(function()
-          vim.cmd("q!")     -- close the telescope picker
-          vim.cmd("wincmd c") -- close the window
+          vim.cmd("q!")         -- close the telescope picker
+          vim.cmd("wincmd c")   -- close the window
           vim.cmd("bdelete! " .. buf_nr)
         end)
       end)
@@ -458,8 +458,8 @@ M.open_new_tab_and_select_buffer = function()
     attach_mappings = function(_, map)
       map("n", "gq", function() -- not selecting file, just close the window
         pcall(function()
-          vim.cmd("q!")     -- close the telescope picker
-          vim.cmd("tabclose") -- close the tab
+          vim.cmd("q!")         -- close the telescope picker
+          vim.cmd("tabclose")   -- close the tab
         end)
       end)
       return true
@@ -533,7 +533,7 @@ M.force_delete_buffer = function(prompt_bufnr)
     vim.api.nvim_buf_delete(selected_entry.bufnr, { force = true })
     current_picker:refresh(current_picker.finder, { reset_prompt = true })
     vim.schedule(function()
-      actions._close(prompt_bufnr, true)  -- Close the current Telescope window
+      actions._close(prompt_bufnr, true)     -- Close the current Telescope window
       require("telescope.builtin").buffers() -- Reopen the buffer picker
     end)
   end
@@ -770,7 +770,7 @@ M.exec_shell_command = function()
         -- Append the result to the shell command
         local command = string.format("sh -c ' %s'", input_buffer)
         os.execute(command)
-        return false     -- Exit input loop
+        return false        -- Exit input loop
       elseif key == 68 then -- Left arrow (key code for left arrow key)
         -- Move cursor left
         if cursor_position > 0 then
@@ -1074,7 +1074,7 @@ M.buffer_with_cwd_picker = function(opts)
   local displayer = entry_display.create({
     separator = " ",
     items = {
-      { width = 4 },     -- Buffer number
+      { width = 4 },        -- Buffer number
       { remaining = true }, -- Buffer name
       { remaining = true }, -- CWD
     },
@@ -1484,20 +1484,44 @@ M.list_scratch_buffers = function(opts)
   -- Create the Telescope picker
   local pickers = require("telescope.pickers")
   local finders = require("telescope.finders")
+  local previewers = require("telescope.previewers")
+
+  -- Create a buffer previewer
+  local buffer_previewer = previewers.new_buffer_previewer({
+    define_preview = function(self, entry, status)
+      local bufnr = entry.value
+      if vim.api.nvim_buf_is_valid(bufnr) then
+        -- Get buffer content
+        local lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
+        vim.api.nvim_buf_set_lines(self.state.bufnr, 0, -1, false, lines)
+        local ft = vim.api.nvim_get_option_value("filetype", { buf = bufnr })
+        if ft ~= "" then
+          vim.api.nvim_set_option_value("filetype", ft, { buf = self.state.bufnr })
+        end
+      else
+        vim.api.nvim_buf_set_lines(self.state.bufnr, 0, -1, false, { "Invalid buffer" })
+      end
+    end
+  })
+
   pickers
       .new(opts, {
         prompt_title = "Scratch Buffers",
         finder = finders.new_table({
           results = scratch_buffers,
           entry_maker = function(entry)
+            local bufname = vim.fn.bufname(entry) or ""
+            local display_name = bufname ~= "" and bufname or string.format("Buffer %d", entry)
             return {
               value = entry,
-              display = string.format("Buffer %d", tostring(entry)),
+              display = display_name,
               ordinal = tostring(entry),
+              bufnr = entry
             }
           end,
         }),
         sorter = require("telescope.config").values.generic_sorter({}),
+        previewer = buffer_previewer,
         attach_mappings = function(_, map)
           local select = function(prompt_bufnr)
             local selection = action_state.get_selected_entry()
@@ -1510,6 +1534,14 @@ M.list_scratch_buffers = function(opts)
           map("n", "<C-l>", select)
           map("n", "<CR>", select)
           map("i", "<CR>", select)
+          -- Wipeout the selected buffer
+          map("n", "<S-d>", function(prompt_bufnr)
+            local selection = action_state.get_selected_entry()
+            if selection and selection.value ~= nil then
+              vim.api.nvim_buf_delete(selection.value, { force = true })
+              actions.close(prompt_bufnr)
+            end
+          end)
           return true
         end,
       })
