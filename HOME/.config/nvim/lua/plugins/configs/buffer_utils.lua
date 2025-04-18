@@ -73,6 +73,9 @@ M.force_delete_buffer_keep_tab = function(bufnr)
   local buffer_type = "nofile"
   buffer_type = vim.api.nvim_get_option_value("buftype", { buf = bufnr })
 
+  -- Check the file type
+  local is_no_filetype = vim.api.nvim_get_option_value("filetype", { buf = bufnr }) == ""
+
   local scratch
 
   -- Check if there is any split window in current tab
@@ -121,7 +124,7 @@ M.force_delete_buffer_keep_tab = function(bufnr)
                 end
               end
 
-              if is_empty then
+              if is_empty and is_no_filetype then
                 scratch = scratch_bufnr
                 -- Set the buffer to that empty scratch buffer
                 vim.api.nvim_win_set_buf(win, scratch)
