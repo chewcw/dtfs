@@ -734,6 +734,9 @@ M.open_file_or_buffer_in_tab = function(
         end
         command = command .. "tabnext" .. target_tab_id .. "| edit " .. file_path
         found_tab = true
+      -- No tabs matched, do nothing
+      else
+        goto continue
       end
     else -- Not auto cwd and not cwd by project, find if there is any tab that is opening that file currently
       if dont_care_just_open_in_new_tab then
