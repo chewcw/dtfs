@@ -240,7 +240,7 @@ local default_plugins = {
       mappings = {
         ["<space>"] = {
           "toggle_node",
-          nowait = false,   -- disable `nowait` if you have existing combos starting with this char that you want to use
+          nowait = false, -- disable `nowait` if you have existing combos starting with this char that you want to use
         },
         ["<2-LeftMouse>"] = "open",
         ["<cr>"] = "open",
@@ -1528,6 +1528,11 @@ local default_plugins = {
         "Based on the two reference outputs below, generate a response that incorporates elements from both but reflects your own judgment and unique perspective. Do not provide any explanation, just give the response directly. Reference Output 1: [{{provider1_output}}], Reference Output 2: [{{provider2_output}}]",
         timeout = 60000, -- Timeout in milliseconds
       },
+      custom_tools = function()
+        return {
+          require("mcphub.extensions.avante").mcp_tool(),
+        }
+      end,
     },
     init = function()
       if pcall(require, "avante") then
@@ -1541,6 +1546,25 @@ local default_plugins = {
     dependencies = {
       "MunifTanjim/nui.nvim",
     },
+  },
+
+  {
+    "ravitemer/mcphub.nvim",
+    cmd = "MCPHub",
+    -- build = "npm install -g mcp-hub@latest",
+    build = "bundled_build.lua",
+    opts = {
+      use_bundled_binary = true,
+      auto_approve = true,
+      extensions = {
+        avante = {
+          make_slash_commands = true,
+        },
+      },
+    },
+    config = function(_, opts)
+      require("mcphub").setup(opts)
+    end,
   },
 
   {
