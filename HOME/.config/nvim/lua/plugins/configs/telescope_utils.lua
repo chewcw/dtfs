@@ -1352,13 +1352,13 @@ M.find_all_files = function(opts)
       map("n", "\\a", function()
         M.find_all_files({
           default_text = action_state.get_current_line(),
-          cwd = vim.fn.fnamemodify(action_state.get_current_line(), ":p:h"),
+          cwd = opts.cwd or vim.fn.fnamemodify(action_state.get_current_line(), ":p:h"),
         })
       end)
       map("n", "\\f", function()
         M.find_files({
           default_text = action_state.get_current_line(),
-          cwd = vim.fn.fnamemodify(action_state.get_current_line(), ":p:h"),
+          cwd = opts.cwd or vim.fn.fnamemodify(action_state.get_current_line(), ":p:h"),
         })
       end)
       return true
