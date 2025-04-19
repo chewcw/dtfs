@@ -1729,6 +1729,15 @@ M.telescope = {
       end,
       "find files",
     },
+    ["<leader>fF"] = {
+      function()
+        require("plugins.configs.oil_utils").close_oil_if_opened()
+        vim.g.find_files_type = "normal"
+        vim.g.telescope_picker_type = "find_files"
+        require("plugins.configs.telescope_utils").find_files({ cwd = vim.fn.input("Directory: ") })
+      end,
+      "find files in specific directory"
+    },
     ["<leader>fa"] = {
       function()
         require("plugins.configs.oil_utils").close_oil_if_opened()
@@ -1737,6 +1746,15 @@ M.telescope = {
         require("plugins.configs.telescope_utils").find_all_files()
       end,
       "find all",
+    },
+    ["<leader>fA"] = {
+      function()
+        require("plugins.configs.oil_utils").close_oil_if_opened()
+        vim.g.find_files_type = "normal"
+        vim.g.telescope_picker_type = "find_files"
+        require("plugins.configs.telescope_utils").find_all_files({ cwd = vim.fn.input("Directory: ") })
+      end,
+      "find all in specific directory"
     },
     -- ["<leader>fG"] = { "<cmd> let g:telescope_picker_type='live_grep' | Telescope live_grep <CR>", "live grep" },
     ["<leader>fg"] = {
