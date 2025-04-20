@@ -45,6 +45,31 @@ export FZF_ALT_C_COMMAND="find ."
 export FZF_CTRL_T_COMMAND="\$FZF_DEFAULT_COMMAND"
 export FZF_COMPLETION_TRIGGER=','
 export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#626262'
+export FZF_DEFAULT_OPTS="
+  --style minimal --preview 'fzf-preview.sh {}'
+  --no-height
+  --reverse
+"
+export FZF_CTRL_T_OPTS="
+  --walker-skip .git,node_modules,target,build
+  --preview 'fzf-preview.sh {}'
+  --bind 'ctrl-/:change-preview-window(down|hidden|)'
+  --no-height
+  --reverse
+"
+export FZF_CTRL_R_OPTS="
+  --bind 'ctrl-y:execute-silent(echo -n {2..} | xsel -b)+abort'
+  --color header:italic
+  --header 'Press CTRL-Y to copy command into clipboard'
+  --no-height
+  --reverse
+"
+export FZF_ALT_C_OPTS="
+  --walker-skip .git,node_modules,target,build
+  --preview 'tree -C {} | head -200'
+  --no-height
+  --reverse
+"
 export VI_MODE_SET_CURSOR=false
 function zle-line-init zle-keymap-select {
     RPS1="\${\${KEYMAP/vicmd/-- NORMAL --}/(main|viins)/}"
