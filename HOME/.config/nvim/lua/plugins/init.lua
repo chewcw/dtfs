@@ -1711,6 +1711,13 @@ local default_plugins = {
     },
   },
 
+  {
+    "ibhagwan/fzf-lua",
+    cmd = "FzfLua",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    opts = {},
+  },
+
   -- Only load whichkey after all the gui
   -- {
   --   "folke/which-key.nvim",

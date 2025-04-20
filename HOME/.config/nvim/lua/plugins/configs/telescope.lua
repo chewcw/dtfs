@@ -5,6 +5,26 @@ local M = {}
 local picker_width = vim.o.columns
 local picker_height = 0.85
 
+local file_ignore_patterns = {
+  "node_modules/",
+  "%.git/",
+  -- ".hg/",
+  -- ".svn/",
+  -- ".DS_Store",
+  -- "__pycache__",
+  -- "%.egg-info",
+  -- "%.egg-cache",
+  -- "%.egg-info",
+  -- "%.class",
+  -- "%.jar",
+  -- "site-packages/",
+  "package%-lock%.json",
+  "target/",
+  "build/",
+  "dist/",
+  -- "%.gitlab/",
+}
+
 M.options = {
   defaults = {
     -- remember to update telescope_utils file custom_rg as well
@@ -41,7 +61,7 @@ M.options = {
     theme = "ivy",
     fname_width = 50,
     file_sorter = require("telescope.sorters").get_fuzzy_file,
-    file_ignore_patterns = {},
+    file_ignore_patterns = file_ignore_patterns,
     generic_sorter = require("telescope.sorters").get_generic_fuzzy_sorter,
     path_display = { "filename_first" },
     winblend = 0,
