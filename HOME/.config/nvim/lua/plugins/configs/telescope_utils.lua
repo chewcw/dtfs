@@ -1319,6 +1319,8 @@ M.find_files = function(opts)
     cwd = cwd,
     default_text = opts.default_text,
     follow = true,
+    no_ignore = true,
+    hidden = false,
     attach_mappings = function(_, map)
       map("n", "\\a", function()
         M.find_all_files({

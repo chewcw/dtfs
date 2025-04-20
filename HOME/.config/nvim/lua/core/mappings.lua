@@ -1732,9 +1732,7 @@ M.telescope = {
     ["<leader>fF"] = {
       function()
         require("plugins.configs.oil_utils").close_oil_if_opened()
-        vim.g.find_files_type = "normal"
-        vim.g.telescope_picker_type = "find_files"
-        require("plugins.configs.telescope_utils").find_files({ cwd = vim.fn.input("Directory: ") })
+        vim.cmd("FzfLua files cwd=" .. vim.fn.input("Directory: "))
       end,
       "find files in specific directory"
     },
@@ -1750,7 +1748,7 @@ M.telescope = {
     ["<leader>fA"] = {
       function()
         require("plugins.configs.oil_utils").close_oil_if_opened()
-        vim.g.find_files_type = "normal"
+        vim.g.find_files_type = "all"
         vim.g.telescope_picker_type = "find_files"
         require("plugins.configs.telescope_utils").find_all_files({ cwd = vim.fn.input("Directory: ") })
       end,

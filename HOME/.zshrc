@@ -132,7 +132,6 @@ export VISUAL=nvim
 alias c="code -r"
 alias dc="docker-compose"
 alias darm="docker run --privileged --rm tonistiigi/binfmt --install all && docker run --rm --privileged multiarch/qemu-user-static --reset -p yes --credential yes"
-alias lg="lazygit"
 alias gforeachref="git for-each-ref --sort=committerdate --format '%(refname) on %(color:bold blue)%(committerdate) %(color:bold white) by %(color:green) %(committername)%(committeremail)'"
 
 # Use hjkl to navigate zsh completion menu
@@ -163,17 +162,143 @@ alias k=kubectl
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 # [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-# bluetooth connect
-alias g6="bluetoothctl connect 00:21:13:00:A9:43"
-alias rb="bluetoothctl connect 20:00:31:19:9A:54"
-alias mouse="bluetoothctl connect 34:88:5D:3E:B8:DE"
-
+# -----------------------------------------------------------------------------
 # fzf
+# -----------------------------------------------------------------------------
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export FZF_DEFAULT_COMMAND="find -L"
 export FZF_ALT_C_COMMAND="find ."
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_COMPLETION_TRIGGER=','
+export FZF_DEFAULT_OPTS="
+  --style minimal --preview 'fzf-preview.sh {}'
+  --no-height
+  --reverse
+"
+export FZF_CTRL_T_OPTS="
+  --walker-skip .git,node_modules,target,build
+  --preview 'fzf-preview.sh {}'
+  --bind 'ctrl-/:change-preview-window(down|hidden|)'
+  --no-height
+  --reverse
+"
+export FZF_CTRL_R_OPTS="
+  --bind 'ctrl-y:execute-silent(echo -n {2..} | xsel -b)+abort'
+  --color header:italic
+  --header 'Press CTRL-Y to copy command into clipboard'
+  --no-height
+  --reverse
+"
+export FZF_ALT_C_OPTS="
+  --walker-skip .git,node_modules,target,build
+  --preview 'tree -C {} | head -200'
+  --no-height
+  --reverse
+"
+# Make all kubectl completion fzf
+command -v fzf >/dev/null 2>&1 && {
+	source <(kubectl completion zsh | \
+  sed 's#${requestComp} 2>/dev/null#${requestComp} 2>/dev/null | head -n -1 | fzf --style minimal --no-height --reverse --multi=0 #g')
+}
+
+# Searching file contents
+# using ripgrep combined with preview
+# find-in-file - usage: fif <searchTerm>
+fif() {
+  if [ ! "$#" -gt 0 ]; then echo "Need a string to search for\!"; return 1; fi
+  rg --files-with-matches --no-messages "$1" | fzf --preview "highlight -O ansi -l {} 2> /dev/null | rg --colors 'match:bg:yellow' --ignore-case --pretty --context 10 '$1' || rg --ignore-case --pretty --context 10 '$1' {}"
+}
+
+# fkill - kill processes - list only the ones you can kill. Modified the earlier script.
+fkill() {
+    local pid
+    if [ "$UID" != "0" ]; then
+        pid=$(ps -f -u $UID | sed 1d | fzf -m | awk '{print $2}')
+    else
+        pid=$(ps -ef | sed 1d | fzf -m | awk '{print $2}')
+    fi
+
+    if [ "x$pid" != "x" ]
+    then
+        echo $pid | xargs kill -${1:-9}
+    fi
+}
+
+# fbr - checkout git branch (including remote branches), sorted by most recent commit, limit 30 last branches
+fbr() {
+  local branches branch
+  branches=$(git for-each-ref --count=30 --sort=-committerdate refs/heads/ --format="%(refname:short)") &&
+  branch=$(echo "$branches" |
+           fzf-tmux -d $(( 2 + $(wc -l <<< "$branches") )) +m) &&
+  git checkout $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")
+}
+
+# fco_preview - checkout git branch/tag, with a preview showing the commits between the tag/branch and HEAD
+fco_preview() {
+  local tags branches target
+  branches=$(
+    git --no-pager branch --all \
+      --format="%(if)%(HEAD)%(then)%(else)%(if:equals=HEAD)%(refname:strip=3)%(then)%(else)%1B[0;34;1mbranch%09%1B[m%(refname:short)%(end)%(end)" \
+    | sed '/^$/d') || return
+  tags=$(
+    git --no-pager tag | awk '{print "\x1b[35;1mtag\x1b[m\t" $1}') || return
+  target=$(
+    (echo "$branches"; echo "$tags") |
+    fzf --no-hscroll --no-multi -n 2 \
+        --ansi --preview="git --no-pager log -150 --pretty=format:%s '..{2}'") || return
+  git checkout $(awk '{print $2}' <<<"$target" )
+}
+
+# fcoc - checkout git commit
+fcoc() {
+  local commits commit
+  commits=$(git log --pretty=oneline --abbrev-commit --reverse) &&
+  commit=$(echo "$commits" | fzf --tac +s +m -e) &&
+  git checkout $(echo "$commit" | sed "s/ .*//")
+}
+
+# fshow - git commit browser
+fshow() {
+  git log --graph --color=always \
+      --format="%C(auto)%h%d %s %C(black)%C(bold)%cr" "$@" |
+  fzf --ansi --no-sort --reverse --tiebreak=index --bind=ctrl-s:toggle-sort \
+      --bind "ctrl-m:execute:
+                (grep -o '[a-f0-9]\{7\}' | head -1 |
+                xargs -I % sh -c 'git show --color=always % | less -R') << 'FZF-EOF'
+                {}
+FZF-EOF"
+}
+
+# fstash - easier way to deal with stashes
+# type fstash to get a list of your stashes
+# enter shows you the contents of the stash
+# ctrl-d shows a diff of the stash against your current HEAD
+# ctrl-b checks the stash out as a branch, for easier merging
+fstash() {
+  local out q k sha
+  while out=$(
+    git stash list --pretty="%C(yellow)%h %>(14)%Cgreen%cr %C(blue)%gs" |
+    fzf --ansi --no-sort --query="$q" --print-query \
+        --expect=ctrl-d,ctrl-b);
+  do
+    mapfile -t out <<< "$out"
+    q="${out[0]}"
+    k="${out[1]}"
+    sha="${out[-1]}"
+    sha="${sha%% *}"
+    [[ -z "$sha" ]] && continue
+    if [[ "$k" == 'ctrl-d' ]]; then
+      git diff $sha
+    elif [[ "$k" == 'ctrl-b' ]]; then
+      git stash branch "stash-$sha" $sha
+      break;
+    else
+      git stash show -p $sha
+    fi
+  done
+}
+
+# --------------------------------------------------------------------
 
 # zsh-vi-mode
 # zvm_after_init_commands+=('[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh')
