@@ -145,6 +145,7 @@ M.options = {
       ["<C-u>"] = cmp.mapping.scroll_docs(-4),
       ["<C-Space>"] = cmp.mapping.complete(),
       ["<C-x>c"] = cmp.mapping.complete(entry_filter("Class")),
+      ["<C-x>C"] = cmp.mapping.complete(entry_filter("Constant")),
       ["<C-x>m"] = cmp.mapping.complete(entry_filter("Method")),
       ["<C-x>f"] = cmp.mapping.complete(entry_filter("Function")),
       ["<C-x>e"] = cmp.mapping.complete(entry_filter("Enum")),
