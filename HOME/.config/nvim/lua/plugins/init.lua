@@ -1719,7 +1719,77 @@ local default_plugins = {
     "ibhagwan/fzf-lua",
     cmd = "FzfLua",
     dependencies = { "nvim-tree/nvim-web-devicons" },
-    opts = {},
+    opts = function()
+      local actions = require("fzf-lua").actions
+      return {
+        keymap = {
+          builtin = {
+            -- true,        -- uncomment to inherit all the below in your custom config
+            ["<M-Esc>"]    = "hide", -- hide fzf-lua, `:FzfLua resume` to continue
+            ["<F1>"]       = "toggle-help",
+            ["<F2>"]       = "toggle-fullscreen",
+            -- Only valid with the 'builtin' previewer
+            ["<F3>"]       = "toggle-preview-wrap",
+            ["<F4>"]       = "toggle-preview",
+            -- Rotate preview clockwise/counter-clockwise
+            ["<F5>"]       = "toggle-preview-ccw",
+            ["<F6>"]       = "toggle-preview-cw",
+            -- `ts-ctx` binds require `nvim-treesitter-context`
+            ["<F7>"]       = "toggle-preview-ts-ctx",
+            ["<F8>"]       = "preview-ts-ctx-dec",
+            ["<F9>"]       = "preview-ts-ctx-inc",
+            ["<S-Left>"]   = "preview-reset",
+            -- ["<S-down>"]   = "preview-page-down",
+            ["<M-d>"]   = "preview-page-down",
+            -- ["<S-up>"]     = "preview-page-up",
+            ["<M-u>"]     = "preview-page-up",
+            -- ["<M-S-down>"] = "preview-down",
+            ["<M-S-d>"] = "preview-down",
+            -- ["<M-S-up>"]   = "preview-up",
+            ["<M-S-u>"]   = "preview-up",
+          },
+          fzf = {
+            -- fzf '--bind=' options
+            -- true,        -- uncomment to inherit all the below in your custom config
+            ["ctrl-z"]     = "abort",
+            ["ctrl-u"]     = "unix-line-discard",
+            ["ctrl-f"]     = "half-page-down",
+            ["ctrl-b"]     = "half-page-up",
+            ["ctrl-a"]     = "beginning-of-line",
+            ["ctrl-e"]     = "end-of-line",
+            ["alt-a"]      = "toggle-all",
+            ["alt-g"]      = "first",
+            ["alt-G"]      = "last",
+            -- Only valid with fzf previewers (bat/cat/git/etc)
+            ["f3"]         = "toggle-preview-wrap",
+            ["f4"]         = "toggle-preview",
+            ["shift-down"] = "preview-page-down",
+            ["shift-up"]   = "preview-page-up",
+          },
+        },
+        actions = {
+          files = {
+            ["enter"]  = actions.file_edit_or_qf,
+            ["ctrl-l"] = actions.file_edit_or_qf,
+            -- ["ctrl-s"] = actions.file_split,
+            ["alt-_"]  = actions.file_split,
+            -- ["ctrl-v"] = actions.file_vsplit,
+            ["alt-\\"] = actions.file_vsplit,
+            -- ["ctrl-t"] = actions.file_tabedit,
+            ["alt-e"]  = actions.file_tabedit,
+            ["alt-q"]  = actions.file_sel_to_qf,
+            -- ["alt-Q"]  = actions.file_sel_to_ll,
+            ["alt-l"]  = actions.file_sel_to_ll,
+            ["alt-i"]  = actions.toggle_ignore,
+            ["alt-h"]  = actions.toggle_hidden,
+            ["alt-f"]  = actions.toggle_follow,
+          },
+        },
+      }
+    end,
+    config = function(_, opts)
+      require("fzf-lua").setup(opts)
+    end,
   },
 
   -- Only load whichkey after all the gui
