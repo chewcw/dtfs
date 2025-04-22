@@ -492,11 +492,11 @@ local get_groups = function(color)
     RenderMarkdownCode                   = { bg = color.blue00 },
     RenderMarkdownCodeInline             = { bg = color.blue00 },
     RenderMarkdownH1Bg                   = { bg = color.red02 },
-    RenderMarkdownH2Bg                   = { bg = color.red02 },
-    RenderMarkdownH3Bg                   = { bg = color.red02 },
-    RenderMarkdownH4Bg                   = { bg = color.red02 },
-    RenderMarkdownH5Bg                   = { bg = color.red02 },
-    RenderMarkdownH6Bg                   = { bg = color.red02 },
+    RenderMarkdownH2Bg                   = { bg = color.red03 },
+    RenderMarkdownH3Bg                   = { bg = color.red04 },
+    RenderMarkdownH4Bg                   = { bg = color.red04 },
+    RenderMarkdownH5Bg                   = { bg = color.red04 },
+    RenderMarkdownH6Bg                   = { bg = color.red04 },
     -- Copilot
     CopilotSuggestion                    = { fg = color.dark_brown },
     -- Deadcolumn
