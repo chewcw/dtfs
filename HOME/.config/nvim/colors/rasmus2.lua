@@ -59,6 +59,8 @@ local colors = function()
     red00 = "#994646",
     red01 = "#883e3e",
     red02 = "#763636",
+    red03 = "#3e1c1c",
+    red04 = "#2c1414",
     -- Yellows
     yellow00 = "#cead12",
     yellow01 = "#b79a10",
