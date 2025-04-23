@@ -1005,6 +1005,15 @@ M.general = {
         vim.cmd("AvanteClear")
       end,
     },
+    ["<C-A-r>"] = {
+      function()
+        local filetype = vim.api.nvim_get_option_value("filetype", { buf = 0 })
+        if filetype == "AvanteInput" then
+          vim.cmd("AvanteClear")
+        end
+      end,
+      "Clear the chat",
+    },
     ["gQ"] = { function() end }, -- Ex mode, not useful to me
     -- Oil
     ["<leader>fd"] = {
