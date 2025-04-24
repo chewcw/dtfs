@@ -728,10 +728,10 @@ M.open_file_or_buffer_in_tab = function(
         end
         -- If the current tab page has multiple windows, close the current window,
         -- beause we are opening the file in new tab anyway
-        local window_count_in_current_tab = vim.fn.tabpagewinnr(vim.fn.tabpagenr(), "$")
-        if window_count_in_current_tab > 1 then
-          command = ":q! | "
-        end
+        -- local window_count_in_current_tab = vim.fn.tabpagewinnr(vim.fn.tabpagenr(), "$")
+        -- if window_count_in_current_tab > 1 then
+          -- command = ":q! | "
+        -- end
         command = command .. "tabnext" .. target_tab_id .. "| edit " .. file_path
         found_tab = true
       -- No tabs matched, do nothing
