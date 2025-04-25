@@ -917,6 +917,11 @@ M.general = {
       function()
         pcall(function()
           local chat = require("CopilotChat")
+          if pcall(require, "focus") then
+            if not vim.g.focus_disabled_manually then
+              vim.cmd("FocusEqualise")
+            end
+          end
           -- chat.close()
           chat.open({
             -- selection = false,
@@ -2638,9 +2643,11 @@ M.undotree = {
           require("auto-save").off()
         end
         if pcall(require, "focus") then
-          vim.cmd("FocusEqualise")
-          -- vim.cmd("FocusDisableBuffer")
-          vim.cmd("FocusDisable")
+          if not vim.g.focus_disabled_manually then
+            vim.cmd("FocusEqualise")
+            -- vim.cmd("FocusDisableBuffer")
+            vim.cmd("FocusEnable")
+          end
         end
         -- Delay 100ms to make sure the Focus is disabled before open undotree
         vim.defer_fn(
@@ -2720,8 +2727,15 @@ M.focus = {
     ["<leader>Ft"] = {
       function()
         if pcall(require, "focus") then
-          vim.cmd("FocusAutoresize")
-          vim.cmd("FocusToggle")
+          if vim.g.focus_disabled_manually ~= nil and vim.g.focus_disabled_manually == true then
+            vim.cmd("FocusEnable")
+            vim.g.focus_disabled_manually = false
+            vim.notify("Focus is enabled manually")
+          else
+            vim.cmd("FocusDisable")
+            vim.g.focus_disabled_manually = true
+            vim.notify("Focus is disabled manually")
+          end
         end
       end,
       "Focus Toggle",
