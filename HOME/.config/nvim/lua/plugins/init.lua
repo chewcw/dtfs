@@ -843,6 +843,23 @@ local default_plugins = {
     "okuuva/auto-save.nvim",
     version = "^1.0.0", -- see https://devhints.io/semver, alternatively use '*' to use the latest tagged release
     event = { "InsertLeave", "TextChanged" },
+    init = function()
+      local group = vim.api.nvim_create_augroup("autosave", {})
+      vim.api.nvim_create_autocmd("User", {
+        pattern = "AutoSaveEnable",
+        group = group,
+        callback = function()
+            vim.g.AutoSaveEnable = true
+        end,
+      })
+      vim.api.nvim_create_autocmd("User", {
+        pattern = "AutoSaveDisable",
+        group = group,
+        callback = function()
+          vim.g.AutoSaveEnable = false
+        end,
+      })
+    end,
     opts = {
       enabled = true,                                                          -- start auto-save when the plugin is loaded (i.e. when your package manager loads it)
       trigger_events = {                                                       -- See :h events
