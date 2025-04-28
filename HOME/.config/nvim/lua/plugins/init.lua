@@ -1651,22 +1651,22 @@ local default_plugins = {
     cmd = { "FocusEnable" },
     init = function()
       local ignore_filetypes = { "neo-tree", "trouble", "AvanteInput", "Avante", "AvanteSelectedFiles",
-        "copilot-chat", "TelescopePrompt", "oil" }
+        "copilot-chat", "TelescopePrompt", "oil", "diff", "undotree", "toggleterm" }
       local ignore_buftypes = { "nofile", "nowrite", "quickfix", "terminal" }
       local augroup = vim.api.nvim_create_augroup("FocusEnableDisable", { clear = true })
-      vim.api.nvim_create_autocmd({ "BufEnter" }, {
+      vim.api.nvim_create_autocmd({ "WinEnter" }, {
         group = augroup,
         callback = function(_)
           if vim.tbl_contains(ignore_buftypes, vim.bo.buftype) or
               vim.tbl_contains(ignore_filetypes, vim.bo.filetype) then
             if pcall(require, "focus") then
-              vim.cmd("FocusDisableBuffer")
+              vim.cmd("FocusDisableWindow")
             end
           else
             if pcall(require, "focus") then
               if not vim.g.focus_disabled_manually then
                 vim.cmd("FocusAutoresize")
-                vim.cmd("FocusEnable")
+                vim.cmd("FocusEnableWindow")
               end
             end
           end

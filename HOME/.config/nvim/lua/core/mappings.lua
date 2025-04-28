@@ -2643,13 +2643,10 @@ M.undotree = {
           require("auto-save").off()
         end
         if pcall(require, "focus") then
-          if not vim.g.focus_disabled_manually then
-            vim.cmd("FocusEqualise")
-            -- vim.cmd("FocusDisableBuffer")
-            vim.cmd("FocusEnable")
-          end
+          vim.cmd("FocusDisable")
+          vim.g.focus_disabled_manually = true
         end
-        -- Delay 100ms to make sure the Focus is disabled before open undotree
+        -- Delay 100ms to make sure the Focus is disabled after opened undotree
         vim.defer_fn(
           function()
             vim.cmd("UndotreeToggle")
@@ -2667,9 +2664,8 @@ M.undotree = {
           require("auto-save").off()
         end
         if pcall(require, "focus") then
-          vim.cmd("FocusEqualise")
-          -- vim.cmd("FocusDisableBuffer")
           vim.cmd("FocusDisable")
+          vim.g.focus_disabled_manually = true
         end
         -- Delay 100ms to make sure the Focus is disabled before open undotree
         vim.defer_fn(
@@ -2710,7 +2706,7 @@ M.undotree = {
           -- Delay 100ms to make sure the undotree is closed
           vim.defer_fn(function()
             if pcall(require, "focus") then
-              vim.cmd("FocusEnable")
+              vim.cmd("FocusEnableWindow")
               vim.g.UndotreeOpened = "0"
             end
           end, 100)
@@ -2728,7 +2724,7 @@ M.focus = {
       function()
         if pcall(require, "focus") then
           if vim.g.focus_disabled_manually ~= nil and vim.g.focus_disabled_manually == true then
-            vim.cmd("FocusEnable")
+            vim.cmd("FocusEnableWindow")
             vim.g.focus_disabled_manually = false
             vim.notify("Focus is enabled manually")
           else
