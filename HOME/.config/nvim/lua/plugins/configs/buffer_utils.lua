@@ -531,7 +531,7 @@ M.open_file_or_buffer_in_tab = function(
     count,
     dont_care_just_open_in_new_tab,
     selected_entry,
-    telescope_callback
+    callback
 )
   -- Ignore if this is certain file type or buffer type
   local file_type = vim.api.nvim_get_option_value("filetype", { buf = 0 })
@@ -563,15 +563,18 @@ M.open_file_or_buffer_in_tab = function(
   local found_tab = false
   local current_buf_nr = vim.api.nvim_get_current_buf()
   local file_path = ""
-  local current_tab_tabnr_ordinal = vim.api.nvim_tabpage_get_number(0)
-  local is_called_from_telescope = selected_entry ~= nil and telescope_callback ~= nil -- This is calling from Telescope picker
+  -- Check current_buf_nr file type
+  local filetype = vim.fn.getbufvar(current_buf_nr, "&filetype")
+  local is_called_from_oil = filetype == "oil"                   -- This is calling from Oil picker
+  local is_called_from_telescope = filetype == "TelescopePrompt" -- This is calling from Telescope picker
 
+  -- selected_entry ~= nil and callback ~= nil
   -- If the CopilotChat is installed
   if pcall(require, "CopilotChat") then
     vim.api.nvim_command("CopilotChatClose")
   end
 
-  -- This is calling from a Telescope picker
+  -- This is calling from a Telescope picker or oil
   if selected_entry ~= nil then
     file_path = selected_entry.path or selected_entry[1] or selected_entry.filename
   else
@@ -615,7 +618,7 @@ M.open_file_or_buffer_in_tab = function(
     -- special case, omnisharp_extended file
     if file_path:match("%$metadata%$") then
       if is_called_from_telescope then
-        telescope_callback()
+        callback()
         return
       end
       if vim.g.toggle_term_opened then
@@ -626,14 +629,19 @@ M.open_file_or_buffer_in_tab = function(
         command = ":q! | "
       end
 
-      command = "tabnew | buffer " .. current_buf_nr
+      command = command .. "tabnew | buffer " .. current_buf_nr
       goto continue
     end
 
     if vim.g.TabAutoCwd == "1" and vim.g.TabCwdByProject == "0" then -- Auto CWD, open file in new tab with its cwd
       local parent_dir = vim.fn.fnamemodify(file_path, ":p:h")
       if dont_care_just_open_in_new_tab then
-        command = ":q! | "
+        if is_called_from_oil then
+          command = ":q! | "
+        end
+        if is_called_from_telescope then
+          command = ":q! | "
+        end
         goto next
       end
       if parent_dir then
@@ -647,8 +655,8 @@ M.open_file_or_buffer_in_tab = function(
             if vim.g.toggle_term_opened then
               command = ":q | " -- first need to close this toggleterm
             end
-            if is_called_from_telescope then
-              command = ":q! |" -- first need to close the Telescope picker
+            if is_called_from_oil then
+              command = ":q! |"
             end
             -- if current_tab_tabnr_ordinal == tabnr_ordinal then
             --   command = ":q! | "
@@ -673,8 +681,8 @@ M.open_file_or_buffer_in_tab = function(
           if vim.g.toggle_term_opened then
             command = ":q | " -- first need to close this toggleterm
           end
-          if is_called_from_telescope then
-            command = ":q! |" -- first need to close the Telescope picker
+          if is_called_from_oil then
+            command = ":q! |"
           end
           command = command .. "tabnew " .. file_path
           vim.g.new_tab_buf_cwd = vim.fn.fnamemodify(file_path, ":h")
@@ -686,7 +694,12 @@ M.open_file_or_buffer_in_tab = function(
       end
     elseif vim.g.TabAutoCwd == "0" and vim.g.TabCwdByProject == "1" then -- Auto CWD by project
       if dont_care_just_open_in_new_tab then
-        command = ":q! | "
+        if is_called_from_oil then
+          command = ":q! | "
+        end
+        if is_called_from_telescope then
+          command = ":q! | "
+        end
         goto next
       end
       -- Not auto cwd but is cwd by project, find if that file is inside any of
@@ -733,20 +746,42 @@ M.open_file_or_buffer_in_tab = function(
             command = ":q | " -- first need to close this toggleterm
           end
         end
-        if is_called_from_telescope then
-          command = ":q! |" -- first need to close the Telescope picker
+        if is_called_from_oil then
+          command = ":q! |"
         end
         -- If the current tab page has multiple windows, close the current window,
         -- beause we are opening the file in new tab anyway
         -- local window_count_in_current_tab = vim.fn.tabpagewinnr(vim.fn.tabpagenr(), "$")
         -- if window_count_in_current_tab > 1 then
-          -- command = ":q! | "
+        -- command = ":q! | "
         -- end
         command = command .. "tabnext" .. target_tab_id .. "| edit " .. file_path
         found_tab = true
-      -- No tabs matched, do nothing
+        -- No tabs matched
       else
-        goto continue
+        local file_path_dir = vim.fn.fnamemodify(file_path, ":p:h")
+        local message = "No project opened in this file_path: " ..
+        file_path_dir .. ". Open this file_path in new tab and set its parent directory as Project?"
+        local choice = vim.fn.confirm(message)
+        if choice == 1 then
+          -- Open in new tab
+          if is_called_from_oil then
+            command = ":q! | "
+          end
+          if is_called_from_telescope then
+            command = ":q! | "
+          end
+          command = command .. "tabnew " .. file_path
+          -- Below setting the working directory in new tab
+          -- this action is normally only available to vim.g.TabAutoCwd in TabNewEntered
+          -- this case is an exception
+          vim.g.new_tab_buf_cwd = vim.fn.fnamemodify(file_path, ":p:h")
+          command = command .. " | tcd " .. vim.g.new_tab_buf_cwd
+          goto continue
+        else
+          -- Do nothing
+          goto continue
+        end
       end
     else -- Not auto cwd and not cwd by project, find if there is any tab that is opening that file currently
       if dont_care_just_open_in_new_tab then
@@ -766,8 +801,8 @@ M.open_file_or_buffer_in_tab = function(
           if vim.g.toggle_term_opened then
             command = ":q | " -- first need to close this toggleterm
           end
-          if is_called_from_telescope then
-            command = ":q! |" -- first need to close the Telescope picker
+          if is_called_from_oil then
+            command = ":q! |"
           end
           command = command .. "tabnext " .. tabnr_ordinal .. " | edit " .. file_path
           found_tab = true
@@ -805,7 +840,7 @@ M.open_file_or_buffer_in_tab = function(
     end
     ::next::
     if not found_tab then
-      command = "tabnew " .. file_path
+      command = command .. "tabnew " .. file_path
     end
   else
     print("Invalid file path")
