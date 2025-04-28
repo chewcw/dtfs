@@ -94,7 +94,11 @@ M.setup = {
         end
 
         if vim.g.AutoSaveEnable then
-          table.insert(result, { text = " AS ", link = "StatusLineWarn" })
+          table.insert(result, { text = " AS ", link = "BufferLine0" })
+        end
+
+        if not vim.g.focus_disabled_manually then
+          table.insert(result, { text = " Focus ", link = "BufferLine1" })
         end
 
         return result
