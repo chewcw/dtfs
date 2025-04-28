@@ -910,6 +910,7 @@ local default_plugins = {
     lazy = true,
     init = function()
       vim.cmd("let g:undotree_WindowLayout = '2'")
+      vim.g.UndotreeOpened = "0"
       require("core.utils").load_mappings("undotree")
     end,
     -- branch = "master",
