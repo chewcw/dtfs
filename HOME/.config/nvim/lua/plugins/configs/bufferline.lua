@@ -93,6 +93,10 @@ M.setup = {
           table.insert(result, { text = " Project ", link = "StatusLineNormalMode" })
         end
 
+        if vim.g.AutoSaveEnable then
+          table.insert(result, { text = " AS ", link = "StatusLineWarn" })
+        end
+
         return result
       end,
     }
