@@ -216,7 +216,7 @@ M.open_file_in_tab = function(dont_care_just_open_in_new_tab)
         nil,
         dont_care_just_open_in_new_tab,
         selected_entry,
-        nil
+        function() end -- Empty function so that it can be served as a picker in the inner function
       )
     end,
   }
