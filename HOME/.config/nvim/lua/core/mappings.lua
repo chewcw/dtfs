@@ -2699,7 +2699,9 @@ M.undotree = {
           if pcall(require, "auto-save") then
             require("auto-save").on()
           end
-          vim.cmd("UndotreeHide")
+          if pcall(require, "undotree") then
+            vim.cmd("UndotreeHide")
+          end
           if pcall(require, "focus") then
             vim.cmd("FocusAutoresize")
           end
