@@ -2726,7 +2726,7 @@ M.focus = {
       function()
         if pcall(require, "focus") then
           if vim.g.focus_disabled_manually ~= nil and vim.g.focus_disabled_manually == true then
-            vim.cmd("FocusEnableWindow")
+            vim.cmd("FocusEnable")
             vim.g.focus_disabled_manually = false
             vim.notify("Focus is enabled manually")
           else
