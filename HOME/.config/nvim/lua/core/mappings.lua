@@ -1874,7 +1874,7 @@ M.telescope = {
     ["<leader>tn"] = { ":term zsh || fish || bash <CR>", "open terminal in new buffer" },
 
     -- workspaces
-    ["<leader>fw"] = { "<cmd> Telescope workspaces <CR>", "list workspaces" },
+    -- ["<leader>fw"] = { "<cmd> Telescope workspaces <CR>", "list workspaces" },
 
     -- modified buffers
     ["<leader>fm"] = {

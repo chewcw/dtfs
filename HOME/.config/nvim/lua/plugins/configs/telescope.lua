@@ -213,7 +213,7 @@ M.options = {
     },
   },
 
-  extensions_list = { "file_browser", "workspaces", "ui-select", "fzf" },
+  extensions_list = { "file_browser", "ui-select", "fzf" },
 
   extensions = {
     file_browser = {
@@ -372,10 +372,10 @@ M.options = {
       case_mode = "smart_case",
     },
 
-    workspaces = {
-      keep_insert = false,
-      path_hl = "String",
-    },
+    -- workspaces = {
+    --   keep_insert = false,
+    --   path_hl = "String",
+    -- },
 
     -- quicknote = {
     --   defaultScope = "CWD",

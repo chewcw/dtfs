@@ -610,16 +610,16 @@ local default_plugins = {
   --   -- commit = "9406f13",
   -- },
 
-  {
-    "natecraddock/workspaces.nvim",
-    cmd = { "Telescope workspaces" },
-    config = true,
-    opts = function()
-      return require("plugins.configs.others").workspaces
-    end,
-    -- branch = "master",
-    -- commit = "a6fb499",
-  },
+  -- {
+  --   "natecraddock/workspaces.nvim",
+  --   cmd = { "Telescope workspaces" },
+  --   config = true,
+  --   opts = function()
+  --     return require("plugins.configs.others").workspaces
+  --   end,
+  --   -- branch = "master",
+  --   -- commit = "a6fb499",
+  -- },
 
   -- {
   --   "windwp/nvim-autopairs",
