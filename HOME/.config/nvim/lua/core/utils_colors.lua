@@ -502,13 +502,13 @@ local get_groups = function(color)
     -- Deadcolumn
     WarningColorColumn                   = { bg = color.red },
     -- Tabline
-    TabLineGit                           = { fg = color.white, bg = color.blue },
-    TabLine0                             = { fg = color.white, bg = color.blue },
-    TabLine1                             = { fg = color.white, bg = color.dark_blue },
-    TabLine2                             = { fg = color.white, bg = color.dark_green02 },
+    TabLineGit                           = { fg = color.gray06, bg = color.blue },
+    TabLine0                             = { fg = color.gray06, bg = color.blue },
+    TabLine1                             = { fg = color.gray06, bg = color.dark_blue },
+    TabLine2                             = { fg = color.gray06, bg = color.dark_green02 },
     -- BufferLine
-    BufferLine0                          = { fg = color.yellow, bg = color.gray01 },
-    BufferLine1                          = { fg = color.yellow, bg = color.gray02 },
+    BufferLine0                          = { fg = color.gray06, bg = color.dark_green02 },
+    BufferLine1                          = { fg = color.gray06, bg = color.dark_blue },
     -- Avante
     AvanteButtonPrimary                  = { fg = "#1e222a", bg = "#abb2bf" },
     AvanteToBeDeletedWOStrikethrough     = { bg = "#562c30", },

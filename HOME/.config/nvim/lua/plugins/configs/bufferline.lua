@@ -86,19 +86,19 @@ M.setup = {
       right = function()
         local result = {}
         if vim.g.TabAutoCwd == "1" then
-          table.insert(result, { text = " Auto ", link = "StatusLineNormalMode" })
+          table.insert(result, { text = " Auto ", link = "BufferLine0" })
         end
 
         if vim.g.TabCwdByProject == "1" then
-          table.insert(result, { text = " Project ", link = "StatusLineNormalMode" })
+          table.insert(result, { text = " Project ", link = "BufferLine0" })
         end
 
         if vim.g.AutoSaveEnable then
-          table.insert(result, { text = " AS ", link = "BufferLine0" })
+          table.insert(result, { text = " AS ", link = "BufferLine1" })
         end
 
         if not vim.g.focus_disabled_manually then
-          table.insert(result, { text = " Focus ", link = "BufferLine1" })
+          table.insert(result, { text = " AF ", link = "BufferLine0" })
         end
 
         return result
