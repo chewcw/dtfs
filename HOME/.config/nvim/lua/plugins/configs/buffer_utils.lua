@@ -639,9 +639,9 @@ M.open_file_or_buffer_in_tab = function(
         if is_called_from_oil then
           command = ":q! | "
         end
-        if is_called_from_telescope then
-          command = ":q! | "
-        end
+        -- if is_called_from_telescope then
+          -- command = ":q! | "
+        -- end
         goto next
       end
       if parent_dir then
@@ -697,9 +697,9 @@ M.open_file_or_buffer_in_tab = function(
         if is_called_from_oil then
           command = ":q! | "
         end
-        if is_called_from_telescope then
-          command = ":q! | "
-        end
+        -- if is_called_from_telescope then
+          -- command = ":q! | "
+        -- end
         goto next
       end
       -- Not auto cwd but is cwd by project, find if that file is inside any of
@@ -749,9 +749,9 @@ M.open_file_or_buffer_in_tab = function(
         if is_called_from_oil then
           command = ":q! |"
         end
-        if is_called_from_telescope then
-          command = ":q! | "
-        end
+        -- if is_called_from_telescope then
+          -- command = ":q! | "
+        -- end
         -- If the current tab page has multiple windows, close the current window,
         -- beause we are opening the file in new tab anyway
         -- local window_count_in_current_tab = vim.fn.tabpagewinnr(vim.fn.tabpagenr(), "$")
@@ -771,9 +771,9 @@ M.open_file_or_buffer_in_tab = function(
           if is_called_from_oil then
             command = ":q! | "
           end
-          if is_called_from_telescope then
-            command = ":q! | "
-          end
+          -- if is_called_from_telescope then
+            -- command = ":q! | "
+          -- end
           command = command .. "tabnew " .. file_path
           -- Below setting the working directory in new tab
           -- this action is normally only available to vim.g.TabAutoCwd in TabNewEntered
