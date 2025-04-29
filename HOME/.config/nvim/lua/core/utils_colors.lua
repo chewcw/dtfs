@@ -81,7 +81,7 @@ local get_groups = function(color)
     SignColumn                           = { fg = color.fg, bg = color.none },
     EndOfBuffer                          = { fg = color.gray03 },
     NormalFloat                          = { fg = get_highlight("FloatBorder", "fg"), bg = color.bg },
-    FloatBorder                          = { fg = color.bright_green, bg = color.bg },
+    FloatBorder                          = { fg = color.dark_cyan, bg = color.bg },
     ColorColumn                          = { fg = color.none, bg = color.bg_nc },
     Conceal                              = { fg = color.gray05 },
     Cursor                               = { bg = color.none, fg = color.none, reverse = false }, -- set both guifg and guibg to none to let the terminal emulator to render the color of cursor and text underneath
