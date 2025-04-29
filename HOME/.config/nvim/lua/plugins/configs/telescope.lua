@@ -66,6 +66,7 @@ M.options = {
     path_display = { "filename_first" },
     winblend = 0,
     border = true,
+    borderchars = { "═", "║", "═", "║", "╔", "╗", "╝", "╚" },
     -- borderchars = { "─", "│", "─", "│", "┌", "┐", "┘", "└" },
     -- borderchars = { "=", "", "", "", "", "", "", "" },
     color_devicons = true,
