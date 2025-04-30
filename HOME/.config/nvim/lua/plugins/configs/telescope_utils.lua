@@ -425,12 +425,19 @@ M.open_new_split_and_select_buffer = function(split_type)
   vim.api.nvim_set_option_value("bufhidden", "wipe", { buf = buf_nr })
   vim.api.nvim_set_option_value("swapfile", false, { buf = buf_nr })
   vim.g.new_split_blank_buffer = vim.api.nvim_get_current_buf()
+  -- Get current buffer working directory
+  local tabpage = vim.api.nvim_get_current_tabpage()
+  local tabnr_ordinal = vim.api.nvim_tabpage_get_number(tabpage)
+  local win_num = vim.fn.tabpagewinnr(tabnr_ordinal)
+  local working_directory = vim.fn.getcwd(win_num, tabnr_ordinal)
 
   -- Open find files
   vim.cmd("let g:find_files_type='normal'")
   vim.g.telescope_picker_type = "find_files"
   require("telescope.builtin").find_files({
     follow = true,
+    prompt_title = "Find Files in " .. working_directory,
+    cwd = working_directory,
     attach_mappings = function(_, map)
       map("n", "gq", function() -- not selecting file, just close the window
         pcall(function()
