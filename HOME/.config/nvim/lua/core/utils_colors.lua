@@ -512,7 +512,7 @@ local get_groups = function(color)
     -- Avante
     AvanteButtonPrimary                  = { fg = "#1e222a", bg = "#abb2bf" },
     AvanteToBeDeletedWOStrikethrough     = { bg = "#562c30", },
-    AvanteButtonDefaultHover             = { fg = "#1e222a", bg = "#a9cf8a" },
+    AvanteButtonDefaultHover             = { fg = "#1e222a", bg = "#e06c75" },
     AvanteSidebarWinSeparator            = { fg = color.blue02, bg = color.blue02 },
     AvanteSidebarWinHorizontalSeparator  = { fg = color.bg, bg = "#030a0e" },
     AvanteReversedTitle                  = { fg = "#98c379", },
