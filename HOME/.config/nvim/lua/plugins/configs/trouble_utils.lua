@@ -9,6 +9,7 @@ M.open_trouble = function(scope)
     end
   end
   require("trouble").toggle(scope)
+  require("trouble").focus()
 end
 
 return M
