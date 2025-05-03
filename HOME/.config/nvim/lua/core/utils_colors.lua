@@ -516,7 +516,7 @@ local get_groups = function(color)
     AvanteSidebarWinSeparator            = { fg = color.blue02, bg = color.blue02 },
     AvanteSidebarWinHorizontalSeparator  = { fg = color.bg, bg = "#030a0e" },
     AvanteReversedTitle                  = { fg = "#98c379", },
-    AvanteTitle                          = { fg = "#1e222a", bg = "#98c379" },
+    AvanteTitle                          = { fg = "#1e222a", bg = "#e06c75" },
     AvanteConfirmTitle                   = { fg = "#1e222a", bg = "#e06c75" },
     AvanteReversedThirdTitle             = { fg = "#353b45", },
     AvanteToBeDeleted                    = { bg = "#ffcccc", strikethrough = true },
