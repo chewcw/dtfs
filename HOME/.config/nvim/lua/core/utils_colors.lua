@@ -536,7 +536,7 @@ local get_groups = function(color)
     AvantePromptInputBorder              = { fg = color.blue02, bg = color.blue02 },
     AvantePopupHint                      = { fg = color.blue02, bg = color.blue02 },
     AvanteAnnotation                     = { link = "Comment" },
-    AvanteSidebarNormal                  = { bg = color.blue02 },
+    AvanteSidebarNormal                  = { bg = color.none },
     AvanteSuggestion                     = { link = "Comment" },
     AvanteInlineHint                     = { link = "Keyword" },
     AvantePromptInput                    = { bg = color.blue02 },

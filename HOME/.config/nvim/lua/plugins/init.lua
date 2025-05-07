@@ -1506,7 +1506,7 @@ local default_plugins = {
         },
       },
       copilot = {
-        model = "claude-3.7-sonnet-thought",
+        model = "claude-3.7-sonnet",
       },
       mappings = {
         submit = {
