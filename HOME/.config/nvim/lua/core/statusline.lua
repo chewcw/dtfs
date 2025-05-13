@@ -98,7 +98,7 @@ local function lineinfo()
   if vim.bo.filetype == "alpha" then
     return ""
   end
-  return "%l:%c"
+  return "%l|%L:%c"
 end
 
 local vcs = function()
