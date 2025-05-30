@@ -5,10 +5,7 @@ $HOME/.local/bin/connect_monitor.sh
 $HOME/.local/bin/detect_keyboard.sh
 
 # Use wait to synchronize instead of fixed sleep
-sleep 1
-
-# Optimize xset configuration
-xset r rate 300 70
+sleep 1.5
 
 # Start fcitx only if not already running
 if ! pgrep -x "fcitx" > /dev/null; then
@@ -28,6 +25,10 @@ timedatectl set-ntp false
 sleep 0.2
 # fi
 timedatectl set-ntp true
+
+# Optimize xset configuration
+xset r rate 300 70
+
 
 # Stop and restart pasystray only if it's running
 # if pgrep -f "pasystray" > /dev/null; then

@@ -188,7 +188,7 @@ vim.api.nvim_create_autocmd({ "CmdLineEnter" }, {
 vim.api.nvim_create_autocmd({ "CmdLineLeave" }, {
   callback = function()
     pcall(function()
-      vim.cmd(":TSContextEnable")
+      vim.cmd(":TSContext enable")
     end)
     -- vim.api.nvim_set_hl(0, "MsgArea", { bg = "None" })
   end,
@@ -854,7 +854,7 @@ vim.api.nvim_create_autocmd("WinEnter", {
   callback = function()
     if pcall(require, "treesitter-context") then
       if require("treesitter-context").enabled() then
-        vim.cmd("TSContextEnable")
+        vim.cmd("TSContext enable")
       end
     end
   end,

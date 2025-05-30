@@ -669,7 +669,7 @@ M.open_file_or_buffer_in_tab = function(
         end
         if not found_tab then
           if selected_entry ~= nil then -- This is calling from Telescope picker
-            command = ":q! | "
+            -- command = ":q! | "
           end
           if vim.g.toggle_term_opened then
             command = ":q | " -- first need to close this toggleterm
