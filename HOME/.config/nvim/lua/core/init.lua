@@ -913,17 +913,20 @@ vim.api.nvim_create_user_command("TidyTabs", function()
   local tabs = vim.api.nvim_list_tabpages()
   local tab_files = {}
   for _, tab in ipairs(tabs) do
-    local tab_wins = vim.api.nvim_tabpage_list_wins(tab)
-    for _, win in ipairs(tab_wins) do
-      local buf = vim.api.nvim_win_get_buf(win)
-      local buf_name = vim.api.nvim_buf_get_name(buf)
-      if tab_files[buf_name] == nil then
-        tab_files[buf_name] = tab
-      else
-        vim.api.nvim_set_current_tabpage(tab)
-        vim.cmd("tabclose")
-        break
+    -- Get the active window of the tab
+    local active_win = vim.api.nvim_tabpage_get_win(tab)
+    local active_buf = vim.api.nvim_win_get_buf(active_win)
+    local active_buf_name = vim.api.nvim_buf_get_name(active_buf)
+    if tab_files[active_buf_name] == nil then
+      tab_files[active_buf_name] = tab
+    else
+      vim.api.nvim_set_current_tabpage(tab)
+      -- If this is the last tab, just exit the loop
+      if #tabs == 1 then
+        return
       end
+      vim.cmd("tabclose")
+      break
     end
   end
 end, { nargs = 0 })
