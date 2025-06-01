@@ -132,11 +132,16 @@ bindsym $mod+2 workspace $workspace2
 bindsym $mod+3 workspace $workspace3
 bindsym $mod+4 workspace $workspace4
 bindsym $mod+5 workspace $workspace5
-bindsym $mod+6 workspace $workspace6
-bindsym $mod+7 workspace $workspace7
-bindsym $mod+8 workspace $workspace8
-bindsym $mod+9 workspace $workspace9
-bindsym $mod+0 workspace $workspace0
+# Easier for my left hand
+bindsym $mod+ctrl+1 workspace $workspace6
+# Easier for my left hand
+bindsym $mod+ctrl+2 workspace $workspace7
+# Easier for my left hand
+bindsym $mod+ctrl+3 workspace $workspace8
+# Easier for my left hand
+bindsym $mod+ctrl+4 workspace $workspace9
+# Easier for my left hand
+bindsym $mod+ctrl+5 workspace $workspace0
 
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace $workspace1 
@@ -200,7 +205,8 @@ bindsym $mod+r mode "resize"
 
 # border color
 # client.focused #ffd700 #2a2a2a #ffffff #8be503 #ffd700
-client.focused #4C7899 #285577 #FFFFFF #2E9EF4   #285577
+# client.focused #4C7899 #285577 #FFFFFF #2E9EF4   #285577
+client.focused #e2513b #e2513b #000000 #e29c3b  #e2513b 
 # client.unfocused #2a2a2a #2a2a2a #ffffff #2a2a2a #2a2a2a
 
 # Start i3bar to display a workspace bar (plus the system information i3status
@@ -350,7 +356,7 @@ workspace_layout tabbed
 exec feh --bg-fill ~/Pictures/wallpaper.jpg
 
 # hide window title bar
-for_window [class="^.*"] border pixel 5
+for_window [class="^.*"] border pixel 3
 for_window [floating] border normal
 default_border normal
 default_floating_border normal
