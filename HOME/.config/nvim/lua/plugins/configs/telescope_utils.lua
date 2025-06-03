@@ -297,6 +297,10 @@ M.delete_and_select_buffer = function()
             vim.cmd("q!")           -- close the telescope picker
             vim.cmd("wincmd c")     -- close the window
           end)
+          map("n", "<A-q>", function() -- not selecting buffer, just close the window
+            vim.cmd("q!")           -- close the telescope picker
+            vim.cmd("wincmd c")     -- close the window
+          end)
           return true
         end,
       })
@@ -337,6 +341,12 @@ M.delete_and_select_old_buffer = function()
       ignore_current_buffer = true,
       attach_mappings = function(_, map)
         map("n", "gq", function() -- not selecting old file, just close the window
+          pcall(function()
+            vim.cmd("q!")         -- close the telescope picker
+            vim.cmd("wincmd c")   -- close the window
+          end)
+        end)
+        map("n", "<A-q>", function() -- not selecting old file, just close the window
           pcall(function()
             vim.cmd("q!")         -- close the telescope picker
             vim.cmd("wincmd c")   -- close the window

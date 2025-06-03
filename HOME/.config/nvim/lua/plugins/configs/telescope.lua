@@ -153,6 +153,7 @@ M.options = {
         ["<C-a>"] = require("telescope.actions").toggle_all,
         ["q"] = function() end, -- Use gq instead
         ["gq"] = require("telescope.actions").close,
+        ["<A-q>"] = require("telescope.actions").close,
         ["u"] = function()
           vim.cmd("undo")
         end,
@@ -270,6 +271,7 @@ M.options = {
         n = {
           ["q"] = function() end, -- Use gq instead
           ["gq"] = require("telescope.actions").close,
+          ["<A-q>"] = require("telescope.actions").close,
           -- ["t"] = telescope_utils.file_browser_set_cwd,
           ["<A-CR>"] = telescope_utils.file_browser_set_cwd(),
           ["w<A-CR>"] = telescope_utils.file_browser_set_cwd("window"),
