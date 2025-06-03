@@ -1154,7 +1154,7 @@ local default_plugins = {
 
   {
     "dhruvasagar/vim-table-mode",
-    cmd = "TableModeToggle",
+    cmd = { "TableMode" },
     init = function()
       vim.g.table_mode_corner = "|"
     end,
