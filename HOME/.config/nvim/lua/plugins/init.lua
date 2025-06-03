@@ -310,6 +310,7 @@ local default_plugins = {
         -- ["q"] = "close_window",
         ["q"] = {},
         ["gq"] = "close_window",
+        ["<A-q>"] = "close_window",
         ["?"] = "show_help",
         ["g?"] = "show_help",
         ["<"] = "prev_source",
@@ -366,6 +367,7 @@ local default_plugins = {
             ["\\ot"] = { "order_by_type", nowait = false },
             ["q"] = {},
             ["gq"] = "close_window",
+            ["<A-q>"] = "close_window",
             ["L"] = "open",
             ["H"] = "close_node",
             ["<space>"] = {
@@ -1375,6 +1377,12 @@ local default_plugins = {
         ["<A-\\>"] = { "actions.select", opts = { vertical = true } },
         ["<A-e>"] = { "actions.select", opts = { tab = true } },
         ["gq"] = {
+          desc = "Close oil",
+          callback = function()
+            require("plugins.configs.oil_utils").close_oil_if_opened()
+          end
+        },
+        ["<A-q>"] = {
           desc = "Close oil",
           callback = function()
             require("plugins.configs.oil_utils").close_oil_if_opened()

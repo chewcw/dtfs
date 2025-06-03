@@ -294,6 +294,7 @@ M.diffview = function(actions)
         { "n", "<leader>GA", actions.conflict_choose_all("all"),    { desc = "Choose all the versions of a conflict for the whole file" } },
         { "n", "<leader>GX", actions.conflict_choose_all("none"),   { desc = "Delete the conflict region for the whole file" } },
         { "n", "gq",         actions.toggle_files,                  { desc = "Toggle the file panel" } },
+        { "n", "<A-q>",      actions.toggle_files,                  { desc = "Toggle the file panel" } },
       },
     },
     hooks = {

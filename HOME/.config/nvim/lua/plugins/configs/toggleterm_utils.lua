@@ -205,6 +205,12 @@ M.toggle_term = function(direction, is_open_from_file_browser, cwd)
           local dir = ""
           callback(dir)
         end)
+        map("n", "<A-q>", function(prompt_bufnr)
+          -- nothing selected, then just proceed without specifying the path
+          require("telescope.actions").close(prompt_bufnr)
+          local dir = ""
+          callback(dir)
+        end)
         return true
       end,
     })
