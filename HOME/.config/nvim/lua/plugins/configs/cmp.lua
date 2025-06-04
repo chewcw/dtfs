@@ -164,6 +164,14 @@ M.options = {
         behavior = cmp.ConfirmBehavior.Insert,
         select = true,
       }),
+      ["<Tab>"] = cmp.mapping.confirm({
+        behavior = cmp.ConfirmBehavior.Insert,
+        select = true,
+      }),
+      ["<C-i>"] = cmp.mapping.confirm({
+        behavior = cmp.ConfirmBehavior.Insert,
+        select = true,
+      }),
       ["<C-e>"] = cmp.mapping.abort(),
       -- ["<C-q>"] = cmp.mapping.abort(),
       ["<CR>"] = (function()
@@ -242,6 +250,12 @@ M.options = {
       ["<C-y>"] = {
         c = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Insert, select = true }),
       },
+      ["<Tab>"] = {
+        c = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Insert, select = true }),
+      },
+      ["<C-i>"] = {
+        c = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Insert, select = true }),
+      },
     },
     sources = cmp.config.sources({
       { name = "async_path" },
@@ -306,6 +320,12 @@ M.options = {
         c = cmp.mapping.complete(),
       },
       ["<C-y>"] = {
+        c = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Insert, select = true }),
+      },
+      ["<Tab>"] = {
+        c = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Insert, select = true }),
+      },
+      ["<C-i>"] = {
         c = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Insert, select = true }),
       },
     },
