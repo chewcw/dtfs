@@ -48,8 +48,9 @@ opt.ruler = false
 opt.shortmess:append("sI")
 -- Don't show completion messages in command line
 opt.shortmess:append("c")
-opt.wildmenu = false
-opt.wildmode = ""
+opt.wildmenu = true
+opt.wildmode = "longest:full"
+opt.wildoptions = "pum"
 
 opt.signcolumn = "yes"
 opt.splitbelow = true

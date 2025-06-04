@@ -6,6 +6,16 @@ M.open_toggleterm_and_send_selection_parent_path_to_toggleterm = function(direct
     callback = function()
       local oil = require("oil")
       local cwd = oil.get_current_dir()
+      local entry = oil.get_cursor_entry()
+      if not entry or not cwd then
+        return
+      end
+      if entry.type == "file" then
+        cwd = vim.fn.fnamemodify(cwd .. entry.name, ":h")
+      elseif entry.type == "directory" then
+        -- Get the entry absolute path
+        cwd = cwd .. entry.name
+      end
       -- Close the oil
       oil.close()
       -- Open toggleterm
@@ -43,7 +53,7 @@ M.exec_shell_command = function()
           -- Append the result to the shell command
           local command = string.format("sh -c ' %s'", input_buffer)
           os.execute(command)
-          return false    -- Exit input loop
+          return false        -- Exit input loop
         elseif key == 68 then -- Left arrow (key code for left arrow key)
           -- Move cursor left
           if cursor_position > 0 then
@@ -95,29 +105,27 @@ M.go_to_directory = function()
     desc = "Go to directory",
     callback = function()
       local oil = require("oil")
-      -- Prompt for the path input
-      local ok, input = pcall(vim.fn.input, {
-        prompt = "Enter absolute path: ",
-        completion = "file",
-      })
-      if not ok then
-        return
-      end
-      if input then
-        local expanded_input = vim.fn.expand(input) -- to handle something like "~"
-        local floatOrNot = vim.g.oil_float_mode
-        if vim.fn.isdirectory(expanded_input) == 1 then
-          if floatOrNot == "1" then
-            oil.close()
-            oil.open_float(input)
+      vim.ui.input({
+        prompt = "Enter directory path: ",
+        completion = "dir",
+        default = "",
+      }, function(input)
+        if input and input ~= "" then
+          local expanded_input = vim.fn.expand(input)
+          local floatOrNot = vim.g.oil_float_mode
+          if vim.fn.isdirectory(expanded_input) == 1 then
+            if floatOrNot == "1" then
+              oil.close()
+              oil.open_float(expanded_input)
+            else
+              oil.close()
+              oil.open(expanded_input)
+            end
           else
-            oil.close()
-            oil.open(input)
+            print("Not directory entered")
           end
-        else
-          print("Not directory entered")
         end
-      end
+      end)
     end,
   }
 end
