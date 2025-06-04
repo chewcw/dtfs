@@ -1504,17 +1504,10 @@ local default_plugins = {
     version = false,
     opts = {
       provider = "copilot",
-      vendors = {
-        groq = {
-          __inherited_from = "openai",
-          api_key_name = "GROQ_API_KEY",
-          endpoint = "https://api.groq.com/openai/v1/",
-          -- model = "llama-3.3-70b-versatile",
-          model = "deepseek-r1-distill-llama-70b",
+      providers = {
+        copilot = {
+          model = "claude-sonnet-4",
         },
-      },
-      copilot = {
-        model = "claude-sonnet-4",
       },
       mappings = {
         submit = {
