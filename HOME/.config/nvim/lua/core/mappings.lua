@@ -1746,7 +1746,7 @@ M.telescope = {
     ["<leader>fF"] = {
       function()
         require("plugins.configs.oil_utils").close_oil_if_opened()
-        vim.cmd("FzfLua files cwd=" .. vim.fn.input("Directory: "))
+        vim.cmd("FzfLua files cwd=" .. vim.fn.input("Directory: ", "", "dir"))
       end,
       "find files in specific directory"
     },
