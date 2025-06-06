@@ -688,8 +688,12 @@ end
 
 -- Function to close win and focus on previous tab
 M.close_win_and_focus_previous_tab = function()
-  local win_count = #vim.api.nvim_tabpage_list_wins(0) -- Get the number of windows in the current tab
+  local win_count = #vim.api.nvim_tabpage_list_wins(0)
   if win_count == 1 then
+    local choice = vim.fn.confirm("Only one window left. Close tab?", "&Yes\n&No", 2)
+    if choice == 2 then
+      return
+    end
     M.close_and_focus_previous_tab()
   else
     -- If this is diff, run 'close' command twice

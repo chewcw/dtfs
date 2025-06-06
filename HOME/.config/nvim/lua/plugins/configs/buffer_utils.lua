@@ -31,7 +31,7 @@ M.force_delete_buffer_create_new = function()
 
     -- If modified ask for permission
     if vim.bo[current_bufnr].modified then
-      local choice = vim.fn.confirm("Buffer is modified. Do you want to delete it?")
+      local choice = vim.fn.confirm("Buffer is modified. Do you want to delete it?", "&Yes\n&No", 2)
       if choice == 1 then
         -- Delete the current buffer
         local bufname = vim.api.nvim_buf_get_name(0) -- Get the name of the current buffer
@@ -86,9 +86,7 @@ M.force_delete_buffer_keep_tab = function(bufnr)
   -- otherwise don't delete, to prevent delete the tab accidentally.
   if is_empty and buffer_type == "nofile" then
     if is_split then
-      local choice = vim.fn.confirm(
-        "Close the window?"
-      )
+      local choice = vim.fn.confirm("Close the window?", "&Yes\n&No", 2)
       if choice == 1 then
         vim.cmd("wincmd q")
       end
