@@ -998,6 +998,11 @@ M.general = {
     ["<leader>avt"] = {
       function()
         vim.cmd("AvanteToggle")
+        if vim.g.avante_toggle == nil or vim.g.avante_toggle == false then
+          vim.g.avante_toggle = true
+        else
+          vim.g.avante_toggle = false
+        end
       end,
     },
     ["<leader>avs"] = {
@@ -1235,6 +1240,11 @@ M.general = {
     ["<leader>avt"] = {
       function()
         vim.cmd("AvanteToggle")
+        if vim.g.avante_toggle == nil or vim.g.avante_toggle == false then
+          vim.g.avante_toggle = true
+        else
+          vim.g.avante_toggle = false
+        end
       end,
     },
     ["<leader>avs"] = {

@@ -822,8 +822,10 @@ vim.api.nvim_create_autocmd("VimLeavePre", {
       -- Avante doesn't have a close command
       -- Force focus the AvanteChat window, then use gq to close it (see the
       -- keymapping to close AvanteChat)
-      vim.cmd("AvanteFocus")
-      vim.cmd("normal gq")
+      if vim.g.avante_toggle == true then
+        vim.cmd("AvanteFocus")
+        vim.cmd("normal gq")
+      end
 
       -- Close neo-tree
       vim.cmd("Neotree close")

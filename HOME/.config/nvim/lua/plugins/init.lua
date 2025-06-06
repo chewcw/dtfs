@@ -851,7 +851,7 @@ local default_plugins = {
         pattern = "AutoSaveEnable",
         group = group,
         callback = function()
-            vim.g.AutoSaveEnable = true
+          vim.g.AutoSaveEnable = true
         end,
       })
       vim.api.nvim_create_autocmd("User", {
@@ -1747,7 +1747,7 @@ local default_plugins = {
         keymap = {
           builtin = {
             -- true,        -- uncomment to inherit all the below in your custom config
-            ["<M-Esc>"]  = "hide",   -- hide fzf-lua, `:FzfLua resume` to continue
+            ["<M-Esc>"]  = "hide", -- hide fzf-lua, `:FzfLua resume` to continue
             ["<F1>"]     = "toggle-help",
             ["<F2>"]     = "toggle-fullscreen",
             -- Only valid with the 'builtin' previewer
