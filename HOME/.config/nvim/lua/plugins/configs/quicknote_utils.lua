@@ -69,7 +69,7 @@ M.open_note_at_cwd = function()
 end
 
 M.delete_note_at_cwd = function()
-  local choice = vim.fn.confirm("Are you sure you want to delete the note at cwd?")
+  local choice = vim.fn.confirm("Are you sure you want to delete the note at cwd?", "&Yes\n&No", 2)
   if choice == 1 then
     if pcall(require, "quicknote") then
       require("quicknote").DeleteNoteAtCWD()
@@ -78,7 +78,7 @@ M.delete_note_at_cwd = function()
 end
 
 M.delete_note_at_current_line = function()
-  local choice = vim.fn.confirm("Are you sure you want to delete the note at current line?")
+  local choice = vim.fn.confirm("Are you sure you want to delete the note at current line?", "&Yes\n&No", 2)
   if choice == 1 then
     if pcall(require, "quicknote") then
       require("quicknote").DeleteNoteAtCurrentLine()
