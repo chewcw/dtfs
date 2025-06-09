@@ -509,6 +509,7 @@ local get_groups = function(color)
     -- BufferLine
     BufferLine0                          = { fg = color.gray06, bg = color.dark_green02 },
     BufferLine1                          = { fg = color.gray06, bg = color.dark_blue },
+    BufferLine2                          = { fg = color.gray06, bg = color.none },
     -- Avante
     AvanteButtonPrimary                  = { fg = "#1e222a", bg = "#abb2bf" },
     AvanteToBeDeletedWOStrikethrough     = { bg = "#562c30", },

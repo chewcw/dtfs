@@ -101,6 +101,10 @@ M.setup = {
           table.insert(result, { text = " AF ", link = "BufferLine0" })
         end
 
+        if vim.g.autosession_session_name ~= "" then
+          table.insert(result, { text = "🖫" .. vim.g.autosession_session_name .. " ", link = "BufferLine2" })
+        end
+
         return result
       end,
     }
