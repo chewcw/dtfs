@@ -1549,7 +1549,9 @@ local default_plugins = {
       },
       system_prompt = function()
         local hub = require("mcphub").get_hub_instance()
-        return hub:get_active_servers_prompt()
+        if hub ~= nil then
+          return hub:get_active_servers_prompt()
+        end
       end,
       custom_tools = function()
         return {
