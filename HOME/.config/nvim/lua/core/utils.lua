@@ -690,7 +690,8 @@ end
 M.close_win_and_focus_previous_tab = function()
   pcall(function()
     local win_count = #vim.api.nvim_tabpage_list_wins(0)
-    if win_count == 1 then
+    if win_count == 1 or
+        (win_count == 3 and vim.api.nvim_buf_get_name(0):match("fugitive://")) then
       local choice = vim.fn.confirm("Only one window left. Close the tab?")
       if choice == 1 then
         M.close_and_focus_previous_tab()
