@@ -737,7 +737,7 @@ M.general = {
     --     vim.lsp.buf.signature_help()
     --   end,
     --   "show function overloads",
-    --   { opts = { silent = true } },
+    --   opts = { silent = true },
     -- },
 
     ["gV"] = { "`[v`]", "select last pasted content" }, --https://stackoverflow.com/a/4313335
@@ -778,7 +778,7 @@ M.general = {
         end
       end,
       "Jump to treesitter context (upwards)",
-      { opts = { silent = true } },
+      opts = { silent = true },
     },
     ["g<CR>"] = {
       "<cmd> :lua require('core.utils').search_word_under_cursor() <CR>",
@@ -1041,6 +1041,7 @@ M.general = {
         require("core.utils").close_win_and_focus_previous_tab()
       end,
       "Close the window",
+      opts = { silent = true },
     },
 
     ["<leader>Q"] = {
@@ -1269,7 +1270,7 @@ M.general = {
         end
       end,
       "Jump to treesitter context (upwards)",
-      { opts = { silent = true } },
+      opts = { silent = true },
     },
   },
 
@@ -1549,7 +1550,7 @@ M.lspconfig = {
   --       vim.lsp.buf.signature_help()
   --     end,
   --     "show function overloads",
-  --     { opts = { silent = true } },
+  --     opts = { silent = true },
   --   },
   -- },
 
