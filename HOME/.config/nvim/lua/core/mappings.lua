@@ -1725,6 +1725,12 @@ M.neotree = {
       end,
       "Focus neo-tree",
     },
+    ["<leader>NR"] = {
+      function()
+        vim.cmd("Neotree reveal")
+      end,
+      "Reveal the file in neo-tree",
+    },
   },
 }
 
