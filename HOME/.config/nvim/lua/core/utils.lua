@@ -700,10 +700,16 @@ M.close_win_and_focus_previous_tab = function()
       -- If this is diff, run 'close' command twice
       local isdiff = vim.api.nvim_get_option_value("diff", { win = 0 })
       if isdiff and win_count ~= 2 then
-        vim.cmd("close")
-        vim.cmd("close")
+        local choice = vim.fn.confirm("Close both diff window?")
+        if choice == 1 then
+          vim.cmd("close")
+          vim.cmd("close")
+        end
       elseif isdiff and win_count == 2 then
-        M.close_and_focus_previous_tab()
+        local choice = vim.fn.confirm("Close both diff window?")
+        if choice == 1 then
+          M.close_and_focus_previous_tab()
+        end
       else
         vim.cmd("close")
       end
