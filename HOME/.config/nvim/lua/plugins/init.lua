@@ -1491,7 +1491,7 @@ local default_plugins = {
         relative_template_path = true,
         use_cursor_in_template = true,
         insert_mode_after_paste = true,
-        prompt_for_file_name = false,
+        prompt_for_file_name = true,
         show_dir_path_in_prompt = false,
       },
     },
