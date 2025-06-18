@@ -18,9 +18,9 @@ set $alt Mod1
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
-# font pango:DejaVu Sans Mono 8
+font pango:DejaVu Sans Mono 8
 # font pango:DejaVu Sans Mono 9
-font pango:DejaVu Sans Mono 10
+# font pango:DejaVu Sans Mono 10
 
 # Before i3 v4.8, we used to recommend this one as the default:
 # font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
@@ -132,16 +132,11 @@ bindsym $mod+2 workspace $workspace2
 bindsym $mod+3 workspace $workspace3
 bindsym $mod+4 workspace $workspace4
 bindsym $mod+5 workspace $workspace5
-# Easier for my left hand
-bindsym $mod+ctrl+1 workspace $workspace6
-# Easier for my left hand
-bindsym $mod+ctrl+2 workspace $workspace7
-# Easier for my left hand
-bindsym $mod+ctrl+3 workspace $workspace8
-# Easier for my left hand
-bindsym $mod+ctrl+4 workspace $workspace9
-# Easier for my left hand
-bindsym $mod+ctrl+5 workspace $workspace0
+bindsym $mod+6 workspace $workspace6
+bindsym $mod+7 workspace $workspace7
+bindsym $mod+8 workspace $workspace8
+bindsym $mod+9 workspace $workspace9
+bindsym $mod+0 workspace $workspace0
 
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace $workspace1 
@@ -356,16 +351,16 @@ workspace_layout tabbed
 exec feh --bg-fill ~/Pictures/wallpaper.jpg
 
 # hide window title bar
-for_window [class="^.*"] border pixel 3
+for_window [class="^.*"] border pixel 1
 for_window [floating] border normal
 default_border normal
 default_floating_border normal
 
-# hide_edge_borders smart_no_gaps
+hide_edge_borders smart_no_gaps
 
 title_align center
 
-floating_minimum_size 300 x 300
+floating_minimum_size 100 x 100
 floating_maximum_size 1800 x 1000
 
 # move workspace to another monitor
