@@ -1053,6 +1053,49 @@ local default_plugins = {
         },
       }
     end,
+    init = function()
+      if pcall(require, "auto-session.lib") then
+        local AutoSessionLib = require("auto-session.lib")
+
+        -- This command is to accomodate the vim.g.autosession_session_name global variable,
+        -- if i don't use this command to restore the session (SessionRestore), the global
+        -- variable wouldn't get updated, and eventually quit and overwriting the original session.
+        vim.api.nvim_create_user_command("SessionRestore2", function(args)
+          if pcall(require, "auto-session") then
+            local session_name = args.args
+            vim.g.autosession_session_name = session_name
+            require("auto-session").autosave_and_restore(session_name)
+          end
+        end, {
+          complete = function(ArgLead, CmdLine, CursorPos)
+            return AutoSessionLib.complete_session_for_dir(
+              require("auto-session").get_root_dir(), ArgLead, CmdLine, CursorPos
+            )
+          end,
+          bang = true,
+          nargs = "?",
+        })
+
+        -- This command is to accomodate the vim.g.autosession_session_name global variable,
+        -- if i don't use this command to save the session (SessionSave) to another session, the global
+        -- variable wouldn't get updated, and eventually quit and overwriting the original session.
+        vim.api.nvim_create_user_command("SessionSave2", function(args)
+          if pcall(require, "auto-session") then
+            local session_name = args.args
+            vim.g.autosession_session_name = session_name
+            vim.cmd("SessionSave " .. session_name)
+          end
+        end, {
+          complete = function(ArgLead, CmdLine, CursorPos)
+            return AutoSessionLib.complete_session_for_dir(
+              require("auto-session").get_root_dir(), ArgLead, CmdLine, CursorPos
+            )
+          end,
+          bang = true,
+          nargs = "?",
+        })
+      end
+    end,
   },
 
   {
