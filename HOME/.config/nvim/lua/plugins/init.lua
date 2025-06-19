@@ -852,6 +852,11 @@ local default_plugins = {
         group = group,
         callback = function()
           vim.g.AutoSaveEnable = true
+          -- Reload bufferline if it exists
+          if pcall(require, "bufferline") then
+            local bufferline_opt = require("plugins.configs.bufferline").setup
+            require("bufferline").setup(bufferline_opt)
+          end
         end,
       })
       vim.api.nvim_create_autocmd("User", {
@@ -859,6 +864,11 @@ local default_plugins = {
         group = group,
         callback = function()
           vim.g.AutoSaveEnable = false
+          -- Reload bufferline if it exists
+          if pcall(require, "bufferline") then
+            local bufferline_opt = require("plugins.configs.bufferline").setup
+            require("bufferline").setup(bufferline_opt)
+          end
         end,
       })
     end,

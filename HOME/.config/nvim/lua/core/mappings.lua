@@ -2746,10 +2746,20 @@ M.focus = {
             vim.cmd("FocusEnable")
             vim.g.focus_disabled_manually = false
             vim.notify("Focus is enabled manually")
+            -- Reload bufferline if it exists
+            if pcall(require, "bufferline") then
+              local bufferline_opt = require("plugins.configs.bufferline").setup
+              require("bufferline").setup(bufferline_opt)
+            end
           else
             vim.cmd("FocusDisable")
             vim.g.focus_disabled_manually = true
             vim.notify("Focus is disabled manually")
+            -- Reload bufferline if it exists
+            if pcall(require, "bufferline") then
+              local bufferline_opt = require("plugins.configs.bufferline").setup
+              require("bufferline").setup(bufferline_opt)
+            end
           end
         end
       end,
