@@ -293,13 +293,13 @@ M.delete_and_select_buffer = function()
             vim.api.nvim_command("buffer " .. next_bufnr)
             require("telescope.actions").close()
           end)
-          map("n", "gq", function() -- not selecting buffer, just close the window
-            vim.cmd("q!")           -- close the telescope picker
-            vim.cmd("wincmd c")     -- close the window
+          map("n", "gq", function()    -- not selecting buffer, just close the window
+            vim.cmd("q!")              -- close the telescope picker
+            vim.cmd("wincmd c")        -- close the window
           end)
           map("n", "<A-q>", function() -- not selecting buffer, just close the window
-            vim.cmd("q!")           -- close the telescope picker
-            vim.cmd("wincmd c")     -- close the window
+            vim.cmd("q!")              -- close the telescope picker
+            vim.cmd("wincmd c")        -- close the window
           end)
           return true
         end,
@@ -348,8 +348,8 @@ M.delete_and_select_old_buffer = function()
         end)
         map("n", "<A-q>", function() -- not selecting old file, just close the window
           pcall(function()
-            vim.cmd("q!")         -- close the telescope picker
-            vim.cmd("wincmd c")   -- close the window
+            vim.cmd("q!")            -- close the telescope picker
+            vim.cmd("wincmd c")      -- close the window
           end)
         end)
         return true
@@ -744,21 +744,22 @@ M.go_to_directory = function(callback)
   return function(prompt_bufnr)
     local current_line = action_state.get_current_line()
     -- Prompt for the path input
-    local ok, input = pcall(vim.fn.input, {
+    vim.ui.input({
       prompt = "Enter absolute path: ",
       completion = "file",
-    })
-    if not ok then
-      return
-    end
-    if input then
-      local expanded_input = vim.fn.expand(input) -- to handle something like "~"
-      if vim.fn.isdirectory(expanded_input) == 1 then
-        callback(input, prompt_bufnr, current_line)
-      else
-        print("Not directory entered")
+    }, function(input)
+      if not input then
+        return
       end
-    end
+      if input then
+        local expanded_input = vim.fn.expand(input) -- to handle something like "~"
+        if vim.fn.isdirectory(expanded_input) == 1 then
+          callback(input, prompt_bufnr, current_line)
+        else
+          print("Not directory entered")
+        end
+      end
+    end)
   end
 end
 

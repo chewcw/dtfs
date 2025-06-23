@@ -107,8 +107,8 @@ M.go_to_directory = function()
       local oil = require("oil")
       vim.ui.input({
         prompt = "Enter directory path: ",
-        completion = "dir",
-        default = "",
+        completion = "file",
+        default = vim.fn.getcwd(),
       }, function(input)
         if input and input ~= "" then
           local expanded_input = vim.fn.expand(input)
