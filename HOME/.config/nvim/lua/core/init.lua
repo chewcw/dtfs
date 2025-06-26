@@ -486,6 +486,11 @@ vim.api.nvim_create_user_command("TabAutoCwd", function()
       onoff = "on"
     end
     vim.notify("TabAutoCwd is now " .. onoff)
+    -- Reload bufferline if it exists
+    if pcall(require, "bufferline") then
+      local bufferline_opt = require("plugins.configs.bufferline").setup
+      require("bufferline").setup(bufferline_opt)
+    end
   end, 50)
 end, { nargs = "*" })
 
