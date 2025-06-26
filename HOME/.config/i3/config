@@ -95,7 +95,7 @@ bindsym $mod+f fullscreen toggle
 # bindsym $mod+w layout tabbed
 # bindsym $mod+e layout toggle split
 # https://stackoverflow.com/a/69113017
-bindsym $mod+q layout toggle splith tabbed stacked splitv
+bindsym $mod+e layout toggle splith tabbed stacked splitv
 bindsym $mod+w layout toggle splitv stacked tabbed splith
 
 
