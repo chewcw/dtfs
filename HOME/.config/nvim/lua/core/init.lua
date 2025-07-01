@@ -894,3 +894,34 @@ vim.api.nvim_create_user_command("TidyTabs", function()
     end
   end
 end, { nargs = 0 })
+
+-- ----------------------------------------------------------------------------
+-- Smart relative line
+-- ----------------------------------------------------------------------------
+-- If smart relative line is enabled, insert mode will always show absolute line
+-- number, and normal mode will show relative line number
+vim.api.nvim_create_user_command("SmartRelativeLine", function()
+  vim.g.smart_relative_line = not vim.g.smart_relative_line
+  local status = vim.g.smart_relative_line and "on" or "off"
+  vim.notify("SmartRelativeLine is now " .. status)
+end, { nargs = "*" })
+
+-- If smart relative line is enabled, insert mode will always show absolute line
+-- number, and normal mode will show relative line number
+vim.api.nvim_create_autocmd({ "InsertEnter", "CmdlineEnter" }, {
+  callback = function()
+    if vim.g.smart_relative_line then
+      vim.opt_local.relativenumber = false
+      vim.opt_local.number = true
+    end
+  end,
+})
+
+vim.api.nvim_create_autocmd({ "InsertLeave", "CmdlineLeave" }, {
+  callback = function()
+    if vim.g.smart_relative_line then
+      vim.opt_local.relativenumber = true
+      vim.opt_local.number = true
+    end
+  end,
+})
