@@ -441,6 +441,10 @@ local default_plugins = {
             ["?"] = "show_help",
             ["<"] = "prev_source",
             [">"] = "next_source",
+            ["g."] = "open_terminal_in_selected_folder_horizontal",
+            ["g,"] = "open_terminal_in_selected_folder_tab",
+            ["g/"] = "open_terminal_in_selected_folder_float",
+            ["g>"] = "open_terminal_in_selected_folder_vertical",
           },
           fuzzy_finder_mappings = { -- define keymaps for filter popup window in fuzzy_finder_mode
             ["<down>"] = "move_cursor_down",
@@ -449,6 +453,44 @@ local default_plugins = {
             ["<C-p>"] = "move_cursor_up",
             ["<esc>"] = "close"
           },
+        },
+        commands = {
+          open_terminal_in_selected_folder_horizontal = function(state)
+            local node = state.tree:get_node()
+            if node.type == "directory" then
+              local cwd = node:get_id()
+              pcall(function()
+                require("plugins.configs.toggleterm_utils").toggle_term("horizontal", true, cwd)
+              end)
+            end
+          end,
+          open_terminal_in_selected_folder_tab = function(state)
+            local node = state.tree:get_node()
+            if node.type == "directory" then
+            local cwd = node:get_id()
+              pcall(function()
+                require("plugins.configs.toggleterm_utils").toggle_term("tab", true, cwd)
+              end)
+            end
+          end,
+          open_terminal_in_selected_folder_float = function(state)
+            local node = state.tree:get_node()
+            if node.type == "directory" then
+            local cwd = node:get_id()
+              pcall(function()
+                require("plugins.configs.toggleterm_utils").toggle_term("float", true, cwd)
+              end)
+            end
+          end,
+          open_terminal_in_selected_folder_vertical = function(state)
+            local node = state.tree:get_node()
+            if node.type == "directory" then
+            local cwd = node:get_id()
+              pcall(function()
+                require("plugins.configs.toggleterm_utils").toggle_term("vertical", true, cwd)
+              end)
+            end
+          end,
         },
       },
     },
