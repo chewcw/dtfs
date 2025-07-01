@@ -378,7 +378,7 @@ workspace_layout tabbed
 exec feh --bg-fill ~/Pictures/wallpaper.jpg
 
 # hide window title bar
-for_window [class="^.*"] border pixel 1
+for_window [class="^.*"] border pixel 3
 for_window [floating] border normal
 default_border normal
 default_floating_border normal
@@ -545,7 +545,7 @@ bindsym $mod+p mode "$mode_printscreen"
 bindsym Print exec shutter -s
 
 # open file explorer GUI
-bindsym $mod+Shift+f exec nautilus --no-desktop
+bindsym $mod+Shift+f exec nemo --no-desktop
 
 # compton
 # exec compton
