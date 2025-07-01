@@ -153,8 +153,8 @@ M.treesitter_textobjects = {
         -- You can also use captures from other query groups like `locals.scm`
         ["as"] = { query = "@local.scope", query_group = "locals", desc = "Select language scope" },
         -- Markdown code blocks (fenced by ```)
-        ["a`"] = { query = "@block.outer", desc = "Select a markdown code block (with backticks)" },
-        ["i`"] = { query = "@block.inner", desc = "Select inside a markdown code block" },
+        ["a~"] = { query = "@block.outer", desc = "Select a markdown code block (with backticks)" },
+        ["i~"] = { query = "@block.inner", desc = "Select inside a markdown code block" },
       },
       -- You can choose the select mode (default is charwise 'v')
       --
