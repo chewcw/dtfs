@@ -82,8 +82,8 @@ prompt_user() {
 		echo "4) Right (1600x900)"
 		echo "5) Left (1920x1200)"
 		echo "6) Right (1920x1200)"
-		if ! read -r -t 5 -p "Enter choice [1/2/3/4/5/6]: " choice; then
-			echo "No input received in 5 seconds."
+		if ! read -r -t 10 -p "Enter choice [1/2/3/4/5/6]: " choice; then
+			echo "No input received in 10 seconds."
 			return 99
 		fi
 
