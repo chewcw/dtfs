@@ -494,6 +494,10 @@ mode "mouse" {
 
 # return to normal keybindings -- IMPORTANT!!
     bindsym $mod+m mode "default"
+    bindsym Escape mode "default"
+
+# go to arrow mode
+    bindsym $mod+n mode "arrow"
 
 # these should still work
     bindsym $mod+1 workspace $workspace1
@@ -525,6 +529,53 @@ mode "mouse" {
 
 bindsym $mod+m mode "mouse"
 # -----------------------------------------------------------
+
+# ------------------------------------------------------------
+mode "arrow" {
+
+    # Emulate cursor movement (up, down, left, right) using k, j, h, l keys
+    bindsym k exec xdotool keyup k; exec xdotool key Up
+    bindsym j exec xdotool keyup j; exec xdotool key Down
+    bindsym h exec xdotool keyup h; exec xdotool key Left
+    bindsym l exec xdotool keyup l; exec xdotool key Right
+
+# go to mouse mode
+    bindsym $mod+m mode "mouse"
+
+# these should still work
+    bindsym $mod+1 workspace $workspace1
+    bindsym $mod+2 workspace $workspace2
+    bindsym $mod+3 workspace $workspace3
+    bindsym $mod+4 workspace $workspace4
+    bindsym $mod+5 workspace $workspace5
+    bindsym $mod+6 workspace $workspace6
+    bindsym $mod+7 workspace $workspace7
+    bindsym $mod+8 workspace $workspace8
+    bindsym $mod+9 workspace $workspace9
+    bindsym $mod+0 workspace $workspace0
+
+# Pulse Audio controls
+    bindsym $mod+plus exec "amixer -D pulse sset Master 1%+"
+    bindsym $mod+minus exec "amixer -D pulse sset Master 1%-"
+    bindsym $mod+Shift+m exec "amixer -D pulse sset Master mute"
+    bindsym $mod+Shift+u exec "amixer -D pulse sset Master unmute"
+
+# mute microphone
+    bindsym $mod+Ctrl+m exec "amixer set Capture nocap"
+# unmute microphone
+    bindsym $mod+Ctrl+u exec "amixer set Capture cap"
+
+# Brightness controls
+    bindsym $mod+Shift+plus exec "sudo brightnessctl set 5%+"
+    bindsym $mod+Shift+minus exec "sudo brightnessctl set 5%-"
+
+# return to normal keybindings -- IMPORTANT!!
+    bindsym $mod+n mode "default"
+    bindsym Escape mode "default"
+}
+
+bindsym $mod+n mode "arrow"
+# ------------------------------------------------------------
 
 # printscreen (flameshot)
 # https://github.com/flameshot-org/flameshot#usage
