@@ -632,17 +632,26 @@ bindsym $mod+Shift+f exec nemo --no-desktop
 
 # presentation mode
 set $mode_presentation present
-mode "$mode_presentation" {
-  bindsym 1 exec --no-startup-id sh -c '$HOME/.local/bin/gromit_mpx_action.sh'
-  bindsym 2 exec --no-startup-id sh -c 'projecteur &'; exec --no-startup-id sh -c 'sleep 0.2 && projecteur -c spot=toggle'
-  bindsym grave exec sh -c '$HOME/.local/bin/projecteur_action.sh default'; exec sh -c 'projecteur -c quit'
-  bindsym Shift+3 exec sh -c '$HOME/.local/bin/projecteur_action.sh zoomIn'; exec sh -c 'projecteur -c quit'
-  bindsym Shift+4 exec sh -c '$HOME/.local/bin/projecteur_action.sh zoomOut'; exec sh -c 'projecteur -c quit'
-  bindsym 3 exec sh -c '$HOME/.local/bin/projecteur_action.sh increaseSpotSize';
-  bindsym 4 exec sh -c '$HOME/.local/bin/projecteur_action.sh decreaseSpotSize';
-  bindsym 5 exec sh -c 'pkill boomer || boomer';
+# Start presentation mode with boomer on by default
+bindsym $mod+F5 mode "$mode_presentation"; exec sh -c '$HOME/.local/bin/projecteur_action.sh default'; exec sh -c 'pkill boomer || boomer';
+# Start presentation mode with projecteur on by default
+bindsym $mod+F2 mode "$mode_presentation"; exec sh -c '$HOME/.local/bin/projecteur_action.sh default'; exec sh -c 'projecteur &'; exec sh -c 'sleep 0.2 && projecteur -c spot=toggle';
+# Start presentation mode with gromit-mpx on by default
+bindsym $mod+F1 mode "$mode_presentation"; exec sh -c '$HOME/.local/bin/gromit_mpx_action.sh';
 
+mode "$mode_presentation" {
+  bindsym $alt+1 exec --no-startup-id sh -c '$HOME/.local/bin/gromit_mpx_action.sh'
+  bindsym $alt+2 exec --no-startup-id sh -c 'projecteur &'; exec --no-startup-id sh -c 'sleep 0.2 && projecteur -c spot=toggle'
+  bindsym $alt+grave exec sh -c '$HOME/.local/bin/projecteur_action.sh default'; exec sh -c 'projecteur -c quit'
+  bindsym $alt+3 exec sh -c '$HOME/.local/bin/projecteur_action.sh increaseSpotSize';
+  bindsym $alt+4 exec sh -c '$HOME/.local/bin/projecteur_action.sh decreaseSpotSize';
+  bindsym $alt+Shift+3 exec sh -c '$HOME/.local/bin/projecteur_action.sh zoomIn'; exec sh -c 'projecteur -c quit'
+  bindsym $alt+Shift+4 exec sh -c '$HOME/.local/bin/projecteur_action.sh zoomOut'; exec sh -c 'projecteur -c quit'
+  bindsym $alt+5 exec sh -c 'pkill boomer || boomer';
+
+  # back to normal
   bindsym $mod+F3 mode "default"; exec sh -c 'projecteur -c quit'; exec sh -c 'pkill gromit-mpx'; exec sh -c 'pkill boomer'
+  bindsym $mod+F5 mode "default"; exec sh -c 'projecteur -c quit'; exec sh -c 'pkill gromit-mpx'; exec sh -c 'pkill boomer'
 
   # printscreen mapping should work in presentation mode
   bindsym $mod+Shift+p exec flameshot gui
