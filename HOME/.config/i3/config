@@ -218,9 +218,9 @@ mode "resize" {
     bindsym Up resize shrink height 10 px or 10 ppt
     bindsym Right resize grow width 10 px or 10 ppt
 
-# back to normal: Enter or Escape
-    bindsym Return mode "default"
-    bindsym Escape mode "default"
+# back to normal
+    bindsym $mod+r mode "default"
+    bindsym Ctrl+bracketleft mode "default"
 }
 
 bindsym $mod+r mode "resize"
@@ -268,7 +268,8 @@ mode "$mode_gaps" {
     bindsym b      mode "$mode_gaps_bottom"
     bindsym l      mode "$mode_gaps_left"
     bindsym Return mode "$mode_gaps"
-    bindsym Escape mode "default"
+    bindsym Ctrl+bracketleft mode "default"
+    bindsym $mod+Shift+g mode "default"
 }
 
 mode "$mode_gaps_outer" {
@@ -281,7 +282,8 @@ mode "$mode_gaps_outer" {
     bindsym Shift+0     gaps outer all set 0
 
     bindsym Return mode "$mode_gaps"
-    bindsym Escape mode "default"
+    bindsym Ctrl+bracketleft mode "default"
+    bindsym $mod+Shift+g mode "default"
 }
 mode "$mode_gaps_inner" {
     bindsym plus  gaps inner current plus 5
@@ -293,7 +295,8 @@ mode "$mode_gaps_inner" {
     bindsym Shift+0     gaps inner all set 0
 
     bindsym Return mode "$mode_gaps"
-    bindsym Escape mode "default"
+    bindsym Ctrl+bracketleft mode "default"
+    bindsym $mod+Shift+g mode "default"
 }
 mode "$mode_gaps_horiz" {
     bindsym plus  gaps horizontal current plus 5
@@ -305,7 +308,8 @@ mode "$mode_gaps_horiz" {
     bindsym Shift+0     gaps horizontal all set 0
 
     bindsym Return mode "$mode_gaps"
-    bindsym Escape mode "default"
+    bindsym Ctrl+bracketleft mode "default"
+    bindsym $mod+Shift+g mode "default"
 }
 mode "$mode_gaps_verti" {
     bindsym plus  gaps vertical current plus 5
@@ -317,7 +321,8 @@ mode "$mode_gaps_verti" {
     bindsym Shift+0     gaps vertical all set 0
 
     bindsym Return mode "$mode_gaps"
-    bindsym Escape mode "default"
+    bindsym Ctrl+bracketleft mode "default"
+    bindsym $mod+Shift+g mode "default"
 }
 mode "$mode_gaps_top" {
     bindsym plus  gaps top current plus 5
@@ -329,7 +334,8 @@ mode "$mode_gaps_top" {
     bindsym Shift+0     gaps top all set 0
 
     bindsym Return mode "$mode_gaps"
-    bindsym Escape mode "default"
+    bindsym Ctrl+bracketleft mode "default"
+    bindsym $mod+Shift+g mode "default"
 }
 mode "$mode_gaps_right" {
     bindsym plus  gaps right current plus 5
@@ -341,7 +347,8 @@ mode "$mode_gaps_right" {
     bindsym Shift+0     gaps right all set 0
 
     bindsym Return mode "$mode_gaps"
-    bindsym Escape mode "default"
+    bindsym Ctrl+bracketleft mode "default"
+    bindsym $mod+Shift+g mode "default"
 }
 mode "$mode_gaps_bottom" {
     bindsym plus  gaps bottom current plus 5
@@ -353,7 +360,8 @@ mode "$mode_gaps_bottom" {
     bindsym Shift+0     gaps bottom all set 0
 
     bindsym Return mode "$mode_gaps"
-    bindsym Escape mode "default"
+    bindsym Ctrl+bracketleft mode "default"
+    bindsym $mod+Shift+g mode "default"
 }
 mode "$mode_gaps_left" {
     bindsym plus  gaps left current plus 5
@@ -365,7 +373,8 @@ mode "$mode_gaps_left" {
     bindsym Shift+0     gaps left all set 0
 
     bindsym Return mode "$mode_gaps"
-    bindsym Escape mode "default"
+    bindsym Ctrl+bracketleft mode "default"
+    bindsym $mod+Shift+g mode "default"
 }
 
 gaps outer 0
@@ -423,7 +432,7 @@ mode "$mode_system" {
 
 # back to normal: Enter or Escape
     bindsym Return mode "default"
-    bindsym Escape mode "default"
+    bindsym Ctrl+bracketleft mode "default"
 }
 bindsym $mod+Shift+Escape mode "$mode_system"
 
@@ -494,7 +503,7 @@ mode "mouse" {
 
 # return to normal keybindings -- IMPORTANT!!
     bindsym $mod+m mode "default"
-    bindsym Escape mode "default"
+    bindsym Ctrl+bracketleft mode "default"
 
 # go to arrow mode
     bindsym $mod+n mode "arrow"
@@ -534,10 +543,30 @@ bindsym $mod+m mode "mouse"
 mode "arrow" {
 
     # Emulate cursor movement (up, down, left, right) using k, j, h, l keys
-    bindsym k exec xdotool keyup k; exec xdotool key Up
-    bindsym j exec xdotool keyup j; exec xdotool key Down
-    bindsym h exec xdotool keyup h; exec xdotool key Left
-    bindsym l exec xdotool keyup l; exec xdotool key Right
+    bindsym k exec --no-startup-id xdotool keyup k key Up
+    bindsym j exec --no-startup-id xdotool keyup j key Down
+    bindsym h exec --no-startup-id xdotool keyup h key Left
+    bindsym l exec --no-startup-id xdotool keyup l key Right
+    bindsym Ctrl+k exec --no-startup-id xdotool keyup k keyup Control key Ctrl+Up
+    bindsym Ctrl+j exec --no-startup-id xdotool keyup j keyup Control key Ctrl+Down
+    bindsym Ctrl+h exec --no-startup-id xdotool keyup h keyup Control key Ctrl+Left
+    bindsym Ctrl+l exec --no-startup-id xdotool keyup l keyup Control key Ctrl+Right
+# Shell's Ctrl+a → Home
+    bindsym Ctrl+a exec --no-startup-id xdotool keyup a keyup Control key Home
+# Shell's Ctrl+e → End
+    bindsym Ctrl+e exec --no-startup-id xdotool keyup e keyup Control key End
+# w → BackSpace
+    bindsym w exec --no-startup-id xdotool keyup w key BackSpace
+# Vim motion Ctrl+w → Ctrl+BackSpace
+    bindsym Ctrl+w exec --no-startup-id xdotool keyup w keyup Control key Ctrl+BackSpace
+# d → Delete
+    bindsym d exec --no-startup-id xdotool keyup d key Delete
+# Ctrl+d (Shell's Alt+d doesn't work) → Ctrl+Delete
+    bindsym Ctrl+d exec --no-startup-id xdotool keyup d keyup Control key Ctrl+Delete
+# Vim motion Ctrl+u → Shift+Home+BackSpace
+    bindsym Ctrl+u exec --no-startup-id xdotool keyup u keyup Control key Shift+Home BackSpace
+# Vim motion Shift+d → Shift+End+Delete
+    bindsym Shift+d exec --no-startup-id xdotool keyup d keyup Shift key Shift+End Delete
 
 # go to mouse mode
     bindsym $mod+m mode "mouse"
@@ -571,7 +600,7 @@ mode "arrow" {
 
 # return to normal keybindings -- IMPORTANT!!
     bindsym $mod+n mode "default"
-    bindsym Escape mode "default"
+    bindsym Ctrl+bracketleft mode "default"
 }
 
 bindsym $mod+n mode "arrow"
@@ -586,9 +615,9 @@ mode "$mode_printscreen" {
   bindsym 0 exec flameshot screen -n 0 -c -p $HOME/Pictures; mode "default"
   bindsym 1 exec flameshot screen -n 1 -c -p $HOME/Pictures; mode "default"
 
-  # back to normal: Enter or Escape
+  # back to normal: Enter or Ctrl+[
   bindsym Return mode "default"
-  bindsym Escape mode "default"
+  bindsym Ctrl+bracketleft mode "default"
 }
 bindsym $mod+p mode "$mode_printscreen"
 
