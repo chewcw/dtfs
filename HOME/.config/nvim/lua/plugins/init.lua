@@ -334,7 +334,7 @@ local default_plugins = {
             ["<bs>"] = {},
             ["-"] = "navigate_up",
             -- ["."] = "set_root",
-            ["="] = "set_root",
+            ["<A-CR>"] = "set_root",
             -- ["[g"] = "prev_git_modified",
             -- ["]g"] = "next_git_modified",
             ["[c"] = "prev_git_modified",
