@@ -506,7 +506,7 @@ mode "mouse" {
     bindsym Ctrl+bracketleft mode "default"
 
 # go to vim mode
-    bindsym $mod+0x2c mode "vim"
+    bindsym $mod+i mode "vim"
 
 # these should still work
     bindsym $mod+1 workspace $workspace1
@@ -541,14 +541,7 @@ bindsym $mod+m mode "mouse"
 
 # ------------------------------------------------------------
 mode "vim" {
-
-    # Enter vim motion mode
-    bindsym Escape mode "vim_normal"
-
-    # go to mouse mode
-    bindsym $mod+m mode "mouse"
-
-# these should still work
+    # these should still work
     bindsym $mod+1 workspace $workspace1
     bindsym $mod+2 workspace $workspace2
     bindsym $mod+3 workspace $workspace3
@@ -560,29 +553,31 @@ mode "vim" {
     bindsym $mod+9 workspace $workspace9
     bindsym $mod+0 workspace $workspace0
 
-# Pulse Audio controls
+    # Pulse Audio controls
     bindsym $mod+plus exec "amixer -D pulse sset Master 1%+"
     bindsym $mod+minus exec "amixer -D pulse sset Master 1%-"
     bindsym $mod+Shift+m exec "amixer -D pulse sset Master mute"
     bindsym $mod+Shift+u exec "amixer -D pulse sset Master unmute"
 
-# mute microphone
+    # mute microphone
     bindsym $mod+Ctrl+m exec "amixer set Capture nocap"
-# unmute microphone
+    # unmute microphone
     bindsym $mod+Ctrl+u exec "amixer set Capture cap"
 
-# Brightness controls
+    # Brightness controls
     bindsym $mod+Shift+plus exec "sudo brightnessctl set 5%+"
     bindsym $mod+Shift+minus exec "sudo brightnessctl set 5%-"
 
-# return to normal keybindings -- IMPORTANT!!
-    # 0x2c is the keycode for comma
-    bindsym $mod+0x2c mode "default"
-    bindsym Ctrl+bracketleft mode "default"
+    # return to normal keybindings -- IMPORTANT!!
+    bindsym $mod+i mode "default"
+    # Enter vim motion mode
+    bindsym Ctrl+bracketleft mode "vim_normal"
+    # go to mouse mode
+    bindsym $mod+m mode "mouse"
 }
 
-# 0x2c is the keycode for comma
-bindsym $mod+0x2c mode "vim"
+# Go to vim insert mode
+bindsym $mod+i mode "vim"
 
 mode "vim_normal" {
   # Emulate cursor movement (up, down, left, right) using k, j, h, l keys
@@ -611,9 +606,9 @@ mode "vim_normal" {
   bindsym Ctrl+u exec --no-startup-id xdotool keyup u keyup Control key Shift+Home BackSpace
   # Vim motion Shift+d → Shift+End+Delete
   bindsym Shift+d exec --no-startup-id xdotool keyup d keyup Shift key Shift+End Delete
-  # Exit vim motion mode
-  bindsym Escape mode "vim"
-  bindsym Ctrl+bracketleft mode "vim"
+  # Go to vim insert mode
+  bindsym i mode "vim"
+  bindsym $mod+i mode "vim"
   # go to mouse mode
   bindsym $mod+m mode "mouse"
 }
