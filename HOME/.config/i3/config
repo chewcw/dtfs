@@ -542,34 +542,10 @@ bindsym $mod+m mode "mouse"
 # ------------------------------------------------------------
 mode "vim" {
 
-    # Emulate cursor movement (up, down, left, right) using k, j, h, l keys
-    bindsym k exec --no-startup-id xdotool keyup k key Up
-    bindsym j exec --no-startup-id xdotool keyup j key Down
-    bindsym h exec --no-startup-id xdotool keyup h key Left
-    bindsym l exec --no-startup-id xdotool keyup l key Right
+    # Enter vim motion mode
+    bindsym Escape mode "vim_normal"
 
-    bindsym w exec --no-startup-id xdotool keyup w key Ctrl+Right
-    bindsym b exec --no-startup-id xdotool keyup b key Ctrl+Left
-    bindsym Ctrl+k exec --no-startup-id xdotool keyup k keyup Control key Ctrl+Up
-    bindsym Ctrl+j exec --no-startup-id xdotool keyup j keyup Control key Ctrl+Down
-# Shell's Ctrl+a → Home
-    bindsym Ctrl+a exec --no-startup-id xdotool keyup a keyup Control key Home
-# Shell's Ctrl+e → End
-    bindsym Ctrl+e exec --no-startup-id xdotool keyup e keyup Control key End
-# Vim motion Ctrl+h → BackSpace
-    bindsym Ctrl+h exec --no-startup-id xdotool keyup h keyup Control key BackSpace
-# Vim motion Ctrl+w → Ctrl+BackSpace
-    bindsym Ctrl+w exec --no-startup-id xdotool keyup w keyup Control key Ctrl+BackSpace
-# d → Delete
-    bindsym d exec --no-startup-id xdotool keyup d key Delete
-# Ctrl+d (Shell's Alt+d doesn't work) → Ctrl+Delete
-    bindsym Ctrl+d exec --no-startup-id xdotool keyup d keyup Control key Ctrl+Delete
-# Vim motion Ctrl+u → Shift+Home+BackSpace
-    bindsym Ctrl+u exec --no-startup-id xdotool keyup u keyup Control key Shift+Home BackSpace
-# Vim motion Shift+d → Shift+End+Delete
-    bindsym Shift+d exec --no-startup-id xdotool keyup d keyup Shift key Shift+End Delete
-
-# go to mouse mode
+    # go to mouse mode
     bindsym $mod+m mode "mouse"
 
 # these should still work
@@ -607,6 +583,41 @@ mode "vim" {
 
 # 0x2c is the keycode for comma
 bindsym $mod+0x2c mode "vim"
+
+mode "vim_normal" {
+  # Emulate cursor movement (up, down, left, right) using k, j, h, l keys
+  bindsym k exec --no-startup-id xdotool keyup k key Up
+  bindsym j exec --no-startup-id xdotool keyup j key Down
+  bindsym h exec --no-startup-id xdotool keyup h key Left
+  bindsym l exec --no-startup-id xdotool keyup l key Right
+
+  bindsym w exec --no-startup-id xdotool keyup w key Ctrl+Right
+  bindsym b exec --no-startup-id xdotool keyup b key Ctrl+Left
+  bindsym Ctrl+k exec --no-startup-id xdotool keyup k keyup Control key Ctrl+Up
+  bindsym Ctrl+j exec --no-startup-id xdotool keyup j keyup Control key Ctrl+Down
+  # Shell's Ctrl+a → Home
+  bindsym Ctrl+a exec --no-startup-id xdotool keyup a keyup Control key Home
+  # Shell's Ctrl+e → End
+  bindsym Ctrl+e exec --no-startup-id xdotool keyup e keyup Control key End
+  # Vim motion Ctrl+h → BackSpace
+  bindsym Ctrl+h exec --no-startup-id xdotool keyup h keyup Control key BackSpace
+  # Vim motion Ctrl+w → Ctrl+BackSpace
+  bindsym Ctrl+w exec --no-startup-id xdotool keyup w keyup Control key Ctrl+BackSpace
+  # d → Delete
+  bindsym d exec --no-startup-id xdotool keyup d key Delete
+  # Ctrl+d (Shell's Alt+d doesn't work) → Ctrl+Delete
+  bindsym Ctrl+d exec --no-startup-id xdotool keyup d keyup Control key Ctrl+Delete
+  # Vim motion Ctrl+u → Shift+Home+BackSpace
+  bindsym Ctrl+u exec --no-startup-id xdotool keyup u keyup Control key Shift+Home BackSpace
+  # Vim motion Shift+d → Shift+End+Delete
+  bindsym Shift+d exec --no-startup-id xdotool keyup d keyup Shift key Shift+End Delete
+  # Exit vim motion mode
+  bindsym Escape mode "vim"
+  bindsym Ctrl+bracketleft mode "vim"
+  # go to mouse mode
+  bindsym $mod+m mode "mouse"
+}
+
 # ------------------------------------------------------------
 
 # printscreen (flameshot)
