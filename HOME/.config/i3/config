@@ -568,10 +568,28 @@ mode "vim" {
     bindsym $mod+Shift+plus exec "sudo brightnessctl set 5%+"
     bindsym $mod+Shift+minus exec "sudo brightnessctl set 5%-"
 
+    # Vim motion Ctrl+h → BackSpace
+    bindsym Ctrl+h exec --no-startup-id xdotool keyup h keyup Control key BackSpace
+    # Vim motion Ctrl+w → Ctrl+BackSpace
+    bindsym Ctrl+w exec --no-startup-id xdotool keyup w keyup Control key Ctrl+BackSpace
+    # Shell's Ctrl+a → Home
+    bindsym Ctrl+a exec --no-startup-id xdotool keyup a keyup Control key Home
+    # Shell's Ctrl+e → End
+    bindsym Ctrl+e exec --no-startup-id xdotool keyup e keyup Control key End
+    # Ctrl+d (Shell's Alt+d doesn't work) → Ctrl+Delete
+    bindsym Ctrl+d exec --no-startup-id xdotool keyup d keyup Control key Ctrl+Delete
+    # Vim motion Ctrl+u → Shift+Home+BackSpace
+    bindsym Ctrl+u exec --no-startup-id xdotool keyup u keyup Control key Shift+Home BackSpace
+
+    # Ctrl+m → CR
+    bindsym Ctrl+m exec --no-startup-id xdotool keyup m keyup Control key Return
+    # Ctrl+i → Tab
+    bindsym Ctrl+i exec --no-startup-id xdotool keyup i keyup Control key Tab
+
     # return to normal keybindings -- IMPORTANT!!
     bindsym $mod+i mode "default"
-    # Enter vim motion mode
-    bindsym Ctrl+bracketleft mode "vim_normal"
+    # Enter vim motion mode and send notification for 0.5 second
+    bindsym Ctrl+bracketleft mode "vim_normal"; exec --no-startup-id notify-send -t 500 "Vim motion mode"
     # go to mouse mode
     bindsym $mod+m mode "mouse"
 }
@@ -587,30 +605,144 @@ mode "vim_normal" {
   bindsym l exec --no-startup-id xdotool keyup l key Right
 
   bindsym w exec --no-startup-id xdotool keyup w key Ctrl+Right
+  bindsym e exec --no-startup-id xdotool keyup e key Ctrl+Right
   bindsym b exec --no-startup-id xdotool keyup b key Ctrl+Left
+  bindsym Shift+b exec --no-startup-id xdotool keyup b keyup Shift key Ctrl+Left
   bindsym Ctrl+k exec --no-startup-id xdotool keyup k keyup Control key Ctrl+Up
   bindsym Ctrl+j exec --no-startup-id xdotool keyup j keyup Control key Ctrl+Down
   # Shell's Ctrl+a → Home
   bindsym Ctrl+a exec --no-startup-id xdotool keyup a keyup Control key Home
+  bindsym 0 exec --no-startup-id xdotool keyup 0 keyup Control key Home
   # Shell's Ctrl+e → End
   bindsym Ctrl+e exec --no-startup-id xdotool keyup e keyup Control key End
-  # Vim motion Ctrl+h → BackSpace
-  bindsym Ctrl+h exec --no-startup-id xdotool keyup h keyup Control key BackSpace
-  # Vim motion Ctrl+w → Ctrl+BackSpace
-  bindsym Ctrl+w exec --no-startup-id xdotool keyup w keyup Control key Ctrl+BackSpace
-  # d → Delete
-  bindsym d exec --no-startup-id xdotool keyup d key Delete
-  # Ctrl+d (Shell's Alt+d doesn't work) → Ctrl+Delete
-  bindsym Ctrl+d exec --no-startup-id xdotool keyup d keyup Control key Ctrl+Delete
-  # Vim motion Ctrl+u → Shift+Home+BackSpace
-  bindsym Ctrl+u exec --no-startup-id xdotool keyup u keyup Control key Shift+Home BackSpace
+  bindsym Shift+4 exec --no-startup-id xdotool keyup 4 keyup Shift_L keyup Shift_R key End
+  # Vim motion Shift+x → BackSpace
+  bindsym Shift+x exec --no-startup-id xdotool keyup x keyup Shift key BackSpace
   # Vim motion Shift+d → Shift+End+Delete
-  bindsym Shift+d exec --no-startup-id xdotool keyup d keyup Shift key Shift+End Delete
+  bindsym Shift+d exec --no-startup-id xdotool keyup d keyup Shift key Shift+End BackSpace
+  # Vim C → Shift+End Delete i
+  bindsym Shift+c exec --no-startup-id xdotool keyup c keyup Shift key Shift+End BackSpace; mode "vim"
+  # Vim I → Home
+  bindsym Shift+i exec --no-startup-id xdotool keyup i keyup Shift key Home; mode "vim"
+  # Vim A → End
+  bindsym Shift+a exec --no-startup-id xdotool keyup a keyup Shift sleep 0.1 key End; mode "vim"
+  # Yank, cut and paste
+  bindsym y exec --no-startup-id xdotool keyup y key Ctrl+c; exec --no-startup-id xdotool keyup Shift; exec --no-startup-id notify-send -t 500 "Yanked to clipboard"
+  bindsym p exec --no-startup-id xdotool keyup p key Ctrl+v; exec --no-startup-id xdotool keyup Shift
+  bindsym Shift+p exec --no-startup-id xdotool keyup p keyup Shift key Ctrl+v; exec --no-startup-id xdotool keyup Shift
+  # Delete and go to normal mode
+  bindsym d exec --no-startup-id xdotool keyup d key BackSpace; exec --no-startup-id xdotool keyup Shift; mode "vim_normal"
+  # Cut and go to insert mode
+  bindsym x exec --no-startup-id xdotool keyup x key Delete; mode "vim"
+  # r → Delete and go to insert mode
+  bindsym r exec --no-startup-id xdotool keyup r key Delete; mode "vim"
+  # Delete entire line and go to insert mode
+  bindsym Shift+s exec --no-startup-id xdotool keyup s keyup Shift sleep 0.1 key Home Shift+End Delete keyup Shift; mode "vim"
+  # Ctrl+m → CR
+  bindsym Ctrl+m exec --no-startup-id xdotool keyup m keyup Control key Return
+  # Ctrl+i → Tab
+  bindsym Ctrl+i exec --no-startup-id xdotool keyup i keyup Control key Tab
+  # o → End Enter
+  bindsym o exec --no-startup-id xdotool keyup o key End key Return; mode "vim"
+  # O → Home Enter
+  bindsym Shift+o exec --no-startup-id xdotool keyup o keyup Shift key Home key Return key Up; mode "vim"
+  # s → Delete and go to insert mode
+  bindsym s exec --no-startup-id xdotool keyup s key BackSpace; exec --no-startup-id xdotool keyup Shift; mode "vim"
+  # J → Join lines
+  bindsym Shift+j exec --no-startup-id xdotool keyup j keyup Shift key End Delete space
+  # u → Undo
+  bindsym u exec --no-startup-id xdotool keyup u key Ctrl+z
+  # Ctrl+r → Redo
+  bindsym Ctrl+r exec --no-startup-id xdotool keyup r keyup Control key Ctrl+Shift+z
+  # G → Ctrl+End
+  bindsym Shift+g exec --no-startup-id xdotool keyup g keyup Shift key Ctrl+End
+  # Ctrl+g → Ctrl+Home
+  bindsym Ctrl+g exec --no-startup-id xdotool keyup g keyup Control key Ctrl+Home
+  # Ignore these keys
+  bindsym Space mode "vim_normal"
+  bindsym q mode "vim_normal"
+  bindsym t mode "vim_normal"
+  bindsym f mode "vim_normal"
+  bindsym g mode "vim_normal"
+  bindsym z mode "vim_normal"
+  bindsym n mode "vim_normal"
+  bindsym m mode "vim_normal"
+  bindsym Shift+q mode "vim_normal"
+  bindsym Shift+t mode "vim_normal"
+  bindsym Shift+u mode "vim_normal"
+  bindsym Shift+f mode "vim_normal"
+  bindsym Shift+g mode "vim_normal"
+  bindsym Shift+z mode "vim_normal"
+  bindsym Shift+n mode "vim_normal"
+  bindsym Shift+m mode "vim_normal"
+  bindsym Shift+e mode "vim_normal"
+  bindsym Shift+r mode "vim_normal"
+  bindsym Shift+y mode "vim_normal"
+  bindsym Shift+i mode "vim_normal"
+  bindsym Ctrl+w mode "vim_normal"
+  bindsym Ctrl+d mode "vim_normal"
+  bindsym Ctrl+u mode "vim_normal"
+  bindsym Ctrl+h mode "vim_normal"
+  # Go to vim insert mode
+  bindsym i mode "vim"
+  bindsym a mode "vim"
+  bindsym C mode "vim"
+  bindsym c mode "vim"
+  bindsym $mod+i mode "vim"
+  # Go to vim visual mode
+  bindsym v mode "vim_visual"
+  # Go to vim visual mode with entire line selected
+  bindsym Shift+v exec --no-startup-id xdotool keyup v keyup Shift sleep 0.1 key Home sleep 0.1 key Shift+End; mode "vim_visual"
+  # go to mouse mode
+  bindsym $mod+m mode "mouse"
+  # Do nothing
+  bindsym Ctrl+bracketleft mode "vim_normal"
+}
+
+mode "vim_visual" {
+  # Emulate Shift+cursor movement (up, down, left, right) using k, j, h, l keys
+  bindsym k exec --no-startup-id xdotool keyup k key Shift+Up
+  bindsym j exec --no-startup-id xdotool keyup j key Shift+Down
+  bindsym h exec --no-startup-id xdotool keyup h key Shift+Left
+  bindsym l exec --no-startup-id xdotool keyup l key Shift+Right
+  bindsym w exec --no-startup-id xdotool keyup w key Shift+Ctrl+Right
+  bindsym e exec --no-startup-id xdotool keyup e key Shift+Ctrl+Right
+  bindsym b exec --no-startup-id xdotool keyup b key Shift+Ctrl+Left
+  bindsym 0 exec --no-startup-id xdotool keyup 0 key Shift+Home
+  bindsym Shift+4 exec --no-startup-id xdotool keyup 4 key Shift+End
+  # Yank, cut and paste
+  bindsym y exec --no-startup-id xdotool keyup y keyup Shift key Ctrl+c; mode "vim_normal"; exec --no-startup-id xdotool sleep 0.1 key l; exec --no-startup-id notify-send -t 500 "Yanked to clipboard"
+  bindsym p exec --no-startup-id xdotool keyup p keyup Shift key Ctrl+v; mode "vim_normal"
+  bindsym Shift+p exec --no-startup-id xdotool keyup p keyup Shift key Ctrl+v; mode "vim_normal"
+  # Delete and go to normal mode
+  bindsym d exec --no-startup-id xdotool keyup d key Ctrl+x; exec --no-startup-id xdotool keyup Shift; mode "vim_normal"
+  # Cut and go to insert mode
+  bindsym x exec --no-startup-id xdotool keyup x key Ctrl+x; exec --no-startup-id xdotool keyup Shift; mode "vim"; exec --no-startup-id xdotool sleep 0.1 l; exec --no-startup-id notify-send -t 500 "Cut to clipboard"
+  # Delete and go to insert mode
+  bindsym Shift+c exec --no-startup-id xdotool keyup c keyup Shift key Ctrl+x; mode "vim"
+  bindsym c exec --no-startup-id xdotool keyup c key Ctrl+x keyup Shift; mode "vim"
+  bindsym s exec --no-startup-id xdotool keyup s key Ctrl+x keyup Shift; mode "vim"
+  bindsym Shift+v exec --no-startup-id xdotool keyup v keyup Shift sleep 0.1 key Home sleep 0.1 key Shift+End; mode "vim_visual"
+  # G → Ctrl+End
+  bindsym Shift+g exec --no-startup-id xdotool keyup g keyup Shift key Ctrl+End
+  # Ctrl+g → Ctrl+Home
+  bindsym Ctrl+g exec --no-startup-id xdotool keyup g keyup Control key Ctrl+Home
+  # Ignore these keys
+  bindsym Ctrl+h mode "vim_visual"
+  bindsym Ctrl+j mode "vim_visual"
+  bindsym Ctrl+k mode "vim_visual"
+  bindsym Ctrl+l mode "vim_visual"
+  bindsym Ctrl+w mode "vim_visual"
+  bindsym Shift+s mode "vim_visual"
+
   # Go to vim insert mode
   bindsym i mode "vim"
   bindsym $mod+i mode "vim"
   # go to mouse mode
   bindsym $mod+m mode "mouse"
+  # return to normal keybindings and send notification for 0.5 second
+  bindsym Ctrl+bracketleft mode "vim_normal"; exec --no-startup-id notify-send -t 500 "Vim motion mode"
+  bindsym v mode "vim_normal"
 }
 
 # ------------------------------------------------------------
