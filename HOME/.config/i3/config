@@ -640,6 +640,10 @@ bindsym $mod+m mode "mouse"
 
 # ------------------------------------------------------------
 mode "vim" {
+    bindsym Ctrl exec --no-startup-id xdotool keyup Control keyup Shift; mode "vim"
+    bindsym Shift exec --no-startup-id xdotool keyup Control keyup Shift; mode "vim"
+    bindsym $mod exec --no-startup-id xdotool keyup Control keyup Shift; mode "vim"
+
     # these should still work ###################################
     # focus the parent container
     bindsym $mod+y focus parent
@@ -796,6 +800,10 @@ mode "vim" {
 bindsym $mod+i mode "vim"
 
 mode "vim_normal" {
+  bindsym Ctrl exec --no-startup-id xdotool keyup Control keyup Shift; mode "vim_normal"
+  bindsym Shift exec --no-startup-id xdotool keyup Control keyup Shift; mode "vim_normal"
+  bindsym $mod exec --no-startup-id xdotool keyup Control keyup Shift; mode "vim_normal"
+
   # Emulate cursor movement (up, down, left, right) using k, j, h, l keys
   bindsym k exec --no-startup-id xdotool keyup Control keyup Shift keyup k key Up
   bindsym j exec --no-startup-id xdotool keyup Control keyup Shift keyup j key Down
@@ -840,7 +848,7 @@ mode "vim_normal" {
   # Delete entire line and go to insert mode
   bindsym Shift+s exec --no-startup-id xdotool keyup Control keyup Shift keyup s sleep 0.1 key Home Shift+End Delete keyup Shift; mode "vim"
   # Ctrl+m → CR
-  bindsym Ctrl+m exec --no-startup-id xdotool keyup Control keyup Shift keyup m key Return
+  bindsym Ctrl+m exec --no-startup-id xdotool keyup Control keyup Shift keyup m key Return keydown Control
   # Ctrl+i → Tab
   bindsym Ctrl+i exec --no-startup-id xdotool keyup Control keyup Shift keyup i key Tab keydown Control
   # o → End Enter
@@ -905,6 +913,10 @@ mode "vim_normal" {
 bindsym $mod+Shift+i exec --no-startup-id xdotool keyup Control keyup Shift; mode "vim_normal"
 
 mode "vim_visual" {
+  bindsym Ctrl exec --no-startup-id xdotool keyup Control keyup Shift; mode "vim_visual"
+  bindsym Shift exec --no-startup-id xdotool keyup Control keyup Shift; mode "vim_visual"
+  bindsym $mod exec --no-startup-id xdotool keyup Control keyup Shift; mode "vim_visual"
+
   # Emulate Shift+cursor movement (up, down, left, right) using k, j, h, l keys
   bindsym k exec --no-startup-id xdotool keyup Control keyup Shift keyup k key Shift+Up
   bindsym j exec --no-startup-id xdotool keyup Control keyup Shift keyup j key Shift+Down
