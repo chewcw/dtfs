@@ -3,7 +3,7 @@ local M = {}
 local file_cache = {}
 
 M.opts = {
-  model = "claude-sonnet-4",
+  model = "gpt-4o",
   mappings = {
     reset = {
       normal = "<C-A-r>",
