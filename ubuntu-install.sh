@@ -464,10 +464,16 @@ sudo apt install flameshot -y
 mkdir -p $HOME/.config/Dharkael && ln -sf $pwd/HOME/.config/flameshot/flameshot.conf $HOME/.config/Dharkael/flameshot.conf
 
 # Install Shutter
+# echo "------------------------------------------"
+# echo "Installing Shutter"
+# echo "------------------------------------------"
+# sudo apt install shutter -y
+
+# Install ksnip
 echo "------------------------------------------"
-echo "Installing Shutter"
+echo "Installing ksnip"
 echo "------------------------------------------"
-sudo apt install shutter -y
+sudo apt install -y ksnip
 
 # Install symlink for flameshot config
 mkdir -p $HOME/.config/flameshot
