@@ -2227,6 +2227,12 @@ M.toggleterm = {
       end,
       "toggle term",
     },
+    ["<a-0>"] = { -- This is to match vscode's keybinding
+      function()
+        vim.cmd("Neotree toggle")
+      end,
+      "toggle neo-tree",
+    },
   },
 
   t = {
