@@ -507,7 +507,7 @@ mode "mouse" {
 
     # go to vim mode
     bindsym $mod+i mode "vim"
-    bindsym $mod+Shift+i mode "vim_normal"; exec --no-startup-id notify-send -t 500 "Vim motion mode"
+    bindsym $mod+n mode "vim_normal"; exec --no-startup-id notify-send -t 500 "Vim motion mode"
 
     # these should still work ###################################
     # focus the parent container
@@ -767,43 +767,42 @@ mode "vim" {
     # Brightness controls
     bindsym $mod+Shift+plus exec "sudo brightnessctl set 5%+"
     bindsym $mod+Shift+minus exec "sudo brightnessctl set 5%-"
+
+    bindsym $mod+Shift+q kill
     ########################
 
     # For following, the keydown Control in the end is there so that I don't need to release the Control key
     # Vim motion Ctrl+h → BackSpace
-    bindsym Ctrl+h exec --no-startup-id xdotool keyup Control keyup Shift keyup h key BackSpace keydown Control
+    bindsym Ctrl+h exec --no-startup-id xdotool keyup Control keyup Shift keyup h key BackSpace
     # Vim motion Ctrl+w → Ctrl+BackSpace
-    bindsym Ctrl+w exec --no-startup-id xdotool keyup Control keyup Shift keyup w key Ctrl+BackSpace keydown Control
+    bindsym Ctrl+w exec --no-startup-id xdotool keyup Control keyup Shift keyup w key Ctrl+BackSpace
     # Shell's Ctrl+a → Home
-    bindsym Ctrl+a exec --no-startup-id xdotool keyup Control keyup Shift keyup a key Home keydown Control
+    bindsym Ctrl+a exec --no-startup-id xdotool keyup Control keyup Shift keyup a key Home
     # Shell's Ctrl+e → End
-    bindsym Ctrl+e exec --no-startup-id xdotool keyup Control keyup Shift keyup e key End keydown Control
+    bindsym Ctrl+e exec --no-startup-id xdotool keyup Control keyup Shift keyup e key End
     # Ctrl+d (Shell's Alt+d doesn't work) → Ctrl+Delete
-    bindsym Ctrl+d exec --no-startup-id xdotool keyup Control keyup Shift keyup d key Ctrl+Delete keydown Control
+    bindsym Ctrl+d exec --no-startup-id xdotool keyup Control keyup Shift keyup d key Ctrl+Delete
     # Vim motion Ctrl+u → Shift+Home+BackSpace
-    bindsym Ctrl+u exec --no-startup-id xdotool keyup Control keyup Shift keyup u key Shift+Home BackSpace keydown Control
+    bindsym Ctrl+u exec --no-startup-id xdotool keyup Control keyup Shift keyup u key Shift+Home BackSpace
     # Ctrl+m → CR
-    bindsym Ctrl+m exec --no-startup-id xdotool keyup Control keyup Shift keyup m key Return keydown Control
+    bindsym Ctrl+m exec --no-startup-id xdotool keyup Control keyup Shift keyup m key Return
+    bindsym Shift+Ctrl+m exec --no-startup-id xdotool keyup Control keyup Shift keyup m key Shift+Return
     # Ctrl+i → Tab
-    bindsym Ctrl+i exec --no-startup-id xdotool keyup Control keyup Shift keyup i key Tab keydown Control
+    bindsym Ctrl+i exec --no-startup-id xdotool keyup Control keyup Shift keyup i key Tab
 
     # return to normal keybindings -- IMPORTANT!!
     bindsym $mod+i exec --no-startup-id xdotool keyup Control keyup Shift; mode "default"
     # Enter vim motion mode and send notification for 0.5 second
     bindsym Ctrl+bracketleft exec --no-startup-id xdotool keyup Control keyup Shift; mode "vim_normal"; exec --no-startup-id notify-send -t 500 "Vim motion mode"
-    bindsym $mod+Shift+i exec --no-startup-id xdotool keyup Control keyup Shift; mode "vim_normal"; exec --no-startup-id notify-send -t 500 "Vim motion mode"
+    bindsym $mod+n exec --no-startup-id xdotool keyup Control keyup Shift; mode "vim_normal"; exec --no-startup-id notify-send -t 500 "Vim motion mode"
     # go to mouse mode
-    bindsym $mod+m exec --no-startup-id xdotool keyup Control keyup Shift; mode "vim_normal"; mode "mouse"
+    bindsym $mod+m exec --no-startup-id xdotool keyup Control keyup Shift; mode "mouse"
 }
 
 # Go to vim insert mode
 bindsym $mod+i mode "vim"
 
 mode "vim_normal" {
-  bindsym Ctrl exec --no-startup-id xdotool keyup Control keyup Shift; mode "vim_normal"
-  bindsym Shift exec --no-startup-id xdotool keyup Control keyup Shift; mode "vim_normal"
-  bindsym $mod exec --no-startup-id xdotool keyup Control keyup Shift; mode "vim_normal"
-
   # Emulate cursor movement (up, down, left, right) using k, j, h, l keys
   bindsym k exec --no-startup-id xdotool keyup Control keyup Shift keyup k key Up
   bindsym j exec --no-startup-id xdotool keyup Control keyup Shift keyup j key Down
@@ -814,19 +813,18 @@ mode "vim_normal" {
   bindsym e exec --no-startup-id xdotool keyup Control keyup Shift keyup e key Ctrl+Right
   bindsym b exec --no-startup-id xdotool keyup Control keyup Shift keyup b key Ctrl+Left
   bindsym Shift+b exec --no-startup-id xdotool keyup Control keyup Shift keyup b keyup Shift key Ctrl+Left
-  # For following, the keydown Control or Shift in the end is there so that I don't need to release the Control or Shift key respectively
-  bindsym Ctrl+k exec --no-startup-id xdotool keyup Control keyup Shift keyup k key Ctrl+Up keydown Control
-  bindsym Ctrl+j exec --no-startup-id xdotool keyup Control keyup Shift keyup j key Ctrl+Down keydown Control
-  bindsym Ctrl+h exec --no-startup-id xdotool keyup Control keyup Shift keyup h key Ctrl+Left keydown Control
-  bindsym Ctrl+l exec --no-startup-id xdotool keyup Control keyup Shift  keyup l key Ctrl+Right keydown Control
+  bindsym Ctrl+k exec --no-startup-id xdotool keyup Control keyup Shift keyup k key Ctrl+Up
+  bindsym Ctrl+j exec --no-startup-id xdotool keyup Control keyup Shift keyup j key Ctrl+Down
+  bindsym Ctrl+h exec --no-startup-id xdotool keyup Control keyup Shift keyup h key Ctrl+Left
+  bindsym Ctrl+l exec --no-startup-id xdotool keyup Control keyup Shift  keyup l key Ctrl+Right
   # Shell's Ctrl+a → Home
-  bindsym Ctrl+a exec --no-startup-id xdotool keyup Control keyup Shift keyup a key Home keydown Control
+  bindsym Ctrl+a exec --no-startup-id xdotool keyup Control keyup Shift keyup a key Home
   bindsym 0 exec --no-startup-id xdotool keyup Control keyup Shift keyup 0 key Home
   # Shell's Ctrl+e → End
-  bindsym Ctrl+e exec --no-startup-id xdotool keyup Control keyup Shift keyup e key End keydown Control
+  bindsym Ctrl+e exec --no-startup-id xdotool keyup Control keyup Shift keyup e key End
   bindsym Shift+4 exec --no-startup-id xdotool keyup Control keyup Shift_L keyup 4 keyup Shift_R key End
   # Vim motion Shift+x → BackSpace
-  bindsym Shift+x exec --no-startup-id xdotool keyup Control keyup Shift keyup x key BackSpace keydown Shift
+  bindsym Shift+x exec --no-startup-id xdotool keyup Control keyup Shift keyup x key BackSpace
   # Vim motion Shift+d → Shift+End+Delete
   bindsym Shift+d exec --no-startup-id xdotool keyup Control keyup Shift keyup d key Shift+End BackSpace
   # Vim C → Shift+End Delete i
@@ -834,7 +832,7 @@ mode "vim_normal" {
   # Vim I → Home
   bindsym Shift+i exec --no-startup-id xdotool keyup Control keyup Shift keyup i key Home; mode "vim"
   # Vim A → End
-  bindsym Shift+a exec --no-startup-id xdotool keyup Control keyup Shift keyup a sleep 0.1 key End; mode "vim"
+  bindsym Shift+a exec --no-startup-id xdotool keyup Control keyup Shift keyup a sleep 0.2 key End; mode "vim"
   # Yank, cut and paste
   bindsym y exec --no-startup-id xdotool keyup Control keyup Shift keyup y key Ctrl+c; exec --no-startup-id xdotool keyup Control keyup Shift; exec --no-startup-id notify-send -t 500 "Yanked to clipboard"
   bindsym p exec --no-startup-id xdotool keyup Control keyup Shift keyup p key Ctrl+v; exec --no-startup-id xdotool keyup Control keyup Shift
@@ -848,9 +846,10 @@ mode "vim_normal" {
   # Delete entire line and go to insert mode
   bindsym Shift+s exec --no-startup-id xdotool keyup Control keyup Shift keyup s sleep 0.1 key Home Shift+End Delete keyup Shift; mode "vim"
   # Ctrl+m → CR
-  bindsym Ctrl+m exec --no-startup-id xdotool keyup Control keyup Shift keyup m key Return keydown Control
+  bindsym Ctrl+m exec --no-startup-id xdotool keyup Control keyup Shift keyup m key Return
+  bindsym Shift+Ctrl+m exec --no-startup-id xdotool keyup Control keyup Shift keyup m key Shift+Return
   # Ctrl+i → Tab
-  bindsym Ctrl+i exec --no-startup-id xdotool keyup Control keyup Shift keyup i key Tab keydown Control
+  bindsym Ctrl+i exec --no-startup-id xdotool keyup Control keyup Shift keyup i key Tab
   # o → End Enter
   bindsym o exec --no-startup-id xdotool keyup Control keyup Shift keyup o key End key Return; mode "vim"
   # O → Home Enter
@@ -862,15 +861,15 @@ mode "vim_normal" {
   # u → Undo
   bindsym u exec --no-startup-id xdotool keyup Control keyup Shift keyup u key Ctrl+z
   # Ctrl+r → Redo
-  bindsym Ctrl+r exec --no-startup-id xdotool keyup Control keyup r key Ctrl+Shift+z keydown Control
+  bindsym Ctrl+r exec --no-startup-id xdotool keyup Control keyup r key Ctrl+Shift+z
   # G → Ctrl+End
-  bindsym Shift+g exec --no-startup-id xdotool keyup Shift keyup g keyup Shift key Ctrl+End keydown Shift
+  bindsym Shift+g exec --no-startup-id xdotool keyup Shift keyup g keyup Shift sleep 0.2 key Ctrl+End
   # Ctrl+g → Ctrl+Home
-  bindsym Ctrl+g exec --no-startup-id xdotool keyup Control keyup g key Ctrl+Home keydown Control
+  bindsym Ctrl+g exec --no-startup-id xdotool keyup Control keyup g key Ctrl+Home
   # Ctrl+u → Page Up
   bindsym Ctrl+u exec --no-startup-id xdotool keyup Control keyup Shift keyup u keyup Control key Page_Up
   # Ctrl+d → Page Down
-  bindsym Ctrl+d exec --no-startup-id xdotool keyup Control keyup Shift keyup d key Page_Down keydown Control
+  bindsym Ctrl+d exec --no-startup-id xdotool keyup Control keyup Shift keyup d key Page_Down
   # Ignore these keys
   bindsym Space mode "vim_normal"
   bindsym q exec --no-startup-id xdotool keyup Control keyup Shift; mode "vim_normal"
@@ -907,10 +906,10 @@ mode "vim_normal" {
   bindsym $mod+m exec --no-startup-id xdotool keyup Control keyup Shift; mode "mouse"
   # Do nothing
   bindsym Ctrl+bracketleft exec --no-startup-id xdotool keyup Control keyup Shift; mode "vim_normal"
-  bindsym $mod+Shift+i exec --no-startup-id xdotool keyup Control keyup Shift; mode "default"
+  bindsym $mod+n exec --no-startup-id xdotool keyup Control keyup Shift; mode "default"
 }
 
-bindsym $mod+Shift+i exec --no-startup-id xdotool keyup Control keyup Shift; mode "vim_normal"
+bindsym $mod+n exec --no-startup-id xdotool keyup Control keyup Shift; mode "vim_normal"; exec --no-startup-id notify-send -t 500 "Vim motion mode"
 
 mode "vim_visual" {
   bindsym Ctrl exec --no-startup-id xdotool keyup Control keyup Shift; mode "vim_visual"
@@ -960,7 +959,7 @@ mode "vim_visual" {
   # return to normal keybindings and send notification for 0.5 second
   bindsym v mode "vim_normal"; exec --no-startup-id xdotool keyup Control keyup Shift; exec --no-startup-id notify-send -t 500 "Vim motion mode"
   bindsym Ctrl+bracketleft mode "vim_normal"; exec --no-startup-id xdotool keyup Control keyup Shift; exec --no-startup-id notify-send -t 500 "Vim motion mode"
-  bindsym $mod+Shift+i mode "vim_normal"; exec --no-startup-id xdotool keyup Control keyup Shift; exec --no-startup-id notify-send -t 500 "Vim motion mode"
+  bindsym $mod+n mode "vim_normal"; exec --no-startup-id xdotool keyup Control keyup Shift; exec --no-startup-id notify-send -t 500 "Vim motion mode"
 }
 
 # ------------------------------------------------------------
@@ -1145,6 +1144,8 @@ mode "$mode_presentation" {
   # Brightness controls
   bindsym $mod+Shift+plus exec "sudo brightnessctl set 5%+"
   bindsym $mod+Shift+minus exec "sudo brightnessctl set 5%-"
+
+  bindsym $mod+Shift+q kill
   ########################
 
   # enter fullscreen mode for the focused container
@@ -1207,3 +1208,6 @@ bindsym $mod+Shift+grave exec dunstctl history-pop
 bindsym $mod+c exec dunstctl close
 # close all notifications
 bindsym $mod+Shift+c exec dunstctl close-all
+
+# Start recording using OBS
+bindsym $mod+Shift+o exec --no-startup-id sh -c 'obs --startrecording --minimize-to-tray --scene "quick"'
