@@ -467,7 +467,7 @@ local default_plugins = {
           open_terminal_in_selected_folder_tab = function(state)
             local node = state.tree:get_node()
             if node.type == "directory" then
-            local cwd = node:get_id()
+              local cwd = node:get_id()
               pcall(function()
                 require("plugins.configs.toggleterm_utils").toggle_term("tab", true, cwd)
               end)
@@ -476,7 +476,7 @@ local default_plugins = {
           open_terminal_in_selected_folder_float = function(state)
             local node = state.tree:get_node()
             if node.type == "directory" then
-            local cwd = node:get_id()
+              local cwd = node:get_id()
               pcall(function()
                 require("plugins.configs.toggleterm_utils").toggle_term("float", true, cwd)
               end)
@@ -485,7 +485,7 @@ local default_plugins = {
           open_terminal_in_selected_folder_vertical = function(state)
             local node = state.tree:get_node()
             if node.type == "directory" then
-            local cwd = node:get_id()
+              local cwd = node:get_id()
               pcall(function()
                 require("plugins.configs.toggleterm_utils").toggle_term("vertical", true, cwd)
               end)
@@ -1910,6 +1910,24 @@ local default_plugins = {
       require("fzf-lua").setup(opts)
     end,
   },
+
+  -- {
+  --   "subnut/nvim-ghost.nvim",
+  --   name = "nvim_ghost",
+  --   cmd = { "GhostTextStart" },
+  --   init = function()
+  --     vim.g.nvim_ghost_autostart = 0
+  --   end,
+  --   config = function()
+  --     vim.api.nvim_create_autocmd("User", {
+  --       pattern = "*.com",
+  --       callback = function()
+  --         vim.opt.filetype = "markdown"
+  --         vim.opt.textwidth = 0
+  --       end,
+  --     })
+  --   end,
+  -- },
 
   -- Only load whichkey after all the gui
   -- {
