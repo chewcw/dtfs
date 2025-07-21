@@ -885,6 +885,7 @@ mode "vim_normal" {
   bindsym $alt+8 exec --no-startup-id xdotool keyup Control keyup Shift keyup Alt keyup 8 key F8
   bindsym $alt+9 exec --no-startup-id xdotool keyup Control keyup Shift keyup Alt keyup 9 key F9
   bindsym $alt+0 exec --no-startup-id xdotool keyup Control keyup Shift keyup Alt keyup 0 key F10
+  bindsym $alt+Shift+0 exec --no-startup-id xdotool keyup Control keyup Shift keyup Alt keyup 0 key Shift+F10
   bindsym $alt+minus exec --no-startup-id xdotool keyup Control keyup Shift keyup Alt keyup minus key F11
   bindsym $alt+equal exec --no-startup-id xdotool keyup Control keyup Shift keyup Alt keyup equal key F12
   # Ignore these keys
