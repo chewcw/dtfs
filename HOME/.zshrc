@@ -81,6 +81,13 @@ plugins=(
   zsh-autosuggestions
 )
 
+# use emacs-styles keybindings (Ctrl+b and Ctrl+f, Alt+b and Alt+f) in vi insert mode
+bindkey -v
+bindkey -M viins '^b' vi-backward-char
+bindkey -M viins '^f' vi-forward-char
+bindkey -M viins '^[b' backward-word
+bindkey -M viins '^[f' forward-word
+
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
