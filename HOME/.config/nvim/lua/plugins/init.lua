@@ -1601,7 +1601,7 @@ local default_plugins = {
       provider = "copilot",
       providers = {
         copilot = {
-          model = "claude-sonnet-4",
+          model = "gpt-4.1",
         },
       },
       mappings = {
