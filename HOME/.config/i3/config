@@ -467,21 +467,27 @@ mode "mouse" {
 
 # Left Click
     bindsym f exec xdotool click 1
+    bindsym Ctrl+f exec xdotool keydown Control click 1 keyup Control
+    bindsym Shift+f exec xdotool keydown Shift click 1 keyup Shift
 
 # Middle Click
     bindsym d exec xdotool click 2
+    bindsym Ctrl+d exec xdotool keydown Control click 2 keyup Control
+    bindsym Shift+d exec xdotool keydown Shift click 2 keyup Shift
 
 # Right Click
     bindsym s exec xdotool click 3
+    bindsym Ctrl+s exec xdotool keydown Control click 3 keyup Control
+    bindsym Shift+s exec xdotool keydown Shift click 3 keyup Shift
 
 # Left Click-and-drag
-    bindsym Shift+f exec xdotool mousedown 1
+    bindsym Control+Shift+f exec xdotool mousedown 1
 
-# Middle Click-and-drag 
-    bindsym Shift+d exec xdotool mousedown 2
+# Middle Click-and-drag
+    bindsym Control+Shift+d exec xdotool mousedown 2
 
 # Right Click-and-drag
-    bindsym Shift+s exec xdotool mousedown 3
+    bindsym Control+Shift+s exec xdotool mousedown 3
 
 # Left Drag release
     bindsym Ctrl+f exec xdotool mouseup 1
@@ -781,7 +787,7 @@ mode "vim" {
     # Shell's Ctrl+e → End
     bindsym Ctrl+e exec --no-startup-id xdotool keyup Control keyup Shift keyup e key End
     # Ctrl+d (Shell's Alt+d doesn't work) → Ctrl+Delete
-    bindsym Ctrl+d exec --no-startup-id xdotool keyup Control keyup Shift keyup d key Ctrl+Delete
+    # bindsym Ctrl+d exec --no-startup-id xdotool keyup Control keyup Shift keyup d key Ctrl+Delete
     # Vim motion Ctrl+u → Shift+Home+BackSpace
     bindsym Ctrl+u exec --no-startup-id xdotool keyup Control keyup Shift keyup u key Shift+Home BackSpace
     # Ctrl+m → CR
@@ -789,6 +795,10 @@ mode "vim" {
     bindsym Shift+Ctrl+m exec --no-startup-id xdotool keyup Control keyup Shift keyup m key Shift+Return
     # Ctrl+i → Tab
     bindsym Ctrl+i exec --no-startup-id xdotool keyup Control keyup Shift keyup i key Tab
+    # Ctrl+t → Tab for the entire line
+    bindsym Ctrl+t exec --no-startup-id xdotool keyup Control keyup t key Home key Tab
+    # Ctrl+d → Shift+Tab for the entire line
+    bindsym Ctrl+d exec --no-startup-id xdotool keyup Control keyup Shift keyup d key Home key Shift+Tab
 
     # return to normal keybindings -- IMPORTANT!!
     bindsym $mod+i exec --no-startup-id xdotool keyup Control keyup Shift; mode "default"
@@ -885,7 +895,7 @@ mode "vim_normal" {
   bindsym $alt+8 exec --no-startup-id xdotool keyup Control keyup Shift keyup Alt keyup 8 key F8
   bindsym $alt+9 exec --no-startup-id xdotool keyup Control keyup Shift keyup Alt keyup 9 key F9
   bindsym $alt+0 exec --no-startup-id xdotool keyup Control keyup Shift keyup Alt keyup 0 key F10
-  bindsym $alt+Shift+0 exec --no-startup-id xdotool keyup Control keyup Shift keyup Alt keyup 0 key Shift+F10
+  bindsym Shift+$alt+0 exec --no-startup-id xdotool keyup Control keyup Shift keyup Alt keyup 0 key Shift+F10
   bindsym $alt+minus exec --no-startup-id xdotool keyup Control keyup Shift keyup Alt keyup minus key F11
   bindsym $alt+equal exec --no-startup-id xdotool keyup Control keyup Shift keyup Alt keyup equal key F12
   # Ignore these keys
