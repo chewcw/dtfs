@@ -76,12 +76,15 @@ connect_monitor() {
 
 prompt_user() {
 		echo "HDMI connection detected. Choose an option:"
-		echo "1) Left (1920x1080)"
-		echo "2) Right (1920x1080)"
-		echo "3) Left (1600x900)"
-		echo "4) Right (1600x900)"
-		echo "5) Left (1920x1200)"
-		echo "6) Right (1920x1200)"
+    echo "------------- 1920 x 1080"
+    echo "1) Left"
+		echo "2) Right"
+    echo "------------- 1600 x 900"
+		echo "3) Left "
+		echo "4) Right"
+    echo "------------- 1920 x 1200"
+		echo "5) Left"
+		echo "6) Right"
 		if ! read -r -t 10 -p "Enter choice [1/2/3/4/5/6]: " choice; then
 			echo "No input received in 10 seconds."
 			return 99
