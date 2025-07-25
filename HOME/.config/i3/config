@@ -795,6 +795,8 @@ mode "vim" {
     bindsym Shift+Ctrl+m exec --no-startup-id xdotool keyup Control keyup Shift keyup m key Shift+Return
     # Ctrl+i → Tab
     bindsym Ctrl+i exec --no-startup-id xdotool keyup Control keyup Shift keyup i key Tab
+    # Shift+Ctrl+i → Shift+Tab
+    bindsym Shift+Ctrl+i exec --no-startup-id xdotool keyup Control keyup Shift keyup i key Shift+Tab
     # Ctrl+t → Tab for the entire line
     bindsym Ctrl+t exec --no-startup-id xdotool keyup Control keyup t key Home key Tab
     # Ctrl+d → Shift+Tab for the entire line
@@ -851,8 +853,6 @@ mode "vim_normal" {
   bindsym y exec --no-startup-id xdotool keyup Control keyup Shift keyup y key Ctrl+c; exec --no-startup-id xdotool keyup Control keyup Shift; exec --no-startup-id notify-send -t 500 "Yanked to clipboard"
   bindsym p exec --no-startup-id xdotool keyup Control keyup Shift keyup p key Ctrl+v; exec --no-startup-id xdotool keyup Control keyup Shift
   bindsym Shift+p exec --no-startup-id xdotool keyup Control keyup Shift keyup p key Ctrl+v; exec --no-startup-id xdotool keyup Control keyup Shift
-  # Delete
-  bindsym d exec --no-startup-id xdotool keyup Control keyup Shift keyup d key BackSpace
   # Cut
   bindsym x exec --no-startup-id xdotool keyup Control keyup Shift keyup x key Delete
   # r → Delete and go to insert mode
