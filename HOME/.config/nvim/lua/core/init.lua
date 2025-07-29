@@ -900,6 +900,7 @@ end, { nargs = 0 })
 -- ----------------------------------------------------------------------------
 -- If smart relative line is enabled, insert mode will always show absolute line
 -- number, and normal mode will show relative line number
+vim.g.smart_relative_line = true -- default to true
 vim.api.nvim_create_user_command("SmartRelativeLine", function()
   vim.g.smart_relative_line = not vim.g.smart_relative_line
   local status = vim.g.smart_relative_line and "on" or "off"
