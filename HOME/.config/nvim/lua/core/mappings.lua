@@ -1051,6 +1051,42 @@ M.general = {
       end,
       "Get me out of here QUICKLY!",
     },
+
+    ["<C-A-]>"] = {
+      function()
+        -- Record current buffer
+        local current_buf = vim.api.nvim_get_current_buf()
+        -- Go to the previous tab
+        vim.cmd("tabprevious")
+        -- Split the window vertically and open the current_win in the new split (for
+        -- the right side)
+        vim.cmd("vsplit")
+        -- Get the new split's window number
+        local new_win = vim.api.nvim_get_current_win()
+        -- Set the new split's buffer to the same buffer as current_buf
+        vim.api.nvim_win_set_buf(new_win, current_buf)
+      end,
+      "Move current buffer as a vsplit window to previous tab (right)",
+    },
+
+    ["<C-A-[>"] = {
+      function()
+        -- Record current buffer
+        local current_buf = vim.api.nvim_get_current_buf()
+        -- Go to the previous tab
+        vim.cmd("tabprevious")
+        -- Split the window vertically and open the current_win in the new split (for
+        -- the left side)
+        vim.cmd("vsplit")
+        -- Focus on the left window
+        vim.cmd("wincmd h")
+        -- Get the window number
+        local new_win = vim.api.nvim_get_current_win()
+        -- Set the new split's buffer to the same buffer as current_buf
+        vim.api.nvim_win_set_buf(new_win, current_buf)
+      end,
+      "Move current buffer as a vsplit window to previous tab (right)",
+    },
   },
 
   v = {
