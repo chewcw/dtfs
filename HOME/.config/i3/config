@@ -1150,7 +1150,7 @@ mode "$mode_presentation" {
   # split in vertical orientation
   # bindsym $mod+v split v
   # split toggle
-  bindsym $mod+u split toggle
+  bindsym $mod+u split toggle layout splith
 
   # move workspace to another monitor
   bindsym $mod+$alt+h move workspace to output left
