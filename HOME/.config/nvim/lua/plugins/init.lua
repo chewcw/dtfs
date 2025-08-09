@@ -1917,6 +1917,15 @@ local default_plugins = {
     end,
   },
 
+  {
+    "hedyhli/outline.nvim",
+    lazy = true,
+    cmd = { "Outline", "OutlineOpen" },
+    opts = {
+
+    },
+  },
+
   -- {
   --   "subnut/nvim-ghost.nvim",
   --   name = "nvim_ghost",
