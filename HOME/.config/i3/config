@@ -792,7 +792,7 @@ mode "vim" {
     bindsym Ctrl+u exec --no-startup-id xdotool keyup Control keyup Shift keyup u key Shift+Home BackSpace
     # Ctrl+m → CR
     bindsym Ctrl+m exec --no-startup-id xdotool keyup Control keyup Shift keyup m key Return
-    bindsym $alt+Ctrl+m exec --no-startup-id xdotool keyup Control keyup Shift keyup m key Return; mode "default"
+    bindsym $alt+Ctrl+m exec --no-startup-id xdotool keyup Alt keyup Control keyup Shift keyup m key Return; mode "default"
     bindsym Shift+Ctrl+m exec --no-startup-id xdotool keyup Control keyup Shift keyup m key Shift+Return
     # Ctrl+i → Tab
     bindsym Ctrl+i exec --no-startup-id xdotool keyup Control keyup Shift keyup i key Tab
@@ -861,7 +861,7 @@ mode "vim_normal" {
   bindsym Shift+s exec --no-startup-id xdotool keyup Control keyup Shift keyup s sleep 0.1 key Home Shift+End Delete keyup Shift; mode "vim"
   # Ctrl+m → CR
   bindsym Ctrl+m exec --no-startup-id xdotool keyup Control keyup Shift keyup m key Return
-  bindsym $alt+Ctrl+m exec --no-startup-id xdotool keyup Control keyup Shift keyup m key Return; mode "default"
+  bindsym $alt+Ctrl+m exec --no-startup-id xdotool keyup Alt keyup Control keyup Shift keyup m key Return; mode "default"
   bindsym Shift+Ctrl+m exec --no-startup-id xdotool keyup Control keyup Shift keyup m key Shift+Return
   # Ctrl+i → Tab
   bindsym Ctrl+i exec --no-startup-id xdotool keyup Control keyup Shift keyup i key Tab
