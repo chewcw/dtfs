@@ -4,6 +4,30 @@ local utils_comment = require("core.utils_comment")
 
 local M = {}
 
+local function toggle_focus()
+  if pcall(require, "focus") then
+    if vim.g.focus_disabled_manually ~= nil and vim.g.focus_disabled_manually == true then
+      vim.cmd("FocusEnable")
+      vim.g.focus_disabled_manually = false
+      vim.notify("Focus is enabled manually")
+      -- Reload bufferline if it exists
+      if pcall(require, "bufferline") then
+        local bufferline_opt = require("plugins.configs.bufferline").setup
+        require("bufferline").setup(bufferline_opt)
+      end
+    else
+      vim.cmd("FocusDisable")
+      vim.g.focus_disabled_manually = true
+      vim.notify("Focus is disabled manually")
+      -- Reload bufferline if it exists
+      if pcall(require, "bufferline") then
+        local bufferline_opt = require("plugins.configs.bufferline").setup
+        require("bufferline").setup(bufferline_opt)
+      end
+    end
+  end
+end
+
 M.general = {
   i = {
     -- navigate within insert mode
@@ -979,6 +1003,7 @@ M.general = {
     -- Avante
     ["<leader>avt"] = {
       function()
+        toggle_focus()
         vim.cmd("AvanteToggle")
         if vim.g.avante_toggle == nil or vim.g.avante_toggle == false then
           vim.g.avante_toggle = true
@@ -1256,6 +1281,7 @@ M.general = {
     -- Avante
     ["<leader>avt"] = {
       function()
+        toggle_focus()
         vim.cmd("AvanteToggle")
         if vim.g.avante_toggle == nil or vim.g.avante_toggle == false then
           vim.g.avante_toggle = true
@@ -2762,29 +2788,7 @@ M.focus = {
   plugin = true,
   n = {
     ["<leader>Ft"] = {
-      function()
-        if pcall(require, "focus") then
-          if vim.g.focus_disabled_manually ~= nil and vim.g.focus_disabled_manually == true then
-            vim.cmd("FocusEnable")
-            vim.g.focus_disabled_manually = false
-            vim.notify("Focus is enabled manually")
-            -- Reload bufferline if it exists
-            if pcall(require, "bufferline") then
-              local bufferline_opt = require("plugins.configs.bufferline").setup
-              require("bufferline").setup(bufferline_opt)
-            end
-          else
-            vim.cmd("FocusDisable")
-            vim.g.focus_disabled_manually = true
-            vim.notify("Focus is disabled manually")
-            -- Reload bufferline if it exists
-            if pcall(require, "bufferline") then
-              local bufferline_opt = require("plugins.configs.bufferline").setup
-              require("bufferline").setup(bufferline_opt)
-            end
-          end
-        end
-      end,
+      toggle_focus,
       "Focus Toggle",
     }
   },
