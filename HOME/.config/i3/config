@@ -86,6 +86,8 @@ bindsym $mod+x mark A; focus down; swap container with mark A; unmark A;
 # bindsym $mod+v split v
 # split toggle
 bindsym $mod+u split toggle
+bindsym $mod+comma split toggle; focus left; move right;
+bindsym $mod+period split toggle; focus right; move left;
 
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
@@ -796,6 +798,7 @@ mode "vim" {
     bindsym Shift+Ctrl+m exec --no-startup-id xdotool keyup Control keyup Shift keyup m key Shift+Return
     # Ctrl+i → Tab
     bindsym Ctrl+i exec --no-startup-id xdotool keyup Control keyup Shift keyup i key Tab
+    bindsym $alt+Ctrl+i exec --no-startup-id xdotool keyup Alt keyup Control keyup Shift keyup i key Tab; mode "default"
     # Shift+Ctrl+i → Shift+Tab
     bindsym Shift+Ctrl+i exec --no-startup-id xdotool keyup Control keyup Shift keyup i key Shift+Tab
     # Ctrl+t → Tab for the entire line
@@ -865,6 +868,7 @@ mode "vim_normal" {
   bindsym Shift+Ctrl+m exec --no-startup-id xdotool keyup Control keyup Shift keyup m key Shift+Return
   # Ctrl+i → Tab
   bindsym Ctrl+i exec --no-startup-id xdotool keyup Control keyup Shift keyup i key Tab
+  bindsym $alt+Ctrl+i exec --no-startup-id xdotool keyup Alt keyup Control keyup Shift keyup i key Tab; mode "default"
   # o → End Enter
   bindsym o exec --no-startup-id xdotool keyup Control keyup Shift keyup o key End key Return; mode "vim"
   # O → Home Enter
