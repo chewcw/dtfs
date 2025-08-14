@@ -622,7 +622,7 @@ end, { nargs = "*" })
 vim.api.nvim_create_autocmd("VimEnter", {
   callback = function()
     vim.g.TabCwd = "3"
-    vim.g.TabAutoCwd = "1"
+    vim.g.TabAutoCwd = "0"
     vim.g.TabCwdByProject = "0"
   end,
 })
