@@ -4,9 +4,12 @@ local utils_comment = require("core.utils_comment")
 
 local M = {}
 
-local function toggle_focus()
+local function toggle_focus(open)
+  if open == nil then
+    open = false
+  end
   if pcall(require, "focus") then
-    if vim.g.focus_disabled_manually ~= nil and vim.g.focus_disabled_manually == true then
+    if vim.g.focus_disabled_manually ~= nil and vim.g.focus_disabled_manually == true and open then
       vim.cmd("FocusEnable")
       vim.g.focus_disabled_manually = false
       vim.notify("Focus is enabled manually")
@@ -1003,7 +1006,7 @@ M.general = {
     -- Avante
     ["<leader>avt"] = {
       function()
-        toggle_focus()
+        toggle_focus(false)
         vim.cmd("AvanteToggle")
         if vim.g.avante_toggle == nil or vim.g.avante_toggle == false then
           vim.g.avante_toggle = true
@@ -1281,7 +1284,7 @@ M.general = {
     -- Avante
     ["<leader>avt"] = {
       function()
-        toggle_focus()
+        toggle_focus(false)
         vim.cmd("AvanteToggle")
         if vim.g.avante_toggle == nil or vim.g.avante_toggle == false then
           vim.g.avante_toggle = true
