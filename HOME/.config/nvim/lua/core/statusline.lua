@@ -201,6 +201,12 @@ Statusline.active = function()
     " ",
     bufnr(),
     " ",
+    -- eol status
+    "%#TabLine1#",
+    " ",
+    "%{&eol == 1 ? '' : 'noeol'}",
+    " ",
+    "%{&bin == 1 ? 'bin' : ''}",
   })
 end
 
