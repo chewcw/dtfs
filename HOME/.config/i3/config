@@ -227,6 +227,9 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
+set $mode_bg_color #6ce0ad
+set $mode_text_color #000000
+
 # border color
 # client.focused #ffd700 #2a2a2a #ffffff #8be503 #ffd700
 # client.focused #4C7899 #285577 #FFFFFF #2E9EF4   #285577
@@ -244,6 +247,10 @@ bar {
 # by default the bar is dock mode
 # see $HOME/.local/bin/toggle_i3_bar.sh file to toggle the bar mode
     mode dock
+
+    colors {
+      binding_mode $mode_bg_color $mode_bg_color $mode_text_color
+    }
 }
 
 bindsym $mod+b exec --no-startup-id sh -c '$HOME/.local/bin/toggle_i3_bar.sh'
