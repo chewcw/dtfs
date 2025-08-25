@@ -1597,14 +1597,37 @@ local default_plugins = {
     event = "VeryLazy",
     lazy = false,
     version = false,
+    keys = function(_, keys)
+      local opts =
+          require("lazy.core.plugin").values(require("lazy.core.config").spec.plugins["avante.nvim"], "opts", false)
+
+      local mappings = {
+        {
+          opts.mappings.ask,
+          function() require("avante.api").ask() end,
+          desc = "avante: ask",
+          mode = { "n", "v" },
+        },
+        {
+          opts.mappings.edit,
+          function() require("avante.api").edit() end,
+          desc = "avante: edit",
+          mode = { "n", "v" },
+        },
+      }
+      mappings = vim.tbl_filter(function(m) return m[1] and #m[1] > 0 end, mappings)
+      return vim.list_extend(mappings, keys)
+    end,
     opts = {
       provider = "copilot",
       providers = {
         copilot = {
-          model = "gpt-4.1",
+          model = "gpt-5-mini",
         },
       },
       mappings = {
+        ask = "<leader>ava",
+        edit = "<leader>ave",
         submit = {
           normal = "<A-CR>",
           insert = "<A-CR>",

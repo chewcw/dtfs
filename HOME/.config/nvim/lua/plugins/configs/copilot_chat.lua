@@ -3,7 +3,7 @@ local M = {}
 local file_cache = {}
 
 M.opts = {
-  model = "gpt-4.1",
+  model = "gpt-5-mini",
   mappings = {
     reset = {
       normal = "<C-A-r>",
@@ -390,7 +390,7 @@ M.opts = {
           {
             filename = "gitlog",
             mimetype = "text/gitcommit",
-            data = out.stdout,
+            -- data = out.stdout,
           }
         }
       end,
