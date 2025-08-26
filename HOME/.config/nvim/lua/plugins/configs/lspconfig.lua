@@ -102,15 +102,40 @@ lspconfig.clangd.setup({
 lspconfig.gopls.setup({
   on_attach = function(client, bufnr)
     utils.load_mappings("lspconfig", { buffer = bufnr })
-    -- Enable formatting and auto import on save
-    if client.server_capabilities.documentFormattingProvider then
-      vim.api.nvim_create_autocmd("BufWritePre", {
-        buffer = bufnr,
-        callback = function()
-          vim.lsp.buf.format({ async = false })
-        end,
-      })
+
+    -- Helper to run the "source.organizeImports" code action synchronously
+    local function organize_imports(timeout_ms)
+      local params = vim.lsp.util.make_range_params()
+      params.context = { only = { "source.organizeImports" }, diagnostics = {} }
+
+      -- Use the buffer number for the request so it targets the correct document
+      local results = vim.lsp.buf_request_sync(bufnr, "textDocument/codeAction", params, timeout_ms)
+      if not results then return end
+
+      for _, res in pairs(results or {}) do
+        for _, r in pairs(res.result or {}) do
+          if r.edit then
+            vim.lsp.util.apply_workspace_edit(r.edit, "utf-8")
+          elseif r.command then
+            vim.lsp.buf.execute_command(r.command)
+          end
+        end
+      end
     end
+
+    -- Enable organizing imports and formatting on save
+    vim.api.nvim_create_autocmd("BufWritePre", {
+      buffer = bufnr,
+      callback = function()
+        -- First, organize imports (synchronously) with a 1s timeout
+        organize_imports(1000)
+
+        -- Then format (if supported)
+        if client.server_capabilities.documentFormattingProvider then
+          vim.lsp.buf.format({ async = true })
+        end
+      end,
+    })
   end,
   capabilities = M.capabilities,
   cmd = { home .. "/.local/share/nvim/mason/bin/gopls" },
@@ -182,13 +207,13 @@ lspconfig.rust_analyzer.setup({
 -- This fix the error when using rust_analyzer
 -- https://github.com/neovim/neovim/issues/30985#issuecomment-2447329525
 for _, method in ipairs({ 'textDocument/diagnostic', 'workspace/diagnostic' }) do
-    local default_diagnostic_handler = vim.lsp.handlers[method]
-    vim.lsp.handlers[method] = function(err, result, context, config)
-        if err ~= nil and err.code == -32802 then
-            return
-        end
-        return default_diagnostic_handler(err, result, context, config)
+  local default_diagnostic_handler = vim.lsp.handlers[method]
+  vim.lsp.handlers[method] = function(err, result, context, config)
+    if err ~= nil and err.code == -32802 then
+      return
     end
+    return default_diagnostic_handler(err, result, context, config)
+  end
 end
 
 -- emmet
