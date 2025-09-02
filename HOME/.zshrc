@@ -82,6 +82,9 @@ plugins=(
 )
 
 # use emacs-styles keybindings (Ctrl+b and Ctrl+f, Alt+b and Alt+f) in vi insert mode
+# Reduce delay after ESC (wait for possible Alt/meta sequences)
+# KEYTIMEOUT is small to avoid the pause when switching from insert -> normal (vi mode)
+KEYTIMEOUT=1
 bindkey -v
 bindkey -M viins '^b' vi-backward-char
 bindkey -M viins '^f' vi-forward-char
