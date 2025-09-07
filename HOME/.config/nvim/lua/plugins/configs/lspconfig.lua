@@ -163,7 +163,7 @@ lspconfig.omnisharp.setup({
       IncludePrereleases = true,
     },
   },
-  cmd = { home .. "/.local/share/nvim/mason/bin/omnisharp", "--languageserver", "--hostPID", tostring(pid) },
+  cmd = { home .. "/.local/share/nvim/mason/bin/OmniSharp", "--languageserver", "--hostPID", tostring(pid) },
 })
 
 -- python
