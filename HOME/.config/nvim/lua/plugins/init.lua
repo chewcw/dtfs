@@ -1949,6 +1949,17 @@ local default_plugins = {
     },
   },
 
+  {
+    "NeogitOrg/neogit",
+    lazy = false,
+    dependencies = {
+      "nvim-lua/plenary.nvim",         -- required
+      "sindrets/diffview.nvim",        -- optional - Diff integration
+
+      "nvim-telescope/telescope.nvim", -- optional
+    },
+  },
+
   -- {
   --   "subnut/nvim-ghost.nvim",
   --   name = "nvim_ghost",
