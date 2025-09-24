@@ -69,6 +69,7 @@ end
 require("lspconfig.ui.windows").default_options.border = "single"
 
 -- lua
+vim.lsp.enable("lua_ls")
 vim.lsp.config["lua_ls"] = {
   on_attach = M.on_attach,
   capabilities = M.capabilities,
@@ -92,6 +93,7 @@ vim.lsp.config["lua_ls"] = {
 }
 
 -- c, c++
+vim.lsp.enable("clangd")
 vim.lsp.config["clangd"] = {
   on_attach = M.on_attach,
   capabilities = M.capabilities,
@@ -99,6 +101,7 @@ vim.lsp.config["clangd"] = {
 }
 
 -- golang
+vim.lsp.enable("gopls")
 vim.lsp.config["gopls"] = {
   on_attach = function(client, bufnr)
     utils.load_mappings("lspconfig", { buffer = bufnr })
@@ -142,6 +145,7 @@ vim.lsp.config["gopls"] = {
 }
 
 -- csharp
+vim.lsp.enable("omnisharp")
 local pid = vim.fn.getpid()
 vim.lsp.config["omnisharp"] = {
   on_attach = M.on_attach,
@@ -163,22 +167,25 @@ vim.lsp.config["omnisharp"] = {
       IncludePrereleases = true,
     },
   },
-  cmd = { home .. "/.local/share/nvim/mason/bin/OmniSharp", "--languageserver", "--hostPID", tostring(pid) },
+  cmd = { home .. "/.local/share/nvim/mason/bin/OmniSharp", "--languageserver", "--hostPID", tostring(pid), "DotNet:enablePackageRestore=false", "--encoding", "utf-8" },
 }
 
 -- python
+vim.lsp.enable("pyright")
 vim.lsp.config["pyright"] = {
   on_attach = M.on_attach,
   capabilities = M.capabilities,
   cmd = { home .. "/.local/share/nvim/mason/bin/pyright-langserver", "--stdio" },
 }
 
+vim.lsp.enable("ruff")
 vim.lsp.config["ruff"] = {
   on_attach = M.on_attach,
   capabilities = M.capabilities,
 }
 
 -- javascript / typescript
+vim.lsp.enable("ts_ls")
 vim.lsp.config["ts_ls"] = {
   on_attach = M.on_attach,
   capabilities = M.capabilities,
@@ -187,6 +194,7 @@ vim.lsp.config["ts_ls"] = {
 }
 
 -- rust
+vim.lsp.enable("rust_analyzer")
 vim.lsp.config["rust_analyzer"] = {
   on_attach = M.on_attach,
   capabilities = M.capabilities,
@@ -217,6 +225,7 @@ for _, method in ipairs({ 'textDocument/diagnostic', 'workspace/diagnostic' }) d
 end
 
 -- emmet
+vim.lsp.enable("emmet_ls")
 vim.lsp.config["emmet_ls"] = {
   on_attach = M.on_attach,
   capabilities = M.capabilities,
@@ -224,6 +233,7 @@ vim.lsp.config["emmet_ls"] = {
 }
 
 -- css-lsp
+vim.lsp.enable("cssls")
 vim.lsp.config["cssls"] = {
   on_attach = M.on_attach,
   capabilities = M.capabilities,
