@@ -543,6 +543,10 @@ echo "------------------------------------------"
 sudo apt install -y okular
 # inkscape
 sudo apt install -y inkscape
+# copyq
+sudo apt install -y copyq
+ln -sf $pwd/HOME/.config/copyq/copyq.conf $HOME/.config/copyq/copyq.conf
+ln -sf $pwd/HOME/.config/copyq/copyq-commands.ini $HOME/.config/copyq/copyq-commands.ini
 
 echo "------------------------------------------"
 echo "Systemd timers"
