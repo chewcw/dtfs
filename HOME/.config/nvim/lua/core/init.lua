@@ -926,3 +926,11 @@ vim.api.nvim_create_autocmd({ "InsertLeave", "CmdlineLeave" }, {
     end
   end,
 })
+
+-- ----------------------------------------------------------------------------
+-- A command to set to noexpandtab and do retab!
+----------------------------------------------------------------------------
+vim.api.nvim_create_user_command("NoExpandTabRetab", function()
+  vim.opt.expandtab = false
+  vim.cmd("retab!")
+end, { nargs = 0 })
