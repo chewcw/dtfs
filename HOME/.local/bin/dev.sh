@@ -6,7 +6,7 @@
 set -e
 
 DOCKER=$(which docker)
-IMAGE=chewcw/development:latest
+: "${IMAGE:=chewcw/development:latest}"
 TERM=$TERM
 DISPLAY=$DISPLAY
 
