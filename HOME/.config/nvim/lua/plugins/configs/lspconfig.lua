@@ -240,4 +240,12 @@ vim.lsp.config["cssls"] = {
   cmd = { home .. "/.local/share/nvim/mason/bin/vscode-css-language-server", "--stdio" },
 }
 
+-- python-lsp-server
+vim.lsp.enable("pylsp")
+vim.lsp.config["pylsp"] = {
+  on_attach = M.on_attach,
+  capabilities = M.capabilities,
+  cmd = { home .. "/.local/share/nvim/mason/bin/pylsp" },
+}
+
 return M
