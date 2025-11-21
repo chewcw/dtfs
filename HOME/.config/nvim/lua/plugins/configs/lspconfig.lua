@@ -171,17 +171,32 @@ vim.lsp.config["omnisharp"] = {
 }
 
 -- python
-vim.lsp.enable("pyright")
-vim.lsp.config["pyright"] = {
-  on_attach = M.on_attach,
-  capabilities = M.capabilities,
-  cmd = { home .. "/.local/share/nvim/mason/bin/pyright-langserver", "--stdio" },
-}
+-- vim.lsp.enable("pyright")
+-- vim.lsp.config["pyright"] = {
+--   on_attach = M.on_attach,
+--   capabilities = M.capabilities,
+--   cmd = { home .. "/.local/share/nvim/mason/bin/pyright-langserver", "--stdio" },
+-- }
 
-vim.lsp.enable("ruff")
-vim.lsp.config["ruff"] = {
+-- vim.lsp.enable("ruff")
+-- vim.lsp.config["ruff"] = {
+--   on_attach = M.on_attach,
+--   capabilities = M.capabilities,
+-- }
+
+-- python-lsp-server
+-- vim.lsp.enable("pylsp")
+-- vim.lsp.config["pylsp"] = {
+  -- on_attach = M.on_attach,
+  -- capabilities = M.capabilities,
+  -- cmd = { home .. "/.local/share/nvim/mason/bin/pylsp" },
+-- }
+
+vim.lsp.enable("pyrefly")
+vim.lsp.config["pyrefly"] = {
   on_attach = M.on_attach,
   capabilities = M.capabilities,
+  cmd = { home .. "/.local/share/nvim/mason/bin/pyrefly", "lsp" },
 }
 
 -- javascript / typescript
@@ -238,14 +253,6 @@ vim.lsp.config["cssls"] = {
   on_attach = M.on_attach,
   capabilities = M.capabilities,
   cmd = { home .. "/.local/share/nvim/mason/bin/vscode-css-language-server", "--stdio" },
-}
-
--- python-lsp-server
-vim.lsp.enable("pylsp")
-vim.lsp.config["pylsp"] = {
-  on_attach = M.on_attach,
-  capabilities = M.capabilities,
-  cmd = { home .. "/.local/share/nvim/mason/bin/pylsp" },
 }
 
 return M
