@@ -15,6 +15,8 @@ M.on_attach = function(client, bufnr)
   -- end
 end
 
+M.inlay_hints = { enabled = true }
+
 M.capabilities = vim.lsp.protocol.make_client_capabilities()
 
 M.capabilities.textDocument.completion.completionItem = {
@@ -76,8 +78,11 @@ vim.lsp.config["lua_ls"] = {
 
   settings = {
     Lua = {
+      runtime = {
+        version = "LuaJIT",
+      },
       diagnostics = {
-        globals = { "vim" },
+        globals = { "vim", "require" },
       },
       workspace = {
         library = {
@@ -87,6 +92,9 @@ vim.lsp.config["lua_ls"] = {
         },
         maxPreload = 100000,
         preloadFileSize = 10000,
+      },
+      telemetry = {
+        enable = false,
       },
     },
   },
