@@ -1097,6 +1097,15 @@ M.general = {
       end,
       "Move current buffer as a vsplit window to previous tab (right)",
     },
+
+    ["<leader>ih"] = {
+      function()
+        -- Get current buffer number
+        local bufnr = vim.api.nvim_get_current_buf()
+        vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = bufnr })
+      end,
+      "Enable inlay hint",
+    },
   },
 
   v = {
