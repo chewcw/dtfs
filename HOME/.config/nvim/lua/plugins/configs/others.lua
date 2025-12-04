@@ -129,7 +129,7 @@ M.treesitter_context = {
   -- separator = "⏤",
   max_lines = 0,
   multiline_threshold = 10,
-  mode = "cursor",
+  mode = "topline",
 }
 
 M.treesitter_textobjects = {
