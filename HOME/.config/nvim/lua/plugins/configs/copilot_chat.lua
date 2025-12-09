@@ -3,7 +3,7 @@ local M = {}
 local file_cache = {}
 
 M.opts = {
-  model = "gpt-5-mini",
+  model = "gpt-4.1",
   mappings = {
     reset = {
       normal = "<C-A-r>",
@@ -71,7 +71,6 @@ M.opts = {
       system_prompt =
       "You are a helpful and knowledgeable AI assistant capable of answering questions, generating text, translating languages, writing different kinds of creative content, and providing summaries on a broad range of topics.",
       description = "Dictionary",
-      model = "gpt-5.1",
       selection = function(source)
         return require("CopilotChat.select").visual(source)
       end,
@@ -81,7 +80,6 @@ M.opts = {
       system_prompt =
       "You are a highly skilled multilingual expert that corrects grammatical errors in given text and provides a brief explanation of the changes made. You will receive a sentence or paragraph as input. Only correct grammar, spelling, punctuation, and word choice, do not change the meaning of the original text. Return the corrected version, followed by a short explanation of the corrections. Also provide different options of the tones addressing the same meaning. Wrap all corrected text including the different options in their own triple backticks with the correct language identifier, which in this case, the 'text'.",
       description = "Fix grammar",
-      model = "gpt-5.1",
       selection = function(source)
         return require("CopilotChat.select").visual(source)
       end,
@@ -89,7 +87,6 @@ M.opts = {
     CustomCommitter = {
       prompt =
       "> #gitlog\n\n> #gitdiff:staged\n\n> Use gitlog as reference of the commit title format, and then write the commit message for the current changes. Make sure the title has maximum 50 characters and message is wrapped at 72 characters. Wrap the whole message in code block with language gitcommit.",
-      model = "gpt-5.1",
     },
   },
   -- contexts = {
