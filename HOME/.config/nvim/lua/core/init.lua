@@ -939,8 +939,8 @@ end, { nargs = 0 })
 -- Enable inlay hints if available
 -- Refer to https://www.reddit.com/r/neovim/comments/1eyckqj/starting_with_inlay_hints_on_in_rust/
 ----------------------------------------------------------------------------
-vim.api.nvim_create_autocmd('LspAttach', {
-    callback = function(event)
+vim.api.nvim_create_autocmd("LspAttach", {
+  callback = function(event)
     -- Inlay hint stuff
     if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
       -- Set up a handler to notice when the LSP is all the
@@ -956,3 +956,33 @@ vim.api.nvim_create_autocmd('LspAttach', {
     end
   end,
 })
+
+-- Switch to tab mode using command: ToggleTabMode
+----------------------------------------------------------------------------
+vim.g.is_tab_mode = vim.o.expandtab
+vim.g.previous_tabstop = tonumber(vim.o.tabstop) or 0
+vim.g.previous_shiftwidth = tonumber(vim.o.shiftwidth) or 0
+vim.g.softtabstop = tonumber(vim.o.softtabstop) or 0
+vim.api.nvim_create_user_command("ToggleTabMode", function()
+  -- Switch to space mode
+  if vim.g.is_tab_mode then
+    opt.expandtab = true
+    opt.tabstop = vim.g.previous_tabstop
+    opt.shiftwidth = vim.g.previous_shiftwidth
+    opt.softtabstop = vim.g.softtabstop
+    vim.cmd(":retab")
+    -- Notification
+    vim.g.is_tab_mode = false
+    vim.notify("Switched to space mode")
+    return
+  end
+  -- Switch to tab mode
+  opt.expandtab = false
+  opt.tabstop = vim.g.previous_tabstop
+  opt.shiftwidth = vim.g.previous_shiftwidth
+  opt.softtabstop = vim.g.softtabstop
+  vim.cmd(":retab!")
+  -- Notification
+  vim.g.is_tab_mode = true
+  vim.notify("Switched to tab mode")
+end, { nargs = 0 })
