@@ -957,6 +957,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
   end,
 })
 
+----------------------------------------------------------------------------
 -- Switch to tab mode using command: ToggleTabMode
 ----------------------------------------------------------------------------
 vim.g.is_tab_mode = vim.o.expandtab
@@ -986,3 +987,14 @@ vim.api.nvim_create_user_command("ToggleTabMode", function()
   vim.g.is_tab_mode = true
   vim.notify("Switched to tab mode")
 end, { nargs = 0 })
+
+-- ----------------------------------------------------------------------------
+-- LspStart will also starts Copilot if available
+-- ----------------------------------------------------------------------------
+vim.api.nvim_create_autocmd("LspAttach", {
+  callback = function()
+    pcall(function()
+      vim.cmd("Copilot enable")
+    end)
+  end,
+})
