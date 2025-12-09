@@ -67,7 +67,7 @@ local default_conf = {
     if vim.g.TabAutoCwd == "1" then
       local spaces = string.rep(" ", vim.g.telescope_tabs_longest_cwd_name_count - #cwd_name + 5)
       return string.format(
-        "%s %s: %s %s %s  %s%s➨ %s",
+        "%s %s: %s %s %s  %s%s➨ %s | %s", -- TODO: Add another %s for the file's absolute path
         string.format("%02d", tab_id),
         tab_char,
         modified,
@@ -76,12 +76,13 @@ local default_conf = {
         (file_names[1]:match("fugitive://") or
           file_names[1]:match("/tmp/nvim.ccw/")) and file_names[1] or cwd_name,
         spaces,
-        absolute_path
+        absolute_path,
+        file_paths[1]
       )
     else
       local spaces = string.rep(" ", vim.g.telescope_tabs_longest_file_name_count - #file_names[1] + 5)
       return string.format(
-        "%s %s: %s %s %s  %s%s➨ %s",
+        "%s %s: %s %s %s  %s%s➨ %s | %s",
         string.format("%02d", tab_id),
         tab_char,
         modified,
@@ -89,7 +90,8 @@ local default_conf = {
         icon,
         file_names[1],
         spaces,
-        absolute_path
+        absolute_path,
+        file_paths[1]
       )
     end
   end,
