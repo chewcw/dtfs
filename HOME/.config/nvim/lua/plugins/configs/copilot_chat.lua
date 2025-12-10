@@ -58,32 +58,7 @@ M.opts = {
   },
   highlight_headers = false,
   prompts = {
-    GeneralChat = {
-      prompt = "",
-      system_prompt =
-      "You are a helpful and knowledgeable AI assistant capable of answering questions, generating text, translating languages, writing different kinds of creative content, and providing summaries on a broad range of topics.",
-      description = "General chat agent without the context",
-      selection = function() end, -- No context
-    },
-    Dict = {
-      prompt =
-      "Explain the given words with pronunciation, translation to English and its explanation, translation to Chinese and its explanation, translation to Japanese and its explanation. Also provide a list of examples using the words in sentences, along with synonyms and their pronunciation, antonyms and their pronunciation, all in English, Chinese, Japanese and in different contexts respectively. Return the result for each language in its own section. ",
-      system_prompt =
-      "You are a helpful and knowledgeable AI assistant capable of answering questions, generating text, translating languages, writing different kinds of creative content, and providing summaries on a broad range of topics.",
-      description = "Dictionary",
-      selection = function(source)
-        return require("CopilotChat.select").visual(source)
-      end,
-    },
-    FixGrammar = {
-      prompt = "",
-      system_prompt =
-      "You are a highly skilled multilingual expert that corrects grammatical errors in given text and provides a brief explanation of the changes made. You will receive a sentence or paragraph as input. Only correct grammar, spelling, punctuation, and word choice, do not change the meaning of the original text. Return the corrected version, followed by a short explanation of the corrections. Also provide different options of the tones addressing the same meaning. Wrap all corrected text including the different options in their own triple backticks with the correct language identifier, which in this case, the 'text'.",
-      description = "Fix grammar",
-      selection = function(source)
-        return require("CopilotChat.select").visual(source)
-      end,
-    },
+    model = "gpt-4.1",
     CustomCommitter = {
       prompt =
       "> #gitlog\n\n> #gitdiff:staged\n\n> Use gitlog as reference of the commit title format, and then write the commit message for the current changes. Make sure the title has maximum 50 characters and message is wrapped at 72 characters. Wrap the whole message in code block with language gitcommit.",
