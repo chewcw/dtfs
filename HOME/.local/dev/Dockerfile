@@ -1,7 +1,7 @@
 # syntax = docker/dockerfile:1.4.0
 FROM debian:trixie-slim
 
-RUN apt update && apt install -y wget curl sudo git ripgrep xclip xsel build-essential python3-full tar unzip ncurses-bin vim pip zsh file
+RUN apt update && apt install -y wget curl sudo git ripgrep xclip xsel build-essential python3-venv tar unzip ncurses-bin vim pip zsh file
 
 # fish shell
 # RUN echo 'deb http://download.opensuse.org/repositories/shells:/fish:/release:/3/Debian_11/ /' | tee /etc/apt/sources.list.d/shells:fish:release:3.list && \
@@ -102,37 +102,6 @@ EOF
 
 ARG TARGETARCH
 
-# install development tooling and runtime using asdf -------------------------- 
-# https://github.com/asdf-vm/asdf
-
-# install asdf v0.15.0
-RUN <<EOF
-git clone https://github.com/asdf-vm/asdf.git /home/ccw/.asdf --branch v0.15.0;
-echo 'source /home/ccw/.asdf/asdf.sh' >> /home/ccw/.zshrc;
-echo 'source /home/ccw/.asdf/completions/asdf.bash' >> /home/ccw/.zshrc;
-EOF
-
-# development tooling
-RUN <<EOF
-`# dotnet`
-/usr/bin/zsh -c 'source /home/ccw/.asdf/asdf.sh && asdf plugin add dotnet'
-/usr/bin/zsh -c 'source /home/ccw/.asdf/asdf.sh && asdf install dotnet latest && asdf global dotnet latest'
-
-`# golang`
-/usr/bin/zsh -c 'source /home/ccw/.asdf/asdf.sh && asdf plugin add golang'
-/usr/bin/zsh -c 'source /home/ccw/.asdf/asdf.sh && asdf install golang latest && asdf global golang latest'
-
-`# NodeJS`
-/usr/bin/zsh -c 'source /home/ccw/.asdf/asdf.sh && asdf plugin add nodejs'
-/usr/bin/zsh -c 'source /home/ccw/.asdf/asdf.sh && asdf install nodejs latest && asdf global nodejs latest'
-
-`# Rust`
-/usr/bin/zsh -c 'source /home/ccw/.asdf/asdf.sh && asdf plugin add rust'
-/usr/bin/zsh -c 'source /home/ccw/.asdf/asdf.sh && asdf install rust latest && asdf global rust latest'
-EOF
-
-# ----------------------------------------------------------------------------- 
-
 # install chromium
 RUN sudo apt install -y chromium
 
@@ -142,6 +111,33 @@ sudo apt install -y xdg-utils
 `# set default web browser`
 xdg-settings set default-web-browser chromium.desktop
 EOF
+
+# install development tooling and runtime using mise -------------------------- 
+# https://github.com/jdx/mise
+
+# install mise
+RUN <<EOF
+curl https://mise.run | sh
+EOF
+
+RUN <<EOF
+echo 'eval "$(/home/ccw/.local/bin/mise activate zsh)"' >> /home/ccw/.zshrc
+EOF
+
+# development tooling
+WORKDIR /home/ccw
+RUN <<EOF
+`# NodeJS`
+/home/ccw/.local/bin/mise install node
+`# golang`
+/home/ccw/.local/bin/mise install go
+`# Rust`
+/home/ccw/.local/bin/mise install rust
+`# dotnet`
+/home/ccw/.local/bin/mise install dotnet
+EOF
+
+# ----------------------------------------------------------------------------- 
 
 # neovim
 RUN <<EOF
@@ -185,7 +181,7 @@ sed -i 's/^# *\(en_US.UTF-8\)/\1/' /etc/locale.gen
 sudo locale-gen
 EOF
 
-WORKDIR /workspace
+WORKDIR /home/ccw/Documents/code
 
 # use vi mode in fish shell
 # RUN mkdir -p $HOME/.config/fish && touch $HOME/.config/fish/config.fish && \
@@ -312,7 +308,7 @@ sudo locale-gen
 EOF
 
 COPY --chown=ccw:ccw .gitconfig /home/ccw/.gitconfig
-COPY --chown=ccw:ccw .codeium /home/ccw/.codeium
+# COPY --chown=ccw:ccw .codeium /home/ccw/.codeium
 COPY --chown=ccw:ccw .local/dev/entrypoint.sh /entrypoint.sh
 
 ENTRYPOINT ["/entrypoint.sh"]

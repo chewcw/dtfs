@@ -1282,58 +1282,58 @@ local default_plugins = {
     end,
   },
 
-  {
-    "RutaTang/quicknote.nvim",
-    lazy = true,
-    cmd = { "QuicknoteEnable" },
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-    },
-    opts = function()
-      return {
-        mode = "portable",
-        sign = "🗈",
-        filetype = "md",
-        git_branch_recognizable = true,
-      }
-    end,
-    config = function(_, opts)
-      vim.api.nvim_create_user_command("Quicknote", function(o)
-        if pcall(require, "quicknote") then
-          if o.args == "new cwd" then
-            require("quicknote").NewNoteAtCWD()
-          elseif o.args == "open cwd" then
-            require("quicknote").OpenNoteAtCWD()
-          elseif o.args == "delete cwd" then
-            require("quicknote").DeleteNoteAtCWD()
-          end
-
-          if o.args == "new line" or o.args == "new" then
-            require("quicknote").NewNoteAtCurrentLine()
-          elseif o.args == "open line" or o.args == "open" then
-            require("quicknote").OpenNoteAtCurrentLine()
-          elseif o.args == "delete line" or o.args == "delete" then
-            require("quicknote").DeleteNoteAtCurrentLine()
-          end
-
-          if o.args == "list" then
-            require("quicknote").ListNotesForCurrentBuffer()
-          elseif o.args == "list cwd" then
-            require("quicknote").ListNotesForCWD()
-          end
-        end
-      end, { nargs = "*" })
-
-      vim.api.nvim_create_autocmd({ "BufEnter" }, {
-        callback = function()
-          require("quicknote").ShowNoteSigns()
-        end,
-      })
-
-      require("core.utils").load_mappings("quicknote")
-      require("quicknote").setup(opts)
-    end,
-  },
+  -- {
+  --   "RutaTang/quicknote.nvim",
+  --   lazy = true,
+  --   cmd = { "QuicknoteEnable" },
+  --   dependencies = {
+  --     "nvim-lua/plenary.nvim",
+  --   },
+  --   opts = function()
+  --     return {
+  --       mode = "portable",
+  --       sign = "🗈",
+  --       filetype = "md",
+  --       git_branch_recognizable = true,
+  --     }
+  --   end,
+  --   config = function(_, opts)
+  --     vim.api.nvim_create_user_command("Quicknote", function(o)
+  --       if pcall(require, "quicknote") then
+  --         if o.args == "new cwd" then
+  --           require("quicknote").NewNoteAtCWD()
+  --         elseif o.args == "open cwd" then
+  --           require("quicknote").OpenNoteAtCWD()
+  --         elseif o.args == "delete cwd" then
+  --           require("quicknote").DeleteNoteAtCWD()
+  --         end
+  --
+  --         if o.args == "new line" or o.args == "new" then
+  --           require("quicknote").NewNoteAtCurrentLine()
+  --         elseif o.args == "open line" or o.args == "open" then
+  --           require("quicknote").OpenNoteAtCurrentLine()
+  --         elseif o.args == "delete line" or o.args == "delete" then
+  --           require("quicknote").DeleteNoteAtCurrentLine()
+  --         end
+  --
+  --         if o.args == "list" then
+  --           require("quicknote").ListNotesForCurrentBuffer()
+  --         elseif o.args == "list cwd" then
+  --           require("quicknote").ListNotesForCWD()
+  --         end
+  --       end
+  --     end, { nargs = "*" })
+  --
+  --     vim.api.nvim_create_autocmd({ "BufEnter" }, {
+  --       callback = function()
+  --         require("quicknote").ShowNoteSigns()
+  --       end,
+  --     })
+  --
+  --     require("core.utils").load_mappings("quicknote")
+  --     require("quicknote").setup(opts)
+  --   end,
+  -- },
 
   {
     "zbirenbaum/copilot.lua",
@@ -1694,7 +1694,7 @@ local default_plugins = {
 
   {
     "ravitemer/mcphub.nvim",
-    lazy = false,
+    lazy = true,
     -- build = "npm install -g mcp-hub@latest",
     build = "bundled_build.lua",
     opts = {
