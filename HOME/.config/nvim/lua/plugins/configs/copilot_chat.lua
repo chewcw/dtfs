@@ -58,8 +58,8 @@ M.opts = {
   },
   highlight_headers = false,
   prompts = {
-    model = "gpt-4.1",
     CustomCommitter = {
+      model = "gpt-4.1",
       prompt =
       "> #gitlog\n\n> #gitdiff:staged\n\n> Use gitlog as reference of the commit title format, and then write the commit message for the current changes. Make sure the title has maximum 50 characters and message is wrapped at 72 characters. Wrap the whole message in code block with language gitcommit.",
     },
