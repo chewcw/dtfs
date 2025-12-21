@@ -52,7 +52,7 @@ local default_plugins = {
       -- dofile(vim.g.base46_cache .. "syntax")
       require("nvim-treesitter.configs").setup(opts)
     end,
-    -- branch = "master",
+    branch = "master",
     -- commit = "30604fd",
   },
 
@@ -724,7 +724,7 @@ local default_plugins = {
   {
     "nvim-treesitter/nvim-treesitter-context",
     lazy = false,
-    -- branch = "master",
+    branch = "master",
     -- commit = "31692b2",
     opts = function()
       return require("plugins.configs.others").treesitter_context
@@ -737,6 +737,7 @@ local default_plugins = {
   {
     "nvim-treesitter/nvim-treesitter-textobjects",
     lazy = false,
+    branch = "master",
     opts = function()
       return require("plugins.configs.others").treesitter_textobjects
     end,
