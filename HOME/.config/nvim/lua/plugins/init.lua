@@ -1220,7 +1220,7 @@ local default_plugins = {
 
   {
     "wfxr/minimap.vim",
-    cmd = { "Minimap" },
+    cmd = { "MinimapToggle" },
     build = "cargo install --locked code-minimap",
     init = function()
       vim.g.minimap_auto_start = 0
@@ -1959,6 +1959,43 @@ local default_plugins = {
       "sindrets/diffview.nvim",        -- optional - Diff integration
 
       "nvim-telescope/telescope.nvim", -- optional
+    },
+  },
+
+  {
+    "folke/flash.nvim",
+    event = "VeryLazy",
+    opts = {
+      mode = {
+        search = {
+          enabled = true,
+          forward = false,
+        },
+      },
+    },
+    keys = {
+      { "<leader>F", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
+      -- { "S", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
+      { "<leader>R", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
+      -- { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
+      -- { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
+    },
+  },
+
+  {
+    "rachartier/tiny-inline-diagnostic.nvim",
+    event = "VeryLazy",
+    opts = {
+        add_messages = {
+            display_count = true,
+        },
+        multilines = {
+            enabled = true,
+            always_show = true,
+        },
+        show_source = {
+            enabled = true,
+        }
     },
   },
 
