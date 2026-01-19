@@ -1035,7 +1035,7 @@ mode "vim_normal" {
     # Ctrl+u → Page Up
     bindsym Ctrl+u exec --no-startup-id xdotool keyup u keyup Control key Page_Up
     # Ctrl+d → Page Down
-    bindsym Ctrl+d exec --no-startup-id xdotool keyup d key Page_Down
+    bindsym Ctrl+d exec --no-startup-id xdotool keyup d keyup Control key Page_Down
     # F1 to F12 keys
     bindsym $alt+1 exec --no-startup-id xdotool keyup Alt keyup 1 key F1
     bindsym $alt+2 exec --no-startup-id xdotool keyup Alt keyup 2 key F2
