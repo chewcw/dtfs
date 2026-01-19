@@ -183,7 +183,7 @@ M.load_config = function()
   -- TODO: chewcw - put somewhere else wouldn't work, why?
   -- vim diagnostic default configuration
   vim.diagnostic.config({
-    virtual_text = true,
+    virtual_text = false,
     underline = true,
   })
 
