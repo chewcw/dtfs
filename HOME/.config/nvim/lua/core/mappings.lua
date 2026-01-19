@@ -1814,6 +1814,15 @@ M.telescope = {
       end,
       "find files",
     },
+    ["<C-p>"] = {
+      function()
+        require("plugins.configs.oil_utils").close_oil_if_opened()
+        vim.g.find_files_type = "normal"
+        vim.g.telescope_picker_type = "find_files"
+        require("plugins.configs.telescope_utils").find_files()
+      end,
+      "find files",
+    },
     ["<leader>fF"] = {
       function()
         require("plugins.configs.oil_utils").close_oil_if_opened()
