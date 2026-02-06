@@ -123,7 +123,7 @@ local get_groups = function(color)
     Question                             = { fg = color.main2 },
     QuickFixLine                         = { fg = color.main2, bg = color.gray01 },
     qfLineNr                             = {},
-    Search                               = { fg = color.black, bg = color.bright_brown },
+    Search                               = { fg = color.white, bg = color.dark_brown },
     SpecialKey                           = { fg = color.gray01 },
     SpellBad                             = { fg = color.red, bg = color.none, italic = true, undercurl = true },
     SpellCap                             = { fg = color.main1, bg = color.none, italic = true, undercurl = true },
