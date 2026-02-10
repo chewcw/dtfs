@@ -127,7 +127,8 @@ ln -sf $pwd/HOME/.local/bin/gromit_mpx_action.sh $HOME/.local/bin/gromit_mpx_act
 # echo "Setting symlink for Boomer (zoomer for linux, for presentation)"
 # echo "-------------------------------------------------------------------"
 # https://github.com/tsoding/boomer
-# ln -sf $pwd/HOME/.local/bin/boomer $HOME/.local/bin/boomer
+yay -S --noconfirm boomer
+ln -sf $pwd/HOME/.local/bin/boomer $HOME/.local/bin/boomer
 
 echo "-------------------------------------------------------------------"
 echo "Setting symlink for date command
@@ -152,7 +153,7 @@ ln -sf $pwd/HOME/.config/i3status/config $HOME/.config/i3status/config
 echo "------------------------------------------"
 echo "Installing wrapper script (for microphone)"
 echo "------------------------------------------"
-# sudo pacman -S --noconfirm python-pulsectl
+yay -S --noconfirm python-pulsectl
 # Install symlink for the wrapper script
 ln -sf $pwd/HOME/.local/bin/i3status_wrapper.py $HOME/.local/bin/i3status_wrapper.py
 
