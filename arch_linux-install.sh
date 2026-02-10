@@ -60,7 +60,7 @@ echo "------------------------------------------"
 # mode 3 for normal keyboard, mode 4 for 60% layouts keyboard
 
 sudo bash -c 'cat << EOF > /etc/interception/udevmon.yaml
-- JOB: "interception -g \$DEVNODE | caps2esc -m 3 | uinput -d \$DEVNODE"
+- JOB: "intercept -g \$DEVNODE | caps2esc -m 3 | uinput -d \$DEVNODE"
   DEVICE:
       EVENTS:
         EV_KEY: [KEY_CAPSLOCK, KEY_ESC]
@@ -128,10 +128,10 @@ ln -sf $pwd/HOME/.local/bin/gromit_mpx_action.sh $HOME/.local/bin/gromit_mpx_act
 # echo "-------------------------------------------------------------------"
 # https://github.com/tsoding/boomer
 yay -S --noconfirm boomer
-ln -sf $pwd/HOME/.local/bin/boomer $HOME/.local/bin/boomer
+# ln -sf $pwd/HOME/.local/bin/boomer $HOME/.local/bin/boomer
 
 echo "-------------------------------------------------------------------"
-echo "Setting symlink for date command
+echo "Setting symlink for date command"
 echo "-------------------------------------------------------------------"
 ln -sf $pwd/HOME/.local/bin/date.sh $HOME/.local/bin/date.sh
 
@@ -405,6 +405,7 @@ echo "------------------------------------------"
 # sudo pacman -S --noconfirm inkscape
 # copyq
 # sudo pacman -S --noconfirm copyq
+mkdir -p $HOME/.config/copyq
 ln -sf $pwd/HOME/.config/copyq/copyq.conf $HOME/.config/copyq/copyq.conf
 ln -sf $pwd/HOME/.config/copyq/copyq-commands.ini $HOME/.config/copyq/copyq-commands.ini
 
