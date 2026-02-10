@@ -85,7 +85,7 @@ bindsym $mod+x mark A; focus down; swap container with mark A; unmark A;
 # split in vertical orientation
 # bindsym $mod+v split v
 # split toggle
-bindsym $mod+u split toggle
+bindsym $mod+u split toggle; layout stacked
 bindsym $mod+comma split toggle; focus left; move right;
 bindsym $mod+period split toggle; focus right; move left;
 
@@ -395,13 +395,15 @@ workspace_layout tabbed
 # desktop background
 exec feh --bg-fill ~/Pictures/wallpaper.jpg
 
+# show window title bar
+for_window [class="^.*"] border normal
 # hide window title bar
-for_window [class="^.*"] border pixel 3
+# for_window [class="^.*"] border pixel 3
 for_window [floating] border normal
 default_border normal
 default_floating_border normal
 
-hide_edge_borders smart_no_gaps
+# hide_edge_borders smart_no_gaps
 
 title_align center
 
@@ -625,7 +627,7 @@ mode "mouse" {
     # split in vertical orientation
     # bindsym $mod+v split v
     # split toggle
-    bindsym $mod+u split toggle
+    bindsym $mod+u split toggle; layout stacked
 
     # move workspace to another monitor
     bindsym $mod+$alt+h move workspace to output left
@@ -760,7 +762,7 @@ mode "vim" {
     # split in vertical orientation
     # bindsym $mod+v split v
     # split toggle
-    bindsym $mod+u split toggle
+    bindsym $mod+u split toggle; layout stacked
 
     # move workspace to another monitor
     bindsym $mod+$alt+h move workspace to output left
@@ -829,6 +831,7 @@ mode "vim" {
 
 # Go to vim insert mode
 bindsym $mod+i mode "vim"
+# bindsym $mod+i exec --no-startup-id sudo systemctl stop keyd; mode "vim";
 
 mode "vim_normal" {
     bindsym Ctrl exec --no-startup-id xdotool; mode "vim"
@@ -936,7 +939,7 @@ mode "vim_normal" {
     # split in vertical orientation
     # bindsym $mod+v split v
     # split toggle
-    bindsym $mod+u split toggle
+    bindsym $mod+u split toggle; layout stacked
 
     # move workspace to another monitor
     bindsym $mod+$alt+h move workspace to output left
@@ -1306,7 +1309,7 @@ mode "$mode_presentation" {
   # split in vertical orientation
   # bindsym $mod+v split v
   # split toggle
-  bindsym $mod+u split toggle layout splith
+  bindsym $mod+u split toggle; layout stacked
 
   # move workspace to another monitor
   bindsym $mod+$alt+h move workspace to output left
