@@ -26,7 +26,7 @@ TogglePreedit=
 0=Alt+Super+Alt_L
 
 [Hotkey/AltTriggerKeys]
-0=Shift+Shift_L
+0=Alt+Alt_R
 
 [Hotkey/PrevCandidate]
 0=Shift+Tab
