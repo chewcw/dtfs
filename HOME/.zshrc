@@ -168,6 +168,9 @@ alias gnome-control-center="env XDB_CURRENT_DESKOP=GNOME gnome-control-center"
 export PATH=$PATH:$HOME/.local/bin/kubectl/
 alias k=kubectl
 
+# nvim
+alias v=nvim
+
 # powerlevel10k
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 # [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
@@ -175,7 +178,8 @@ alias k=kubectl
 # -----------------------------------------------------------------------------
 # fzf
 # -----------------------------------------------------------------------------
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+source <(fzf --zsh)
+
 export FZF_DEFAULT_COMMAND="find -L"
 export FZF_ALT_C_COMMAND="find ."
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
@@ -310,9 +314,6 @@ fstash() {
 
 # --------------------------------------------------------------------
 
-# zsh-vi-mode
-# zvm_after_init_commands+=('[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh')
-
 # directory's permission color
 # https://askubuntu.com/questions/881949/ugly-color-for-directories-in-gnome-terminal
 # https://github.com/ohmyzsh/ohmyzsh/issues/6060
@@ -386,3 +387,6 @@ function y() {
 if [ -f "$HOME/.env" ]; then
   source "$HOME/.env"
 fi
+
+export PATH=$PATH:/home/ccw/.rustup/toolchains/1.93.0-x86_64-unknown-linux-gnu/bin
+eval "$(mise activate zsh)"

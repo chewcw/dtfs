@@ -9,10 +9,9 @@ general {
 }
 
 order += "disk /"
-order += "disk /media/d"
-order += "disk /media/docker"
-order += "wireless wlp0s20f3"
-order += "ethernet enp0s31f6"
+order += "disk /data"
+order += "wireless wlan0"
+order += "ethernet enp2s0"
 order += "battery 0"
 order += "memory"
 order += "cpu_usage"
@@ -21,12 +20,12 @@ order += "volume master"
 order += "tztime eastern"
 order += "tztime local"
 
-wireless wlp0s20f3 {
+wireless wlan0 {
         format_up = "W: %essid %bitrate %ip"
         format_down = "W: down"
 }
 
-ethernet enp0s31f6 {
+ethernet enp2s0 {
         format_up = "E: %ip (%speed)"
         format_down = "E: down"
 }
@@ -65,12 +64,8 @@ disk "/" {
         format = "root: %free/%total"
 }
 
-disk "/media/d" {
-        format = "D: %free"
-}
-
-disk "/media/docker" {
-        format = "Dk: %free"
+disk "/data" {
+        format = "Data: %free"
 }
 
 read_file uptime {
