@@ -175,6 +175,14 @@ alias v=nvim
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 # [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
+
+# --------------------------------------------------------------------------------
+# mise
+# --------------------------------------------------------------------------------
+export PATH=$PATH:/home/ccw/.rustup/toolchains/1.93.0-x86_64-unknown-linux-gnu/bin
+eval "$(mise activate zsh)"
+
+
 # -----------------------------------------------------------------------------
 # fzf
 # -----------------------------------------------------------------------------
@@ -387,6 +395,3 @@ function y() {
 if [ -f "$HOME/.env" ]; then
   source "$HOME/.env"
 fi
-
-export PATH=$PATH:/home/ccw/.rustup/toolchains/1.93.0-x86_64-unknown-linux-gnu/bin
-eval "$(mise activate zsh)"
