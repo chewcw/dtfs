@@ -101,6 +101,11 @@ ln -sf $pwd/HOME/.config/nvim $HOME/.config
 # echo "------------------------------------------"
 # sudo pacman -S --noconfirm xcompmgr
 
+echo "------------------------------------------"
+echo "Install bc"
+echo "------------------------------------------"
+sudo pacman -S --noconfirm bc
+
 echo "-------------------------------------------------------------------"
 echo "Installing projecteur pointer spotlight, for presentation"
 echo "-------------------------------------------------------------------"
