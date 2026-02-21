@@ -102,7 +102,7 @@ ln -sf $pwd/HOME/.config/nvim $HOME/.config
 # sudo pacman -S --noconfirm xcompmgr
 
 echo "-------------------------------------------------------------------"
-echo "Installing projecteur (pointer spotlight, for presentation)"
+echo "Installing projecteur pointer spotlight, for presentation"
 echo "-------------------------------------------------------------------"
 yay -S --noconfirm projecteur
 # Install symlink for projecteur configuration
@@ -112,7 +112,7 @@ ln -sf $pwd/HOME/.config/Projecteur/Projecteur.conf $HOME/.config/Projecteur/Pro
 ln -sf $pwd/HOME/.local/bin/projecteur_action.sh $HOME/.local/bin/projecteur_action.sh
 
 echo "-------------------------------------------------------------------"
-echo "Installing gromit-mpx (ZoomIt-like, for linux, for presentation)"
+echo "Installing gromit-mpx ZoomIt-like, for linux, for presentation"
 echo "-------------------------------------------------------------------"
 # debian package is not the latest version
 # check out https://github.com/bk138/gromit-mpx?tab=readme-ov-file#building-it to build from source
@@ -151,7 +151,7 @@ ln -sf $pwd/HOME/.config/i3status/config $HOME/.config/i3status/config
 
 # Install i3status wrapper script
 echo "------------------------------------------"
-echo "Installing wrapper script (for microphone)"
+echo "Installing wrapper script for microphone"
 echo "------------------------------------------"
 yay -S --noconfirm python-pulsectl
 # Install symlink for the wrapper script
@@ -364,7 +364,7 @@ yay -S --noconfirm barrier
 
 # xdotool
 # echo "------------------------------------------"
-# echo "Installing xdotool (moving cursor using keyboard)"
+# echo "Installing xdotool moving cursor using keyboard"
 # echo "------------------------------------------"
 # sudo pacman -S --noconfirm xdotool
 
@@ -418,6 +418,17 @@ sudo ln -sf $pwd/usr/lib/systemd/user/laptop_battery_status.service /usr/lib/sys
 sudo ln -sf $pwd/usr/lib/systemd/user/laptop_battery_status.timer /usr/lib/systemd/user/laptop_battery_status.timer
 systemctl --user daemon-reload
 systemctl --user enable --now laptop_battery_status.timer
+
+echo "------------------------------------------"
+echo "Install fonts"
+echo "------------------------------------------"
+sudo pacman -S ttf-dejavu ttf-liberation noto-fonts noto-fonts-emoji noto-fonts-cjk ttf-ubuntu-font-family tex-gyre-fonts
+
+echo "------------------------------------------"
+echo "Install battery status timer for current user"
+echo "------------------------------------------"
+sudo cp $pwd/usr/lib/systemd/user/laptop_battery_status.service /usr/lib/systemd/user/laptop_battery_status.service
+sudo cp $pwd/usr/lib/systemd/user/laptop_battery_status.timer /usr/lib/systemd/user/laptop_battery_status.timer
 
 # shell setup
 # ------------------------------ put below in the end
