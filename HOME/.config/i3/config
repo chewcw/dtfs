@@ -995,9 +995,9 @@ mode "vim_normal" {
     # Vim motion Shift+x → BackSpace
     bindsym Shift+x exec --no-startup-id xdotool keyup x key BackSpace
     # Vim motion Shift+d → Shift+End+Delete
-    bindsym Shift+d exec --no-startup-id xdotool keyup d key Shift+End BackSpace
+    bindsym Shift+d exec --no-startup-id xdotool keyup d key Shift+End sleep 0.1 key Delete;
     # Vim C → Shift+End Delete i
-    bindsym Shift+c exec --no-startup-id xdotool keyup c key Shift+End BackSpace; mode "vim"
+    bindsym Shift+c exec --no-startup-id xdotool keyup c key Shift+End sleep 0.1 key Delete; mode vim;
     # Vim I → Home
     bindsym Shift+i exec --no-startup-id xdotool keyup i key Home; mode "vim"
     # Vim A → End
