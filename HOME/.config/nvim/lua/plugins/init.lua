@@ -1964,9 +1964,27 @@ local default_plugins = {
           forward = false,
         },
       },
+      modes = {
+        char = {
+          multi_line = true,
+          char_actions = function(motion)
+            return {
+              [";"] = "next",   -- set to `right` to always go right
+              [","] = "prev",   -- set to `left` to always go left
+              -- clever-f style
+              -- [motion:lower()] = "right",
+              -- [motion:upper()] = "left",
+              -- jump2d style: same case goes next, opposite case goes prev
+              -- [motion] = "next",
+              -- [motion:match("%l") and motion:upper() or motion:lower()] = "prev",
+            }
+          end,
+          jump_labels = true,
+        },
+      },
     },
     keys = {
-      { "<leader>Ff", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
+      -- { "<leader>Ff", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
       -- { "S", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
       -- { "<leader>R", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
       -- { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
@@ -1978,16 +1996,16 @@ local default_plugins = {
     "rachartier/tiny-inline-diagnostic.nvim",
     event = "VeryLazy",
     opts = {
-        add_messages = {
-            display_count = true,
-        },
-        multilines = {
-            enabled = true,
-            always_show = true,
-        },
-        show_source = {
-            enabled = true,
-        }
+      add_messages = {
+        display_count = true,
+      },
+      multilines = {
+        enabled = true,
+        always_show = true,
+      },
+      show_source = {
+        enabled = true,
+      }
     },
   },
 
