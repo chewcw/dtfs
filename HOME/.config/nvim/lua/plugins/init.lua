@@ -1967,7 +1967,7 @@ local default_plugins = {
       modes = {
         char = {
           multi_line = true,
-          label = { exclude = "hjkliardcvVsCoO" },
+          label = { exclude = "ghjkliardcvVsCoO" },
           char_actions = function(motion)
             return {
               [";"] = "next",   -- set to `right` to always go right
