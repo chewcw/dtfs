@@ -1586,129 +1586,133 @@ local default_plugins = {
     },
   },
 
-  {
-    "yetone/avante.nvim",
-    event = "VeryLazy",
-    lazy = false,
-    version = false,
-    keys = function(_, keys)
-      local opts =
-          require("lazy.core.plugin").values(require("lazy.core.config").spec.plugins["avante.nvim"], "opts", false)
+  -- {
+  --   "yetone/avante.nvim",
+  --   event = "VeryLazy",
+  --   lazy = false,
+  --   version = false,
+  --   keys = function(_, keys)
+  --     local opts =
+  --         require("lazy.core.plugin").values(require("lazy.core.config").spec.plugins["avante.nvim"], "opts", false)
+  --
+  --     local mappings = {
+  --       {
+  --         opts.mappings.ask,
+  --         function() require("avante.api").ask() end,
+  --         desc = "avante: ask",
+  --         mode = { "n", "v" },
+  --       },
+  --       {
+  --         opts.mappings.edit,
+  --         function() require("avante.api").edit() end,
+  --         desc = "avante: edit",
+  --         mode = { "n", "v" },
+  --       },
+  --     }
+  --     mappings = vim.tbl_filter(function(m) return m[1] and #m[1] > 0 end, mappings)
+  --     return vim.list_extend(mappings, keys)
+  --   end,
+  --   opts = {
+  --     provider = "copilot",
+  --     providers = {
+  --       copilot = {
+  --         model = "gpt-5-mini",
+  --       },
+  --     },
+  --     mappings = {
+  --       ask = "<leader>ava",
+  --       edit = "<leader>ave",
+  --       submit = {
+  --         normal = "<A-CR>",
+  --         insert = "<A-CR>",
+  --       },
+  --       sidebar = {
+  --         close = { "gq" },
+  --         close_from_input = {
+  --           normal = "gq",
+  --         },
+  --         remove_file = "<S-d>",
+  --       },
+  --     },
+  --     windows = {
+  --       edit = {
+  --         start_insert = false,
+  --       },
+  --       ask = {
+  --         start_insert = false,
+  --       },
+  --       sidebar_header = {
+  --         rounded = false,
+  --         align = "left",
+  --       },
+  --     },
+  --     behaviour = {
+  --       auto_set_keymaps = false,
+  --       auto_set_highlight_group = false,
+  --     },
+  --     hints = { enabled = false },
+  --     dual_boost = {
+  --       enabled = false,
+  --       first_provider = "groq",
+  --       second_provider = "copilot",
+  --       prompt =
+  --       "Based on the two reference outputs below, generate a response that incorporates elements from both but reflects your own judgment and unique perspective. Do not provide any explanation, just give the response directly. Reference Output 1: [{{provider1_output}}], Reference Output 2: [{{provider2_output}}]",
+  --       timeout = 60000, -- Timeout in milliseconds
+  --     },
+  --     system_prompt = function()
+  --       local hub = require("mcphub").get_hub_instance()
+  --       if hub ~= nil then
+  --         return hub:get_active_servers_prompt()
+  --       end
+  --     end,
+  --     custom_tools = function()
+  --       return {
+  --         require("mcphub.extensions.avante").mcp_tool(),
+  --       }
+  --     end,
+  --   },
+  --   init = function()
+  --     if pcall(require, "avante") then
+  --       -- Hack, not sure if can be achieved through config, I don't want to show the icons in the title
+  --       require("avante.utils").icons_enabled = function()
+  --         return false
+  --       end
+  --     end
+  --   end,
+  --   build = "make",
+  --   dependencies = {
+  --     "MunifTanjim/nui.nvim",
+  --   },
+  -- },
 
-      local mappings = {
-        {
-          opts.mappings.ask,
-          function() require("avante.api").ask() end,
-          desc = "avante: ask",
-          mode = { "n", "v" },
-        },
-        {
-          opts.mappings.edit,
-          function() require("avante.api").edit() end,
-          desc = "avante: edit",
-          mode = { "n", "v" },
-        },
-      }
-      mappings = vim.tbl_filter(function(m) return m[1] and #m[1] > 0 end, mappings)
-      return vim.list_extend(mappings, keys)
-    end,
-    opts = {
-      provider = "copilot",
-      providers = {
-        copilot = {
-          model = "gpt-5-mini",
-        },
-      },
-      mappings = {
-        ask = "<leader>ava",
-        edit = "<leader>ave",
-        submit = {
-          normal = "<A-CR>",
-          insert = "<A-CR>",
-        },
-        sidebar = {
-          close = { "gq" },
-          close_from_input = {
-            normal = "gq",
-          },
-          remove_file = "<S-d>",
-        },
-      },
-      windows = {
-        edit = {
-          start_insert = false,
-        },
-        ask = {
-          start_insert = false,
-        },
-        sidebar_header = {
-          rounded = false,
-          align = "left",
-        },
-      },
-      behaviour = {
-        auto_set_keymaps = false,
-        auto_set_highlight_group = false,
-      },
-      hints = { enabled = false },
-      dual_boost = {
-        enabled = false,
-        first_provider = "groq",
-        second_provider = "copilot",
-        prompt =
-        "Based on the two reference outputs below, generate a response that incorporates elements from both but reflects your own judgment and unique perspective. Do not provide any explanation, just give the response directly. Reference Output 1: [{{provider1_output}}], Reference Output 2: [{{provider2_output}}]",
-        timeout = 60000, -- Timeout in milliseconds
-      },
-      system_prompt = function()
-        local hub = require("mcphub").get_hub_instance()
-        if hub ~= nil then
-          return hub:get_active_servers_prompt()
-        end
-      end,
-      custom_tools = function()
-        return {
-          require("mcphub.extensions.avante").mcp_tool(),
-        }
-      end,
-    },
-    init = function()
-      if pcall(require, "avante") then
-        -- Hack, not sure if can be achieved through config, I don't want to show the icons in the title
-        require("avante.utils").icons_enabled = function()
-          return false
-        end
-      end
-    end,
-    build = "make",
-    dependencies = {
+  {
       "MunifTanjim/nui.nvim",
-    },
   },
 
-  {
-    "ravitemer/mcphub.nvim",
-    lazy = true,
-    -- build = "npm install -g mcp-hub@latest",
-    build = "bundled_build.lua",
-    opts = {
-      use_bundled_binary = true,
-      auto_approve = true,
-      extensions = {
-        avante = {
-          make_slash_commands = true,
-        },
-        copilotchat = {
-          enabled = true,
-          convert_tools_to_functions = true,
-          convert_resources_to_functions = true,
-          add_mcp_prefix = false,
-        },
-      },
-    },
-    config = function(_, opts)
-      require("mcphub").setup(opts)
-    end,
-  },
+  -- {
+  --   "ravitemer/mcphub.nvim",
+  --   lazy = true,
+  --   -- build = "npm install -g mcp-hub@latest",
+  --   build = "bundled_build.lua",
+  --   opts = {
+  --     use_bundled_binary = true,
+  --     auto_approve = true,
+  --     extensions = {
+  --       avante = {
+  --         make_slash_commands = true,
+  --       },
+  --       copilotchat = {
+  --         enabled = true,
+  --         convert_tools_to_functions = true,
+  --         convert_resources_to_functions = true,
+  --         add_mcp_prefix = false,
+  --       },
+  --     },
+  --   },
+  --   config = function(_, opts)
+  --     require("mcphub").setup(opts)
+  --   end,
+  -- },
 
   {
     "aznhe21/actions-preview.nvim",
@@ -1954,44 +1958,47 @@ local default_plugins = {
     },
   },
 
-  {
-    "folke/flash.nvim",
-    event = "VeryLazy",
-    opts = {
-      mode = {
-        search = {
-          enabled = true,
-          forward = false,
-        },
-      },
-      modes = {
-        char = {
-          multi_line = true,
-          label = { exclude = "ghjkliardcvVsCoOxpPyY" },
-          char_actions = function(motion)
-            return {
-              [";"] = "next",   -- set to `right` to always go right
-              [","] = "prev",   -- set to `left` to always go left
-              -- clever-f style
-              -- [motion:lower()] = "right",
-              -- [motion:upper()] = "left",
-              -- jump2d style: same case goes next, opposite case goes prev
-              -- [motion] = "next",
-              -- [motion:match("%l") and motion:upper() or motion:lower()] = "prev",
-            }
-          end,
-          jump_labels = true,
-        },
-      },
-    },
-    keys = {
-      -- { "<leader>Ff", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
-      -- { "S", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
-      -- { "<leader>R", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
-      -- { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
-      -- { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
-    },
-  },
+  -- {
+  --   "folke/flash.nvim",
+  --   event = "VeryLazy",
+  --   opts = {
+  --     mode = {
+  --       search = {
+  --         enabled = true,
+  --         forward = false,
+  --       },
+  --     },
+  --     modes = {
+  --       char = {
+  --         multi_line = true,
+  --         label = { exclude = "ghjkliardcvVsCoOxpPyY" },
+  --         config = function(opts)
+  --           opts.autohide = true
+  --         end,
+  --         char_actions = function(motion)
+  --           return {
+  --             [";"] = "next",   -- set to `right` to always go right
+  --             [","] = "prev",   -- set to `left` to always go left
+  --             -- clever-f style
+  --             -- [motion:lower()] = "right",
+  --             -- [motion:upper()] = "left",
+  --             -- jump2d style: same case goes next, opposite case goes prev
+  --             -- [motion] = "next",
+  --             -- [motion:match("%l") and motion:upper() or motion:lower()] = "prev",
+  --           }
+  --         end,
+  --         jump_labels = true,
+  --       },
+  --     },
+  --   },
+  --   keys = {
+  --     -- { "<leader>Ff", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
+  --     -- { "S", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
+  --     -- { "<leader>R", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
+  --     -- { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
+  --     -- { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
+  --   },
+  -- },
 
   {
     "rachartier/tiny-inline-diagnostic.nvim",
