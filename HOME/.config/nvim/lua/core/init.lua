@@ -136,6 +136,12 @@ require("core.statusline")
 -- tabline
 -- require("core.tabline")
 
+vim.api.nvim_del_keymap("n", "grt") -- These lsp keymaps are contradicting with my lsp function using telescope
+vim.api.nvim_del_keymap("n", "grr") -- These lsp keymaps are contradicting with my lsp function using telescope
+vim.api.nvim_del_keymap("n", "gri") -- These lsp keymaps are contradicting with my lsp function using telescope
+vim.api.nvim_del_keymap("n", "gra") -- These lsp keymaps are contradicting with my lsp function using telescope
+vim.api.nvim_del_keymap("n", "grn") -- These lsp keymaps are contradicting with my lsp function using telescope
+
 -- ----------------------------------------------------------------------------
 -- autocmds
 -- ----------------------------------------------------------------------------
