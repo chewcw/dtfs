@@ -41,7 +41,7 @@ local default_plugins = {
     "nvim-treesitter/nvim-treesitter",
     lazy = false,
     init = function()
-      require("core.utils").lazy_load("nvim-treesitter")
+      -- require("core.utils").lazy_load("nvim-treesitter")
     end,
     -- cmd = { "TSInstall", "TSBufEnable", "TSBufDisable", "TSModuleInfo" },
     build = ":TSUpdate",
@@ -1949,7 +1949,16 @@ local default_plugins = {
     lazy = true,
     cmd = { "Outline", "OutlineOpen" },
     opts = {
-
+      keymaps = {
+        close = { '<A-q>' },
+        goto_location = '<C-l>',
+        down_and_jump = '<C-n>',
+        up_and_jump = '<C-p>',
+        fold = 'zc',
+        fold_all = 'zM',
+        unfold = 'zo',
+        unfold_all = 'zR',
+      }
     },
   },
 
