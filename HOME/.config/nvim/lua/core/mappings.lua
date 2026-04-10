@@ -1978,7 +1978,7 @@ M.telescope = {
     --   "<cmd> Telescope lsp_implementations show_line=false jump_type=never <CR>",
     --   "lsp implementation in vsplit",
     -- },
-    ["gr"] = {
+    ["grr"] = {
       ":lua require('plugins.configs.telescope_utils').open_lsp_references_conditional({show_line='false', jump_type='never', reuse_win='true'}) <CR>",
       "lsp references",
       opts = { silent = true },
