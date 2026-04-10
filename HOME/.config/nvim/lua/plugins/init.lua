@@ -50,9 +50,9 @@ local default_plugins = {
     end,
     config = function(_, opts)
       -- dofile(vim.g.base46_cache .. "syntax")
-      require("nvim-treesitter.configs").setup(opts)
+      -- require("nvim-treesitter.configs").setup(opts)
     end,
-    branch = "master",
+    branch = "main",
     -- commit = "30604fd",
   },
 
@@ -729,13 +729,13 @@ local default_plugins = {
   {
     "nvim-treesitter/nvim-treesitter-textobjects",
     lazy = false,
-    branch = "master",
+    branch = "main",
     opts = function()
       return require("plugins.configs.others").treesitter_textobjects
     end,
     config = function(_, opts)
       require("core.utils").load_mappings("nvim_treesitter_textobjects")
-      require("nvim-treesitter.configs").setup(opts)
+      -- require("nvim-treesitter.configs").setup(opts)
     end
   },
 
@@ -1330,28 +1330,34 @@ local default_plugins = {
 
   {
     "zbirenbaum/copilot.lua",
-    lazy = false,
-    init = function()
-      require("core.utils").load_mappings("copilot")
-    end,
-    opts = function()
-      return {
-        suggestion = {
-          auto_trigger = true,
-          keymap = {
-            accept = "<A-Tab>",
-            accept_word = "<A-;>",
-            accept_line = "<A-'>",
-            dismiss = "<A-q>",
-            next = "<A-]>",
-            previous = "<A-[>",
-          },
-        },
-      }
-    end,
+    cmd = "Copilot",
+    -- lazy = false,
+    event = "InsertEnter",
+    -- init = function()
+      -- require("core.utils").load_mappings("copilot")
+    -- end,
+    -- opts = function()
+    --   return {
+    --     suggestion = {
+    --       auto_trigger = true,
+    --       keymap = {
+    --         accept = "<A-Tab>",
+    --         accept_word = "<A-;>",
+    --         accept_line = "<A-'>",
+    --         dismiss = "<A-q>",
+    --         next = "<A-]>",
+    --         previous = "<A-[>",
+    --       },
+    --     },
+    --   }
+    -- end,
     config = function(_, opts)
       require("copilot").setup(opts)
     end,
+    tag = "v2.0.0",
+    -- dependencies = {
+    --   "copilotlsp-nvim/copilot-lsp",
+    -- },
   },
 
   {
