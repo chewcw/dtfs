@@ -46,3 +46,5 @@
 [rebase]
   rebaseMerges = true
   updateRefs = true
+[init]
+  defaultBranch = main
