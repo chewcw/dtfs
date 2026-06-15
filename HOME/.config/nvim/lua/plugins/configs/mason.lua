@@ -18,8 +18,9 @@ local options = {
     -- "delve", -- debugger
 
     -- dotnet
-    "omnisharp",
-    "csharpier",
+    -- "omnisharp",
+    -- "csharpier",
+    "roslyn",
     -- "netcoredbg", -- debugger
 
     -- python
@@ -57,6 +58,11 @@ local options = {
   },
 
   max_concurrent_installers = 10,
+
+  registries = {
+    "github:mason-org/mason-registry",
+    "github:Crashdummyy/mason-registry",
+  },
 }
 
 return options

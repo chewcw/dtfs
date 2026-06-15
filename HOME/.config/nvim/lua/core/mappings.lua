@@ -1106,6 +1106,72 @@ M.general = {
       end,
       "Enable inlay hint",
     },
+
+    ["<A-f>"] = {
+      function()
+        vim.lsp.buf.format()
+      end,
+      "Format document",
+    },
+
+    ["gh"] = {
+      function()
+        vim.lsp.buf.hover()
+      end,
+      "lsp hover",
+    },
+
+    ["[z"] = {
+      function()
+        vim.diagnostic.jump({
+          count = -1,
+          on_jump = function(diagnostic, bufnr)
+            if diagnostic then
+              vim.diagnostic.open_float(bufnr, {
+                scope = "cursor",
+                focus = false,
+              })
+            end
+          end,
+        })
+      end,
+      "goto prev",
+    },
+
+    ["]z"] = {
+      function()
+        vim.diagnostic.jump({
+          count = 1,
+          on_jump = function(diagnostic, bufnr)
+            if diagnostic then
+              vim.diagnostic.open_float(bufnr, {
+                scope = "cursor",
+                focus = false,
+              })
+            end
+          end,
+        })
+      end,
+      "goto_next",
+    },
+
+    ["ge"] = {
+      function()
+        vim.diagnostic.open_float()
+      end,
+      "show diagnostics message",
+    },
+
+    ["gE"] = {
+      function()
+        if vim.diagnostic.config().virtual_text then
+          vim.diagnostic.config({ virtual_text = false })
+        else
+          vim.diagnostic.config({ virtual_text = true })
+        end
+      end,
+      "show diagnostics message",
+    },
   },
 
   v = {
@@ -1623,12 +1689,46 @@ M.lspconfig = {
     --  "lsp definition",
     -- },
 
-    ["gh"] = {
-      function()
-        vim.lsp.buf.hover()
-      end,
-      "lsp hover",
-    },
+    -- ["gn"] = {
+    --   function()
+    --     -- utils_renamer.open()
+    --     vim.lsp.buf.rename()
+    --   end,
+    --   "lsp rename",
+    -- },
+
+    -- ["g."] = {
+    --   vim.lsp.buf.code_action(),
+    --   -- function()
+    --   --   -- if pcall(require, "actions-preview") then
+    --   --     -- require("actions-preview").code_actions()
+    --   --   -- else
+    --   --     vim.lsp.buf.code_action()
+    --   --   -- end
+    --   -- end,
+    --   "lsp code_action",
+    -- },
+
+    -- ["gr"] = {
+    --  function()
+    --    vim.lsp.buf.references()
+    --  end,
+    --  "lsp references",
+    -- },
+
+    -- ["<leader>f"] = {
+    --  function()
+    --    vim.diagnostic.open_float({ border = "rounded" })
+    --  end,
+    --  "floating diagnostic",
+    -- },
+
+    -- ["<leader>q"] = {
+    --  function()
+    --    vim.diagnostic.setloclist()
+    --  end,
+    --  "diagnostic setloclist",
+    -- },
 
     -- ["gi"] = {
     --  function()
@@ -1650,85 +1750,6 @@ M.lspconfig = {
     --  end,
     --  "lsp definition type",
     -- },
-
-    ["gn"] = {
-      function()
-        -- utils_renamer.open()
-        vim.lsp.buf.rename()
-      end,
-      "lsp rename",
-    },
-
-    ["g."] = {
-      function()
-        if pcall(require, "actions-preview") then
-          require("actions-preview").code_actions()
-        else
-          vim.lsp.buf.code_action()
-        end
-      end,
-      "lsp code_action",
-    },
-
-    -- ["gr"] = {
-    --  function()
-    --    vim.lsp.buf.references()
-    --  end,
-    --  "lsp references",
-    -- },
-
-    -- ["<leader>f"] = {
-    --  function()
-    --    vim.diagnostic.open_float({ border = "rounded" })
-    --  end,
-    --  "floating diagnostic",
-    -- },
-
-    ["ge"] = {
-      function()
-        vim.diagnostic.open_float()
-      end,
-      "show diagnostics message",
-    },
-
-    ["gE"] = {
-      function()
-        if vim.diagnostic.config().virtual_text then
-          vim.diagnostic.config({ virtual_text = false })
-        else
-          vim.diagnostic.config({ virtual_text = true })
-        end
-      end,
-      "show diagnostics message",
-    },
-
-    ["[z"] = {
-      function()
-        vim.diagnostic.goto_prev()
-      end,
-      "goto prev",
-    },
-
-    ["]z"] = {
-      function()
-        vim.diagnostic.goto_next()
-      end,
-      "goto_next",
-    },
-
-    -- ["<leader>q"] = {
-    --  function()
-    --    vim.diagnostic.setloclist()
-    --  end,
-    --  "diagnostic setloclist",
-    -- },
-
-    ["<A-f>"] = {
-      function()
-        vim.lsp.buf.format({ async = true })
-      end,
-      "Format document",
-    },
 
     -- ["<leader>wa"] = {
     --  function()
