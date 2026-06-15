@@ -13,6 +13,20 @@ M.on_attach = function(client, bufnr)
   -- if not utils.load_config().ui.lsp_semantic_tokens then
   -- client.server_capabilities.semanticTokensProvider = nil
   -- end
+
+  if client.server_capabilities.codeLensProvider then
+    vim.lsp.codelens.refresh()
+    vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "InsertLeave" }, {
+      buffer = bufnr,
+      callback = function()
+        vim.lsp.codelens.refresh()
+      end,
+    })
+  end
+
+  if client.server_capabilities.inlayHintProvider then
+    vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+  end
 end
 
 M.inlay_hints = { enabled = true }
@@ -181,13 +195,21 @@ vim.lsp.config["gopls"] = {
 vim.lsp.config("roslyn", {
   on_attach = M.on_attach,
   settings = {
-      ["csharp|inlay_hints"] = {
-          csharp_enable_inlay_hints_for_implicit_object_creation = true,
-          csharp_enable_inlay_hints_for_implicit_variable_types = true,
-      },
-      ["csharp|code_lens"] = {
-          dotnet_enable_references_code_lens = true,
-      },
+    ["csharp|inlay_hints"] = {
+      csharp_enable_inlay_hints_for_implicit_object_creation = true,
+      csharp_enable_inlay_hints_for_implicit_variable_types = true,
+      csharp_enable_inlay_hints_for_lambda_parameter_types = true,
+      csharp_enable_inlay_hints_for_types = true,
+      csharp_enable_inlay_hints_for_indexer_parameters = true,
+      csharp_enable_inlay_hints_for_literal_parameters = true,
+      csharp_enable_inlay_hints_for_object_creation_parameters = true,
+      csharp_enable_inlay_hints_for_other_parameters = true,
+      csharp_enable_inlay_hints_for_parameters = true,
+    },
+    ["csharp|code_lens"] = {
+      dotnet_enable_references_code_lens = true,
+      dotnet_enable_tests_code_lens = true,
+    },
   },
 })
 
@@ -208,9 +230,9 @@ vim.lsp.config("roslyn", {
 -- python-lsp-server
 -- vim.lsp.enable("pylsp")
 -- vim.lsp.config["pylsp"] = {
-  -- on_attach = M.on_attach,
-  -- capabilities = M.capabilities,
-  -- cmd = { home .. "/.local/share/nvim/mason/bin/pylsp" },
+-- on_attach = M.on_attach,
+-- capabilities = M.capabilities,
+-- cmd = { home .. "/.local/share/nvim/mason/bin/pylsp" },
 -- }
 
 vim.lsp.enable("pyrefly")
