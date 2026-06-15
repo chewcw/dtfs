@@ -153,30 +153,43 @@ vim.lsp.config["gopls"] = {
 }
 
 -- csharp
-vim.lsp.enable("omnisharp")
-local pid = vim.fn.getpid()
-vim.lsp.config["omnisharp"] = {
+-- vim.lsp.enable("omnisharp")
+-- local pid = vim.fn.getpid()
+-- vim.lsp.config["omnisharp"] = {
+--   on_attach = M.on_attach,
+--   capabilities = M.capabilities,
+--   handlers = {
+--     ["textDocument/definition"] = require("omnisharp_extended").handler,
+--   },
+--   settings = {
+--     FormattingOptions = {
+--       EnableEditorConfigSupport = false,
+--       OrganizeImports = false,
+--     },
+--     RoslynExtensionsOptions = {
+--       EnableAnalyzersSupport = false,
+--       EnableImportCompletion = false,
+--       AnalyzeOpenDocumentsOnly = nil,
+--     },
+--     Sdk = {
+--       IncludePrereleases = true,
+--     },
+--   },
+--   cmd = { home .. "/.local/share/nvim/mason/bin/OmniSharp", "--languageserver", "--hostPID", tostring(pid), "DotNet:enablePackageRestore=false", "--encoding", "utf-8" },
+-- }
+
+vim.lsp.config("roslyn", {
   on_attach = M.on_attach,
-  capabilities = M.capabilities,
-  handlers = {
-    ["textDocument/definition"] = require("omnisharp_extended").handler,
-  },
   settings = {
-    FormattingOptions = {
-      EnableEditorConfigSupport = false,
-      OrganizeImports = false,
-    },
-    RoslynExtensionsOptions = {
-      EnableAnalyzersSupport = false,
-      EnableImportCompletion = false,
-      AnalyzeOpenDocumentsOnly = nil,
-    },
-    Sdk = {
-      IncludePrereleases = true,
-    },
+      ["csharp|inlay_hints"] = {
+          csharp_enable_inlay_hints_for_implicit_object_creation = true,
+          csharp_enable_inlay_hints_for_implicit_variable_types = true,
+      },
+      ["csharp|code_lens"] = {
+          dotnet_enable_references_code_lens = true,
+      },
   },
-  cmd = { home .. "/.local/share/nvim/mason/bin/OmniSharp", "--languageserver", "--hostPID", tostring(pid), "DotNet:enablePackageRestore=false", "--encoding", "utf-8" },
-}
+})
 
 -- python
 -- vim.lsp.enable("pyright")
