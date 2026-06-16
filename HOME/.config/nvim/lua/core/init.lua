@@ -958,23 +958,23 @@ end, { nargs = 0 })
 -- Enable inlay hints if available
 -- Refer to https://www.reddit.com/r/neovim/comments/1eyckqj/starting_with_inlay_hints_on_in_rust/
 ----------------------------------------------------------------------------
-vim.api.nvim_create_autocmd("LspAttach", {
-  callback = function(event)
-    -- Inlay hint stuff
-    if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
-      -- Set up a handler to notice when the LSP is all the
-      -- way ready and turn on inlay hints
-      vim.lsp.handlers["experimental/serverStatus"] = function(_, result, ctx, _)
-        if result.quiescent and not ran_once then
-          vim.lsp.inlay_hint.enable(false, nil)
-          vim.lsp.inlay_hint.enable(true, nil)
-
-          vim.lsp.handlers["experimental/serverStatus"] = nil
-        end
-      end
-    end
-  end,
-})
+-- vim.api.nvim_create_autocmd("LspAttach", {
+--   callback = function(event)
+--     -- Inlay hint stuff
+--     if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
+--       -- Set up a handler to notice when the LSP is all the
+--       -- way ready and turn on inlay hints
+--       vim.lsp.handlers["experimental/serverStatus"] = function(_, result, ctx, _)
+--         if result.quiescent and not ran_once then
+--           vim.lsp.inlay_hint.enable(false, nil)
+--           vim.lsp.inlay_hint.enable(true, nil)
+--
+--           vim.lsp.handlers["experimental/serverStatus"] = nil
+--         end
+--       end
+--     end
+--   end,
+-- })
 
 ----------------------------------------------------------------------------
 -- Switch to tab mode using command: ToggleTabMode

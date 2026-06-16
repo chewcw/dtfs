@@ -67,7 +67,7 @@ local default_conf = {
     if vim.g.TabAutoCwd == "1" then
       local spaces = string.rep(" ", vim.g.telescope_tabs_longest_cwd_name_count - #cwd_name + 5)
       return string.format(
-        "%s %s: %s %s %s  %s%s➨ %s | %s", -- TODO: Add another %s for the file's absolute path
+        "%s %s: %s %s %s  %s%s➨ %s  %s", -- TODO: Add another %s for the file's absolute path
         string.format("%02d", tab_id),
         tab_char,
         modified,
