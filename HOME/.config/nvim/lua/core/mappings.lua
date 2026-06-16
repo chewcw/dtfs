@@ -1990,7 +1990,7 @@ M.telescope = {
     },
 
     -- lsp
-    ["gl"] = {
+    ["gri"] = {
       ":lua require('plugins.configs.telescope_utils').open_lsp_implementation_conditional({show_line='false', jump_type='never', reuse_win='true'}) <CR>",
       "lsp implementation",
       opts = { silent = true },
@@ -2006,7 +2006,7 @@ M.telescope = {
     },
     -- ["gR"] = { "<cmd> Telescope lsp_references show_line=false jump_type=never <CR>", "lsp references in vsplit" },
     -- ["gd"] = { "<cmd> Telescope lsp_definitions show_line=false <CR>", "lsp definitions" },
-    ["gd"] = {
+    ["grd"] = {
       ":lua require('plugins.configs.telescope_utils').open_lsp_definitions_conditional({show_line='false', jump_type='never', reuse_win='true'}) <CR>",
       "lsp definitions",
       opts = { silent = true },
@@ -2019,7 +2019,7 @@ M.telescope = {
     --   "<cmd> :lua require('plugins.configs.telescope_utils').open_lsp_definitions_conditional({show_line=false, jump_type='never'}) <CR>",
     --   "lsp definitions in vsplit",
     -- },
-    ["gt"] = {
+    ["grt"] = {
       ":lua require('plugins.configs.telescope_utils').open_lsp_type_definition_conditional({show_line='false', jump_type='never', reuse_win='true'}) <CR>",
       "lsp type definitions",
       opts = { silent = true },
