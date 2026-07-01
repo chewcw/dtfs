@@ -823,6 +823,7 @@ mode "vim" {
     # Enter vim motion mode and send notification for 0.5 second
     bindsym $mod+n exec --no-startup-id xdotool; mode "vim_normal"; exec --no-startup-id notify-send -t 500 "Vim motion mode"
     bindsym Ctrl+bracketleft exec --no-startup-id xdotool; mode "vim_normal"; exec --no-startup-id notify-send -t 500 "Vim motion mode"
+    bindsym Escape exec --no-startup-id xdotool; mode "vim_normal"; exec --no-startup-id notify-send -t 500 "Vim motion mode"
     # go to mouse mode
     bindsym $mod+m exec --no-startup-id xdotool; mode "mouse"
     # go to default mode (pressing the $mod key alone)
