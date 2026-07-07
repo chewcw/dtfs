@@ -799,7 +799,7 @@ vim.api.nvim_create_autocmd("VimLeavePre", {
       opt.wildmode = "full"
 
       -- Close CopilotChat
-      vim.cmd("CopilotChatClose")
+      -- vim.cmd("CopilotChatClose")
 
       -- Close AvanteChat
       -- Avante doesn't have a close command
