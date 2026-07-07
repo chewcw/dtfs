@@ -815,7 +815,7 @@ vim.api.nvim_create_autocmd("VimLeavePre", {
 
       -- Just save to the same session name when open with session
       if vim.g.autosession_session_name ~= nil then
-        vim.cmd("SessionSave " .. vim.g.autosession_session_name)
+        vim.cmd("AutoSession save " .. vim.g.autosession_session_name)
         return
       end
 
@@ -827,7 +827,7 @@ vim.api.nvim_create_autocmd("VimLeavePre", {
 
       local input = user_input:match("^%s*(.-)%s*$") or user_input
       if input ~= "" then
-        vim.cmd("SessionSave " .. input)
+        vim.cmd("AutoSession save " .. input)
       end
     end)
   end,
