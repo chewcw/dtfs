@@ -88,6 +88,8 @@ bindsym $mod+x mark A; focus down; swap container with mark A; unmark A;
 bindsym $mod+u split toggle; layout stacked
 bindsym $mod+comma split toggle; focus left; move right;
 bindsym $mod+period split toggle; focus right; move left;
+bindsym $mod+shift+comma split toggle; focus up; move down;
+bindsym $mod+shift+period split toggle; focus down; move up;
 
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
