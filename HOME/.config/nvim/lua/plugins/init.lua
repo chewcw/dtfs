@@ -1121,7 +1121,7 @@ local default_plugins = {
           if pcall(require, "auto-session") then
             local session_name = args.args
             vim.g.autosession_session_name = session_name
-            vim.cmd("SessionSave " .. session_name)
+            vim.cmd("AutoSession save" .. session_name)
           end
         end, {
           complete = function(ArgLead, CmdLine, CursorPos)

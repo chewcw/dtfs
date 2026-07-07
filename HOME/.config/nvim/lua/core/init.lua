@@ -118,6 +118,9 @@ opt.sessionoptions = "blank,buffers,curdir,help,tabpages,winsize,winpos,localopt
 -- diffopt
 opt.diffopt = "internal,filler,closeoff,iwhite"
 
+-- Disable inlay hint by default
+-- vim.lsp.inlay_hint.enable(false)
+
 -- disable other default providers
 for _, provider in ipairs({ "node", "perl", "python3", "ruby" }) do
   vim.g["loaded_" .. provider .. "_provider"] = 0
@@ -464,15 +467,15 @@ vim.api.nvim_create_autocmd("LspAttach", {
 -- ----------------------------------------------------------------------------
 -- Enable inlay hint
 -- ----------------------------------------------------------------------------
-vim.api.nvim_create_autocmd("LspAttach", {
-  group = vim.api.nvim_create_augroup("UserLspConfig", { clear = true }),
-  callback = function(event)
-    local client = vim.lsp.get_client_by_id(event.data.client_id)
-    if client and client.supports_method("textDocument/inlayHint") then
-      vim.lsp.inlay_hint.enable(true, { bufnr = event.buf })
-    end
-  end,
-})
+-- vim.api.nvim_create_autocmd("LspAttach", {
+--   group = vim.api.nvim_create_augroup("UserLspConfig", { clear = true }),
+--   callback = function(event)
+--     local client = vim.lsp.get_client_by_id(event.data.client_id)
+--     if client and client.supports_method("textDocument/inlayHint") then
+--       vim.lsp.inlay_hint.enable(true, { bufnr = event.buf })
+--     end
+--   end,
+-- })
 
 -- ----------------------------------------------------------------------------
 -- Focus left tab when tab closed

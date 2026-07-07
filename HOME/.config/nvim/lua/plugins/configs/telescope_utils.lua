@@ -369,11 +369,6 @@ M.open_lsp_definitions_conditional = function(opts)
   local open_telescope_picker = function()
     require("telescope.builtin").lsp_definitions(opts)
   end
-  if vim.fn.expand("%:e") == "cs" then
-    open_telescope_picker = function()
-      require("omnisharp_extended").telescope_lsp_definitions(opts)
-    end
-  end
   require("plugins.configs.lsp_utils").go_to("definition", vim.fn.expand("%:e"), open_telescope_picker)
 end
 
