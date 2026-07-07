@@ -113,7 +113,7 @@ local default_plugins = {
     "neovim/nvim-lspconfig",
     dependencies = {
       {
-        "Hoffs/omnisharp-extended-lsp.nvim",
+        -- "Hoffs/omnisharp-extended-lsp.nvim",
         -- branch = "main",
         -- commit = "78cda39",
       },
