@@ -376,11 +376,11 @@ M.open_lsp_references_conditional = function(opts)
   local open_telescope_picker = function()
     require("telescope.builtin").lsp_references(opts)
   end
-  if vim.fn.expand("%:e") == "cs" then
-    open_telescope_picker = function()
-      require("omnisharp_extended").telescope_lsp_references(opts)
-    end
-  end
+  -- if vim.fn.expand("%:e") == "cs" then
+  --   open_telescope_picker = function()
+  --     require("omnisharp_extended").telescope_lsp_references(opts)
+  --   end
+  -- end
   require("plugins.configs.lsp_utils").go_to("references", vim.fn.expand("%:e"), open_telescope_picker)
 end
 
@@ -388,11 +388,11 @@ M.open_lsp_type_definition_conditional = function(opts)
   local open_telescope_picker = function()
     require("telescope.builtin").lsp_type_definitions(opts)
   end
-  if vim.fn.expand("%:e") == "cs" then
-    open_telescope_picker = function()
-      require("omnisharp_extended").telescope_lsp_type_definition(opts)
-    end
-  end
+  -- if vim.fn.expand("%:e") == "cs" then
+  --   open_telescope_picker = function()
+  --     require("omnisharp_extended").telescope_lsp_type_definition(opts)
+  --   end
+  -- end
   require("plugins.configs.lsp_utils").go_to("typeDefinition", vim.fn.expand("%:e"), open_telescope_picker)
 end
 
@@ -400,11 +400,11 @@ M.open_lsp_implementation_conditional = function(opts)
   local open_telescope_picker = function()
     require("telescope.builtin").lsp_implementations(opts)
   end
-  if vim.fn.expand("%:e") == "cs" then
-    open_telescope_picker = function()
-      require("omnisharp_extended").telescope_lsp_implementation(opts)
-    end
-  end
+  -- if vim.fn.expand("%:e") == "cs" then
+  --   open_telescope_picker = function()
+  --     require("omnisharp_extended").telescope_lsp_implementation(opts)
+  --   end
+  -- end
   require("plugins.configs.lsp_utils").go_to("implementation", vim.fn.expand("%:e"), open_telescope_picker)
 end
 
