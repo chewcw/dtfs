@@ -2719,21 +2719,21 @@ M.quicknote = {
 M.tcomment = {
   plugin = true,
   n = {
-    [""] = {
+    ["<c-/>"] = {
       "<cmd>:normal 0<CR><cmd>:TComment<CR><cmd>:normal 0j<CR>",
       "Comment out the line and move the cursor down",
       { noremap = true, silent = true },
     },
   },
   i = {
-    [""] = {
+    ["<c-/>"] = {
       "<cmd>:TComment<CR><cmd>:normal 0ji<CR>",
       "Comment out the line and move the cursor down",
       { noremap = true, silent = true },
     },
   },
   v = {
-    [""] = {
+    ["<c-/>"] = {
       ":'<,'>TComment <CR>",
       "Comment out the line",
       { silent = true },
