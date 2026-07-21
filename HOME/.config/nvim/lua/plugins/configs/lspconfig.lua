@@ -121,16 +121,15 @@ vim.lsp.config["clangd"] = {
   capabilities = M.capabilities,
   cmd = { home .. "/.local/share/nvim/mason/bin/clangd" },
 }
-
 -- golang
 vim.lsp.enable("gopls")
 vim.lsp.config["gopls"] = {
   on_attach = function(client, bufnr)
-    utils.load_mappings("lspconfig", { buffer = bufnr })
+    -- utils.load_mappings("lspconfig", { buffer = bufnr })
 
     -- Helper to run the "source.organizeImports" code action synchronously
     local function organize_imports(timeout_ms)
-      local params = vim.lsp.util.make_range_params()
+      local params = vim.lsp.util.make_range_params(0, "utf-8")
       params.context = { only = { "source.organizeImports" }, diagnostics = {} }
 
       -- Use the buffer number for the request so it targets the correct document
@@ -164,6 +163,31 @@ vim.lsp.config["gopls"] = {
   end,
   capabilities = M.capabilities,
   cmd = { home .. "/.local/share/nvim/mason/bin/gopls" },
+  settings = {
+    gopls = {
+      analyses = {
+        unusedparams = true,
+        shadow = true,
+        nilness = true,
+        unusedwrite = true,
+        useany = true,
+      },
+      staticcheck = true,
+      gofumpt = true,
+      completeFunctionCalls = true,
+      directoryFilters = { "-.git", "-.vscode", "-.idea", "-.vscode-test", "-node_modules" },
+      codelenses = {
+        generate = true,
+        gc_details = true,
+        regenerate_cgo = true,
+        run_govulncheck = true,
+        test = true,
+        tidy = true,
+        upgrade_dependency = true,
+        vendor = true,
+      },
+    },
+  },
 }
 
 -- csharp
