@@ -65,3 +65,4 @@ vim.cmd('abbrev zdelta <C-v>u0394') -- Δ
 vim.cmd('abbrev zohm <C-v>u2126') -- Ω
 vim.cmd('abbrev zhalf <C-v>u00bd') -- ½
 vim.cmd('abbrev ztrademark <C-v>u2122') -- ™
+vim.cmd('abbrev zemdash <C-v>u2014') -- — (Like AI 😉)

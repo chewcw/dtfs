@@ -1333,38 +1333,38 @@ local default_plugins = {
   --   end,
   -- },
 
-  {
-    "zbirenbaum/copilot.lua",
-    cmd = "Copilot",
-    -- lazy = false,
-    event = "InsertEnter",
-    -- init = function()
-    -- require("core.utils").load_mappings("copilot")
-    -- end,
-    opts = function()
-      return {
-        suggestion = {
-          enabled = true,
-          auto_trigger = true,
-          keymap = {
-            accept = "<A-Tab>",
-            accept_word = "<A-;>",
-            accept_line = "<A-'>",
-            dismiss = "<A-q>",
-            next = "<A-]>",
-            previous = "<A-[>",
-          },
-        },
-      }
-    end,
-    config = function(_, opts)
-      require("copilot").setup(opts)
-    end,
-    tag = "v2.0.0",
-    -- dependencies = {
-    --   "copilotlsp-nvim/copilot-lsp",
-    -- },
-  },
+  -- {
+  --   "zbirenbaum/copilot.lua",
+  --   cmd = "Copilot",
+  --   -- lazy = false,
+  --   event = "InsertEnter",
+  --   -- init = function()
+  --   -- require("core.utils").load_mappings("copilot")
+  --   -- end,
+  --   opts = function()
+  --     return {
+  --       suggestion = {
+  --         enabled = true,
+  --         auto_trigger = true,
+  --         keymap = {
+  --           accept = "<A-Tab>",
+  --           accept_word = "<A-;>",
+  --           accept_line = "<A-'>",
+  --           dismiss = "<A-q>",
+  --           next = "<A-]>",
+  --           previous = "<A-[>",
+  --         },
+  --       },
+  --     }
+  --   end,
+  --   config = function(_, opts)
+  --     require("copilot").setup(opts)
+  --   end,
+  --   tag = "v2.0.0",
+  --   -- dependencies = {
+  --   --   "copilotlsp-nvim/copilot-lsp",
+  --   -- },
+  -- },
 
   -- {
   --   "CopilotC-Nvim/CopilotChat.nvim",
