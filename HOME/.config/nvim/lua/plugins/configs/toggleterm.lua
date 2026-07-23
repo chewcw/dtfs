@@ -31,6 +31,12 @@ local options = {
   float_opts = {
     border = "double",
     shade_terminals = false,
+    width = function(_)
+      return math.floor(vim.o.columns * 0.95)
+    end,
+    height = function(_)
+      return math.floor(vim.o.lines * 0.90)
+    end,
   },
   winbar = {
     enabled = true,
@@ -40,6 +46,10 @@ local options = {
     vim.opt_local.cursorline = true
     vim.opt_local.cursorlineopt = "both"
     vim.opt_local.textwidth = 0
+    if term.direction == "tab" then
+      vim.g.toggle_term_saved_list = vim.o.list
+      vim.o.list = false
+    end
   end,
   on_exit = function(term, job, exit_code, name)
     -- more information in plugins/configs/toggleterm_utils.lua
@@ -61,6 +71,10 @@ local options = {
 
     -- set vim.g.toggle_term_opened to false
     vim.g.toggle_term_opened = false
+    if term.direction == "tab" and vim.g.toggle_term_saved_list ~= nil then
+      vim.o.list = vim.g.toggle_term_saved_list
+      vim.g.toggle_term_saved_list = nil
+    end
   end,
 }
 

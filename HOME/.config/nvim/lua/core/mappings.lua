@@ -1172,6 +1172,8 @@ M.general = {
       end,
       "show diagnostics message",
     },
+
+    ["<C-]>"] = { function() end, "" }, -- Originally jump to the definition of the symbol, but I am not using, so do nothing here
   },
 
   v = {
