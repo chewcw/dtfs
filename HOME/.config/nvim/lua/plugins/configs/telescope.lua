@@ -1,4 +1,5 @@
 local telescope_utils = require("plugins.configs.telescope_utils")
+local action_state = require("telescope.actions.state")
 
 local M = {}
 
@@ -88,6 +89,13 @@ M.options = {
       i = {
         ["<C-j>"] = require("telescope.actions").move_selection_next,
         ["<C-k>"] = require("telescope.actions").move_selection_previous,
+        ["<C-l>"] = function(prompt_bufnr)
+          local picker = action_state.get_current_picker(prompt_bufnr)
+          local entry = action_state.get_selected_entry()
+          if entry then
+            picker:set_prompt(entry.value)
+          end
+        end,
         ["<C-n>"] = require("telescope.actions").move_selection_next,
         ["<C-p>"] = require("telescope.actions").move_selection_previous,
         ["<C-A-\\>"] = function(prompt_bufnr)
