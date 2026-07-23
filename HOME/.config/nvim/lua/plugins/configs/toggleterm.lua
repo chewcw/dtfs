@@ -46,6 +46,13 @@ local options = {
     vim.opt_local.cursorline = true
     vim.opt_local.cursorlineopt = "both"
     vim.opt_local.textwidth = 0
+
+    if vim.fn.exists("+winbar") == 1 and term.window and vim.api.nvim_win_is_valid(term.window) then
+      -- match toggleterm's internal format exactly: %{%v:lua.require("toggleterm.ui").winbar(N)%}
+      local value = string.format('%%{%%v:lua.require("toggleterm.ui").winbar(%d)%%}', term.id)
+      vim.api.nvim_set_option_value("winbar", value, { scope = "local", win = term.window })
+    end
+
     if term.direction == "tab" then
       vim.g.toggle_term_saved_list = vim.o.list
       vim.o.list = false
