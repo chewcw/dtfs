@@ -105,27 +105,71 @@ M.go_to_directory = function()
     desc = "Go to directory",
     callback = function()
       local oil = require("oil")
-      vim.ui.input({
-        prompt = "Enter directory path: ",
-        completion = "file",
-        default = vim.fn.getcwd(),
-      }, function(input)
-        if input and input ~= "" then
-          local expanded_input = vim.fn.expand(input)
-          local floatOrNot = vim.g.oil_float_mode
-          if vim.fn.isdirectory(expanded_input) == 1 then
-            if floatOrNot == "1" then
-              oil.close()
-              oil.open_float(expanded_input)
-            else
-              oil.close()
-              oil.open(expanded_input)
-            end
-          else
-            print("Not directory entered")
-          end
+      local pickers = require("telescope.pickers")
+      local finders = require("telescope.finders")
+      local actions = require("telescope.actions")
+      local action_state = require("telescope.actions.state")
+      local sorter = require("telescope.sorters").get_generic_fuzzy_sorter()
+
+      local open_oil = function(dir)
+        local expanded = vim.fn.expand(dir)
+        if vim.fn.isdirectory(expanded) ~= 1 then
+          print("Not a directory: " .. expanded)
+          return
         end
-      end)
+        local floatOrNot = vim.g.oil_float_mode
+        if floatOrNot == "1" then
+          oil.close()
+          oil.open_float(expanded)
+        else
+          oil.close()
+          oil.open(expanded)
+        end
+      end
+
+      pickers.new({}, {
+        prompt_title = "Directory",
+        finder = finders.new_async_job({
+          command_generator = function(prompt)
+            local search_root
+            if prompt and prompt ~= "" then
+              local expanded = vim.fn.expand(prompt)
+              if expanded ~= "" then
+                if vim.fn.isdirectory(expanded) == 1 then
+                  search_root = expanded
+                else
+                  search_root = vim.fn.fnamemodify(expanded, ":h")
+                  if search_root == "" then
+                    search_root = vim.fn.getcwd()
+                  end
+                end
+              else
+                search_root = vim.fn.getcwd()
+              end
+            else
+              search_root = vim.fn.getcwd()
+            end
+            return { "find", search_root, "-maxdepth", 2, "-type", "d" }
+          end,
+          entry_maker = function(line)
+            return { display = line, ordinal = line, value = line }
+          end,
+        }),
+        sorter = sorter,
+        attach_mappings = function(_, map)
+          actions.select_default:replace(function(prompt_bufnr)
+            local selection = action_state.get_selected_entry()
+            actions.close(prompt_bufnr)
+            if selection then
+              open_oil(selection.value)
+            end
+          end)
+          map("n", "gq", function(prompt_bufnr)
+            actions.close(prompt_bufnr)
+          end)
+          return true
+        end,
+      }):find()
     end,
   }
 end
