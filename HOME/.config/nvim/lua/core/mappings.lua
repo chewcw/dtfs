@@ -2289,7 +2289,7 @@ M.toggleterm = {
       end,
       "toggle term in horizontal mode",
     },
-    ["<A->>"] = {
+    ["<A-S-.>"] = {
       function()
         require("plugins.configs.toggleterm_utils").toggle_term("vertical")
       end,
