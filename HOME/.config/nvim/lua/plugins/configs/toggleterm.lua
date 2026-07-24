@@ -53,10 +53,8 @@ local options = {
       vim.api.nvim_set_option_value("winbar", value, { scope = "local", win = term.window })
     end
 
-    if term.direction == "tab" then
-      vim.g.toggle_term_saved_list = vim.o.list
-      vim.o.list = false
-    end
+    vim.g.toggle_term_saved_list = vim.o.list
+    vim.o.list = false
   end,
   on_exit = function(term, job, exit_code, name)
     -- more information in plugins/configs/toggleterm_utils.lua
@@ -78,7 +76,7 @@ local options = {
 
     -- set vim.g.toggle_term_opened to false
     vim.g.toggle_term_opened = false
-    if term.direction == "tab" and vim.g.toggle_term_saved_list ~= nil then
+    if vim.g.toggle_term_saved_list ~= nil then
       vim.o.list = vim.g.toggle_term_saved_list
       vim.g.toggle_term_saved_list = nil
     end
