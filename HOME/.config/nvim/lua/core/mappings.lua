@@ -271,7 +271,7 @@ M.general = {
       "open new vsplit",
     },
     ["<A-\\>"] = { ":vsplit <CR>", "split vertically" },
-    ["<C-A-_>"] = {
+    ["<C-A-S-->"] = {
       "<cmd> :lua require('plugins.configs.telescope_utils').open_new_split_and_select_buffer('horizontal') <CR>",
       "open new split and select buffer",
     },
