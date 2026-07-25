@@ -109,6 +109,7 @@ M.options = {
         ["<C-A-e>"] = function(prompt_bufnr)
           telescope_utils.open_multiple_files_in_find_files_picker_and_set_cwd(prompt_bufnr, "tabe")
         end,
+        ["<A-q>"] = require("telescope.actions").close,
         ["<A-e>"] = telescope_utils.open_telescope_file_in_tab(true),
         ["<A-[>"] = require("telescope.actions").preview_scrolling_left,
         ["<A-]>"] = require("telescope.actions").preview_scrolling_right,
