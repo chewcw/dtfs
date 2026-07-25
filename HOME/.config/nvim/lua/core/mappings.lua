@@ -2924,4 +2924,25 @@ M.nvim_treesitter_textobjects = {
   },
 }
 
+M.nvim_surround = {
+  plugin = true,
+  i = {
+    ["<C-g>s"] = { "<Plug>(nvim-surround-insert)", "Add a surrounding pair around the cursor (insert mode)" },
+    ["<C-g>S"] = { "<Plug>(nvim-surround-insert-line)", "Add a surrounding pair around the cursor, on new lines (insert mode)" },
+  },
+  n = {
+    ["ys"] = { "<Plug>(nvim-surround-normal)", "Add a surrounding pair around a motion (normal mode)" },
+    ["yss"] = { "<Plug>(nvim-surround-normal-cur)", "Add a surrounding pair around the current line (normal mode)" },
+    ["yS"] = { "<Plug>(nvim-surround-normal-line)", "Add a surrounding pair around a motion, on new lines (normal mode)" },
+    ["ySS"] = { "<Plug>(nvim-surround-normal-cur-line)", "Add a surrounding pair around the current line, on new lines (normal mode)" },
+    ["ds"] = { "<Plug>(nvim-surround-delete)", "Delete a surrounding pair" },
+    ["cs"] = { "<Plug>(nvim-surround-change)", "Change a surrounding pair" },
+    ["cS"] = { "<Plug>(nvim-surround-change-line)", "Change a surrounding pair, putting replacements on new lines" },
+  },
+  x = {
+    ["S"] = { "<Plug>(nvim-surround-visual)", "Add a surrounding pair around a visual selection" },
+    ["gS"] = { "<Plug>(nvim-surround-visual-line)", "Add a surrounding pair around a visual selection, on new lines" },
+  },
+}
+
 return M

@@ -566,6 +566,9 @@ local default_plugins = {
   {
     "kylechui/nvim-surround",
     lazy = false,
+    init = function()
+      require("core.utils").load_mappings("nvim_surround")
+    end,
   },
 
   {
