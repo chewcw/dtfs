@@ -187,6 +187,12 @@ M.toggle_term = function(direction, is_open_from_file_browser, cwd)
         map("i", "<C-c>", function()
           vim.cmd("stopinsert") -- Exit insert mode
         end)
+        map("i", "<A-q>", function(prompt_bufnr)
+          -- nothing selected, then just proceed without specifying the path
+          require("telescope.actions").close(prompt_bufnr)
+          local dir = ""
+          callback(dir)
+        end)
         map("n", "<A-CR>", select_path)
         map("n", "<C-c>", function(prompt_bufnr)
           require("telescope.actions").close(prompt_bufnr)
