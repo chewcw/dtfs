@@ -340,6 +340,8 @@ local get_groups = function(color)
     LspReferenceText                     = { fg = color.bright_white, bg = color.dark_pink },                                              -- used for highlighting "text" references
     LspReferenceRead                     = { fg = color.bright_white, bg = color.dark_pink },                                              -- used for highlighting "read" references
     LspReferenceWrite                    = { fg = color.bright_white, bg = color.dark_pink },                                              -- used for highlighting "write" references
+    -- inlay hint
+    LspInlayHint                         =  { fg = color.gray03, bg = color.none, underline = true },
     -- Diagnostics
     DiagnosticError                      = { bg = color.none, fg = color.red01 },                                                          -- base highlight group for "Error"
     DiagnosticWarn                       = { bg = color.none, fg = color.yellow01 },                                                       -- base highlight group for "Warning"
