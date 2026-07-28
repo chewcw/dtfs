@@ -102,10 +102,10 @@ M.options = {
           telescope_utils.open_multiple_files_in_find_files_picker(prompt_bufnr, "vsplit")
         end,
         ["<A-\\>"] = telescope_utils.select_direction("vertical"),
-        ["<C-A-_>"] = function(prompt_bufnr)
+        ["<C-A-S-->"] = function(prompt_bufnr)
           telescope_utils.open_multiple_files_in_find_files_picker(prompt_bufnr, "split")
         end,
-        ["<A-_>"] = telescope_utils.select_direction("horizontal"),
+        ["<A-S-->"] = telescope_utils.select_direction("horizontal"),
         ["<C-A-e>"] = function(prompt_bufnr)
           telescope_utils.open_multiple_files_in_find_files_picker_and_set_cwd(prompt_bufnr, "tabe")
         end,
@@ -151,8 +151,8 @@ M.options = {
         ["<C-A-\\>"] = function(prompt_bufnr)
           telescope_utils.open_multiple_files_in_find_files_picker(prompt_bufnr, "vsplit")
         end,
-        ["<A-_>"] = telescope_utils.select_direction("horizontal"),
-        ["<C-A-_>"] = function(prompt_bufnr)
+        ["<A-S-->"] = telescope_utils.select_direction("horizontal"),
+        ["<C-A-S-->"] = function(prompt_bufnr)
           telescope_utils.open_multiple_files_in_find_files_picker(prompt_bufnr, "split")
         end,
         ["<C-A-e>"] = function(prompt_bufnr)
@@ -301,7 +301,7 @@ M.options = {
           ["<C-A-\\>"] = function(prompt_bufnr)
             telescope_utils.open_multiple_files_in_find_files_picker(prompt_bufnr, "vsplit")
           end,
-          ["<C-A-_>"] = function(prompt_bufnr)
+          ["<C-A-S-->"] = function(prompt_bufnr)
             telescope_utils.open_multiple_files_in_find_files_picker(prompt_bufnr, "split")
           end,
           ["<C-A-l>"] = (function()
@@ -421,7 +421,7 @@ M.options = {
             telescope_utils.open_multiple_files_in_find_files_picker_and_set_cwd(prompt_bufnr, "tabe")
           end,
           ["<A-e>"] = telescope_utils.open_telescope_file_in_tab(true),
-          ["<C-A-_>"] = function(prompt_bufnr)
+          ["<C-A-S-->"] = function(prompt_bufnr)
             telescope_utils.open_multiple_files_in_find_files_picker(prompt_bufnr, "split")
           end,
           ["<C-A-\\>"] = function(prompt_bufnr)
@@ -439,7 +439,7 @@ M.options = {
             telescope_utils.open_multiple_files_in_find_files_picker_and_set_cwd(prompt_bufnr, "tabe")
           end,
           ["<A-e>"] = telescope_utils.open_telescope_file_in_tab(true),
-          ["<C-A-_>"] = function(prompt_bufnr)
+          ["<C-A-S-->"] = function(prompt_bufnr)
             telescope_utils.open_multiple_files_in_find_files_picker(prompt_bufnr, "split")
           end,
           ["<C-A-\\>"] = function(prompt_bufnr)
@@ -517,7 +517,7 @@ M.options = {
           ["<C-A-\\>"] = function(prompt_bufnr)
             telescope_utils.open_multiple_files_in_find_files_picker(prompt_bufnr, "vsplit")
           end,
-          ["<C-A-_>"] = function(prompt_bufnr)
+          ["<C-A-S-->"] = function(prompt_bufnr)
             telescope_utils.open_multiple_files_in_find_files_picker(prompt_bufnr, "split")
           end,
           ["<A-[>"] = require("telescope.actions").preview_scrolling_left,

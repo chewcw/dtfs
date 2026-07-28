@@ -275,7 +275,7 @@ M.general = {
       "<cmd> :lua require('plugins.configs.telescope_utils').open_new_split_and_select_buffer('horizontal') <CR>",
       "open new split and select buffer",
     },
-    ["<A-_>"] = { ":split <CR>", "split horizontally" },
+    ["<A-S-->"] = { ":split <CR>", "split horizontally" },
     ["<A-=>"] = { ":resize +5 <CR>", "resize horizontally" },
     ["<A-->"] = { ":resize -5 <CR>", "resize horizontally" },
     ["<A-]>"] = { ":vertical resize +5 <CR>", "resize vertically" },
@@ -1605,7 +1605,7 @@ M.general = {
       end,
       "add `0` to the beginning of the command to open in current window (useful for fugitive :Git log)",
     },
-    ["<A-_>"] = {
+    ["<A-S-->"] = {
       function()
         pcall(function()
           local last_command = vim.fn.getcmdline()
