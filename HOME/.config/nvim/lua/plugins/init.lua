@@ -266,7 +266,7 @@ local default_plugins = {
         -- ["S"] = "open_split",
         ["l"] = {},
         ["S"] = {},
-        ["<A-_>"] = "open_split",
+        ["<A-S-->"] = "open_split",
         -- ["S"] = "split_with_window_picker",
         -- ["s"] = "open_vsplit",
         ["s"] = {},
@@ -397,7 +397,7 @@ local default_plugins = {
             -- ["S"] = "open_split",
             ["l"] = {},
             ["S"] = {},
-            ["<A-_>"] = "open_split",
+            ["<A-S-->"] = "open_split",
             -- ["S"] = "split_with_window_picker",
             -- ["s"] = "open_vsplit",
             ["s"] = {},
@@ -1477,7 +1477,7 @@ local default_plugins = {
         end,
       },
       keymaps = {
-        ["<A-_>"] = { "actions.select", opts = { horizontal = true } },
+        ["<A-S-->"] = { "actions.select", opts = { horizontal = true } },
         ["<A-\\>"] = { "actions.select", opts = { vertical = true } },
         ["<A-e>"] = { "actions.select", opts = { tab = true } },
         ["gq"] = {

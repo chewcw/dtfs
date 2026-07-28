@@ -84,7 +84,7 @@ local options = {
 			return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
 		end
 		vim.keymap.set("n", "<A-\\>", api.node.open.vertical, opts("open in vertical split"))
-		vim.keymap.set("n", "<A-_>", api.node.open.horizontal, opts("open in horizontal split"))
+		vim.keymap.set("n", "<A-S-->", api.node.open.horizontal, opts("open in horizontal split"))
 		vim.keymap.set("n", "<A-e>", api.node.open.tab, opts("open in new tab"))
 		vim.keymap.set("n", "h", api.node.navigate.parent_close, opts("navigate up"))
 		vim.keymap.set("n", "l", api.node.open.edit, opts("open"))
