@@ -2313,6 +2313,18 @@ M.toggleterm = {
       end,
       "toggle term",
     },
+    ["<A-Tab>"] = {
+      function()
+        require("plugins.configs.toggleterm_utils").cycle_term(1)
+      end,
+      "cycle to next toggleterm",
+    },
+    ["<A-S-Tab>"] = {
+      function()
+        require("plugins.configs.toggleterm_utils").cycle_term(-1)
+      end,
+      "cycle to previous toggleterm",
+    },
     ["<a-0>"] = { -- This is to match vscode's keybinding
       function()
         vim.cmd("Neotree toggle")
@@ -2361,6 +2373,18 @@ M.toggleterm = {
         require("plugins.configs.toggleterm_utils").toggle_term()
       end,
       "toggle term",
+    },
+    ["<A-Tab>"] = {
+      function()
+        require("plugins.configs.toggleterm_utils").cycle_term(1)
+      end,
+      "cycle to next toggleterm",
+    },
+    ["<A-S-Tab>"] = {
+      function()
+        require("plugins.configs.toggleterm_utils").cycle_term(-1)
+      end,
+      "cycle to previous toggleterm",
     },
   },
 }
