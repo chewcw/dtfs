@@ -2,3 +2,7 @@ HOME/.config/fcitx5/conf/*
 HOME/.config/fcitx5/profile
 *ext.lua
 .atl
+
+# nix build artifacts
+result
+result-*
