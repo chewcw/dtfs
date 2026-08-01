@@ -330,14 +330,16 @@ M.cycle_term = function(direction)
 
   -- close the focused term, then open the target (single visible view)
   local cur = require("toggleterm.terminal").get(focused)
+  local dir = cur and cur.direction or vim.g.toggle_term_direction or "horizontal"
   if cur and cur:is_open() then
     cur:close()
   end
-  vim.cmd(target .. "ToggleTerm")
+  vim.cmd(target .. "ToggleTerm direction=" .. dir)
 
   -- keep the existing toggle_term() state machine consistent
   vim.g.toggle_term_opened = true
   vim.g.toggle_term_count = target
+  vim.g.toggle_term_direction = dir
   local x = vim.g.toggle_term_opened_term_ids or {}
   if not vim.tbl_contains(x, target) then
     table.insert(x, target)
