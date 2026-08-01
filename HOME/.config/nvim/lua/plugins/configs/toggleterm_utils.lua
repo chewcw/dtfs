@@ -277,4 +277,71 @@ M.toggle_term = function(direction, is_open_from_file_browser, cwd)
   end
 end
 
+-- ----------------------------------------------------------------------------
+-- Cycle through opened ToggleTerms: 1 = next (C-Tab), -1 = previous (C-S-Tab)
+-- Only acts while the current buffer is a toggleterm; no-op otherwise.
+-- ----------------------------------------------------------------------------
+M.cycle_term = function(direction)
+  direction = direction or 1
+
+  if vim.bo[vim.api.nvim_get_current_buf()].filetype ~= "toggleterm" then
+    return
+  end
+
+  local terms = require("toggleterm.terminal").get_all()
+
+  -- keep only terminals with a live window
+  local ids = {}
+  for _, term in ipairs(terms) do
+    if term.window and vim.api.nvim_win_is_valid(term.window) then
+      ids[#ids + 1] = term.id
+    end
+  end
+  table.sort(ids)
+  if #ids < 2 then
+    return
+  end
+
+  local focused
+  for _, term in ipairs(terms) do
+    if term:is_focused() then
+      focused = term.id
+      break
+    end
+  end
+  if not focused then
+    return
+  end
+
+  local idx
+  for i, id in ipairs(ids) do
+    if id == focused then
+      idx = i
+      break
+    end
+  end
+  if not idx then
+    return
+  end
+
+  local n = #ids
+  local target = ids[((idx - 1 + direction) % n) + 1]
+
+  -- close the focused term, then open the target (single visible view)
+  local cur = require("toggleterm.terminal").get(focused)
+  if cur and cur:is_open() then
+    cur:close()
+  end
+  vim.cmd(target .. "ToggleTerm")
+
+  -- keep the existing toggle_term() state machine consistent
+  vim.g.toggle_term_opened = true
+  vim.g.toggle_term_count = target
+  local x = vim.g.toggle_term_opened_term_ids or {}
+  if not vim.tbl_contains(x, target) then
+    table.insert(x, target)
+  end
+  vim.g.toggle_term_opened_term_ids = x
+end
+
 return M
