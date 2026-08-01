@@ -290,7 +290,8 @@ M.cycle_term = function(direction)
 
   local terms = require("toggleterm.terminal").get_all()
 
-  -- keep only terminals with a live window
+  -- keep only terminals with a live buffer (windows are destroyed on close;
+  -- only one terminal is visible at a time in this config)
   local ids = {}
   for _, term in ipairs(terms) do
     if term.bufnr and vim.api.nvim_buf_is_valid(term.bufnr) then
