@@ -293,7 +293,7 @@ M.cycle_term = function(direction)
   -- keep only terminals with a live window
   local ids = {}
   for _, term in ipairs(terms) do
-    if term.window and vim.api.nvim_win_is_valid(term.window) then
+    if term.bufnr and vim.api.nvim_buf_is_valid(term.bufnr) then
       ids[#ids + 1] = term.id
     end
   end
