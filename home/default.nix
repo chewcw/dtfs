@@ -21,6 +21,8 @@
     ./terminals.nix
     ./tools.nix
     ./scripts.nix
+    ./pi.nix
+    ./skills.nix
   ];
 
   # Fonts

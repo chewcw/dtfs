@@ -1,0 +1,104 @@
+{
+  "mcpServers": {
+    "codegraph": {
+      "command": "codegraph",
+      "args": [
+        "serve",
+        "--mcp"
+      ],
+      "lifecycle": "lazy",
+      "directTools": true
+    },
+    "context7": {
+      "url": "https://mcp.context7.com/mcp",
+      "lifecycle": "lazy"
+    },
+    "drawio": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@next-ai-drawio/mcp-server@latest"
+      ],
+      "disabled": true,
+      "lifecycle": "lazy"
+    },
+    "engram": {
+      "command": "/home/ccw/.local/bin/engram",
+      "args": [
+        "mcp",
+        "--tools=agent"
+      ],
+      "lifecycle": "lazy",
+      "directTools": false
+    },
+    "io.github.ChromeDevTools/chrome-devtools-mcp": {
+      "command": "npx",
+      "args": [
+        "chrome-devtools-mcp@0.21.0",
+        "--user-data-dir",
+        "/home/ccw/Downloads/chrome_devtools_user_dir"
+      ],
+      "lifecycle": "lazy"
+    },
+    "lightpanda": {
+      "command": "/usr/local/bin/lightpanda",
+      "args": [
+        "mcp"
+      ],
+      "lifecycle": "lazy"
+    },
+    "mermaid": {
+      "url": "https://mcp.mermaid.ai/mcp",
+      "disabled": true,
+      "lifecycle": "lazy"
+    },
+    "microsoft/playwright-mcp": {
+      "command": "npx",
+      "args": [
+        "@playwright/mcp@latest",
+        "--user-data-dir",
+        "/home/ccw/Downloads/playwright_user_dir"
+      ],
+      "lifecycle": "lazy"
+    },
+    "io.github.github/github-mcp-server": {
+      "command": "github-mcp-server",
+      "args": [
+        "stdio",
+        "--toolsets=all"
+      ],
+      "lifecycle": "lazy"
+    },
+    "agentmemory": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@agentmemory/mcp"
+      ],
+      "lifecycle": "lazy"
+    },
+    "stitch": {
+      "url": "https://stitch.googleapis.com/mcp",
+      "headers": {
+        "X-Goog-Api-Key": "REDACTED_FILL_LOCALLY"
+      },
+      "lifecycle": "lazy"
+    },
+    "tavily-mcp": {
+      "command": "npx",
+      "args": [
+        "tavily-mcp@0.2.15"
+      ],
+      "lifecycle": "lazy",
+      "directTools": true
+    },
+    "agent-browser": {
+      "command": "agent-browser",
+      "args": [
+        "mcp"
+      ],
+      "lifecycle": "lazy",
+      "directTools": true
+    }
+  }
+}
