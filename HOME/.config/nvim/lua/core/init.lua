@@ -155,6 +155,15 @@ autocmd("FileType", {
   pattern = "qf",
   callback = function()
     vim.opt_local.buflisted = false
+
+    -- delete the quickfix item on the current line with dd
+    vim.keymap.set("n", "dd", function()
+      local qf_list = vim.fn.getqflist()
+      local current_line = vim.fn.line(".")
+      table.remove(qf_list, current_line)
+      vim.fn.setqflist(qf_list, "r")
+      vim.fn.cursor(current_line, 1)
+    end, { buffer = true, silent = true, desc = "Delete quickfix item" })
   end,
 })
 
