@@ -5,7 +5,7 @@
   programs.zsh = {
     enable = true;
     enableCompletion = true;
-    autosuggestions.enable = true;
+    enableAutosuggestions = true;
     syntaxHighlighting.enable = true;
     shellAliases = {
       c = "code -r";
@@ -16,7 +16,7 @@
     };
 
     # oh-my-zsh integration
-    ohMyZsh = {
+    oh-my-zsh = {
       enable = true;
       theme = "robbyrussell";
       plugins = [ "git" "vi-mode" "zsh-autosuggestions" ];
@@ -83,6 +83,5 @@
   home.packages = with pkgs; [
     fzf
     kubectl
-    fzf-tmux
   ];
 }

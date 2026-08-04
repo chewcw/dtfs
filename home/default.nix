@@ -28,7 +28,7 @@
   # Fonts
   fonts.fontconfig.enable = true;
   home.packages = with pkgs; [
-    (nerdfonts.override { fonts = [ "Iosevka" ]; })
-    iosevka-term
+    nerd-fonts.iosevka
+    nerd-fonts.iosevka-term
   ];
 }

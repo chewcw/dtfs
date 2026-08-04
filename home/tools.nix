@@ -7,9 +7,9 @@
     gromit-mpx
     projecteur
     fcitx5
-    fcitx5-configtool
+    qt6Packages.fcitx5-configtool
     fcitx5-mozc
-    fcitx5-pinyin
+    qt6Packages.fcitx5-chinese-addons
   ];
 
   # Tool configs (symlinked from existing files)

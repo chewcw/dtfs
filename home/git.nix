@@ -6,24 +6,23 @@
     userName = "ChewCW";
     userEmail = "chwai87@gmail.com";
 
-    diff = {
-      tool = "vimdiff";
-      prompt = false;
+    extraConfig = {
+      diff.tool = "vimdiff";
+      difftool = {
+        prompt = "false";
+        vimdiff.cmd = ''
+          vimdiff -u /home/ccw/.vimrc -c "wincmd L" -c "windo set wrap" "$BASE" "$REMOTE"
+        '';
+      };
+      merge.tool = "vimdiff";
+      merge.conflictstyle = "diff3";
+      mergetool = {
+        prompt = "false";
+        vimdiff.cmd = ''
+          vimdiff -u /home/ccw/.vimrc -c "wincmd J" -c "windo set wrap" "$MERGED" "$LOCAL" "$BASE" "$REMOTE"
+        '';
+      };
     };
-
-    difftool.vimdiff.cmd = ''
-      vimdiff -u /home/ccw/.vimrc -c "wincmd L" -c "windo set wrap" "$BASE" "$REMOTE"
-    '';
-
-    merge = {
-      tool = "vimdiff";
-      conflictstyle = "diff3";
-      prompt = false;
-    };
-
-    mergetool.vimdiff.cmd = ''
-      vimdiff -u /home/ccw/.vimrc -c "wincmd J" -c "windo set wrap" "$MERGED" "$LOCAL" "$BASE" "$REMOTE"
-    '';
 
     aliases = {
       g = "git";
