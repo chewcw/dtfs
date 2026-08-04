@@ -14,9 +14,15 @@
     };
     # Plugins sourced from nixpkgs or fetched directly
     flake-utils.url = "github:Numtide/flake-utils";
+    # OpenGL/GPU wrapper for non-NixOS systems (Debian): lets GL apps run
+    # with Nix-built libraries on the host system.
+    nixGL = {
+      url = "github:nix-community/nixGL";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, home-manager, llm-agents, flake-utils, ... }:
+  outputs = { self, nixpkgs, home-manager, llm-agents, flake-utils, nixGL, ... }:
     flake-utils.lib.eachDefaultSystem (system:
       let
         # nixos-unstable required: pi-coding-agent + its home-manager module
@@ -37,6 +43,8 @@
             # Pass extra args to modules
             extraSpecialArgs = {
               inherit self;
+              # nixGL flake input, exposed to modules under a non-reserved name
+              nixGLFlake = nixGL;
               isDarwin = false;
             };
           };
