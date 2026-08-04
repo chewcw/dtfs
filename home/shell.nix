@@ -57,7 +57,7 @@
         else
           pid=$(ps -ef | sed 1d | fzf -m | awk '{print $2}')
         fi
-        if [ "x$pid" != "x" ]; then echo $pid | xargs kill -${1:-9}; fi
+        if [ "x$pid" != "x" ]; then echo $pid | xargs kill -''${1:-9}; fi
       }
 
       # git branch helpers
