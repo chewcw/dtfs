@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, self, ... }:
 
 {
   home.packages = with pkgs; [
@@ -26,6 +26,9 @@
   # fcitx5 config (im-config selection is system-level, outside HM scope)
   xdg.configFile."fcitx5/config".source = ../HOME/.config/fcitx5/config;
 
-  # dunst (currently etc/xdg/dunst, system-level in old setup)
-  xdg.configFile."dunst/dunstrc".source = ../../etc/xdg/dunst/dunstrc;
+  # dunst (currently etc/xdg/dunst, system-level in old setup).
+  # Must reference the flake root via `${self}`: relative `../../` paths
+  # break under home-manager flakes (the module is copied to the store
+  # without the parent structure, so `../../` escapes past the source root).
+  xdg.configFile."dunst/dunstrc".source = "${self}/etc/xdg/dunst/dunstrc";
 }
