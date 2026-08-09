@@ -638,6 +638,17 @@ vim.api.nvim_create_user_command("UrlDecode", function()
 end, { nargs = 0, range = true })
 
 -- ----------------------------------------------------------------------------
+-- vOutline and hOutline: open outline in vertical/horizontal split
+-- ----------------------------------------------------------------------------
+vim.api.nvim_create_user_command("VOutline", function()
+  require("outline").open_outline({ split_command = "vertical vsplit" })
+end, { nargs = 0, desc = "Open outline in vertical split" })
+
+vim.api.nvim_create_user_command("HOutline", function()
+  require("outline").open_outline({ split_command = "horizontal split" })
+end, { nargs = 0, desc = "Open outline in horizontal split" })
+
+-- ----------------------------------------------------------------------------
 -- Toggle tab's cwd
 -- ----------------------------------------------------------------------------
 vim.api.nvim_create_user_command("TabCwd", function(args)
