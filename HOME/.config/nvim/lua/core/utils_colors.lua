@@ -72,6 +72,7 @@ local get_groups = function(color)
   vim.cmd([[ highlight! MarkologyHLm cterm=bold ctermfg=10 ctermbg=NONE guifg=Green guibg=NONE ]])
   vim.cmd([[ highlight! MarkologyHLo cterm=bold ctermfg=10 ctermbg=NONE guifg=Green guibg=NONE ]])
   vim.cmd([[ highlight! MarkologyHLu cterm=bold ctermfg=10 ctermbg=NONE guifg=Green guibg=NONE ]])
+  highlight("MarkologyHLLine", { bg = color.blue01 })
 
   return {
     -- Base

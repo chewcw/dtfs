@@ -66,9 +66,9 @@ connect_monitor() {
 
 	elif [[ $laptop_screen == 1 && $vga == 1 && $hdmi == 1 ]]; then
 		# Home office
-		xrandr --output eDP-1 --off \
-			--output DP-1 --mode 1920x1080 --primary --pos 0x0 \
-			--output HDMI-1 --mode 1920x1200 --pos 1920x0
+		xrandr --output eDP-1 --mode 1920x1080 --pos 0x0 \
+			--output DP-1 --mode 1920x1080 --primary --pos 1920x0 \
+			--output HDMI-1 --mode 1920x1200 --rotate right --pos 3840x0
 	else
 		xrandr --auto
 	fi

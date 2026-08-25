@@ -618,6 +618,9 @@ local default_plugins = {
     event = "VeryLazy",
     init = function()
       vim.g.markology_include = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+      vim.g.markology_hlline_lower = 1
+      vim.g.markology_hlline_upper = 1
+      vim.g.markology_hlline_other = 1
     end,
     -- branch = "master",
     -- commit = "9681b3f",
@@ -959,17 +962,28 @@ local default_plugins = {
   --   commit = "7b4a2c7",
   -- },
 
+  -- {
+  --   "iamcco/markdown-preview.nvim",
+  --   cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+  --   ft = { "markdown" },
+  --   init = function()
+  --     vim.g.mkdp_filetypes = { "markdown" }
+  --   end,
+  --   build = "cd app && npm install",
+  --   lazy = true,
+  --   -- branch = "master",
+  --   -- commit = "a923f5f",
+  -- },
+
   {
-    "iamcco/markdown-preview.nvim",
-    cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
-    ft = { "markdown" },
-    init = function()
-      vim.g.mkdp_filetypes = { "markdown" }
+    "toppair/peek.nvim",
+    event = { "VeryLazy" },
+    build = "deno task --quiet build:fast",
+    config = function()
+      require("peek").setup()
+      vim.api.nvim_create_user_command("PeekOpen", require("peek").open, {})
+      vim.api.nvim_create_user_command("PeekClose", require("peek").close, {})
     end,
-    build = "cd app && npm install",
-    lazy = true,
-    -- branch = "master",
-    -- commit = "a923f5f",
   },
 
   {
@@ -1973,7 +1987,7 @@ local default_plugins = {
     opts = {
       keymaps = {
         close = { "<A-q>" },
-        goto_location = "<C-l>",
+        goto_location = "<CR>",
         down_and_jump = "<C-n>",
         up_and_jump = "<C-p>",
         fold = "zc",
@@ -2076,6 +2090,16 @@ local default_plugins = {
       require("roslyn").setup(opts)
     end,
   },
+
+  {
+    'nvim-flutter/flutter-tools.nvim',
+    cmd = { "Flutter" },
+    lazy = true,
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+    },
+    config = true,
+  }
 
   -- {
   --   "subnut/nvim-ghost.nvim",

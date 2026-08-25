@@ -10,8 +10,8 @@ general {
 
 order += "disk /"
 order += "disk /data"
-order += "wireless wlan0"
-order += "ethernet enp2s0"
+order += "wireless wlp0s20f3"
+order += "ethernet enp0s31f6"
 order += "battery 0"
 order += "memory"
 order += "cpu_usage"
@@ -20,12 +20,12 @@ order += "volume master"
 order += "tztime eastern"
 order += "tztime local"
 
-wireless wlan0 {
+wireless wlp0s20f3 {
         format_up = "W: %essid %bitrate %ip"
         format_down = "W: down"
 }
 
-ethernet enp2s0 {
+ethernet enp0s31f6 {
         format_up = "E: %ip (%speed)"
         format_down = "E: down"
 }
