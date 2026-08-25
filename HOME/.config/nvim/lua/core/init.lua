@@ -7,8 +7,8 @@ opt.laststatus = 3 -- global statusline
 opt.showmode = true
 
 opt.clipboard = "unnamedplus"
-opt.cursorline = true
-opt.cursorlineopt = "line"
+opt.cursorline = false
+opt.cursorlineopt = "number"
 
 -- Indenting
 opt.expandtab = true
@@ -647,6 +647,90 @@ end, { nargs = 0, desc = "Open outline in vertical split" })
 vim.api.nvim_create_user_command("HOutline", function()
   require("outline").open_outline({ split_command = "horizontal split" })
 end, { nargs = 0, desc = "Open outline in horizontal split" })
+
+-- ----------------------------------------------------------------------------
+-- Close Outline when the window it is split with is closed
+-- ----------------------------------------------------------------------------
+vim.api.nvim_create_autocmd("WinClosed", {
+  callback = function()
+    -- <afile> holds the id of the window being closed, which is still
+    -- queryable during the WinClosed event.
+    local closed_win = tonumber(vim.fn.expand("<afile>"))
+    if not closed_win or not vim.api.nvim_win_is_valid(closed_win) then
+      return
+    end
+
+    local outline_ok, outline = pcall(require, "outline")
+    if not outline_ok then
+      return
+    end
+
+    local sidebar = outline._get_sidebar(false)
+    if not sidebar or not sidebar.view then
+      return
+    end
+
+    local closed_buf = vim.api.nvim_win_get_buf(closed_win)
+    if vim.bo[closed_buf].filetype == "Outline" then
+      -- The outline split window itself was closed: unregister the sidebar so
+      -- a later OutlineClose does not act on an already-closed window.
+      outline.sidebars[vim.api.nvim_get_current_tabpage()] = nil
+    elseif sidebar.code and sidebar.code.win == closed_win then
+      -- The window the outline split was attached to was closed: close the
+      -- outline split too instead of leaving it orphaned. Deferred because
+      -- closing windows inside a WinClosed handler aborts the command that
+      -- triggered the close (E855).
+      local outline_win = sidebar.view.win
+      vim.schedule(function()
+        if outline_win and vim.api.nvim_win_is_valid(outline_win) then
+          vim.api.nvim_win_close(outline_win, true)
+        end
+      end)
+    end
+  end,
+})
+
+-- ----------------------------------------------------------------------------
+-- Close Outline when the window it is split with is closed
+-- ----------------------------------------------------------------------------
+vim.api.nvim_create_autocmd("WinClosed", {
+  callback = function()
+    -- <afile> holds the id of the window being closed, which is still
+    -- queryable during the WinClosed event.
+    local closed_win = tonumber(vim.fn.expand("<afile>"))
+    if not closed_win or not vim.api.nvim_win_is_valid(closed_win) then
+      return
+    end
+
+    local outline_ok, outline = pcall(require, "outline")
+    if not outline_ok then
+      return
+    end
+
+    local sidebar = outline._get_sidebar(false)
+    if not sidebar or not sidebar.view then
+      return
+    end
+
+    local closed_buf = vim.api.nvim_win_get_buf(closed_win)
+    if vim.bo[closed_buf].filetype == "Outline" then
+      -- The outline split window itself was closed: unregister the sidebar so
+      -- a later OutlineClose does not act on an already-closed window.
+      outline.sidebars[vim.api.nvim_get_current_tabpage()] = nil
+    elseif sidebar.code and sidebar.code.win == closed_win then
+      -- The window the outline split was attached to was closed: close the
+      -- outline split too instead of leaving it orphaned. Deferred because
+      -- closing windows inside a WinClosed handler aborts the command that
+      -- triggered the close (E855).
+      local outline_win = sidebar.view.win
+      vim.schedule(function()
+        if outline_win and vim.api.nvim_win_is_valid(outline_win) then
+          vim.api.nvim_win_close(outline_win, true)
+        end
+      end)
+    end
+  end,
+})
 
 -- ----------------------------------------------------------------------------
 -- Toggle tab's cwd

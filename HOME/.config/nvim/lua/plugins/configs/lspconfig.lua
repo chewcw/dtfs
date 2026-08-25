@@ -322,4 +322,12 @@ vim.lsp.config["cssls"] = {
   cmd = { home .. "/.local/share/nvim/mason/bin/vscode-css-language-server", "--stdio" },
 }
 
+-- zig
+vim.lsp.enable("zls")
+vim.lsp.config["zls"] = {
+  on_attach = M.on_attach,
+  capabilities = M.capabilities,
+  cmd = { home .. "/.local/share/nvim/mason/bin/zls" },
+}
+
 return M

@@ -395,3 +395,12 @@ function y() {
 if [ -f "$HOME/.env" ]; then
   source "$HOME/.env"
 fi
+
+# opencode
+export PATH=/home/ccw/.opencode/bin:$PATH
+
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
+export ANDROID_HOME=$HOME/android-sdk
+export PATH=$PATH:$ANDROID_HOME/cmdline-tools/latest/bin
+export PATH=$PATH:$ANDROID_HOME/platform-tools
+export PATH=$PATH:$ANDROID_HOME/emulator

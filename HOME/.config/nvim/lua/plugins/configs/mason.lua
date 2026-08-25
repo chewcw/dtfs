@@ -32,6 +32,12 @@ local options = {
     -- rust
     "rust-analyzer",
     -- "corelldb", -- debugger
+
+    -- bash
+    "bash-language-server",
+
+    -- zig
+    "zls",
   },
 
   PATH = "skip",
