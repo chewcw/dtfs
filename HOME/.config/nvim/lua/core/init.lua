@@ -864,78 +864,78 @@ local function open_picker(files, prompt, callback)
       :find()
 end
 
-vim.api.nvim_create_autocmd("VimEnter", {
-  callback = function()
-    if vim.fn.argc() == 0 then
-      if pcall(require, "auto-session") then
-        local autosession_lib = require("auto-session.lib")
-        local autosession = require("auto-session")
-        local files = autosession_lib.get_session_list(autosession.get_root_dir())
-        open_picker(files, "Select a session", function(choice)
-          vim.defer_fn(function()
-            -- Set the global variable
-            vim.g.autosession_session_name = choice.session_name
-            autosession.autosave_and_restore(choice.session_name)
-          end, 50)
-        end)
-      end
-    end
-  end,
-})
+-- vim.api.nvim_create_autocmd("VimEnter", {
+--   callback = function()
+--     if vim.fn.argc() == 0 then
+--       if pcall(require, "auto-session") then
+--         local autosession_lib = require("auto-session.lib")
+--         local autosession = require("auto-session")
+--         local files = autosession_lib.get_session_list(autosession.get_root_dir())
+--         open_picker(files, "Select a session", function(choice)
+--           vim.defer_fn(function()
+--             -- Set the global variable
+--             vim.g.autosession_session_name = choice.session_name
+--             autosession.autosave_and_restore(choice.session_name)
+--           end, 50)
+--         end)
+--       end
+--     end
+--   end,
+-- })
 
 -- ----------------------------------------------------------------------------
 -- Run SessionSave on VimLeavePre
 -- ----------------------------------------------------------------------------
-function _G.autosession_quitpre_completion_list(ArgLead, _, _)
-  if pcall(require, "auto-session") then
-    local autosession_lib = require("auto-session.lib")
-    local autosession = require("auto-session")
-    return autosession_lib.complete_session_for_dir(autosession.get_root_dir(), ArgLead, _, _)
-  end
-  return {}
-end
+-- function _G.autosession_quitpre_completion_list(ArgLead, _, _)
+--   if pcall(require, "auto-session") then
+--     local autosession_lib = require("auto-session.lib")
+--     local autosession = require("auto-session")
+--     return autosession_lib.complete_session_for_dir(autosession.get_root_dir(), ArgLead, _, _)
+--   end
+--   return {}
+-- end
 
-vim.api.nvim_create_autocmd("VimLeavePre", {
-  callback = function()
-    pcall(function()
-      -- Just a workaround
-      opt.wildmenu = true
-      opt.wildmode = "full"
+-- vim.api.nvim_create_autocmd("VimLeavePre", {
+--   callback = function()
+--     pcall(function()
+--       -- Just a workaround
+--       opt.wildmenu = true
+--       opt.wildmode = "full"
 
-      -- Close CopilotChat
-      -- vim.cmd("CopilotChatClose")
+--       -- Close CopilotChat
+--       -- vim.cmd("CopilotChatClose")
 
-      -- Close AvanteChat
-      -- Avante doesn't have a close command
-      -- Force focus the AvanteChat window, then use gq to close it (see the
-      -- keymapping to close AvanteChat)
-      if vim.g.avante_toggle == true then
-        vim.cmd("AvanteFocus")
-        vim.cmd("normal gq")
-      end
+--       -- Close AvanteChat
+--       -- Avante doesn't have a close command
+--       -- Force focus the AvanteChat window, then use gq to close it (see the
+--       -- keymapping to close AvanteChat)
+--       if vim.g.avante_toggle == true then
+--         vim.cmd("AvanteFocus")
+--         vim.cmd("normal gq")
+--       end
 
-      -- Close neo-tree
-      vim.cmd("Neotree close")
+--       -- Close neo-tree
+--       vim.cmd("Neotree close")
 
-      -- Just save to the same session name when open with session
-      if vim.g.autosession_session_name ~= nil then
-        vim.cmd("AutoSession save " .. vim.g.autosession_session_name)
-        return
-      end
+--       -- Just save to the same session name when open with session
+--       if vim.g.autosession_session_name ~= nil then
+--         vim.cmd("AutoSession save " .. vim.g.autosession_session_name)
+--         return
+--       end
 
-      -- If no session were open, prompt for saving
-      local user_input = vim.fn.input({
-        prompt = "Saving session (Leave blank to quit without saving): ",
-        completion = "customlist,v:lua.autosession_quitpre_completion_list",
-      })
+--       -- If no session were open, prompt for saving
+--       local user_input = vim.fn.input({
+--         prompt = "Saving session (Leave blank to quit without saving): ",
+--         completion = "customlist,v:lua.autosession_quitpre_completion_list",
+--       })
 
-      local input = user_input:match("^%s*(.-)%s*$") or user_input
-      if input ~= "" then
-        vim.cmd("AutoSession save " .. input)
-      end
-    end)
-  end,
-})
+--       local input = user_input:match("^%s*(.-)%s*$") or user_input
+--       if input ~= "" then
+--         vim.cmd("AutoSession save " .. input)
+--       end
+--     end)
+--   end,
+-- })
 
 -- ----------------------------------------------------------------------------
 -- Enable Treesitter Context
