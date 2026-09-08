@@ -568,7 +568,7 @@ end
 
 M.url_encode = function(str)
   if str then
-    str = str:gsub("\n", "\r\n")
+    str = str:gsub("\n", "%%0A")
     str = str:gsub("([^%w%-_%.%~ ])", function(c)
       return string.format("%%%02X", string.byte(c))
     end)
@@ -582,7 +582,7 @@ M.url_decode = function(str)
     str = str:gsub("%%(%x%x)", function(h)
       return string.char(tonumber(h, 16))
     end)
-    str = str:gsub("\r\n", "\n")
+    str = str:gsub("%%0A", "\n")
   end
   return str
 end
