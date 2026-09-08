@@ -24,9 +24,10 @@ local options = {
     -- "netcoredbg", -- debugger
 
     -- python
-    "pyright",
     "ruff",
+    -- "pyright",
     -- "debugpy", -- debugger
+    "pyrefly",
     "black",
 
     -- rust

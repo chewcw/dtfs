@@ -245,11 +245,11 @@ vim.lsp.config("roslyn", {
 --   cmd = { home .. "/.local/share/nvim/mason/bin/pyright-langserver", "--stdio" },
 -- }
 
--- vim.lsp.enable("ruff")
--- vim.lsp.config["ruff"] = {
---   on_attach = M.on_attach,
---   capabilities = M.capabilities,
--- }
+vim.lsp.enable("ruff")
+vim.lsp.config["ruff"] = {
+  on_attach = M.on_attach,
+  capabilities = M.capabilities,
+}
 
 -- python-lsp-server
 -- vim.lsp.enable("pylsp")
