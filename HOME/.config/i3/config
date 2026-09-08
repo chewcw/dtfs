@@ -85,9 +85,9 @@ bindsym $mod+x mark A; focus down; swap container with mark A; unmark A;
 # split in vertical orientation
 # bindsym $mod+v split v
 # split toggle
-bindsym $mod+u split toggle; layout stacked
-bindsym $mod+comma split toggle; focus left; move right;
-bindsym $mod+period split toggle; focus right; move left;
+bindsym $mod+u split toggle; layout tabbed
+bindsym $mod+comma split toggle; focus left; move right; layout tabbed;
+bindsym $mod+period split toggle; focus right; move left; layout tabbed;
 bindsym $mod+shift+comma split toggle; focus up; move down;
 bindsym $mod+shift+period split toggle; focus down; move up;
 
@@ -225,6 +225,8 @@ mode "resize" {
 # back to normal
     bindsym $mod+r mode "default"
     bindsym Ctrl+bracketleft mode "default"
+    bindsym Ctrl+bracketleft mode "default"
+    bindsym Escape mode "default"
 }
 
 bindsym $mod+r mode "resize"
@@ -523,6 +525,7 @@ mode "mouse" {
     # return to normal keybindings -- IMPORTANT!!
     bindsym $mod+m mode "default"
     bindsym Ctrl+bracketleft mode "default"
+    bindsym Escape mode "default"
 
     # go to vim mode
     bindsym $mod+i mode "vim"
@@ -1400,4 +1403,8 @@ bindsym $mod+c exec dunstctl close
 bindsym $mod+Shift+c exec dunstctl close-all
 
 # Start recording using OBS
-bindsym $mod+Shift+o exec --no-startup-id sh -c 'obs --startrecording --minimize-to-tray --scene "quick"'
+# bindsym $mod+Shift+o exec --no-startup-id sh -c 'obs --startrecording --minimize-to-tray --scene "quick"'
+
+# Start record through xhisper
+# bindsym $mod+Shift+o exec xhisper
+bindcode 105 exec xhisper
