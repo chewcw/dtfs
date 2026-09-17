@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=Set Keyboard Repeat Rate
+Exec=xset r rate 300 70
+Hidden=false
+NoDisplay=false
+X-GNOME-Autostart-enabled=true

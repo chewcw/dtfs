@@ -135,9 +135,9 @@ if [[ ! -f "$HOME/.local/bin/yazi" ]]; then
 fi
 
 # Install mapping caps to ctrl (or remapping capslock to escape AND ctrl)
-echo "------------------------------------------"
-echo "Installing interception tools and caps2esc"
-echo "------------------------------------------"
+# echo "------------------------------------------"
+# echo "Installing interception tools and caps2esc"
+# echo "------------------------------------------"
 # when press caps alone, send escape
 # when press caps with another key, send ctrl
 # caps2esc
@@ -151,17 +151,23 @@ echo "------------------------------------------"
 # added another 2 special modes:
 # mode 3 for normal keyboard, mode 4 for 60% layouts keyboard
 
-sudo apt install -y interception-tools
-sudo wget https://gitlab.com/chewcw/caps2esc/-/raw/master/build/caps2esc?ref_type=heads -O /usr/bin/caps2esc
-sudo chmod +x /usr/bin/caps2esc
-sudo bash -c 'cat << EOF > /etc/interception/udevmon.yaml
-- JOB: "interception -g \$DEVNODE | caps2esc -m 3 | uinput -d \$DEVNODE"
-  DEVICE:
-      EVENTS:
-        EV_KEY: [KEY_CAPSLOCK, KEY_ESC]
-EOF'
+# sudo apt install -y interception-tools
+# sudo wget https://gitlab.com/chewcw/caps2esc/-/raw/master/build/caps2esc?ref_type=heads -O /usr/bin/caps2esc
+# sudo chmod +x /usr/bin/caps2esc
+# sudo bash -c 'cat << EOF > /etc/interception/udevmon.yaml
+# - JOB: "interception -g \$DEVNODE | caps2esc -m 3 | uinput -d \$DEVNODE"
+#   DEVICE:
+#       EVENTS:
+#         EV_KEY: [KEY_CAPSLOCK, KEY_ESC]
+# EOF'
+#
+# sudo systemctl restart udevmon || true
 
-sudo systemctl restart udevmon || true
+# Install kanata
+# echo "------------------------------------------"
+# echo "Installing Kanata"
+# echo "------------------------------------------"
+# TODO:
 
 # TODO: which one is better? xcape or caps2esc?
 # see: https://askubuntu.com/a/856887
@@ -255,22 +261,30 @@ ln -sf $pwd/HOME/.local/bin/date.sh $HOME/.local/bin/date.sh
 # sudo apt update
 # sudo apt install -y i3-gaps
 
+# Install i3blocks config
+# echo "------------------------------------------"
+# echo "Installing i3blocks"
+# echo "------------------------------------------"
+sudo apt install -y i3blocks
+# Install symlink for i3blocks
+ln -sf $pwd/HOME/.config/i3blocks/i3blocks.conf $HOME/.config/i3blocks/i3blocks.conf
+
 # Install i3status config
-echo "------------------------------------------"
-echo "Installing i3status"
-echo "------------------------------------------"
-sudo apt install -y i3status
+# echo "------------------------------------------"
+# echo "Installing i3status"
+# echo "------------------------------------------"
+# sudo apt install -y i3status
 # Install symlink for i3status
-mkdir -p $HOME/.config/i3status
-ln -sf $pwd/HOME/.config/i3status/config $HOME/.config/i3status/config
+# mkdir -p $HOME/.config/i3status
+# ln -sf $pwd/HOME/.config/i3status/config $HOME/.config/i3status/config
 
 # Install i3status wrapper script
-echo "------------------------------------------"
-echo "Installing wrapper script (for microphone)"
-echo "------------------------------------------"
-sudo apt install -y python3-pulsectl
+# echo "------------------------------------------"
+# echo "Installing wrapper script (for microphone)"
+# echo "------------------------------------------"
+# sudo apt install -y python3-pulsectl
 # Install symlink for the wrapper script
-ln -sf $pwd/HOME/.local/bin/i3status_wrapper.py $HOME/.local/bin/i3status_wrapper.py
+# ln -sf $pwd/HOME/.local/bin/i3status_wrapper.py $HOME/.local/bin/i3status_wrapper.py
 
 # Install tmux plugin manager
 if [[ ! -d $HOME/.tmux/plugins/tpm ]]; then
@@ -378,6 +392,16 @@ echo "------------------------------------------"
 echo "Installing symlink for init stuff"
 echo "------------------------------------------"
 ln -sf $pwd/HOME/.local/bin/init_stuff.sh $HOME/.local/bin/init_stuff.sh
+
+echo "------------------------------------------"
+echo "Installing symlink for xprofile"
+echo "------------------------------------------"
+ln -sf $pwd/.xprofile $HOME/.xprofile
+
+echo "------------------------------------------"
+echo "Installing symlink for autostart"
+echo "------------------------------------------"
+ln -sf $pwd/HOME/.config/autostart/keyboard-rate.desktop $HOME/.config/autostart/keyboard-rate.desktop
 
 # Install symlink for detect keyboard
 echo "------------------------------------------"

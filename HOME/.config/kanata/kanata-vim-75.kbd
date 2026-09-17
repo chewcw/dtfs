@@ -1,0 +1,82 @@
+(include kanata-vim/1-interface.kbd)
+(include kanata-vim/2-shared.kbd)
+(include kanata-vim/3-bootstrapping.kbd)
+(include kanata-vim/4-normal-layer.kbd)
+(include kanata-vim/5-visual-layer.kbd)
+(include kanata-vim/6-visual-line-layer.kbd)
+(include kanata-cmd.kbd)
+
+(defcfg
+  process-unmapped-keys yes
+  danger-enable-cmd yes
+)
+
+(defsrc
+  esc
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
+  caps a    s    d    f    g    h    j    k    l    ;    '    ret
+  lsft z    x    c    v    b    n    m    ,    .    /    rsft
+  lctl lmet lalt           spc            ralt rmet rctl
+)
+
+;; ------------------------------------------------------------
+;; Special keys (from original kanata-75)
+;; ------------------------------------------------------------
+(defalias
+  esc-caps caps
+  left-ctrl-esc esc
+  caps-ctrl (tap-hold 300 100 esc lctl)
+)
+
+;; ------------------------------------------------------------
+;; Layer switching (plugin provides switch-vim-normal etc.)
+;; ------------------------------------------------------------
+(defalias
+  to-normal  @switch-vim-normal
+  to-insert  @switch-insert
+  to-visual  @switch-vim-visual
+  to-base    @switch-vim-normal
+)
+
+;; ------------------------------------------------------------
+;; Insert mode
+;; ------------------------------------------------------------
+(deflayer insert
+  @esc-caps
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
+  @caps-ctrl a    s    d    f    g    h    j    k    l    ;    '    ret
+  lsft z    x    c    v    b    n    m    ,    .    /    rsft
+  lctl lmet lalt           spc            @to-normal rmet @rctl
+)
+
+;; ------------------------------------------------------------
+;; Normal/Visual/Visual-line layers provided by plugin
+;; ------------------------------------------------------------
+
+;; ------------------------------------------------------------
+;; Override layers (plugin requires these empty scaffolds)
+;; ------------------------------------------------------------
+(deflayermap (insert-override))
+(deflayermap (vim-normal-override)
+  esc @esc-caps
+  caps @caps-ctrl
+  1 1  2 2  3 3  4 (fork _ @end-of-line (lsft rsft))  5 5  6 6  7 7  8 8  9 9  0 @start-of-line
+  - -  = =
+  [ [  ] ]  \ \
+  ; ;  ' '
+  , ,  . .
+  bspc bspc
+  rctrl @rctl
+)
+(deflayermap (vim-visual-override)
+  esc @esc-caps
+  caps @caps-ctrl
+  rctrl @rctl
+)
+(deflayermap (vim-visual-line-override)
+  esc @esc-caps
+  caps @caps-ctrl
+  rctrl @rctl
+)

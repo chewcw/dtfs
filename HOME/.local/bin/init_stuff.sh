@@ -27,7 +27,8 @@ sleep 0.2
 timedatectl set-ntp true
 
 # Optimize xset configuration
-xset r rate 300 70
+# Commented out for ~/.config/autostart/keyboard-rate.desktop
+# xset r rate 300 70
 
 
 # Stop and restart pasystray only if it's running

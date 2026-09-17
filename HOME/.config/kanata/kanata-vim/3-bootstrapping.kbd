@@ -1,0 +1,106 @@
+;; ------------
+;; Switch Vim Modes
+;; ------------
+;;
+;; Takes care of switching between vim modes:
+;; - insert
+;; - normal
+;; - visual
+;; - visual-line
+;;
+;; When entering one of these modes:
+;; - switch to the <vim-mode> layer
+;; - activate the corresponding overlay layer
+;; - execute mode-specific actions
+;;
+(deftemplate switch- (target-layer mode non-layer1 non-layer2 non-layer3 action)
+  (defvirtualkeys
+    (concat layer-switch-   $target-layer)
+    (layer-switch $target-layer)
+  )
+
+  (defvirtualkeys
+    (concat override-layer- $target-layer)
+    (layer-while-held (concat $target-layer -override))
+  )
+
+  (defalias
+    (concat switch- $target-layer)
+    (multi
+      $action
+
+      ;; Publish current vim mode to i3
+      (cmd sh -c
+        (concat
+          "mkdir -p /home/ccw/.cache && "
+          "printf '%s' "
+          $mode
+          " > /home/ccw/.cache/kanata-mode"
+        )
+      )
+
+      (macro
+        (on-press release-vkey (concat override-layer- $non-layer1))
+        (on-press release-vkey (concat override-layer- $non-layer2))
+        (on-press release-vkey (concat override-layer- $non-layer3))
+        (on-press tap-vkey     (concat layer-switch-   $target-layer))
+        (on-press press-vkey   (concat override-layer- $target-layer))
+      )
+    )
+  )
+)
+
+(t! switch- insert
+    INSERT
+    vim-normal vim-visual vim-visual-line
+    @line-paste-off
+)
+
+(t! switch- vim-normal
+    NORMAL
+    vim-visual vim-visual-line insert
+    nop0
+)
+
+(t! switch- vim-visual
+    VISUAL
+    vim-normal vim-visual-line insert
+    nop0
+)
+
+(t! switch- vim-visual-line
+    VISUAL-LINE
+    vim-normal vim-visual insert
+    @select-line
+)
+
+
+;; ------------
+;; Enter Vim (normal mode)
+;; ------------
+;;
+;; Helper template for application-aware activation of vim mode.
+;;
+;; $modifier:
+;;   If this key is pressed, enter vim mode.
+;;
+;; vim-direct-enter:
+;;   If this virtual key is active, immediately enter vim mode.
+;;
+;; Use a script and the Kanata TCP server to toggle the
+;; vim-direct-enter layer for certain applications.
+;;
+
+(defvirtualkeys vim-direct-enter ())
+
+(deftemplate vim-entrypoint (modifier)
+  (switch
+    ((input virtual vim-direct-enter))
+      @switch-vim-normal
+      break
+
+    ()
+      (fork _ @switch-vim-normal ($modifier))
+      break
+  )
+)
