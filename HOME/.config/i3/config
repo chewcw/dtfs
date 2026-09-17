@@ -1408,4 +1408,4 @@ bindsym $mod+Shift+c exec dunstctl close-all
 # Start record through xhisper
 # Moved to kanata
 # bindsym $mod+Shift+o exec xhisper
-# bindcode 105 exec xhisper
+bindcode 105 exec xhisper
