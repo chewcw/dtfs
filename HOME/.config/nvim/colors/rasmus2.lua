@@ -40,6 +40,7 @@ local colors = function()
     dark_green02 = "#0c291c",
     dark_red = "#3f0f13",
     dark_blue = "#081923",
+    dark_blue02 = "#103144",
     dark_magenta = "#3d2e43",
     dark_brown = "#462b24",
     dark_cyan = "#4a6459",

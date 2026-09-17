@@ -39,6 +39,15 @@ local function file_path_absolute()
   end
 end
 
+local fugitive_indicator = function()
+  local fname = vim.fn.expand("%:p")
+  if fname:match("^fugitive://", 1) then
+    return " [Fugitive] "
+  else
+    return ""
+  end
+end
+
 local function modified()
   return "%m"
 end
@@ -144,6 +153,14 @@ local encoding = function()
   return "%{&encoding}"
 end
 
+local as_marker = function()
+  return vim.g.AutoSaveEnable == true and " AS " or ""
+end
+
+local af_marker = function()
+  return (vim.g.focus_disabled_manually == nil or vim.g.focus_disabled_manually == false) and " AF " or ""
+end
+
 local get_word_count = function()
   return tostring(vim.fn.wordcount().words)
 end
@@ -157,9 +174,6 @@ Statusline = {}
 Statusline.active = function()
   return table.concat({
     "%#Tabline2#",
-    " ",
-    file_path_absolute(),
-    modified(),
     " ",
     "%#TabLineGit#",
     "  ",
@@ -184,7 +198,6 @@ Statusline.active = function()
     fileformat(),
     " ",
     "%#TabLine1#",
-    " ",
     lineinfo(),
     " ",
     "%#TabLine2#",
@@ -200,6 +213,12 @@ Statusline.active = function()
     "%#TabLine2#",
     " ",
     bufnr(),
+    " ",
+    as_marker(),
+    "%#TabLine2#",
+    af_marker(),
+    " ",
+    "%#TabLine1#",
     " ",
     -- eol status
     "%#TabLine1#",

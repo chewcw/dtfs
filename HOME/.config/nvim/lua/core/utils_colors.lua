@@ -143,7 +143,7 @@ local get_groups = function(color)
     WarningMsg                           = { fg = color.yellow },
     WildMenu                             = { fg = color.bg, bg = color.main1 },
     CursorColumn                         = { fg = color.none, bg = color.dark_blue },
-    CursorLine                           = { fg = color.none, bg = color.dark_blue },
+    CursorLine                           = { fg = color.none, bg = color.dark_blue02 },
     ToolbarLine                          = { fg = color.fg, bg = color.gray01 },
     ToolbarButton                        = { fg = color.fg, bg = color.none },
     NormalMode                           = { fg = color.main4, bg = color.none, reverse = true },
@@ -342,7 +342,7 @@ local get_groups = function(color)
     LspReferenceRead                     = { fg = color.bright_white, bg = color.dark_pink },                                              -- used for highlighting "read" references
     LspReferenceWrite                    = { fg = color.bright_white, bg = color.dark_pink },                                              -- used for highlighting "write" references
     -- inlay hint
-    LspInlayHint                         =  { fg = color.gray03, bg = color.none, underline = true },
+    LspInlayHint                         =  { fg = color.gray05, bg = color.none, underline = true },
     -- Diagnostics
     DiagnosticError                      = { bg = color.none, fg = color.red01 },                                                          -- base highlight group for "Error"
     DiagnosticWarn                       = { bg = color.none, fg = color.yellow01 },                                                       -- base highlight group for "Warning"

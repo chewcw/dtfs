@@ -1199,16 +1199,17 @@ local default_plugins = {
     },
   },
 
-  {
-    "akinsho/bufferline.nvim",
-    lazy = false,
-    opts = function()
-      return require("plugins.configs.bufferline").setup
-    end,
-    config = function(_, opts)
-      require("bufferline").setup(opts)
-    end,
-  },
+  -- Disabled: bufferline.nvim removed to eliminate tabbed view; tabline now shows full file path
+  -- {
+  --   "akinsho/bufferline.nvim",
+  --   lazy = false,
+  --   opts = function()
+  --     return require("plugins.configs.bufferline").setup
+  --   end,
+  --   config = function(_, opts)
+  --     require("bufferline").setup(opts)
+  --   end,
+  -- },
 
   {
     "brenoprata10/nvim-highlight-colors",
@@ -1467,16 +1468,17 @@ local default_plugins = {
         -- max_width and max_height can be integers or a float between 0 and 1 (e.g. 0.4 for 40%)
         max_width = 0.8,
         max_height = 0.8,
-        border = {
-          "╔",
-          "═",
-          "╗",
-          "║",
-          "╝",
-          "═",
-          "╚",
-          "║",
-        },
+        -- border = {
+        --   "╔",
+        --   "═",
+        --   "╗",
+        --   "║",
+        --   "╝",
+        --   "═",
+        --   "╚",
+        --   "║",
+        -- },
+        border = { "┌", "─", "┐", "│", "┘", "─", "└", "│" },
         win_options = {
           winblend = 0,
         },
