@@ -267,6 +267,7 @@ ln -sf $pwd/HOME/.local/bin/date.sh $HOME/.local/bin/date.sh
 # echo "------------------------------------------"
 sudo apt install -y i3blocks
 # Install symlink for i3blocks
+mkdir -p $HOME/.config/i3blocks
 ln -sf $pwd/HOME/.config/i3blocks/i3blocks.conf $HOME/.config/i3blocks/i3blocks.conf
 
 # Install i3status config
