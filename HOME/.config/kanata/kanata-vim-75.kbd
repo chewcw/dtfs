@@ -36,13 +36,13 @@
   to-normal  @switch-vim-normal
   to-insert  @switch-insert
   to-visual  @switch-vim-visual
-  to-base    @switch-vim-normal
+  to-base    @switch-base
 )
 
 ;; ------------------------------------------------------------
-;; Insert mode
+;; Base layer
 ;; ------------------------------------------------------------
-(deflayer insert
+(deflayer base
   @esc-caps
   grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
   tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
@@ -52,12 +52,49 @@
 )
 
 ;; ------------------------------------------------------------
+;; Modifier chord layers (In insert mode)
+;; ------------------------------------------------------------
+(deflayermap (ctrl-layer)
+  h bspc
+  w (unshift ctl bspc)
+  f rght
+  b lft
+  a home
+  e end
+)
+
+(deflayermap (alt-layer)
+  h lft
+  j down
+  k up
+  l rght
+  b (unshift ctl lft)
+  f (unshift ctl rght)
+  d (unshift ctl del)
+)
+
+;; ------------------------------------------------------------
+;; Insert mode
+;; ------------------------------------------------------------
+(deflayer insert
+  @esc-caps
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
+  (layer-while-held ctrl-layer) a    s    d    f    g    h    j    k    l    ;    '    ret
+  lsft z    x    c    v    b    n    m    ,    .    /    rsft
+  (layer-while-held ctrl-layer)  lmet  (layer-while-held alt-layer)           spc            @to-normal  rmet  rctl
+)
+
+;; ------------------------------------------------------------
 ;; Normal/Visual/Visual-line layers provided by plugin
 ;; ------------------------------------------------------------
 
 ;; ------------------------------------------------------------
 ;; Override layers (plugin requires these empty scaffolds)
 ;; ------------------------------------------------------------
+(deflayermap (base-override))
+(deflayermap (ctrl-layer-override))
+(deflayermap (alt-layer-override))
 (deflayermap (insert-override))
 (deflayermap (vim-normal-override)
   esc @esc-caps
@@ -69,6 +106,7 @@
   , ,  . .
   bspc bspc
   ret ret
+  tab tab
 )
 (deflayermap (vim-visual-override)
   esc @esc-caps

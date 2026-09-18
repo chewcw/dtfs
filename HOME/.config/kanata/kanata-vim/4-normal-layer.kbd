@@ -145,7 +145,7 @@
   lmet  lmet
   rmet  rmet
   lalt  lalt
-  ralt  ralt
+  ralt  @to-base
   lsft  lsft
   rsft  rsft
 

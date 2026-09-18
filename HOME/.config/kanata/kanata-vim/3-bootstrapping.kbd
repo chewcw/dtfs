@@ -56,6 +56,12 @@
     @line-paste-off
 )
 
+(t! switch- base
+    BASE
+    vim-normal vim-visual vim-visual-line
+    nop0
+)
+
 (t! switch- vim-normal
     NORMAL
     vim-visual vim-visual-line insert
