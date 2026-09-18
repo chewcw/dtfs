@@ -10,6 +10,10 @@
   b lft
   a home
   e end
+  c @copy
+  x @cut
+  v @raw-paste
+  u (multi @select-start-of-line @cut @line-paste-off)
 )
 
 (deflayermap (alt-layer)

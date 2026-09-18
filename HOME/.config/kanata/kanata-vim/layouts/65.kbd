@@ -44,7 +44,7 @@
   grv
   1    2    3    4    5    6    7    8    9    0    -    =    bspc caps
   tab  q    w    e    r    t    y    u    @i-meta    o    p    [    ]    \    del
-  (layer-while-held ctrl-layer) a    s    d    f    g    h    j    k    l    ;    '    ret  pgup
+  @caps-to-normal a    s    d    f    g    h    j    k    l    ;    '    ret  pgup
   lsft z    x    c    v    b    @n-meta    m    ,    .    /    rsft up   pgdn
   (layer-while-held ctrl-layer)  lmet  (layer-while-held alt-layer)           spc            @to-base  fn  rctl  left  down  rght
 )
@@ -57,7 +57,7 @@
   esc @esc-caps
   caps @caps-ctrl
   grv caps
-  1 1  2 2  3 3  4 (fork _ @end-of-line (lsft rsft))  5 5  6 6  7 7  8 8  9 9  0 @start-of-line
+  1 1  2 2  3 3  4 (fork (fork _ @end-of-line (lsft rsft)) _ (lmet rmet))  5 5  6 6  7 7  8 8  9 9  0 (fork @start-of-line _ (lmet rmet))
   - -  = =
   [ [  ] ]  \ \
   ; ;  ' '
