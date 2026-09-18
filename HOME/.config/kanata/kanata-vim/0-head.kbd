@@ -1,0 +1,30 @@
+;; ------------------------------------------------------------
+;; Shared head: defcfg + generic aliases (NO layers in here!)
+;; Keep this included BEFORE the per-layout file so that
+;; (deflayer base ...) from the layout stays the FIRST layer
+;; definition (index 0 = startup layer).
+;; ------------------------------------------------------------
+(defcfg
+  process-unmapped-keys yes
+  danger-enable-cmd yes
+  alias-to-trigger-on-load switch-base
+)
+
+;; ------------------------------------------------------------
+;; Special keys (from original kanata-75)
+;; ------------------------------------------------------------
+(defalias
+  esc-caps caps
+  left-ctrl-esc esc
+  caps-ctrl (tap-hold 300 100 esc lctl)
+)
+
+;; ------------------------------------------------------------
+;; Layer switching (plugin provides switch-vim-normal etc.)
+;; ------------------------------------------------------------
+(defalias
+  to-normal  @switch-vim-normal
+  to-insert  @switch-insert
+  to-visual  @switch-vim-visual
+  to-base    @switch-base
+)

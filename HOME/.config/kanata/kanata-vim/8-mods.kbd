@@ -1,0 +1,23 @@
+;; ------------------------------------------------------------
+;; Shared modifier chord layers (insert mode helpers).
+;; deflayermap is position-independent, so this file is fully
+;; keyboard-agnostic and shared by all layouts.
+;; ------------------------------------------------------------
+(deflayermap (ctrl-layer)
+  h bspc
+  w (unshift ctl bspc)
+  f rght
+  b lft
+  a home
+  e end
+)
+
+(deflayermap (alt-layer)
+  h lft
+  j down
+  k up
+  l rght
+  b (unshift ctl lft)
+  f (unshift ctl rght)
+  d (unshift ctl del)
+)

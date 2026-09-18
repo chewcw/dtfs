@@ -1,0 +1,11 @@
+;; ------------------------------------------------------------
+;; Shared empty scaffolds (plugin requires these).
+;; NOTE: the vim-*-override layers are NOT here — they live as
+;; per-layout copies in kanata-vim/layouts/*.kbd, because override
+;; maps match by key NAME and the two boards need different
+;; treatment for grv (75%: untouched, 65%: caps).
+;; ------------------------------------------------------------
+(deflayermap (base-override))
+(deflayermap (ctrl-layer-override))
+(deflayermap (alt-layer-override))
+(deflayermap (insert-override))

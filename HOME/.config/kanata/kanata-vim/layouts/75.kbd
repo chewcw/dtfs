@@ -1,0 +1,80 @@
+;; ------------------------------------------------------------
+;; Layout: 75%
+;; Per-keyboard file: defsrc + deflayer base + deflayer insert.
+;; NOTE: base and insert must each list EXACTLY the same number of
+;; keys, in the same order, as defsrc below. If you add/remove a key
+;; in defsrc, update all three blocks together.
+;; Everything else (vim layers, mods, overrides) is shared and lives
+;; in the parent kanata-vim/*.kbd files.
+;; ------------------------------------------------------------
+
+(defsrc
+  esc
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
+  caps a    s    d    f    g    h    j    k    l    ;    '    ret
+  lsft z    x    c    v    b    n    m    ,    .    /    rsft
+  lctl lmet lalt           spc            ralt rmet rctl
+)
+
+;; ------------------------------------------------------------
+;; Base layer
+;; ------------------------------------------------------------
+(deflayer base
+  @esc-caps
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
+  @caps-ctrl a    s    d    f    g    h    j    k    l    ;    '    ret
+  lsft z    x    c    v    b    n    m    ,    .    /    rsft
+  lctl lmet lalt           spc            @to-normal rmet rctl
+)
+
+;; ------------------------------------------------------------
+;; Insert mode
+;; ------------------------------------------------------------
+(deflayer insert
+  @esc-caps
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
+  (layer-while-held ctrl-layer) a    s    d    f    g    h    j    k    l    ;    '    ret
+  lsft z    x    c    v    b    n    m    ,    .    /    rsft
+  (layer-while-held ctrl-layer)  lmet  (layer-while-held alt-layer)           spc            @to-normal  rmet  rctl
+)
+
+;; ------------------------------------------------------------
+;; Vim overrides (per-layout copy, identical to the old shared
+;; version: 75% behavior unchanged. Shared empty scaffolds live
+;; in 9-tail.kbd.)
+;; ------------------------------------------------------------
+(deflayermap (vim-normal-override)
+  esc @esc-caps
+  caps @caps-ctrl
+  1 1  2 2  3 3  4 (fork _ @end-of-line (lsft rsft))  5 5  6 6  7 7  8 8  9 9  0 @start-of-line
+  - -  = =
+  [ [  ] ]  \ \
+  ; ;  ' '
+  , ,  . .
+  bspc bspc
+  ret ret
+  tab tab
+  del del
+  pgup pgup
+  pgdn pgdn
+  fn fn
+)
+(deflayermap (vim-visual-override)
+  esc @esc-caps
+  caps @caps-ctrl
+  del del
+  pgup pgup
+  pgdn pgdn
+  fn fn
+)
+(deflayermap (vim-visual-line-override)
+  esc @esc-caps
+  caps @caps-ctrl
+  del del
+  pgup pgup
+  pgdn pgdn
+  fn fn
+)
