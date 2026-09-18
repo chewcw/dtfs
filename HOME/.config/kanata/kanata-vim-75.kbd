@@ -1,14 +1,15 @@
 (include kanata-vim/1-interface.kbd)
 (include kanata-vim/2-shared.kbd)
 (include kanata-vim/3-bootstrapping.kbd)
-(include kanata-vim/4-normal-layer.kbd)
-(include kanata-vim/5-visual-layer.kbd)
-(include kanata-vim/6-visual-line-layer.kbd)
+;; NOTE: (deflayer base ...) below must stay the FIRST layer definition in
+;; expanded file order (deflayer AND deflayermap share one index space, and
+;; index 0 is the startup layer). Keep the vim 4/5/6 includes after it.
 ;; (include kanata-cmd.kbd)
 
 (defcfg
   process-unmapped-keys yes
   danger-enable-cmd yes
+  alias-to-trigger-on-load switch-base
 )
 
 (defsrc
@@ -50,6 +51,10 @@
   lsft z    x    c    v    b    n    m    ,    .    /    rsft
   lctl lmet lalt           spc            @to-normal rmet rctl
 )
+
+(include kanata-vim/4-normal-layer.kbd)
+(include kanata-vim/5-visual-layer.kbd)
+(include kanata-vim/6-visual-line-layer.kbd)
 
 ;; ------------------------------------------------------------
 ;; Modifier chord layers (In insert mode)
