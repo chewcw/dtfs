@@ -31,10 +31,10 @@
 (deflayer base
   grv
   1    2    3    4    5    6    7    8    9    0    -    =    bspc caps
-  tab  q    w    e    r    t    y    u    i    o    p    [    ]    \    del
+  tab  q    w    e    r    t    y    u    @i-meta    o    p    [    ]    \    del
   @caps-ctrl a    s    d    f    g    h    j    k    l    ;    '    ret  pgup
-  lsft z    x    c    v    b    n    m    ,    .    /    rsft up   pgdn
-  lctl lmet lalt           spc            @to-normal fn   rctl left down rght
+  lsft z    x    c    v    b    @n-meta    m    ,    .    /    rsft up   pgdn
+  lctl lmet lalt           spc            @to-base fn   rctl left down rght
 )
 
 ;; ------------------------------------------------------------
@@ -43,10 +43,10 @@
 (deflayer insert
   grv
   1    2    3    4    5    6    7    8    9    0    -    =    bspc caps
-  tab  q    w    e    r    t    y    u    i    o    p    [    ]    \    del
+  tab  q    w    e    r    t    y    u    @i-meta    o    p    [    ]    \    del
   (layer-while-held ctrl-layer) a    s    d    f    g    h    j    k    l    ;    '    ret  pgup
-  lsft z    x    c    v    b    n    m    ,    .    /    rsft up   pgdn
-  (layer-while-held ctrl-layer)  lmet  (layer-while-held alt-layer)           spc            @to-normal  fn  rctl  left  down  rght
+  lsft z    x    c    v    b    @n-meta    m    ,    .    /    rsft up   pgdn
+  (layer-while-held ctrl-layer)  lmet  (layer-while-held alt-layer)           spc            @to-base  fn  rctl  left  down  rght
 )
 
 ;; ------------------------------------------------------------

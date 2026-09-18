@@ -65,8 +65,20 @@
   ;; reselect line for first motion after entering visual line mode
   j     (t! down (input-history real v 4) @select-line-below)
   k     (t! up   (input-history real v 4) @select-line-above)
+  n     @n-meta-vim
+  i     @i-meta-vim
   .     tab     ;; tap > (shift always pressed already?) -> move indentation right
   ,     S-tab   ;; tap < (shift always pressed already?) -> move indentation left
+
+  ;; loop modifiers to the vim layer (lmet needed for M-n / M-i mode switch)
+  rctl  rctl
+  lctl  lctl
+  lmet  lmet
+  rmet  rmet
+  lalt  lalt
+  ralt  @to-base
+  lsft  lsft
+  rsft  rsft
 
   ;; deactivate any other key presses
   ___   XX

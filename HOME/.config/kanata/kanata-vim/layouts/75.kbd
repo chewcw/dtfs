@@ -23,10 +23,10 @@
 (deflayer base
   @esc-caps
   grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
-  tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
+  tab  q    w    e    r    t    y    u    @i-meta    o    p    [    ]    \
   @caps-ctrl a    s    d    f    g    h    j    k    l    ;    '    ret
-  lsft z    x    c    v    b    n    m    ,    .    /    rsft
-  lctl lmet lalt           spc            @to-normal rmet rctl
+  lsft z    x    c    v    b    @n-meta    m    ,    .    /    rsft
+  lctl lmet lalt           spc            @to-base rmet rctl
 )
 
 ;; ------------------------------------------------------------
@@ -35,10 +35,10 @@
 (deflayer insert
   @esc-caps
   grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
-  tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
+  tab  q    w    e    r    t    y    u    @i-meta    o    p    [    ]    \
   (layer-while-held ctrl-layer) a    s    d    f    g    h    j    k    l    ;    '    ret
-  lsft z    x    c    v    b    n    m    ,    .    /    rsft
-  (layer-while-held ctrl-layer)  lmet  (layer-while-held alt-layer)           spc            @to-normal  rmet  rctl
+  lsft z    x    c    v    b    @n-meta    m    ,    .    /    rsft
+  (layer-while-held ctrl-layer)  lmet  (layer-while-held alt-layer)           spc            @to-base  rmet  rctl
 )
 
 ;; ------------------------------------------------------------

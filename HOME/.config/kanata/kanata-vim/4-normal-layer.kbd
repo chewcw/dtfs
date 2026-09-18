@@ -16,6 +16,7 @@
   j     @down
   k     @up
   l     @right
+  n     @n-meta-vim
   b     @start-of-word
   e     @end-of-word
   w     (switch
@@ -44,19 +45,23 @@
             @end-of-word                          ;; tap   (w)
             break
         )
-  i     (switch
-          ((or
-            (input-history real c 2)              ;; pending combo (ci)
-            (input-history real y 2)              ;; pending combo (yi)
-            (input-history real d 2)))            ;; pending combo (di)
-              XX
+  i     (fork
+          (switch
+            ((or
+              (input-history real c 2)              ;; pending combo (ci)
+              (input-history real y 2)              ;; pending combo (yi)
+              (input-history real d 2)))            ;; pending combo (di)
+                XX
+                break
+            (lsft rsft)
+              (multi @start-of-line @switch-insert) ;; shift tap     (S-i)
               break
-          (lsft rsft)
-            (multi @start-of-line @switch-insert) ;; shift tap     (S-i)
-            break
-          ()
-            @switch-insert                        ;; tap           (i)
-            break
+            ()
+              @switch-insert                        ;; tap           (i)
+              break
+          )
+          @switch-insert                          ;; lmeta tap (M-i) -> insert from any mode
+          (lmet)
         )
   a     (switch
           ((or

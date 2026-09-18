@@ -23,6 +23,8 @@
             break
         )
   0     @select-start-of-line
+  n     @n-meta-vim
+  i     @i-meta-vim
   g     (tap-dance 200
           ((t! action-shift XX
             @select-end-of-page)        ;; shift  tap (G)
@@ -48,7 +50,7 @@
   lmet  lmet
   rmet  rmet
   lalt  lalt
-  ralt  ralt
+  ralt  @to-base
   lsft  lsft
   rsft  rsft
 

@@ -28,3 +28,16 @@
   to-visual  @switch-vim-visual
   to-base    @switch-base
 )
+
+;; ------------------------------------------------------------
+;; lmeta+n -> normal, lmeta+i -> insert (from ANY mode)
+;; Fork on lmet held: otherwise preserve the plain key behavior.
+;; - *_meta:      for base/insert layers (plain n/i passthrough)
+;; - *_meta-vim:  for vim layers (plain key is blocked = XX)
+;; ------------------------------------------------------------
+(defalias
+  n-meta      (fork n  @switch-vim-normal (lmet))
+  i-meta      (fork i  @switch-insert     (lmet))
+  n-meta-vim  (fork XX @switch-vim-normal (lmet))
+  i-meta-vim  (fork XX @switch-insert     (lmet))
+)
