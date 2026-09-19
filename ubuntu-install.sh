@@ -426,6 +426,13 @@ cp -f $pwd/HOME/.config/systemd/user/kanata-75.service $HOME/.config/systemd/use
 systemctl --user enable --now kanata-65.service || true
 systemctl --user enable --now kanata-75.service || true
 
+# Install symlink for ptrkeys binary
+ln -sf $pwd/HOME/.local/bin/ptrkeys $HOME/.local/bin/ptrkeys
+systemctl --user enable --now ptrkeys.service || true
+
+# Copy ptrkeys systemd user service file
+mkdir -p $HOME/.config/systemd/user
+cp -f $pwd/HOME/.config/systemd/user/ptrkeys.service $HOME/.config/systemd/user/
 
 # Install vscodium
 # if ! command -v codium &>/dev/null

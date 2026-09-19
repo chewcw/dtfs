@@ -251,6 +251,7 @@ bar {
 # by default the bar is dock mode
 # see $HOME/.local/bin/toggle_i3_bar.sh file to toggle the bar mode
     mode dock
+    binding_mode_indicator yes
 
     colors {
       binding_mode $mode_bg_color $mode_bg_color $mode_text_color
@@ -455,209 +456,209 @@ bindsym $mod+Shift+Escape mode "$mode_system"
 # move mouse cursor using keyboard
 # dependency: xdotool
 # https://www.reddit.com/r/i3wm/comments/3btki2/use_the_mouse_cursor_from_the_keyboard/
-mode "mouse" {
+# mode "mouse" {
+#
+# # set speeds here
+#     set $slow 5
+#     set $quick 40
+#     set $fast 100
+#
+# # Mouse movement (slow/fine-tuned) -- vim keybindings
+#     bindsym Shift+h exec xdotool mousemove_relative -- -$slow 0
+#     bindsym Shift+j exec xdotool mousemove_relative 0 $slow
+#     bindsym Shift+k exec xdotool mousemove_relative -- 0 -$slow
+#     bindsym Shift+l exec xdotool mousemove_relative $slow 0
+#
+# # Mouse movement (quicker) -- vim keybindings
+#     bindsym h exec xdotool mousemove_relative -- -$quick 0
+#     bindsym j exec xdotool mousemove_relative 0 $quick
+#     bindsym k exec xdotool mousemove_relative -- 0 -$quick
+#     bindsym l exec xdotool mousemove_relative $quick 0
+#
+# # Mouse movement (faster) -- vim keybindings
+#     bindsym Ctrl+h exec xdotool mousemove_relative -- -$fast 0
+#     bindsym Ctrl+j exec xdotool mousemove_relative 0 $fast
+#     bindsym Ctrl+k exec xdotool mousemove_relative -- 0 -$fast
+#     bindsym Ctrl+l exec xdotool mousemove_relative $fast 0
+#
+# # Left Click
+#     bindsym f exec xdotool click 1
+#     bindsym Ctrl+f exec xdotool keydown Control click 1 keyup Control
+#     bindsym Shift+f exec xdotool keydown Shift click 1 keyup Shift
+#
+# # Middle Click
+#     bindsym d exec xdotool click 2
+#     bindsym Ctrl+d exec xdotool keydown Control click 2 keyup Control
+#     bindsym Shift+d exec xdotool keydown Shift click 2 keyup Shift
+#
+# # Right Click
+#     bindsym s exec xdotool click 3
+#     bindsym Ctrl+s exec xdotool keydown Control click 3 keyup Control
+#     bindsym Shift+s exec xdotool keydown Shift click 3 keyup Shift
+#
+# # Left Click-and-drag
+#     bindsym Control+Shift+f exec xdotool mousedown 1
+#
+# # Middle Click-and-drag
+#     bindsym Control+Shift+d exec xdotool mousedown 2
+#
+# # Right Click-and-drag
+#     bindsym Control+Shift+s exec xdotool mousedown 3
+#
+# # Left Drag release
+#     bindsym Ctrl+f exec xdotool mouseup 1
+#
+# # Middle Drag release
+#     bindsym Ctrl+d exec xdotool mouseup 2
+#
+# # Right Drag release
+#     bindsym Ctrl+s exec xdotool mouseup 3
+#
+# # Scroll down
+#     bindsym $mod+j exec xdotool click 5
+# # Scroll up
+#     bindsym $mod+k exec xdotool click 4
+# # Scroll left
+#     bindsym $mod+Shift+j exec xdotool click 6
+# # Scroll right
+#     bindsym $mod+Shift+k exec xdotool click 7
+#
+#     # return to normal keybindings -- IMPORTANT!!
+#     bindsym $mod+m mode "default"
+#     bindsym Ctrl+bracketleft mode "default"
+#     bindsym Escape mode "default"
+#
+#     # go to vim mode
+#     # bindsym $mod+i mode "vim"
+#     # bindsym $mod+n mode "vim_normal"; exec --no-startup-id notify-send -t 500 "Vim motion mode"
+#
+#     # these should still work ###################################
+#     # focus the parent container
+#     bindsym $mod+y focus parent
+#     # focus the child container
+#     bindsym $mod+shift+y focus child
+#
+#     bindsym $mod+e layout toggle splith tabbed stacked splitv
+#     bindsym $mod+w layout toggle splitv stacked tabbed splith
+#
+#     # switch to workspace
+#     bindsym $mod+1 workspace $workspace1
+#     bindsym $mod+2 workspace $workspace2
+#     bindsym $mod+3 workspace $workspace3
+#     bindsym $mod+4 workspace $workspace4
+#     bindsym $mod+5 workspace $workspace5
+#     bindsym $mod+6 workspace $workspace6
+#     bindsym $mod+7 workspace $workspace7
+#     bindsym $mod+8 workspace $workspace8
+#     bindsym $mod+9 workspace $workspace9
+#     bindsym $mod+0 workspace $workspace0
+#     bindsym $mod+Ctrl+1 workspace $workspace11
+#     bindsym $mod+Ctrl+2 workspace $workspace12
+#     bindsym $mod+Ctrl+3 workspace $workspace13
+#     bindsym $mod+Ctrl+4 workspace $workspace14
+#     bindsym $mod+Ctrl+5 workspace $workspace15
+#     bindsym $mod+Ctrl+6 workspace $workspace16
+#     bindsym $mod+Ctrl+7 workspace $workspace17
+#     bindsym $mod+Ctrl+8 workspace $workspace18
+#     bindsym $mod+Ctrl+9 workspace $workspace19
+#
+#     # move focused container to workspace
+#     bindsym $mod+Shift+1 move container to workspace $workspace1 
+#     bindsym $mod+Shift+2 move container to workspace $workspace2 
+#     bindsym $mod+Shift+3 move container to workspace $workspace3 
+#     bindsym $mod+Shift+4 move container to workspace $workspace4
+#     bindsym $mod+Shift+5 move container to workspace $workspace5
+#     bindsym $mod+Shift+6 move container to workspace $workspace6
+#     bindsym $mod+Shift+7 move container to workspace $workspace7
+#     bindsym $mod+Shift+8 move container to workspace $workspace8
+#     bindsym $mod+Shift+9 move container to workspace $workspace9
+#     bindsym $mod+Shift+0 move container to workspace $workspace0
+#     bindsym $mod+Shift+Ctrl+1 move container to workspace $workspace11
+#     bindsym $mod+Shift+Ctrl+2 move container to workspace $workspace12
+#     bindsym $mod+Shift+Ctrl+3 move container to workspace $workspace13
+#     bindsym $mod+Shift+Ctrl+4 move container to workspace $workspace14
+#     bindsym $mod+Shift+Ctrl+5 move container to workspace $workspace15
+#     bindsym $mod+Shift+Ctrl+6 move container to workspace $workspace16
+#     bindsym $mod+Shift+Ctrl+7 move container to workspace $workspace17
+#     bindsym $mod+Shift+Ctrl+8 move container to workspace $workspace18
+#     bindsym $mod+Shift+Ctrl+9 move container to workspace $workspace19
+#
+#     # if there is parent in group of containers, switch to parent before switch to other container
+#     # https://www.reddit.com/r/i3wm/comments/4w0otj/is_there_a_way_to_switch_to_the_next_tab/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
+#     bindsym $mod+Ctrl+h focus parent; focus left; focus child
+#     bindsym $mod+Ctrl+Left focus parent; focus left; focus child
+#     bindsym $mod+Ctrl+l focus parent; focus right; focus child
+#     bindsym $mod+Ctrl+Right focus parent; focus right; focus child
+#     bindsym $mod+Ctrl+j focus parent; focus down; focus child
+#     bindsym $mod+Ctrl+Down focus parent; focus down; focus child
+#     bindsym $mod+Ctrl+k focus parent; focus up; focus child
+#     bindsym $mod+Ctrl+Up focus parent; focus up; focus child
+#
+#     # change focus
+#     bindsym $mod+h focus left
+#     bindsym $mod+j focus down
+#     bindsym $mod+k focus up
+#     bindsym $mod+l focus right
+#
+#     # alternatively, you can use the cursor keys:
+#     bindsym $mod+Left focus left
+#     bindsym $mod+Down focus down
+#     bindsym $mod+Up focus up
+#     bindsym $mod+Right focus right
+#
+#     # move focused window
+#     bindsym $mod+Shift+h move left
+#     bindsym $mod+Shift+j move down
+#     bindsym $mod+Shift+k move up
+#     bindsym $mod+Shift+l move right
+#
+#     # alternatively, you can use the cursor keys:
+#     bindsym $mod+Shift+Left move left
+#     bindsym $mod+Shift+Down move down
+#     bindsym $mod+Shift+Up move up
+#     bindsym $mod+Shift+Right move right
+#
+#     # switch to next workspace
+#     bindsym $mod+Tab workspace back_and_forth
+#     bindsym $mod+Shift+Tab workspace prev
+#
+#     # swap with adjacent window (left right) and maintain the original window size
+#     bindsym $mod+a mark A; focus left; swap container with mark A; unmark A;
+#     bindsym $mod+s mark A; focus right; swap container with mark A; unmark A;
+#     # swap with adjacent window (up down) and maintain the original window size
+#     bindsym $mod+x mark A; focus down; swap container with mark A; unmark A;
+#
+#     # split in horizontal orientation
+#     # bindsym $mod+b split h
+#     # split in vertical orientation
+#     # bindsym $mod+v split v
+#     # split toggle
+#     bindsym $mod+u split toggle; layout stacked
+#
+#     # move workspace to another monitor
+#     bindsym $mod+$alt+h move workspace to output left
+#     bindsym $mod+$alt+l move workspace to output right
+#     bindsym $mod+$alt+j move workspace to output down
+#     bindsym $mod+$alt+k move workspace to output up
+#
+#     # Pulse Audio controls
+#     bindsym $mod+plus exec "amixer -D pulse sset Master 1%+"
+#     bindsym $mod+minus exec "amixer -D pulse sset Master 1%-"
+#     bindsym $mod+Shift+m exec "amixer -D pulse sset Master mute"
+#     bindsym $mod+Shift+u exec "amixer -D pulse sset Master unmute"
+#
+#     # mute microphone
+#     bindsym $mod+Ctrl+m exec "amixer set Capture nocap"
+#     # unmute microphone
+#     bindsym $mod+Ctrl+u exec "amixer set Capture cap"
+#
+#     # Brightness controls
+#     bindsym $mod+Shift+plus exec "sudo brightnessctl set 5%+"
+#     bindsym $mod+Shift+minus exec "sudo brightnessctl set 5%-"
+#     ########################
+# }
 
-# set speeds here
-    set $slow 5
-    set $quick 40
-    set $fast 100
-
-# Mouse movement (slow/fine-tuned) -- vim keybindings
-    bindsym Shift+h exec xdotool mousemove_relative -- -$slow 0
-    bindsym Shift+j exec xdotool mousemove_relative 0 $slow
-    bindsym Shift+k exec xdotool mousemove_relative -- 0 -$slow
-    bindsym Shift+l exec xdotool mousemove_relative $slow 0
-
-# Mouse movement (quicker) -- vim keybindings
-    bindsym h exec xdotool mousemove_relative -- -$quick 0
-    bindsym j exec xdotool mousemove_relative 0 $quick
-    bindsym k exec xdotool mousemove_relative -- 0 -$quick
-    bindsym l exec xdotool mousemove_relative $quick 0
-
-# Mouse movement (faster) -- vim keybindings
-    bindsym Ctrl+h exec xdotool mousemove_relative -- -$fast 0
-    bindsym Ctrl+j exec xdotool mousemove_relative 0 $fast
-    bindsym Ctrl+k exec xdotool mousemove_relative -- 0 -$fast
-    bindsym Ctrl+l exec xdotool mousemove_relative $fast 0
-
-# Left Click
-    bindsym f exec xdotool click 1
-    bindsym Ctrl+f exec xdotool keydown Control click 1 keyup Control
-    bindsym Shift+f exec xdotool keydown Shift click 1 keyup Shift
-
-# Middle Click
-    bindsym d exec xdotool click 2
-    bindsym Ctrl+d exec xdotool keydown Control click 2 keyup Control
-    bindsym Shift+d exec xdotool keydown Shift click 2 keyup Shift
-
-# Right Click
-    bindsym s exec xdotool click 3
-    bindsym Ctrl+s exec xdotool keydown Control click 3 keyup Control
-    bindsym Shift+s exec xdotool keydown Shift click 3 keyup Shift
-
-# Left Click-and-drag
-    bindsym Control+Shift+f exec xdotool mousedown 1
-
-# Middle Click-and-drag
-    bindsym Control+Shift+d exec xdotool mousedown 2
-
-# Right Click-and-drag
-    bindsym Control+Shift+s exec xdotool mousedown 3
-
-# Left Drag release
-    bindsym Ctrl+f exec xdotool mouseup 1
-
-# Middle Drag release
-    bindsym Ctrl+d exec xdotool mouseup 2
-
-# Right Drag release
-    bindsym Ctrl+s exec xdotool mouseup 3
-
-# Scroll down
-    bindsym $mod+j exec xdotool click 5
-# Scroll up
-    bindsym $mod+k exec xdotool click 4
-# Scroll left
-    bindsym $mod+Shift+j exec xdotool click 6
-# Scroll right
-    bindsym $mod+Shift+k exec xdotool click 7
-
-    # return to normal keybindings -- IMPORTANT!!
-    bindsym $mod+m mode "default"
-    bindsym Ctrl+bracketleft mode "default"
-    bindsym Escape mode "default"
-
-    # go to vim mode
-    # bindsym $mod+i mode "vim"
-    # bindsym $mod+n mode "vim_normal"; exec --no-startup-id notify-send -t 500 "Vim motion mode"
-
-    # these should still work ###################################
-    # focus the parent container
-    bindsym $mod+y focus parent
-    # focus the child container
-    bindsym $mod+shift+y focus child
-
-    bindsym $mod+e layout toggle splith tabbed stacked splitv
-    bindsym $mod+w layout toggle splitv stacked tabbed splith
-
-    # switch to workspace
-    bindsym $mod+1 workspace $workspace1
-    bindsym $mod+2 workspace $workspace2
-    bindsym $mod+3 workspace $workspace3
-    bindsym $mod+4 workspace $workspace4
-    bindsym $mod+5 workspace $workspace5
-    bindsym $mod+6 workspace $workspace6
-    bindsym $mod+7 workspace $workspace7
-    bindsym $mod+8 workspace $workspace8
-    bindsym $mod+9 workspace $workspace9
-    bindsym $mod+0 workspace $workspace0
-    bindsym $mod+Ctrl+1 workspace $workspace11
-    bindsym $mod+Ctrl+2 workspace $workspace12
-    bindsym $mod+Ctrl+3 workspace $workspace13
-    bindsym $mod+Ctrl+4 workspace $workspace14
-    bindsym $mod+Ctrl+5 workspace $workspace15
-    bindsym $mod+Ctrl+6 workspace $workspace16
-    bindsym $mod+Ctrl+7 workspace $workspace17
-    bindsym $mod+Ctrl+8 workspace $workspace18
-    bindsym $mod+Ctrl+9 workspace $workspace19
-
-    # move focused container to workspace
-    bindsym $mod+Shift+1 move container to workspace $workspace1 
-    bindsym $mod+Shift+2 move container to workspace $workspace2 
-    bindsym $mod+Shift+3 move container to workspace $workspace3 
-    bindsym $mod+Shift+4 move container to workspace $workspace4
-    bindsym $mod+Shift+5 move container to workspace $workspace5
-    bindsym $mod+Shift+6 move container to workspace $workspace6
-    bindsym $mod+Shift+7 move container to workspace $workspace7
-    bindsym $mod+Shift+8 move container to workspace $workspace8
-    bindsym $mod+Shift+9 move container to workspace $workspace9
-    bindsym $mod+Shift+0 move container to workspace $workspace0
-    bindsym $mod+Shift+Ctrl+1 move container to workspace $workspace11
-    bindsym $mod+Shift+Ctrl+2 move container to workspace $workspace12
-    bindsym $mod+Shift+Ctrl+3 move container to workspace $workspace13
-    bindsym $mod+Shift+Ctrl+4 move container to workspace $workspace14
-    bindsym $mod+Shift+Ctrl+5 move container to workspace $workspace15
-    bindsym $mod+Shift+Ctrl+6 move container to workspace $workspace16
-    bindsym $mod+Shift+Ctrl+7 move container to workspace $workspace17
-    bindsym $mod+Shift+Ctrl+8 move container to workspace $workspace18
-    bindsym $mod+Shift+Ctrl+9 move container to workspace $workspace19
-
-    # if there is parent in group of containers, switch to parent before switch to other container
-    # https://www.reddit.com/r/i3wm/comments/4w0otj/is_there_a_way_to_switch_to_the_next_tab/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
-    bindsym $mod+Ctrl+h focus parent; focus left; focus child
-    bindsym $mod+Ctrl+Left focus parent; focus left; focus child
-    bindsym $mod+Ctrl+l focus parent; focus right; focus child
-    bindsym $mod+Ctrl+Right focus parent; focus right; focus child
-    bindsym $mod+Ctrl+j focus parent; focus down; focus child
-    bindsym $mod+Ctrl+Down focus parent; focus down; focus child
-    bindsym $mod+Ctrl+k focus parent; focus up; focus child
-    bindsym $mod+Ctrl+Up focus parent; focus up; focus child
-
-    # change focus
-    bindsym $mod+h focus left
-    bindsym $mod+j focus down
-    bindsym $mod+k focus up
-    bindsym $mod+l focus right
-
-    # alternatively, you can use the cursor keys:
-    bindsym $mod+Left focus left
-    bindsym $mod+Down focus down
-    bindsym $mod+Up focus up
-    bindsym $mod+Right focus right
-
-    # move focused window
-    bindsym $mod+Shift+h move left
-    bindsym $mod+Shift+j move down
-    bindsym $mod+Shift+k move up
-    bindsym $mod+Shift+l move right
-
-    # alternatively, you can use the cursor keys:
-    bindsym $mod+Shift+Left move left
-    bindsym $mod+Shift+Down move down
-    bindsym $mod+Shift+Up move up
-    bindsym $mod+Shift+Right move right
-
-    # switch to next workspace
-    bindsym $mod+Tab workspace back_and_forth
-    bindsym $mod+Shift+Tab workspace prev
-
-    # swap with adjacent window (left right) and maintain the original window size
-    bindsym $mod+a mark A; focus left; swap container with mark A; unmark A;
-    bindsym $mod+s mark A; focus right; swap container with mark A; unmark A;
-    # swap with adjacent window (up down) and maintain the original window size
-    bindsym $mod+x mark A; focus down; swap container with mark A; unmark A;
-
-    # split in horizontal orientation
-    # bindsym $mod+b split h
-    # split in vertical orientation
-    # bindsym $mod+v split v
-    # split toggle
-    bindsym $mod+u split toggle; layout stacked
-
-    # move workspace to another monitor
-    bindsym $mod+$alt+h move workspace to output left
-    bindsym $mod+$alt+l move workspace to output right
-    bindsym $mod+$alt+j move workspace to output down
-    bindsym $mod+$alt+k move workspace to output up
-
-    # Pulse Audio controls
-    bindsym $mod+plus exec "amixer -D pulse sset Master 1%+"
-    bindsym $mod+minus exec "amixer -D pulse sset Master 1%-"
-    bindsym $mod+Shift+m exec "amixer -D pulse sset Master mute"
-    bindsym $mod+Shift+u exec "amixer -D pulse sset Master unmute"
-
-    # mute microphone
-    bindsym $mod+Ctrl+m exec "amixer set Capture nocap"
-    # unmute microphone
-    bindsym $mod+Ctrl+u exec "amixer set Capture cap"
-
-    # Brightness controls
-    bindsym $mod+Shift+plus exec "sudo brightnessctl set 5%+"
-    bindsym $mod+Shift+minus exec "sudo brightnessctl set 5%-"
-    ########################
-}
-
-bindsym $mod+m mode "mouse"
+# bindsym $mod+m mode "mouse"
 # -----------------------------------------------------------
 
 # ------------------------------------------------------------
