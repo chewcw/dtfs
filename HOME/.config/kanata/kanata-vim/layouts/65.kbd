@@ -74,7 +74,7 @@
 )
 (deflayermap (vim-visual-override)
   esc @esc-caps
-  caps @caps-ctrl
+  caps @caps-to-normal
   grv caps
   del del
   pgup pgup
@@ -83,7 +83,7 @@
 )
 (deflayermap (vim-visual-line-override)
   esc @esc-caps
-  caps @caps-ctrl
+  caps @caps-to-normal
   grv caps
   del del
   pgup pgup
