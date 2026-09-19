@@ -103,14 +103,20 @@ then
 	export PATH="$HOME/.local/share/mise/shims:$PATH"
 fi
 
-# Build and install kanata with the cmd feature
-# Installed to ~/.local/bin/kanata, the path the user-level systemd
-# service units expect (ExecStart=%h/.local/bin/kanata)
+# Build and install kanata with the cmd feature from source
+# Installed to ~/.local/bin/kanata
 if [[ ! -f "$HOME/.local/bin/kanata" ]]; then
 	echo "------------------------------------------"
-	echo "Building kanata from source (cargo, cmd feature)"
+	echo "Building kanata from source (v1.12.0, cmd feature)"
 	echo "------------------------------------------"
-	CARGO_INSTALL_ROOT=$HOME/.local cargo install --git https://github.com/jtroo/kanata --features cmd kanata
+	cd /tmp
+	rm -rf /tmp/kanata
+	git clone https://github.com/jtroo/kanata.git /tmp/kanata || true
+	cd /tmp/kanata
+	git checkout v1.12.0 || true
+	cargo build --release --features cmd || true
+	mkdir -p $HOME/.local/bin
+	cp /tmp/kanata/target/release/kanata $HOME/.local/bin/kanata || true
 fi
 
 # uinput access for kanata running as a regular user
@@ -140,7 +146,9 @@ ln -sf $pwd/HOME/.config/kanata $HOME/.config/kanata
 mkdir -p $HOME/.config/systemd/user
 cp -f $pwd/HOME/.config/systemd/user/kanata-65.service $HOME/.config/systemd/user/
 cp -f $pwd/HOME/.config/systemd/user/kanata-75.service $HOME/.config/systemd/user/
-systemctl --user daemon-reload
+systemctl --user enable --now kanata-65.service || true
+systemctl --user enable --now kanata-75.service || true
+
 # NOTE: services are NOT enabled/started here:
 # - the uinput group membership above only takes effect after re-login
 # - run detect_keyboard.sh to enable and start the right kanata service

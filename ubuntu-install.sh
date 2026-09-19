@@ -163,12 +163,6 @@ fi
 #
 # sudo systemctl restart udevmon || true
 
-# Install kanata
-# echo "------------------------------------------"
-# echo "Installing Kanata"
-# echo "------------------------------------------"
-# TODO:
-
 # TODO: which one is better? xcape or caps2esc?
 # see: https://askubuntu.com/a/856887
 # sudo apt install -y xcape
@@ -176,6 +170,21 @@ fi
 # or just map caps to ctrl, if using above method, sometimes when press caps
 # then somehow I want to cancel the action, but it turns out escape was 
 # registered, so maybe it's better to separate the escape and control function.
+
+# Install kanata binary
+if [[ ! -f "$HOME/.local/bin/kanata" ]]; then
+	echo "------------------------------------------"
+	echo "Installing kanata from source"
+	echo "------------------------------------------"
+	cd /tmp
+	rm -rf /tmp/kanata
+	git clone https://github.com/jtroo/kanata.git /tmp/kanata || true
+	cd /tmp/kanata
+	git checkout v1.12.0 || true
+	cargo build --release --features cmd || true
+	mkdir -p $HOME/.local/bin
+	cp /tmp/kanata/target/release/kanata $HOME/.local/bin/kanata || true
+fi
 
 # Setup neovim
 # Install symlink for .vimrc
@@ -414,6 +423,9 @@ ln -sf $pwd/HOME/.local/bin/detect_keyboard.sh $HOME/.local/bin/detect_keyboard.
 mkdir -p $HOME/.config/systemd/user
 cp -f $pwd/HOME/.config/systemd/user/kanata-65.service $HOME/.config/systemd/user/
 cp -f $pwd/HOME/.config/systemd/user/kanata-75.service $HOME/.config/systemd/user/
+systemctl --user enable --now kanata-65.service || true
+systemctl --user enable --now kanata-75.service || true
+
 
 # Install vscodium
 # if ! command -v codium &>/dev/null
