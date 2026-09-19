@@ -34,12 +34,18 @@
 ;; ------------------------------------------------------------
 ;; met+n -> normal, met+i -> insert (from ANY mode)
 ;; Fork on met held: otherwise preserve the plain key behavior.
-;; - *_meta:      for base/insert layers (plain n/i passthrough)
+;; Meta output is only available in base mode: in every other mode
+;; the met keys map to no-op outputs (nop0/nop1) that stay visible
+;; to fork, so these chords keep working everywhere.
+;; - *_meta:      for base layer (plain n/i passthrough, real met held)
+;; - *_meta-ins:  for insert layer (plain n/i passthrough, met -> nop0/nop1)
 ;; - *_meta-vim:  for vim layers (plain key is blocked = XX)
 ;; ------------------------------------------------------------
 (defalias
   n-meta      (fork n  @switch-vim-normal (lmet rmet))
   i-meta      (fork i  @switch-insert     (lmet rmet))
-  n-meta-vim  (fork XX @switch-vim-normal (lmet rmet))
-  i-meta-vim  (fork XX @switch-insert     (lmet rmet))
+  n-meta-ins  (fork n  @switch-vim-normal (nop0 nop1))
+  i-meta-ins  (fork i  @switch-insert     (nop0 nop1))
+  n-meta-vim  (fork XX @switch-vim-normal (nop0 nop1))
+  i-meta-vim  (fork XX @switch-insert     (nop0 nop1))
 )

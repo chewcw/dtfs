@@ -32,16 +32,14 @@
 
 
 (deflayermap (vim-visual-line)
-  esc   (fork (multi @deselect @switch-vim-normal) _ (lmet rmet))
-  p     (fork (multi @paste    @switch-vim-normal) _ (lmet rmet))
-  y     (fork (multi (macro @copy @deselect)    @line-paste-on @switch-vim-normal) _ (lmet rmet))
-  d     (fork (fork
+  esc   (multi @deselect @switch-vim-normal)
+  p     (multi @paste    @switch-vim-normal)
+  y     (multi (macro @copy @deselect)    @line-paste-on @switch-vim-normal)
+  d     (fork
           (multi (macro @cut  @delete-left) @line-paste-on @switch-vim-normal)  ;;   d
           @select-line-half-page-down                                           ;; C-d
           (lctl rctl))
-          _
-          (lmet rmet))
-  u     (fork (fork
+  u     (fork
           XX
           (switch
             ((input-history real v 5))
@@ -53,40 +51,37 @@
               break
           ) ;; C-u
           (lctl rctl))
-          _
-          (lmet rmet))
 
-  x     (fork (multi (macro @cut  @delete-left) @line-paste-on @switch-vim-normal) _ (lmet rmet))
-  c     (fork (multi (macro @cut  @delete-left) @line-paste-on @switch-insert) _ (lmet rmet))
-  g     (fork (tap-dance 200
+  x     (multi (macro @cut  @delete-left) @line-paste-on @switch-vim-normal)
+  c     (multi (macro @cut  @delete-left) @line-paste-on @switch-insert)
+  g     (tap-dance 200
           ((t! action-shift XX
             ;; reselect line if selecting to start/end of document after
             ;; - entering visual line mode
             ;; - selecting in the opposite direction
             (t! down (or (input-history real v 5) (input-history real k 3)) @select-end-of-page))     ;; shift  tap (G)
             (t! up   (or (input-history real v 5) (input-history real j 3)) @select-start-of-page)))  ;; double tap (gg)
-          _
-          (lmet rmet))
 
   ;; reselect line for first motion after entering visual line mode
-  j     (fork (t! down (input-history real v 4) @select-line-below) _ (lmet rmet))
-  k     (fork (t! up   (input-history real v 4) @select-line-above) _ (lmet rmet))
+  j     (t! down (input-history real v 4) @select-line-below)
+  k     (t! up   (input-history real v 4) @select-line-above)
   n     @n-meta-vim
   i     @i-meta-vim
-  .     (fork tab   _ (lmet rmet))     ;; tap > (shift always pressed already?) -> move indentation right
-  ,     (fork S-tab _ (lmet rmet))     ;; tap < (shift always pressed already?) -> move indentation left
+  .     tab                   ;; tap > (shift always pressed already?) -> move indentation right
+  ,     S-tab                 ;; tap < (shift always pressed already?) -> move indentation left
 
-  ;; loop modifiers to the vim layer (lmet needed for M-n / M-i mode switch)
+  ;; loop modifiers to the vim layer
+  ;; (met keys are no-ops outside base; nop0/nop1 keep met+n/met-i switching alive)
   rctl  rctl
   lctl  lctl
-  lmet  lmet
-  rmet  rmet
+  lmet  nop0
+  rmet  nop1
   lalt  lalt
   ralt  @to-base
   lsft  lsft
   rsft  rsft
 
-  ;; block any other key presses, unless met is held (M-<key> OS shortcut passthrough)
-  ___   (fork XX _ (lmet rmet))
+  ;; block any other key presses
+  ___   XX
 )
 
