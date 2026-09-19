@@ -26,21 +26,21 @@
   tab  q    w    e    r    t    y    u    @i-meta    o    p    [    ]    \
   @caps-ctrl a    s    d    f    g    h    j    k    l    ;    '    ret
   lsft z    x    c    v    b    @n-meta    m    ,    .    /    rsft
-  lctl lmet lalt           spc            @to-base rmet rctl
+  lctl @lmet-to-base lalt  spc            ralt      rmet rctl
 )
 
 ;; ------------------------------------------------------------
 ;; Insert mode
-;; (lmet/rmet are no-ops here: meta output is only available in
-;; base mode; nop0/nop1 stay visible to fork so met+n/met-i switch)
+;; (lmet is the shared tap-hold: tap -> base, hold -> real met;
+;; rmet stays a no-op here, nop1 stays visible to fork)
 ;; ------------------------------------------------------------
 (deflayer insert
   @esc-caps
   grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
-  tab  q    w    e    r    t    y    u    @i-meta-ins    o    p    [    ]    \
+  tab  q    w    e    r    t    y    u    @i-meta    o    p    [    ]    \
   @caps-to-normal a    s    d    f    g    h    j    k    l    ;    '    ret
-  lsft z    x    c    v    b    @n-meta-ins    m    ,    .    /    rsft
-  (layer-while-held ctrl-layer)  nop0  (layer-while-held alt-layer)           spc            @to-base  nop1  rctl
+  lsft z    x    c    v    b    @n-meta    m    ,    .    /    rsft
+  (layer-while-held ctrl-layer)  @lmet-to-base  (layer-while-held alt-layer)  spc  ralt  nop1  rctl
 )
 
 ;; ------------------------------------------------------------

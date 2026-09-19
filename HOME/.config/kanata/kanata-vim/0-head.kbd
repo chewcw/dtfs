@@ -26,7 +26,10 @@
   to-normal  @switch-vim-normal
   to-insert  @switch-insert
   to-visual  @switch-vim-visual
-  to-base    @switch-base
+  ;; lmet tap-hold (every layer): tap -> base, hold -> real met.
+  ;; tap-hold-press resolves as hold when another key is pressed, so
+  ;; met+n / met+i chords and cmd-combos still work when rolled fast.
+  lmet-to-base (tap-hold-press 100 100 @switch-base lmet)
   ;; insert mode: tap caps -> normal, hold caps -> ctrl-layer helpers
   caps-to-normal (tap-hold 100 100 @switch-vim-normal (layer-while-held ctrl-layer))
 )
@@ -34,18 +37,15 @@
 ;; ------------------------------------------------------------
 ;; met+n -> normal, met+i -> insert (from ANY mode)
 ;; Fork on met held: otherwise preserve the plain key behavior.
-;; Meta output is only available in base mode: in every other mode
-;; the met keys map to no-op outputs (nop0/nop1) that stay visible
-;; to fork, so these chords keep working everywhere.
-;; - *_meta:      for base layer (plain n/i passthrough, real met held)
-;; - *_meta-ins:  for insert layer (plain n/i passthrough, met -> nop0/nop1)
+;; lmet is a tap-hold in every layer (tap -> base, hold -> real met),
+;; so the chords check real met directly on every layer.
+;; rmet stays plain in base and nop1 elsewhere (checked via nop1).
+;; - *_meta:      for base + insert layers (plain n/i passthrough)
 ;; - *_meta-vim:  for vim layers (plain key is blocked = XX)
 ;; ------------------------------------------------------------
 (defalias
-  n-meta      (fork n  @switch-vim-normal (lmet rmet))
-  i-meta      (fork i  @switch-insert     (lmet rmet))
-  n-meta-ins  (fork n  @switch-vim-normal (nop0 nop1))
-  i-meta-ins  (fork i  @switch-insert     (nop0 nop1))
-  n-meta-vim  (fork XX @switch-vim-normal (nop0 nop1))
-  i-meta-vim  (fork XX @switch-insert     (nop0 nop1))
+  n-meta      (fork n  @switch-vim-normal (lmet rmet nop1))
+  i-meta      (fork i  @switch-insert     (lmet rmet nop1))
+  n-meta-vim  (fork XX @switch-vim-normal (lmet rmet nop1))
+  i-meta-vim  (fork XX @switch-insert     (lmet rmet nop1))
 )

@@ -71,13 +71,14 @@
   ,     S-tab                 ;; tap < (shift always pressed already?) -> move indentation left
 
   ;; loop modifiers to the vim layer
-  ;; (met keys are no-ops outside base; nop0/nop1 keep met+n/met-i switching alive)
+  ;; (lmet is the shared tap-hold: tap -> base, hold -> real met;
+  ;; rmet stays a no-op here, nop1 keeps met+n/met-i switching alive)
   rctl  rctl
   lctl  lctl
-  lmet  nop0
+  lmet  @lmet-to-base
   rmet  nop1
   lalt  lalt
-  ralt  @to-base
+  ralt  ralt
   lsft  lsft
   rsft  rsft
 
