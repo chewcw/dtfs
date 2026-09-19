@@ -43,9 +43,12 @@ echo "------------------------------------------"
 ln -sf $pwd/HOME/.gitconfig $HOME/.gitconfig
 
 # Install mapping caps to ctrl (or remapping capslock to escape AND ctrl)
-echo "------------------------------------------"
-echo "Installing interception tools and caps2esc"
-echo "------------------------------------------"
+# NOTE: kanata (installed below) handles the caps -> esc/ctrl remapping now,
+# same as on ubuntu. Do NOT run caps2esc/interception alongside kanata:
+# both grab KEY_CAPSLOCK and would conflict.
+# echo "------------------------------------------"
+# echo "Installing interception tools and caps2esc"
+# echo "------------------------------------------"
 # when press caps alone, send escape
 # when press caps with another key, send ctrl
 # caps2esc
@@ -59,14 +62,14 @@ echo "------------------------------------------"
 # added another 2 special modes:
 # mode 3 for normal keyboard, mode 4 for 60% layouts keyboard
 
-sudo bash -c 'cat << EOF > /etc/interception/udevmon.yaml
-- JOB: "intercept -g \$DEVNODE | caps2esc -m 3 | uinput -d \$DEVNODE"
-  DEVICE:
-      EVENTS:
-        EV_KEY: [KEY_CAPSLOCK, KEY_ESC]
-EOF'
-
-sudo systemctl restart udevmon || true
+# sudo bash -c 'cat << EOF > /etc/interception/udevmon.yaml
+# - JOB: "intercept -g \$DEVNODE | caps2esc -m 3 | uinput -d \$DEVNODE"
+#   DEVICE:
+#       EVENTS:
+#         EV_KEY: [KEY_CAPSLOCK, KEY_ESC]
+# EOF'
+#
+# sudo systemctl restart udevmon || true
 
 # TODO: which one is better? xcape or caps2esc?
 # see: https://askubuntu.com/a/856887
@@ -75,6 +78,74 @@ sudo systemctl restart udevmon || true
 # or just map caps to ctrl, if using above method, sometimes when press caps
 # then somehow I want to cancel the action, but it turns out escape was 
 # registered, so maybe it's better to separate the escape and control function.
+
+# Install kanata (keyboard remapper, replaces caps2esc/interception)
+# kanata is NOT in the official Arch repos, and the AUR kanata/kanata-bin
+# packages are built WITHOUT the cmd feature. The kanata-vim config requires
+# cmd ((cmd ...) publishes the vim mode for i3), so build from the kanata
+# git source with cargo instead.
+
+# Install mise (runtime manager, in the official extra repo), then rust (cargo) via mise
+if ! command -v mise &>/dev/null
+then
+	echo "------------------------------------------"
+	echo "Installing mise"
+	echo "------------------------------------------"
+	sudo pacman -S --noconfirm mise
+fi
+
+if ! command -v cargo &>/dev/null
+then
+	echo "------------------------------------------"
+	echo "Installing rust (cargo) via mise"
+	echo "------------------------------------------"
+	mise use -g rust
+	export PATH="$HOME/.local/share/mise/shims:$PATH"
+fi
+
+# Build and install kanata with the cmd feature
+# Installed to ~/.local/bin/kanata, the path the user-level systemd
+# service units expect (ExecStart=%h/.local/bin/kanata)
+if [[ ! -f "$HOME/.local/bin/kanata" ]]; then
+	echo "------------------------------------------"
+	echo "Building kanata from source (cargo, cmd feature)"
+	echo "------------------------------------------"
+	CARGO_INSTALL_ROOT=$HOME/.local cargo install --git https://github.com/jtroo/kanata --features cmd kanata
+fi
+
+# uinput access for kanata running as a regular user
+# see: https://github.com/jtroo/kanata/blob/main/docs/setup-linux.md
+# 1. uinput group (does not exist by default on Arch) + user membership
+#    (input group for reading input devices)
+getent group uinput &>/dev/null || sudo groupadd --system uinput
+sudo usermod -aG input,uinput $whoami
+# 2. load the uinput kernel module now and at every boot (Arch: modules-load.d)
+sudo modprobe uinput || true
+echo uinput | sudo tee /etc/modules-load.d/uinput.conf > /dev/null
+# 3. udev rule so /dev/uinput is owned by the uinput group
+sudo tee /etc/udev/rules.d/99-input.rules > /dev/null <<'EOF'
+KERNEL=="uinput", MODE="0660", GROUP="uinput", OPTIONS+="static_node=uinput"
+EOF
+sudo udevadm control --reload-rules && sudo udevadm trigger
+
+# Setup kanata
+# Install symlink for kanata config (from dtfs repo)
+echo "------------------------------------------"
+echo "Installing symlink for kanata config"
+echo "------------------------------------------"
+ln -sf $pwd/HOME/.config/kanata $HOME/.config/kanata
+
+# Copy kanata systemd user service files
+# kanata-65 for Royal Kludge keyboards, kanata-75 for the default keyboard
+mkdir -p $HOME/.config/systemd/user
+cp -f $pwd/HOME/.config/systemd/user/kanata-65.service $HOME/.config/systemd/user/
+cp -f $pwd/HOME/.config/systemd/user/kanata-75.service $HOME/.config/systemd/user/
+systemctl --user daemon-reload
+# NOTE: services are NOT enabled/started here:
+# - the uinput group membership above only takes effect after re-login
+# - run detect_keyboard.sh to enable and start the right kanata service
+#   (it stops both services first, then starts the one matching the
+#   detected keyboard)
 
 # Setup neovim
 # Install symlink for .vimrc
