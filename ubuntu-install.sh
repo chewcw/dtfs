@@ -410,6 +410,11 @@ echo "Installing symlink for detect keyboard"
 echo "------------------------------------------"
 ln -sf $pwd/HOME/.local/bin/detect_keyboard.sh $HOME/.local/bin/detect_keyboard.sh
 
+# Copy kanata systemd service files
+mkdir -p $HOME/.config/systemd/user
+cp -f $pwd/HOME/.config/systemd/user/kanata-65.service $HOME/.config/systemd/user/
+cp -f $pwd/HOME/.config/systemd/user/kanata-75.service $HOME/.config/systemd/user/
+
 # Install vscodium
 # if ! command -v codium &>/dev/null
 # then

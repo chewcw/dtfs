@@ -1,0 +1,12 @@
+[Unit]
+Description=Kanata 65-key (Royal Kludge)
+After=graphical-session.target
+
+[Service]
+Type=simple
+ExecStart=%h/.local/bin/kanata -c %h/.config/kanata/kanata-vim-65.kbd
+Restart=on-failure
+RestartSec=1
+
+[Install]
+WantedBy=default.target

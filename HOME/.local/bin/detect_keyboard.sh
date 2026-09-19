@@ -3,11 +3,13 @@
 set -e
 
 kill_existing_kanata() {
-  # Kill running kanata instance first, if any
+  # Stop any running systemd kanata services first
+  echo "Stopping existing kanata services..."
+  systemctl --user stop kanata-65.service kanata-75.service 2>/dev/null || true
+  # Also kill any stray kanata instance not under systemd
   if pgrep -x kanata &>/dev/null; then
-    echo "Killing existing kanata instance..."
+    echo "Killing stray kanata instance..."
     pkill -x kanata
-    # Give it a moment to exit before starting a new one
     sleep 0.5
   fi
 }
@@ -37,12 +39,16 @@ detect_royal_kludge_keyboard() {
   return 1
 }
 
+# Register service files and reload daemon
+systemctl --user daemon-reload 2>/dev/null || true
+systemctl --user enable kanata-65.service kanata-75.service 2>/dev/null || true
+
 kill_existing_kanata
 
 if detect_royal_kludge_keyboard; then
-  echo "Royal Kludge detected, starting kanata with 65-key config..."
-  nohup kanata -c "$HOME/.config/kanata/kanata-vim-65.kbd" >>/tmp/kanata.log 2>&1 & disown
+  echo "Royal Kludge detected, starting kanata-65.service..."
+  systemctl --user start kanata-65.service
 else
-  echo "Royal Kludge not detected, starting kanata with 75-key config..."
-  nohup kanata -c "$HOME/.config/kanata/kanata-vim-75.kbd" >>/tmp/kanata.log 2>&1 & disown
+  echo "Royal Kludge not detected, starting kanata-75.service..."
+  systemctl --user start kanata-75.service
 fi
