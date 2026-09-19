@@ -4,7 +4,7 @@ After=graphical-session.target
 
 [Service]
 Type=simple
-ExecStart=%h/.local/bin/kanata -c %h/.config/kanata/kanata-vim-65.kbd
+ExecStart=%h/.local/bin/kanata -c %h/.config/kanata/kanata-vim-65.kbd --no-wait
 Restart=on-failure
 RestartSec=1
 
