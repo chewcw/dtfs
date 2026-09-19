@@ -16,7 +16,7 @@
 (defalias
   esc-caps caps
   left-ctrl-esc esc
-  caps-ctrl (tap-hold 200 100 esc lctl)
+  caps-ctrl (tap-hold 100 100 esc lctl)
 )
 
 ;; ------------------------------------------------------------
@@ -28,7 +28,7 @@
   to-visual  @switch-vim-visual
   to-base    @switch-base
   ;; insert mode: tap caps -> normal, hold caps -> ctrl-layer helpers
-  caps-to-normal (tap-hold 200 100 @switch-vim-normal (layer-while-held ctrl-layer))
+  caps-to-normal (tap-hold 100 100 @switch-vim-normal (layer-while-held ctrl-layer))
 )
 
 ;; ------------------------------------------------------------
