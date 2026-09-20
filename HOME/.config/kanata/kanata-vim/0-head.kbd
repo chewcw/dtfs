@@ -17,6 +17,7 @@
   esc-caps caps
   left-ctrl-esc esc
   caps-ctrl (tap-hold 100 100 esc lctl)
+  caps-ctrl-only lctl
 )
 
 ;; ------------------------------------------------------------
