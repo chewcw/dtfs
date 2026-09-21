@@ -1795,6 +1795,9 @@ local default_plugins = {
   {
     "folke/twilight.nvim",
     cmd = { "Twilight" },
+    init = function()
+      require("custom.twilight_shim").setup()
+    end,
   },
 
   {
