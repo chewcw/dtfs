@@ -33,7 +33,7 @@
   1    2    3    4    5    6    7    8    9    0    -    =    bspc caps
   tab  q    w    e    r    t    y    u    @i-meta    o    p    [    ]    \    del
   @caps-ctrl a    s    d    f    g    h    j    k    l    ;    '    ret  pgup
-  lsft z    x    c    v    b    @n-meta    m    ,    .    /    rsft up   pgdn
+  lsft z    x    c    v    b    @n-meta    @m-meta    ,    .    /    rsft up   pgdn
   lctl @lmet-to-base lalt  spc            ralt      fn   rctl left down rght
 )
 
@@ -46,7 +46,7 @@
   1    2    3    4    5    6    7    8    9    0    -    =    bspc caps
   tab  q    w    e    r    t    y    u    @i-meta    o    p    [    ]    \    del
   @caps-to-normal a    s    d    f    g    h    j    k    l    ;    '    ret  pgup
-  lsft z    x    c    v    b    @n-meta    m    ,    .    /    rsft up   pgdn
+  lsft z    x    c    v    b    @n-meta    @m-meta    ,    .    /    rsft up   pgdn
   (layer-while-held ctrl-layer)  @lmet-to-base  (layer-while-held alt-layer)  spc  ralt  fn  rctl  left  down  rght
 )
 

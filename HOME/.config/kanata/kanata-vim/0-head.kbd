@@ -8,6 +8,8 @@
   process-unmapped-keys yes
   danger-enable-cmd yes
   alias-to-trigger-on-load switch-base
+  movemouse-smooth-diagonals yes
+  movemouse-inherit-accel-state yes
 )
 
 ;; ------------------------------------------------------------

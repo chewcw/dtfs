@@ -17,6 +17,7 @@
   k     @up
   l     @right
   n     @n-meta-vim
+  m     @m-meta-vim
   b     @start-of-word
   e     @end-of-word
   w     (switch

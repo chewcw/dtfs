@@ -25,8 +25,8 @@
   grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
   tab  q    w    e    r    t    y    u    @i-meta    o    p    [    ]    \
   @caps-ctrl a    s    d    f    g    h    j    k    l    ;    '    ret
-  lsft z    x    c    v    b    @n-meta    m    ,    .    /    rsft
   lctl @lmet-to-base lalt  spc            ralt      rmet rctl
+  lsft z    x    c    v    b    @n-meta    @m-meta    ,    .    /    rsft
 )
 
 ;; ------------------------------------------------------------
@@ -39,8 +39,8 @@
   grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
   tab  q    w    e    r    t    y    u    @i-meta    o    p    [    ]    \
   @caps-to-normal a    s    d    f    g    h    j    k    l    ;    '    ret
-  lsft z    x    c    v    b    @n-meta    m    ,    .    /    rsft
   (layer-while-held ctrl-layer)  @lmet-to-base  (layer-while-held alt-layer)  spc  ralt  nop1  rctl
+  lsft z    x    c    v    b    @n-meta    @m-meta    ,    .    /    rsft
 )
 
 ;; ------------------------------------------------------------

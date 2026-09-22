@@ -25,6 +25,7 @@
   0     @select-start-of-line
   n     @n-meta-vim
   i     @i-meta-vim
+  m     @m-meta-vim
   g     (tap-dance 200
           ((t! action-shift XX
             @select-end-of-page)        ;; shift  tap (G)

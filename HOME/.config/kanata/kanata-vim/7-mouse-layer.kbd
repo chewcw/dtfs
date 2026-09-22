@@ -1,0 +1,160 @@
+;; ------------------------------------------------------------
+;; Shared mouse layer (keyboard-driven mouse).
+;; Enter from any mode with met+m (hold lmet, tap m).
+;; Persistent switch: esc or tap lmet or met+m -> base,
+;; met+n -> normal, met+i -> insert.
+;; Included AFTER the per-layout file so (deflayer base ...)
+;; stays the FIRST layer definition (index 0 = startup layer).
+;; Rate control: hold tab FIRST, then the action -> faster;
+;; hold alt FIRST, then the action -> slower. Applies to hjkl
+;; cursor moves and u/n/,/. scrolling. Plain action = default.
+;; tab outputs nop9 (app-invisible, only fork/switch-visible).
+;; ctrl acts as pass-through: it is never consumed and never selects
+;; a rate — it stays live for usual app behavior (e.g. ctrl+wheel
+;; zoom at normal rate, slow zoom with alt held too, faster zoom
+;; with tab held too). So ctrl+alt+scroll still scrolls, but slower.
+;; The ctrl-esc key (caps) also acts as ctrl here.
+;; shift also passes through untouched (e.g. shift+wheel horizontal).
+;; Scroll fast/slow variants swallow alt (+shift in fast) so apps
+;; don't see alt+wheel or shift+wheel; movement keeps modifiers live
+;; so ctrl+click, shift+click etc. still work. Arrows stay 1px always.
+;; NOTE: setmouse is intentionally omitted (not supported on Linux).
+;; ------------------------------------------------------------
+
+(t! switch- mouse
+    MOUSE
+    vim-normal vim-visual vim-visual-line
+    nop0
+)
+
+(defalias
+  ;; cursor: accelerated (hold to speed up), doc defaults
+  ms-l (movemouse-accel-left  1 1000 1 5)
+  ms-d (movemouse-accel-down  1 1000 1 5)
+  ms-u (movemouse-accel-up    1 1000 1 5)
+  ms-r (movemouse-accel-right 1 1000 1 5)
+  ;; cursor: fine 1px steps on arrows
+  px-l (movemouse-left  1 1)
+  px-d (movemouse-down  1 1)
+  px-u (movemouse-up    1 1)
+  px-r (movemouse-right 1 1)
+  ;; wheel: doc defaults (interval 50ms, 120 = one notch)
+  wh-u (mwheel-up    50 120)
+  wh-d (mwheel-down  50 120)
+  wh-l (mwheel-left  50 120)
+  wh-r (mwheel-right 50 120)
+  ;; wheel: fast (15ms) / slow (150ms), same notch distance
+  wh-u-fast (mwheel-up    15 120)
+  wh-d-fast (mwheel-down  15 120)
+  wh-l-fast (mwheel-left  15 120)
+  wh-r-fast (mwheel-right 15 120)
+  wh-u-slow (mwheel-up    150 120)
+  wh-d-slow (mwheel-down  150 120)
+  wh-l-slow (mwheel-left  150 120)
+  wh-r-slow (mwheel-right 150 120)
+  ;; cursor: fast accel (ramps quicker, higher max)
+  ms-l-fast (movemouse-accel-left  1 800 5 15)
+  ms-d-fast (movemouse-accel-down  1 800 5 15)
+  ms-u-fast (movemouse-accel-up    1 800 5 15)
+  ms-r-fast (movemouse-accel-right 1 800 5 15)
+  ;; cursor: slow fixed 1px steps (~100px/s)
+  ms-l-slow (movemouse-left  5 1)
+  ms-d-slow (movemouse-down  5 1)
+  ms-u-slow (movemouse-up    5 1)
+  ms-r-slow (movemouse-right 5 1)
+  ;; speed modifiers (hold together with a movement key)
+  spd-slow (movemouse-speed 100)
+  spd-fast (movemouse-speed 200)
+
+  ;; entry: base/insert keep plain m, vim modes keep blocking (XX)
+  ;; exclusive meta: only meta (no shift/ctrl/alt) triggers exits
+  m-meta     (switch
+               ((and (or lmet rmet nop1) (not lsft rsft) (not lctl rctl) (not lalt ralt) (not tab nop9))) @switch-mouse break
+               () m break)
+  m-meta-vim (switch
+               ((and (or lmet rmet nop1) (not lsft rsft) (not lctl rctl) (not lalt ralt) (not tab nop9))) @switch-mouse break
+               () XX break)
+  ;; inside mouse layer: plain action, met-chord exits (exclusive)
+  i-mouse (switch
+            ((and (or lmet rmet nop1) (not lsft rsft) (not lctl rctl) (not lalt ralt) (not tab nop9))) @switch-insert break
+            () XX break)
+  m-mouse (switch
+            ((and (or lmet rmet nop1) (not lsft rsft) (not lctl rctl) (not lalt ralt) (not tab nop9))) @switch-base break
+            () XX break)
+)
+
+;; tab -> $fast, alt -> $slow, else $normal (tab wins if both).
+;; ctrl is pass-through: never a fork trigger, never released, so
+;; ctrl+action = $normal+ctrl, ctrl+alt+action = $slow+ctrl, etc.
+;; shift likewise stays live here so click-combos keep working.
+(deftemplate move-mod (normal fast slow)
+  (fork
+    (fork $normal $slow (lalt ralt))
+    $fast
+    (tab nop9))
+)
+
+;; same shape, but the fast (tab) and slow (alt) scroll variants
+;; swallow alt (fast also swallows shift) so scrolling never arrives
+;; at the app as alt+wheel (or shift+wheel when fast); ctrl is
+;; pass-through and stays live for zoom behavior, so ctrl+alt+scroll
+;; still scrolls but slower (slow zoom). shift stays live on slow so
+;; shift+wheel horizontal keeps working at the slow rate.
+;; (tab needs no release: nop9 is app-invisible.)
+(deftemplate wheel-mod (normal fast slow)
+  (fork
+    (fork $normal (multi (release-key lalt) (release-key ralt) $slow) (lalt ralt))
+    (multi (release-key lsft) (release-key rsft) (release-key lalt) (release-key ralt) $fast)
+    (tab nop9))
+)
+
+(deflayermap (mouse)
+  ;; hjkl: accelerated cursor, tab = faster, alt = slower
+  h (t! move-mod @ms-l @ms-l-fast @ms-l-slow)
+  j (t! move-mod @ms-d @ms-d-fast @ms-d-slow)
+  k (t! move-mod @ms-u @ms-u-fast @ms-u-slow)
+  l (t! move-mod @ms-r @ms-r-fast @ms-r-slow)
+  ;; arrows: fine 1px cursor
+  lft @px-l
+  down @px-d
+  up @px-u
+  rght @px-r
+  ;; clicks (hold variants, so drag works: hold s + move)
+  s mlft
+  d mmid
+  f mrgt
+  ;; wheel, tab = faster, alt = slower
+  ;; (n keeps its met+n -> normal exit via the outer switch)
+  u (t! wheel-mod @wh-u @wh-u-fast @wh-u-slow)
+  n (switch
+      ((and (or lmet rmet nop1) (not lsft rsft) (not lctl rctl) (not lalt ralt) (not tab nop9))) @switch-vim-normal break
+      () (t! wheel-mod @wh-d @wh-d-fast @wh-d-slow) break)
+  , (t! wheel-mod @wh-l @wh-l-fast @wh-l-slow)
+  . (t! wheel-mod @wh-r @wh-r-fast @wh-r-slow)
+  ;; speed (hold with movement)
+  z @spd-slow
+  x @spd-fast
+  ;; tab is the fast modifier: nop9 output is app-invisible
+  ;; but visible to fork/switch checks
+  tab nop9
+  ;; entry/exit keys
+  m @m-mouse
+  i @i-mouse
+  esc @switch-base
+
+  ;; loop modifiers (same pattern as vim layers)
+  ;; caps is the ctrl-esc key: act as ctrl here so ctrl-chords
+  ;; (e.g. caps+alt+scroll = slow zoom) keep working while mousing.
+  caps @caps-ctrl-only
+  rctl rctl
+  lctl lctl
+  lmet (tap-hold-press 100 100 @switch-base nop1)
+  rmet nop1
+  lalt lalt
+  ralt ralt
+  lsft lsft
+  rsft rsft
+
+  ;; block anything else (avoid typing while mousing)
+  ___ XX
+)

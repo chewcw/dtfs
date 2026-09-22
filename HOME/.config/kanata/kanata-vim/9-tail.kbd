@@ -9,3 +9,4 @@
 (deflayermap (ctrl-layer-override))
 (deflayermap (alt-layer-override))
 (deflayermap (insert-override))
+(deflayermap (mouse-override))

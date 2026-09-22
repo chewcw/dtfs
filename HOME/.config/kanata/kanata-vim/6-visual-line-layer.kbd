@@ -67,6 +67,7 @@
   k     (t! up   (input-history real v 4) @select-line-above)
   n     @n-meta-vim
   i     @i-meta-vim
+  m     @m-meta-vim
   .     tab                   ;; tap > (shift always pressed already?) -> move indentation right
   ,     S-tab                 ;; tap < (shift always pressed already?) -> move indentation left
 
