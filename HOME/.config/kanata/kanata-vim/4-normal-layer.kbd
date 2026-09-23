@@ -16,7 +16,7 @@
   j     @down
   k     @up
   l     @right
-  n     @n-meta-vim
+  n     (fork XX @switch-base (lmet rmet nop1))
   m     @m-meta-vim
   b     @start-of-word
   e     @end-of-word

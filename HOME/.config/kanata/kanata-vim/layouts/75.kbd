@@ -37,7 +37,7 @@
 (deflayer insert
   @esc-caps
   grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
-  tab  q    w    e    r    t    y    u    @i-meta    o    p    [    ]    \
+  tab  q    w    e    r    t    y    u    (fork i @switch-base (lmet rmet nop1))    o    p    [    ]    \
   @caps-to-normal a    s    d    f    g    h    j    k    l    ;    '    ret
   lsft z    x    c    v    b    @n-meta    @m-meta    ,    .    /    rsft
   lctl  @lmet-to-base  (layer-while-held alt-layer)  spc  ralt  nop1  rctl
