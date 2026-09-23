@@ -28,10 +28,10 @@
 
 (defalias
   ;; cursor: accelerated (hold to speed up), doc defaults
-  ms-l (movemouse-accel-left  1 1000 1 5)
-  ms-d (movemouse-accel-down  1 1000 1 5)
-  ms-u (movemouse-accel-up    1 1000 1 5)
-  ms-r (movemouse-accel-right 1 1000 1 5)
+  ms-l (movemouse-accel-left  1 800 1 5)
+  ms-d (movemouse-accel-down  1 800 1 5)
+  ms-u (movemouse-accel-up    1 800 1 5)
+  ms-r (movemouse-accel-right 1 800 1 5)
   ;; cursor: fine 1px steps on arrows
   px-l (movemouse-left  1 1)
   px-d (movemouse-down  1 1)
@@ -52,10 +52,10 @@
   wh-l-slow (mwheel-left  150 120)
   wh-r-slow (mwheel-right 150 120)
   ;; cursor: fast accel (ramps quicker, higher max)
-  ms-l-fast (movemouse-accel-left  1 800 5 15)
-  ms-d-fast (movemouse-accel-down  1 800 5 15)
-  ms-u-fast (movemouse-accel-up    1 800 5 15)
-  ms-r-fast (movemouse-accel-right 1 800 5 15)
+  ms-l-fast (movemouse-accel-left  1 100 2 5)
+  ms-d-fast (movemouse-accel-down  1 100 2 5)
+  ms-u-fast (movemouse-accel-up    1 100 2 5)
+  ms-r-fast (movemouse-accel-right 1 100 2 5)
   ;; cursor: slow fixed 1px steps (~100px/s)
   ms-l-slow (movemouse-left  5 1)
   ms-d-slow (movemouse-down  5 1)
