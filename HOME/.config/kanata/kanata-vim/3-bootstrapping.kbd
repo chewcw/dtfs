@@ -13,7 +13,7 @@
 ;; - activate the corresponding overlay layer
 ;; - execute mode-specific actions
 ;;
-(deftemplate switch- (target-layer mode non-layer1 non-layer2 non-layer3 action)
+(deftemplate switch- (target-layer mode action)
   (defvirtualkeys
     (concat layer-switch-   $target-layer)
     (layer-switch $target-layer)
@@ -40,9 +40,16 @@
       )
 
       (macro
-        (on-press release-vkey (concat override-layer- $non-layer1))
-        (on-press release-vkey (concat override-layer- $non-layer2))
-        (on-press release-vkey (concat override-layer- $non-layer3))
+        ;; Release ALL mode overrides first (releasing an unheld
+        ;; vkey is a no-op). The old 3-param version only released
+        ;; vim overrides and leaked one layer-while-held per switch,
+        ;; stacking duplicates until MAX_ACTIVE_LAYERS=12.
+        (on-press release-vkey override-layer-base)
+        (on-press release-vkey override-layer-insert)
+        (on-press release-vkey override-layer-mouse)
+        (on-press release-vkey override-layer-vim-normal)
+        (on-press release-vkey override-layer-vim-visual)
+        (on-press release-vkey override-layer-vim-visual-line)
         (on-press tap-vkey     (concat layer-switch-   $target-layer))
         (on-press press-vkey   (concat override-layer- $target-layer))
       )
@@ -52,31 +59,26 @@
 
 (t! switch- insert
     INSERT
-    vim-normal vim-visual vim-visual-line
     @line-paste-off
 )
 
 (t! switch- base
     BASE
-    vim-normal vim-visual vim-visual-line
     nop0
 )
 
 (t! switch- vim-normal
     NORMAL
-    vim-visual vim-visual-line insert
     nop0
 )
 
 (t! switch- vim-visual
     VISUAL
-    vim-normal vim-visual-line insert
     nop0
 )
 
 (t! switch- vim-visual-line
     VISUAL-LINE
-    vim-normal vim-visual insert
     @select-line
 )
 

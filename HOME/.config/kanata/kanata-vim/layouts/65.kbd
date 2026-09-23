@@ -47,7 +47,7 @@
   tab  q    w    e    r    t    y    u    @i-meta    o    p    [    ]    \    del
   @caps-to-normal a    s    d    f    g    h    j    k    l    ;    '    ret  pgup
   lsft z    x    c    v    b    @n-meta    @m-meta    ,    .    /    rsft up   pgdn
-  (layer-while-held ctrl-layer)  @lmet-to-base  (layer-while-held alt-layer)  spc  ralt  fn  rctl  left  down  rght
+  lctl  @lmet-to-base  (layer-while-held alt-layer)  spc  ralt  fn  rctl  left  down  rght
 )
 
 ;; ------------------------------------------------------------

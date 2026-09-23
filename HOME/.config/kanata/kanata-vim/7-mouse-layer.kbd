@@ -23,7 +23,6 @@
 
 (t! switch- mouse
     MOUSE
-    vim-normal vim-visual vim-visual-line
     nop0
 )
 

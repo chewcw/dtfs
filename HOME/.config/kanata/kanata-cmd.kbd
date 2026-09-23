@@ -1,3 +1,0 @@
-(defalias
-  rctl (cmd xhisper)
-)
