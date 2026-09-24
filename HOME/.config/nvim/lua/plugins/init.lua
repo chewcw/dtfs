@@ -1515,6 +1515,7 @@ local default_plugins = {
         ["g?"] = { "actions.show_help", mode = "n" },
         ["<CR>"] = "actions.select",
         ["<C-l>"] = "actions.select",
+        ["<C-y>"] = "actions.select",
         ["-"] = { "actions.parent", mode = "n" },
         ["<C-h>"] = { "actions.parent", mode = "n" },
         ["<C-j>"] = { "j", mode = "n" },
