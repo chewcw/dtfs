@@ -13,6 +13,7 @@
 (include kanata-vim/3-bootstrapping.kbd)
 (include kanata-vim/0-head.kbd)
 (include kanata-vim/layouts/65.kbd)
+(include kanata-vim/8-function-row.kbd)
 (include kanata-vim/4-normal-layer.kbd)
 (include kanata-vim/5-visual-layer.kbd)
 (include kanata-vim/6-visual-line-layer.kbd)

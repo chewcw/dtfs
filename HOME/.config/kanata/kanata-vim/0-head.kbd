@@ -52,3 +52,26 @@
   n-meta-vim  (fork XX @switch-vim-normal (lmet rmet nop1))
   i-meta-vim  (fork XX @switch-insert     (lmet rmet nop1))
 )
+
+(deftemplate function-row-pass (fallback)
+  (switch
+    ((input virtual function-row-active)) _ break
+    () $fallback break
+  )
+)
+
+(defalias
+  ralt-function-row
+    (tap-hold
+      $function-row-tap-timeout
+      $function-row-hold-timeout
+      (macro
+        (on-press toggle-vkey function-row-active)
+        1
+        (cmd sh -c
+          "mkdir -p /home/ccw/.cache && touch /home/ccw/.cache/kanata-mode && if grep -q -- '-FUNC$' /home/ccw/.cache/kanata-mode; then sed -i 's/-FUNC$//' /home/ccw/.cache/kanata-mode; else sed -i 's/$/-FUNC/' /home/ccw/.cache/kanata-mode; fi"
+        )
+      )
+      ralt
+    )
+)

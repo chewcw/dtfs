@@ -1,4 +1,19 @@
 ;; ------------
+;; Function-row state
+;; ------------
+;;
+;; Defined before the mode-switch template so status publishing can
+;; check the virtual key directly.
+(defvar
+  function-row-tap-timeout  100
+  function-row-hold-timeout 150
+)
+
+(defvirtualkeys
+  function-row-active (layer-while-held function-row)
+)
+
+;; ------------
 ;; Switch Vim Modes
 ;; ------------
 ;;
@@ -30,13 +45,28 @@
       $action
 
       ;; Publish current vim mode to i3
-      (cmd sh -c
-        (concat
-          "mkdir -p /home/ccw/.cache && "
-          "printf '%s' "
-          $mode
-          " > /home/ccw/.cache/kanata-mode"
-        )
+      (switch
+        ((input virtual function-row-active))
+          (cmd sh -c
+            (concat
+              "mkdir -p /home/ccw/.cache && "
+              "printf '%s' "
+              $mode
+              "-FUNC"
+              " > /home/ccw/.cache/kanata-mode"
+            )
+          )
+          break
+        ()
+          (cmd sh -c
+            (concat
+              "mkdir -p /home/ccw/.cache && "
+              "printf '%s' "
+              $mode
+              " > /home/ccw/.cache/kanata-mode"
+            )
+          )
+          break
       )
 
       (macro

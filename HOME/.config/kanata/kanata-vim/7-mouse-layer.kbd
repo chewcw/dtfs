@@ -150,7 +150,7 @@
   lmet (tap-hold-press 100 100 @switch-base nop1)
   rmet nop1
   lalt lalt
-  ralt ralt
+  ralt @ralt-function-row
   lsft lsft
   rsft rsft
 
