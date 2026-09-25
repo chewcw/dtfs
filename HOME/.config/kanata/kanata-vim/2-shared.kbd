@@ -19,7 +19,7 @@
   new-line-above        (macro @start-of-line @linefeed @up)
   paste-line-above      (macro @start-of-line @linefeed @up @raw-paste)
 
-  delete-end-of-line    (macro @select-end-of-line @cut  @line-paste-off)
+  delete-end-of-line    (macro @select-end-of-line 20 @cut @line-paste-off)
   copy-end-of-line      (macro @select-end-of-line @copy @line-paste-off @end-of-line)
 
   select-line           (macro @start-of-line @select-end-of-line)
