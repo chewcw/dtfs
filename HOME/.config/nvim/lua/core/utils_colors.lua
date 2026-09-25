@@ -143,7 +143,7 @@ local get_groups = function(color)
     WarningMsg                           = { fg = color.yellow },
     WildMenu                             = { fg = color.bg, bg = color.main1 },
     CursorColumn                         = { fg = color.none, bg = color.dark_blue },
-    CursorLine                           = { fg = color.none, bg = color.dark_blue02 },
+    CursorLine                           = { fg = color.fg, bg = color.dark_blue02 },
     ToolbarLine                          = { fg = color.fg, bg = color.gray01 },
     ToolbarButton                        = { fg = color.fg, bg = color.none },
     NormalMode                           = { fg = color.main4, bg = color.none, reverse = true },
