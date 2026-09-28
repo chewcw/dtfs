@@ -26,13 +26,14 @@
   tab  q    w    e    r    t    y    u    @i-meta    o    p    [    ]    \
   @caps-ctrl a    s    d    f    g    h    j    k    l    ;    '    ret
   lsft z    x    c    v    b    @n-meta    @m-meta    ,    .    /    rsft
-  lctl @lmet-to-base lalt  spc            @ralt-function-row rmet rctl
+  lctl @lmet-to-base lalt  spc            @ralt-func rmet rctl
 )
 
 ;; ------------------------------------------------------------
 ;; Insert mode
 ;; (lmet is the shared tap-hold: tap -> base, hold -> real met;
-;; rmet stays a no-op here, nop1 stays visible to fork)
+;; rmet stays a no-op here, nop1 stays visible to fork.
+;; lalt is a real alt modifier + alt-layer word moves: @lalt-insert)
 ;; ------------------------------------------------------------
 (deflayer insert
   @esc-caps
@@ -40,7 +41,7 @@
   tab  q    w    e    r    t    y    u    (fork i @switch-base (lmet rmet nop1))    o    p    [    ]    \
   @caps-to-normal a    s    d    f    g    h    j    k    l    ;    '    ret
   lsft z    x    c    v    b    @n-meta    @m-meta    ,    .    /    rsft
-  lctl  @lmet-to-base  (layer-while-held alt-layer)  spc  @ralt-function-row  nop1  rctl
+  lctl  @lmet-to-base  @lalt-insert  spc  @ralt-func  nop1  rctl
 )
 
 ;; ------------------------------------------------------------
@@ -52,18 +53,6 @@
   esc @esc-caps
   caps @caps-ctrl-only
   lctl @left-ctrl-esc
-  1 (t! function-row-pass 1)
-  2 (t! function-row-pass 2)
-  3 (t! function-row-pass 3)
-  4 (t! function-row-pass (fork _ @end-of-line (lsft rsft)))
-  5 (t! function-row-pass 5)
-  6 (t! function-row-pass 6)
-  7 (t! function-row-pass 7)
-  8 (t! function-row-pass 8)
-  9 (t! function-row-pass 9)
-  0 (t! function-row-pass @start-of-line)
-  - (t! function-row-pass -)
-  = (t! function-row-pass =)
   [ [  ] ]  \ \
   ; ;  ' '
   , ,  . .

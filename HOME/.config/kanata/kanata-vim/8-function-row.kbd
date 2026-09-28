@@ -1,8 +1,22 @@
 ;; Transparent function-row overlay.
-;; Only the function row and the right-Alt toggle are overridden.
+;; Active for as long as ralt is held (see @ralt-func in 0-head.kbd).
+;; Only the function row is overridden; ralt is looped so the held
+;; modifier keeps working, and every other key is transparent and
+;; falls through to the layer below (with ralt still held).
+;;
+;; The F-keys release ralt first: uinput modifiers are implicit in
+;; the device key state, not per-event, so an F-key emitted while
+;; ralt is down reaches the app as alt+F1 and browsers ignore it.
+;; `(release-key ralt)` puts a real ralt-up on the wire before the
+;; F-key, so the app sees a clean F1..F12. kanata re-emits ralt on
+;; the physical release (a duplicate release is a no-op for X).
 
 (deflayermap (function-row)
-  1  f1   2  f2   3  f3   4  f4   5  f5   6  f6
-  7  f7   8  f8   9  f9   0  f10  -  f11  =  f12
-  ralt @ralt-function-row
+  1 (multi (release-key ralt) f1)    2 (multi (release-key ralt) f2)
+  3 (multi (release-key ralt) f3)    4 (multi (release-key ralt) f4)
+  5 (multi (release-key ralt) f5)    6 (multi (release-key ralt) f6)
+  7 (multi (release-key ralt) f7)    8 (multi (release-key ralt) f8)
+  9 (multi (release-key ralt) f9)    0 (multi (release-key ralt) f10)
+  - (multi (release-key ralt) f11)   = (multi (release-key ralt) f12)
+  ralt ralt
 )

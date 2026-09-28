@@ -35,6 +35,13 @@
   lmet-to-base (tap-hold-press 100 150 @switch-base lmet)
   ;; insert mode: tap caps -> normal, hold caps -> ctrl-layer helpers
   caps-to-normal (tap-hold 100 150 @switch-vim-normal (layer-while-held ctrl-layer))
+  ;; insert mode: lalt is a REAL alt modifier, so every chord reaches the
+  ;; app as alt+key (alt+enter, alt+f4, alt+left, ...). On top of that it
+  ;; holds alt-layer for the word-movement helpers (alt+h/j/k/l/b/f/d);
+  ;; those entries unmod alt themselves, so they still arrive as plain
+  ;; cursor/word moves. Every other key is transparent in alt-layer and
+  ;; falls through to the insert layer *with* alt held.
+  lalt-insert (multi lalt (layer-while-held alt-layer))
 )
 
 ;; ------------------------------------------------------------
@@ -53,25 +60,15 @@
   i-meta-vim  (fork XX @switch-insert     (lmet rmet nop1))
 )
 
-(deftemplate function-row-pass (fallback)
-  (switch
-    ((input virtual function-row-active)) _ break
-    () $fallback break
-  )
-)
-
+;; ------------------------------------------------------------
+;; Right-Alt: hold for the function row.
+;; Hold ralt -> the transparent `function-row` overlay is active for
+;; as long as the key is held, so the number row sends F1..F12.
+;; There is no tap action anymore (no toggle, no virtual key): press
+;; ralt+<number> for an F-key, release ralt and you are back.
+;; ralt is still emitted as a real modifier, so ralt+<other key>
+;; keeps behaving as alt+<key> (e.g. ralt+left = word movement).
+;; ------------------------------------------------------------
 (defalias
-  ralt-function-row
-    (tap-hold
-      $function-row-tap-timeout
-      $function-row-hold-timeout
-      (macro
-        (on-press toggle-vkey function-row-active)
-        1
-        (cmd sh -c
-          "mkdir -p /home/ccw/.cache && touch /home/ccw/.cache/kanata-mode && if grep -q -- '-FUNC$' /home/ccw/.cache/kanata-mode; then sed -i 's/-FUNC$//' /home/ccw/.cache/kanata-mode; else sed -i 's/$/-FUNC/' /home/ccw/.cache/kanata-mode; fi"
-        )
-      )
-      ralt
-    )
+  ralt-func (multi ralt (layer-while-held function-row))
 )

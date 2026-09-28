@@ -2,6 +2,13 @@
 ;; Shared modifier chord layers (insert mode helpers).
 ;; deflayermap is position-independent, so this file is fully
 ;; keyboard-agnostic and shared by all layouts.
+;;
+;; The alt-layer is held by the insert-layer lalt key (@lalt-insert),
+;; which ALSO holds the real alt modifier. So every key that is not
+;; listed here falls through transparently and arrives as alt+key.
+;; The listed keys are the exceptions: word/cursor movement, and they
+;; strip alt (plus shift, where the entry is a word move) so the app
+;; sees the plain move instead of alt+move.
 ;; ------------------------------------------------------------
 (deflayermap (ctrl-layer)
   h bspc
@@ -17,11 +24,11 @@
 )
 
 (deflayermap (alt-layer)
-  h lft
-  j down
-  k up
-  l rght
-  b (unshift ctl lft)
-  f (unshift ctl rght)
-  d (unshift ctl del)
+  h (unmod (lalt ralt) lft)
+  j (unmod (lalt ralt) down)
+  k (unmod (lalt ralt) up)
+  l (unmod (lalt ralt) rght)
+  b (unmod (lalt ralt lsft rsft) ctl lft)
+  f (unmod (lalt ralt lsft rsft) ctl rght)
+  d (unmod (lalt ralt lsft rsft) ctl del)
 )
