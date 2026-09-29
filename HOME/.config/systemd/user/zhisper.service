@@ -1,0 +1,15 @@
+[Unit]
+Description=Zhisper
+After=graphical-session.target
+
+[Service]
+Type=simple
+# Optional; holds ZHISPER_API_KEY. Absent file is not an error, but then
+# transcription requests fail. See: ~/.config/zhisper/env
+EnvironmentFile=-%h/.config/zhisper/env
+ExecStart=%h/.local/bin/zhisper
+Restart=on-failure
+RestartSec=1
+
+[Install]
+WantedBy=default.target

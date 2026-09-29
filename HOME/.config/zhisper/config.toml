@@ -1,0 +1,53 @@
+# zhisper example config — copy to OS config dir and edit.
+# Linux: ~/.config/zhisper/config.toml
+# Windows: %APPDATA%/zhisper/config.toml
+# macOS: ~/Library/Application Support/zhisper/config.toml
+# Secrets are NEVER set here (api_key in this file is a hard error); use env vars.
+# The systemd unit reads them from ~/.config/zhisper/env, e.g.
+#   echo 'ZHISPER_API_KEY=...' > ~/.config/zhisper/env
+
+[transcribe]
+provider = "groq" # groq | openai | custom
+model = "whisper-large-v3-turbo"        # empty = preset default
+base_url = "https://api.groq.com/openai/v1/audio/transcriptions"     # empty = preset default; required if provider=custom
+prompt = ""
+
+[hotkey]
+key_code = 67     # OS-native
+mode = "toggle"     # hold | toggle
+cancel_key_code = 66  # Linux KEY_C; 0 = disabled (Windows/macOS: set native C code)
+evdev = ""        # Linux only, empty = auto-scan
+evdev_name = "kanata"   # Linux only, device name match e.g. "kanata" (empty = off, wins over auto-scan)
+clipboard_key_code = 68  # OS-native; -1 or absent = off. Linux KEY_F11=87 / macOS kVK_F11=0x6A /
+                        # Windows VK_F11=0x7A. A recording started with this key puts the
+                        # transcript in the clipboard instead of typing it anywhere.
+
+[audio]
+device = ""       # empty = system default mic
+
+[daemon]
+min_duration_ms = 500
+wav_path = "/tmp/zhisper.wav"
+keep_wav_on_error = true
+verbose = false
+tray = true
+overlay = false
+
+[normalize]
+# Optional second API call that rewrites the transcript into clean written
+# text: resolves self-corrections, normalizes spoken numbers/dates/emails,
+# and fixes punctuation. Costs one extra network round trip, so it is off by
+# default. This section is watched at runtime: editing `enabled` here takes
+# effect within a second, no restart needed. No new key — it reuses
+# GROQ_API_KEY / ZHISPER_API_KEY.
+enabled = false
+model = "openai/gpt-oss-20b"        # empty = preset default (openai/gpt-oss-20b)
+base_url = "https://api.groq.com/openai/v1/chat/completions"     # empty = preset default; set to point at any OpenAI-compatible
+                  # chat completions endpoint (self-hosted, proxy, or a future
+                  # provider) without recompiling.
+# The three axes below are closed sets. Values outside them degrade output,
+# because the prompt format was only trained on these combinations.
+styling = "casual"  # casual | semi-casual | semi-formal | formal
+structure = "prose"      # prose | lists
+context = "general"      # general | email
+

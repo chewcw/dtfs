@@ -5,7 +5,10 @@ $HOME/.local/bin/connect_monitor.sh
 $HOME/.local/bin/detect_keyboard.sh
 
 # Run ptrkeys
-systemctl --user start ptrkeys
+# systemctl --user start ptrkeys
+
+# Run zhisper
+systemctl --user restart zhisper || systemctl --user start zhisper || true
 
 # Use wait to synchronize instead of fixed sleep
 sleep 1.5

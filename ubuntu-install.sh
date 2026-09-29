@@ -186,6 +186,31 @@ if [[ ! -f "$HOME/.local/bin/kanata" ]]; then
 	cp /tmp/kanata/target/release/kanata $HOME/.local/bin/kanata || true
 fi
 
+# Install zhisper binary (hold-to-dictate voice input daemon)
+# Built from source: https://github.com/chewcw/zhisper
+# Runtime deps (libx11-6, libxext6) already come in with the X11/i3 setup below.
+# Skipped with a warning if zig is not installed, since the build needs it.
+if [[ ! -f "$HOME/.local/bin/zhisper" ]]; then
+	if ! command -v zig &>/dev/null
+	then
+		echo "------------------------------------------"
+		echo "WARNING: zig not found, skipping zhisper build"
+		echo "         Install zig, then rerun to get ~/.local/bin/zhisper"
+		echo "------------------------------------------"
+	else
+		echo "------------------------------------------"
+		echo "Building zhisper from source"
+		echo "------------------------------------------"
+		cd /tmp
+		rm -rf /tmp/zhisper
+		git clone https://github.com/chewcw/zhisper.git /tmp/zhisper || true
+		cd /tmp/zhisper
+		zig build -Doptimize=ReleaseFast || true
+		mkdir -p $HOME/.local/bin
+		cp /tmp/zhisper/zig-out/bin/zhisper $HOME/.local/bin/zhisper || true
+	fi
+fi
+
 # Setup neovim
 # Install symlink for .vimrc
 echo "------------------------------------------"
@@ -261,7 +286,7 @@ echo "-------------------------------------------------------------------"
 ln -sf $pwd/HOME/.local/bin/boomer $HOME/.local/bin/boomer
 
 echo "-------------------------------------------------------------------"
-echo "Setting symlink for date command
+echo "Setting symlink for date command"
 echo "-------------------------------------------------------------------"
 ln -sf $pwd/HOME/.local/bin/date.sh $HOME/.local/bin/date.sh
 
@@ -425,6 +450,19 @@ cp -f $pwd/HOME/.config/systemd/user/kanata-65.service $HOME/.config/systemd/use
 cp -f $pwd/HOME/.config/systemd/user/kanata-75.service $HOME/.config/systemd/user/
 systemctl --user enable --now kanata-65.service || true
 systemctl --user enable --now kanata-75.service || true
+
+# Install zhisper: config symlink + systemd user service
+mkdir -p $HOME/.config/zhisper
+ln -sf $pwd/HOME/.config/zhisper/config.toml $HOME/.config/zhisper/config.toml
+# The service reads the API key from this optional env file. Without it the
+# daemon still starts, but every transcription fails until the key is set:
+#   echo 'ZHISPER_API_KEY=...' > $HOME/.config/zhisper/env
+if [[ -x $HOME/.local/bin/zhisper ]]; then
+	cp -f $pwd/HOME/.config/systemd/user/zhisper.service $HOME/.config/systemd/user/
+	systemctl --user enable --now zhisper.service || true
+else
+	echo "WARNING: $HOME/.local/bin/zhisper not found, skipping zhisper service."
+fi
 
 # Install symlink for ptrkeys binary
 # ln -sf $pwd/HOME/.local/bin/ptrkeys $HOME/.local/bin/ptrkeys
