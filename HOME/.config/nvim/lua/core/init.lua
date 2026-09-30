@@ -938,7 +938,7 @@ vim.api.nvim_create_user_command("LspCodeLensRun", function(opts)
     vim.notify("Codelens is now off")
   else
     vim.g.lsp_codelens_started = 1
-    vim.lsp.codelens.refresh()
+    vim.lsp.codelens.enable(true, {})
     vim.notify("Codelens is now on")
   end
 end, { nargs = "*" })
@@ -946,7 +946,7 @@ end, { nargs = "*" })
 vim.api.nvim_create_autocmd({ "CmdLineLeave", "InsertLeave" }, {
   callback = function()
     if vim.g.lsp_codelens_started == 1 then
-      vim.lsp.codelens.refresh() -- Refresh CodeLens on these events
+    vim.lsp.codelens.enable(true, {})
     end
   end,
 })

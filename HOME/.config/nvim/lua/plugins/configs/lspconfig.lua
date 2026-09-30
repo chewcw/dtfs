@@ -15,11 +15,11 @@ M.on_attach = function(client, bufnr)
   -- end
 
   if client.server_capabilities.codeLensProvider then
-    vim.lsp.codelens.refresh()
+    vim.lsp.codelens.enable(true, { bufnr = bufnr })
     vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "InsertLeave" }, {
       buffer = bufnr,
       callback = function()
-        vim.lsp.codelens.refresh()
+        vim.lsp.codelens.enable(true, { bufnr = bufnr })
       end,
     })
   end
@@ -275,14 +275,26 @@ vim.lsp.config["pyrefly"] = {
 }
 
 -- javascript / typescript
-vim.lsp.enable("ts_ls")
+local function get_tsc_binary()
+  local root_dir = vim.fs.root(0, { "package.json", "tsconfig.json", ".git" })
+  if root_dir then
+    local local_tsc = root_dir .. "/node_modules/.bin/tsc"
+    if vim.fn.executable(local_tsc) == 1 then
+      return local_tsc
+    end
+  end
+  return "tsc"
+end
+
 vim.lsp.config["ts_ls"] = {
+  cmd = { get_tsc_binary(), "--lsp", "--stdio" },
+  single_file_support = false,
+  init_options = {}, -- Reset init_options to prevent tsserver lookup
   on_attach = M.on_attach,
   capabilities = M.capabilities,
-  cmd = { home .. "/.local/share/nvim/mason/bin/typescript-language-server", "--stdio" },
-  single_file_support = false,
 }
 
+vim.lsp.enable("ts_ls")
 -- rust
 vim.lsp.enable("rust_analyzer")
 vim.lsp.config["rust_analyzer"] = {
