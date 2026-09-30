@@ -1587,6 +1587,11 @@ local default_plugins = {
         icons = { " ❶ ", " ❷ ", " ❸ ", " ❹ ", " ❺ ", " ❻ " },
         left_pad = { 0, 1, 2, 3, 4, 5, 6 },
       },
+      code = {
+        highlight = "RenderMarkdownCode",
+        priority = 10, -- this didn't work
+        disable_background = {},
+      },
       sign = {
         enabled = false,
       },

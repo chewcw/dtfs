@@ -33,6 +33,41 @@ local get_highlight = function(group, type)
   return vim.api.nvim_get_hl(0, { name = group, link = false })[type]
 end
 
+-- These part of the code is to make the CursorLine background on top of everything
+-- else. Before applying this fix, the RenderMarkdownCode highlight group will be 
+-- on top of CursorLine, thus the CursorLine cannot be seen.
+-- Disable built-in cursorline so it doesn't duplicate
+vim.opt.cursorline = false
+
+local ns = vim.api.nvim_create_namespace("HighPriorityCursorLine")
+
+local function update_cursorline()
+  local win = vim.api.nvim_get_current_win()
+  local buf = vim.api.nvim_win_get_buf(win)
+  local row = vim.api.nvim_win_get_cursor(win)[1] - 1
+
+  vim.api.nvim_buf_clear_namespace(buf, ns, 0, -1)
+  vim.api.nvim_buf_set_extmark(buf, ns, row, 0, {
+    line_hl_group = "CursorLine",
+    priority = 4000, -- 4000 beats render-markdown and all syntax/LSP extmarks
+  })
+end
+
+local group = vim.api.nvim_create_augroup("CustomCursorLine", { clear = true })
+vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI", "WinEnter", "BufEnter" }, {
+  group = group,
+  callback = update_cursorline,
+})
+vim.api.nvim_create_autocmd("WinLeave", {
+  group = group,
+  callback = function()
+    local buf = vim.api.nvim_get_current_buf()
+    vim.api.nvim_buf_clear_namespace(buf, ns, 0, -1)
+  end,
+})
+
+-- end of the CursorLine top-most fix
+
 local get_groups = function(color)
   vim.g.terminal_color_0 = color.black
   vim.g.terminal_color_1 = color.red
@@ -143,7 +178,7 @@ local get_groups = function(color)
     WarningMsg                           = { fg = color.yellow },
     WildMenu                             = { fg = color.bg, bg = color.main1 },
     CursorColumn                         = { fg = color.none, bg = color.dark_blue },
-    CursorLine                           = { fg = color.fg, bg = color.dark_blue02 },
+    CursorLine                           = { fg = color.none, bg = color.dark_blue02 },
     ToolbarLine                          = { fg = color.fg, bg = color.gray01 },
     ToolbarButton                        = { fg = color.fg, bg = color.none },
     NormalMode                           = { fg = color.main4, bg = color.none, reverse = true },
