@@ -52,7 +52,6 @@
 (deflayermap (vim-normal-override)
   esc @esc-caps
   caps @caps-ctrl-only
-  lctl @left-ctrl-esc
   [ [  ] ]  \ \
   ; ;  ' '
   , ,  . .

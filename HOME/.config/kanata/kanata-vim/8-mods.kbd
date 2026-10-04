@@ -21,6 +21,11 @@
   x @cut
   v @raw-paste
   u (multi @select-start-of-line @cut @line-paste-off)
+
+  ;; caps-hold does NOT hold the real lctl modifier (unlike lalt-insert
+  ;; on lalt), so keys not listed here fall through as PLAIN keys.
+  ;; Inject lctl explicitly when the chord should keep it.
+  ret (multi lctl ret)
 )
 
 (deflayermap (alt-layer)
