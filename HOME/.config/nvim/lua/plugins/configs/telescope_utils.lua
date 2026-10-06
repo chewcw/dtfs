@@ -181,14 +181,18 @@ M.custom_rg = function(opts)
       local args = { "rg" }
       table.insert(args, M.rg_args)
 
-      if prompt_split[1] then
+      if prompt_split[1] and prompt_split[1] ~= "" then
         table.insert(args, "-e")
         table.insert(args, prompt_split[1])
       end
 
-      if prompt_split[2] then
-        local prompt_split2_split = vim.split(prompt_split[2], " ")
-        table.insert(args, prompt_split2_split)
+      -- every group after a double-space gap is passed to rg as raw flags,
+      -- so `pat  -uu  --iglob !*.min.js` keeps all of them
+      for i = 2, #prompt_split do
+        local flags = vim.split(prompt_split[i], " ", { trimempty = true })
+        if #flags > 0 then
+          table.insert(args, flags)
+        end
       end
 
       return flatten({ args, opts.search_dirs })
