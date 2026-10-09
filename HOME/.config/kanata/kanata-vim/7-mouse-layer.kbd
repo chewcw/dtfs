@@ -6,14 +6,13 @@
 ;; Included AFTER the per-layout file so (deflayer base ...)
 ;; stays the FIRST layer definition (index 0 = startup layer).
 ;; Rate control: hold tab FIRST, then the action -> faster;
-;; hold alt FIRST, then the action -> slower. Applies to hjkl
-;; cursor moves and u/n/,/. scrolling. Plain action = default.
+;; hold ctrl FIRST, then the action -> slower (precise). Applies to
+;; hjkl cursor moves and u/n/,/. scrolling. Plain action = default.
 ;; tab outputs nop9 (app-invisible, only fork/switch-visible).
-;; ctrl acts as pass-through: it is never consumed and never selects
-;; a rate — it stays live for usual app behavior (e.g. ctrl+wheel
-;; zoom at normal rate, slow zoom with alt held too, faster zoom
-;; with tab held too). So ctrl+alt+scroll still scrolls, but slower.
-;; The ctrl-esc key (caps) also acts as ctrl here.
+;; ALL of lctl, rctl and caps-ctrl select the slow rate. Ctrl is never
+;; consumed, so it stays live for usual app behavior (e.g. ctrl+wheel
+;; still zooms) while also picking the slow rate. ctrl+tab+scroll
+;; therefore zooms at the fast rate.
 ;; shift also passes through untouched (e.g. shift+wheel horizontal).
 ;; Scroll fast/slow variants swallow alt (+shift in fast) so apps
 ;; don't see alt+wheel or shift+wheel; movement keeps modifiers live
@@ -82,33 +81,33 @@
             () XX break)
 )
 
-;; tab -> $fast, alt -> $slow, else $normal (tab wins if both).
-;; ctrl is pass-through: never a fork trigger, never released, so
-;; ctrl+action = $normal+ctrl, ctrl+alt+action = $slow+ctrl, etc.
+;; tab -> $fast, ctrl -> $slow, else $normal (tab wins if both).
+;; ctrl is never released, so ctrl+action = $slow+ctrl: the modifier
+;; stays live for app behavior while picking the slow rate.
 ;; shift likewise stays live here so click-combos keep working.
 (deftemplate move-mod (normal fast slow)
   (fork
-    (fork $normal $slow (lalt ralt))
+    (fork $normal $slow (lctl rctl))
     $fast
     (tab nop9))
 )
 
-;; same shape, but the fast (tab) and slow (alt) scroll variants
+;; same shape, but the fast (tab) and slow (ctrl) scroll variants
 ;; swallow alt (fast also swallows shift) so scrolling never arrives
-;; at the app as alt+wheel (or shift+wheel when fast); ctrl is
-;; pass-through and stays live for zoom behavior, so ctrl+alt+scroll
-;; still scrolls but slower (slow zoom). shift stays live on slow so
-;; shift+wheel horizontal keeps working at the slow rate.
+;; at the app as alt+wheel (or shift+wheel when fast); ctrl stays
+;; live for zoom behavior, so ctrl+scroll zooms at the slow rate.
+;; shift stays live on slow so shift+wheel horizontal keeps working
+;; at the slow rate.
 ;; (tab needs no release: nop9 is app-invisible.)
 (deftemplate wheel-mod (normal fast slow)
   (fork
-    (fork $normal (multi (release-key lalt) (release-key ralt) $slow) (lalt ralt))
+    (fork $normal (multi (release-key lalt) (release-key ralt) $slow) (lctl rctl))
     (multi (release-key lsft) (release-key rsft) (release-key lalt) (release-key ralt) $fast)
     (tab nop9))
 )
 
 (deflayermap (mouse)
-  ;; hjkl: accelerated cursor, tab = faster, alt = slower
+  ;; hjkl: accelerated cursor, tab = faster, lctl = slower
   h (t! move-mod @ms-l @ms-l-fast @ms-l-slow)
   j (t! move-mod @ms-d @ms-d-fast @ms-d-slow)
   k (t! move-mod @ms-u @ms-u-fast @ms-u-slow)
@@ -122,7 +121,7 @@
   s mlft
   d mmid
   f mrgt
-  ;; wheel, tab = faster, alt = slower
+  ;; wheel, tab = faster, lctl = slower
   ;; (n keeps its met+n -> normal exit via the outer switch)
   u (t! wheel-mod @wh-u @wh-u-fast @wh-u-slow)
   n (switch
@@ -142,8 +141,8 @@
   esc @switch-base
 
   ;; loop modifiers (same pattern as vim layers)
-  ;; caps is the ctrl-esc key: act as ctrl here so ctrl-chords
-  ;; (e.g. caps+alt+scroll = slow zoom) keep working while mousing.
+  ;; caps is the ctrl-esc key: it acts as ctrl here, so caps-chords
+  ;; keep working while mousing and it selects the slow rate too.
   caps @caps-ctrl-only
   rctl rctl
   lctl lctl
