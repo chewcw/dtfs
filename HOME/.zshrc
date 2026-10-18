@@ -52,7 +52,7 @@ DISABLE_AUTO_UPDATE="true"
 # ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
-# COMPLETION_WAITING_DOTS="true"
+COMPLETION_WAITING_DOTS="true"
 
 # Uncomment the following line if you want to disable marking untracked files
 # under VCS as dirty. This makes repository status check for large repositories
@@ -217,6 +217,13 @@ export FZF_ALT_C_OPTS="
   --no-height
   --reverse
 "
+export FZF_COMPLETION_FILE_OPTS="
+  --walker file,dir,follow,hidden
+"
+export FZF_COMPLETION_DIR_OPTS="
+  --walker dir,follow,hidden
+"
+
 # Make all kubectl completion fzf
 command -v fzf >/dev/null 2>&1 && {
 	source <(kubectl completion zsh | \
