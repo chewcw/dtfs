@@ -287,8 +287,8 @@ local function get_tsc_binary()
 end
 
 vim.lsp.config["ts_ls"] = {
-  cmd = { get_tsc_binary(), "--lsp", "--stdio" },
-  single_file_support = false,
+  -- cmd = { get_tsc_binary(), "--lsp", "--stdio" },
+  -- single_file_support = false,
   init_options = {}, -- Reset init_options to prevent tsserver lookup
   on_attach = M.on_attach,
   capabilities = M.capabilities,
