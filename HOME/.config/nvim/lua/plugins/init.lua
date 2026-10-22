@@ -962,29 +962,29 @@ local default_plugins = {
   --   commit = "7b4a2c7",
   -- },
 
-  -- {
-  --   "iamcco/markdown-preview.nvim",
-  --   cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
-  --   ft = { "markdown" },
-  --   init = function()
-  --     vim.g.mkdp_filetypes = { "markdown" }
-  --   end,
-  --   build = "cd app && npm install",
-  --   lazy = true,
-  --   -- branch = "master",
-  --   -- commit = "a923f5f",
-  -- },
-
   {
-    "toppair/peek.nvim",
-    event = { "VeryLazy" },
-    build = "deno task --quiet build:fast",
-    config = function()
-      require("peek").setup()
-      vim.api.nvim_create_user_command("PeekOpen", require("peek").open, {})
-      vim.api.nvim_create_user_command("PeekClose", require("peek").close, {})
+    "iamcco/markdown-preview.nvim",
+    cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+    ft = { "markdown" },
+    init = function()
+      vim.g.mkdp_filetypes = { "markdown" }
     end,
+    build = "cd app && npm install",
+    lazy = true,
+    -- branch = "master",
+    -- commit = "a923f5f",
   },
+
+  -- {
+  --   "toppair/peek.nvim",
+  --   event = { "VeryLazy" },
+  --   build = "deno task --quiet build:fast",
+  --   config = function()
+  --     require("peek").setup()
+  --     vim.api.nvim_create_user_command("PeekOpen", require("peek").open, {})
+  --     vim.api.nvim_create_user_command("PeekClose", require("peek").close, {})
+  --   end,
+  -- },
 
   {
     "mbbill/undotree",
@@ -2110,7 +2110,7 @@ local default_plugins = {
       'nvim-lua/plenary.nvim',
     },
     config = true,
-  }
+  },
 
   -- {
   --   "subnut/nvim-ghost.nvim",
