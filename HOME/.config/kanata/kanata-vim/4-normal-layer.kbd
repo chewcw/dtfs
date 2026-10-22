@@ -16,7 +16,7 @@
   j     @down
   k     @up
   l     @right
-  n     (fork XX @switch-base (lmet rmet nop1))
+  n     (switch ((and (or lmet rmet nop1) (not lsft rsft) (not lctl rctl) (not lalt ralt))) @switch-base break () XX break)
   m     @m-meta-vim
   b     @start-of-word
   e     @end-of-word

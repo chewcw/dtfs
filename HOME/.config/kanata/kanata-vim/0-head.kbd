@@ -54,10 +54,10 @@
 ;; - *_meta-vim:  for vim layers (plain key is blocked = XX)
 ;; ------------------------------------------------------------
 (defalias
-  n-meta      (fork n  @switch-vim-normal (lmet rmet nop1))
-  i-meta      (fork i  @switch-insert     (lmet rmet nop1))
-  n-meta-vim  (fork XX @switch-vim-normal (lmet rmet nop1))
-  i-meta-vim  (fork XX @switch-insert     (lmet rmet nop1))
+  n-meta      (switch ((and (or lmet rmet nop1) (not lsft rsft) (not lctl rctl) (not lalt ralt))) @switch-vim-normal break () n break)
+  i-meta      (switch ((and (or lmet rmet nop1) (not lsft rsft) (not lctl rctl) (not lalt ralt))) @switch-insert     break () i break)
+  n-meta-vim  (switch ((and (or lmet rmet nop1) (not lsft rsft) (not lctl rctl) (not lalt ralt))) @switch-vim-normal break () XX break)
+  i-meta-vim  (switch ((and (or lmet rmet nop1) (not lsft rsft) (not lctl rctl) (not lalt ralt))) @switch-insert     break () XX break)
 )
 
 ;; ------------------------------------------------------------
