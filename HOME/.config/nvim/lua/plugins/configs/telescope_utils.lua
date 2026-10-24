@@ -5,6 +5,26 @@ local action_state = require("telescope.actions.state")
 
 local M = {}
 
+-- build ripgrep --iglob flags from an optional opts.iglob value
+-- accepts nil, a string, or a list of strings
+local function iglob_flags(iglob)
+  if iglob == nil then
+    return {}
+  end
+  if type(iglob) == "string" then
+    return { "--iglob", iglob }
+  end
+  if type(iglob) == "table" then
+    local flags = {}
+    for _, v in ipairs(iglob) do
+      table.insert(flags, "--iglob")
+      table.insert(flags, v)
+    end
+    return flags
+  end
+  return {}
+end
+
 -- https://github.com/nvim-telescope/telescope.nvim/issues/2024
 M.resume_with_cache = function()
   vim.g.last_search = vim.g.last_search or {}
@@ -193,6 +213,12 @@ M.custom_rg = function(opts)
         if #flags > 0 then
           table.insert(args, flags)
         end
+      end
+
+      -- append optional opts.iglob as --iglob flags, before search dirs
+      local iglob = iglob_flags(opts.iglob)
+      if #iglob > 0 then
+        table.insert(args, iglob)
       end
 
       return flatten({ args, opts.search_dirs })
@@ -1028,6 +1054,11 @@ M.grep_string_custom = function(opts, mode)
   opts.__inverted, opts.__matches = opts_contain_invert(args)
 
   if opts.grep_open_files then
+    local iglob = iglob_flags(opts.iglob)
+    if #iglob > 0 then
+      table.insert(args, iglob)
+    end
+
     for _, file in ipairs(get_open_filelist(opts.grep_open_files, opts.cwd)) do
       table.insert(args, file)
     end
