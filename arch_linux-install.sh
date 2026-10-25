@@ -2,10 +2,12 @@
 
 set -e
 
-pwd=`pwd` whoami=`whoami`
+pwd="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+whoami="$(id -un)"
 
+# Upgrade the system before installing packages to avoid partial upgrades.
 # Enable AUR support
-sudo pacman -S --noconfirm git base-devel
+sudo pacman -Syu --needed --noconfirm git base-devel
 if ! command -v yay &>/dev/null
 then
   echo "------------------------------------------"
@@ -17,30 +19,19 @@ then
   cd -
 fi
 
-# start
-sudo pacman -Sy
-
 # Create config directory
-mkdir -p $HOME/.config
+mkdir -p "$HOME/.config"
 
 # Create local bin directory
-mkdir -p $HOME/.local/bin
+mkdir -p "$HOME/.local/bin"
 
-# Clone the dtfs
-cd $HOME
-if [[ ! -d "$HOME/dtfs" ]]; then
-  echo "------------------------------------------"
-  echo "Cloning dtfs"
-  echo "------------------------------------------"
-  git clone https://github.com/chewcw/dtfs.git || true
-fi
-cd $HOME/dtfs
+cd "$pwd"
 
 # setup global git config
 echo "------------------------------------------"
 echo "Setup global git config"
 echo "------------------------------------------"
-ln -sf $pwd/HOME/.gitconfig $HOME/.gitconfig
+ln -sf "$pwd/HOME/.gitconfig" "$HOME/.gitconfig"
 
 # Install mapping caps to ctrl (or remapping capslock to escape AND ctrl)
 # NOTE: kanata (installed below) handles the caps -> esc/ctrl remapping now,
@@ -115,8 +106,8 @@ if [[ ! -f "$HOME/.local/bin/kanata" ]]; then
 	cd /tmp/kanata
 	git checkout v1.12.0 || true
 	cargo build --release --features cmd || true
-	mkdir -p $HOME/.local/bin
-	cp /tmp/kanata/target/release/kanata $HOME/.local/bin/kanata || true
+	mkdir -p "$HOME/.local/bin"
+	cp /tmp/kanata/target/release/kanata "$HOME/.local/bin/kanata" || true
 fi
 
 # Install zhisper binary (hold-to-dictate voice input daemon)
@@ -139,8 +130,8 @@ if [[ ! -f "$HOME/.local/bin/zhisper" ]]; then
 		git clone https://github.com/chewcw/zhisper.git /tmp/zhisper || true
 		cd /tmp/zhisper
 		zig build -Doptimize=ReleaseFast || true
-		mkdir -p $HOME/.local/bin
-		cp /tmp/zhisper/zig-out/bin/zhisper $HOME/.local/bin/zhisper || true
+		mkdir -p "$HOME/.local/bin"
+		cp /tmp/zhisper/zig-out/bin/zhisper "$HOME/.local/bin/zhisper" || true
 	fi
 fi
 
@@ -149,7 +140,7 @@ fi
 # 1. uinput group (does not exist by default on Arch) + user membership
 #    (input group for reading input devices)
 getent group uinput &>/dev/null || sudo groupadd --system uinput
-sudo usermod -aG input,uinput $whoami
+sudo usermod -aG input,uinput "$whoami"
 # 2. load the uinput kernel module now and at every boot (Arch: modules-load.d)
 sudo modprobe uinput || true
 echo uinput | sudo tee /etc/modules-load.d/uinput.conf > /dev/null
@@ -164,26 +155,27 @@ sudo udevadm control --reload-rules && sudo udevadm trigger
 echo "------------------------------------------"
 echo "Installing symlink for kanata config"
 echo "------------------------------------------"
-ln -sf $pwd/HOME/.config/kanata $HOME/.config/kanata
+ln -sf "$pwd/HOME/.config/kanata" "$HOME/.config/kanata"
 
 # Copy kanata systemd user service files
 # kanata-65 for Royal Kludge keyboards, kanata-75 for the default keyboard
-mkdir -p $HOME/.config/systemd/user
-cp -f $pwd/HOME/.config/systemd/user/kanata-65.service $HOME/.config/systemd/user/
-cp -f $pwd/HOME/.config/systemd/user/kanata-75.service $HOME/.config/systemd/user/
-systemctl --user enable --now kanata-65.service || true
-systemctl --user enable --now kanata-75.service || true
+mkdir -p "$HOME/.config/systemd/user"
+cp -f "$pwd/HOME/.config/systemd/user/kanata-65.service" "$HOME/.config/systemd/user/"
+cp -f "$pwd/HOME/.config/systemd/user/kanata-75.service" "$HOME/.config/systemd/user/"
+systemctl --user daemon-reload
+# Clear old startup links; detect_keyboard.sh selects one layout after re-login.
+systemctl --user disable --now kanata-65.service kanata-75.service || true
 
 # Install zhisper: config symlink + systemd user service
-mkdir -p $HOME/.config/zhisper
-ln -sf $pwd/HOME/.config/zhisper/config.toml $HOME/.config/zhisper/config.toml
+mkdir -p "$HOME/.config/zhisper"
+ln -sf "$pwd/HOME/.config/zhisper/config.toml" "$HOME/.config/zhisper/config.toml"
 # The service reads the API key from this optional env file. Without it the
 # daemon still starts, but every transcription fails until the key is set:
 #   echo 'ZHISPER_API_KEY=...' > $HOME/.config/zhisper/env
 # zhisper reads the kanata evdev device, so the input group granted for kanata
 # above covers it too.
 if [[ -x $HOME/.local/bin/zhisper ]]; then
-	cp -f $pwd/HOME/.config/systemd/user/zhisper.service $HOME/.config/systemd/user/
+	cp -f "$pwd/HOME/.config/systemd/user/zhisper.service" "$HOME/.config/systemd/user/"
 	systemctl --user enable --now zhisper.service || true
 else
 	echo "WARNING: $HOME/.local/bin/zhisper not found, skipping zhisper service."
@@ -196,7 +188,7 @@ fi
 # Copy ptrkeys systemd user service file
 # cp -f $pwd/HOME/.config/systemd/user/ptrkeys.service $HOME/.config/systemd/user/
 
-# NOTE: services are NOT enabled/started here:
+# NOTE: kanata services are NOT enabled/started here:
 # - the uinput group membership above only takes effect after re-login
 # - run detect_keyboard.sh to enable and start the right kanata service
 #   (it stops both services first, then starts the one matching the
@@ -207,16 +199,16 @@ fi
 echo "------------------------------------------"
 echo "Setting up vimrc"
 echo "------------------------------------------"
-ln -sf $pwd/HOME/.vimrc $HOME/.vimrc
-mkdir -p $HOME/.vim
-mkdir -p $HOME/.vim/colors
-ln -sf $pwd/HOME/.vim/colors/github.vim $HOME/.vim/colors/github.vim
+ln -sf "$pwd/HOME/.vimrc" "$HOME/.vimrc"
+mkdir -p "$HOME/.vim"
+mkdir -p "$HOME/.vim/colors"
+ln -sf "$pwd/HOME/.vim/colors/github.vim" "$HOME/.vim/colors/github.vim"
 
 # Install Neovim (v0.10.0)
 echo "------------------------------------------"
 echo "Installing Neovim (v0.10.0)"
 echo "------------------------------------------"
-ln -sf $pwd/HOME/.config/nvim $HOME/.config
+ln -sf "$pwd/HOME/.config/nvim" "$HOME/.config"
 
 
 # ----------------------------------------------------------------------------- 
@@ -237,10 +229,10 @@ echo "Installing projecteur pointer spotlight, for presentation"
 echo "-------------------------------------------------------------------"
 yay -S --noconfirm projecteur
 # Install symlink for projecteur configuration
-mkdir -p $HOME/.config/Projecteur
-ln -sf $pwd/HOME/.config/Projecteur/Projecteur.conf $HOME/.config/Projecteur/Projecteur.conf
+mkdir -p "$HOME/.config/Projecteur"
+ln -sf "$pwd/HOME/.config/Projecteur/Projecteur.conf" "$HOME/.config/Projecteur/Projecteur.conf"
 # Install symlink for projecteur_action.sh (used inside i3 config)
-ln -sf $pwd/HOME/.local/bin/projecteur_action.sh $HOME/.local/bin/projecteur_action.sh
+ln -sf "$pwd/HOME/.local/bin/projecteur_action.sh" "$HOME/.local/bin/projecteur_action.sh"
 
 echo "-------------------------------------------------------------------"
 echo "Installing gromit-mpx ZoomIt-like, for linux, for presentation"
@@ -248,11 +240,11 @@ echo "-------------------------------------------------------------------"
 # debian package is not the latest version
 # check out https://github.com/bk138/gromit-mpx?tab=readme-ov-file#building-it to build from source
 yay -S --noconfirm gromit-mpx
-ln -sf $pwd/HOME/.local/bin/gromit-mpx $HOME/.local/bin/gromit-mpx
-ln -sf $pwd/HOME/.config/gromit-mpx.cfg $HOME/.config/gromit-mpx.cfg
-ln -sf $pwd/HOME/.config/gromit-mpx.ini $HOME/.config/gromit-mpx.ini
+ln -sf "$pwd/HOME/.local/bin/gromit-mpx" "$HOME/.local/bin/gromit-mpx"
+ln -sf "$pwd/HOME/.config/gromit-mpx.cfg" "$HOME/.config/gromit-mpx.cfg"
+ln -sf "$pwd/HOME/.config/gromit-mpx.ini" "$HOME/.config/gromit-mpx.ini"
 # Install symlink for gromit_mpx_action.sh (used inside i3 config)
-ln -sf $pwd/HOME/.local/bin/gromit_mpx_action.sh $HOME/.local/bin/gromit_mpx_action.sh
+ln -sf "$pwd/HOME/.local/bin/gromit_mpx_action.sh" "$HOME/.local/bin/gromit_mpx_action.sh"
 
 # echo "-------------------------------------------------------------------"
 # echo "Setting symlink for Boomer (zoomer for linux, for presentation)"
@@ -264,7 +256,7 @@ yay -S --noconfirm boomer
 echo "-------------------------------------------------------------------"
 echo "Setting symlink for date command"
 echo "-------------------------------------------------------------------"
-ln -sf $pwd/HOME/.local/bin/date.sh $HOME/.local/bin/date.sh
+ln -sf "$pwd/HOME/.local/bin/date.sh" "$HOME/.local/bin/date.sh"
 
 # Install i3-gaps
 # sudo add-apt-repository -y ppa:regolith-linux/release
@@ -277,8 +269,8 @@ ln -sf $pwd/HOME/.local/bin/date.sh $HOME/.local/bin/date.sh
 # echo "------------------------------------------"
 # sudo pacman -S --noconfirm i3status
 # Install symlink for i3status
-mkdir -p $HOME/.config/i3status
-ln -sf $pwd/HOME/.config/i3status/config $HOME/.config/i3status/config
+mkdir -p "$HOME/.config/i3status"
+ln -sf "$pwd/HOME/.config/i3status/config" "$HOME/.config/i3status/config"
 
 # Install i3status wrapper script
 echo "------------------------------------------"
@@ -286,28 +278,28 @@ echo "Installing wrapper script for microphone"
 echo "------------------------------------------"
 yay -S --noconfirm python-pulsectl
 # Install symlink for the wrapper script
-ln -sf $pwd/HOME/.local/bin/i3status_wrapper.py $HOME/.local/bin/i3status_wrapper.py
+ln -sf "$pwd/HOME/.local/bin/i3status_wrapper.py" "$HOME/.local/bin/i3status_wrapper.py"
 
 # Install tmux plugin manager
 if [[ ! -d $HOME/.tmux/plugins/tpm ]]; then
 	echo "------------------------------------------"
 	echo "Installing tmux plugin manager"
 	echo "------------------------------------------"
-	git clone https://github.com/tmux-plugins/tpm $HOME/.tmux/plugins/tpm || true
+	git clone https://github.com/tmux-plugins/tpm "$HOME/.tmux/plugins/tpm" || true
 fi
 
 echo "------------------------------------------"
 echo "tmux-resurrect folder"
 echo "------------------------------------------"
-mkdir -p $HOME/.tmux/resurrect/
+mkdir -p "$HOME/.tmux/resurrect/"
 
 # Setup i3
 # Install symlink for i3 config
 echo "------------------------------------------"
 echo "Installing symlink for i3 config"
 echo "------------------------------------------"
-mkdir -p $HOME/.config/i3
-ln -sf $pwd/HOME/.config/i3/config $HOME/.config/i3/config
+mkdir -p "$HOME/.config/i3"
+ln -sf "$pwd/HOME/.config/i3/config" "$HOME/.config/i3/config"
 
 # Install notify-send
 # echo "------------------------------------------"
@@ -322,7 +314,7 @@ echo "------------------------------------------"
 # sudo pacman -S --noconfirm dunst
 sudo mkdir -p /etc/xdg
 sudo mkdir -p /etc/xdg/dunst
-sudo ln -sf $pwd/etc/xdg/dunst/dunstrc /etc/xdg/dunst/dunstrc
+sudo ln -sf "$pwd/etc/xdg/dunst/dunstrc" /etc/xdg/dunst/dunstrc
 
 # Install tmux terminal multiplexer
 # if ! command -v tmux &>/dev/null
@@ -338,8 +330,8 @@ sudo ln -sf $pwd/etc/xdg/dunst/dunstrc /etc/xdg/dunst/dunstrc
 # 	rm -rf /tmp/$tmux_file_name
 # fi
 # Install symlink for tmux.conf
-mkdir -p $HOME/.config/tmux
-ln -sf $pwd/HOME/.config/tmux/tmux.conf $HOME/.config/tmux/tmux.conf
+mkdir -p "$HOME/.config/tmux"
+ln -sf "$pwd/HOME/.config/tmux/tmux.conf" "$HOME/.config/tmux/tmux.conf"
 
 # Install alacritty terminal emulator
 # if ! command -v alacritty &>/dev/null
@@ -371,7 +363,8 @@ ln -sf $pwd/HOME/.config/tmux/tmux.conf $HOME/.config/tmux/tmux.conf
   echo "------------------------------------------"
   # curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh
 
-  ln -sf $pwd/HOME/.config/kitty/kitty.conf $HOME/.config/kitty/kitty.conf
+  mkdir -p "$HOME/.config/kitty"
+  ln -sf "$pwd/HOME/.config/kitty/kitty.conf" "$HOME/.config/kitty/kitty.conf"
   # sudo ln -sf $HOME/.local/kitty.app/bin/kitty /usr/local/bin/kitty
 # fi
 
@@ -379,27 +372,27 @@ ln -sf $pwd/HOME/.config/tmux/tmux.conf $HOME/.config/tmux/tmux.conf
 echo "------------------------------------------"
 echo "Installing symlink for docker development script"
 echo "------------------------------------------"
-mkdir -p $HOME/.local
-mkdir -p $HOME/.local/bin
-ln -sf $pwd/HOME/.local/bin/dev.sh $HOME/.local/bin/dev.sh
+mkdir -p "$HOME/.local"
+mkdir -p "$HOME/.local/bin"
+ln -sf "$pwd/HOME/.local/bin/dev.sh" "$HOME/.local/bin/dev.sh"
 
 # Install symlink for connect monitor
 echo "------------------------------------------"
 echo "Installing symlink for connection_monitor"
 echo "------------------------------------------"
-ln -sf $pwd/HOME/.local/bin/connect_monitor.sh $HOME/.local/bin/connect_monitor.sh
+ln -sf "$pwd/HOME/.local/bin/connect_monitor.sh" "$HOME/.local/bin/connect_monitor.sh"
 
 # Install symlink for init stuff
 echo "------------------------------------------"
 echo "Installing symlink for init stuff"
 echo "------------------------------------------"
-ln -sf $pwd/HOME/.local/bin/init_stuff.sh $HOME/.local/bin/init_stuff.sh
+ln -sf "$pwd/HOME/.local/bin/init_stuff.sh" "$HOME/.local/bin/init_stuff.sh"
 
 # Install symlink for detect keyboard
 echo "------------------------------------------"
 echo "Installing symlink for detect keyboard"
 echo "------------------------------------------"
-ln -sf $pwd/HOME/.local/bin/detect_keyboard.sh $HOME/.local/bin/detect_keyboard.sh
+ln -sf "$pwd/HOME/.local/bin/detect_keyboard.sh" "$HOME/.local/bin/detect_keyboard.sh"
 
 # Install vscodium
 # if ! command -v codium &>/dev/null
@@ -434,8 +427,8 @@ ln -sf $pwd/HOME/.local/bin/detect_keyboard.sh $HOME/.local/bin/detect_keyboard.
 echo "------------------------------------------"
 echo "Enable docker experimental mode, and detach keys"
 echo "------------------------------------------"
-mkdir -p $HOME/.docker
-echo { \"experimental\" : \"enabled\", \"detachKeys\" : \"ctrl-z,z\" } > $HOME/.docker/config.json
+mkdir -p "$HOME/.docker"
+echo { \"experimental\" : \"enabled\", \"detachKeys\" : \"ctrl-z,z\" } > "$HOME/.docker/config.json"
 
 # Install Audio controls 
 # echo "------------------------------------------"
@@ -473,8 +466,8 @@ echo { \"experimental\" : \"enabled\", \"detachKeys\" : \"ctrl-z,z\" } > $HOME/.
 # sudo pacman -S --noconfirm ksnip
 
 # Install symlink for flameshot config
-mkdir -p $HOME/.config/flameshot
-ln -sf $pwd/HOME/.config/flameshot/flameshot.ini $HOME/.config/flameshot/flameshot.ini
+mkdir -p "$HOME/.config/flameshot"
+ln -sf "$pwd/HOME/.config/flameshot/flameshot.ini" "$HOME/.config/flameshot/flameshot.ini"
 
 # Install barrier
 # https://github.com/debauchee/barrier#distro-specific-packages
@@ -508,7 +501,7 @@ echo "------------------------------------------"
 # how do I configure my device on X: https://wayland.freedesktop.org/libinput/doc/latest/faqs.html#how-do-i-configure-my-device-on-x
 # see libinput configuration option: https://www.mankier.com/4/libinput
 sudo mkdir -p /etc/X11/xorg.conf.d
-sudo ln -sf $pwd/etc/X11/xorg.conf.d/30-touchpad.conf /etc/X11/xorg.conf.d/30-touchpad.conf
+sudo ln -sf "$pwd/etc/X11/xorg.conf.d/30-touchpad.conf" /etc/X11/xorg.conf.d/30-touchpad.conf
 sudo tee <<'EOF' /etc/X11/xorg.conf.d/90-touchpad.conf 1> /dev/null
 Section "InputClass"
         Identifier "touchpad"
@@ -527,7 +520,7 @@ echo "Run im-config and select fcitx5"
 echo "See https://fcitx-im.org/wiki/Setup_Fcitx_5"
 echo "------------------------------------------"
 # sudo pacman -S --noconfirm fcitx5 fcitx5-config-qt fcitx5-pinyin fcitx5-mozc
-ln -sf $pwd/HOME/.config/fcitx5 $HOME/.config/fcitx5
+ln -sf "$pwd/HOME/.config/fcitx5" "$HOME/.config/fcitx5"
   
 echo "------------------------------------------"
 echo "Installing some common tools"
@@ -538,17 +531,17 @@ echo "------------------------------------------"
 # sudo pacman -S --noconfirm inkscape
 # copyq
 # sudo pacman -S --noconfirm copyq
-mkdir -p $HOME/.config/copyq
-ln -sf $pwd/HOME/.config/copyq/copyq.conf $HOME/.config/copyq/copyq.conf
-ln -sf $pwd/HOME/.config/copyq/copyq-commands.ini $HOME/.config/copyq/copyq-commands.ini
+mkdir -p "$HOME/.config/copyq"
+ln -sf "$pwd/HOME/.config/copyq/copyq.conf" "$HOME/.config/copyq/copyq.conf"
+ln -sf "$pwd/HOME/.config/copyq/copyq-commands.ini" "$HOME/.config/copyq/copyq-commands.ini"
 
 echo "------------------------------------------"
 echo "Systemd timers"
 echo "------------------------------------------"
 # Check for laptop's battery level
-ln -sf $pwd/HOME/.local/bin/laptop_battery_status.sh $HOME/.local/bin/laptop_battery_status.sh
-sudo ln -sf $pwd/usr/lib/systemd/user/laptop_battery_status.service /usr/lib/systemd/user/laptop_battery_status.service
-sudo ln -sf $pwd/usr/lib/systemd/user/laptop_battery_status.timer /usr/lib/systemd/user/laptop_battery_status.timer
+ln -sf "$pwd/HOME/.local/bin/laptop_battery_status.sh" "$HOME/.local/bin/laptop_battery_status.sh"
+sudo ln -sf "$pwd/usr/lib/systemd/user/laptop_battery_status.service" /usr/lib/systemd/user/laptop_battery_status.service
+sudo ln -sf "$pwd/usr/lib/systemd/user/laptop_battery_status.timer" /usr/lib/systemd/user/laptop_battery_status.timer
 systemctl --user daemon-reload
 systemctl --user enable --now laptop_battery_status.timer
 
@@ -557,12 +550,6 @@ echo "Install fonts"
 echo "------------------------------------------"
 sudo pacman -S ttf-dejavu ttf-liberation noto-fonts noto-fonts-emoji noto-fonts-cjk ttf-ubuntu-font-family tex-gyre-fonts
 
-echo "------------------------------------------"
-echo "Install battery status timer for current user"
-echo "------------------------------------------"
-sudo cp $pwd/usr/lib/systemd/user/laptop_battery_status.service /usr/lib/systemd/user/laptop_battery_status.service
-sudo cp $pwd/usr/lib/systemd/user/laptop_battery_status.timer /usr/lib/systemd/user/laptop_battery_status.timer
-
 # shell setup
 # ------------------------------ put below in the end
 
@@ -570,7 +557,7 @@ sudo cp $pwd/usr/lib/systemd/user/laptop_battery_status.timer /usr/lib/systemd/u
 echo "------------------------------------------"
 echo "Editing bashrc"
 echo "------------------------------------------"
-echo 'set -o vi' >> $HOME/.bashrc
+echo 'set -o vi' >> "$HOME/.bashrc"
 
 # Install zsh
 # echo "------------------------------------------"
@@ -580,7 +567,7 @@ echo 'set -o vi' >> $HOME/.bashrc
 
 # Setup oh-my-zsh and Powerlevel10k
 if [[ -d $HOME/.oh-my-zsh ]]; then
-	rm -rf $HOME/.oh-my-zsh
+	rm -rf "$HOME/.oh-my-zsh"
 fi
 echo "------------------------------------------"
 echo "Installing oh-my-zsh"
@@ -600,7 +587,7 @@ if [[ ! -d $HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions ]]; then
 	echo "------------------------------------------"
 	echo "Installing zsh-autosuggestion"
 	echo "------------------------------------------"
-	git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions || true
+	git clone https://github.com/zsh-users/zsh-autosuggestions "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions" || true
 fi
 
 # install zsh-vi-mode
@@ -610,7 +597,7 @@ fi
 echo "------------------------------------------"
 echo "Installing symlink for .zshrc"
 echo "------------------------------------------"
-ln -sf $pwd/HOME/.zshrc $HOME/.zshrc
+ln -sf "$pwd/HOME/.zshrc" "$HOME/.zshrc"
 
 # zsh plugin
 # bd (jump to parent directory easily)

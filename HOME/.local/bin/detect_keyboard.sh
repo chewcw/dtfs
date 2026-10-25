@@ -39,16 +39,16 @@ detect_royal_kludge_keyboard() {
   return 1
 }
 
-# Register service files and reload daemon
+# Remove old startup links so only the selected layout starts at login.
 systemctl --user daemon-reload 2>/dev/null || true
-systemctl --user enable kanata-65.service kanata-75.service 2>/dev/null || true
 
 kill_existing_kanata
+systemctl --user disable kanata-65.service kanata-75.service
 
 if detect_royal_kludge_keyboard; then
   echo "Royal Kludge detected, starting kanata-65.service..."
-  systemctl --user start kanata-65.service
+  systemctl --user enable --now kanata-65.service
 else
   echo "Royal Kludge not detected, starting kanata-75.service..."
-  systemctl --user start kanata-75.service
+  systemctl --user enable --now kanata-75.service
 fi
