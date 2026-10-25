@@ -452,11 +452,17 @@ echo { \"experimental\" : \"enabled\", \"detachKeys\" : \"ctrl-z,z\" } > "$HOME/
 # echo "------------------------------------------"
 # sudo pacman -S --noconfirm alsa-utils pulseaudio || true
 
+# Install xsel and xclip (clipboard selection tools)
+echo "------------------------------------------"
+echo "Installing xsel and xclip"
+echo "------------------------------------------"
+sudo pacman -S --noconfirm xsel xclip
+
 # Install brightness controls
-# echo "------------------------------------------"
-# echo "Installing brightness controls"
-# echo "------------------------------------------"
-# sudo pacman -S --noconfirm brightnessctl || true
+echo "------------------------------------------"
+echo "Installing brightness controls"
+echo "------------------------------------------"
+sudo pacman -S --noconfirm brightnessctl || true
 
 # Install flameshot
 # https://github.com/flameshot-org/flameshot
@@ -564,7 +570,7 @@ systemctl --user enable --now laptop_battery_status.timer
 echo "------------------------------------------"
 echo "Install fonts"
 echo "------------------------------------------"
-sudo pacman -S ttf-dejavu ttf-liberation noto-fonts noto-fonts-emoji noto-fonts-cjk ttf-ubuntu-font-family tex-gyre-fonts
+sudo pacman -S --noconfirm ttf-dejavu ttf-liberation noto-fonts noto-fonts-emoji noto-fonts-cjk ttf-ubuntu-font-family tex-gyre-fonts ttf-iosevka-nerd
 
 # shell setup
 # ------------------------------ put below in the end

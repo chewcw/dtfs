@@ -35,7 +35,7 @@ sleep 3
 
 # start
 sudo apt-get update
-sudo apt-get install -y apt-transport-https curl ca-certificates python3 wget unzip fontconfig
+sudo apt-get install -y apt-transport-https curl ca-certificates python3 wget unzip fontconfig xz-utils
 
 # Create config directory
 mkdir -p "$HOME/.config"
@@ -79,17 +79,15 @@ ln -sf "$pwd/HOME/.gitconfig" "$HOME/.gitconfig"
 
 # Install font
 echo "------------------------------------------"
-echo "Installing iosevka font"
+echo "Installing iosevka nerd font"
 echo "------------------------------------------"
 mkdir -p "$HOME/.fonts"
-# mkdir -p /tmp/PkgTTF-Iosevka-29.0.0/
-# wget 'https://github.com/be5invis/Iosevka/releases/download/v29.0.0/PkgTTF-Iosevka-29.0.0.zip' -O /tmp/ || true
-# unzip /tmp/PkgTTF-Iosevka-29.0.0.zip -d /tmp/Pkg-Iosevka-29.0.0/ || true
-# cp /tmp/Pkg-Iosevka-29.0.0/* $HOME/.fonts || true
-# cp $pwd/custom-fonts/Iosevka-nerdfont-patched/* $HOME/.fonts || true
-wget 'https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/IosevkaTerm.zip' -O /tmp/IosevkaTerm.zip
-unzip -o /tmp/IosevkaTerm.zip -d "$HOME/.fonts/"
-fc-cache -f
+if ! fc-list | grep -qi iosevka; then
+  wget 'https://github.com/ryanoasis/nerd-fonts/releases/download/v3.5.1/Iosevka.tar.xz' -O /tmp/Iosevka.tar.xz
+  tar -xJf /tmp/Iosevka.tar.xz -C "$HOME/.fonts/"
+  rm -f /tmp/Iosevka.tar.xz
+  fc-cache -f
+fi
 
 # echo "------------------------------------------"
 # echo "Installing InputMono font"
@@ -112,11 +110,11 @@ git clone --depth 1 https://github.com/junegunn/fzf.git "$HOME/.fzf" || true
 "$HOME/.fzf/install" --no-update-rc --completion --key-bindings
 # sudo apt install -y fzf
 
-# Install xsel (I think it's better than xclip)
+# Install xsel and xclip (clipboard selection tools)
 echo "------------------------------------------"
-echo "Installing xsel"
+echo "Installing xsel and xclip"
 echo "------------------------------------------"
-sudo apt install xsel -y
+sudo apt install -y xsel xclip
 
 # Install fff
 # if [[ ! -d "$HOME/.fff" ]]; then
