@@ -507,7 +507,9 @@ echo "------------------------------------------"
 # from https://unix.stackexchange.com/questions/567974/how-to-make-3-finger-tap-on-touchpad-act-as-middle-mouse-button-for-debian-10-c
 # how do I configure my device on X: https://wayland.freedesktop.org/libinput/doc/latest/faqs.html#how-do-i-configure-my-device-on-x
 # see libinput configuration option: https://www.mankier.com/4/libinput
-sudo mkdir -p /etc/X11/xorg.conf.d && sudo tee <<'EOF' /etc/X11/xorg.conf.d/90-touchpad.conf 1> /dev/null
+sudo mkdir -p /etc/X11/xorg.conf.d
+sudo ln -sf $pwd/etc/X11/xorg.conf.d/30-touchpad.conf /etc/X11/xorg.conf.d/30-touchpad.conf
+sudo tee <<'EOF' /etc/X11/xorg.conf.d/90-touchpad.conf 1> /dev/null
 Section "InputClass"
         Identifier "touchpad"
         MatchIsTouchpad "on"
