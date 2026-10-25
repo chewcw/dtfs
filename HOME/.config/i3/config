@@ -1410,3 +1410,6 @@ bindsym $mod+Shift+c exec dunstctl close-all
 # Moved to kanata
 # bindsym $mod+Shift+o exec xhisper
 # bindcode 105 exec xhisper
+
+exec --no-startup-id xset s off
+exec --no-startup-id xset -dpms
