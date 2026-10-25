@@ -44,10 +44,12 @@ mkdir -p "$HOME/.config"
 mkdir -p "$HOME/.local/bin"
 
 # Install git
-echo "------------------------------------------"
-echo "Installing git"
-echo "------------------------------------------"
-sudo apt install -y git
+if ! command -v git &>/dev/null; then
+	echo "------------------------------------------"
+	echo "Installing git"
+	echo "------------------------------------------"
+	sudo apt install -y git
+fi
 
 # setup global git config
 echo "------------------------------------------"
@@ -103,11 +105,13 @@ echo "------------------------------------------"
 sudo apt install -y vim-gtk3
 
 # Install fzf
-echo "------------------------------------------"
-echo "Installing fzf"
-echo "------------------------------------------"
-git clone --depth 1 https://github.com/junegunn/fzf.git "$HOME/.fzf" || true
-"$HOME/.fzf/install" --no-update-rc --completion --key-bindings
+if [[ ! -d "$HOME/.fzf" ]]; then
+	echo "------------------------------------------"
+	echo "Installing fzf"
+	echo "------------------------------------------"
+	git clone --depth 1 https://github.com/junegunn/fzf.git "$HOME/.fzf" || true
+	"$HOME/.fzf/install" --no-update-rc --completion --key-bindings
+fi
 # sudo apt install -y fzf
 
 # Install xsel and xclip (clipboard selection tools)
@@ -698,10 +702,12 @@ systemctl --user enable --now laptop_battery_status.timer
 # ------------------------------ put below in the end
 
 # bashrc
-echo "------------------------------------------"
-echo "Editing bashrc"
-echo "------------------------------------------"
-echo 'set -o vi' >> "$HOME/.bashrc"
+if ! grep -q '^set -o vi$' "$HOME/.bashrc" 2>/dev/null; then
+	echo "------------------------------------------"
+	echo "Editing bashrc"
+	echo "------------------------------------------"
+	echo 'set -o vi' >> "$HOME/.bashrc"
+fi
 
 # Install zsh
 echo "------------------------------------------"

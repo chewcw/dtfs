@@ -95,11 +95,13 @@ then
 fi
 
 # Install fzf
-echo "------------------------------------------"
-echo "Installing fzf"
-echo "------------------------------------------"
-git clone --depth 1 https://github.com/junegunn/fzf.git $HOME/.fzf || true
-sh -c "$HOME/.fzf/install --no-update-rc --completion --key-bindings"
+if [[ ! -d $HOME/.fzf ]]; then
+	echo "------------------------------------------"
+	echo "Installing fzf"
+	echo "------------------------------------------"
+	git clone --depth 1 https://github.com/junegunn/fzf.git $HOME/.fzf || true
+	sh -c "$HOME/.fzf/install --no-update-rc --completion --key-bindings"
+fi
 
 # Build and install kanata with the cmd feature from source
 # Installed to ~/.local/bin/kanata
@@ -580,10 +582,12 @@ sudo pacman -S --noconfirm ttf-dejavu ttf-liberation noto-fonts noto-fonts-emoji
 # ------------------------------ put below in the end
 
 # bashrc
-echo "------------------------------------------"
-echo "Editing bashrc"
-echo "------------------------------------------"
-echo 'set -o vi' >> "$HOME/.bashrc"
+if ! grep -q '^set -o vi$' "$HOME/.bashrc" 2>/dev/null; then
+	echo "------------------------------------------"
+	echo "Editing bashrc"
+	echo "------------------------------------------"
+	echo 'set -o vi' >> "$HOME/.bashrc"
+fi
 
 # Install zsh
 # echo "------------------------------------------"
@@ -592,14 +596,13 @@ echo 'set -o vi' >> "$HOME/.bashrc"
 # sudo pacman -S --noconfirm zsh
 
 # Setup oh-my-zsh and Powerlevel10k
-if [[ -d $HOME/.oh-my-zsh ]]; then
-	rm -rf "$HOME/.oh-my-zsh"
+if [[ ! -d $HOME/.oh-my-zsh ]]; then
+	echo "------------------------------------------"
+	echo "Installing oh-my-zsh"
+	echo "------------------------------------------"
+	# sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" || true
+	curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh | bash
 fi
-echo "------------------------------------------"
-echo "Installing oh-my-zsh"
-echo "------------------------------------------"
-# sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" || true
-curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh | bash
 
 #if [[ ! -d $HOME/.oh-my-zsh/custom/themes/powerlevel10k ]]; then
 #	echo "------------------------------------------"
