@@ -384,6 +384,10 @@ ln -sf "$pwd/HOME/.config/tmux/tmux.conf" "$HOME/.config/tmux/tmux.conf"
   # sudo ln -sf $HOME/.local/kitty.app/bin/kitty /usr/local/bin/kitty
 # fi
 
+# Install symlink for Herdr config
+mkdir -p "$HOME/.config/herdr"
+ln -sf "$pwd/HOME/.config/herdr/config.toml" "$HOME/.config/herdr/config.toml"
+
 # Install symlink for docker development script
 echo "------------------------------------------"
 echo "Installing symlink for docker development script"

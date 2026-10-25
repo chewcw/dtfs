@@ -416,6 +416,10 @@ fi
 mkdir -p "$HOME/.config/kitty"
 ln -sf "$pwd/HOME/.config/kitty/kitty.conf" "$HOME/.config/kitty/kitty.conf"
 
+# Install symlink for Herdr config
+mkdir -p "$HOME/.config/herdr"
+ln -sf "$pwd/HOME/.config/herdr/config.toml" "$HOME/.config/herdr/config.toml"
+
 # Install symlink for docker development script
 echo "------------------------------------------"
 echo "Installing symlink for docker development script"
