@@ -1531,6 +1531,62 @@ M.file_browser_set_cwd = function(scope)
   end
 end
 
+--- Open a file_browser showing only directories at a given depth from `root`.
+--- Useful to jump straight to any top-level folder without drilling down through
+--- nested sub-directories one by one.
+--- Depth is configurable: depth = 1 shows the immediate child directories of `root`,
+--- depth = 2 shows child directories of those, and so on.
+--- @param opts table|nil
+---   opts.depth      number  how many levels down from root (default: vim.g.telescope_fb_top_depth or 1)
+---   opts.root       string  root directory (default: git root, else cwd)
+---   opts.prompt_title string (optional)
+M.show_directories_at_depth = function(opts)
+  opts = opts or {}
+  local depth = opts.depth or vim.g.telescope_fb_top_depth or 1
+  local root = opts.root
+
+  if not root or root == "" then
+    -- Prefer the git root so you see the whole project's top-level structure.
+    local git_root = vim.fn.trim(
+      vim.fn.system("git -C " .. vim.fn.shellescape(vim.fn.getcwd()) .. " rev-parse --show-toplevel 2>/dev/null")
+    )
+    if vim.v.shell_error == 0 and git_root ~= "" then
+      root = git_root
+    else
+      root = vim.fn.getcwd()
+    end
+  end
+  root = vim.fn.fnamemodify(root, ":p") -- absolute path
+
+  local fb = require("telescope").extensions.file_browser
+  fb.file_browser({
+    path = root,
+    depth = depth,
+    files = false,
+    add_dirs = true,
+    select_buffer = true,
+    grouped = true,
+    hidden = true,
+    respect_gitignore = false,
+    no_ignore = true,
+    prompt_title = opts.prompt_title
+      or string.format("Directories (depth %d) — %s", depth, vim.fn.fnamemodify(root, ":t")),
+    cwd = root,
+    cwd_to_path = false,
+    layout_config = {
+      horizontal = {
+        prompt_position = "top",
+        preview_width = 0.50,
+        results_width = 0.50,
+      },
+      vertical = { mirror = false },
+      width = vim.o.columns,
+      height = 0.85,
+      preview_cutoff = 120,
+    },
+  })
+end
+
 M.list_scratch_buffers = function(opts)
   opts = opts or {}
   -- Collect scratch buffers

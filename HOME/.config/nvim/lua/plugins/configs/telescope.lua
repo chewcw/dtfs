@@ -327,8 +327,22 @@ M.options = {
           ["e"] = require("telescope").extensions.file_browser.actions.goto_home_dir,
           ["w"] = require("telescope").extensions.file_browser.actions.goto_cwd,
           -- ["t"] = require("telescope").extensions.file_browser.actions.change_cwd,
-          ["f"] = require("telescope").extensions.file_browser.actions.toggle_browser,
+          ["ff"] = require("telescope").extensions.file_browser.actions.toggle_browser,
           -- ["h"] = require("telescope").extensions.file_browser.actions.toggle_hidden,
+          -- Jump straight to any top-level folder without drilling down one level at a time.
+          -- f1..f4 show directories at depth 1..4 (configurable via vim.g.telescope_fb_top_depth).
+          ["f1"] = function()
+            require("plugins.configs.telescope_utils").show_directories_at_depth({ depth = 1 })
+          end,
+          ["f2"] = function()
+            require("plugins.configs.telescope_utils").show_directories_at_depth({ depth = 2 })
+          end,
+          ["f3"] = function()
+            require("plugins.configs.telescope_utils").show_directories_at_depth({ depth = 3 })
+          end,
+          ["f4"] = function()
+            require("plugins.configs.telescope_utils").show_directories_at_depth({ depth = 4 })
+          end,
           ["g<Space>"] = require("plugins.configs.telescope_utils").go_to_directory(
             function(input, prompt_bufnr, current_line)
               -- Close the current picker
