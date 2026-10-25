@@ -94,6 +94,13 @@ then
 	export PATH="$HOME/.local/share/mise/shims:$PATH"
 fi
 
+# Install fzf
+echo "------------------------------------------"
+echo "Installing fzf"
+echo "------------------------------------------"
+git clone --depth 1 https://github.com/junegunn/fzf.git $HOME/.fzf || true
+sh -c "$HOME/.fzf/install --no-update-rc --completion --key-bindings"
+
 # Build and install kanata with the cmd feature from source
 # Installed to ~/.local/bin/kanata
 if [[ ! -f "$HOME/.local/bin/kanata" ]]; then
@@ -262,6 +269,15 @@ ln -sf "$pwd/HOME/.local/bin/date.sh" "$HOME/.local/bin/date.sh"
 # sudo add-apt-repository -y ppa:regolith-linux/release
 # sudo pacman -Sy
 # sudo pacman -S --noconfirm i3-gaps
+
+# Install i3blocks config
+echo "------------------------------------------"
+echo "Installing i3blocks"
+echo "------------------------------------------"
+sudo pacman -S --noconfirm i3blocks
+# Install symlink for i3blocks
+mkdir -p "$HOME/.config/i3blocks"
+ln -sf "$pwd/HOME/.config/i3blocks/i3blocks.conf" "$HOME/.config/i3blocks/i3blocks.conf"
 
 # Install i3status config
 # echo "------------------------------------------"

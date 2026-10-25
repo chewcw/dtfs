@@ -17,6 +17,11 @@ parse_args() {
       configure_nvim
       clean
       ;;
+    "binary" )
+      install_dependency
+      install_nvim_v011
+      clean
+      ;;
     "update" )
       configure_nvim
       ;;
