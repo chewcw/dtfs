@@ -294,8 +294,9 @@ if [[ ! -x "$HOME/.local/bin/rpresent" ]]; then
 	)
 fi
 
-# Install symlink for the rpresent config (points at the real ~/.config)
-link_config_dir "$pwd/HOME/.config/rpresent" "$HOME/.config/rpresent"
+# Install symlink for the rpresent config
+mkdir -p "$HOME/.config/rpresent"
+ln -s "$pwd/HOME/.config/rpresent/config.toml" "$HOME/.config/rpresent/config.toml"
 
 # Install the rpresent systemd user service, then enable and start it
 mkdir -p "$HOME/.config/systemd/user"
