@@ -558,7 +558,7 @@ echo "------------------------------------------"
 # inkscape
 # sudo pacman -S --noconfirm inkscape
 # copyq
-# sudo pacman -S --noconfirm copyq
+sudo pacman -S --noconfirm copyq
 mkdir -p "$HOME/.config/copyq"
 ln -sf "$pwd/HOME/.config/copyq/copyq.conf" "$HOME/.config/copyq/copyq.conf"
 ln -sf "$pwd/HOME/.config/copyq/copyq-commands.ini" "$HOME/.config/copyq/copyq-commands.ini"
