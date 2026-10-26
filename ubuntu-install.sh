@@ -270,32 +270,43 @@ echo "------------------------------------------"
 sudo apt install -y xcompmgr
 
 echo "-------------------------------------------------------------------"
-echo "Installing projecteur (pointer spotlight, for presentation)"
+echo "Installing rpresent (spotlight/annotation/zoom, for presentation)"
 echo "-------------------------------------------------------------------"
-sudo apt install -y projecteur
-# Install symlink for projecteur configuration
-mkdir -p "$HOME/.config/Projecteur"
-ln -sf "$pwd/HOME/.config/Projecteur/Projecteur.conf" "$HOME/.config/Projecteur/Projecteur.conf"
-# Install symlink for projecteur_action.sh (used inside i3 config)
-ln -sf "$pwd/HOME/.local/bin/projecteur_action.sh" "$HOME/.local/bin/projecteur_action.sh"
+# Replaces projecteur, gromit-mpx and boomer.
+# Built from source: https://github.com/chewcw/rpresent
+if [[ ! -x "$HOME/.local/bin/rpresent" ]]; then
+	# Build deps match rpresent's release workflow; libx11-6 and libgl1 are the
+	# runtime libraries the binary links against (see its README).
+	sudo apt-get install -y build-essential pkg-config libx11-dev libgl-dev libx11-6 libgl1
+	export PATH="$HOME/.cargo/bin:$PATH"
+	if ! command -v cargo &>/dev/null; then
+		curl --proto '=https' --tlsv1.2 -fsSL https://sh.rustup.rs | sh -s -- -y --profile minimal
+	fi
+	(
+		build_dir="$(mktemp -d)"
+		trap 'rm -rf -- "$build_dir"' EXIT
+		# SSH first, HTTPS fallback for machines without a GitHub SSH key
+		git clone --depth 1 git@github.com:chewcw/rpresent.git "$build_dir/rpresent" 2>/dev/null ||
+			git clone --depth 1 https://github.com/chewcw/rpresent.git "$build_dir/rpresent"
+		cd "$build_dir/rpresent"
+		cargo build --release --locked -p rpresent
+		install -Dm755 target/release/rpresent "$HOME/.local/bin/rpresent"
+	)
+fi
 
-echo "-------------------------------------------------------------------"
-echo "Installing gromit-mpx (ZoomIt-like, for linux, for presentation)"
-echo "-------------------------------------------------------------------"
-# debian package is not the latest version
-# check out https://github.com/bk138/gromit-mpx?tab=readme-ov-file#building-it to build from source
-# sudo apt install -y gromit-mpx
-ln -sf "$pwd/HOME/.local/bin/gromit-mpx" "$HOME/.local/bin/gromit-mpx"
-ln -sf "$pwd/HOME/.config/gromit-mpx.cfg" "$HOME/.config/gromit-mpx.cfg"
-ln -sf "$pwd/HOME/.config/gromit-mpx.ini" "$HOME/.config/gromit-mpx.ini"
-# Install symlink for gromit_mpx_action.sh (used inside i3 config)
-ln -sf "$pwd/HOME/.local/bin/gromit_mpx_action.sh" "$HOME/.local/bin/gromit_mpx_action.sh"
+# Install symlink for the rpresent config (points at the real ~/.config)
+link_config_dir "$pwd/HOME/.config/rpresent" "$HOME/.config/rpresent"
 
-echo "-------------------------------------------------------------------"
-echo "Setting symlink for Boomer (zoomer for linux, for presentation)"
-echo "-------------------------------------------------------------------"
-# https://github.com/tsoding/boomer
-ln -sf "$pwd/HOME/.local/bin/boomer" "$HOME/.local/bin/boomer"
+# Install the rpresent systemd user service, then enable and start it
+mkdir -p "$HOME/.config/systemd/user"
+cp -f "$pwd/HOME/.config/systemd/user/rpresent.service" "$HOME/.config/systemd/user/"
+systemctl --user daemon-reload
+# The daemon talks to X11, so hand the invoking session's display to the
+# user manager first; without it the service exits on start.
+if [[ -n "${DISPLAY:-}" ]]; then
+	systemctl --user import-environment DISPLAY || true
+fi
+systemctl --user enable --now rpresent.service || true
 
 echo "-------------------------------------------------------------------"
 echo "Setting symlink for date command"

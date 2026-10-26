@@ -5,6 +5,19 @@ set -e
 pwd="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 whoami="$(id -un)"
 
+link_config_dir() {
+	local source="$1" destination="$2" backup
+	[[ -d "$source" ]] || { echo "Missing config directory: $source" >&2; return 1; }
+	mkdir -p -- "$(dirname -- "$destination")"
+	if [[ -e "$destination" && ! -L "$destination" ]]; then
+		# Preserve real directories before replacing them with repository links.
+		backup="$(mktemp -d "${destination}.backup.XXXXXX")"
+		mv -- "$destination" "$backup/original"
+		echo "Existing configuration saved to $backup/original"
+	fi
+	ln -sfnT -- "$source" "$destination"
+}
+
 # Upgrade the system before installing packages to avoid partial upgrades.
 # Enable AUR support
 sudo pacman -Syu --needed --noconfirm git base-devel
@@ -234,33 +247,38 @@ echo "------------------------------------------"
 sudo pacman -S --noconfirm bc
 
 echo "-------------------------------------------------------------------"
-echo "Installing projecteur pointer spotlight, for presentation"
+echo "Installing rpresent (spotlight/annotation/zoom, for presentation)"
 echo "-------------------------------------------------------------------"
-yay -S --noconfirm projecteur
-# Install symlink for projecteur configuration
-mkdir -p "$HOME/.config/Projecteur"
-ln -sf "$pwd/HOME/.config/Projecteur/Projecteur.conf" "$HOME/.config/Projecteur/Projecteur.conf"
-# Install symlink for projecteur_action.sh (used inside i3 config)
-ln -sf "$pwd/HOME/.local/bin/projecteur_action.sh" "$HOME/.local/bin/projecteur_action.sh"
+# Replaces projecteur, gromit-mpx and boomer.
+# Built from source: https://github.com/chewcw/rpresent
+if [[ ! -x "$HOME/.local/bin/rpresent" ]]; then
+	# libx11 ships the X11 headers and x11.pc, libglvnd the GL headers and gl.pc.
+	sudo pacman -S --noconfirm libx11 libglvnd
+	(
+		build_dir="$(mktemp -d)"
+		trap 'rm -rf -- "$build_dir"' EXIT
+		# SSH first, HTTPS fallback for machines without a GitHub SSH key
+		git clone --depth 1 git@github.com:chewcw/rpresent.git "$build_dir/rpresent" 2>/dev/null ||
+			git clone --depth 1 https://github.com/chewcw/rpresent.git "$build_dir/rpresent"
+		cd "$build_dir/rpresent"
+		cargo build --release --locked -p rpresent
+		install -Dm755 target/release/rpresent "$HOME/.local/bin/rpresent"
+	)
+fi
 
-echo "-------------------------------------------------------------------"
-echo "Installing gromit-mpx ZoomIt-like, for linux, for presentation"
-echo "-------------------------------------------------------------------"
-# debian package is not the latest version
-# check out https://github.com/bk138/gromit-mpx?tab=readme-ov-file#building-it to build from source
-yay -S --noconfirm gromit-mpx
-ln -sf "$pwd/HOME/.local/bin/gromit-mpx" "$HOME/.local/bin/gromit-mpx"
-ln -sf "$pwd/HOME/.config/gromit-mpx.cfg" "$HOME/.config/gromit-mpx.cfg"
-ln -sf "$pwd/HOME/.config/gromit-mpx.ini" "$HOME/.config/gromit-mpx.ini"
-# Install symlink for gromit_mpx_action.sh (used inside i3 config)
-ln -sf "$pwd/HOME/.local/bin/gromit_mpx_action.sh" "$HOME/.local/bin/gromit_mpx_action.sh"
+# Install symlink for the rpresent config (points at the real ~/.config)
+link_config_dir "$pwd/HOME/.config/rpresent" "$HOME/.config/rpresent"
 
-# echo "-------------------------------------------------------------------"
-# echo "Setting symlink for Boomer (zoomer for linux, for presentation)"
-# echo "-------------------------------------------------------------------"
-# https://github.com/tsoding/boomer
-yay -S --noconfirm boomer
-# ln -sf $pwd/HOME/.local/bin/boomer $HOME/.local/bin/boomer
+# Install the rpresent systemd user service, then enable and start it
+mkdir -p "$HOME/.config/systemd/user"
+cp -f "$pwd/HOME/.config/systemd/user/rpresent.service" "$HOME/.config/systemd/user/"
+systemctl --user daemon-reload
+# The daemon talks to X11, so hand the invoking session's display to the
+# user manager first; without it the service exits on start.
+if [[ -n "${DISPLAY:-}" ]]; then
+	systemctl --user import-environment DISPLAY || true
+fi
+systemctl --user enable --now rpresent.service || true
 
 echo "-------------------------------------------------------------------"
 echo "Setting symlink for date command"

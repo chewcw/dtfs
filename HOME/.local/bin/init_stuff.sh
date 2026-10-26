@@ -10,6 +10,12 @@ $HOME/.local/bin/detect_keyboard.sh
 # Run zhisper
 systemctl --user restart zhisper || systemctl --user start zhisper || true
 
+# Run rpresent (needs the X display in the user manager)
+if [[ -n "${DISPLAY:-}" ]]; then
+  systemctl --user import-environment DISPLAY 2>/dev/null || true
+fi
+systemctl --user restart rpresent || systemctl --user start rpresent || true
+
 # Use wait to synchronize instead of fixed sleep
 sleep 1.5
 

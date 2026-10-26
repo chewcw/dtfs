@@ -1,0 +1,86 @@
+[app]
+socket_name = "rpresent.sock"
+
+[spotlight]
+enabled_on_start = false
+show_spot_shade = true
+show_center_dot = true
+dot_size_px = 8
+dot_color = "#ffffff"
+dot_opacity = 0.8
+shade_color = "#000000"
+shade_opacity = 0.8
+show_border = true
+border_color = "#111111"
+border_size_pct = 2
+border_opacity = 1.0
+radius_px = 120
+softness_px = 20
+wheel_speed = 24.0
+
+[spotlight.shape]
+type = "circle"
+
+[annotation]
+enabled_on_start = false
+default_tool = "arrow"
+colors = [
+    "#FF0000",
+    "#FFFF00",
+    "#00FF00",
+    "#00FFFF",
+    "#FFFFFF",
+    "#000000",
+]
+color = "#FF0000"
+stroke_widths_px = [
+    2,
+    4,
+    6,
+    10,
+]
+stroke_width_px = 6
+text_sizes_px = [
+    16,
+    24,
+    32,
+    48,
+]
+text_size_px = 24
+history_depth = 64
+
+[zoom]
+enabled_on_start = false
+initial_scale = 2.0
+min_scale = 1.0
+max_scale = 6.0
+scroll_speed = 0.25
+drag_friction = 6.0
+scale_friction = 5.0
+
+[shortcuts.global]
+"annotation.toggle" = "Ctrl+Alt+2"
+"spotlight.toggle" = "Ctrl+Alt+1"
+"zoom.toggle" = "Ctrl+Alt+3"
+
+[shortcuts.annotation]
+"annotation.clear" = "x"
+"annotation.color.next" = "c"
+"annotation.color.prev" = "C"
+"annotation.delete" = "Delete"
+"annotation.redo" = "Ctrl+Z"
+"annotation.text-size.next" = "="
+"annotation.text-size.prev" = "-"
+"annotation.tool.arrow" = "a"
+"annotation.tool.eraser" = "e"
+"annotation.tool.line" = "l"
+"annotation.tool.pen" = "p"
+"annotation.tool.rect" = "r"
+"annotation.tool.select" = "v"
+"annotation.tool.text" = "t"
+"annotation.undo" = "Ctrl+z"
+"annotation.width.next" = "]"
+"annotation.width.prev" = "["
+
+[shortcuts.wheel]
+modifiers = "Ctrl"
