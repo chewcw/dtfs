@@ -477,6 +477,15 @@ ln -sf "$pwd/HOME/.local/bin/detect_keyboard.sh" "$HOME/.local/bin/detect_keyboa
 getent group input &>/dev/null || sudo groupadd --system input
 getent group uinput &>/dev/null || sudo groupadd --system uinput
 sudo usermod -aG input,uinput "$whoami"
+# Explicit groups let user services access input devices without per-keyboard ACLs.
+user_manager_dir="/etc/systemd/system/user@$(id -u "$whoami").service.d"
+sudo mkdir -p "$user_manager_dir"
+sudo tee "$user_manager_dir/input-access.conf" > /dev/null <<'EOF'
+[Service]
+SupplementaryGroups=input uinput
+EOF
+sudo systemctl daemon-reload
+echo "Reboot after installation to apply user-service input groups."
 sudo modprobe uinput
 echo uinput | sudo tee /etc/modules-load.d/uinput.conf > /dev/null
 sudo tee /etc/udev/rules.d/99-input.rules > /dev/null <<'EOF'
