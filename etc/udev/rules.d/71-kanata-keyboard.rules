@@ -1,0 +1,6 @@
+# Give the active desktop user access to the Royal Kludge/SINO WEALTH input devices.
+# Kanata runs as a systemd user service, whose manager may not retain the input group.
+SUBSYSTEM=="input", KERNEL=="event*", ATTRS{idVendor}=="0c45", ATTRS{idProduct}=="8018", TAG+="uaccess"
+
+# Zhisper reads hotkeys from Kanata's virtual keyboard, not the physical keyboard.
+SUBSYSTEM=="input", KERNEL=="event*", ATTRS{name}=="kanata", TAG+="uaccess"

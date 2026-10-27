@@ -482,6 +482,7 @@ echo uinput | sudo tee /etc/modules-load.d/uinput.conf > /dev/null
 sudo tee /etc/udev/rules.d/99-input.rules > /dev/null <<'EOF'
 KERNEL=="uinput", MODE="0660", GROUP="uinput", OPTIONS+="static_node=uinput"
 EOF
+sudo install -Dm644 "$pwd/etc/udev/rules.d/71-kanata-keyboard.rules" /etc/udev/rules.d/71-kanata-keyboard.rules
 sudo udevadm control --reload-rules
 sudo udevadm trigger
 link_config_dir "$pwd/HOME/.config/kanata" "$HOME/.config/kanata"
