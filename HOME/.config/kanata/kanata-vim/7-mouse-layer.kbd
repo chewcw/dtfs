@@ -115,13 +115,19 @@
   d mmid
   f mrgt
   ;; wheel, x = faster, z = slower
-  ;; (n keeps its met+n -> normal exit via the outer switch)
-  u (t! wheel-mod @wh-u @wh-u-fast @wh-u-slow)
+  ;; Use keyboard zoom shortcuts when Ctrl+wheel is unavailable.
+  u (switch
+      ((and (or lctl rctl) (not lsft rsft))) = break
+      () (t! wheel-mod @wh-u @wh-u-fast @wh-u-slow) break)
   n (switch
       ((and (or lmet rmet nop1) (not lsft rsft) (not z nop8) (not x nop9))) @switch-vim-normal break
+      ((and (or lctl rctl) (not lsft rsft))) - break
       () (t! wheel-mod @wh-d @wh-d-fast @wh-d-slow) break)
   , (t! wheel-mod @wh-l @wh-l-fast @wh-l-slow)
   . (t! wheel-mod @wh-r @wh-r-fast @wh-r-slow)
+  ;; Pass keyboard zoom shortcuts only while Ctrl is held.
+  - (switch (lctl rctl) - break () XX break)
+  = (switch (lctl rctl) = break () XX break)
   ;; speed modifiers (hold FIRST with movement/scroll)
   ;; z = slow/precise, x = fast (nop markers for fork detection)
   z nop8
