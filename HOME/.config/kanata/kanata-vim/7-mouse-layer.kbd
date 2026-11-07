@@ -5,14 +5,12 @@
 ;; met+n -> normal, met+i -> insert.
 ;; Included AFTER the per-layout file so (deflayer base ...)
 ;; stays the FIRST layer definition (index 0 = startup layer).
-;; Rate control: hold tab FIRST, then the action -> faster;
-;; hold ctrl FIRST, then the action -> slower (precise). Applies to
+;; Rate control: hold x FIRST, then the action -> faster;
+;; hold z FIRST, then the action -> slower (precise). Applies to
 ;; hjkl cursor moves and u/n/,/. scrolling. Plain action = default.
-;; tab outputs nop9 (app-invisible, only fork/switch-visible).
-;; ALL of lctl, rctl and caps-ctrl select the slow rate. Ctrl is never
-;; consumed, so it stays live for usual app behavior (e.g. ctrl+wheel
-;; still zooms) while also picking the slow rate. ctrl+tab+scroll
-;; therefore zooms at the fast rate.
+;; x outputs nop9, z outputs nop8 (app-invisible, fork/switch-visible).
+;; lctl, rctl, caps-ctrl and tab are plain passthrough keys in this
+;; layer (no speed-modifier role).
 ;; shift also passes through untouched (e.g. shift+wheel horizontal).
 ;; Scroll fast/slow variants swallow alt (+shift in fast) so apps
 ;; don't see alt+wheel or shift+wheel; movement keeps modifiers live
@@ -60,54 +58,49 @@
   ms-d-slow (movemouse-down  5 1)
   ms-u-slow (movemouse-up    5 1)
   ms-r-slow (movemouse-right 5 1)
-  ;; speed modifiers (hold together with a movement key)
-  spd-slow (movemouse-speed 100)
-  spd-fast (movemouse-speed 200)
 
   ;; entry: base/insert keep plain m, vim modes keep blocking (XX)
   ;; exclusive meta: only meta (no shift/ctrl/alt) triggers exits
   m-meta     (switch
-               ((and (or lmet rmet nop1) (not lsft rsft) (not lctl rctl) (not lalt ralt) (not tab nop9))) @switch-mouse break
+               ((and (or lmet rmet nop1) (not lsft rsft) (not z nop8) (not x nop9))) @switch-mouse break
                () m break)
   m-meta-vim (switch
-               ((and (or lmet rmet nop1) (not lsft rsft) (not lctl rctl) (not lalt ralt) (not tab nop9))) @switch-mouse break
+               ((and (or lmet rmet nop1) (not lsft rsft) (not z nop8) (not x nop9))) @switch-mouse break
                () XX break)
   ;; inside mouse layer: plain action, met-chord exits (exclusive)
   i-mouse (switch
-            ((and (or lmet rmet nop1) (not lsft rsft) (not lctl rctl) (not lalt ralt) (not tab nop9))) @switch-insert break
+            ((and (or lmet rmet nop1) (not lsft rsft) (not z nop8) (not x nop9))) @switch-insert break
             () XX break)
   m-mouse (switch
-            ((and (or lmet rmet nop1) (not lsft rsft) (not lctl rctl) (not lalt ralt) (not tab nop9))) @switch-base break
+            ((and (or lmet rmet nop1) (not lsft rsft) (not z nop8) (not x nop9))) @switch-base break
             () XX break)
 )
 
-;; tab -> $fast, ctrl -> $slow, else $normal (tab wins if both).
-;; ctrl is never released, so ctrl+action = $slow+ctrl: the modifier
-;; stays live for app behavior while picking the slow rate.
-;; shift likewise stays live here so click-combos keep working.
+;; x -> $fast, z -> $slow, else $normal (x wins if both).
+;; z/x output nop markers (app-invisible) so fork can detect them.
+;; shift stays live here so click-combos keep working.
 (deftemplate move-mod (normal fast slow)
   (fork
-    (fork $normal $slow (lctl rctl))
+    (fork $normal $slow (z nop8))
     $fast
-    (tab nop9))
+    (x nop9))
 )
 
-;; same shape, but the fast (tab) and slow (ctrl) scroll variants
+;; same shape, but the fast (x) and slow (z) scroll variants
 ;; swallow alt (fast also swallows shift) so scrolling never arrives
-;; at the app as alt+wheel (or shift+wheel when fast); ctrl stays
-;; live for zoom behavior, so ctrl+scroll zooms at the slow rate.
+;; at the app as alt+wheel (or shift+wheel when fast).
 ;; shift stays live on slow so shift+wheel horizontal keeps working
 ;; at the slow rate.
-;; (tab needs no release: nop9 is app-invisible.)
+;; (x/z use nop markers: app-invisible.)
 (deftemplate wheel-mod (normal fast slow)
   (fork
-    (fork $normal (multi (release-key lalt) (release-key ralt) $slow) (lctl rctl))
+    (fork $normal (multi (release-key lalt) (release-key ralt) $slow) (z nop8))
     (multi (release-key lsft) (release-key rsft) (release-key lalt) (release-key ralt) $fast)
-    (tab nop9))
+    (x nop9))
 )
 
 (deflayermap (mouse)
-  ;; hjkl: accelerated cursor, tab = faster, lctl = slower
+  ;; hjkl: accelerated cursor, x = faster, z = slower
   h (t! move-mod @ms-l @ms-l-fast @ms-l-slow)
   j (t! move-mod @ms-d @ms-d-fast @ms-d-slow)
   k (t! move-mod @ms-u @ms-u-fast @ms-u-slow)
@@ -121,28 +114,27 @@
   s mlft
   d mmid
   f mrgt
-  ;; wheel, tab = faster, lctl = slower
+  ;; wheel, x = faster, z = slower
   ;; (n keeps its met+n -> normal exit via the outer switch)
   u (t! wheel-mod @wh-u @wh-u-fast @wh-u-slow)
   n (switch
-      ((and (or lmet rmet nop1) (not lsft rsft) (not lctl rctl) (not lalt ralt) (not tab nop9))) @switch-vim-normal break
+      ((and (or lmet rmet nop1) (not lsft rsft) (not z nop8) (not x nop9))) @switch-vim-normal break
       () (t! wheel-mod @wh-d @wh-d-fast @wh-d-slow) break)
   , (t! wheel-mod @wh-l @wh-l-fast @wh-l-slow)
   . (t! wheel-mod @wh-r @wh-r-fast @wh-r-slow)
-  ;; speed (hold with movement)
-  z @spd-slow
-  x @spd-fast
-  ;; tab is the fast modifier: nop9 output is app-invisible
-  ;; but visible to fork/switch checks
-  tab nop9
+  ;; speed modifiers (hold FIRST with movement/scroll)
+  ;; z = slow/precise, x = fast (nop markers for fork detection)
+  z nop8
+  x nop9
+  ;; tab is passthrough (no speed-modifier role)
+  tab tab
   ;; entry/exit keys
   m @m-mouse
   i @i-mouse
   esc @switch-base
 
   ;; loop modifiers (same pattern as vim layers)
-  ;; caps is the ctrl-esc key: it acts as ctrl here, so caps-chords
-  ;; keep working while mousing and it selects the slow rate too.
+  ;; caps/lctl/rctl are passthrough here (no speed-modifier role)
   caps @caps-ctrl-only
   rctl rctl
   lctl lctl
