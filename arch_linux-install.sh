@@ -199,6 +199,14 @@ systemctl --user daemon-reload
 # Clear old startup links; detect_keyboard.sh selects one layout after re-login.
 systemctl --user disable --now kanata-65.service kanata-75.service || true
 
+# Install the kanata mode overlay: Tk draws the passive flash window.
+sudo pacman -S --noconfirm tk || true
+ln -sf "$pwd/HOME/.local/bin/kanata-overlay.py" "$HOME/.local/bin/kanata-overlay.py"
+cp -f "$pwd/HOME/.config/systemd/user/kanata-overlay.service" "$HOME/.config/systemd/user/"
+# Guards keep a headless rerun without D-Bus from failing the installer.
+systemctl --user daemon-reload || true
+systemctl --user enable --now kanata-overlay.service || true
+
 # Install zhisper: config symlink + systemd user service
 mkdir -p "$HOME/.config/zhisper"
 ln -sf "$pwd/HOME/.config/zhisper/config.toml" "$HOME/.config/zhisper/config.toml"
