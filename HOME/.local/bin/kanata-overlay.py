@@ -30,16 +30,17 @@ GLYPHS: dict[str, str] = {
     "INSERT": "I",
     "NORMAL": "N",
     "VISUAL": "V",
-    "VISUAL-LINE": "V-LINE",
-    "MOUSE": "MOUSE",
+    "VISUAL-LINE": "VL",
+    "MOUSE": "M",
+    "BASE": "B",
 }
 KNOWN_MODES: set[str] = set(MODE_COLORS)
 # Expanded at runtime so the daemon follows whichever user owns the session.
 MODE_FILE: str = os.path.expanduser("~/.cache/kanata-mode")
 POLL_MS: int = 50
 
-WINDOW_WIDTH: int = 480
-WINDOW_HEIGHT: int = 160
+WINDOW_WIDTH: int = 240
+WINDOW_HEIGHT: int = 80
 FADE_MS: int = 700
 FADE_STEP_MS: int = 30
 FADE_STEPS: int = max(1, FADE_MS // FADE_STEP_MS)
@@ -52,7 +53,7 @@ def font_size_for(text: str, width: int, height: int) -> int:
     # fixed 40pt layout already assumed.
     if not text:
         return 12
-    width_bound = (width * 0.9) / (len(text) * 0.6)
+    width_bound = (width * 0.5) / (len(text) * 0.6)
     height_bound = height * 0.5
     return max(12, int(min(width_bound, height_bound)))
 
@@ -112,8 +113,8 @@ def normalize_mode(raw: str) -> str:
 
 def should_show(previous: str, current: str) -> bool:
     # Returning to BASE hides silently, and unchanged mode means no new flash.
-    if not current or current == "BASE":
-        return False
+    # if not current or current == "BASE":
+        # return False
     return current != previous
 
 
@@ -297,7 +298,7 @@ class Overlay:
     def show_mode(self, mode: str) -> None:
         color = MODE_COLORS.get(mode, MODE_COLORS["BASE"])
         glyph = GLYPHS.get(mode, mode)
-        label = f"{glyph} {mode}"
+        label = f"{glyph}"
         self._cancel_fade()
         self.canvas.configure(bg=color)
         self.window.configure(bg=color)
