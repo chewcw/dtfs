@@ -8,6 +8,8 @@ changes, staying silent when the target mode is BASE.
 import ctypes
 import ctypes.util
 import os
+import re
+import subprocess
 import sys
 import time
 
@@ -53,6 +55,55 @@ def font_size_for(text: str, width: int, height: int) -> int:
     width_bound = (width * 0.9) / (len(text) * 0.6)
     height_bound = height * 0.5
     return max(12, int(min(width_bound, height_bound)))
+
+
+# xrandr --listmonitors prints one monitor per line as
+# name WIDTH/mmWIDTHxHEIGHT/mmHEIGHT+X+Y, so the geometry token is the stable
+# part to read and the "Monitors: N" header carries none.
+_MONITOR_GEOMETRY = re.compile(r"(\d+)/\d+x(\d+)/\d+([+-]\d+)([+-]\d+)")
+
+
+def parse_monitors(xrandr_output: str) -> list[tuple[int, int, int, int]]:
+    # Rects keep the listed order, so index 0 stays the primary monitor.
+    monitors: list[tuple[int, int, int, int]] = []
+    for line in xrandr_output.splitlines():
+        match = _MONITOR_GEOMETRY.search(line)
+        if not match:
+            continue
+        width, height, x, y = (int(group) for group in match.groups())
+        monitors.append((x, y, width, height))
+    return monitors
+
+
+def pick_monitor(
+    px: int, py: int, monitors: list[tuple[int, int, int, int]]
+) -> tuple[int, int, int, int]:
+    # The pointer marks the monitor the user is working on.
+    for rect in monitors:
+        x, y, width, height = rect
+        if x <= px < x + width and y <= py < y + height:
+            return rect
+    # Outside every rect, the primary monitor is the sane fallback.
+    return monitors[0]
+
+
+def list_monitors(fallback_w: int, fallback_h: int) -> list[tuple[int, int, int, int]]:
+    fallback = [(0, 0, fallback_w, fallback_h)]
+    try:
+        result = subprocess.run(
+            ["xrandr", "--listmonitors"],
+            capture_output=True,
+            text=True,
+            timeout=1,
+        )
+        if result.returncode != 0:
+            return fallback
+        monitors = parse_monitors(result.stdout)
+    except (OSError, subprocess.SubprocessError):
+        # A missing xrandr or a hung query must not break the overlay.
+        return fallback
+    # The full-screen rect reproduces the previous behavior on any failure.
+    return monitors or fallback
 
 
 def normalize_mode(raw: str) -> str:
@@ -206,7 +257,7 @@ class _InputShape:
 
 
 class Overlay:
-    """One reusable passive window that fades a mode label at screen center."""
+    """One reusable passive window that fades a mode label on the pointer monitor."""
 
     def __init__(self, root: "tk.Misc") -> None:
         self.root = root
@@ -277,9 +328,20 @@ class Overlay:
         self.window.withdraw()
 
     def _center(self) -> None:
-        x = (self.window.winfo_screenwidth() - WINDOW_WIDTH) // 2
-        y = (self.window.winfo_screenheight() - WINDOW_HEIGHT) // 2
-        self.window.geometry(f"{WINDOW_WIDTH}x{WINDOW_HEIGHT}+{x}+{y}")
+        try:
+            px = self.window.winfo_pointerx()
+            py = self.window.winfo_pointery()
+        except tk.TclError:
+            # A transient X error falls back to the primary monitor instead of
+            # killing the daemon.
+            px, py = 0, 0
+        monitors = list_monitors(
+            self.window.winfo_screenwidth(), self.window.winfo_screenheight()
+        )
+        x, y, width, height = pick_monitor(px, py, monitors)
+        left = x + (width - WINDOW_WIDTH) // 2
+        top = y + (height - WINDOW_HEIGHT) // 2
+        self.window.geometry(f"{WINDOW_WIDTH}x{WINDOW_HEIGHT}+{left}+{top}")
 
     def _fade_tick(self) -> None:
         self._fade_job = None
