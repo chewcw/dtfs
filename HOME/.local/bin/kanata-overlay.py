@@ -43,6 +43,18 @@ FADE_STEP_MS: int = 30
 FADE_STEPS: int = max(1, FADE_MS // FADE_STEP_MS)
 
 
+def font_size_for(text: str, width: int, height: int) -> int:
+    # The flash is a filled box, so the label budget stops at 90 percent of
+    # the width and 50 percent of the height to clear the edges. Bold sans
+    # advance is estimated at 0.6 of the point size, the factor the previous
+    # fixed 40pt layout already assumed.
+    if not text:
+        return 12
+    width_bound = (width * 0.9) / (len(text) * 0.6)
+    height_bound = height * 0.5
+    return max(12, int(min(width_bound, height_bound)))
+
+
 def normalize_mode(raw: str) -> str:
     return raw.strip().upper()
 
@@ -234,10 +246,15 @@ class Overlay:
     def show_mode(self, mode: str) -> None:
         color = MODE_COLORS.get(mode, MODE_COLORS["BASE"])
         glyph = GLYPHS.get(mode, mode)
+        label = f"{glyph} {mode}"
         self._cancel_fade()
         self.canvas.configure(bg=color)
         self.window.configure(bg=color)
-        self.canvas.itemconfigure(self._text, text=f"{glyph} {mode}")
+        self.canvas.itemconfigure(self._text, text=label)
+        # Long mode names overflow the fixed window at a fixed size, so every
+        # label picks the largest size that still clears the filled box.
+        size = font_size_for(label, WINDOW_WIDTH, WINDOW_HEIGHT)
+        self.canvas.itemconfigure(self._text, font=("DejaVu Sans", size, "bold"))
         self._center()
         # Every call resets the timeline, so a rapid switch swaps the label on
         # the same window and restarts the fade without a flicker.
