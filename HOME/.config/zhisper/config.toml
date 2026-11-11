@@ -8,11 +8,11 @@
 
 [transcribe]
 # provider = "groq" # groq | openai | custom | deepgram
-provider = "deepgram" # groq | openai | custom | deepgram
+provider = "groq" # groq | openai | custom | deepgram
 # model = "whisper-large-v3-turbo"        # empty = preset default
 model = ""
 # base_url = "https://api.groq.com/openai/v1/audio/transcriptions"     # empty = preset default; required if provider=custom. For deepgram this names the batch endpoint and the stream endpoint is derived by changing the scheme.
-base_url = "https://api.deepgram.com/v1/listen"
+base_url = ""
 prompt = ""
 language = ""     # deepgram: empty = auto, else a BCP-47 tag.
 keyterm = ""      # deepgram: comma-separated terms to boost.
