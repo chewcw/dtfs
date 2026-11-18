@@ -52,3 +52,6 @@ else
   echo "Royal Kludge not detected, starting kanata-75.service..."
   systemctl --user enable --now kanata-75.service
 fi
+
+# Start kanata overlay service
+systemctl --user start kanata-overlay
