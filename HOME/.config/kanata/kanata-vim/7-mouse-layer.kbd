@@ -62,17 +62,17 @@
   ;; entry: base/insert keep plain m, vim modes keep blocking (XX)
   ;; exclusive meta: only meta (no shift/ctrl/alt) triggers exits
   m-meta     (switch
-               ((and (or lmet rmet nop1) (not lsft rsft) (not z nop8) (not x nop9))) @switch-mouse break
+               ((and (or lmet rmet nop1) (not lsft rsft) (not lctl rctl) (not lalt ralt) (not z nop8) (not x nop9))) @switch-mouse break
                () m break)
   m-meta-vim (switch
-               ((and (or lmet rmet nop1) (not lsft rsft) (not z nop8) (not x nop9))) @switch-mouse break
+               ((and (or lmet rmet nop1) (not lsft rsft) (not lctl rctl) (not lalt ralt) (not z nop8) (not x nop9))) @switch-mouse break
                () XX break)
   ;; inside mouse layer: plain action, met-chord exits (exclusive)
   i-mouse (switch
-            ((and (or lmet rmet nop1) (not lsft rsft) (not z nop8) (not x nop9))) @switch-insert break
+            ((and (or lmet rmet nop1) (not lsft rsft) (not lctl rctl) (not lalt ralt) (not z nop8) (not x nop9))) @switch-insert break
             () XX break)
   m-mouse (switch
-            ((and (or lmet rmet nop1) (not lsft rsft) (not z nop8) (not x nop9))) @switch-base break
+            ((and (or lmet rmet nop1) (not lsft rsft) (not lctl rctl) (not lalt ralt) (not z nop8) (not x nop9))) @switch-base break
             () XX break)
 )
 
@@ -120,7 +120,7 @@
       ((and (or lctl rctl) (not lsft rsft))) = break
       () (t! wheel-mod @wh-u @wh-u-fast @wh-u-slow) break)
   n (switch
-      ((and (or lmet rmet nop1) (not lsft rsft) (not z nop8) (not x nop9))) @switch-vim-normal break
+      ((and (or lmet rmet nop1) (not lsft rsft) (not lctl rctl) (not lalt ralt) (not z nop8) (not x nop9))) @switch-vim-normal break
       ((and (or lctl rctl) (not lsft rsft))) - break
       () (t! wheel-mod @wh-d @wh-d-fast @wh-d-slow) break)
   , (t! wheel-mod @wh-l @wh-l-fast @wh-l-slow)
