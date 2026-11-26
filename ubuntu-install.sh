@@ -432,9 +432,42 @@ fi
 mkdir -p "$HOME/.config/kitty"
 ln -sf "$pwd/HOME/.config/kitty/kitty.conf" "$HOME/.config/kitty/kitty.conf"
 
+# Install Herdr (terminal workspace manager for coding agents)
+echo "------------------------------------------"
+echo "Installing herdr (TUI)"
+echo "------------------------------------------"
+if ! command -v herdr &>/dev/null; then
+	curl -fsSL https://herdr.dev/install.sh | HERDR_INSTALL_DIR="$HOME/.local/bin" sh
+fi
 # Install symlink for Herdr config
 mkdir -p "$HOME/.config/herdr"
 ln -sf "$pwd/HOME/.config/herdr/config.toml" "$HOME/.config/herdr/config.toml"
+
+# Install the Herdr window (herdr-app) plus herdr-core with its `hc` command;
+# the app installer fetches the core only when none is installed yet.
+echo "------------------------------------------"
+echo "Installing Herdr app"
+echo "------------------------------------------"
+# Libraries the window links against: EGL and Vulkan for drawing, xkb/xcb for input.
+sudo apt install -y libegl1 libvulkan1 mesa-vulkan-drivers libxkbcommon0 libxcb1 libbsd0
+curl -fsSL https://releases.herdr.dev/app/install.sh | sh
+
+# Install symlinks for Herdr app config
+# Herdr writes view.json, shared.json, data/, mods/ and installed.json itself,
+# so only the files kept in this repository are linked.
+echo "------------------------------------------"
+echo "Installing symlinks for Herdr app config"
+echo "------------------------------------------"
+mkdir -p "$HOME/.config/herdr-app/layouts" "$HOME/.config/herdr-app/themes"
+for file in settings.json keys.json; do
+	ln -sf "$pwd/HOME/.config/herdr-app/$file" "$HOME/.config/herdr-app/$file"
+done
+for file in main.json terminals.json win98.json win98.svg; do
+	ln -sf "$pwd/HOME/.config/herdr-app/layouts/$file" "$HOME/.config/herdr-app/layouts/$file"
+done
+for file in atom-one-dark.json win98.json; do
+	ln -sf "$pwd/HOME/.config/herdr-app/themes/$file" "$HOME/.config/herdr-app/themes/$file"
+done
 
 # Install symlink for docker development script
 echo "------------------------------------------"
