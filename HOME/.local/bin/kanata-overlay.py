@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Passive kanata mode overlay daemon.
 
-Watches the kanata mode cache file and flashes a fading center label on mode
-changes, staying silent when the target mode is BASE.
+Watches the kanata mode cache file and flashes a fading label in the bottom
+right corner on mode changes, staying silent when the target mode is BASE.
 """
 
 import ctypes
@@ -41,6 +41,8 @@ POLL_MS: int = 50
 
 WINDOW_WIDTH: int = 240
 WINDOW_HEIGHT: int = 80
+# Gap between the window and the screen edges, in pixels.
+EDGE_MARGIN: int = 24
 FADE_MS: int = 700
 FADE_STEP_MS: int = 30
 FADE_STEPS: int = max(1, FADE_MS // FADE_STEP_MS)
@@ -258,7 +260,10 @@ class _InputShape:
 
 
 class Overlay:
-    """One reusable passive window that fades a mode label on the pointer monitor."""
+    """One reusable passive window that fades a mode label on the pointer monitor.
+
+    The window sits in the bottom right corner of that monitor.
+    """
 
     def __init__(self, root: "tk.Misc") -> None:
         self.root = root
@@ -307,7 +312,7 @@ class Overlay:
         # label picks the largest size that still clears the filled box.
         size = font_size_for(label, WINDOW_WIDTH, WINDOW_HEIGHT)
         self.canvas.itemconfigure(self._text, font=("DejaVu Sans", size, "bold"))
-        self._center()
+        self._place_bottom_right()
         # Every call resets the timeline, so a rapid switch swaps the label on
         # the same window and restarts the fade without a flicker.
         self._fade_step = 0
@@ -328,7 +333,7 @@ class Overlay:
         self.window.attributes("-alpha", 0.0)
         self.window.withdraw()
 
-    def _center(self) -> None:
+    def _place_bottom_right(self) -> None:
         try:
             px = self.window.winfo_pointerx()
             py = self.window.winfo_pointery()
@@ -340,8 +345,10 @@ class Overlay:
             self.window.winfo_screenwidth(), self.window.winfo_screenheight()
         )
         x, y, width, height = pick_monitor(px, py, monitors)
-        left = x + (width - WINDOW_WIDTH) // 2
-        top = y + (height - WINDOW_HEIGHT) // 2
+        # Clamped to the monitor origin so a screen smaller than the window
+        # still lands on-screen instead of off the top left edge.
+        left = max(x, x + width - WINDOW_WIDTH - EDGE_MARGIN)
+        top = max(y, y + height - WINDOW_HEIGHT - EDGE_MARGIN)
         self.window.geometry(f"{WINDOW_WIDTH}x{WINDOW_HEIGHT}+{left}+{top}")
 
     def _fade_tick(self) -> None:

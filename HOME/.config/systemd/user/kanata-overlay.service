@@ -1,5 +1,5 @@
 [Unit]
-Description=Kanata mode center overlay (X11 flash)
+Description=Kanata mode corner overlay (X11 flash)
 After=graphical-session.target
 
 [Service]
