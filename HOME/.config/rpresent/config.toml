@@ -51,7 +51,7 @@ history_depth = 64
 
 [zoom]
 enabled_on_start = false
-initial_scale = 2.0
+initial_scale = 1.0
 min_scale = 1.0
 max_scale = 6.0
 scroll_speed = 0.25
