@@ -10,8 +10,8 @@
     "alt-shift-l": "tab.next",
     "alt-shift-j": "space.next",
     "alt-shift-k": "space.prev",
-    "ctrl-alt-j": "agent.next",
-    "ctrl-alt-k": "agent.prev",
+    "ctrl-alt-j": "pane.go:down",
+    "ctrl-alt-k": "pane.go:up",
     "alt-,": "pane.rename",
     "alt-\\": "pane.split:right",
     "alt--": "pane.split:down",
@@ -35,7 +35,11 @@
     "ctrl-shift-z": "pane.zoom",
     "ctrl-shift-l": "layout.switch",
     "f2": "tab.rename",
-    "shift-f2": "space.rename"
+    "shift-f2": "space.rename",
+    "ctrl-alt-h": "pane.go:left",
+    "ctrl-alt-l": "pane.go:right",
+    "ctrl-alt-shift-j": "agent.next",
+    "ctrl-alt-shift-k": "agent.prev"
   },
   "terminal": {
     "ctrl-backspace": "send:\u0017",
