@@ -1,5 +1,13 @@
 #!/usr/bin/bash
 
+# Hand the X display to the user manager first: X11 services started
+# through systemctl --user (kanata-overlay via detect_keyboard.sh,
+# rpresent below) inherit the manager's env, not this shell's. Starting
+# them before this import makes them exit with no DISPLAY.
+if [[ -n "${DISPLAY:-}" ]]; then
+  systemctl --user import-environment DISPLAY 2>/dev/null || true
+fi
+
 # Run the scripts in the background
 $HOME/.local/bin/connect_monitor.sh
 $HOME/.local/bin/detect_keyboard.sh
@@ -10,10 +18,7 @@ $HOME/.local/bin/detect_keyboard.sh
 # Run zhisper
 systemctl --user restart zhisper || systemctl --user start zhisper || true
 
-# Run rpresent (needs the X display in the user manager)
-if [[ -n "${DISPLAY:-}" ]]; then
-  systemctl --user import-environment DISPLAY 2>/dev/null || true
-fi
+# Run rpresent (needs the X display, imported at the top)
 systemctl --user restart rpresent || systemctl --user start rpresent || true
 
 # Use wait to synchronize instead of fixed sleep

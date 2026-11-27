@@ -53,5 +53,10 @@ else
   systemctl --user enable --now kanata-75.service
 fi
 
-# Start kanata overlay service
-systemctl --user start kanata-overlay
+# Start kanata overlay service. It needs DISPLAY in the user manager's
+# env, not just this shell's; import it before starting. Use restart so
+# a copy that already died at login (before DISPLAY existed) is revived.
+if [[ -n "${DISPLAY:-}" ]]; then
+  systemctl --user import-environment DISPLAY 2>/dev/null || true
+fi
+systemctl --user restart kanata-overlay || systemctl --user start kanata-overlay

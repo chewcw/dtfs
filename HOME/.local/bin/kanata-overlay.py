@@ -368,12 +368,16 @@ class Overlay:
 
 
 def main() -> int:
+    # Exit non-zero (not 0) when we cannot run yet: the service uses
+    # Restart=on-failure, so a missing DISPLAY at login (before the user
+    # manager has the env) retries until the X session actually exists
+    # instead of dying silently as a "success" on the first attempt.
     if not os.environ.get("DISPLAY"):
         print("kanata-overlay: DISPLAY is unset; overlay needs X11", file=sys.stderr)
-        return 0
+        return 1
     if tk is None:
         print("kanata-overlay: tkinter is unavailable; overlay disabled", file=sys.stderr)
-        return 0
+        return 1
 
     root = tk.Tk()
     root.withdraw()
