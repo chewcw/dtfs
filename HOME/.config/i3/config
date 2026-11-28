@@ -400,6 +400,11 @@ workspace_layout tabbed
 # desktop background
 exec feh --bg-fill ~/Pictures/wallpaper.jpg
 
+# Input method: start fcitx5 from the X session so it receives DISPLAY.
+# Started from systemd --user instead, it runs without a display: no tray
+# icon in the i3bar tray, and no candidate window.
+exec --no-startup-id fcitx5 -d
+
 # show window title bar
 # for_window [class="^.*"] border normal
 # hide window title bar

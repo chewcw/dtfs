@@ -615,10 +615,26 @@ EOF
 
 echo "------------------------------------------"
 echo "Installing fcitx5"
-echo "Run im-config and select fcitx5"
 echo "See https://fcitx-im.org/wiki/Setup_Fcitx_5"
 echo "------------------------------------------"
-# sudo pacman -S --noconfirm fcitx5 fcitx5-config-qt fcitx5-pinyin fcitx5-mozc
+# fcitx5-config-qt and fcitx5-pinyin are Debian package names and do not exist
+# on Arch (pacman would fail with "target not found" and set -e would abort the
+# script): the config tool ships inside fcitx5, and the pinyin engine is in
+# fcitx5-chinese-addons.
+sudo pacman -S --needed --noconfirm fcitx5 fcitx5-chinese-addons fcitx5-mozc
+# fcitx5 is started by the i3 session (see HOME/.config/i3/config): only there
+# does it get DISPLAY. The package ships an XDG autostart entry, which i3 does
+# not run, and a systemd --user unit would start before X exists: fcitx5 then
+# has no display, so no tray icon in i3bar and no candidate window.
+systemctl --user disable --now fcitx5.service 2>/dev/null || true
+# GTK/Qt/XIM clients only reach fcitx5 when these are in the session
+# environment. Debian ships im-config for this; Arch has none, so put them in
+# /etc/environment, which PAM loads at login and i3 inherits.
+for im_var in GTK_IM_MODULE=fcitx QT_IM_MODULE=fcitx XMODIFIERS=@im=fcitx; do
+	if ! grep -qxF "$im_var" /etc/environment 2>/dev/null; then
+		echo "$im_var" | sudo tee -a /etc/environment > /dev/null
+	fi
+done
 ln -sf "$pwd/HOME/.config/fcitx5" "$HOME/.config/fcitx5"
   
 echo "------------------------------------------"

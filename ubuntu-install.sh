@@ -736,6 +736,13 @@ echo "Run im-config and select fcitx5"
 echo "See https://fcitx-im.org/wiki/Setup_Fcitx_5"
 echo "------------------------------------------"
 sudo apt install -y fcitx5 fcitx5-config-qt fcitx5-pinyin fcitx5-mozc
+# fcitx5 is started by the i3 session (see HOME/.config/i3/config) because the
+# systemd --user manager has no DISPLAY at login. A fcitx5 started there runs
+# without a display: no tray icon in i3bar and no candidate window. Drop any
+# leftover unit that would start it too early.
+systemctl --user disable --now fcitx5.service 2>/dev/null || true
+sudo rm -f /etc/xdg/systemd/user/fcitx5.service
+systemctl --user daemon-reload
 link_config_dir "$pwd/HOME/.config/fcitx5" "$HOME/.config/fcitx5"
  
 echo "------------------------------------------"

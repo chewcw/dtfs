@@ -158,8 +158,12 @@ bindkey -M menuselect 'j' vi-down-line-or-history
 
 # keyboard repeat delay
 xset r rate 300 70
-# language input
-fcitx &>/dev/null
+# language input: fcitx5 (the i3 session starts it; this covers bare shells).
+# Do not start it without DISPLAY: it would run with no X connection, no tray
+# icon and no candidate window. fcitx (v4) is not used.
+if [[ -n $DISPLAY ]] && ! pgrep -x fcitx5 > /dev/null; then
+  fcitx5 -d &>/dev/null
+fi
 
 # open control panel in i3
 alias gnome-control-center="env XDB_CURRENT_DESKOP=GNOME gnome-control-center"

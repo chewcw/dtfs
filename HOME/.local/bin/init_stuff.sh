@@ -24,9 +24,9 @@ systemctl --user restart rpresent || systemctl --user start rpresent || true
 # Use wait to synchronize instead of fixed sleep
 sleep 1.5
 
-# Start fcitx only if not already running
-if ! pgrep -x "fcitx" > /dev/null; then
-  fcitx &>/dev/null &
+# Start fcitx5 only if not already running (i3 config normally starts it)
+if ! pgrep -x "fcitx5" > /dev/null; then
+  fcitx5 -d
 fi
 
 # Only reload psmouse if necessary
