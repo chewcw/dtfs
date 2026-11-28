@@ -469,6 +469,16 @@ for file in atom-one-dark.json win98.json; do
 	ln -sf "$pwd/HOME/.config/herdr-app/themes/$file" "$HOME/.config/herdr-app/themes/$file"
 done
 
+# Build the herdr-app terminal font: one family with Iosevka Latin, Source Han
+# Sans CJK and the Nerd Font icons. herdr-app has no per-glyph font fallback, so
+# a Latin-only terminal font renders CJK as blank cells.
+echo "------------------------------------------"
+echo "Installing herdr-app terminal font"
+echo "------------------------------------------"
+mkdir -p "$HOME/.local/bin"
+ln -sf "$pwd/HOME/.local/bin/install-herdr-font.sh" "$HOME/.local/bin/install-herdr-font.sh"
+"$HOME/.local/bin/install-herdr-font.sh"
+
 # Install symlink for docker development script
 echo "------------------------------------------"
 echo "Installing symlink for docker development script"

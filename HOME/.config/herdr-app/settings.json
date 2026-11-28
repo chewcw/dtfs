@@ -1,1 +1,15 @@
-/tmp/s-t.json
+{
+  "zoom": 1,
+  "sounds": {
+    "enabled": true
+  },
+  "font": "Sarasa Mono SC Nerd",
+  "font_ligatures": false,
+  "terminal_line_height": 1,
+  "terminal_cell_width": 1,
+  "terminal_scroll_speed": 1,
+  "ui_font": "Sarasa Mono SC Nerd",
+  "minimum_contrast": 1,
+  "font_size": 18,
+  "font_weight": 500
+}
